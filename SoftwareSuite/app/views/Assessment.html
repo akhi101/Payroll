@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+
+<style>
+     div#year {
+        width: -webkit-fill-available !important;
+    }
+     span {
+    color: white !important;
+}
+       .input-group-addon {
+        padding: 4px 12px !important;
+    }
+    input[type=date]::-webkit-inner-spin-button,
+    input[type=date]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+    }
+   div#Fineamount {
+        width: -webkit-fill-available !important;
+    }
+   div#year {
+        width: -webkit-fill-available !important;
+    }
+   .cl-details   {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px;
+}
+   i.fa.fa-calendar {
+    color: #000;
+}
+   tr th {   
+    background: #98abb9;
+    color: #fff !important;
+    font-weight: normal;
+}
+    .cl-details h4 {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Open Sans', sans-serif;
+        background: #5ca0d3;
+        padding: 6px 9px;
+        font-weight: 600;
+    }
+    .sm-spacer{
+        height:70px;
+    }
+</style>
+<head>
+    <!--<script src="../../scripts/jspdf.min.js"></script>-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Assessment</title>
+    <style>
+        .mya {
+            color: #337ab7 !important;
+            text-decoration: underline !important;
+            cursor: pointer !important;
+        }
+
+        span {
+            color: red;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div ng-controller="AssessmentController">
+     
+        <div class="clearfix"></div>
+        <div ng-if="access3">
+            <div class="">
+                <ui-view>
+                    <div class="breadcrumb-header">
+                        <!-- breadcrumb Open -->
+                        <div class="container">
+                            <section class="content-header">
+                                <h5>Branch Name: {{branch}}</h5>
+                                <ol class="breadcrumb">
+                                        <li><a href="#!/Dashboard"> Dashboard</a></li>
+                                        <li><a href="#!/Dashboard/AssessmentDashboard">Assessment Dashboard</a></li>
+                                        <li><a href="#!/Dashboard/AssessmentDashboard/Assessment">Assessment</a></li>
+                                    <!--<li><a href="#!/Driverlinks">Bio-Device Driver Links</a></li>-->
+                                </ol>
+                            </section>
+                        </div>
+                        <!-- breadcrumb Close -->
+                    </div>
+                    <section class="">
+                        <div class="container ">
+
+                            <div class="col-md-12">
+                                <button class="btn bck_btn"><a href="#!/Dashboard/AssessmentDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="label">
+                                        Academic Year :
+                                    </label>
+                                    <select class="form-control" ng-model="years" ng-change="setAcademicYears(years)">
+                                        <option value="" selected>Select Academic Year</option>
+                                        <option ng-repeat="yr in yearslist" value="{{yr}}">
+                                            {{yr.AcademicYear}}
+                                        </option>
+                                    </select>                                  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group" ng-init="LoadExamTypeBysem()">
+                                    <label class="label">Exam Type:</label>
+                                    <select class="form-control" ng-model="SelectedStudent" ng-change="getExamCategorys(SelectedStudent,selectedsem)">
+                                        <option value="" selected>Select Exam Type</option>
+                                        <option ng-repeat="Student in StudentType" value="{{Student}}">
+                                            {{Student.type}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" ng-if="false">
+                                <!--ng-show="SelStudent.id == 1">-->
+                                <div class="form-group">
+                                    <label class="label" for="collegSelect">Select Semester :</label>
+
+                                    <select class="form-control" ng-model="selectedsem" ng-change="getExamCategory(SelectedStudent,selectedsem)">
+                                        <option value="" selected>Select Semester Type</option>
+                                        <option ng-repeat="x in sems" value="{{x}}">
+                                            {{x.semester}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3" ng-show="SelStudent.id == 2 || SelStudent.id == 1">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Schemes:</label>
+                                    <div class="">
+                                        <select class="form-control" name="Scheme" ng-model="schemeId" ng-change="getSemestersByScheme(schemeId)" required>
+                                            <option value="" selected>Select Scheme</option>
+                                            <option ng-repeat="data in getActiveSchemes" value="{{data.SchemeId}}">
+                                                {{data.Scheme}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" ng-show="SelStudent.id == 2 || SelStudent.id == 1">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Semester:</label>
+                                    <div class="">
+                                        <select class="form-control" name="semister" ng-model="SemesterId" ng-change="getExamCategory(SelectedStudent,SemesterId)" required>
+                                            <option value="" selected>Select Semester</option>
+                                            <option ng-repeat="userSem in UserSemesters" value="{{userSem}}">
+                                                {{userSem.sem}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section class="content col-md-12">
+                            <div class="container dashboardContent">
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row widgets-container">
+                                    <div class="col-lg-3 col-xs-6" ng-repeat="item in ExamCategory">
+                                        <a href="#" class="grow" ui-sref=".{{item.ModuleRouteName}}"   ng-click="OpenAssessmentModule(item)">
+                                            <div class="{{item.ModuleImageClass}}">
+                                                <div class="inner">
+                                                    <div class="icon" ng-show="item.ModuleRouteName=='Theory'">
+                                                        <img src="../../contents/img/marksentry.png" width="60px" height="60px" />
+                                                    </div>
+                                                    <div class="icon" ng-show="item.ModuleRouteName=='Practicals'">
+                                                        <img src="../../contents/img/marksentry.png" width="60px" height="60px" />
+                                                    </div>
+                                                    <div class="icon" ng-show="item.ModuleRouteName=='Rubrics'">
+                                                        <img src="../../contents/img/marksentry.png" width="60px" height="60px" />
+                                                    </div>
+                                                    
+                                                    <h3>{{item.SysModName}}</h3>
+                                                    <div class="icon1">
+                                                        <img src="../../contents/img/transprent.png" width="100" height="auto" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                </ui-view>
+            </div>
+        </div>       
+        <section class="content" ng-if="access2">
+            <ui-view>
+                <div class="container ">
+                    <div class="col-md-12">
+                        <button class="btn bck_btn"><a href="#!/Dashboard/AssessmentDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+                    </div>
+                    <form>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="label">
+                                    Academic Years :
+                                </label>
+                                <select class="form-control" ng-model="years" ng-change="setAcademicYears(years)">
+                                    <option value="" selected>Select Academic Year</option>
+                                    <option ng-repeat="yr in yearslist" value="{{yr}}">
+                                        {{yr.AcademicYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="label">Student Type:</label>
+                                <select class="form-control" ng-model="StudentTypeId" ng-change="ChangeStudentType(StudentTypeId)">
+                                    <option value="" selected>Select Exam Type</option>
+                                    <option ng-repeat="Student in StudentType" value="{{Student.id}}">
+                                        {{Student.type}}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3" ng-show="StudentTypeId == 1">
+                            <div class="form-group">
+                                <label class="label"> Exam Type:</label>
+                                <select class="form-control" ng-model="Studentexam" ng-change="examType(Studentexam)" required>
+                                    <option value="" selected>Select Exam Type</option>
+                                    <option ng-repeat="Studentexam in ActiveExamTypes" value="{{Studentexam.examtypeid}}">
+                                        {{Studentexam.examname}}
+                                    </option>
+                                    <!--">-->
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top:21px!important;" ng-click="getReport()">
+                                    Get Report
+                                    <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div style="width:100%;text-align:center;">
+                    <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+                </div>
+
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="pull-right" ng-if="responseData">
+                            <a class="ExportToExcel1 pointer"
+                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                                <i class="fa fa-file-excel-o"></i>
+                                Export to Excel
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-if="responseData">
+                        <div class="cl-details">
+                            <h2>Marks Entry Reports</h2>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div id="tblParent" ng-show="responseData">
+                            <div class="table-responsive table-custom-tables-tb">
+                                <table class="table table-bordered table-hover table-striped table-rounded">
+                                    <thead>
+                                        <tr class="cb-2">
+                                            <th>S no</th>
+                                            <th>Scheme</th>
+                                            <th>College Code</th>
+                                            <th>Branch Code</th>
+                                            <th>Semester</th>
+                                            <th>Subject Code</th>
+                                            <th>Total</th>
+                                            <th>Not Posted</th>
+                                            <th>Absent</th>
+                                            <th>Malpractice</th>
+                                            <th>Detained</th>
+                                            <th>Discontinued</th>
+                                            <th>Tc Taken</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <tr class="" ng-repeat="x in collegeReports" ng-click="openBranchReport(x)">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{x.Scheme}}</td>
+                                            <td>{{x.collegeCode}} </td>
+                                            <td>{{x.BranchCode}}</td>
+                                            <td>{{x.Semester}}</td>
+                                            <td>{{x.SubjectCode}}</td>
+                                            <td>{{x.Total == null ? '-' : x.Total}}</td>
+                                            <td>{{x.NotPosted== null ? '-' : x.NotPosted}}</td>
+                                            <td>{{x.Absent== null ? '-' : x.Absent}}</td>
+                                            <td>{{x.MallPractice== null ? '-' : x.MallPractice}}</td>
+                                            <td>{{x.Detained== null ? '-' : x.Detained}}</td>
+                                            <td>{{x.DisContinued== null ? '-' : x.DisContinued}}</td>
+                                            <td>{{x.TcTaken== null ? '-' : x.TcTaken}}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <td colspan="6">Total</td>
+
+                                            <td>{{Total}}</td>
+                                            <td>{{NotPosted}}</td>
+                                            <td>{{Absent}}</td>
+                                            <td>{{MallPractice}}</td>
+                                            <td>{{Detained}}</td>
+                                            <td>{{DisContinued}}</td>
+                                            <td>{{TcTaken}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div ng-if="NoResult" class="no-results">
+                            <img src="../../contents/img/Folder-Icon.svg" />
+                            <h2>No Result Found</h2>
+                        </div>
+                    </div>
+                </div>
+            </ui-view>
+        </section>
+         <div class="sm-spacer"></div>
+</div>
+</body>

@@ -1,0 +1,130 @@
+﻿<!-- Modal content-->
+<style>
+    .modal-fit .modal-content {
+        height: max-content !important;
+        overflow: unset !important;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+</style>
+<div class="modal-header aadhar-modal-header">
+    <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
+    <h4 class="modal-title center-block">Aadhaar e-KYC</h4>
+</div>
+<div class="modal-body">
+    <div class="">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-horizontal">
+                    <div class="">
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <label class="control-label" for="aadhar">Aadhar Number</label>
+                                <input type="text" class="form-control" autocomplete="off" id="aadharNumber" ng-model="aadhaarVerStu.AadharNo" placeholder="Enter Aadhaar Number">
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="form-inline">
+                                <input type="radio" name="aadhaarAuthType" value="STARTEK" ng-click="discoverRd('STARTEK')"> Startek &nbsp;&nbsp;
+                                <input type="radio" name="aadhaarAuthType" value="MANTRA" ng-click="discoverRd('MANTRA')"> Mantra &nbsp;&nbsp;
+                                <input type="radio" name="aadhaarAuthType" value="IRIS"  ng-click="discoverRd('IRIS')"> IRIS
+                                <button type="button" class="btn btn-primary pull-right aadhar-verify" ng-click="generateRdRequest()">Aadhar Verify/KYC</button>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-lg-6">
+                        
+                            <div class="box box-default">
+                                <div class="box-header">
+                                    <h3 class="box-title">Student Data</h3>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-3">
+                                            <img ng-src="{{aadhaarVerStu.profilephoto}}" alt="" class="img-rounded img-responsive" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <div class="box box-primary">
+                                                <!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <strong class="aadhar-label">Name</strong>
+                                                    <p class="text-muted word-break fl-right">
+                                                        {{aadhaarVerStu.Name}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="aadhar-label">Date of Birth</strong>
+                                                    <p class="text-muted fl-right">
+                                                        {{aadhaarVerStu.DateOfBirth}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="aadhar-label">Gender</strong>
+                                                    <p class="text-muted fl-right">{{aadhaarVerStu.Gender == 1 ? 'Male' : 'Female'}}</p>
+                                                    <hr>
+                                                    <strong class="margin-r-5">Address</strong>
+                                                    <p>{{aadhaarVerStu.HouseNo}}, {{aadhaarVerStu.VillageorTown}}, {{aadhaarVerStu.District}}, {{aadhaarVerStu.Pincode}}</p>
+                                                    
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                     </div>
+
+                    <div class="col-xs-12 col-sm-6 col-lg-6">
+
+                        <div class="box box-default">
+                            <div class="box-header">
+                                <h3 class="box-title">Aadhar Data</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <img  ng-src="{{aadhaarPhoto}}" alt="" class="img-rounded img-responsive" />
+                                    </div>
+                                    <div class="col-sm-6 col-md-8">
+                                        <div class="box box-primary">
+                                            <strong class="aadhar-label">Name</strong>
+                                            <p class="text-muted word-break  fl-right">
+                                                {{aadhaarName}}
+                                            </p>
+                                            <hr>
+                                            <strong class="aadhar-label">Date of Birth</strong>
+                                            <p class="text-muted fl-right">
+                                                {{aadhaarDob}}
+                                            </p>
+                                            <hr>
+                                            <strong class="aadhar-label">Gender</strong>
+                                            <p class="text-muted fl-right">{{aadhaarGender}}</p>
+                                            <hr>
+                                            <strong class="margin-r-5">Address</strong>
+                                            <p>{{aadhaarAddr}}</p>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-disabled="disableApprove" ng-click="approveAadhaar()">Approve</button>
+    <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
+</div>
+
+

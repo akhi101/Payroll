@@ -1,0 +1,127 @@
+﻿define(['app'], function (app) {
+    app.service("AssessmentService", function (DataAccessService) {
+        this.GetCollegesSchemeSemInfo = function (CollegeId) {
+            var paramObject = { "CollegeId": CollegeId };
+            var promise = DataAccessService.getDataWithPara('Admission/GetCollegesSchemeSemInfo', paramObject);
+            return promise;
+        };
+        this.GetAcademicYearsActive = function () {
+            var promise = DataAccessService.getDataAll('Assessment/getAcademicYearsActive');
+            return promise;
+        };
+        
+        this.getSchemeWiseExamTypes = function (AcademicYearId, StudentTypeId, schemeid, SemId) {
+            var parmObject = { "AcademicYearId": AcademicYearId, "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId };
+            return DataAccessService.getDataWithPara('Assessment/getSchemeWiseExamTypes', parmObject);
+        };
+
+        this.getSchemeWiseExams = function (StudentTypeId, schemeid, SemId, SubjectTypeId) {
+            var parmObject = { "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId,"SubjectTypeId": SubjectTypeId };
+            return DataAccessService.getDataWithPara('Assessment/getSchemeWiseExams', parmObject);
+        };
+
+        this.getbranchNameById = function (branchId) {
+            var paramObject = { "branchcode": branchId };
+            return DataAccessService.getDataWithPara('Assessment/getBranchName', paramObject);
+        };
+
+        this.GetExamMonthYearAcademicYear = function (Academicyearid) {
+            var paramObject = { "Academicyearid": Academicyearid };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearAcademicYear', paramObject);
+            return promise;
+        }
+
+        
+        this.getSemBySchemes = function (StudentTypeId, SchemeId) {
+            var paramObject = { "StudentTypeId": StudentTypeId, "SchemeId": SchemeId };
+            return DataAccessService.getDataWithPara('Assessment/getSemByScheme', paramObject);
+        };
+
+        this.getActiveSemester = function () {
+            return DataAccessService.getDataAll('Assessment/getActiveSemester');
+        };
+
+        this.getAllSemesters = function () {
+            return DataAccessService.getDataAll('Assessment/getAllSemesters');
+        };
+        this.getSchemeStatus = function () {
+            return DataAccessService.getDataAll('Assessment/getSchemeStatus');
+        };
+        this.getSemistersSetData = function () {
+            return DataAccessService.getDataAll('Assessment/getSemistersSetData');
+        };
+        
+        this.getStatisticalReports = function (semisterId) {
+            var paramObject = { "semid": semisterId };
+            return DataAccessService.getDataWithPara('Assessment/GetStatisticalReports', paramObject);
+        };
+        this.getExamType = function (schemeid) {
+            var paramObject = { "schemeid": schemeid };
+            return DataAccessService.getDataWithPara('Assessment/getExamType', paramObject);
+        };
+        this.getActiveExamTypes = function () {
+
+            return DataAccessService.getDataAll('Assessment/getActiveExamTypes');
+        };
+        this.getCollegeAssessmentReports = function (collegecode, examtypeid, studentType) {
+            var paramObject = { "collegecode": collegecode, "examtypeid": examtypeid, "studentType": studentType };           
+            return DataAccessService.getDataWithPara('Assessment/getCollegeAssessmentReports', paramObject);
+        };
+
+        
+        this.getExamTypesBySem = function (StudentTypeId,Schemeid) {
+            var paramObject = { "StudentTypeId": StudentTypeId, "Schemeid": Schemeid };
+            return DataAccessService.getDataWithPara('Assessment/getExamTypesBySem', paramObject);
+        };
+
+        this.getAdminReport = function (examtypeid, studentType, AcademicYearId, Semester) {
+         
+            var paramObject = { "examtypeid": examtypeid, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester };
+           
+            return DataAccessService.getDataWithPara('AssessmentReports/getAdminReport', paramObject);
+        };
+
+        
+        this.getSchemes = function (StudentTypeId) {
+            var paramObject = { "StudentTypeId": StudentTypeId };
+            return DataAccessService.getDataWithPara('Assessment/getSchemes', paramObject);
+        };
+
+        this.getAdminReportsCollege = function (examtypeid, collegecode, studentType, AcademicYearId, Semester) {
+            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester };
+            console.log(paramObject)
+            return DataAccessService.getDataWithPara('AssessmentReports/getAdminReportsCollege', paramObject);
+        };
+        this.getBranchReports = function (examtypeid, collegecode, branchid, subjectid, semid, studentType ) {
+        
+            var paramObject = {
+                "collegecode": collegecode,"examtypeid": examtypeid,"studentType": studentType, "semid": semid,  "branchId": branchid,
+                "subjectid": subjectid
+            };
+          
+            return DataAccessService.getDataWithPara('AssessmentReports/getBranchReports', paramObject);
+        };
+        
+        this.getAdminBranchReports = function (examtypeid, collegecode, branchid, subid, semid, studentType, AcademicYearId) {
+            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "branchid": branchid, "subid": subid, "semid": semid, "studentType": studentType, "AcademicYearId": AcademicYearId };
+            return DataAccessService.getDataWithPara('AssessmentReports/getAdminBranchReports', paramObject);
+        };
+
+
+        this.getStudentReport = function (pin) {
+            var paramObject = { "pin": pin };
+            return DataAccessService.getDataWithPara('AssessmentReports/getStudentReport', paramObject);
+        };
+     
+
+        this.updateMarks = function (marksList) {
+            return DataAccessService.postData('AssessmentReports/UpdateStudentMarks', marksList);
+        };
+        
+        this.SETRubricsMarks = function (SubjectTypeId,stringRubricsData) {
+            var paramObject = { "SubjectTypeId": SubjectTypeId, "stringRubricsData": stringRubricsData };
+            return DataAccessService.postData('AssessmentReports/SETRubricsMarks', paramObject);
+        };
+    });
+
+});

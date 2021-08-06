@@ -1,0 +1,153 @@
+﻿<style>
+     .table > thead > tr > th{
+  position:sticky;
+  top:0px;
+}
+.table-bordered > thead > tr > th {
+   
+    top: 0px;
+    position: sticky;
+}
+
+</style>
+<div ng-controller="SyllabusCoverageReportController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Syllabus Covered Report</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li><a href="#!/Dashboard/Academic">Academic</a></li>
+                    <li><a href="#!/Dashboard/Academic/SyllabusCoverageReport">Syllabus Coverage</a></li>
+                </ol>
+
+            </section>  
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+        <div class="col-md-12">
+            <div class="sm-spacer"></div>
+            <div class="base-row row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class="form-control " ng-model="ShiftId" name="StudentType" ng-change="changeUser()" required>
+                            <option value="" selected="selected">Select Shift</option>
+                            <option value="{{data.Id}}" ng-repeat="data in Shifts" class="">
+                                {{data.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success" ng-click="submit()">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="pull-right" ng-show="Data">
+                <a class="ExportToExcel1 pointer"
+                   id="ExportToExcel1" ng-click="DownloadExcel()">
+                    <i class="fa fa-file-excel-o"></i>
+                    Export to Excel
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="Data">
+            <div class="cl-details">
+                <h2> Syllabus Covered Report</h2>
+
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="Data">
+            <div id="preExamReports" class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table-striped table-rounded table table-bordered table-hover table-striped table-rounded scrollbox-content">
+                    <thead>
+                        <tr class="cb-1">
+                            <th style="width: 5%;">S.No</th>
+                            <th class="">College Name</th>
+                            <th class="" style="">Scheme</th>
+
+                            <th class="">College Type</th>
+                            <th class="">Branch Code</th>
+                            <th class="">Mandal</th>
+                            <th class="">District</th>
+                            <th class="">Principal Name</th>
+                            <th class="">Principal MobileNo</th>
+                            <th class="">BranchCode</th>
+                            <th class="">College MobileNo</th>
+                            <th class="">Subject Code</th>
+                            <th class="">Subject Name</th>
+                            <th class="">Semester</th>
+                            <th class="">Chapter1</th>
+                            <th class="">Chapter2</th>
+                            <th class="">Chapter3</th>
+                            <th class="">Chapter4</th>
+                            <th class="">Chapter5</th>
+                            <th class="">Chapter6</th>
+                            <th class="">Syllabus Covered(%)</th>
+                            <th class="">Faculty Name</th>
+
+                            <th class="" style="">Shift</th>
+                            <th class="">Last Updated</th>
+
+                            <!--<th class="" style="">Syllabus Covered(%)</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in getSyllabusReport" ng-click="openDetails(x)" class="ng-scope">
+                            <td class="">{{$index+1}}</td>
+                            <td class="">{{data.CollegeCode}} - {{data.CollegeName}}</td>
+                            <td class="">{{data.Scheme}}</td>
+                            <td class="">{{data.CollegeType}}</td>
+                            <td class="">{{data.BranchCode}}</td>
+                            <td class="">{{data.Mandal}}</td>
+                            <td class="">{{data.District}}</td>
+                            <td class="">{{data.PrincipalName}}</td>
+                            <td class="">{{data.PrincipalMobileNo}}</td>
+                            <td class="">{{data.BranchCode}}</td>
+                            <td class="">{{data.CollegeMobileNo}}</td>
+                            <td class="">{{data.SubjectCode}}</td>
+                            <td class="">{{data.SubjectName}}</td>
+                            <td class="">{{data.Semester}}</td>
+                            <!-- <td class="">{{data.FacultyName}}</td>-->
+                            <td class="">{{data.Chapter1}}</td>
+                            <td class="">{{data.Chapter2}}</td>
+                            <td class="">{{data.Chapter3}}</td>
+                            <td class="">{{data.Chapter4}}</td>
+                            <td class="">{{data.Chapter5}}</td>
+                            <td class="">{{data.Chapter6}}</td>
+                            <td class="">{{data.SyllabusCoveredpercent}}</td>
+                            <td class="">{{data.FacultyName}}</td>
+
+                            <td class="">{{data.ShiftId}}</td>
+                            <td class="">{{data.LastUpdated}}</td>
+
+                            <!--<td class="">{{data.CoveredPercentage}}</td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="sm-spacer"></div>
+            <div class="sm-spacer"></div>
+        </div>
+        <div class="col-md-12">
+            <div style="text-align:center;">
+                <img src="../../../contents/img/loading2.gif" height="100" ng-if="loading" width="100" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div ng-if="NoData" class="no-results">
+                <img src="../../contents/img/Folder-Icon.svg" />
+                <h2>No Data Found</h2>
+            </div>
+        </div>
+    </div>
+
+</div>

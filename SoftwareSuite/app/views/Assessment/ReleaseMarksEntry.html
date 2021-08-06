@@ -1,0 +1,99 @@
+﻿<div ng-controller="ReleaseMarksEntryController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Release Marks Entry</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"> Dashboard</a></li>
+                    <li><a href="#!/Dashboard/AssessmentDashboard">Assessment Dashboard</a></li>
+                    <li><a href="#!/Dashboard/AssessmentDashboard/ReleaseMarksEntry">Release Marks Entry</a></li>
+                   
+                    <!--<li><a href="#!/Driverlinks">Bio-Device Driver Links</a></li>-->
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <section class="">
+        <div class="container ">
+            <div class="col-md-12">
+                <button class="btn bck_btn"><a href="#!/Dashboard/AssessmentDashboard/Assessment" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            </div>
+            <div class="col-md-12 ">
+                <div class="alert alert-info">
+                    <div class="studWishinputs">
+                        <form name="ReleaseForm">
+                            <div class="row">
+
+                                <div class="col-md-3 form-group">
+                                    <label class="font-weight-bold"> College :</label>
+                                    <select class="form-control" ng-model="College" name="College" ng-change="ChangeCollege()" required>
+                                        <option value="" selected>Select College</option>
+                                        <option ng-repeat="data in GetCollegeList" value="{{data.CollegeCode}}">
+                                            {{data.CollegeCode}} - {{data.CollegeName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label class="font-weight-bold"> Branch :</label>
+                                    <select class="form-control" ng-model="SelBranch" name="Branch" required>
+                                        <option value="" selected>Select Branch</option>
+                                        <option ng-repeat="data in branchdata" value="{{data.BranchId}}">
+                                            {{data.Branch}}
+                                        </option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label class="font-weight-bold"> Scheme :</label>
+                                    <select class="form-control" ng-model="SelScheme" name="Semester" ng-change="ChangeScheme(SelScheme)" required>
+                                        <option value="" selected>Select Scheme</option>
+                                        <option ng-repeat="data in getSchemes" value="{{data}}" >
+                                            {{data.Scheme}}
+                                        </option>
+                                    </select>
+
+                                </div>
+                             
+                                <div class="col-md-3 form-group">
+                                    <label class="font-weight-bold"> Semester :</label>
+                                    <select class="form-control" ng-model="SelSemester" name="Semester" required>
+                                        <option value="" selected>Select Semester</option>
+                                        <option ng-repeat="data in GetSemesters" value="{{data.SemId}}">
+                                            {{data.Sem}}
+                                        </option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="sel1">
+                                        Exam Type :
+                                    </label>
+                                    <select class="form-control" id="ExamYear" ng-model="ExamType" required>
+                                        <option value="" selected>Select Exam Type</option>
+                                        <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
+                                            {{data.examname}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2 pull-right">
+                                    <div class="gr-btn">
+                                        <button type="submit" class="btn  btn-primary " ng-click="ReleaseForm.$valid && Release()">Release Marks Entry</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div style="width:100%;text-align:center;">
+                    <img id="LoadImg" src="../../../contents/img/loading2.gif" ng-show="loading" width="100" />
+                </div>
+            </div>
+            </div>
+        </section>
+        </div>
