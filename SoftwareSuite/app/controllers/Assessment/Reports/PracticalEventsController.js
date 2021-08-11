@@ -24,6 +24,7 @@
         var AcademicId = $localStorage.assessment.AcademicYearsActiveResponse.AcademicID;
         //var semId = $scope.selectedsem.semid;
         //var schemeid = $scope.selectedsem.current_schemeid;
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
         $scope.Sem = $localStorage.assessment.selectedsem.sem;
         var SubjectTypeId = $localStorage.assessment.SubjectTypeId;
         var StudentTypeId = $localStorage.assessment.StudentTypeId
@@ -32,7 +33,7 @@
         $scope.schemeid = $localStorage.assessment.SchemeId;
         $scope.Scheme = $localStorage.assessment.Scheme;
 
-        var getSchemeWiseExam = AssessmentService.getSchemeWiseExams(StudentTypeId, $scope.schemeid, $scope.selectedsem.semid, SubjectTypeId);
+        var getSchemeWiseExam = AssessmentService.getSchemeWiseExams(StudentTypeId, $scope.schemeid, $scope.selectedsem.semid, SubjectTypeId, $scope.ExamMonthYear);
         getSchemeWiseExam.then(function (response) {
             try {
                 var response = JSON.parse(response);

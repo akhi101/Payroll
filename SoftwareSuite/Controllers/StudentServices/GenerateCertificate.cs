@@ -1175,7 +1175,7 @@ padding :6px
                        padding: 20px;
                     }
                       .less_pad{
-padding:4px!important;
+padding:1px!important;
 }
                         </style> "
                    + "</head><body>";
@@ -1195,10 +1195,10 @@ padding:4px!important;
                                 <div class='col-md-8 title'>
                                     <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                                   <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
-                                    <h5 class='text-center'>
-                                        Sanketika Vidya Bhavan, Masab Tank, Hyderabad-500 028.
-                                    </h5>
-                                    <h5 class='text-center'>Telangana, India.</h5>
+                                    <h6 class='text-center'>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­500 028, India.
+                                    </h6>
+                                  
                                 </div>
                                 <div class='col-md-2 logo'>
                                     <div class='logo-image' style='padding:6px!important;'>
@@ -1258,10 +1258,10 @@ and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-
 		<b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b> during the Examination held 
 in 
 		<b class='border_btm'>{InterimData[0].MonthYear ?? "-"}</b> at 
-		<b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"}</b> and he/she was placed in 
+		<b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"}</b> and he/she is placed in 
 		<b class='border_btm'>{InterimData[0].Class ?? "-"}</b> with
 
-		<b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average (CGPA) on a scale of 10 and earned 
+		<b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average <b>(CGPA)</b> on a scale of <b>10</b> and earned 
 		<b class='border_btm'>{InterimData[0].TotalCreditsEarned ?? "-"}</b> credits.
                     
 	</p>
@@ -1333,93 +1333,96 @@ in
 <div class='sm-spacer'></div>
 <div class='sm-spacer'></div>
 					  <h6><center><b>CGPA EQUIVALENT TO AGGREGATE PERCENTAGE OF MARKS</b></center></h6>
-					  <div class='col-md-2'></div>
-                          <div class='col-md-8'>
+<div class='row'>
+					  <div class='col-md-3'></div>
+                          <div class='col-md-6'>
 					 <table class='table' style='font-size:12px;'>
 
-  <tr>
-    <th style='border: 1px solid #000000 !important;'>S.NO</th>
-    <th style='border: 1px solid #000000 !important;'>CGPA</th>
-    <th style='border: 1px solid #000000 !important;'>Aggregate Percentage of Marks*</th>
-	 <th style='border: 1px solid #000000 !important;'>Division*</th>
+  <tr style='padding:1px!important'>
+    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>S.NO</th>
+    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>CGPA</th>
+    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>Aggregate Percentage of Marks*</th>
+	 <th  class='text-center'style='border: 1px solid #000000 !important;padding:3px!important'>Division*</th>
   </tr>
 
-  <tr>
-    <td class='less_pad'>1</td>
-    <td class='less_pad'>10</td>
-    <td class='less_pad'>95</td>
-	<td rowspan = '3' > First Class with Distinction</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>1</td>
+    <td class='less_pad' padding:1px!important>10</td>
+    <td class='less_pad' padding:1px!important>95</td>
+	<td rowspan = '3' > First Class with <br>Distinction</td>
   </tr>
-  <tr>
-    <td class='less_pad'>2</td>
-    <td class='less_pad'>9</td>
-    <td class='less_pad'>85</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>2</td>
+    <td class='less_pad' padding:1px!important>9</td>
+    <td class='less_pad' padding:1px!important>85</td>
   </tr>
-  <tr>
-    <td class='less_pad'>3</td>
-    <td class='less_pad'>8</td>
-    <td class='less_pad'>75</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>3</td>
+    <td class='less_pad' padding:1px!important>8</td>
+    <td class='less_pad' padding:1px!important>75</td>
   </tr>
-  <tr>
-    <td class='less_pad'>4</td>
-    <td class='less_pad'>7</td>
-    <td class='less_pad'>65</td>
-	<td class='less_pad'>First Class</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>4</td>
+    <td class='less_pad' padding:1px!important>7</td>
+    <td class='less_pad' padding:1px!important>65</td>
+	<td class='less_pad' padding:1px!important>First Class</td>
   </tr>
- <tr>
-    <td class='less_pad'>5</td>
-    <td class='less_pad'>6</td>
-    <td class='less_pad'>55</td>
-	<td rowspan = '3' > Second Class with Distinction</td>
+ <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>5</td>
+    <td class='less_pad' padding:1px!important>6</td>
+    <td class='less_pad' padding:1px!important>55</td>
+	<td rowspan = '3' > Second Class</td>
   </tr>
-  <tr>
-    <td class='less_pad'>6</td>
-    <td class='less_pad'>5</td>
-    <td class='less_pad'>45</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>6</td>
+    <td class='less_pad' padding:1px!important>5</td>
+    <td class='less_pad' padding:1px!important>45</td>
   </tr>
-  <tr>
-    <td class='less_pad'>7</td>
-    <td class='less_pad'>4</td>
-    <td class='less_pad'>35</td>
+  <tr style='padding:1px!important'>
+    <td class='less_pad' padding:1px!important>7</td>
+    <td class='less_pad' padding:1px!important>4</td>
+    <td class='less_pad' padding:1px!important>35</td>
   </tr>
-  <tr>
-    <td class='less_pad'>8</td>
-    <td class='less_pad'><4</td>
-    <td class='less_pad'><35</td>
-<td class='less_pad'>Pass</td>
-  </tr>
+ 
 </table >
-		 <table class='table' style = 'margin-top:20px;font-size:12px;' >
+</div>
+ <div class='col-md-3'></div>
+</div>
+<div class='row'>
+<div class='col-md-3'></div>
+<div class='col-md-7'>
+		 <table class='table' style = 'margin-top:20px;font-size:12px; style='border: 0px solid #fff !important;' >
 
-  <tr>
-    <td style='border: 1px solid #000000 !important;'> *Aggregate %</td>
-    <td style='border: 1px solid #000000 !important;' >:</td>
-    <td style='border: 1px solid #000000 !important;'>(CGPA-0.5) x 10</td>
+  <tr style='border: 0px solid #fff !important; padding:3px!important'>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;'> *Aggregate %</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' >:</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;'>(CGPA-0.5) x 10</td>
 	
   </tr>
-  <tr>
-    <td class='less_pad'># First Class with Distinction  </td>
-    <td class='less_pad'>:</td>
-    <td class='less_pad'>CGPA>=8</td>
+  <tr style='border: 0px solid #fff !important;'>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'># First Class with Distinction  </td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>CGPA>=8</td>
   </tr>
-  <tr>
-    <td class='less_pad'>   First Class</td>
-    <td class='less_pad'>:</td>
-    <td class='less_pad'>8>CGPA>=6.5</td>
+  <tr style='border: 0px solid #fff !important;'>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>   First Class</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>8>CGPA>=6.5</td>
   </tr>
-  <tr>  
-    <td class='less_pad'>Second Class</td>
-    <td class='less_pad'>:</td>
-    <td class='less_pad'>6.5>CGPA>=4</td>
-  </tr>
-   <tr>
-    <td class='less_pad'>   Pass</td>
-    <td class='less_pad'>:</td>
-    <td class='less_pad'>CGPA<4</td>
+  <tr style='border: 0px solid #fff !important;'>  
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>Second Class</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>6.5>CGPA>=4</td>
+  </tr >
+   <tr style='border: 0px solid #fff !important;'>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>   Pass</td>
+    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important' class='less_pad'>:</td>
+    <td style='border: 0px solid #fff !important;padding:3px!important;text-align:left!important' class='less_pad'>CGPA<4<br>(Subject to Earning of >=130 Credits)</td>
   </tr>
 </table>
 </div>					  
- <div class='col-md-2'></div>";
+ <div class='col-md-2'></div>
+</div>";
             }
             if (InterimData[0].SchemeId != 5)
             {
@@ -2799,9 +2802,9 @@ height:20px;
                 <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                                   <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
                 <h6 class='text-center'>
-                    Sanketika Vidya Bhavan, Masab Tank, Hyderabad-500 028.
+                   Sanketika Vidya Bhavan, Masab Tank, Hyderabad­500 028, India.
                 </h6>
-                <h6 class='text-center'>Telangana, India.</h6>
+                
             </div>
             <div class='col-md-2 logo '>
                 <div class='logo-image' style='padding:6px!important;'>    
@@ -2855,8 +2858,8 @@ height:20px;
                         This is to certify that Mr./Ms.<b class='border_btm'> {MigrationData[0].Name ?? "-"}</b> Son/Daughter of <b class='border_btm' >{MigrationData[0].FatherName ?? "-"}</b>
                         bearing Permanent Identification Number(PIN) <b class='border_btm'>{MigrationData[0].Pin ?? "-"}</b> has <b class='border_btm' >Passed</b>
                         the <b class='border_btm'>{MigrationData[0].CourseDuration ?? "-"}</b> Diploma Course in <b class='border_btm'>{MigrationData[0].BranchName ?? "-"}</b> during the Examination held in <b class='border_btm'>{MigrationData[0].MonthYear ?? "-"}</b> at <b class='border_btm'>{MigrationData[0].CollegeCode ?? "-"} - {MigrationData[0].CollegeName ?? "-"}, {MigrationData[0].CollegeAddress}</b> 
-and he/she was placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b> with
-<b class='border_btm'>{MigrationData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average (CGPA) on a scale of 10 and earned <b class='border_btm'>{MigrationData[0].TotalCreditsEarned ?? "-"}</b> credits. The medium of Instruction was <b>'English'</b>.</p>
+and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b> with
+<b class='border_btm'>{MigrationData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average <b>(CGPA)</b> on a scale of <b>10</b> and earned <b class='border_btm'>{MigrationData[0].TotalCreditsEarned ?? "-"}</b> credits. The medium of Instruction was <b>'English'</b>.</p>
                      <p class='text-intend'>
                             The State Board of Technical Education and Training, Telangana, Hyderabad has no Objection to prosecute his/her Higher Studies in any other
                            <b class='text-uppercase'>State / University.</b>
@@ -2871,10 +2874,10 @@ and he/she was placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</
 
 <div class='sm-spacer'></div>
 <div class='sm-spacer'></div>
-
+                        <div style='line-height: 2.0;'><b>Place : Hyderabad</b></div>
                     <div><b>Date : {DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
                 </div>
-            </div>
+            </di
        
             <div class='col-md-12'>
                 <div class='btn btn-success print_btn pull-right' ng-click='printForm()'>Generate</div>

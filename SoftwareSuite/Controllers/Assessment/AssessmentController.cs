@@ -171,16 +171,17 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getSchemeWiseExams")]
-        public string getSchemeWiseExams(int StudentTypeId, int SchemeId, int SemId,int SubjectTypeId)
+        public string getSchemeWiseExams(int StudentTypeId, int SchemeId, int SemId,int SubjectTypeId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[1] = new SqlParameter("@SchemeId", SchemeId);
                 param[2] = new SqlParameter("@SemId", SemId);
                 param[3] = new SqlParameter("@SubjectTypeId", SubjectTypeId);
+                param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_Schemewise_Exams", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -456,12 +457,12 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getSemSubjects")]
-        public string getSemSubjects(int semid, string branchCode, int loadedScheme, int subType, int examTypeid, string collegecode,int studenttypeid,int AcademicYearId)
+        public string getSemSubjects(int semid, string branchCode, int loadedScheme, int subType, int examTypeid, string collegecode,int studenttypeid,int AcademicYearId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@semid", semid);
                 param[1] = new SqlParameter("@branchcode", branchCode);
                 param[2] = new SqlParameter("@schemeid", loadedScheme);
@@ -470,8 +471,8 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[5] = new SqlParameter("@collegecode", collegecode);
                 param[6] = new SqlParameter("@studenttypeid", studenttypeid);
                 param[7] = new SqlParameter("@academicyearid", AcademicYearId);
-
-                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SEM_SUBJECTS", param);
+                param[8] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SEM_SUBJECTS", param); 
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -484,16 +485,17 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getSchemeWiseExamTypes")]
-        public string getSchemeWiseExamTypes(int AcademicYearId,int StudentTypeId, int SchemeId, int SemId)
+        public string getSchemeWiseExamTypes(int AcademicYearId,int StudentTypeId, int SchemeId, int SemId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@SchemeId", SchemeId);
                 param[3] = new SqlParameter("@SemId", SemId);
+                param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Schemewise_Exams_Types", param);
                 return JsonConvert.SerializeObject(dt);
             }

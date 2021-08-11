@@ -13,7 +13,8 @@
         $scope.branch = $localStorage.assessment.branchName;
         var branchCode = $localStorage.assessment.branchCode;
         $scope.payfine = false;
-
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
+       
         $scope.AcademicYearsActiveResponse = $localStorage.assessment.AcademicYearsActiveResponse;
         $scope.selectedsem = $localStorage.assessment.selectedsem;
         $scope.branch = $localStorage.assessment.branchName;
@@ -31,7 +32,7 @@
 
         var subType = $localStorage.assessment.SubjectTypeId;
 
-        var getDatesAndPins = MarksEntryService.getDatesFineAmount(examTypeid, semId, AcademicId);
+        var getDatesAndPins = MarksEntryService.getDatesFineAmount(examTypeid, semId, AcademicId, $scope.ExamMonthYear);
         getDatesAndPins.then(function (response) {
 
             if (response.length > 0) {
@@ -52,7 +53,7 @@
                 var endTime = endTime1.format('DD/MM/YYYY HH:mm:ss')
                 //$scope.payFineAmount();
                 if (CurrentDate.isBetween(beforeTime1, afterTime1)) {
-                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examTypeid);
+                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examTypeid, $scope.ExamMonthYear);
                     status.then(function (res) {
                         if (res.Table.length > 0) {
                             if (res.Table[0].isFinePayed == false) {
@@ -68,7 +69,7 @@
 
                 } else if (CurrentDate.isBetween(afterTime1, endTime1)) {
 
-                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examTypeid);
+                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examTypeid, $scope.ExamMonthYear);
                     status.then(function (res) {
                         if (res.Table.length > 0) {
                             if (res.Table[0].isFinePayed == true) {
@@ -102,7 +103,7 @@
 
 
         $scope.payFineAmount = function () {
-            var payfine = MarksEntryService.getPaymentDetails($scope.fineAmount, $scope.College_Code, branchcode, semId, $scope.selectedScheme, AcademicId, examTypeid);
+            var payfine = MarksEntryService.getPaymentDetails($scope.fineAmount, $scope.College_Code, branchcode, semId, $scope.selectedScheme, AcademicId, examTypeid, $scope.ExamMonthYear);
             payfine.then(function (req) {
                 if (req.Table.length > 0) {
                     $scope.CollegeName = req.Table[0].CollegeName;
@@ -185,7 +186,7 @@
         $scope.subjectDetailsView = false;
         subType = 1;
 
-        var getSemSubjectsService = SessionalsService.getSemSubjects(semId, branchCode, $scope.loadedScheme, subType, examTypeid, $scope.College_Code, StudentTypeId, AcademicId);
+        var getSemSubjectsService = SessionalsService.getSemSubjects(semId, branchCode, $scope.loadedScheme, subType, examTypeid, $scope.College_Code, StudentTypeId, AcademicId, $scope.ExamMonthYear);
         getSemSubjectsService.then(function (response) {
             $scope.getSemSubjectsResponse = [];
             if (response.Table !== undefined && response.Table.length > 0) {

@@ -21,7 +21,7 @@
         var selectScheme = $localStorage.assessment.Scheme;
         $scope.SchemeId = $localStorage.assessment.Scheme;
         $scope.AcademicYearsActiveResponse = $localStorage.assessment.AcademicYearsActiveResponse;
-
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
         $scope.selectedsem = $localStorage.assessment.selectedsem;
         $scope.branch = $localStorage.assessment.branchName;
         var examtype = $localStorage.assessment.entryList;
@@ -38,7 +38,7 @@
         var StudentTypeId = $localStorage.assessment.StudentTypeId
         var schemeid = parseInt($localStorage.assessment.Scheme);
 
-        var getDatesAndPins = MarksEntryService.getDatesFineAmount(examId, semId, AcademicId);
+        var getDatesAndPins = MarksEntryService.getDatesFineAmount(examId, semId, AcademicId, $scope.ExamMonthYear);
         getDatesAndPins.then(function (response) {
             if (response.length > 0) {
                 var format = 'DD/MM/YYYY HH:mm:ss';
@@ -55,7 +55,7 @@
                 //$scope.payFineAmount();
                 if (CurrentDate.isBetween(beforeTime, fineTime)) {
 
-                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examId);
+                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examId, $scope.ExamMonthYear);
                     status.then(function (res) {
                         if (res.Table.length > 0) {
                             if (res.Table[0].isFinePayed == false) {
@@ -70,7 +70,7 @@
                     });
 
                 } else if (CurrentDate.isBetween(fineTime, endTime)) {
-                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examId);
+                    var status = MarksEntryService.getSubmitStatus($scope.College_Code, branchCode, AcademicId, semId, examId, $scope.ExamMonthYear);
                     status.then(function (res) {
                         if (res.Table.length > 0) {
                             if (res.Table[0].isFinePayed == true) {
@@ -142,7 +142,7 @@
             var Scheme = {};
             Schemeid = (loadedScheme == undefined || loadedScheme == '') ? $localStorage.assessment.selectedsem.current_schemeid : loadedScheme.SchemeID;
             var subid = $localStorage.assessment.selectSubjectDetails.subid;
-            var subjectPinList = MarksEntryService.getSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, semId, $localStorage.authorizationData.BranchId, subid, examTypeId, StudentTypeId);
+            var subjectPinList = MarksEntryService.getSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, semId, $localStorage.authorizationData.BranchId, subid, examTypeId, StudentTypeId, $scope.ExamMonthYear);
             subjectPinList.then(function (response) {
                 if (response.Table.length > 0) {
                     //   console.log(response);
@@ -192,7 +192,7 @@
             let pin = data.pin;
             subid = $localStorage.assessment.selectSubjectDetails.subid;
 
-            var editmarksentered = MarksEntryService.editMarksEntry($scope.College_Code, branchCode, semId, examId, subid, pin);
+            var editmarksentered = MarksEntryService.editMarksEntry($scope.College_Code, branchCode, semId, examId, subid, pin, $scope.ExamMonthYear);
             editmarksentered.then(function (res) {
                 console.log(res);
                 $scope.loadPinAndMarks();
@@ -309,7 +309,7 @@
             if (conf) {
                 subid = $localStorage.assessment.selectSubjectDetails.subid;
                 let collegeCode = authData.College_Code;
-                var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid);
+                var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear);
                 submitMarks.then(function (response) {
                     //   console.log(response);
                     alert('Marks are Submited Successfully');

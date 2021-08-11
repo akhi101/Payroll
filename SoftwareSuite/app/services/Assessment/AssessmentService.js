@@ -10,13 +10,18 @@
             return promise;
         };
         
-        this.getSchemeWiseExamTypes = function (AcademicYearId, StudentTypeId, schemeid, SemId) {
-            var parmObject = { "AcademicYearId": AcademicYearId, "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId };
+        this.getSchemeWiseExamTypes = function (AcademicYearId, StudentTypeId, schemeid, SemId, ExamMonthYearId) {
+           
+            var parmObject = {
+                "AcademicYearId": AcademicYearId, "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId,
+                "ExamMonthYearId": ExamMonthYearId
+            };
+            console.log(parmObject)
             return DataAccessService.getDataWithPara('Assessment/getSchemeWiseExamTypes', parmObject);
         };
 
-        this.getSchemeWiseExams = function (StudentTypeId, schemeid, SemId, SubjectTypeId) {
-            var parmObject = { "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId,"SubjectTypeId": SubjectTypeId };
+        this.getSchemeWiseExams = function (StudentTypeId, schemeid, SemId, SubjectTypeId, ExamMonthYearId) {
+            var parmObject = { "StudentTypeId": StudentTypeId, "SchemeId": schemeid, "SemId": SemId, "SubjectTypeId": SubjectTypeId, "ExamMonthYearId": ExamMonthYearId };
             return DataAccessService.getDataWithPara('Assessment/getSchemeWiseExams', parmObject);
         };
 
