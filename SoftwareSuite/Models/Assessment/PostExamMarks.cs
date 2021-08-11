@@ -26,7 +26,8 @@ namespace SoftwareSuite.Models.Assessment
         public int examtype { get; set; }
         public int studenttypeid { get; set; }
         public int schemeid { get; set; }
-        
+        public int ExamMonthYearId { get; set; }
+
         public List<marklist> marksdata { get; set; }
     }
 
@@ -56,6 +57,8 @@ namespace SoftwareSuite.Models.Assessment
         public int semId { get; set; }
         public int examtypeId { get; set; }
         public int subId { get; set; }
+        public int ExamMonthYearId { get; set; }
+        
     }
 
     public class studentDetails

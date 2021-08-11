@@ -16,12 +16,12 @@ namespace SoftwareSuite.Controllers.Assessment
     {
         #region Get Methods
         [HttpGet, ActionName("getPaymentDetails")]
-        public string getPaymentDetails(int Amount, string CollegeCode, string BranchCode, int SemId, int SchemeId, int Academicid, int examtypeid)
+        public string getPaymentDetails(int Amount, string CollegeCode, string BranchCode, int SemId, int SchemeId, int Academicid, int examtypeid, int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[7];
+                var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@Amount", Amount);
                 param[1] = new SqlParameter("@CollegeCode", CollegeCode);
                 param[2] = new SqlParameter("@BranchCode", BranchCode);
@@ -29,6 +29,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[4] = new SqlParameter("@SchemeId", SchemeId);
                 param[5] = new SqlParameter("@AcademicYearId", Academicid);
                 param[6] = new SqlParameter("@examtypeid", examtypeid);
+                param[7] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("UspCollegeFinePayment", param);
                 return JsonConvert.SerializeObject(dt);
             }

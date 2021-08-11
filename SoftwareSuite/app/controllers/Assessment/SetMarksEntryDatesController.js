@@ -23,7 +23,7 @@
         $scope.GetExamMonthYearsData = function () {
         
             let academicId = $scope.years.AcademicID;
-            alert(academicId)
+          
             var EmYears = AssessmentService.GetExamMonthYearAcademicYear(academicId);
         EmYears.then(function (response) {
             console.log(response)

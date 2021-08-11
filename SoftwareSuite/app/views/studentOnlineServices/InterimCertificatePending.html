@@ -26,9 +26,7 @@
         user-select: none;
     }
 
-    .interim-spacer {
-        height: 50px;
-    }
+  
 
     @media print {
         .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
@@ -307,6 +305,9 @@
          font-weight:bold;
          text-transform:uppercase;
      }
+    .interim-spacer {
+        height: 50px;
+    }
 </style>
 <div ng-controller="InterimCertificatePendingController">
     <div id="editor"></div>
@@ -324,31 +325,20 @@
             <div class="col-md-8 title">
                 <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                 <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
-                <h5 class='text-center'>
-                    Sanketika Vidya Bhavan, Masab Tank, Hyderabad-500 028.
-                </h5>
-                <h5 class='text-center'>Telangana, India.</h5>
-
-
+                <h6 class='text-center'>
+                    Sanketika Vidya Bhavan, Masab Tank, Hyderabad­500 028, India.
+                </h6>
+                <!--<h5 class='text-center'>Telangana, India.</h5>-->
             </div>
             <div class="col-md-2 logo">
                 <div class="logo-image" style="padding:6px!important;">
                     <img src="../../../contents/img/sbtet-logo.svg" class="img-responsive logoImg pull-right" />
                 </div>
             </div>
-
         </div>
-
-
         <hr class="myHr" />
         <!-- <div class=" marginData">
-
-
-
-
-
-
-        </div> -->
+    </div> -->
         <div class="container">
             <div class="row">
                 <div class="col-md-10">
@@ -392,13 +382,13 @@
                             {{StudentData.BranchName}}
                         </b><b class="border_btm" ng-if="!Branch">_____________</b> <span>during the Examination held in <b class="border_btm" ng-if="StudentData.MonthYear">{{StudentData.MonthYear}}</b></span> at
                         <b class="border_btm" ng-if="StudentData.CollegeName">{{StudentData.CollegeCode}}-{{StudentData.CollegeName}}</b> and he/she was placed in <b class="border_btm" ng-if="StudentData.Class">{{StudentData.Class}}</b><b class="border_btm" ng-if="!StudentData.Class">_____________</b>
-                        with <b class="border_btm">{{StudentData.CGPA == null ? '______________':StudentData.CGPA}}</b> Cumulative Grade Point Average (CGPA) on a scale of 10 and earned <b class="border_btm">{{StudentData.TotalCreditsEarned == null ? '______________':StudentData.TotalCreditsEarned}}</b> credits.
+                        with <b class="border_btm">{{StudentData.CGPA == null ? '______________':StudentData.CGPA}}</b> Cumulative Grade Point Average (CGPA) on a scale of <b>10</b> and earned <b class="border_btm">{{StudentData.TotalCreditsEarned == null ? '______________':StudentData.TotalCreditsEarned}}</b> credits.
                     </p>
 
                 </div>
 
-                <div class="row" ng-show="(StudentData.BranchCode !='PH') && (StudentData.SchemeId!=5)" >
-                    <table class="table" >
+                <div class="row" ng-show="(StudentData.BranchCode !='PH') && (StudentData.SchemeId!=5)">
+                    <table class="table">
                         <thead>
                             <tr>
 
@@ -533,34 +523,34 @@
                         </tbody>
                     </table>
                     <table class="table" style="margin-top:20px;">
-                       
-                        <tr>
-                            <td style="border:1px solid #000;">* Aggregate %</td>
-                            <td style="border:1px solid #000;">:</td>
-                            <td style="border:1px solid #000;">(CGPA-0.5) x 10</td>
+
+                        <tr style="border:none!important">
+                            <td style="border:none!important" >* Aggregate %</td>
+                            <td style="border:none!important" >:</td>
+                            <td style="border:none!important">(CGPA-0.5) x 10</td>
 
                         </tr>
-                        <tr>
-                            <td># First Class with Distinction  </td>
-                            <td>:</td>
-                            <td>CGPA>=8</td>
+                        <tr style="border:none!important">
+                            <td style="border:none!important"># First Class with Distinction  </td>
+                            <td style="border:none!important">:</td>
+                            <td style="border:none!important">CGPA>=8</td>
                         </tr>
-                        <tr>
-                            <td>   First Class</td>
-                            <td>:</td>
-                            <td>8>CGPA>=6.5</td>
+                        <tr style="border:none!important">
+                            <td style="border:none!important">   First Class</td>
+                            <td style="border:none!important">:</td>
+                            <td style="border:none!important">8>CGPA>=6.5</td>
                         </tr>
-                        <tr>
-                            <td>Second Class</td>
-                            <td>:</td>
-                            <td>6.5>CGPA>=4</td>
+                        <tr style="border:none!important">
+                            <td style="border:none!important">Second Class</td>
+                            <td style="border:none!important">:</td>
+                            <td style="border:none!important">6.5>CGPA>=4</td>
                         </tr>
-                        <tr>
-                            <td>Pass</td>
-                            <td>:</td>
-                            <td>CGPA<4</td>
+                        <tr style="border:none!important">
+                            <td style="border:none!important">Pass</td>
+                            <td style="border:none!important">:</td>
+                            <td style="border:none!important">CGPA (Subject to Earning of >=130 Credits)<4</td>
                         </tr>
-                       
+
                     </table>
                 </div>
                 <div class="col-md-2" ng-show="StudentData.SchemeId==5"></div>
@@ -584,52 +574,52 @@
             <br>
         </div>
         <div class="interim-spacer"></div>
-
+        <div class="ssm-spacer"></div>
         <div class="interim-spacer"></div>
         <!--<style>
-            * {
-                box-sizing: border-box;
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            font-size: 17px;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+            .container img {
+                vertical-align: middle;
             }
 
-            body {
-                font-family: Arial;
-                font-size: 17px;
+            .container .content {
+                position: absolute;
+                bottom: 0;
+                background: rgb(0, 0, 0); /* Fallback color */
+                background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+                color: #f1f1f1;
+                width: 100%;
+                padding: 20px;
             }
+    </style>
+    </head>
+    <body>
 
-            .container {
-                position: relative;
-                max-width: 800px;
-                margin: 0 auto;
-            }
+        <h2>Responsive Image with Transparent Text</h2>
 
-                .container img {
-                    vertical-align: middle;
-                }
-
-                .container .content {
-                    position: absolute;
-                    bottom: 0;
-                    background: rgb(0, 0, 0); /* Fallback color */
-                    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-                    color: #f1f1f1;
-                    width: 100%;
-                    padding: 20px;
-                }
-        </style>
-        </head>
-        <body>
-
-            <h2>Responsive Image with Transparent Text</h2>
-
-            <div class="container">
-                <img src="../../../contents/img/big-logo.png" alt="Notebook" style="width:100%;">
-                <div class="content">
-                    <h1>Heading</h1>
-                    <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei.</p>
-                </div>
+        <div class="container">
+            <img src="../../../contents/img/big-logo.png" alt="Notebook" style="width:100%;">
+            <div class="content">
+                <h1>Heading</h1>
+                <p>Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo, eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri ponderum tractatos ei.</p>
             </div>
+        </div>
 
-        </body>-->
+    </body>-->
     </div>
     <div class="loadingImg">
         <img src="../../contents/img/loading2.gif" ng-show="loading" width="64" />

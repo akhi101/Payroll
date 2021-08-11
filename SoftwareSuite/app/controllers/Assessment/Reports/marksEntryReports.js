@@ -20,6 +20,20 @@
             $state.go("Dashboard");
         }
 
+        $scope.GetExamMonthYearsData = function () {
+            let academicId = $scope.years.AcademicID;
+            var EmYears = AssessmentService.GetExamMonthYearAcademicYear(academicId);
+            EmYears.then(function (response) {
+                console.log(response)
+                $scope.ExamMonthYears = response.Table;
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
         if ($scope.userType == "1" || $scope.userType == "5" || $scope.userType == "1000" || $scope.userType == "1010" || $scope.userType == "1011" || $scope.userType == "1002" || $scope.userType == "1007" || $scope.userType == "1009") {
             $scope.access1 = true;
             $scope.access2 = false;
@@ -101,6 +115,7 @@
           
             try {
                 $scope.years = JSON.parse(years);
+                $scope.GetExamMonthYearsData()
                
             } catch (err) { }
 
@@ -169,7 +184,8 @@
                 branchName: $scope.branch,
                 AssessmentmodulesList: $scope.AssessmentmodulesList,
                 branchCode: branchCode == null ? "" : branchCode,
-                loadedScheme: $scope.loadedScheme
+                loadedScheme: $scope.loadedScheme,
+                ExamMonthYear: $scope.ExamMonthYear
             };
 
             $localStorage.assessment = Assesment;
@@ -224,7 +240,7 @@
         }
 
 
-        $scope.getExamCategory = function (StudentTypeId,selsem) {
+        $scope.getExamCategory = function (StudentTypeId,selsem,ExamMonthYear) {
             $scope.StudentTypeId = StudentTypeId;
           
             var sem = JSON.parse(selsem)
@@ -265,9 +281,11 @@
             //if ($scope.SelStudent == undefined || $scope.SelStudent=="") {
             //    return;
             //}
+            $scope.ExamMonthYear = ExamMonthYear
+           
             if ($scope.StudentId != undefined && $scope.StudentId != "" && $scope.SemesterId != undefined && $scope.schemeId != "") {
                 $scope.LoadSchemeForSemester($scope.selsem);
-                var schemewiseExams = AssessmentService.getSchemeWiseExamTypes(parseInt($scope.years.AcademicID), $scope.StudentId, $scope.schemeId, $scope.SemesterId);
+                var schemewiseExams = AssessmentService.getSchemeWiseExamTypes(parseInt($scope.years.AcademicID), $scope.StudentId, $scope.schemeId, $scope.SemesterId, $scope.ExamMonthYear);
                 schemewiseExams.then(function (response) {
 
                     if (response.length > 0) {
@@ -657,7 +675,8 @@
                     SemId: $scope.SemesterId,
                     Scheme: $scope.scheme,
                     SchemeId: $scope.schemeId,
-                    AcademicYearId: parseInt($scope.years.AcademicID)
+                    AcademicYearId: parseInt($scope.years.AcademicID),
+                    ExamMonthYear: $scope.ExamMonthYear
 
                 };
 

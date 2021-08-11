@@ -17,12 +17,12 @@ namespace SoftwareSuite.Controllers.Assessment
     {
         #region Get Methods
         [HttpGet, ActionName("getSubjectPinList")]
-        public string getSubjectPinList(int AcadamicYearid, int SchemeId, string collegecode, int semid, int branchId, int subId, int examtype,int studenttypeId)
+        public string getSubjectPinList(int AcadamicYearid, int SchemeId, string collegecode, int semid, int branchId, int subId, int examtype,int studenttypeId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@AcadamicYearid", AcadamicYearid);
                 param[1] = new SqlParameter("@collegecode", collegecode);
                 param[2] = new SqlParameter("@semid", semid);
@@ -30,8 +30,8 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[4] = new SqlParameter("@subid", subId);
                 param[5] = new SqlParameter("@schemeid", SchemeId);
                 param[6] = new SqlParameter("@examtype", examtype);
-                param[7] = new SqlParameter("@studenttypeId", studenttypeId);
-
+                param[7] = new SqlParameter("@studenttypeId", studenttypeId); 
+                param[8] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SUBJECT_PIN_LIST", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -92,12 +92,12 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getReportSubjectPinList")]
-        public string getReportSubjectPinList(int Academicid, int SchemeId, string collegecode, int semid, int branchId, int subId, int examtype,int studenttypeId)
+        public string getReportSubjectPinList(int Academicid, int SchemeId, string collegecode, int semid, int branchId, int subId, int examtype,int studenttypeId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@AcadamicYearid", Academicid);
                 param[1] = new SqlParameter("@schemeid", SchemeId);
                 param[2] = new SqlParameter("@collegecode", collegecode);
@@ -106,6 +106,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[5] = new SqlParameter("@subid", subId);
                 param[6] = new SqlParameter("@examtype", examtype);
                 param[7] = new SqlParameter("@studenttypeId", studenttypeId);
+                param[8] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_REPORTSUBJECT_PIN_LIST", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -119,17 +120,18 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getSubmitStatus")]
-        public string getSubmitStatus(string collegeCode, string branchCode, int AcademicId, int semId, int examtypeId)
+        public string getSubmitStatus(string collegeCode, string branchCode, int AcademicId, int semId, int examtypeId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@collegecode", collegeCode);
                 param[1] = new SqlParameter("@branchcode", branchCode);
                 param[2] = new SqlParameter("@academicyearid", AcademicId);
                 param[3] = new SqlParameter("@semid", semId);
                 param[4] = new SqlParameter("@examtypeid", examtypeId);
+                param[5] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SubmitStatus", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -145,15 +147,16 @@ namespace SoftwareSuite.Controllers.Assessment
 
 
         [HttpGet, ActionName("getDatesFineAmount")]
-        public string getDatesFineAmount(int examid, int semid, int Academicid)
+        public string getDatesFineAmount(int examid, int semid, int Academicid, int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@examid", examid);
                 param[1] = new SqlParameter("@semid", semid);
                 param[2] = new SqlParameter("@academicyearid", Academicid);
+                param[3] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_FINE_AMOUNT", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -167,18 +170,19 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("editMarksEntry")]
-        public string editMarksEntry(string collegecode, string branchcode, int semid, int examtypeid, int subid, string pin)
+        public string editMarksEntry(string collegecode, string branchcode, int semid, int examtypeid, int subid, string pin,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[6];
+                var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@collegecode", collegecode);
                 param[1] = new SqlParameter("@branchcode", branchcode);
                 param[2] = new SqlParameter("@semid", semid);
                 param[3] = new SqlParameter("@examtypeid", examtypeid);
                 param[4] = new SqlParameter("@subid", subid);
                 param[5] = new SqlParameter("@pin", pin);
+                param[6] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_Assessment_InactiveSubitPin", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -216,7 +220,6 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[1] = new SqlParameter("@schemeid", ExamMarks.schemeid);
                 param[2] = new SqlParameter("@examtype", ExamMarks.examtype);
                 param[3] = new SqlParameter("@studenttypeid", ExamMarks.studenttypeid);
-                
                 var res = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_SubjectWise_Marks_Entry", param);
                 return JsonConvert.SerializeObject(res);
             }
@@ -288,13 +291,14 @@ namespace SoftwareSuite.Controllers.Assessment
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[6];
+                var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@collegecode", request.collegeCode);
                 param[1] = new SqlParameter("@branchcode", request.branchCode);
                 param[2] = new SqlParameter("@academicyearid", request.AcademicId);
                 param[3] = new SqlParameter("@semid", request.semId);
                 param[4] = new SqlParameter("@examtypeid", request.examtypeId);
                 param[5] = new SqlParameter("@subid", request.subId);
+                param[6] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_SubmitMarksEntry", param);
                 return JsonConvert.SerializeObject(dt);
             }

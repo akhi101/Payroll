@@ -46,14 +46,30 @@
             //    $scope.MarksEntryData = [];
 
             //}
+            $scope.GetExamMonthYearsData()
         },
             function (error) {
                 alert("error");
             });
 
-        $scope.setAcademicYears = function (years) {
+        $scope.GetExamMonthYearsData = function () {
+            let academicId = $scope.years.AcademicID;
+            var EmYears = AssessmentService.GetExamMonthYearAcademicYear(academicId);
+            EmYears.then(function (response) {
+                console.log(response)
+                $scope.ExamMonthYears = response.Table;
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
+        $scope.setAcademicYear = function (years) {
             try {
                 $scope.years = JSON.parse(years);
+                $scope.GetExamMonthYearsData()
             } catch (err) { }
 
         }
@@ -222,7 +238,7 @@
                     });
             }
 
-            $scope.getExamCategory = function (student, selectedsem) {
+            $scope.getExamCategory = function (student, selectedsem, ExamMonthYear) {
 
                 // console.log(student)
                // $scope.SelStudent = JSON.parse(student);
@@ -267,7 +283,8 @@
                 }
                 if ($scope.StudentId != undefined && $scope.StudentId != "" && $scope.SemesterId != undefined && $scope.schemeId != "") {
                     $scope.LoadSchemeForSemester($scope.selsem);
-                    var schemewiseExams = AssessmentService.getSchemeWiseExamTypes($scope.years.AcademicID,$scope.StudentId, $scope.schemeId, $scope.SemesterId);
+                    $scope.ExamMonthYear=ExamMonthYear
+                    var schemewiseExams = AssessmentService.getSchemeWiseExamTypes($scope.years.AcademicID, $scope.StudentId, $scope.schemeId, $scope.SemesterId, $scope.ExamMonthYear);
                     schemewiseExams.then(function (response) {                       
                         if (response.length > 0) {
                             var modulesList = [];
@@ -319,7 +336,8 @@
                     branchName: $scope.branch,
                     branchCode: branchCode == null ? "" : branchCode,
                     loadedScheme: $scope.loadedScheme,
-                    CollegeCode: $scope.College_Code
+                    CollegeCode: $scope.College_Code,
+                     ExamMonthYear: $scope.ExamMonthYear
 
 
                 };
@@ -365,8 +383,8 @@
                     branchid: data.branchid,
                     subid: data.subid,
                     semid: data.semid,
-                    studentTypeId: $scope.studentType
-
+                    studentTypeId: $scope.studentType,
+                     ExamMonthYear: $scope.ExamMonthYear
 
                 };
                 $localStorage.PrincipalReports = PrincipalReports;

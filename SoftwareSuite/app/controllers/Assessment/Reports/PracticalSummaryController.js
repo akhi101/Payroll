@@ -30,7 +30,7 @@
         var AcademicId = $localStorage.assessment.AcademicYearsActiveResponse.AcademicID;
         var semId = $scope.selectedsem;
         var examId = $localStorage.assessment.entryListid;
-
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
         var semName = $localStorage.assessment.selectedsem.sem;
         var collegeName = authData.College_Name;
         $scope.SchemeId = $localStorage.assessment.SchemeId;
@@ -73,7 +73,7 @@
             
         var subid = $localStorage.assessment.selectSubjectDetails.subid;
         //console.log($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, $scope.selectedsem, $scope.BranchId, subid, examId, $scope.StudentTypeId)
-        var subjectPinList = MarksEntryService.getReportSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, $scope.selectedsem.semid, $scope.BranchId, subid, examId, $scope.StudentTypeId);
+        var subjectPinList = MarksEntryService.getReportSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, $scope.selectedsem.semid, $scope.BranchId, subid, examId, $scope.StudentTypeId, $scope.ExamMonthYear);
              subjectPinList.then(function (response) {
                  if (response.Table.length > 0) {
                   

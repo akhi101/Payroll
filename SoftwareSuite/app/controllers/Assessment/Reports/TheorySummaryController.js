@@ -39,6 +39,7 @@
         $scope.Scheme = $localStorage.assessment.Scheme;
         var SchemeId = $localStorage.assessment.SchemeId;
         var examId = $localStorage.assessment.entryListid;
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
         //var getDatesAndPins = MarksEntryService.getDatesFineAmount(examId, semId, AcademicId);
         //getDatesAndPins.then(function (response) {
        
@@ -81,7 +82,7 @@
             var Scheme = {};
             //Schemeid = (loadedScheme == undefined || loadedScheme == '') ? $localStorage.assessment.selectedsem.current_schemeid : loadedScheme.SchemeID;
             let subid = $localStorage.assessment.selectSubjectDetails.subid;
-            var subjectPinList = MarksEntryService.getReportSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, SchemeId, $localStorage.authorizationData.College_Code, $scope.selectedsem.semid, $localStorage.authorizationData.BranchId, subid, examId, $scope.StudentTypeId);
+            var subjectPinList = MarksEntryService.getReportSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, SchemeId, $localStorage.authorizationData.College_Code, $scope.selectedsem.semid, $localStorage.authorizationData.BranchId, subid, examId, $scope.StudentTypeId, $scope.ExamMonthYear);
              subjectPinList.then(function (response) {
                  if (response.Table.length > 0) {
                      $scope.subjectDetailsView = true;
@@ -195,7 +196,7 @@
 
      
         $scope.back = function () {
-            $state.go("Dashboard.Reports");
+            $state.go("Dashboard.AssessmentDashboard.TheoryReports");
         }
        
         $scope.printMarksEntered = function () {

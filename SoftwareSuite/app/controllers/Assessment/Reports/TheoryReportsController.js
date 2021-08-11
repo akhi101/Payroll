@@ -8,6 +8,7 @@
         $scope.LoadImgForSubject = true;
         $scope.exams = [];
         $scope.College_Code = authData.College_Code;
+        $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;
         $scope.AcademicYearsActiveResponse = $localStorage.assessment.AcademicYearsActiveResponse;
         $scope.selectedsem = $localStorage.assessment.selectedsem;
         $scope.branch = $localStorage.assessment.branchName;
@@ -42,9 +43,8 @@
        
         $scope.getSemSubjectsResponse = [];
         $scope.loadedScheme = {};
-        console.log($scope.selectedsem.semid, branchCode, $scope.schemeid, subType, examTypeid, $scope.College_Code, StudentTypeId, AcademicYearId)
         $scope.loadedScheme.SchemeID = $scope.selectedsem.current_schemeid;
-        var getSemSubjectsService = PracticalsService.getSemSubjects($scope.selectedsem.semid, branchCode, $scope.schemeid, subType, examTypeid,$scope.College_Code, StudentTypeId, AcademicYearId);
+        var getSemSubjectsService = PracticalsService.getSemSubjects($scope.selectedsem.semid, branchCode, $scope.schemeid, subType, examTypeid, $scope.College_Code, StudentTypeId, AcademicYearId, $scope.ExamMonthYear);
         getSemSubjectsService.then(function (response) {
             $scope.getSemSubjectsResponse = [];
             if (response.Table !== undefined && response.Table.length > 0) {
