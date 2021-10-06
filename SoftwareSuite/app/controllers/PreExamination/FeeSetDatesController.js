@@ -28,7 +28,7 @@
         });
 
 
-        var AcademicYearsActive = AssessmentService.GetAcademicYearsActive();
+        var AcademicYearsActive = AssessmentService.getFeeAcademicYearsActive();
         AcademicYearsActive.then(function (response) {
             $scope.years = response.Table[0];
 

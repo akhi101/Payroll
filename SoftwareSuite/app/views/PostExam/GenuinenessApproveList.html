@@ -219,7 +219,7 @@
                                 <td class="text-center " ng-click="OpenOdc(x.PIN,x.CertificateType,x.Id)">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
                                 <td class="text-center " ng-click="OpenOdc(x.PIN,x.CertificateType,x.Id)">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
                                 <td class="text-center ">
-                                    <button class="btn btn-danger btn-xs" ng-click="ReleasePin(x.PIN)"><span>Release PIN</span></button>
+                                    <button class="btn btn-danger btn-xs" ng-click="ReleasePopup(x.PIN,x.CertificateType,x.Id)"><span>Release PIN</span></button>
                                 </td>
                                 <td class="text-center " ng-click="OpenOdc(x.PIN,x.CertificateType,x.Id)">{{x.Remarks == null ? '-':x.Remarks}}</td>
                                 <!--<td class="text-center"><a ng-click="OpenOdc(x.PIN)">ODC Data<a/></td>-->

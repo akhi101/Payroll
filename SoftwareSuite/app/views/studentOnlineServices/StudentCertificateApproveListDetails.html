@@ -117,7 +117,7 @@
                             <th class="text-center" ng-click='sortColumn("AppliedDate")'>ODC </th>
                             <th class="text-center" ng-show="UserTypeId!=1020">Certificate</th>
                             <th class="text-center" ng-show="UserTypeId==1009">Reset</th>
-                            <th class="text-center" ng-show="UserTypeId==1007 || UserTypeId==1002 ||UserTypeId==1009">Message</th>
+                            <th class="text-center" ng-show="UserTypeId==1007 || UserTypeId==1002 ||UserTypeId==1009||UserTypeId==5">Message</th>
                         </tr>
                     </thead>
 
@@ -145,7 +145,7 @@
                                     <button class="btn btn-warning btn-xs" ng-click="ResetCertificateStatus(x.PIN,x.CertificatePath)"><span>Reset</span></button>
                                 </span>
                             </td>
-                            <td class="text-center " ng-show="UserTypeId==1007 || UserTypeId==1002 ||UserTypeId==1009">
+                            <td class="text-center " ng-show="UserTypeId==1007 || UserTypeId==1002 ||UserTypeId==1009||UserTypeId==5">
                                 <span>
                                     <button class="btn btn-info btn-xs" title="Click to Send SMS" ng-show="!x.IsSmsSent" ng-disabled="smsbtndisable{{$index}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Send SMS</span></button>
                                 </span>

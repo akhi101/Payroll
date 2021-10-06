@@ -98,7 +98,7 @@
         }
 
         $scope.sensSMS = function (PIN, Path, mobile, ind) {
-            if ($scope.UserTypeId == 1007 || $scope.UserTypeId == 1002 || $scope.UserTypeId == 1009) {
+            if ($scope.UserTypeId == 1007 || $scope.UserTypeId == 1002 || $scope.UserTypeId == 1009 || $scope.UserTypeId == 5) {
                 if (mobile == null || angular.isUndefined(mobile) || mobile == "") {
                     alert("Mobile No not Found");
                     return;

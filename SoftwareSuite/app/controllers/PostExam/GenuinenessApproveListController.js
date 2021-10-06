@@ -165,21 +165,33 @@
             //window.open(url);
         }
 
-        $scope.ReleasePin = function (PIN) {
+        $scope.ReleasePopup = function (PIN, CertificateTypeId, Id) {
 
-            var ReleasePin = PreExaminationService.ReleaseStudentServicesPin(PIN);
+            if (confirm("Are you sure you want to Release Pin?") == true) {
+                $scope.ReleasePin(PIN, CertificateTypeId, Id)
+            } else {
+                userPreference = "Save Canceled!";
+
+            }
+
+
+        }
+
+        $scope.ReleasePin = function (PIN, CertificateTypeId,Id) {
+
+            var ReleasePin = PreExaminationService.ReleaseStudentServicesPin(PIN,CertificateTypeId,Id);
             ReleasePin.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
-                if (response[0].ResponseCode == "200") {
-                    alert(response[0].ResponseDesc);
-                    $scope.GetApprovalDetails();
+                if (response.Table[0].ResponseCode == "200") {
+                    alert(response.Table[0].ResponseDesc);
+                    $scope.ApproveListDetails();
                 } else {
-                    alert(response[0].ResponseDesc);
-                    $scope.GetApprovalDetails();
+                    alert(response.Table[0].ResponseDesc);
+                    $scope.ApproveListDetails();
                 }
 
             }, function (err) {
-                $scope.GetApprovalDetails();
+                $scope.ApproveListDetails();
             });
 
 

@@ -3929,6 +3929,503 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         }
 
 
+
+        //public string GetC18TrSheets(List<C18TrSheetCertificateData> TrSheetData)
+        //{
+        //    var dir_id = Guid.NewGuid().ToString();
+        //    var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
+        //    var path = string.Empty;
+        //    CreateIfMissing(dir);
+        //    string html = @"<html>"
+        //           + "<head>"
+        //           + $"<title></title>"
+        //           + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+        //           + $@"<script src= '{AppDomain.CurrentDomain.BaseDirectory}\scripts\jquery-3.3.1.min.js'></script>"
+        //            + @"<style type='text/css'>
+        //                    .myHr {
+        //                        color: #000;
+        //                        border-bottom: 2pX solid #000;
+        //                    }
+                           
+        //                    .table > thead > tr > th {
+        //                        vertical-align: bottom;
+        //                        border-top: 1px solid #000 !important;
+        //                        padding: 2px 6px !important;
+        //                    }
+        //                    .container-fluid{
+        //                        padding: 6px 6px !important;
+        //                        margin: 10px!important;
+        //                        min-height: 100% !important;
+        //                        font-family: monospace!important;
+        //                    }
+
+        //                    .table > tbody > tr > td {
+        //                        vertical-align: bottom;
+        //                        border-bottom: 1px dashed #000 !important;
+        //                        padding: 2px 6px !important;
+        //                    }
+
+        //                    .table > thead > tr > th.myClm {
+        //                        width: 25% !important;
+        //                        border-top: 0px !important;
+        //                    }
+
+        //                    .table > tbody > tr > td {
+        //                        border-top: 0px !important;
+        //                        border-bottom: 1px dashed #000 !important;
+        //                    }
+
+        //                    .table > thead > tr > th.cln {
+        //                        /*border-bottom: 0px!important;*/
+        //                        border-bottom: 0px !important;
+        //                    }
+
+        //                    .table > thead > tr > th.clm {
+        //                        /*border-bottom: 0px!important;*/
+        //                        border-top: 0px !important;
+        //                    }
+
+        //                    .table > tbody > tr > td.cln {
+        //                        /*border-bottom: 0px!important;*/
+        //                        border-bottom: 0px !important;
+        //                    }
+        //                    .btm_line{
+        //                    border-bottom :2px solid #000 !important;
+        //                    }
+        //                    .sm-spacer {
+        //                        margin: 12px;
+        //                    }
+        //                    .sm1-spacer {
+        //                        margin: 15px;
+        //                    }
+        //                    sup {
+        //                      font-size: inherit !important;                            
+        //                    }
+        //                    .dotted{
+        //                        font-weight: 100;
+        //                        text-decoration: underline;
+        //                        text-decoration-style:dashed; 
+        //                        font-size: 0.94em;
+        //                    }
+        //                    .footer {
+        //                       position: fixed;                              
+        //                       bottom: 0;
+        //                       width: 100%;                     
+        //                       text-align: center;
+        //                    }
+                   
+        //                    @media print {
+        //                        .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        //                            float: left;
+        //                        }
+
+        //                        .col-md-12 {
+        //                            width: 100%;
+        //                        }
+
+        //                        .col-md-11 {
+        //                            width: 91.66666666666666%;
+        //                        }
+
+        //                        .col-md-10 {
+        //                            width: 83.333333%;
+        //                        }
+
+        //                        .col-md-9 {
+        //                            width: 75%;
+        //                        }
+
+        //                        .col-md-8 {
+        //                            width: 66.66666666666666%;
+        //                        }
+
+        //                        .col-md-7 {
+        //                            width: 58.333333333333336%;
+        //                        }
+
+        //                        .col-md-6 {
+        //                            width: 50%;
+        //                        }
+
+        //                        .col-md-5 {
+        //                            width: 41.66666666666667%;
+        //                        }
+
+        //                        .col-md-4 {
+        //                            width: 33.33333333333333%;
+        //                        }
+
+        //                        .col-md-3 {
+        //                            width: 25%;
+        //                        }
+
+        //                        .col-md-2 {
+        //                            width: 16.666666666666664%;
+        //                        }
+
+        //                        .col-md-1 {
+        //                            width: 8.333333333333332%;
+        //                        }
+
+        //                        .container-fluid {
+        //                            font-size: 9px ;
+        //                            margin: 10px!important;
+        //                            font-family: monospace!important;
+        //                        }
+        //                        .table > thead > tr {
+        //                            padding: 2px;
+        //                        }
+
+
+        //                        .table > thead > tr > th.myClm {
+        //                            width: 25% !important;
+        //                            border-top: 0px !important;
+        //                        }
+
+        //                        .table > thead > tr > th {
+        //                           padding: 2px 6px !important;
+        //                        }
+
+        //                        .table > tbody > tr > td {
+        //                            border-top: 0px !important;
+        //                            border-bottom: 1px dashed #000 !important;
+        //                          padding: 2px 6px !important;
+        //                        }
+
+        //                        .table > thead > tr > th.cln {
+        //                            /*border-bottom: 0px!important;*/
+        //                            border-bottom: 0px !important;
+        //                        }
+
+        //                        .table > thead > tr > th.clm {
+        //                            /*border-bottom: 0px!important;*/
+        //                            border-top: 0px !important;
+        //                        }
+
+        //                        .table > tbody > tr > td.cln {
+        //                            /*border-bottom: 0px!important;*/
+        //                            border-bottom: 0px !important;
+        //                        }
+
+        //                        .footer_section {
+        //                            display: none;
+        //                        }
+
+        //                        .top-header {
+        //                            display: none;
+        //                        }
+        //                        .btm_line{
+        //                            position: fixed;
+        //                            bottom: 0px;
+        //                            z-index: 99;
+        //                            border-bottom :2px solid #000;
+        //                        }
+        //                    }
+        //                </style>"
+        //                 + "</head><body>";
+
+        //    string sbString = html;
+        //    var page = string.Empty;
+        //    var pgno = 1;
+        //    var distinctcenters = TrSheetData.GroupBy(x => x.CENTRE)
+        //                                    .Select(grp => grp.First())
+        //                                    .OrderBy(x => x.CENTRE)
+        //                                    .Distinct()
+        //                                    .ToList();
+        //    foreach (var cen in distinctcenters)
+        //    {
+        //        var branchdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE)
+        //                                        .GroupBy(x => x.BRANCH)
+        //                                        .Select(g => g.First())
+        //                                        .OrderBy(x => x.BRANCH)
+        //                                        .ToArray();
+        //        foreach (var branch in branchdata)
+        //        {
+
+
+
+        //            var tempstudentdata = new List<TrSheetCertificateData>();
+
+        //            var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH)
+        //                                            .OrderBy(x => x.BRANCH)
+        //                                            .OrderBy(x => x.PIN)
+        //                                            .Distinct()
+        //                                            .ToArray();
+
+
+        //            var groupedItems = SliceArray(studentarrdata, 7);
+
+        //            foreach (var studentdata in groupedItems)
+        //            {
+
+        //                #region PageHeader
+        //                page = $@"<div class='container-fluid sm-spacer'>                            
+        //                        <div class='col-md-9 text-center'>STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S. HYDERABAD </div>            
+        //                        <div class='col-md-3 pull-right'>Page : {pgno}</div>
+        //                        <div class='col-md-9'>{branch.YEAR} ({branch.SCHEME}) EXAMINATION FOR 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+        //                        <div class='col-md-3'>RUN DATE : {DateTime.Now.ToString("dd-MM-yyyy")}</div>
+        //                        <div class='col-md-4'>TABULATED MARKS SHEET</div>
+        //                        <div class='col-md-8'>CENTER : {branch.CENTRE}-{branch.INST_NAME}, {branch.INST_ADDRESS}</div>
+        //                        <div class='col-md-12'>MONTH & YEAR OF EXAM :  {branch.MONTH_YEAR}</div>             
+        //                        <hr class='myHr' />";
+        //                #endregion
+        //                #region PageContent
+        //                page += $@"<table class='table'>
+        //                <thead>
+        //                    <tr>
+        //                        <th class='text-center'></th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-cente'>E</th>
+        //                        <th class='text-center'>S</th>
+        //                        <th class='text-center'>TOT</th>
+
+        //                        <th class='text-center' colspan='3'>TOTAL</th>
+        //                    </tr>
+        //                    <tr>
+        //                        <th class='text-center'>max</th>
+        //                        <th class='text-center'>{branch.SUB1_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB1_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB1_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB2_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB2_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB2_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB3_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB3_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB3_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB4_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB4_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB4_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB5_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB5_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB5_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB6_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB6_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB6_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB7_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB7_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB7_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB8_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB8_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB8_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB9_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB9_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB9_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB10_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB10_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB10_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB11_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB11_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB11_MAX_TOTAL}</th>
+        //                        <th class='text-center'>{branch.SUB12_MAX_END_MARKS}</th>
+        //                        <th class='text-center'>{branch.SUB12_MAX_SESSIONAL}</th>
+        //                        <th class='text-center'>{branch.SUB12_MAX_TOTAL}</th>
+        //                        <th class='text-center'  colspan='3'>{branch.MAX_TOTAL_TOTAL}</th>
+        //                    </tr>
+        //                    <tr>
+        //                        <th class='text-center'>min</th>
+        //                        <th class='text-center'>{branch.Sub1_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub1_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub2_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub2_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub3_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub3_TotalMinMarks}</th>                                
+        //                        <th class='text-center'>{branch.Sub4_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub4_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub5_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub5_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub6_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub6_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub7_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub7_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub8_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub8_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub9_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub9_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub10_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub10_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub11_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub11_TotalMinMarks}</th>
+        //                        <th class='text-center'>{branch.Sub12_EndMinMarks}</th>
+        //                        <th class='text-center'></th>
+        //                        <th class='text-center'>{branch.Sub12_TotalMinMarks}</th>
+        //                        <th class='text-center' colspan='3'></th>
+        //                    </tr>
+
+        //                    <tr>
+        //                    <th class='text-center'>SUB</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB1_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB2_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB3_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB4_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB5_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB6_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB7_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB8_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB9_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB10_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB11_CODE}</th>
+        //                    <th class='text-center' colspan='3'>{branch.SUB12_CODE}</th>
+        //                    <th class='text-center' colspan='3'>RESULT</th>
+        //                </tr>
+        //                <tr>
+        //                    <th class=''colspan='4'>SLNO</th>
+        //                    <th class='' colspan='6'>PIN</th>
+        //                    <th class='' colspan='12'>NAME</th>
+        //                    <th class='' colspan='12'>FATHER NAME</th>
+        //                    <th class='' colspan='3'>SEX</th>
+        //                    <th class='' colspan='3'>RESULT</th>
+        //                </tr>
+        //            </thead>";
+        //                page += @"<tbody>";
+
+        //                for (var i = 0; i < studentdata.Length; i++)
+        //                {
+        //                    tempstudentdata.Add(studentdata[i]);
+        //                    page += $@"<tr>
+        //                            <td class='cln' colspan='4'>{tempstudentdata.Count}</td>
+        //                            <td class='cln' colspan='6'>{studentdata[i].PIN}</td>
+        //                            <td class='cln' colspan='12'>{studentdata[i].NAME}</td>
+        //                            <td class='cln' colspan='12'>{studentdata[i].FATHERNAME ?? "-"}</td>
+        //                            <td class='cln' colspan='3'>{studentdata[i].GENDER ?? "-"}</td>
+        //                            <td class='cln' colspan='3'>{studentdata[i].RESULT}</td>
+        //                        </tr>
+        //                        <tr> 
+        //                            <td class='cln text-center'></td>
+        //                                {tabledata(studentdata[i].SUB1_AWARDED_END_MARKS, studentdata[i].SUB1_AWARDED_SESSIONAL, studentdata[i].SUB1_AWARDED_TOTAL, studentdata[i].R1, studentdata[i].SUB1_P_F)}
+        //                                {tabledata(studentdata[i].SUB2_AWARDED_END_MARKS, studentdata[i].SUB2_AWARDED_SESSIONAL, studentdata[i].SUB2_AWARDED_TOTAL, studentdata[i].R2, studentdata[i].SUB2_P_F)}
+        //                                {tabledata(studentdata[i].SUB3_AWARDED_END_MARKS, studentdata[i].SUB3_AWARDED_SESSIONAL, studentdata[i].SUB3_AWARDED_TOTAL, studentdata[i].R3, studentdata[i].SUB3_P_F)}
+        //                                {tabledata(studentdata[i].SUB4_AWARDED_END_MARKS, studentdata[i].SUB4_AWARDED_SESSIONAL, studentdata[i].SUB4_AWARDED_TOTAL, studentdata[i].R4, studentdata[i].SUB4_P_F)}
+        //                                {tabledata(studentdata[i].SUB5_AWARDED_END_MARKS, studentdata[i].SUB5_AWARDED_SESSIONAL, studentdata[i].SUB5_AWARDED_TOTAL, studentdata[i].R5, studentdata[i].SUB5_P_F)}
+        //                                {tabledata(studentdata[i].SUB6_AWARDED_END_MARKS, studentdata[i].SUB6_AWARDED_SESSIONAL, studentdata[i].SUB6_AWARDED_TOTAL, studentdata[i].R6, studentdata[i].SUB6_P_F)}
+        //                                {tabledata(studentdata[i].SUB7_AWARDED_END_MARKS, studentdata[i].SUB7_AWARDED_SESSIONAL, studentdata[i].SUB7_AWARDED_TOTAL, studentdata[i].R7, studentdata[i].SUB7_P_F)}
+        //                                {tabledata(studentdata[i].SUB8_AWARDED_END_MARKS, studentdata[i].SUB8_AWARDED_SESSIONAL, studentdata[i].SUB8_AWARDED_TOTAL, studentdata[i].R8, studentdata[i].SUB8_P_F)}
+        //                                {tabledata(studentdata[i].SUB9_AWARDED_END_MARKS, studentdata[i].SUB9_AWARDED_SESSIONAL, studentdata[i].SUB9_AWARDED_TOTAL, studentdata[i].R9, studentdata[i].SUB9_P_F)}
+        //                                {tabledata(studentdata[i].SUB10_AWARDED_END_MARKS, studentdata[i].SUB10_AWARDED_SESSIONAL, studentdata[i].SUB10_AWARDED_TOTAL, studentdata[i].R10, studentdata[i].SUB10_P_F)}
+        //                                {tabledata(studentdata[i].SUB11_AWARDED_END_MARKS, studentdata[i].SUB11_AWARDED_SESSIONAL, studentdata[i].SUB11_AWARDED_TOTAL, studentdata[i].R11, studentdata[i].SUB11_P_F)}
+        //                                {tabledata(studentdata[i].SUB12_AWARDED_END_MARKS, studentdata[i].SUB12_AWARDED_SESSIONAL, studentdata[i].SUB12_AWARDED_TOTAL, studentdata[i].R12, studentdata[i].SUB12_P_F)}                                     
+
+        //                            <td class='cln text-center'  colspan='3'>{studentdata[i].AWARDED_TOTAL_TOTAL}</td>
+        //                        </tr>
+        //                        <tr>
+        //                             <td colspan='22'></td>
+        //                             <td colspan='18'>RE: {studentdata[i].RE}</td>
+        //                        </tr>";
+        //                }
+
+        //                page += "</tbody> </table>";
+
+        //                if (tempstudentdata.Count == studentarrdata.Length)
+        //                {
+        //                    page += $@"<div class='row'>
+        //                        <div class='col-md-4'>{branch.SUB1_CODE}-{branch.SUB1_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB2_CODE}-{branch.SUB2_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB3_CODE}-{branch.SUB3_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB4_CODE}-{branch.SUB4_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB5_CODE}-{branch.SUB5_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB6_CODE}-{branch.SUB6_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB7_CODE}-{branch.SUB7_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB8_CODE}-{branch.SUB8_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB9_CODE}-{branch.SUB9_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB10_CODE}-{branch.SUB10_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB11_CODE}-{branch.SUB11_NAME}</div>
+        //                        <div class='col-md-4'>{branch.SUB12_CODE}-{branch.SUB12_NAME}</div>
+        //                    </div>";
+        //                    #endregion
+        //                }
+
+
+        //                #region PageFooter
+        //                page += $@" <div class='sm1-spacer'></div>
+        //                    <div class='btm_line footer'>
+        //                    <div class='col-md-1'>E- ENDEXAM </div> 
+        //                    <div class='col-md-1'>S- SESS</div>
+        //                    <div class='col-md-2'>*- EARLIER PASS</div>
+        //                    <div class='col-md-2'>TOT NO OF CORR: NIL</div>
+        //                    <div class='col-md-1'>ASST.</div>
+        //                    <div class='col-md-1'>SUPDT.</div>
+        //                    <div class='col-md-2'>ASST/SECRETARY.</div>
+        //                    <div class='col-md-2'>CONTROLLER OF EXAMINATION</div>
+        //                </div></div>";
+        //                #endregion
+
+        //                sbString += page;
+        //                sbString += "</body></html>";
+        //                var converter = new HtmlToPdf();
+        //                converter.Options.ExternalLinksEnabled = true;
+        //                converter.Options.DrawBackground = false;
+        //                converter.Options.JavaScriptEnabled = false;
+        //                converter.Options.WebPageWidth = 1024;
+        //                converter.Options.PdfPageSize = PdfPageSize.A4;
+        //                converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+        //                var doc = converter.ConvertHtmlString(sbString);
+        //                path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
+        //                doc.Save(path);
+        //                doc.Close();
+        //                sbString = html;
+        //                pgno++;
+        //            }
+        //            tempstudentdata.Clear();
+        //        }
+        //    }
+        //    return dir_id;
+        //}
+
+
         private void CreateIfMissing(string path)
         {
             bool folderExists = Directory.Exists(path);

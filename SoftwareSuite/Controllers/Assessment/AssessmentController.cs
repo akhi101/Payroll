@@ -322,7 +322,23 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
-
+        [HttpGet, ActionName("GetFeeAcademicYearsActive")]
+        public string GetFeeAcademicYearsActive(string CollegeId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_GetAcademicYearsActive";
+                var dt = dbHandler.ReturnDataSet(StrQuery);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GetAcademicYearsActive", 0, ex.Message);
+                return ex.Message;
+            }
+        }
 
         [HttpGet, ActionName("getAcademicYearsActive")]
         public string getAcademicYearsActive()

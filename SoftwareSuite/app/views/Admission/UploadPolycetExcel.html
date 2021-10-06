@@ -341,6 +341,41 @@ p {
     background-color: #17bc3f;
     border-color: #fff;
 }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #fff !important;
+        cursor: default;
+        background-color: #35a5f1 !important;
+        border: 1px solid #d8d8d8 !important;
+        border-bottom-color: transparent;
+        font-weight: bold;
+    }
+
+    element.style {
+    }
+
+    .cl-details h2 {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Open Sans', sans-serif;
+        background: #5ca0d3;
+        padding: 6px 9px;
+        font-weight: 600;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .myBtn1 {
+        margin-top: 23px;
+        font-size: 12px;
+        padding: 2px;
+        width: 150px;
+        border-radius: 2px;
+    }
+    .active{
+        background-color:#fff!important;
+    }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"></script>
@@ -363,16 +398,31 @@ p {
         <div class="col-md-12">
             <button class="btn bck_btn"><a href="#!/Dashboard/AdmissionDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
-        <div class="col-md-12">
-            <form name="SetDatesForm" ng-submit="submit(CurrentMonthYear)">
-                <div class="base-row" style="padding:15px!important;">
-                    <div class="row">
+        <div id="exTab2" class="container">
+            <ul class="nav nav-tabs">
+                <li class="myBtn active" ng-click="ClearData()">
+                    <a href="#1" data-toggle="tab">Excel Upload</a>
+                </li>
+                <li ng-click="ClearData()">
+                    <a href="#2" data-toggle="tab">Deployment to Master Tables</a>
+                </li>
+                <li ng-click="ClearData()">
+                    <a href="#3" data-toggle="tab">Photos Upload</a>
+                </li>
+            </ul>
 
-                        <div class="col-md-3 form-group">
-                            <label for="sel1">
-                                Academic Year :
-                            </label>
-                            <!--<div class="multiselect">
+            <div class="tab-content ">
+                <div class="tab-pane active" id="1">
+                    <div class="col-md-12">
+                        <form name="SetDatesForm" ng-submit="submit(CurrentMonthYear)">
+                            <div class="base-row" style="padding:15px!important;">
+                                <div class="row">
+
+                                    <div class="col-md-3 form-group">
+                                        <label for="sel1">
+                                            Academic Year :
+                                        </label>
+                                        <!--<div class="multiselect">
                                 <div class="selectBox" ng-click="showAcademicYearCheckboxes()">
                                     <select class="form-control ">
                                         <option ng-blur="closeAcademicYearCheckbox()">Select Academic Year</option>
@@ -389,202 +439,233 @@ p {
 
                                 </div>
                             </div>-->
-                            <select class="form-control" ng-model="AcademicYear" name="StudentType" required
-                                    ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears" >
-                                <option value="" selected>Select Academic Year</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label for="sel1">
-                                Admission Type :
-                            </label>
-                            <select class="form-control" ng-model="AdmissionType" name="StudentType" required
-                                    ng-options="Student.ADMType as Student.ADMType for Student in GetAdmissionTypes">
-                                <option value="" selected>Select Admission Type</option>
-                            </select>
-                        </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-                        <!--<div class="row">
-                            <div id="drop-area">
-                                <form class="my-form">
-                                    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                                    <input type="file" id="File"  class="button" for="fileElem" multiple accept="" onchange="handleFiles(this.files)">
-                                 <label></label>
-                                </form>
-                                <progress id="progress-bar" max=100 value=0></progress>
-                                <div id="gallery" />
-                            </div>
-                        </div>
-                        <div class="note"><strong>Note: I've Removed the ability to actually upload files (it will error out silently since there is no error handler, so it'll still appear to work) because you guys were constantly filling up my Cloudinary account. Please <a href="https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/j6iiupngdmwwwqspjtml">create your own account</a> and replace the "joezim007" and "ujpu6gyk" bits in the JavaScript with your own account's information.</strong></div>-->
-
-                        <div class="col-md-4">
-                            <div id="drop-area">
-                                <!-- <p>Upload multiple files with the file dialog or by drag and drop Excel here</p>-->
-
-                                <div class="form-group">
-                                    <div class="upload-btn-wrapper">
-                                        <button class="btn " style="margin-top:21px;">Choose Excel</button>
-                                        <input type="file" name="File" id="File" accept=".xlsx" sa-file-upload="myFile" />
+                                        <select class="form-control" ng-model="AcademicYear" name="StudentType" required
+                                                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
+                                            <option value="" selected>Select Academic Year</option>
+                                        </select>
                                     </div>
-                                    <label>{{filename}}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" id="myCheck" ng-show="FileContains">
-                            <div id="drop-area">
-
-                                <div class="form-group">
-                                    <div class="upload-btn-wrapper">
-
-                                        <button type="button" style="margin-top:21px;" class="btn btn-primary nextBtn btn-sm pull-left" ng-click="openExcel()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> uploading ">View Table</button>
-                                    </div>
-                                    <!--<label>{{filename}}</label>-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-
-                            <!--    <div id="drop-area">-->
-                            <!-- <p>Click on the beow button to download sample data</p>-->
-                            <div class="form-group">
-                                <button class="btn btn-detail mybtnDetails pull-right" style="margin-top:10px;" ng-click="Download()">
-                                    Download Sample Data
-                                </button>
-                            </div>
-                            <!--</div>-->
-                        </div>
-
-                        <div class="col-xs-12 col-md-o/ffset-3 setting">
-                            <div class="spacer"></div>
-                            <button ng-show="tabledata.length>0" style="margin-bottom: 30px" type="button" class="btn btn-primary nextBtn btn-sm pull-right" ng-click="UploadExcel()"> Upload</button>
-                            <div class="spacer"></div>
-                            <div class="col-md-12">
-                                <!--<div style="width:100%;text-align:center;">
-                                    <img src="../../contents/img/loading.gif" ng-show="loading" width="100" />
-                                </div>-->
-
-                                <div class="container">
-                                    <div class="spreadsheet-container" ng-show="tabledata.length>0">
-                                        <table class="table table-bordered" ng-repeat="table in tabledata">
-                                            <thead>
-                                                <tr class="cb-1">
-                                                    <th style="width: 2%;">S.No</th>
-                                                    <th style="width: 3%;" ng-repeat="column in table.cols">{{column}}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="row in table.rows">
-                                                    <td style="width: 2%;" class="text-left">{{$index + 1}}</td>
-                                                    <td ng-repeat="column in table.cols">{{row[column]}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
+                                    <div class="col-md-3 form-group">
+                                        <label for="sel1">
+                                            Admission Type :
+                                        </label>
+                                        <select class="form-control" ng-model="AdmissionType" name="StudentType" required
+                                                ng-options="Student.ADMType as Student.ADMType for Student in GetAdmissionTypes">
+                                            <option value="" selected>Select Admission Type</option>
+                                        </select>
                                     </div>
                                 </div>
-                               
-                                <!--<div ng-show="tabledata.length<=0 && reload">
-                                    <h3 style="color:green;text-align:center">There is not Data Present in File</h3>
-                                </div>-->
                             </div>
-
-                            <button ng-show="tabledata.length>0" style="margin-top: 30px" type="button" class="btn btn-primary nextBtn btn-sm pull-right" ng-click="UploadExcel()"> Upload</button>
-                        </div>
-        <div class="col-md-12">
-            <div style="width:100%;text-align:center;" ng-show="reload">
-                <img src="../../../contents/img/loading1.gif" width="100" />
-                <h4><b>Loading, Please wait...</b></h4>
-            </div>
-        </div>
-                        <!--<div class="col-md-3" style="margin-top:21px;" id="myCheck" ng-show="FileContains">
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary nextBtn btn-sm pull-left" ng-click="openExcel()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> uploading ">Generate Table</button>
-                            </div>
-                        </div>-->
-                    </div>
-                    <!--<div id="drop-area">
-                        <form class="my-form">
-                            <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
-                            <input type="file" id="fileElem" multiple accept=".xlsx" onchange="handleFiles(this.files)">
-                            <label class="button" for="fileElem">Select some files</label>
                         </form>
                     </div>
+                 
+                    <div class="col-md-4">
+                        <div id="drop-area">
+                            <!-- <p>Upload multiple files with the file dialog or by drag and drop Excel here</p>-->
 
-                    <div id="gallery"></div>-->
+                            <div class="form-group">
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn " style="margin-top:21px;">Choose Excel</button>
+                                    <input type="file" name="File" id="File" accept=".xlsx" sa-file-upload="myFile" />
+                                </div>
+                                <label>{{filename}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="myCheck" ng-show="FileContains">
+                        <div id="drop-area">
 
+                            <div class="form-group">
+                                <div class="upload-btn-wrapper">
 
+                                    <button type="button" style="margin-top:21px;" class="btn btn-primary nextBtn btn-sm pull-left" ng-click="openExcel()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> uploading ">View Table</button>
+                                </div>
+                                <!--<label>{{filename}}</label>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <!--    <div id="drop-area">-->
+                        <!-- <p>Click on the beow button to download sample data</p>-->
+                        <div class="form-group">
+                            <button class="btn btn-detail mybtnDetails pull-right" style="margin-top:10px;" ng-click="Download()">
+                                Download Sample Data
+                            </button>
+                        </div>
+                        <!--</div>-->
+                    </div>
+
+                    <div class="col-xs-12 col-md-o/ffset-3 setting">
+                        <div class="spacer"></div>
+                        <button ng-show="tabledata.length>0" style="margin-bottom: 30px" type="button" class="btn btn-primary nextBtn btn-sm pull-right" ng-click="UploadExcel()"> Upload</button>
+                        <div class="spacer"></div>
+                        <div class="col-md-12">
+                            <!--<div style="width:100%;text-align:center;">
+                    <img src="../../contents/img/loading.gif" ng-show="loading" width="100" />
+                </div>-->
+
+                            <div class="container">
+                                <div class="spreadsheet-container" ng-show="tabledata.length>0">
+                                    <table class="table table-bordered" ng-repeat="table in tabledata">
+                                        <thead>
+                                            <tr class="cb-1">
+                                                <th style="width: 2%;">S.No</th>
+                                                <th style="width: 3%;" ng-repeat="column in table.cols">{{column}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="row in table.rows">
+                                                <td style="width: 2%;" class="text-left">{{$index + 1}}</td>
+                                                <td ng-repeat="column in table.cols">{{row[column]}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <!--<div ng-show="tabledata.length<=0 && reload">
+                    <h3 style="color:green;text-align:center">There is not Data Present in File</h3>
+                </div>-->
+                        </div>
+
+                        <button ng-show="tabledata.length>0" style="margin-top: 30px" type="button" class="btn btn-primary nextBtn btn-sm pull-right" ng-click="UploadExcel()"> Upload</button>
+                    </div>
+                    <div class="col-md-12">
+                        <div style="width:100%;text-align:center;" ng-show="reload">
+                            <img src="../../../contents/img/loading1.gif" width="100" />
+                            <h4><b>Loading, Please wait...</b></h4>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-3" style="margin-top:21px;" id="myCheck" ng-show="FileContains">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary nextBtn btn-sm pull-left" ng-click="openExcel()" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> uploading ">Generate Table</button>
+            </div>
+        </div>-->
+                </div>
+                <div class="tab-pane " id="2">
+                    <div class="col-md-12">
+                        <form name="SetDatesForm1" >
+                            <div class="base-row" style="padding:15px!important;">
+                                <div class="row">
+
+                                    <div class="col-md-3 form-group">
+                                        <label for="sel1">
+                                            Academic Year :
+                                        </label>
+                                        <select class="form-control" ng-model="AcademicYear1" name="StudentType" required
+                                                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
+                                            <option value="" selected>Select Academic Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="sel1">
+                                            Admission Type :
+                                        </label>
+                                        <select class="form-control" ng-model="AdmissionType1" name="StudentType" required
+                                                ng-options="Student.ADMType as Student.ADMType for Student in GetAdmissionTypes">
+                                            <option value="" selected>Select Admission Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-success btn-xs" style="margin-top:21px" ng-click="DeployData()">Deploy to Master Tables</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-success btn-sm" style="margin-top:21px" ng-click="DownloadExcel()">Download Excel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                   
+                   
 
                 </div>
-                <div class="sm-spacer"></div>
-                <div class="sm-spacer"></div>
-                <!---------------------------------------------------------------------------------------->
+                <div class="tab-pane " id="3">
+                   
+                </div>
+            </div>
+        </div>
+                <!--<div id="drop-area">
+                <form class="my-form">
+                    <p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+                    <input type="file" id="fileElem" multiple accept=".xlsx" onchange="handleFiles(this.files)">
+                    <label class="button" for="fileElem">Select some files</label>
+                </form>
+            </div>
 
-                <script>
-                    $(document).ready(function () {
-                        var navListItems = $('div.setup-panel div a'),
-                                allWells = $('.setup-content'),
+            <div id="gallery"></div>-->
+
+
+
+            </div>
+            <div class="sm-spacer"></div>
+            <div class="sm-spacer"></div>
+            <!---------------------------------------------------------------------------------------->
+
+            <script>
+                $(document).ready(function () {
+                    var navListItems = $('div.setup-panel div a'),
+                        allWells = $('.setup-content'),
+                        allNextBtn = $('.nextBtn');
+
+                    allWells.hide();
+
+                    navListItems.click(function (e) {
+
+
+                        e.preventDefault();
+                        var $target = $($(this).attr('href')),
+                            $item = $(this);
+
+                        if (!$item.hasClass('disabled')) {
+
+                            navListItems.removeClass('btn-primary').addClass('btn-default');
+                            $item.addClass('btn-primary').addClass('active')
+                            if ($item.addClass('btn-primary').addClass('active')) {
+                                ($item.addClass('active').addClass('active_btn'))
                                 allNextBtn = $('.nextBtn');
-
-                        allWells.hide();
-
-                        navListItems.click(function (e) {
-
-
-                            e.preventDefault();
-                            var $target = $($(this).attr('href')),
-                                    $item = $(this);
-
-                            if (!$item.hasClass('disabled')) {
-
-                                navListItems.removeClass('btn-primary').addClass('btn-default');
-                                $item.addClass('btn-primary').addClass('active')
-                                if ($item.addClass('btn-primary').addClass('active')) {
-                                    ($item.addClass('active').addClass('active_btn'))
-                                    allNextBtn = $('.nextBtn');
-                                }
-                                $item.addClass('active');
-                                allWells.hide();
-                                $target.show();
-                                $target.find('input:eq(0)').focus();
                             }
-                        });
-
-
-
-                        allNextBtn.click(function () {
-
-                            //validation = true;
-                            //$target.show();
-
-                            var curStep = $(this).closest(".setup-content"),
-                                curStepBtn = curStep.attr("id"),
-                                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                                curInputs = curStep.find("input[type='text'],input[type='url']"),
-                                isValid = true;
-                            $(this).removeClass('active')
-
-                            $(".form-group").removeClass("has-error");
-
-                            for (var i = 0; i < curInputs.length; i++) {
-                                if (!curInputs[i].validity.valid) {
-                                    isValid = false;
-                                    $(curInputs[i]).closest(".form-group").addClass("has-error");
-                                }
-                            }
-
-                            if (isValid)
-                                nextStepWizard.removeAttr('disabled').trigger('click');
-
-                        });
-
-                        $('div.setup-panel div a.btn-primary').trigger('click');
+                            $item.addClass('active');
+                            allWells.hide();
+                            $target.show();
+                            $target.find('input:eq(0)').focus();
+                        }
                     });
 
 
-                </script>
+
+                    allNextBtn.click(function () {
+
+                        //validation = true;
+                        //$target.show();
+
+                        var curStep = $(this).closest(".setup-content"),
+                            curStepBtn = curStep.attr("id"),
+                            nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                            curInputs = curStep.find("input[type='text'],input[type='url']"),
+                            isValid = true;
+                        $(this).removeClass('active')
+
+                        $(".form-group").removeClass("has-error");
+
+                        for (var i = 0; i < curInputs.length; i++) {
+                            if (!curInputs[i].validity.valid) {
+                                isValid = false;
+                                $(curInputs[i]).closest(".form-group").addClass("has-error");
+                            }
+                        }
+
+                        if (isValid)
+                            nextStepWizard.removeAttr('disabled').trigger('click');
+
+                    });
+
+                    $('div.setup-panel div a.btn-primary').trigger('click');
+                });
+
+
+            </script>
 
 
         </div>

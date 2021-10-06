@@ -57,47 +57,63 @@
         $scope.pin = "";
         SCHEMESEMINFO.then(function (data) {
             if (data.length > 0) {
+                $scope.schemeinf = []
                 $scope.schemeinfo = data;
-                $scope.schemeinfo = [{ schemeid: 5, scheme: "C18" }, { schemeid: 2, scheme: "ER91" }]
-                $scope.EnableEdit = false;
+                //$scope.schemeinfo = [{ schemeid: 5, scheme: "C18" }, { schemeid: 2, scheme: "ER91" }, { schemeid: 9, scheme: "C21" }, { schemeid: 10, scheme: "ER2020" }]
 
+                for (var i = 0; i < $scope.schemeinfo.length; i++) {
+                    if ($scope.schemeinfo[i].ActiveFlag == true) {
+                        $scope.schemeinf.push($scope.schemeinfo[i]);
+
+                    }
+                }
             }
         }, function (error) {
             alert(error);
         });
 
-        var LoadActiveSemesters = PreExaminationService.getActiveSemester();
-        LoadActiveSemesters.then(function (response) {
-            $scope.ActiveSemesters = response.Table;
-            //   $scope.ActiveSemesters = [{ semid: 2, sem: "2SEM" }, { semid: 4, sem: "4SEM" }]
-            $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
-        }, function (error) {
-            alert("error while loading semesters");
-            var err = JSON.parse(error);
-            console.log(err.Message);
-        });
+        $scope.ChangeSemester = function () {
+            var LoadActiveSemesters = PreExaminationService.getActiveSemester();
+            LoadActiveSemesters.then(function (response) {
+                $scope.ActiveSems = [];
+                $scope.ActiveSemesters = response.Table;
+                console.log($scope.ActiveSemesters)
+                //   $scope.ActiveSemesters = [{ semid: 2, sem: "2SEM" }, { semid: 4, sem: "4SEM" }]
+                // $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
+                for (var i = 0; i < $scope.ActiveSemesters.length; i++) {
+                    if ($scope.ActiveSemesters[i].current_schemeid == $scope.scheme) {
+                        $scope.ActiveSems.push($scope.ActiveSemesters[i]);
 
-        $scope.ChangeSemester = function (SchemeId) {
-
-            $scope.StudentId = 1;
-            var LoadSemByScheme = AcademicService.getSemBySchemes($scope.StudentId, SchemeId)
-            LoadSemByScheme.then(function (response) {
-                if (response.length > 0) {
-                    $scope.ActiveSemesters = response;
-
-                } else {
-                    // $scope.Examtypes = [];
-                    alert("No Sem found on this Record");
+                    }
                 }
-
-            },
-                function (error) {
-                    alert("error while loading Semesters");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
-
+                // console.log( $scope.ActiveSems )
+            }, function (error) {
+                alert("error while loading semesters");
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
         }
+        // $scope.ChangeSemester = function (SchemeId) {
+
+        //     $scope.StudentId = 1;
+        //     var LoadSemByScheme = AcademicService.getSemBySchemes($scope.StudentId, SchemeId)
+        //     LoadSemByScheme.then(function (response) {
+        //         if (response.length > 0) {
+        //             $scope.ActiveSemesters = response;
+
+        //         } else {
+        //             // $scope.Examtypes = [];
+        //             alert("No Sem found on this Record");
+        //         }
+
+        //     },
+        //         function (error) {
+        //             alert("error while loading Semesters");
+        //             var err = JSON.parse(error);
+        //             console.log(err.Message);
+        //         });
+
+        // }
 
         $scope.facultyChange = function (subjectId) {
             for (var i = 0; i < $scope.mappedsubjects.length; i++) {

@@ -147,12 +147,13 @@
                             //     });
 
                             response.data = response.data.data.SystemUser[0];
-                           // console.log(response.data)
+                            console.log(response.data)
                             try {
                                 $localStorage.authorizationData = {
                                     token: $localStorage.authToken,
                                     SysUserID: response.data.UserId,
                                     College_Code: response.data.CollegeCode,
+                                    BranchCode: response.data.BranchCode,
                                     College_Name: response.data.CollegeName,
                                     CollegeType: response.data.collegeType,
                                     SystemUserTypeId: response.data.UserTypeId,
@@ -165,7 +166,7 @@
                                     SectionId: "",
                                     SchemeId: "",
                                     SemesterId: "",
-                                    BranchCode: "",
+                                    //BranchCode: "",
                                     AcademicId: response.data.AcademicId,
                                     percentage: "",
                                     TypeFlag: response.data.TypeFlag,

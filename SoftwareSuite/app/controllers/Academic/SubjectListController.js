@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("SubjectListController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, AssessmentService, AcademicService) {
+    app.controller("SubjectListController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, AssessmentService, AcademicService, PreExaminationService) {
 
         //$scope.subjectList = [
         //    { Id: "1", Subject: "English" },
@@ -67,7 +67,7 @@
                 $scope.schemeLabel($scope.SelectedschemeId.SchemeID);
                 $scope.semLabel($scope.SelectedschemeId.SchemeID, $scope.SelectedsemId.semid);
                 $scope.ChangeSemester();
-                $scope.SubmitData();
+                //$scope.SubmitData();
             } else {
                 $localStorage.authorizationData.tempsessiondata = {};
                 var SessionData = {
@@ -103,32 +103,32 @@
             // For Getting Sem for 
 
             $scope.StudentId = 1;
-            var LoadSemByScheme = AcademicService.getSemBySchemes($scope.StudentId, schemeId, "")
-            LoadSemByScheme.then(function (response) {
-                if (response.length > 0) {
-                    if ($scope.SelectedschemeId.SchemeID == 5) {
-                        $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
-                    } else if ($scope.SelectedschemeId.SchemeID == 2) {
-                        $scope.ActiveSemesters = [{ semid: 9, sem: "1YR" }, { semid: 8, sem: "2YR" }]
-                    }
+            //var LoadSemByScheme = AcademicService.getSemBySchemes($scope.StudentId, schemeId, "")
+            //LoadSemByScheme.then(function (response) {
+            //    if (response.length > 0) {
+            //        if ($scope.SelectedschemeId.SchemeID == 5) {
+            //            $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
+            //        } else if ($scope.SelectedschemeId.SchemeID == 2) {
+            //            $scope.ActiveSemesters = [{ semid: 9, sem: "1YR" }, { semid: 8, sem: "2YR" }]
+            //        }
                   
-                    var SemList = $scope.ActiveSemesters;
-                    SemList.forEach(function (sem) {
-                        if (semid === sem.semid) {
-                            $scope.loadedSem = sem;
-                        }
-                    });
-                } else {
-                    // $scope.Examtypes = [];
+            //        var SemList = $scope.ActiveSemesters;
+            //        SemList.forEach(function (sem) {
+            //            if (semid === sem.semid) {
+            //                $scope.loadedSem = sem;
+            //            }
+            //        });
+            //    } else {
+            //        // $scope.Examtypes = [];
 
-                }
+            //    }
 
-            },
-                function (error) {
-                    alert("error while loading Semesters");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
+            //},
+            //    function (error) {
+            //        alert("error while loading Semesters");
+            //        var err = JSON.parse(error);
+            //        console.log(err.Message);
+            //    });
 
         }
 
@@ -137,7 +137,17 @@
         $scope.getSchemes = function () {
             var LoadActiveSchemes = AcademicService.getSchemes();
             LoadActiveSchemes.then(function (response) {
-               // $scope.getActiveSchemes = response.Table;
+                $scope.schemeinfo = response.Table;
+                $scope.schemeinf = []
+                //$scope.schemeinfo = data;
+                //$scope.schemeinfo = [{ schemeid: 5, scheme: "C18" }, { schemeid: 2, scheme: "ER91" }, { schemeid: 9, scheme: "C21" }, { schemeid: 10, scheme: "ER2020" }]
+
+                for (var i = 0; i < $scope.schemeinfo.length; i++) {
+                    if ($scope.schemeinfo[i].ActiveFlag == true) {
+                        $scope.schemeinf.push($scope.schemeinfo[i]);
+
+                    }
+                }
             },
                 function (error) {
 
@@ -147,31 +157,28 @@
         }
 
 
-        $scope.ChangeSemester = function (SchemeId) {
-            // var SchemeData = JSON.parse(SchemeId);
-            // $scope.SchemeID = SchemeData.SchemeID;
-            $localStorage.authorizationData.tempsessiondata.SchemeID = $scope.SelectedschemeId.SchemeID;
-            $scope.schemeLabel($scope.SelectedschemeId.SchemeID);
-            //   $scope.Scheme = SchemeData.Scheme;          
-            $scope.StudentId = 1;
-            var LoadSemByScheme = AcademicService.getSemBySchemes($scope.StudentId, $scope.SelectedschemeId.SchemeID, $scope.semId)
-            LoadSemByScheme.then(function (response) {
-                if (response.length > 0) {
-                    $scope.ActiveSemesters = response;
-                   // $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
-                    $scope.shifts = [{ shiftid: 1, shiftName: "Shift 1" }, { shiftid: 2, shiftName: "Shift 2" }]
-                } else {
-                    // $scope.Examtypes = [];
-                    alert("No Sem found on this Record");
+
+        $scope.ChangeSemester = function () {
+            var LoadActiveSemesters = PreExaminationService.getActiveSemester();
+            LoadActiveSemesters.then(function (response) {
+              
+                $scope.ActiveSemesters = response.Table;
+                $scope.ActiveSems = [];
+                console.log($scope.ActiveSemesters)
+                //   $scope.ActiveSemesters = [{ semid: 2, sem: "2SEM" }, { semid: 4, sem: "4SEM" }]
+                // $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
+                for (var i = 0; i < $scope.ActiveSemesters.length; i++) {
+                    if ($scope.ActiveSemesters[i].current_schemeid == $scope.SelectedschemeId.SchemeID) {
+                        $scope.ActiveSems.push($scope.ActiveSemesters[i]);
+
+                    }
                 }
-
-            },
-                function (error) {
-                    alert("error while loading Semesters");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
-
+                // console.log( $scope.ActiveSems )
+            }, function (error) {
+                alert("error while loading semesters");
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
         }
 
         $scope.SubmitData = function () {

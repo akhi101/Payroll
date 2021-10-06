@@ -14,6 +14,14 @@ namespace SoftwareSuite
         protected void Application_BeginRequest()
         {
             Response.AddHeader("X-Frame-Options", "DENY");
+            HttpContext.Current.Request.Headers.Add("X-Content-Type-Options", "nosniff");
+            //Response.AddHeader("X-Content-Type-Options", "DENY");
+            //Response.AddHeader("X-Frame-Options", "DENY");
+            //Response.AddHeader("X-Frame-Options", "DENY");
+            Response.Headers.Remove("Server");
+            Response.Headers.Remove("X-AspNet-Version");
+            Response.Headers.Remove("X-AspNetMvc-Version"); 
+                //Response.Headers.Remove("X-AspNet-Version");
         }
         protected void Application_Start()
         {

@@ -45,7 +45,7 @@
                             <option value="" selected>
                                 Select Scheme
                             </option>
-                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.schemeid}}">
+                            <option ng-repeat="scheme in schemeinf" value="{{scheme.schemeid}}">
                                 {{scheme.scheme}}
                             </option>
                         </select>
@@ -58,7 +58,7 @@
                     <div class="">
                         <select class="form-control" name="semister" required ng-model="semester">
                             <option value="" selected>Select Semester</option>
-                            <option ng-repeat="sem in ActiveSemesters" value="{{sem.semid}}">
+                            <option ng-repeat="sem in ActiveSems" value="{{sem.semid}}">
                                 {{sem.sem}}
                             </option>
                         </select>

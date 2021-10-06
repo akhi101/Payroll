@@ -15,7 +15,10 @@
             console.log(paramObject)
             var promise = DataAccessService.postData('api/Attendance/UpdateStudentAttendance', paramObject);
             return promise;
-        },
+            },
+
+          
+            
         this.GetAttendenceDataByBranchWise = function (CollegeId, Scheme, AcademicYearId,Semester,Branch,percentage) {
             var paramObject = { "CollegeId": CollegeId, "Scheme": Scheme, "semester": Semester, "Branch": Branch, "percentage": percentage, "AcademicId": AcademicYearId };
             var promise = DataAccessService.getDataWithPara('api/Attendance/GetAttendenceDataByBranchWise', paramObject);

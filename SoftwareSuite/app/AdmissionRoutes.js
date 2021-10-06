@@ -2031,6 +2031,7 @@
                 templateUrl: 'app/views/MasterSettings/MasterMandal.html',
                 dependencies: ['controllers/MasterSettings/MasterMandalController', 'services/MasterSettings/MasterPageService']
             },
+           
 
             'Dashboard.Academic': {
                 url: "/Academic",
@@ -2113,7 +2114,7 @@
             'Dashboard.Academic.SubjectsList': {
                 url: "/SubjectsList",
                 templateUrl: 'app/views/Academic/SubjectsList.html',
-                dependencies: ['controllers/Academic/SubjectListController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/Assessment/AssessmentService', 'services/Academic/AcademicService']
+                dependencies: ['controllers/Academic/SubjectListController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/Assessment/AssessmentService', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService']
             },
 
             'Dashboard.Academic.SubjectsFacultyList': {
@@ -2456,6 +2457,12 @@
             },
 
             // Admission module
+
+            'Dashboard.UserManual': {
+                url: "/UserManual",
+                templateUrl: 'app/views/UserManual.html',
+                dependencies: ['controllers/UserManualController', 'services/Assessment/MarksEntryService', 'services/Assessment/AssessmentService', 'services/Academic/ElectivesService', 'services/SystemAdministration/SystemUserService']
+            },
 
             'Dashboard.TypeWriting': {
                 url: "/TypeWriting",

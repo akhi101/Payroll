@@ -123,7 +123,8 @@
                 if ($scope.login.password !== null && $scope.login.userName !== null) {
 
                     var data = $crypto.encrypt($scope.login.password, $scope.loginEKey) + "$$@@$$" + $crypto.encrypt($scope.login.userName, $scope.loginEKey) + "$$@@$$" + $scope.loginEKey;
-                    $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {                     
+                    $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {
+                        //console.log(response)
                         $scope.LoadImg = true;
                         var UserRights = [];
                         sessionStorage.loggedIn = "yes";
@@ -146,7 +147,7 @@
                             //     });
 
                             response.data = response.data.data.SystemUser[0];
-                            // console.log(response.data)
+                             //console.log(response.data)
                             try {
                                 $localStorage.authorizationData = {
                                     token: $localStorage.authToken,
@@ -156,6 +157,7 @@
                                     SystemUserTypeId: response.data.UserTypeId,
                                     userName: $scope.login.userName.toUpperCase(),
                                     CollegeID: response.data.CollegeId,
+                                    BranchCode: response.data.BranchCode,
                                     BranchId: response.data.BranchId,
 
                                     CollegeCatName: "",
@@ -163,7 +165,7 @@
                                     SectionId: "",
                                     SchemeId: "",
                                     SemesterId: "",
-                                    BranchCode: "",
+                                    //BranchCode: "",
                                     AcademicId: "",
                                     percentage: "",
                                     TypeFlag: response.data.TypeFlag,

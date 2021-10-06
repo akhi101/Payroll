@@ -32,7 +32,7 @@
 
         $scope.sessioninfo = [{ session: "SESSION 1", val: 1 }, { session: "SESSION 2", val: 2 }]
 
-        $scope.C18tanList = [{ Name: "Only C18 Subjects", val: 1 }, { Name: "C18 Tantalized Subjects", val: 0 }]
+        $scope.C18tanList = [{ Name: "Only C18 Subjects", val: 1 }, { Name: "C18 Tantalized Subjects", val: 2 }]
 
 
         const $ctrl = this;

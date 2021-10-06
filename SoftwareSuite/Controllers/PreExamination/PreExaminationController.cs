@@ -1424,6 +1424,61 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        
+            [HttpGet, ActionName("GetNICData")]
+        public string GetNICData()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_SFP_GET_NIC_DATA";
+                DataSet ds = dbHandler.ReturnDataSet(StrQuery);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    var PolycetYear = ds.Tables[1].Rows[0]["PolycetYear"].ToString();
+                    var filename = PolycetYear +"-"+"NIC_DATA"+ ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GET_NIC_DATA", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("GetNBAReports2Excel")]
         public string GetNBAReports2Excel()
         {
@@ -3944,8 +3999,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_OSDES_NR_BAC_test", param);
                 var NrData = DataTableHelper.ConvertDataTable<OsdesNrData>(ds.Tables[1]);
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200" && NrData.Count>0)
-                {                 
+                {
+#pragma warning disable CS0162 // Unreachable code detected
                     for (var i = 0; i < NrData.Count; i++)
+#pragma warning restore CS0162 // Unreachable code detected
+
                     {
                         using (HttpClient client = new HttpClient())
                         {
@@ -4163,6 +4221,8 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
+                //var base64EncodedBytes = System.Convert.FromBase64String(OTP);
+                //var password=  System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@Pin", Pin);
@@ -4305,18 +4365,18 @@ namespace SoftwareSuite.Controllers.PreExamination
         
 
         [HttpGet, ActionName("GetTcApprovalListByScheme")]
-        public string GetTcApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode)
+        public string GetTcApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode,string BranchCode= null)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@Scheme", Scheme);
                 param[1] = new SqlParameter("@datatype", datatype);
                 param[2] = new SqlParameter("@userType", userType);
                 param[3] = new SqlParameter("@CollegeCode", CollegeCode);
-
+                param[4] = new SqlParameter("@BranchCode", BranchCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_TcApprovalListByScheme", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -4749,6 +4809,43 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpPost, ActionName("GetAttendance")]
+        public IDictionary<String, string> GetAttendance([FromBody] JsonObject request)
+        {
+          
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["JSON"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                var tmp = new Dictionary<String, string>();
+                for (int i = 0; i < js.Count; i++)
+                {
+                  
+
+                    //var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    //jsonArray.Add(jobject);
+                    var clientUrl = ConfigurationManager.AppSettings["BMA_API_ROOT"];
+                    var client = new RestClient(clientUrl);
+                    string apiparams = "/getstatus?attendeeid=" + js[i];
+                    var req = new RestRequest(apiparams, Method.POST);
+                    req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                     var data = client.Post(req);
+                    tmp.Add(js[i].ToString(), JsonConvert.SerializeObject(data.Content));
+                   
+                }
+
+                return tmp;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
         [HttpPost, ActionName("TcSetApprove")]
         public string TcSetApprove([FromBody] JsonObject request)
         {
@@ -4948,7 +5045,7 @@ namespace SoftwareSuite.Controllers.PreExamination
           
 
                     var dbHandler = new dbHandler();
-                var param = new SqlParameter[31];
+                var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@SNO", request["SNO"]);
                 param[1] = new SqlParameter("@UserName", request["UserName"]);
                 param[2] = new SqlParameter("@NAME", request["NAME"]);
@@ -4956,30 +5053,33 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@FNAME", request["FNAME"]);
                 param[5] = new SqlParameter("@CEN", request["CEN"]);
                 param[6] = new SqlParameter("@CEN_NAME", request["CEN_NAME"]);
-                param[7] = new SqlParameter("@PIN", request["PIN"]);
-                param[8] = new SqlParameter("@MAX_MARKS_1YR", request["MAX_MARKS_1YR"]);
-                param[9] = new SqlParameter("@TOTAL1", request["TOTAL1"]);
-                param[10] = new SqlParameter("@TOTAL1_25", request["TOTAL1_25"]);
-                param[11] = new SqlParameter("@MAX_MARKS_3SEM", request["MAX_MARKS_3SEM"]);
-                param[12] = new SqlParameter("@TOTAL3S", request["TOTAL3S"]);
-                param[13] = new SqlParameter("@MAX_MARKS_4SEM", request["MAX_MARKS_4SEM"]);
-                param[14] = new SqlParameter("@TOTAL4S", request["TOTAL4S"]);
-                param[15] = new SqlParameter("@MAX_MARKS_5SEM", request["MAX_MARKS_5SEM"]);
-                param[16] = new SqlParameter("@TOTAL5S", request["TOTAL5S"]);
-                param[17] = new SqlParameter("@MAX_MARKS_6SEM", request["MAX_MARKS_6SEM"]);
-                param[18] = new SqlParameter("@TOTAL6S", request["TOTAL6S"]);
-                param[19] = new SqlParameter("@MAX_MARKS_7SEM", request["MAX_MARKS_7SEM"]);
-                param[20] = new SqlParameter("@TOTAL7S", request["TOTAL7S"]);
-                param[21] = new SqlParameter("@GRAND_TOTAL", request["GRAND_TOTAL"]);
-                param[22] = new SqlParameter("@PER", request["PER"]);
-                param[23] = new SqlParameter("@scheme", request["scheme"]);
-                param[24] = new SqlParameter("@MAX_MARKS_1SEM", request["MAX_MARKS_1SEM"]);
-                param[25] = new SqlParameter("@TOTAL1S", request["TOTAL1S"]);
-                param[26] = new SqlParameter("@TOTAL1S_25", request["TOTAL1S_25"]);
-                param[27] = new SqlParameter("@MAX_MARKS_2SEM", request["MAX_MARKS_2SEM"]);
-                param[28] = new SqlParameter("@TOTAL2S", request["TOTAL2S"]);
-                param[29] = new SqlParameter("@TOTAL2S_25", request["TOTAL2S_25"]); 
-               param[30] = new SqlParameter("@MONTH_YEAR", request["MONTH_YEAR"]);
+                param[7] = new SqlParameter("@CEN_ADDRESS", request["CEN_ADDRESS"]);
+                param[8] = new SqlParameter("@PIN", request["PIN"]);
+                param[9] = new SqlParameter("@COURSE", request["COURSE"]);
+                param[10] = new SqlParameter("@BR", request["BR"]);
+                param[11] = new SqlParameter("@MAX_MARKS_1YR", request["MAX_MARKS_1YR"]);
+                param[12] = new SqlParameter("@TOTAL1", request["TOTAL1"]);
+                param[13] = new SqlParameter("@TOTAL1_25", request["TOTAL1_25"]);
+                param[14] = new SqlParameter("@MAX_MARKS_3SEM", request["MAX_MARKS_3SEM"]);
+                param[15] = new SqlParameter("@TOTAL3S", request["TOTAL3S"]);
+                param[16] = new SqlParameter("@MAX_MARKS_4SEM", request["MAX_MARKS_4SEM"]);
+                param[17] = new SqlParameter("@TOTAL4S", request["TOTAL4S"]);
+                param[18] = new SqlParameter("@MAX_MARKS_5SEM", request["MAX_MARKS_5SEM"]);
+                param[19] = new SqlParameter("@TOTAL5S", request["TOTAL5S"]);
+                param[20] = new SqlParameter("@MAX_MARKS_6SEM", request["MAX_MARKS_6SEM"]);
+                param[21] = new SqlParameter("@TOTAL6S", request["TOTAL6S"]);
+                param[22] = new SqlParameter("@MAX_MARKS_7SEM", request["MAX_MARKS_7SEM"]);
+                param[23] = new SqlParameter("@TOTAL7S", request["TOTAL7S"]);
+                param[24] = new SqlParameter("@GRAND_TOTAL", request["GRAND_TOTAL"]);
+                param[25] = new SqlParameter("@PER", request["PER"]);
+                param[26] = new SqlParameter("@scheme", request["scheme"]);
+                param[27] = new SqlParameter("@MAX_MARKS_1SEM", request["MAX_MARKS_1SEM"]);
+                param[28] = new SqlParameter("@TOTAL1S", request["TOTAL1S"]);
+                param[29] = new SqlParameter("@TOTAL1S_25", request["TOTAL1S_25"]);
+                param[30] = new SqlParameter("@MAX_MARKS_2SEM", request["MAX_MARKS_2SEM"]);
+                param[31] = new SqlParameter("@TOTAL2S", request["TOTAL2S"]);
+                param[32] = new SqlParameter("@TOTAL2S_25", request["TOTAL2S_25"]); 
+               param[33] = new SqlParameter("@MONTH_YEAR", request["MONTH_YEAR"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_UpdateStudentODCDetailsByPin", param);
 
                 return JsonConvert.SerializeObject(dt);
@@ -5062,7 +5162,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //    jsonArray.Add(jobject);
                 //}
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[16];
+                var param = new SqlParameter[18];
                 param[0] = new SqlParameter("@Pin", request["Pin"]);
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@admittedDate", request["admittedDate"]);
@@ -5079,6 +5179,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[13] = new SqlParameter("@LeftClass", request["LeftClass"]);
                 param[14] = new SqlParameter("@Station", request["Station"]);
                 param[15] = new SqlParameter("@AdmissionNo", request["AdmissionNo"]);
+                param[16] = new SqlParameter("@IdMark1", request["IdMark1"]);
+                param[17] = new SqlParameter("@IdMark2", request["IdMark2"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Tc_Admin_ApproveStatus", param);
                 //string Msg = "PIN : {0}, Your application Request for name correction is Approved, Secretary, SBTETTS.";
                 //string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
@@ -9195,7 +9297,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@Pin", Pin);
                 param[1] = new SqlParameter("@CertificateTypeId", CertificateTypeId);
                 param[2] = new SqlParameter("@Id", Id);
@@ -11219,6 +11321,71 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpPost, ActionName("DeployNicData")]
+        public string DeployNicData([FromBody] JsonObject json)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+
+
+
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearId", json["AcademicYearId"].ToString());
+                param[1] = new SqlParameter("@AdmissionType", json["AdmissionType"].ToString());
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_WebServicePolycetStudentsDataInMasterTables", param);
+
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "400")
+                {
+                    DataSet excelds = new DataSet();
+                    excelds.Tables.Add(dt.Tables[1].Copy());
+                    var filename = "DuplicatePolycetData" + "_" + Guid.NewGuid() + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(excelds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    //return "{\"ResponceCode\":\"400\",\"ResponceDescription\" : \"" + "/Downloads/" + filename + "\"}";
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                }
+                else
+                {
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                }
+
+
+                //return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ADM_SET_UploadPolycetStudentsDataInMasterTables", 0, ex.Message);
+                p1.file = "";
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
+            }
+
+        }
+
         [HttpPost, ActionName("uploadJsonExcel")]
         public string uploadJsonExcel([FromBody] JsonObject json)
         {
@@ -12384,6 +12551,9 @@ namespace SoftwareSuite.Controllers.PreExamination
                 dbHandler.SaveErorr("USP_SFP_GET_Seating_Plan_Data", 0, ex.Message);
                 return "ERROR: " + ex.Message;
             }
+          
         }
+
     }
+
 }
