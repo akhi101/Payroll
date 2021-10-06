@@ -163,7 +163,7 @@ define(['app'], function (app) {
                 $scope.NrGenerating = false;
                 alert("Please Select All Details");
             }
-            var gerNrexcelData = PreExaminationService.PrinterNrDownloadExcelReport($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, $scope.semarr);
+            var gerNrexcelData = PreExaminationService.PrinterNrDownloadExcelReport($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, JSON.stringify($scope.semarr));
             gerNrexcelData.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 10) {
@@ -182,7 +182,8 @@ define(['app'], function (app) {
                 $scope.NrGenerating = false;
                 alert("Please Select All Details");
             }
-            var gerNrData = PreExaminationService.PrinterNrDownload($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, $scope.semarr);
+            //console.log($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, JSON.stringify($scope.semarr))
+            var gerNrData = PreExaminationService.PrinterNrDownload($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, JSON.stringify($scope.semarr));
             gerNrData.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 10) {

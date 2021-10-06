@@ -9,7 +9,12 @@
             var promise = DataAccessService.getDataAll('Assessment/getAcademicYearsActive');
             return promise;
         };
-        
+
+        this.getFeeAcademicYearsActive = function () {
+            var promise = DataAccessService.getDataAll('Assessment/GetFeeAcademicYearsActive');
+            return promise;
+        };
+
         this.getSchemeWiseExamTypes = function (AcademicYearId, StudentTypeId, schemeid, SemId, ExamMonthYearId) {
            
             var parmObject = {

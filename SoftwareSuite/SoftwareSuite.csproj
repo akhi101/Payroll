@@ -302,6 +302,7 @@
     <Compile Include="Controllers\PreExamination\PreExaminationReportController.cs" />
     <Compile Include="Controllers\PreExamination\SeatingPlan.cs" />
     <Compile Include="Controllers\PreExamination\SeatingPlanGenerator.cs" />
+    <Compile Include="Controllers\PreExamination\StudentViewModel.cs" />
     <Compile Include="Controllers\PreExamination\TimeTableGeneratorController.cs" />
     <Compile Include="Controllers\PreExamination\WebKitConverterSettings.cs" />
     <Compile Include="Controllers\Results\ExportdataController.cs" />
@@ -1289,6 +1290,7 @@
     <Content Include="app\controllers\TWSH\ViewAuthorizationController.js" />
     <Content Include="app\controllers\TWSH\ViewAuthorizationDetailsController.js" />
     <Content Include="app\controllers\UploadExcelController.js" />
+    <Content Include="app\controllers\UserManualController.js" />
     <Content Include="app\customControls\customControls.module.js" />
     <Content Include="app\customControls\sa-amount\sa-amount.directive.js" />
     <Content Include="app\customControls\sa-amount\sa-amount.html" />
@@ -2819,6 +2821,7 @@
     <Content Include="app\views\TWSH\ViewAuthorizationDetails.html" />
     <Content Include="app\views\TWSH\ViewDocument.html" />
     <Content Include="app\views\UploadExcel.html" />
+    <Content Include="app\views\UserManual.html" />
     <Content Include="assets\cont\css\fontello.css" />
     <Content Include="assets\cont\font\fontello.svg" />
     <Content Include="assets\css\animate.css" />

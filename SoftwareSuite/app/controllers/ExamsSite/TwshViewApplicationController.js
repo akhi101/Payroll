@@ -109,7 +109,7 @@
                     $scope.MotherName = ApplicationDetails[0].MotherName;
                     //$scope.FatherName = ApplicationDetails[0].FatherName;
                     $scope.DateOfBirth = ApplicationDetails[0].DateOfBirth;
-                    $scope.CandidateNameDOB = ApplicationDetails[0].DateOfBirth;
+                    $scope.CandidateNameDOB1 = ApplicationDetails[0].DateOfBirth;
                     $scope.Gender = ApplicationDetails[0].Gender;
                     $scope.ApplicationNumber = ApplicationDetails[0].ApplicationNumber;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
@@ -175,7 +175,7 @@
                     $scope.FatherName = ApplicationDetails[0].FatherName;
                     $scope.MotherName = ApplicationDetails[0].MotherName;
                     $scope.DateOfBirth = ApplicationDetails[0].DateOfBirth;
-                    $scope.CandidateNameDOB = ApplicationDetails[0].DateOfBirth;
+                    $scope.CandidateNameDOB1 = ApplicationDetails[0].DateOfBirth;
                     $scope.Gender = ApplicationDetails[0].Gender;
                     $scope.ApplicationNumber = ApplicationDetails[0].ApplicationNumber;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
@@ -296,7 +296,7 @@
 
             var UpdateData = TwshStudentRegService.updatStudentDetails($scope.ApplicatioNo, $scope.userPhotos, $scope.stdSscCert,
                 $scope.StdinterCert, $scope.SelectedDistrictId.Id, $scope.HnoStreet, $scope.VillageTown, $scope.EmailId, $scope.ExamDate,
-                $scope.Name, $scope.FatherName, $scope.MotherName, $scope.Gender, $scope.CandidateNameDOB, $scope.IsBlind, $scope.GradeId, $scope.exambatch, $scope.ExamCenterId,
+                $scope.Name, $scope.FatherName, $scope.MotherName, $scope.Gender, $scope.CandidateNameDOB1, $scope.IsBlind, $scope.GradeId, $scope.exambatch, $scope.ExamCenterId,
                 $scope.StudentPhoneNumber);
             UpdateData.then(function (response) {
 

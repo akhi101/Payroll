@@ -122,7 +122,7 @@
                                                     <th style="width: 10%" ng-click="sort('DateOfBirth')">Birth Date <i class="fa fa-fw fa-sort"></i></th>
                                                     <th style="width: 10%" ng-click="sort('ADMType')">AdmissionType <i class="fa fa-fw fa-sort"></i></th>
                                                     <th style="width: 10%">Aadhaar Status</th>
-                                                    <th style="width: 10%" ng-show="SystemUserTypeId==1">Generate Pin</th>
+                                                    <th style="width: 10%" ng-show="SystemUserTypeId==1||SystemUserTypeId==1014">Generate Pin</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -138,7 +138,7 @@
                                                     <td ng-show="x.AadharVerfied==false">
                                                         <a class="notVerify" ng-click="showAadhaarModal(x.StudentId)">Pending</a>
                                                     </td>
-                                                    <td ng-show="SystemUserTypeId ==1">
+                                                    <td ng-show="SystemUserTypeId ==1||SystemUserTypeId==1014">
                                                         <b class="clrRed" ng-click="GeneratePin(x.StudentId)" title="Click to Generate Pin" ng-show="x.Pin==''||x.Pin==null">Generate Pin</b>
                                                         <b class="ClrGreen" ng-show="x.Pin!=''&&x.Pin!=null">Pin Generated</b>
                                                     </td>

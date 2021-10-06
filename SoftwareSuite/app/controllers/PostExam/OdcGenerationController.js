@@ -32,7 +32,24 @@
          function (error) {
              alert("error while loading Exam Month Years");
              console.log(error);
-         });
+            });
+
+        
+
+        var Branches = PreExaminationService.getAllBranches();
+        Branches.then(function (response) {
+            if (response.Table.length > 0) {
+                $scope.getAllBranches = response.Table;
+
+            } else {
+                $scope.getAllBranches = [];
+                alert("No Branchs found.");
+            }
+        },
+            function (error) {
+                alert("error while loading Exam Month Years");
+                console.log(error);
+            });
 
         $scope.Editsemesterdat = function (data, ind) {
 
@@ -97,7 +114,7 @@
                 ele2[j].style['-moz-appearance'] = "none";
             }
             //console.log(data, $scope.OdcData[0].NAME)
-            var OdcDetails = PreExaminationService.UpdateOdcDataByPin($scope.OdcData.SNO, $scope.userName, $scope.OdcData.NAME, $scope.OdcData.SEX, $scope.OdcData.FNAME, $scope.OdcData.CEN, $scope.OdcData.CEN_NAME, $scope.OdcData.PIN, $scope.OdcData.MAX_MARKS_1YR, $scope.OdcData.TOTAL1, $scope.OdcData.TOTAL1_25, $scope.OdcData.MAX_MARKS_3SEM, $scope.OdcData.TOTAL3S, $scope.OdcData.MAX_MARKS_4SEM, $scope.OdcData.TOTAL4S,
+            var OdcDetails = PreExaminationService.UpdateOdcDataByPin($scope.OdcData.SNO, $scope.userName, $scope.OdcData.NAME, $scope.OdcData.SEX, $scope.OdcData.FNAME, $scope.OdcData.CEN, $scope.OdcData.CEN_NAME, $scope.OdcData.CEN_ADDRESS, $scope.OdcData.PIN, $scope.OdcData.COURSE, $scope.OdcData.BR, $scope.OdcData.MAX_MARKS_1YR, $scope.OdcData.TOTAL1, $scope.OdcData.TOTAL1_25, $scope.OdcData.MAX_MARKS_3SEM, $scope.OdcData.TOTAL3S, $scope.OdcData.MAX_MARKS_4SEM, $scope.OdcData.TOTAL4S,
                 $scope.OdcData.MAX_MARKS_5SEM, $scope.OdcData.TOTAL5S, $scope.OdcData.MAX_MARKS_6SEM, $scope.OdcData.TOTAL6S, $scope.OdcData.MAX_MARKS_7SEM, $scope.OdcData.TOTAL7S, $scope.OdcData.GRAND_TOTAL, $scope.OdcData.PER, $scope.OdcData.scheme, $scope.OdcData.MAX_MARKS_1SEM, $scope.OdcData.TOTAL1S, $scope.OdcData.TOTAL1S_25, $scope.OdcData.MAX_MARKS_2SEM, $scope.OdcData.TOTAL2S, $scope.OdcData.TOTAL2S_25, $scope.OdcData.MONTH_YEAR== null?null: $scope.OdcData.MONTH_YEAR.toUpperCase())
             OdcDetails.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }

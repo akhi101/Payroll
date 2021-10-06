@@ -1174,7 +1174,7 @@
                     if (data.length > 0) {
                         let aadhaarVerStudPin = data[0].PIN == null || data[0].PIN == '' || data[0].PIN == 'undefined' ? $scope.PIN : data[0].PIN;
                         $scope.getattedIdbyPin(aadhaarVerStudPin);
-                        alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);
+                    //    alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);
                         $scope.attendeId = $scope.getattedIdbyPin(aadhaarVerStudPin);
                         if (data[0].PINSTATUS == 1 && ($scope.attendeId == null || $scope.attendeId == 'undefined')) {
                             alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);

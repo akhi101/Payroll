@@ -349,7 +349,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
 
             public string PIN { get; set; }
-            public string Studentid { get; set; }
+            public int Studentid { get; set; }
         }
 
             [HttpGet, ActionName("PrinterNrDownload")]
@@ -375,7 +375,9 @@ namespace SoftwareSuite.Controllers.PreExamination
                 DataSet Photods = dbHandler.ReturnDataWithStoredProcedure("USP_GET_NRForPrinterPinListForPhotos", param2);
                 var path = ConfigurationManager.AppSettings["StudentPhotosFolder"].ToString();
                 CreateIfMissing(path);
-                var DipomaPrinterNrData = DataTableHelper.ConvertDataTable<NRPhotosData>(Photods.Tables[0]);
+                var DipomaPrinterNrData = DataTableHelper.ConvertDataTable<NRPhotosData>(Photods.Tables[1]);
+                //var DipomaPrinterNrData = DataTableHelper.ConvertDataTable<NRPhotosData>(Photods.Tables[1]);
+
                 if (DipomaPrinterNrData.Count > 0) {
                     var Photos = DipomaPrinterNrData.Select(x => new { x.PIN, x.Studentid }).Distinct().ToList();
                     foreach (var stu in Photos)

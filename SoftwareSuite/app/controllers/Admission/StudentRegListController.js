@@ -489,27 +489,81 @@
                             // console.log(attendee);
                             if (attendee.respcode == "200") {
                                 alert(attendee.respdesc + " Use the following Attendee Id for attendance: " + attendee.attdid);
+                                $scope.GetStudentDetailsForAdmission()
                                 $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                                 $scope.modalInstance.close();
                             } else if (attendee.respcode === "409") {
                                 alert(attendee.respdesc + " with AtendeeId: " + attendee.attdid);
+                                $scope.GetStudentDetailsForAdmission()
                             } else {
                                 alert(attendee.respdesc);
+                                $scope.GetStudentDetailsForAdmission()
                                 $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                             }
                         },
                         function (error) {
+                            $scope.GetStudentDetailsForAdmission()
                             //alert("Error thrown by: ABAS");
                             // console.log(error);
                         }
                     );
                 },
                     function (error) {
+                        $scope.GetStudentDetailsForAdmission()
                         alert(error);
                     });
             }
 
         };
+
+        $scope.GetStudentDetailsForAdmission = function () {
+            var StudentRegdata = StudentRegService.GetAdmissionPinReports($scope.College_Code, Branch, Semester, AcademicYear, dataFormatTypeId);
+            StudentRegdata.then(function (data) {
+                $scope.$emit('hideLoading', data);
+                //    $scope.LoadImg = false;
+                $scope.StudentRegListFound = true;
+                if (data.length > 0) {
+                    var SrNo = 1
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].StuRegSrNo = SrNo;
+                        SrNo = SrNo + 1;
+                    }
+                    $scope.StudentRegList = data;
+                    console.log($scope.StudentRegList);
+                    let temp = [];
+                    temp = data;
+                    temp.forEach(function (student) {
+                        if (student.AttendeeId === null && student.PIN !== null && student.AadharVerfied === true) {
+                            student.AttendeeId = 'Generate AttendeeId';
+                        } else if (student.AttendeeId !== null && student.PIN !== null && student.AadharVerfied === false) {
+                            student.AttendeeId = 'Do Aadhaar kyc';
+                        } else if (student.AttendeeId === '' || student.AttendeeId === null) {
+                            student.AttendeeId = '-';
+                        } else if (student.AttendeeId !== '' || student.AttendeeId !== null) {
+                            student.AttendeeId = student.AttendeeId;
+                        }
+                        return student;
+                    });
+
+                    $scope.filteredData = temp;
+                    $scope.attendeeId = [];
+
+
+                }
+                else {
+                    alert("Data Not Found");
+                    $state.go('Dashboard.AdmissionDashboard.Admission');
+                    $scope.StudentRegList = [];
+                    $scope.$emit('hideLoading', data);
+                    return;
+
+                }
+            }, function (error) {
+                alert(error);
+                $scope.$emit('hideLoading', data);
+            });
+        }
+
 
         $scope.GeneratePin = function (studentId) {
 
@@ -1107,9 +1161,9 @@
             };
             StudentRegService.RegisterBmaAttendee(reqData).then(
                 function (data) {
-                    console.log(data);
-                    var attendee = JSON.parse(data);
-                    console.log(attendee);
+                //    console.log(data);
+                    var attendee = data;
+                  //  console.log(attendee);
                     if (attendee.respcode == "200") {
                         alert(attendee.respdesc + " Use the following Attendee Id for attendance: " + attendee.attdid);
                         $scope.attdid = attendee.attdid;
@@ -1120,18 +1174,22 @@
                         getPromise.then(function (data) {
                             if (data.respcode == "200") {
                                 alert("SMS is send to the registered mobile number");
+                                $scope.GetStudentDetailsForAdmission()
                             }
                         }, function (err) {
                             alert("error");
+                            $scope.GetStudentDetailsForAdmission()
                         });
                         $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                         //$state.go('Dashboard');
                         $scope.modalInstance.close();
                     } else if (attendee.respcode == "409") {
                         alert(attendee.respdesc + " with AtendeeId: " + attendee.attdid);
+                        $scope.GetStudentDetailsForAdmission()
                     } else {
                         alert(attendee.respdesc);
                         $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
+                        $scope.GetStudentDetailsForAdmission()
                     }
                 },
                 function (error) {

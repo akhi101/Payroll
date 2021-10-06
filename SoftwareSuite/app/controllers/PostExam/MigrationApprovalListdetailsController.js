@@ -555,17 +555,20 @@
                     if (response.Table[0].ResponseCode == '200') {
                         alert(response.Table[0].ResponseDescription)
                         $scope.btndisable = false;
+                        $scope.closeModal()
                         $scope.getlist();
 
                     } else if (response.Table[0].ResponseCode == '400') {
                         alert(response.Table[0].ResponseDescription)
                         $scope.btndisable = false;
+                        $scope.closeModal()
                         $scope.getlist();
                     }
                     else {
                         //$scope.$emit('hideLoading', data);
                         $scope.Data = false;
                         $scope.Nodata = true;
+                        $scope.closeModal()
 
                     }
                     //alert("Success")
@@ -577,6 +580,7 @@
 
                         $scope.Data = false;
                         $scope.Nodata = true;
+                        $scope.closeModal()
                         alert("error while loading data");
                     });
             } else {

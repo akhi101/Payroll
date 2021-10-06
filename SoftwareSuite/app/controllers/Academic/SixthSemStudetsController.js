@@ -2,7 +2,7 @@
     app.controller("SixthSemStudentsController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, $uibModal, AcademicService) {
 
         var authData = $localStorage.authorizationData;
-        //console.log(authData)
+        console.log(authData)
         $scope.userName = authData.userName;
         $scope.CollegeCode = authData.College_Code;
         AppSettings.College_Name = authData.College_Name;
@@ -12,10 +12,13 @@
         $scope.BranchId = authData.BranchId;
         $scope.CollegeID = authData.CollegeID;
         $scope.AcademicId = authData.AcademicId;
-        //$scope.AcademicId = 6
+        if ($scope.AcademicId == null || $scope.AcademicId == undefined || $scope.AcademicId == 0) {
+            $scope.AcademicId = 12
+        }
+
         $scope.timeslotlist = [{ Id: true, val: 'Yes' }, { Id: false, val: 'No' }];
 
-        
+
         $scope.PinsList = [];
         $scope.changeCenter = function (data) {
             if (data.Is6thSemStudied == true) {
@@ -34,12 +37,12 @@
                 $scope.PinsList.map((obj) => {
                     if (obj.pin == data.PIN) {
                         obj.Is6thSemStudied = Is6thSemStudied;
-                       
+
                         tempId.push(data.PIN);
                     }
                     else if (obj.pin != data.PIN && !tempId.includes(data.PIN)) {
                         //  console.log(data.internal)
-                        var marksdata = $scope.pushData(data.PIN,Is6thSemStudied);
+                        var marksdata = $scope.pushData(data.PIN, Is6thSemStudied);
 
                         tempId.push(data.PIN);
                         $scope.PinsList.push(marksdata);
@@ -56,7 +59,7 @@
         $scope.pushData = function (pin, Is6thSemStudied) {
             return {
                 pin: pin,
-                Is6thSemStudied: Is6thSemStudied,  
+                Is6thSemStudied: Is6thSemStudied,
             };
         }
 
@@ -66,7 +69,7 @@
             //console.log(data)
             $scope.AcademicYears = data.Table;
         }, function (error) {
-           
+
             console.log(error);
         });
         $scope.LoadImg = true;
@@ -82,7 +85,7 @@
                 $scope.Result = false;
                 $scope.Noresult = true;
             }
-            
+
         }, function (error) {
             $scope.LoadImg = false;
             //alert(error);
@@ -91,26 +94,26 @@
         });
 
         $scope.ChangeSData = function () {
-        $scope.LoadImg = true;
-        var getSixthSemStudents = AcademicService.GetSixthSemStudentsData($scope.CollegeCode, $scope.BranchId, $scope.AcademicId);
-        getSixthSemStudents.then(function (data) {
-            if (data.length > 0) {
-                $scope.Semdata = data;
+            $scope.LoadImg = true;
+            var getSixthSemStudents = AcademicService.GetSixthSemStudentsData($scope.CollegeCode, $scope.BranchId, $scope.AcademicId);
+            getSixthSemStudents.then(function (data) {
+                if (data.length > 0) {
+                    $scope.Semdata = data;
+                    $scope.LoadImg = false;
+                    $scope.Result = true;
+                    $scope.Noresult = false;
+                } else {
+                    $scope.LoadImg = false;
+                    $scope.Result = false;
+                    $scope.Noresult = true;
+                }
+
+            }, function (error) {
                 $scope.LoadImg = false;
-                $scope.Result = true;
-                $scope.Noresult = false;
-            } else {
-                $scope.LoadImg = false;
+                console.log(error);
                 $scope.Result = false;
                 $scope.Noresult = true;
-            }
-
-        }, function (error) {
-            $scope.LoadImg = false;
-            console.log(error);
-            $scope.Result = false;
-            $scope.Noresult = true;
-        });
+            });
 
         }
 
@@ -127,16 +130,16 @@
                 } else if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription);
                 }
-                
+
             },
-            function (error) {
-                alert("error while Saving Data");
-                var err = JSON.parse(error);
-                  console.log(err.Message);
-                $scope.loading = false;
-                //$scope.Noresult = true;
-                $scope.result = false;
-            });
+                function (error) {
+                    alert("error while Saving Data");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                    $scope.loading = false;
+                    //$scope.Noresult = true;
+                    $scope.result = false;
+                });
         }
 
         $scope.SubmitData = function () {
@@ -155,17 +158,17 @@
                 } else if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription);
                 }
-               
+
 
             },
-            function (error) {
-                alert("error while Submitting Data");
-                var err = JSON.parse(error);
-                   console.log(err.Message);
-                $scope.loading = false;
-                $scope.Noresult = true;
-                $scope.result = false;
-            });
+                function (error) {
+                    alert("error while Submitting Data");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                    $scope.loading = false;
+                    $scope.Noresult = true;
+                    $scope.result = false;
+                });
         }
 
     })

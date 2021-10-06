@@ -3,11 +3,14 @@
         $scope.btndisable = false;
         $scope.MyCheck = false;
         var authData = $localStorage.authorizationData;
+     
         $scope.UserTypeId = authData.SystemUserTypeId;
         $scope.sscVerified = false;
         $scope.ApproveType = $localStorage.CertificateData.ApproveType;
         $scope.Scheme = $localStorage.CertificateData.Scheme;
         $scope.College_Code = authData.College_Code;
+        $scope.BranchCode = authData.BranchCode;
+        
         var PaymentStudent = [];
         var PaymentStudentList = [];
         $scope.buttonlabel = "Approve";
@@ -250,7 +253,7 @@
             });
 
         $scope.GetApprovalDetails = function () {
-            var ApproveList = PreExaminationService.GetTcApprovalDetails($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code);
+            var ApproveList = PreExaminationService.GetTcApprovalDetails($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code, $scope.BranchCode);
             ApproveList.then(function (response) {
                 var response = JSON.parse(response)
                 console.log(response);
@@ -786,9 +789,10 @@
             }
             var stuconduct = $scope.StudentDetails.Conduct == null || $scope.StudentDetails.Conduct == undefined ? '' : $scope.StudentDetails.Conduct
             var ApproveStatus = 1
+            //console.log($scope.StudentDetails.IdMark1, $scope.StudentDetails.IdMark2)
             var Approve = PreExaminationService.TcSetApproveStatus($scope.StudentDetails.Pin, $scope.UserTypeId, moment($scope.StudentDetails.admittedDate).format('DD-MM-YYYY'), moment($scope.StudentDetails.LeftDate).format('DD-MM-YYYY'), $scope.StudentDetails.CollegeDuesPaid,
                 parseInt($scope.StudentDetails.ReligionId), $scope.StudentDetails.Nationality, parseInt($scope.StudentDetails.CasteId), moment($scope.StudentDetails.Dateofbirth).format('DD-MM-YYYY'), $scope.StudentDetails.MotherName,
-                $scope.StudentDetails.Promoted, stuconduct, $scope.StudentDetails.StudentRemarks, $scope.StudentDetails.LeftClass, $scope.StudentDetails.Station, $scope.StudentDetails.AdmissionNo);
+                $scope.StudentDetails.Promoted, stuconduct, $scope.StudentDetails.StudentRemarks, $scope.StudentDetails.LeftClass, $scope.StudentDetails.Station, $scope.StudentDetails.AdmissionNo, $scope.StudentDetails.IdMark1, $scope.StudentDetails.IdMark2);
 
             Approve.then(function (response) {
 

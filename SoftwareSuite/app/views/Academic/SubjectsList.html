@@ -22,11 +22,11 @@
                 <form>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Scheme:</label>
+                            <label class="font-weight-bold">Scheme: </label>
                             <div class="">
 
-                                <select class="form-control" ng-model="SelectedschemeId" ng-change="ChangeSemester(SelectedschemeId)"
-                                        ng-options="data.Scheme for data in getActiveSchemes track by data.SchemeID">
+                                <select class="form-control" ng-model="SelectedschemeId" ng-change="ChangeSemester()"
+                                        ng-options="data.Scheme for data in schemeinf track by data.SchemeID">
                                     <option value="" selected>Select Scheme</option>
                                 </select>
                                 <!--<select class="form-control" ng-model="SelectedschemeId" ng-change="ChangeSemester(SelectedschemeId)"
@@ -47,7 +47,7 @@
                             <label class="font-weight-bold">Semester:</label>
                             <div class="">
                                 <select class="form-control" ng-model="SelectedsemId" 
-                                        ng-options="sem.sem for sem in ActiveSemesters track by sem.semid">
+                                        ng-options="sem.sem for sem in ActiveSems track by sem.semid">
                                     <option value="" selected>Select Semester</option>
                                 </select>
 

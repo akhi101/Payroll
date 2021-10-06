@@ -466,7 +466,7 @@
                         <div class="col-md-6">: {{userData.PercentageOfMarks}}</div>
 
                     </div>
-                    <div class="row userRow" ng-show="Certificate == 2">
+                    <div class="row userRow" ng-show="Certificate == 2 && userData.SchemeId!=5">
                         <div class="col-md-4 font_bold">Class</div>
                         <div class="col-md-6">: {{userData.Class}}</div>
 
@@ -488,14 +488,14 @@
                         <div class="col-md-6">
                             :{{userData.Religion == null|| userData.Religion == ""?"-":userData.Religion}}
                             <!--<select ng-model="Religion" name="Reason">
-                                <option value="" selected>Select Religion</option>
-                                <option ng-repeat="data in Religions" value="{{data.ReligionId}}">
-                                    {{data.Religion}}
-                                </option>
-                            </select>-->
+                <option value="" selected>Select Religion</option>
+                <option ng-repeat="data in Religions" value="{{data.ReligionId}}">
+                    {{data.Religion}}
+                </option>
+            </select>-->
                         </div>
-  </div>
-             
+                    </div>
+
                     <div class="row userRow" ng-show="Certificate==6">
                         <div class="col-md-4 font_bold">Nationality</div>
                         <div class="col-md-6">
@@ -509,25 +509,25 @@
                         <div class="col-md-6">
                             :{{userData.Caste == null|| userData.Caste == ""?"-":userData.Caste}}
                             <!--<select ng-model="Caste" name="Reason">
-                                <option value="" selected>Select Caste</option>
-                                <option ng-repeat="data in Castes" value="{{data.CasteID}}">
-                                    {{data.CasteName}}
-                                </option>
-                            </select>-->
+                <option value="" selected>Select Caste</option>
+                <option ng-repeat="data in Castes" value="{{data.CasteID}}">
+                    {{data.CasteName}}
+                </option>
+            </select>-->
                         </div>
-</div>
-                   
+                    </div>
+
                     <div class="row userRow" ng-show="Certificate==6">
                         <div class="col-md-4 font_bold">Date of birth</div>
                         <div class="col-md-3">
 
                             :{{userData.Dateofbirth}}
                             <!--<p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="userData.Dateofbirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="userData.Dateofbirth" is-open="showFlag1" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
-                                </span>
-                            </p>-->
+                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="userData.Dateofbirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="userData.Dateofbirth" is-open="showFlag1" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                </span>
+            </p>-->
                         </div>
                     </div>
 
@@ -559,12 +559,12 @@
                     </div>
 
                     <!--<div class="row userRow" ng-show="Certificate==6">
-                        <div class="col-md-4 font_bold">Upload No Due</div>
-                        <div class="col-md-6">
-                            <input type="file" id="stdNodue" ng-model="userPhoto" onchange="angular.element(this).scope().uploadNoDue()" accept="image/*" class="upld-file" required>
+        <div class="col-md-4 font_bold">Upload No Due</div>
+        <div class="col-md-6">
+            <input type="file" id="stdNodue" ng-model="userPhoto" onchange="angular.element(this).scope().uploadNoDue()" accept="image/*" class="upld-file" required>
 
-                        </div>
-                    </div>-->
+        </div>
+    </div>-->
                     <div class="row userRow" ng-show="Certificate==3">
                         <div class="col-md-4 font_bold">Universities Applied</div>
                         <div class="col-md-6">
@@ -651,13 +651,13 @@
                         </div>
                     </div>
                     <!--<div class="row userRow" ng-show="Certificate==5">
-                        <div class="col-md-4 font_bold">
-                            <span ng-if="Certificate==5">View Principal Covering Letter</span>
-                        </div>
-                        <div class="col-md-6">
-                            <img ng-src="{{wesfile}}" style="border: 2px solid #ddd;" height="175" width="150" id="WesCertData" />
-                        </div>
-                    </div>-->
+        <div class="col-md-4 font_bold">
+            <span ng-if="Certificate==5">View Principal Covering Letter</span>
+        </div>
+        <div class="col-md-6">
+            <img ng-src="{{wesfile}}" style="border: 2px solid #ddd;" height="175" width="150" id="WesCertData" />
+        </div>
+    </div>-->
                     <div class="row userRow" ng-show="Certificate==5 ">
                         <div class="col-md-4 font_bold">
                             <span ng-if="Certificate==5">Upload Principal Covering Letter</span>
@@ -693,9 +693,9 @@
                         </div>
                     </div>
                     <!--<div class="col-md-6">
-                            <img ng-src="{{Affidavate1}}" style="border: 2px solid #ddd;" height="175" width="150" id="ViewAffidiate" />
-                        </div>
-                    </div>-->
+            <img ng-src="{{Affidavate1}}" style="border: 2px solid #ddd;" height="175" width="150" id="ViewAffidiate" />
+        </div>
+    </div>-->
                     <div class="row userRow" ng-show="Certificate== 5 || Certificate== 8">
                         <div class="col-md-4 font_bold">
                             <span ng-if="Certificate==5">
@@ -745,6 +745,10 @@
                     <div class="row userRow" ng-show="(Certificate == 2 && userData.SchemeId==5)|| (Certificate == 1 && userData.SchemeId==5)">
                         <div class="col-md-4 font_bold">Total Credits Earned</div>
                         <div class="col-md-6">: {{userData.TotalCreditsEarned == null ? '-': userData.TotalCreditsEarned}}</div>
+                    </div>
+                    <div class="row userRow" ng-show="(Certificate == 2 && userData.SchemeId==5)|| (Certificate == 1 && userData.SchemeId==5)">
+                        <div class="col-md-4 font_bold">Division</div>
+                        <div class="col-md-6">: {{userData.Class == null ? '-': userData.Class}}</div>
                     </div>
                     <div class="row userRow">
                         <div class="col-md-4 font_bold required">Verify Mobile Number here</div>

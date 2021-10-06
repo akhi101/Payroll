@@ -1331,7 +1331,7 @@
                         alert('Please Select Certificate.');
                         return;
                     }
-                    $scope.BonafideType
+                  
                     if ($scope.OldSudent) {
                         if ($scope.Gender == undefined || $scope.Gender == '' || $scope.Gender == null) {
                             alert('Please select Gender.');

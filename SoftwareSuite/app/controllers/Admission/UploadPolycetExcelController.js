@@ -116,6 +116,71 @@
                 document.getElementById('gallery').appendChild(img)
             }
         }
+
+        $scope.DeployData = function () {
+            alert()
+            var uploadJson = PreExaminationService.DeployNicData($scope.AcademicYear1, $scope.AdmissionType1);
+            uploadJson.then(function (res) {
+                var data = JSON.parse(res);
+                if (data[0].ResponceCode == '400') {
+                    alert(data[0].ResponceDescription)
+                    //alert('Data Already Inserted, Please check the downloaded Excel for more details')
+                    var location = data[0].file;
+                    window.location.href = location;
+
+                } else if (data[0].ResponceCode == '200') {
+                    alert(data[0].ResponceDescription)
+                    $scope.reload = false;
+                    $('#upldfile').val(null);
+                    $('#File').val(null);
+                    $scope.filename = '';
+                    $scope.myFile = '';
+                }
+                else {
+                    $scope.reload = false;
+                    $('#upldfile').val(null);
+                    $('#File').val(null);
+                    $scope.filename = '';
+                    $scope.myFile = '';
+                    alert('Something Went Wrong')
+                }
+                //$scope.tabledata;
+            }, function (error) {
+
+                $scope.ResultNotFound = true;
+                $scope.Result = false;
+                $scope.LoadImg = false;
+            });
+        }
+
+        $scope.DownloadExcel = function () {
+            var getpdfTimeTableData = PreExaminationService.GetNICData();
+            getpdfTimeTableData.then(function (data) {
+                $scope.gentmetbl = false;
+                var res = JSON.parse(data)
+                if (res[0].ResponceCode =='200') {
+                    
+                        $scope.Result = true;
+                    var location = res[0].file;
+                   // console.log(location)
+                        window.location.href = location;
+
+                   
+                } else {
+                    alert("Data not Available");
+                }
+                $scope.ResultNotFound = false;
+                $scope.ResultFound = false;
+                $scope.LoadImg = false;
+
+
+            }, function (error) {
+                $scope.gentmetbl = false;
+                $scope.ResultNotFound = true;
+                $scope.Result = false;
+                $scope.LoadImg = false;
+            });
+        }
        
        
         $scope.SampleData =[{"sbtet_code":"",
@@ -897,9 +962,14 @@
         //}, function (error) {
         //    alert(error);00000000000000000000004
         //});
+
+
+
         $scope.validate = function () {
             $scope.getTable = true;
         }
+
+       
 
     });
 

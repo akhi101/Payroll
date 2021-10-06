@@ -680,7 +680,7 @@
                         $scope.Exceldat = $scope.Exceldata[0]
 
                         var tempArray = ["Pin", "SubjectCode", "Mid1Marks", "Mid1MaxMarks", "Mid2Marks", "Mid2MaxMarks", "Mid3Marks", "Mid3MaxMarks", "InternalMarks", "InternalMaxMarks"
-                        , "EndMarks", "EndMaxMarks","IndustryName"];
+                            , "EndMarks", "EndMaxMarks", "IndustryName","MpRule"];
                         var keysMached = false;
                         for (let q = 0; q < Object.keys($scope.Exceldat[0]).length; q++) {
                             if (tempArray.includes(Object.keys($scope.Exceldat[0])[q])) {
@@ -1223,7 +1223,7 @@
                     "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Mid1Marks": element.Mid1Marks, "Mid1MaxMarks": element.Mid1MaxMarks,
                     "Mid2Marks": element.Mid2Marks, "Mid2MaxMarks": element.Mid2MaxMarks, "Mid3Marks": element.Mid3Marks,
                     "Mid3MaxMarks": element.Mid3MaxMarks, "InternalMarks": element.InternalMarks, "InternalMaxMarks": element.InternalMaxMarks,
-                    "EndMarks": element.EndMarks, "EndMaxMarks": element.EndMaxMarks,"IndustryName":element.IndustryName
+                    "EndMarks": element.EndMarks, "EndMaxMarks": element.EndMaxMarks, "IndustryName": element.IndustryName, "MpRule": element.MpRule
                     
                 }
                 $scope.filteredArray.push(obj)

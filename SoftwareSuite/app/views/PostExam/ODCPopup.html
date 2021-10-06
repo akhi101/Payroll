@@ -132,7 +132,7 @@
                 <div class="col-md-2 font_bold">Passed Class</div>
                 <div class="col-md-10">: {{ODCstudData.PassedClass}}</div>
             </div>
-            
+
             <div class="row padRow">
                 <div class="col-md-2 font_bold">Name of the Institution</div>
                 <div class="col-md-10">: {{ODCstudData.CollegeCode}}-{{ODCstudData.CollegeName}},{{ODCstudData.CollegeAddress}}</div>
@@ -145,6 +145,10 @@
             <div class="row padRow" ng-show="ODCstudData.Scheme=='C18'">
                 <div class="col-md-2 font_bold">Total Credits Earned</div>
                 <div class="col-md-10">: {{ODCstudData.TotalCreditsEarned}}</div>
+            </div>
+            <div class="row padRow" ng-show="ODCstudData.Scheme=='C18'">
+                <div class="col-md-2 font_bold">Division</div>
+                <div class="col-md-10">: {{ODCstudData.Class}}</div>
             </div>
             <div class="table-responsive customtable" ng-show="Odcmarkstable.length>0">
                 <table class="table table-bordered">
@@ -212,169 +216,169 @@
             </div>
 
             <!--<div class="table-responsive customtable">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="1" rowspan="2" id="tbl_head1">Subject Code</th>
-                        <th colspan="1" rowspan="2" id="tbl_head1">Subject</th>
-                        <th colspan="3" rowspan="1" id="tbl_head1">Max Marks</th>
-                        <th colspan="3" rowspan="1" id="tbl_head1">Marks Awarded</th>
-                        <th colspan="1" rowspan="2" id="tbl_head1">Remarks</th>
-                    </tr>
-                    <tr>
-                        <th colspan="1" id="tbl_head1"><b>End Exam</b></th>
-                        <th colspan="1" id="tbl_head1"><b>Sessional</b></th>
-                        <th colspan="1" id="tbl_head1"><b>Total</b></th>
-                        <th colspan="1" id="tbl_head1"><b>End Exam</b></th>
-                        <th colspan="1" id="tbl_head1"><b>Sessional</b></th>
-                        <th colspan="1" id="tbl_head1"><b>Total</b></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-show="memostudData.R1 != null">
-                        <td colspan="1">{{memostudData.SUB1_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB1_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB1_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB1_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB1_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB1_P_F=='__'}">{{memostudData.SUB1_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB1_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB1_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R1}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R2 != null">
-                        <td colspan="1">{{memostudData.SUB2_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB2_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB2_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB2_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB2_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB2_P_F=='__'}">{{memostudData.SUB2_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB2_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB2_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R2}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R3 != null">
-                        <td colspan="1">{{memostudData.SUB3_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB3_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB3_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB3_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB3_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB3_P_F=='__'}">{{memostudData.SUB3_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB3_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB3_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R3}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R4 != null">
-                        <td colspan="1">{{memostudData.SUB4_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB4_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB4_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB4_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB4_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB4_P_F=='__'}">{{memostudData.SUB4_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB4_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB4_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R4}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R5 != null">
-                        <td colspan="1">{{memostudData.SUB5_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB5_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB5_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB5_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB5_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB5_P_F=='__'}">{{memostudData.SUB5_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB5_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB5_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R5}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R6 != null">
-                        <td colspan="1">{{memostudData.SUB6_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB6_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB6_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB6_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB6_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB6_P_F=='__'}">{{memostudData.SUB6_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB6_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB6_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R6}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R7 != null">
-                        <td colspan="1">{{memostudData.SUB7_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB7_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB7_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB7_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB7_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB7_P_F=='__'}">{{memostudData.SUB7_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB7_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB7_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R7}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R8 != null">
-                        <td colspan="1">{{memostudData.SUB8_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB8_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB8_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB8_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB8_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB8_P_F=='__'}">{{memostudData.SUB8_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB8_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB8_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R8}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R9 != null">
-                        <td colspan="1">{{memostudData.SUB9_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB9_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB9_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB9_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB9_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB9_P_F=='__'}">{{memostudData.SUB9_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB9_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB9_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R9}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R10 != null">
-                        <td colspan="1">{{memostudData.SUB10_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB10_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB10_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB10_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB10_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB10_P_F=='__'}">{{memostudData.SUB10_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB10_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB10_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R10}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R11 != null">
-                        <td colspan="1">{{memostudData.SUB11_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB11_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB11_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB11_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB11_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB11_P_F=='__'}">{{memostudData.SUB11_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB11_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB11_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R11}}</td>
-                    </tr>
-                    <tr ng-show="memostudData.R12 != null">
-                        <td colspan="1">{{memostudData.SUB12_CODE}}</td>
-                        <td colspan="1">{{memostudData.SUB12_NAME}}</td>
-                        <td colspan="1">{{memostudData.SUB12_MAX_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB12_MAX_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB12_MAX_TOTAL}}</td>
-                        <td colspan="1" ng-class="{'status_css':memostudData.SUB12_P_F=='__'}">{{memostudData.SUB12_AWARDED_END_MARKS}}</td>
-                        <td colspan="1">{{memostudData.SUB12_AWARDED_SESSIONAL}}</td>
-                        <td colspan="1">{{memostudData.SUB12_AWARDED_TOTAL}}</td>
-                        <td colspan="1">{{memostudData.R12}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="1" rowspan="2" id="tbl_head1">Subject Code</th>
+                    <th colspan="1" rowspan="2" id="tbl_head1">Subject</th>
+                    <th colspan="3" rowspan="1" id="tbl_head1">Max Marks</th>
+                    <th colspan="3" rowspan="1" id="tbl_head1">Marks Awarded</th>
+                    <th colspan="1" rowspan="2" id="tbl_head1">Remarks</th>
+                </tr>
+                <tr>
+                    <th colspan="1" id="tbl_head1"><b>End Exam</b></th>
+                    <th colspan="1" id="tbl_head1"><b>Sessional</b></th>
+                    <th colspan="1" id="tbl_head1"><b>Total</b></th>
+                    <th colspan="1" id="tbl_head1"><b>End Exam</b></th>
+                    <th colspan="1" id="tbl_head1"><b>Sessional</b></th>
+                    <th colspan="1" id="tbl_head1"><b>Total</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="memostudData.R1 != null">
+                    <td colspan="1">{{memostudData.SUB1_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB1_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB1_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB1_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB1_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB1_P_F=='__'}">{{memostudData.SUB1_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB1_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB1_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R1}}</td>
+                </tr>
+                <tr ng-show="memostudData.R2 != null">
+                    <td colspan="1">{{memostudData.SUB2_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB2_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB2_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB2_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB2_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB2_P_F=='__'}">{{memostudData.SUB2_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB2_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB2_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R2}}</td>
+                </tr>
+                <tr ng-show="memostudData.R3 != null">
+                    <td colspan="1">{{memostudData.SUB3_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB3_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB3_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB3_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB3_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB3_P_F=='__'}">{{memostudData.SUB3_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB3_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB3_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R3}}</td>
+                </tr>
+                <tr ng-show="memostudData.R4 != null">
+                    <td colspan="1">{{memostudData.SUB4_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB4_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB4_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB4_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB4_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB4_P_F=='__'}">{{memostudData.SUB4_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB4_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB4_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R4}}</td>
+                </tr>
+                <tr ng-show="memostudData.R5 != null">
+                    <td colspan="1">{{memostudData.SUB5_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB5_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB5_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB5_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB5_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB5_P_F=='__'}">{{memostudData.SUB5_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB5_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB5_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R5}}</td>
+                </tr>
+                <tr ng-show="memostudData.R6 != null">
+                    <td colspan="1">{{memostudData.SUB6_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB6_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB6_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB6_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB6_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB6_P_F=='__'}">{{memostudData.SUB6_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB6_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB6_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R6}}</td>
+                </tr>
+                <tr ng-show="memostudData.R7 != null">
+                    <td colspan="1">{{memostudData.SUB7_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB7_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB7_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB7_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB7_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB7_P_F=='__'}">{{memostudData.SUB7_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB7_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB7_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R7}}</td>
+                </tr>
+                <tr ng-show="memostudData.R8 != null">
+                    <td colspan="1">{{memostudData.SUB8_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB8_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB8_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB8_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB8_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB8_P_F=='__'}">{{memostudData.SUB8_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB8_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB8_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R8}}</td>
+                </tr>
+                <tr ng-show="memostudData.R9 != null">
+                    <td colspan="1">{{memostudData.SUB9_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB9_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB9_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB9_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB9_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB9_P_F=='__'}">{{memostudData.SUB9_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB9_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB9_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R9}}</td>
+                </tr>
+                <tr ng-show="memostudData.R10 != null">
+                    <td colspan="1">{{memostudData.SUB10_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB10_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB10_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB10_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB10_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB10_P_F=='__'}">{{memostudData.SUB10_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB10_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB10_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R10}}</td>
+                </tr>
+                <tr ng-show="memostudData.R11 != null">
+                    <td colspan="1">{{memostudData.SUB11_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB11_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB11_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB11_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB11_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB11_P_F=='__'}">{{memostudData.SUB11_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB11_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB11_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R11}}</td>
+                </tr>
+                <tr ng-show="memostudData.R12 != null">
+                    <td colspan="1">{{memostudData.SUB12_CODE}}</td>
+                    <td colspan="1">{{memostudData.SUB12_NAME}}</td>
+                    <td colspan="1">{{memostudData.SUB12_MAX_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB12_MAX_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB12_MAX_TOTAL}}</td>
+                    <td colspan="1" ng-class="{'status_css':memostudData.SUB12_P_F=='__'}">{{memostudData.SUB12_AWARDED_END_MARKS}}</td>
+                    <td colspan="1">{{memostudData.SUB12_AWARDED_SESSIONAL}}</td>
+                    <td colspan="1">{{memostudData.SUB12_AWARDED_TOTAL}}</td>
+                    <td colspan="1">{{memostudData.R12}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-        </div>-->
+    </div>-->
             <!--<div class="row padRow">
-            <div class="col-md-1 font_bold">RESULT</div>
-            <div class="col-md-11">: {{memostudData.RESULT}}</div>
-        </div>
-        <div class="row padRow">
-            <div class="col-md-1 font_bold">RE</div>
-            <div class="col-md-11">: {{memostudData.RE}}</div>
-        </div>-->
+        <div class="col-md-1 font_bold">RESULT</div>
+        <div class="col-md-11">: {{memostudData.RESULT}}</div>
+    </div>
+    <div class="row padRow">
+        <div class="col-md-1 font_bold">RE</div>
+        <div class="col-md-11">: {{memostudData.RE}}</div>
+    </div>-->
         </div>
 
     </div>

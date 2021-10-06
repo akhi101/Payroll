@@ -36,6 +36,12 @@ namespace SoftwareSuite.Controllers.ExternalServices
         public string TeachingExperience { get; set; }
         public string EmployeeType { get; set; }
         public int PCode { get; set; }
+        public string CollegeManagement { get; set; }
+        public string BankName { get; set; }
+        public string PanNumber { get; set; }
+        public string IFSCCode { get; set; }
+        public string BankAccountNumber { get; set; }
+        public string IndustryExp { get; set; }
 
     }
     public class StaffInfoController : ApiController
@@ -123,7 +129,7 @@ namespace SoftwareSuite.Controllers.ExternalServices
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SBP_Ext_TeachingStaffInfo", 0, ex.Message);
+                dbHandler.SaveErorr("usp_VND_TeachingStaffInfo", 0, ex.Message);
                 var retMsg = "{\"status\":\"400\",\"statusdesc\": \"" + ex.Message + "\"}";
                 return Request.CreateResponse(HttpStatusCode.OK, retMsg);
             }

@@ -529,19 +529,23 @@
                     try { var response = JSON.parse(response) } catch (err) { }
                     if (response.Table[0].ResponseCode == '200') {
                         alert(response.Table[0].ResponseDescription)
+                        $scope.closeModal()
                         $scope.btndisable = false;
                         $scope.GetNameCorrectionListByScheme();
                     } else if (response.Table[0].ResponseCode == '400') {
                         alert(response.Table[0].ResponseDescription)
+                        $scope.closeModal()
                         $scope.btndisable = false;
                         $scope.GetNameCorrectionListByScheme();
                     }
                     else {
+                        $scope.closeModal()
                         $scope.Data = false;
                         $scope.Nodata = true;
                     }
                 },
                     function (error) {
+                        $scope.closeModal()
                         $scope.btndisable = false;
                         $scope.Data = false;
                         $scope.Nodata = true;

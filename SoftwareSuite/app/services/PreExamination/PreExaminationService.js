@@ -35,6 +35,10 @@
             return DataAccessService.getDataAll('Admission/GetAdmissionTypes');
         };
         
+        
+        this.GetNICData = function () {
+            return DataAccessService.getDataAll('api/PreExamination/GetNICData');
+        };
 
         this.getActiveExamTypesByScheme = function (scheme) {
             var paramObject = {
@@ -478,10 +482,11 @@
             return promise;
         }
 
-        this.ReleaseStudentServicesPin = function (Pin) {
+        this.ReleaseStudentServicesPin = function (Pin, CertificateTypeId, Id) {
             var paramObject = {
                 "Pin": Pin,
-                "CertificateTypeId": CertificateTypeId
+                "CertificateTypeId": CertificateTypeId,
+                "Id": Id
             };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseStudentServicesPin', paramObject);
             return promise;
@@ -1772,9 +1777,9 @@
         };
 
 
-        this.GetTcApprovalDetails = function (Scheme, datatype, userType, CollegeCode) {
+        this.GetTcApprovalDetails = function (Scheme, datatype, userType, CollegeCode, BranchCode) {
             var paramObj = {
-                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode
+                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode, "BranchCode": BranchCode
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTcApprovalListByScheme', paramObj);
             return promise;
@@ -2006,12 +2011,12 @@
         };
 
         this.TcSetApproveStatus = function (Pin, userType, admittedDate, LeftDate, CollegeDuesPaid, Religion, Nationality,
-            Caste, DateOfBirth, MotherName, Promoted, Conduct, StudentRemarks, LeftClass, Station, AdmissionNo) {
+            Caste, DateOfBirth, MotherName, Promoted, Conduct, StudentRemarks, LeftClass, Station, AdmissionNo, IdMark1, IdMark2) {
             var paramObj = {
                 "Pin": Pin, "userType": userType, "admittedDate": admittedDate, "LeftDate": LeftDate, "CollegeDuesPaid": CollegeDuesPaid,
                 "Religion": Religion, "Nationality": Nationality, "Caste": Caste, "DateOfBirth": DateOfBirth, "MotherName": MotherName,
                 "Promoted": Promoted, "Conduct": Conduct, "StudentRemarks": StudentRemarks, "LeftClass": LeftClass, "Station": Station,
-                "AdmissionNo": AdmissionNo
+                "AdmissionNo": AdmissionNo, "IdMark1": IdMark1, "IdMark2": IdMark2
             }
 
             var promise = DataAccessService.postData('api/PreExamination/TcSetApproveStatus', paramObj);
@@ -2347,10 +2352,11 @@
             return promise;
         };
 
-        this.UpdateOdcDataByPin = function (SNO,UserName, NAME, SEX, FNAME, CEN, CEN_NAME, PIN, MAX_MARKS_1YR, TOTAL1, TOTAL1_25, MAX_MARKS_3SEM, TOTAL3S, MAX_MARKS_4SEM, TOTAL4S,
+        this.UpdateOdcDataByPin = function (SNO,UserName, NAME, SEX, FNAME, CEN, CEN_NAME,CEN_ADDRESS, PIN,COURSE,BR ,MAX_MARKS_1YR, TOTAL1, TOTAL1_25, MAX_MARKS_3SEM, TOTAL3S, MAX_MARKS_4SEM, TOTAL4S,
            MAX_MARKS_5SEM, TOTAL5S, MAX_MARKS_6SEM, TOTAL6S, MAX_MARKS_7SEM, TOTAL7S, GRAND_TOTAL, PER, scheme, MAX_MARKS_1SEM, TOTAL1S, TOTAL1S_25, MAX_MARKS_2SEM, TOTAL2S, TOTAL2S_25, MONTH_YEAR) {
             var paramObject = {              
-                "SNO":SNO,"UserName":UserName,"NAME":NAME,"SEX":SEX,"FNAME":FNAME,"CEN":CEN,"CEN_NAME":CEN_NAME,"PIN":PIN,"MAX_MARKS_1YR":MAX_MARKS_1YR,"TOTAL1":TOTAL1,"TOTAL1_25":TOTAL1_25,"MAX_MARKS_3SEM":MAX_MARKS_3SEM,"TOTAL3S":TOTAL3S,
+                "SNO": SNO, "UserName": UserName, "NAME": NAME, "SEX": SEX, "FNAME": FNAME, "CEN": CEN, "CEN_NAME": CEN_NAME, "CEN_ADDRESS": CEN_ADDRESS, "PIN": PIN, "COURSE": COURSE, "BR": BR,
+                "MAX_MARKS_1YR": MAX_MARKS_1YR, "TOTAL1": TOTAL1, "TOTAL1_25": TOTAL1_25, "MAX_MARKS_3SEM": MAX_MARKS_3SEM, "TOTAL3S": TOTAL3S,
             "MAX_MARKS_4SEM":MAX_MARKS_4SEM,"TOTAL4S":TOTAL4S,"MAX_MARKS_5SEM":MAX_MARKS_5SEM,"TOTAL5S":TOTAL5S,"MAX_MARKS_6SEM":MAX_MARKS_6SEM,"TOTAL6S":TOTAL6S,
             "MAX_MARKS_7SEM":MAX_MARKS_7SEM,"TOTAL7S":TOTAL7S,"GRAND_TOTAL":GRAND_TOTAL,
                 "PER":PER,"scheme":scheme,"MAX_MARKS_1SEM":MAX_MARKS_1SEM,"TOTAL1S":TOTAL1S,
@@ -2893,7 +2899,14 @@
             var promise = DataAccessService.postData('api/PreExamination/UploadWantingsJson', paramObj);
             return promise;
         }
-     
+        
+        this.DeployNicData = function (AcademicYearId, AdmissionType) {
+            var paramObj = { "AcademicYearId": AcademicYearId, "AdmissionType": AdmissionType }
+            ////console.log(paramObj)
+            var promise = DataAccessService.postData('api/PreExamination/DeployNicData', paramObj);
+            return promise;
+        }
+
         this.uploadJsonExcel = function (AcademicYearId,AdmissionType,json) {
             var paramObj = { "AcademicYearId":AcademicYearId,"AdmissionType":AdmissionType,"json": json }
             ////console.log(paramObj)
