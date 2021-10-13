@@ -3447,12 +3447,13 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             width: 100%; 
                             border-collapse: collapse;
                             border-spacing: 0; 
-                        }
-th.cln{
-writing-mode:vertical-rl;text-orientation:upright;
- text-decoration-line: overline underline;
-  text-decoration-style: wavy;}
-                        td, th { border: 1px solid #CCC; height: 40px; } /* Make cells a bit taller */
+                        }                        
+                        .news-export-doc th.cln{
+                        writing-mode:vertical-rl;text-orientation:upright;
+                        text-decoration-line: overline underline;
+                        text-decoration-style: wavy;}
+                        td, 
+                          th { border: 1px solid #CCC; height: 40px; } /* Make cells a bit taller */
 
                         th {  
                             font-weight: bold; /* Make sure they're bold */
@@ -3461,27 +3462,13 @@ writing-mode:vertical-rl;text-orientation:upright;
                         td {  
                             text-align: center; /* Center our text */
                         }
+
                         .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
                             /* border-top: 0; */
                             height: 130px;
                             font-size: 0.8em;
- writing-mode:vertical-rl!important;
-                                   text-orientation:upright!important;
-                        }
-   th {
-                            writing-mode: vertical-rl;
-                            text-orientation: upright;
-                        }
- .table > thead > tr > th.cln {
-                                  writing-mode:vertical-rl!important;
-                                   text-orientation:upright!important;
-
-                                }
- p {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-font-weight:bold!important;
-        }
+                        }   
+                        
 
                         </style> "
                    + "</head><body>";
@@ -3532,21 +3519,22 @@ font-weight:bold!important;
                         #endregion
                         #region PageContent
                         page += $@"<div class='container-fluid'>
+                         <br><br>
                          <table class='table'>
                                     <thead>
                                      <tr rowspan='12'>
-                    <th class='text-center'>PIN NAME FATHER NAME GENDER</th>
-					<th class='cln' style='writing-mode:vertical-rl;text-orientation:upright' > Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' style='font-size:18px!important'>Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-r!important;text-orientation:upright!important'>Credits</th>
+                    <th class='text-center' style='color:red;'>PIN Name Father Name Gender</th>
+					<th style='padding-left: 150px;-webkit-transform:rotate(90deg);'>Semester</th>
+                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Grade</th>
+                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Grade Points</th>
+                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Credits</th>
+                   <th></th>
+				   <th  style='padding-left: 75px;-webkit-transform:rotate(90deg);'> Semester</th>
+                    <th style='-webkit-transform-origin: 255% 55% 0;'>Grade</th>
+                    <th style='-moz-transform:rotate(90deg);'>Grade Points</th>
+                    <th style='-moz-transform-origin: 255% 55% 0;'>Credits</th>
                    <th class='cln' ></th>
-				   <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				   <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
+				   <th style='-ms-writing-mode: tb-rl;'> Semester</th>
                     <th class='cln'style='writing-mode:vertical-rl;text-orientation:upright' >Grade</th>
                     <th class='cln' >Grade Points</th>
                     <th class='cln'style='writing-mode:vertical-rl;text-orientation:upright' >Credits</th>
@@ -3597,124 +3585,115 @@ font-weight:bold!important;
 
                        
                       
- for (var i = 0; i < studentdata.Length; i++)
+                    for (var i = 0; i < studentdata.Length; i++)
                         {
 
                             if(studentdata[i].Semester == "1SEM")
                             {
                                 page += $@"<tr>
-<td class='cln'rowspan='12' >14001-A-001
-
-                    Lingaiah
-
-                    A MALLAIAH
-
-                    M </td>
-                           ";
+                                <td class='cln'rowspan='12' >{studentdata[i].PIN}, {studentdata[i].NAME}, {studentdata[i].FatherName}, {studentdata[i].SEX} </td>
+                                ";
                             }
                             else
                             {
-                                page += $@"<tr>
-                                    ";
+                                page += $@"<tr>";
                             }
 
+                            page += $@" 
 
-                            page += $@" < td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode1}</td>
-                   <td></td>
-				    <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode2}</td>
-                   <td></td>
-				    <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode3}</td>
-                   <td></td>
-				    <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode4}</td>
-                   <td></td>
-				    <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode5}</td>
-                   <td></td>
-				    <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode6}</td>
-                   <td></td>
-				     <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode7}</td>
-                   <td></td>
-				     <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode8}</td>
-                   <td></td>
-				     <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode9}</td>
-                   <td></td>
-				     <td class='cln' > {studentdata[i].Semester}</td>
-                    <td class='cln'  colspan='3'>{studentdata[i].SubCode10}</td>
-					 <td></td>
-                   <td></td>
-				   <td></td>
-				   <td></td>
-				   <td></td>
-				   <td></td>
-                </tr>
-<tr>
-
-<td></td>
-<td>{studentdata[i].Grade1}</td>
-<td>{studentdata[i].GradePoints1}</td>
-<td>{studentdata[i].Credits1}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade2}</td>
-<td>{studentdata[i].GradePoints2}</td>
-<td>{studentdata[i].Credits2}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade3}</td>
-<td>{studentdata[i].GradePoints3}</td>
-<td>{studentdata[i].Credits3}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade4}</td>
-<td>{studentdata[i].GradePoints4}</td>
-<td>{studentdata[i].Credits4}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade5}</td>
-<td>{studentdata[i].GradePoints5}</td>
-<td>{studentdata[i].Credits5}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade6}</td>
-<td>{studentdata[i].GradePoints6}</td>
-<td>{studentdata[i].Credits6}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade7}</td>
-<td>{studentdata[i].GradePoints7}</td>
-<td>{studentdata[i].Credits7}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade8}</td>
-<td>{studentdata[i].GradePoints8}</td>
-<td>{studentdata[i].Credits8}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade9}</td>
-<td>{studentdata[i].GradePoints9}</td>
-<td>{studentdata[i].Credits9}</td>
-<td></td>
-<td></td>
-<td>{studentdata[i].Grade10}</td>
-<td>{studentdata[i].GradePoints10}</td>
-<td>{studentdata[i].Credits10}</td>
-<td></td>
-
-				   <td>P</td>
-				   <td>150</td>
-				   <td>25</td>
-				
- <td  > 120 </td>
- <td >10</td>
-</tr>	";
+                             <td class='cln'> {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode1}</td>
+                            <td></td>
+				             <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode2}</td>
+                            <td></td>
+				             <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode3}</td>
+                            <td></td>
+				             <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode4}</td>
+                            <td></td>
+				             <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode5}</td>
+                            <td></td>
+				             <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode6}</td>
+                            <td></td>
+				              <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode7}</td>
+                            <td></td>
+				              <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode8}</td>
+                            <td></td>
+				              <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode9}</td>
+                            <td></td>
+				              <td class='cln' > {studentdata[i].Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata[i].SubCode10}</td>
+				            <td></td>
+                            <td></td>
+				            <td></td>
+				            <td></td>
+				            <td></td>
+				            <td></td>
+                           </tr>
+                           <tr>
+                            <td></td>
+                            <td>{studentdata[i].Grade1}</td>
+                            <td>{studentdata[i].GradePoints1}</td>
+                            <td>{studentdata[i].Credits1}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade2}</td>
+                            <td>{studentdata[i].GradePoints2}</td>
+                            <td>{studentdata[i].Credits2}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade3}</td>
+                            <td>{studentdata[i].GradePoints3}</td>
+                            <td>{studentdata[i].Credits3}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade4}</td>
+                            <td>{studentdata[i].GradePoints4}</td>
+                            <td>{studentdata[i].Credits4}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade5}</td>
+                            <td>{studentdata[i].GradePoints5}</td>
+                            <td>{studentdata[i].Credits5}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade6}</td>
+                            <td>{studentdata[i].GradePoints6}</td>
+                            <td>{studentdata[i].Credits6}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade7}</td>
+                            <td>{studentdata[i].GradePoints7}</td>
+                            <td>{studentdata[i].Credits7}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade8}</td>
+                            <td>{studentdata[i].GradePoints8}</td>
+                            <td>{studentdata[i].Credits8}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade9}</td>
+                            <td>{studentdata[i].GradePoints9}</td>
+                            <td>{studentdata[i].Credits9}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{studentdata[i].Grade10}</td>
+                            <td>{studentdata[i].GradePoints10}</td>
+                            <td>{studentdata[i].Credits10}</td>
+                            <td></td>
+				            <td>P</td>
+				            <td>{studentdata[i].SemesterCreditsEarned}</td>
+				            <td>{studentdata[i].SGPA}</td>				
+                            <td> {studentdata[i].TotalCreditsEarned} </td>
+                            <td>{studentdata[i].CGPA}</td>
+                           </tr>	";
                         }
 
 
