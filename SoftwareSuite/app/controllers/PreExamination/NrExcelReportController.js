@@ -12,6 +12,14 @@ define(['app'], function (app) {
         ];
         var authData = $localStorage.authorizationData;
         $scope.DetailsFound = false;
+        PreExaminationService.GetExamMonthYears().then(function (res) {
+            $scope.ExamMonthYears = res.Table;
+        },
+            function (error) {
+                alert("error while loading Exam Month Years");
+                console.log(error);
+            });
+
         var LoadExamTypeBysem = PreExaminationService.getStudentType();
         LoadExamTypeBysem.then(function (response) {
             if (response.Table.length > 0) {
@@ -33,7 +41,7 @@ define(['app'], function (app) {
 
         $scope.getNrExcel = function (StudentType, ExamTypeId) {
             $scope.LoadImg = true;
-            var getNrReports = PreExaminationService.NrExcelReports(StudentType, authData.College_Code.toString(), ExamTypeId);
+            var getNrReports = PreExaminationService.NrExcelReports(StudentType, authData.College_Code.toString(), ExamTypeId, $scope.selectedEmy);
             getNrReports.then(function (res) {
                 $scope.LoadImg = false;
                 if (res.length > 0) {

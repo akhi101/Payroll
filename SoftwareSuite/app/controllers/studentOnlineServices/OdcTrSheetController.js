@@ -35,7 +35,7 @@
 
         $scope.DownloadODCTrsheet = function () {
             $scope.NrGenerating = true;
-            var CertificateFeePaymentReports = PreExaminationService.GetOdcTrSheets($scope.ExamMonth);
+            var CertificateFeePaymentReports = PreExaminationService.GetC18OdcTrSheets($scope.ExamMonth);
             CertificateFeePaymentReports.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 0) {

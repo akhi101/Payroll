@@ -367,6 +367,7 @@ namespace SoftwareSuite.Controllers.StudentServices
         {
             try
             {
+              
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];              
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
@@ -374,6 +375,26 @@ namespace SoftwareSuite.Controllers.StudentServices
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var ODCTrSheetData = DataTableHelper.ConvertDataTable<ODCTrSheetData>(ds?.Tables[0]);
                 var pdf = GenerateCertificate.GetODCTrsheetPdf(ODCTrSheetData);
+                return pdf;
+            }
+            catch (Exception ex)
+            {
+                return "FAILED" + ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetC18ODCTrsheets")]
+        public string GetC18ODCTrsheets(int ExamMonthYearId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_GenerateC18ConsolidatedMemoForTsheets", param);
+                GenerateCertificate GenerateCertificate = new GenerateCertificate();
+                var C18OdcTrSheet = DataTableHelper.ConvertDataTable<C18OdcTrSheet>(ds?.Tables[0]);
+                var pdf = GenerateCertificate.GetC18ODCTrsheetPdf(C18OdcTrSheet);
                 return pdf;
             }
             catch (Exception ex)

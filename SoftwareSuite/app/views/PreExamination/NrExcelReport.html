@@ -114,7 +114,18 @@
         <section class="content">
             <div class="alert alert-info">
                 <div class="row">
-
+                    <div class="col-md-3 form-group">
+                        <label for="sel1">
+                            Exam Month Year:
+                        </label>
+                        <select class="form-control" ng-model="selectedEmy" name="ExamMonthYear">
+                            <option value="" selected>Select Exam Month Year</option>
+                            <option ng-repeat="item in ExamMonthYears" value="{{item.ExamMonthYearId}}">
+                                {{item.ExamYearMonth}}
+                            </option>
+                            <!--ng-options="Student.type for Student in StudentType">-->
+                        </select>
+                    </div>
                     <div class="col-md-3 form-group">
                         <label for="sel1">
                             Exam Type:

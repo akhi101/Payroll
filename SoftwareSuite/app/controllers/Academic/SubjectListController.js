@@ -9,7 +9,7 @@
         //    { Id: "5", Subject: "Basic Electronic components & materials " },
         //    { Id: "6", Subject: "Basic Electrical Engineering " }
         //]
-
+        $scope.shifts = [{ shiftid: "1", shiftName: "Shift 1" }, { shiftid: "2", shiftName: "Shift 2" }]
         $scope.getActiveSchemes = [{ SchemeID: 5, Scheme: "C18" },{ SchemeID: 2, Scheme: "ER91" }]
 
         const $ctrl = this;
@@ -91,6 +91,7 @@
                 SchemesList.forEach(function (scheme) {
                     if (schemeid === scheme.SchemeID) {
                         $scope.loadedScheme = scheme;
+                        console.log($scope.loadedScheme)
                     }
                 });
 
@@ -226,13 +227,15 @@
         }
 
         $scope.OpenChapters = function (Istheory, SubjectId, SubjectName, SubjectCode) {
+
+            
             $localStorage.AcademicData = {
                 SemId: $scope.SelectedsemId.semid,
-                Sem: $scope.loadedSem.sem,
+                Sem: $scope.SelectedsemId.sem,
                 SchemeId: $scope.SelectedschemeId.SchemeID,
                 SubjectName: SubjectName,
                 SubjectCode: SubjectCode,
-                Scheme: $scope.loadedScheme.Scheme,
+                Scheme: $scope.SelectedschemeId.Scheme,
                 Subject: $scope.Scheme,
                 ShiftId: $scope.Selectedshift.shiftid,
                 SubjectId: SubjectId,
@@ -240,6 +243,7 @@
                 Branch: $scope.branchname
 
             }
+
 
 
             if (Istheory === true) {
