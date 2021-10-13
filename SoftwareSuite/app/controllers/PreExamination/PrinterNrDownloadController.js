@@ -198,11 +198,11 @@ define(['app'], function (app) {
 
         $scope.PrinterNrCollegeVsBranchReport = function () {
             $scope.NrGenerating = true;
-            if ($scope.ExamMonthYearId == "" || $scope.StudentTypeId == "" || $scope.AcademicYearId == "") {
+            if ($scope.ExamMonthYearId == "" || $scope.StudentTypeId == "" || $scope.AcademicYearId == "" || $scope.examTypeId == "") {
                 $scope.NrGenerating = false;
                 alert("Please Select All Details");
             }
-            var gerNrData = PreExaminationService.PrinterNrCollegeVsBranchReport($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId);
+            var gerNrData = PreExaminationService.PrinterNrCollegeVsBranchReport($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId);
             gerNrData.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 10) {

@@ -219,14 +219,56 @@ namespace SoftwareSuite.Models.Certificate
 
     }
 
-    public class C18TrSheetCertificateData
+    public class C18OdcTrSheet
     {
+        public string SNO { get; set; }
+        public string NAME { get; set; }
+        public string SEX { get; set; }
+        public string FNAME { get; set; }
+        public string COURSE { get; set; }
+        public string CEN { get; set; }
+        public string CEN_NAME { get; set; }
+        public string CEN_ADDRESS { get; set; }
+        public string BR { get; set; }
+        public string BRANCH_NAME { get; set; }
+        public string MONTH_YEAR { get; set; }
+        public string PIN { get; set; }
+        public string DURATION { get; set; }
+        public string CLASS { get; set; }
+        public string MAX_MARKS_1YR { get; set; }
+        public string TotalCreditsEarned { get; set; }
+        public string TOTAL1 { get; set; }
+        public string TOTAL1_25 { get; set; }
+        public string MAX_MARKS_3SEM { get; set; }
+        public string TOTAL3S { get; set; }
+        public string MAX_MARKS_4SEM { get; set; }
+        public string TOTAL4S { get; set; }
+        public string MAX_MARKS_5SEM { get; set; }
+        public string TOTAL5S { get; set; }
+        public string MAX_MARKS_6SEM { get; set; }
+        public string TOTAL6S { get; set; }
+        public string MAX_MARKS_7SEM { get; set; }
+        public string TOTAL7S { get; set; }
+        public string GRAND_TOTAL { get; set; }
+        public string PER { get; set; }
+        public string DAY { get; set; }
+        public string MONTH { get; set; }
+        public string YEAR { get; set; }
+        public string REMARKS { get; set; }
+        public bool CertificateIssued { get; set; }
+        public string scheme { get; set; }
+        public string MAX_MARKS_1SEM { get; set; }
+        public string TOTAL1S { get; set; }
+        public string TOTAL1S_25 { get; set; }
+        public string MAX_MARKS_2SEM { get; set; }
+        public string TOTAL2S { get; set; }
+        public string TOTAL2S_25 { get; set; }
         public string CMGNo { get; set; }
         public string ODCNo { get; set; }
         public string NameofInstitution { get; set; }
         public string Scheme { get; set; }
         public string ExamMonthYear { get; set; }
-        public string PIN { get; set; }
+        //public string PIN { get; set; }
         public string StudentName { get; set; }
         public string CGPA { get; set; }
         public string FatherName { get; set; }

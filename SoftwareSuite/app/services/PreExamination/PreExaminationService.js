@@ -1880,6 +1880,13 @@
                 return DataAccessService.getDataWithPara('api/StudentCertificate/GetODCTrsheets', paramObj);
             },
 
+            this.GetC18OdcTrSheets = function (ExamMonthYearId) {
+                var paramObj = {
+                    "ExamMonthYearId": ExamMonthYearId
+
+                }
+            return DataAccessService.getDataWithPara('api/StudentCertificate/GetC18OdcTrSheets', paramObj);
+            },
             this.UpdateMobileNumber = function (Pin, PhoneNumber) {
                 var paramObj = {
                     "Pin": Pin, "PhoneNumber": PhoneNumber
@@ -2742,9 +2749,10 @@
                 return promise;
             },
 
-            this.NrExcelReports = function (StudentTypeId, CollegeCode, ExamTypeId) {
-                var paramObj = {
-                    "StudentTypeId": StudentTypeId, "CollegeCode": CollegeCode, "ExamTypeId": ExamTypeId
+            this.NrExcelReports = function (StudentTypeId, CollegeCode, ExamTypeId,ExamMonthYearId) {
+            var paramObj = {
+                
+                "StudentTypeId": StudentTypeId, "CollegeCode": CollegeCode, "ExamTypeId": ExamTypeId, "ExamMonthYearId": ExamMonthYearId
                 };
                 var promise = DataAccessService.getDataWithPara('PreExaminationReport/NrExcelReports', paramObj);
 
@@ -2767,8 +2775,8 @@
                 return promise;
             },
 
-            this.PrinterNrCollegeVsBranchReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId) {
-                var paramObj = { "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId };
+            this.PrinterNrCollegeVsBranchReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId) {
+            var paramObj = { "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId };
                 var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrCollegeVsBranchReport', paramObj);
                 return promise;
             },

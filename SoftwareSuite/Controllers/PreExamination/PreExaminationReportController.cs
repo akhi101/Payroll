@@ -230,15 +230,16 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("NrExcelReports")]
-        public string NrExcelReports(int StudentTypeId, string CollegeCode, int ExamTypeId)
+        public string NrExcelReports(int StudentTypeId, string CollegeCode, int ExamTypeId,int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[1] = new SqlParameter("@CollegeCode", CollegeCode);
                 param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[3] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_NR_EXCEL_REPORT", param);
                 var filename = "NrReport-" + CollegeCode + "_" + Guid.NewGuid() + ".xlsx";
                 var eh = new ExcelHelper();
@@ -408,23 +409,23 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("PrinterNrCollegeVsBranchReport")]
-        public string PrinterNrCollegeVsBranchReport(int ExamMonthYearId, int AcademicYearId, int StudentTypeId)
+        public string PrinterNrCollegeVsBranchReport(int ExamMonthYearId, int AcademicYearId, int StudentTypeId,int ExamTypeId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@AcademicID", AcademicYearId);
                 param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_NR_CollegeVsBranchReport", param);
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
                     var filename = "NRCollegeVsBranchReport" + "_"+ ds.Tables[0].Rows[0]["ExamMonthYear"].ToString()+"_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
-                    DataSet excelds = new DataSet();
-                    excelds.Tables.Add(ds.Tables[1].Copy());
+                    DataSet excelds = ds;
                     bool folderExists = Directory.Exists(path);
                     if (!folderExists)
                         Directory.CreateDirectory(path);
