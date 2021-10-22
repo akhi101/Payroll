@@ -221,7 +221,8 @@ namespace SoftwareSuite.Models.Certificate
 
     public class C18OdcTrSheet
     {
-        public string SNO { get; set; }
+        public string ODCNO { get; set; }
+        public string CMGNO { get; set; }
         public string NAME { get; set; }
         public string SEX { get; set; }
         public string FNAME { get; set; }
@@ -263,8 +264,6 @@ namespace SoftwareSuite.Models.Certificate
         public string MAX_MARKS_2SEM { get; set; }
         public string TOTAL2S { get; set; }
         public string TOTAL2S_25 { get; set; }
-        public string CMGNo { get; set; }
-        public string ODCNo { get; set; }
         public string NameofInstitution { get; set; }
         public string Scheme { get; set; }
         public string ExamMonthYear { get; set; }
@@ -333,6 +332,7 @@ namespace SoftwareSuite.Models.Certificate
         public string Year { get; set; }
         public string PhotoPath { get; set; }
         public string Gender { get; set; }
+        public string IndustryName { get; set; }
 
     }
 

@@ -15,6 +15,7 @@ using SoftwareSuite.Models.Database;
 using SoftwareSuite.Models.Certificate;
 using PdfSharp.Pdf.IO;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace SoftwareSuite.Controllers.StudentServices
 {
@@ -22,7 +23,7 @@ namespace SoftwareSuite.Controllers.StudentServices
     {
 
         public class InterimData
-        {         
+        {
             public string InterimCertificateNo { get; set; }
             public string Pin { get; set; }
             public int SchemeId { get; set; }
@@ -55,7 +56,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string FatherName { get; set; }
             public string Course { get; set; }
             public string division { get; set; }
-            public string Remarks { get; set; }            
+            public string Remarks { get; set; }
             public string paper1 { get; set; }
             public string paper2 { get; set; }
             public string MonthYear { get; set; }
@@ -71,10 +72,10 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string Pin { get; set; }
             public string Name { get; set; }
             public string FatherName { get; set; }
-            public string CourseDuration { get; set; }          
+            public string CourseDuration { get; set; }
             public string BranchCode { get; set; }
             public string BranchName { get; set; }
-            public string MonthYear { get; set; }          
+            public string MonthYear { get; set; }
             public string PassedClass { get; set; }
             public string CGPA { get; set; }
             public string Class { get; set; }
@@ -92,13 +93,13 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string ApplicationNumber { get; set; }
             public string Pin { get; set; }
             public string Name { get; set; }
-            public string FatherName { get; set; }   
+            public string FatherName { get; set; }
             public string BranchName { get; set; }
             public string AcademicYear { get; set; }
             public string conduct { get; set; }
             public Boolean IsGovClg { get; set; }
-            public string College_Name { get; set; }        
-              public string Clg_Address { get; set; }
+            public string College_Name { get; set; }
+            public string Clg_Address { get; set; }
             public int ServiceType { get; set; }
 
         }
@@ -111,7 +112,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string Name { get; set; }
             public string FatherName { get; set; }
             public string MotherName { get; set; }
-            public DateTime DateOfBIrth{ get; set; }
+            public DateTime DateOfBIrth { get; set; }
             public string LeftClass { get; set; }
             public string Nationality { get; set; }
             public string Religion { get; set; }
@@ -129,10 +130,10 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string CollegeAddress { get; set; }
             public string StudentRemarks { get; set; }
             public string Station { get; set; }
-            public Boolean IsGovClg   { get; set; }
+            public Boolean IsGovClg { get; set; }
 
 
-    }
+        }
 
         public class studentintrmMarks
         {
@@ -143,7 +144,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string InFigures { get; set; }
             public string Per { get; set; }
             public string InWords { get; set; }
-       
+
         }
         private string GetWebAppRoot()
         {
@@ -158,7 +159,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             }
             else if (env == "DEV")
             {
-             
+
                 host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
                 return host + HttpContext.Current.Request.ApplicationPath;
             }
@@ -182,7 +183,7 @@ namespace SoftwareSuite.Controllers.StudentServices
 
         public string GetTrsheetPdf(List<TrSheetCertificateData> TrSheetData)
         {
-            string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR";         
+            string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR";
             CreateIfMissing(dirPath);
             var dir_id = GetTrSheets(TrSheetData);
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
@@ -206,11 +207,11 @@ namespace SoftwareSuite.Controllers.StudentServices
             return pdf;
         }
 
-        public string GetC18ODCTrsheetPdf(List<C18OdcTrSheet> C18OdcTrSheet)
-        {
+        public async Task<string> GetC18ODCTrsheetPdfAsync(List<C18OdcTrSheet> C18OdcTrSheet)
+        {            
             string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR";
             CreateIfMissing(dirPath);
-            var dir_id = GetC18ODCTrSheets(C18OdcTrSheet);
+            var dir_id = await GetC18ODCTrSheetsAsync(C18OdcTrSheet);
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
             var files = Directory.GetFiles(dir);
             var pdf = Guid.NewGuid().ToString();
@@ -220,7 +221,7 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         public static void MergePDFs(string targetPath, params string[] pdfs)
-        {
+        {            
             using (PdfSharp.Pdf.PdfDocument targetDoc = new PdfSharp.Pdf.PdfDocument())
             {
                 foreach (string pdf in pdfs)
@@ -531,16 +532,16 @@ padding :6px
                         </thead>
                         <tbody>";
 
-            for (var i = 0; i < studentintrmMarks.Length; i++)
-            {
-                page += $@"<tr>
+                for (var i = 0; i < studentintrmMarks.Length; i++)
+                {
+                    page += $@"<tr>
                             <td class='text-center'>{studentintrmMarks[i].Examination ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].MaxMarks ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].MaxSecured ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].InFigures ?? "-"}{percheck(studentintrmMarks[i].Per ?? "-")}</td>                           
                             <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
                         </tr>";
-            }
+                }
                 page += $@" <tr>
                                     <td class='text-center'> Total Marks In Figure</td>
                                     <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInFigure}</b> </td>
@@ -581,7 +582,7 @@ padding :6px
             converter.Options.DrawBackground = false;
             converter.Options.JavaScriptEnabled = false;
             converter.Options.WebPageWidth = 1024;
-            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageSize = PdfPageSize.A4; 
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
@@ -924,11 +925,15 @@ padding :6px
             return relativePath;
         }
 
-        public string percheck (string per) {
-            if (per == "") {
+        public string percheck(string per)
+        {
+            if (per == "")
+            {
                 return "";
-        } else {
-            return $@" ({per})";
+            }
+            else
+            {
+                return $@" ({per})";
             }
         }
 
@@ -987,7 +992,7 @@ padding :6px
         public string GetInterimCertificate(DataSet IntrmData)
         {
 
-            List <InterimData> InterimData = IntrmData.Tables[1].DataTableToList<InterimData>().ToList(); ;
+            List<InterimData> InterimData = IntrmData.Tables[1].DataTableToList<InterimData>().ToList(); ;
             var studentintrmMarks = DataTableHelper.ConvertDataTable<studentintrmMarks>(IntrmData?.Tables[2]).ToArray();
 
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
@@ -1257,8 +1262,10 @@ padding:1px!important;
 and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-"}</b>{isThreeBacklogdivision(InterimData[0].Is3Backlog)}..
                     </p>
                 </div>";
-            }else  if (InterimData[0].SchemeId == 5) { 
-                    page += $@"<div class='row'>
+            }
+            else if (InterimData[0].SchemeId == 5)
+            {
+                page += $@"<div class='row'>
 	<p class='text-intend'>
                         This is to certify that Mr./Ms.
 		<b class='border_btm' > {InterimData[0].Name ?? "-"}</b> Son/Daughter of 
@@ -1282,9 +1289,9 @@ in
 </div>";
             }
 
-            if(InterimData[0].BranchCode  != "PH" && InterimData[0].SchemeId != 5)
+            if (InterimData[0].BranchCode != "PH" && InterimData[0].SchemeId != 5)
             {
-            page += $@" <div class='row'>
+                page += $@" <div class='row'>
                 <table class='table'>
                     <thead>
                         <tr>
@@ -1300,17 +1307,17 @@ in
                     </thead>
                     <tbody>";
 
-                        for (var i = 0; i<studentintrmMarks.Length; i++)
-                            {
-                                page += $@"<tr>
+                for (var i = 0; i < studentintrmMarks.Length; i++)
+                {
+                    page += $@"<tr>
                                             <td class='text-center'>{studentintrmMarks[i].Examination ?? "-"}</td>
                                             <td class='text-center'>{studentintrmMarks[i].MaxMarks ?? "-"}</td>
                                             <td class='text-center'>{studentintrmMarks[i].MaxSecured ?? "-"}</td>
                                             <td class='text-center'>{studentintrmMarks[i].InFigures ?? "-"}{percheck(studentintrmMarks[i].Per)}</td>                           
                                             <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
                                         </tr>";
-                            }
-                    page += $@" <tr>
+                }
+                page += $@" <tr>
                                 <td class='text-center'> Total Marks In Figure</td>
                                 <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInFigure}</b> </td>
                             </tr>
@@ -1324,7 +1331,7 @@ in
                             </tr>
                         </tbody>
                     </table>
-                </div>";                
+                </div>";
             }
 
             page += $@"<div class='row'>
@@ -1447,7 +1454,7 @@ in
                             <div style='line-height: 2.0;'><b>Date :  {DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
 						</div>               
 					</div>";
-}
+            }
             page += $@"</div>             
             </div>";
             #endregion
@@ -1465,7 +1472,7 @@ in
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir+"INTRM"+ InterimData[0].Pin+"_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "INTRM" + InterimData[0].Pin + "_" + $"{Guid.NewGuid().ToString()}.pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2200,12 +2207,14 @@ color: #130404;
         //    throw new NotImplementedException();
         //}
 
-        public string isThreeBacklog(bool ThreeBacklog, string monthYear) {
+        public string isThreeBacklog(bool ThreeBacklog, string monthYear)
+        {
             if (!ThreeBacklog)
-            {               
+            {
                 return $@" <span>during the Examination held in <b class='border_btm'> {monthYear} </b></span>";
             }
-            else {
+            else
+            {
                 return "";
             }
 
@@ -2242,7 +2251,7 @@ color: #130404;
 
         public string GetTransferCertificate(DataSet TCDat)
         {
-           List<TCData> TCData = TCDat.Tables[1].DataTableToList<TCData>().ToList();
+            List<TCData> TCData = TCDat.Tables[1].DataTableToList<TCData>().ToList();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
 
             CreateIfMissing(dir);
@@ -2649,7 +2658,7 @@ height:20px;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir+ "TC" + TCData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "TC" + TCData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2851,7 +2860,8 @@ height:20px;
 
             <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>
             <div class='content'>";
- if (MigrationData[0].SchemeId != 5) {
+            if (MigrationData[0].SchemeId != 5)
+            {
                 page += $@"<div class='row'>
                         <p class='text-intend'>
                             This is to certify that
@@ -2865,8 +2875,10 @@ height:20px;
                         <p class='text-intend'>This Certificate is issued on the request of candidate.</p>
 
                     </div>";
-   }else  if (MigrationData[0].SchemeId == 5) {
-                    page += $@"<div class='row'>
+            }
+            else if (MigrationData[0].SchemeId == 5)
+            {
+                page += $@"<div class='row'>
                     <p class='text-intend'>
                         This is to certify that Mr./Ms.<b class='border_btm'> {MigrationData[0].Name ?? "-"}</b> Son/Daughter of <b class='border_btm' >{MigrationData[0].FatherName ?? "-"}</b>
                         bearing Permanent Identification Number(PIN) <b class='border_btm'>{MigrationData[0].Pin ?? "-"}</b> has <b class='border_btm' >Passed</b>
@@ -2915,10 +2927,10 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir+"MC"+MigrationData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "MC" + MigrationData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
             doc.Save(path);
             doc.Close();
-            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");          
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
         }
 
@@ -3095,15 +3107,18 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             </div>
 
         </div>";
-            if (BonafideData[0].ServiceType == 91){
-      page += $@"<div class='row'>
+            if (BonafideData[0].ServiceType == 91)
+            {
+                page += $@"<div class='row'>
         <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>STUDY-CUM-CONDUCT CERTIFICATE</b></h3>
     </div>";
-      }else{
-         page += $@"<div class='row'>
+            }
+            else
+            {
+                page += $@"<div class='row'>
             <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>BONAFIDE CERTIFICATE</b></h3>
         </div>";
-        }
+            }
 
 
             page += $@"</div>";
@@ -3141,7 +3156,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             {
                 page += $@"<span> studying</span>";
             }
-                page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
+            page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
                      during the Academic Years<b class='border_btm' > {BonafideData[0].AcademicYear ?? "-"}.</b><br>
                         </p>
                     <p class='text-intend'> During this period his/her conduct and character have been found to be<b class='border_btm' > {BonafideData[0].conduct ?? " - "}</b>.
@@ -3297,7 +3312,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                                 .ToArray();
                 foreach (var branch in branchdata)
                 {
-                    ; 
+                    ;
                     var studentarrdata = ODCTrSheetData.Where(x => x.CEN == col.CEN && x.BR == branch.BR)
                                                     .OrderBy(x => x.BR)
                                                     .OrderBy(x => x.PIN)
@@ -3359,7 +3374,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                         page += @"<tbody>";
 
                         for (var i = 0; i < studentdata.Length; i++)
-                        {                           
+                        {
                             page += $@"<tr>
                                         <td class='text-center' rowspan='2'> {studentdata[i].SNO}</td>
                                         <td class='text-left cln'>{studentdata[i].NAME}</td>
@@ -3420,7 +3435,385 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             return dir_id;
         }
 
-        public string GetC18ODCTrSheets(List<C18OdcTrSheet> C18OdcTrSheet)
+        //public string GetC18ODCTrSheets(List<C18OdcTrSheet> C18OdcTrSheet)
+        //{
+        //    var dir_id = Guid.NewGuid().ToString();
+        //    var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
+        //    var path = string.Empty;
+        //    CreateIfMissing(dir);
+        //    string html = @"<html>"
+        //           + "<head>"
+        //           + $"<title></title>"
+        //           + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+        //           + @"<style type='text/css'>
+        //                 html{
+        //                    min-width: 1024px;
+        //                    max-width: 1024px;
+        //                    width: 1024px;
+        //                }
+        //                body {
+        //                    min-width: 1024px;
+        //                    max-width: 1024px;
+        //                    width: 1024px;
+        //                    margin-left: 10px;
+        //                }
+        //                table {  
+        //                    font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+        //                    width: 100%; 
+        //                    border-collapse: collapse;
+        //                    border-spacing: 0; 
+        //                }                        
+        //                .news-export-doc th.cln{
+        //                writing-mode:vertical-rl;text-orientation:upright;
+        //                text-decoration-line: overline underline;
+        //                text-decoration-style: wavy;}
+        //                td, 
+        //                  th { border: 1px solid #000; height: 40px; } /* Make cells a bit taller */
+
+        //                th {  
+        //                    font-weight: bold; /* Make sure they're bold */
+        //                }
+
+        //                td {  
+        //                    text-align: center; /* Center our text */
+        //                }
+
+        //                .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
+        //                    /* border-top: 0; */
+        //                    height: 130px;
+        //                    font-size: 0.8em;
+        //                    border: 1px solid #000;
+        //                 }   
+
+        //                .vertical{
+        //                    writing-mode: vertical-lr; 
+        //                    transform: rotate(90deg);
+        //                    text-align: center;
+        //                }
+        //                .verticaltest
+        //                {
+        //                 transform: rotate(-90deg);
+        //                 -webkit-transform: rotate(-90deg); /* Safari/Chrome */
+        //                 -moz-transform: rotate(-90deg); /* Firefox */
+        //                 -o-transform: rotate(-90deg); /* Opera */
+        //                 -ms-transform: rotate(-90deg); /* IE 9 */
+        //                }
+
+        //                </style> "
+        //           + "</head><body>";
+
+        //    string sbString = html;
+        //    var page = string.Empty;
+        //    var pgno = 1;
+        //    var distinctcol = C18OdcTrSheet.GroupBy(x => x.CEN)
+        //                                  .Select(grp => grp.First())
+        //                                  .OrderBy(x => x.CEN)
+        //                                  .Distinct()
+        //                                  .ToList();
+        //    foreach (var col in distinctcol)
+        //    {
+        //        var branchdata = C18OdcTrSheet.Where(x => x.CEN == col.CEN)
+        //                                        .GroupBy(x => x.BR)
+        //                                        .Select(g => g.First())
+        //                                        .OrderBy(x => x.BR)
+        //                                        .ToArray();
+        //        foreach (var branch in branchdata)
+        //        {
+        //            ;
+        //            var studentarrdata = C18OdcTrSheet.Where(x => x.CEN == col.CEN && x.BR == branch.BR)
+        //                                            .OrderBy(x => x.BR)
+        //                                            .OrderBy(x => x.PIN)
+        //                                            .OrderBy(x => x.Semester)
+        //                                            .Distinct()
+        //                                            .ToArray();
+
+
+        //            var groupedItems = SliceArray(studentarrdata, 12);
+
+        //            //(CURRICULUM - X)
+
+        //            foreach (var studentdata in groupedItems)
+        //            {
+
+        //                #region PageHeader
+        //                page = $@"<div class='container-fluid'>
+        //                           <div class='text-center'>STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S.HYDERABAD</div>
+        //                            <div class='col-md-3 pull-right'>Page : {pgno}</div>
+        //                            <div class='text-center'>PROVISIONAL SUMMARY OF CUMULATIVE RECORDS OF THE CANDIDATE</div>
+        //                            <div class='text-center'>-------------------SCHEME - {branch.scheme}---------------------------</div>
+        //                            <div class='col-md-8'>{branch.COURSE} DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+        //                            <div class='col-md-4 pull-right'>EXAMINATION HELD : {branch.MONTH_YEAR}</div>
+        //                            <div class='col-md-12'>INSTITUTE CODE & NAME :  {branch.CEN}- {branch.CEN_NAME},{branch.CEN_ADDRESS}</div>
+        //                           <hr class='myHr'/>
+        //                    </div>";
+        //                #endregion
+        //                #region PageContent
+        //                page += $@"<div class='container-fluid'>
+        //                 <br><br>
+        //                 <table class='table'>
+        //                            <thead>
+
+        //                             <th class='cln' >PIN<br> Name<br> Father Name<br> Gender</th>
+        //              <th class='cln' ><div style='transform: rotate(-90deg); padding-bottom:15px;;'>Semester</div></th>
+
+        //                             <th class='cln' ><div style='transform: rotate(-90deg); padding-bottom:15px;'>Grade</div></th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' ><div style='transform: rotate(90deg); '>Grade</div></th>
+        //                             <th class='cln' ><div style='transform: rotate(-90deg); '>Grade Points</div></th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln'>Grade Points</th>
+        //                             <th class='cln'>Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' >Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+
+        //                             <th class='cln' style=''>Grade</th>
+        //                             <th class='cln' >Grade Points</th>
+        //                             <th class='cln' >Credits</th>
+        //                             <th class='cln' ></th>
+        //                 <th class='cln' > Rubrics</th>
+        //                             <th class='cln' >Semester Credits Earned</th>
+        //                             <th class='cln' >SGPA</th>
+        //                             <th class='cln' >Total Credits Earned(Min 130)</th>
+        //                 <th class='cln' >CGPA</th>
+
+        //                           </tr>   
+        //                        </thead>";
+        //                page += @"<tbody>";
+
+
+
+        //                for (var i = 0; i < studentdata.Length; i++)
+        //                {
+
+        //                        if (studentdata[i].Semester == "1SEM")
+        //                        {
+        //                            page += $@"<tr>
+        //                        <td rowspan='12' >{studentdata[i].PIN},<br> {studentdata[i].NAME},<br> {studentdata[i].FatherName},<br> {studentdata[i].SEX} </td>
+        //                        ";
+        //                        }
+        //                        else
+        //                        {
+        //                            page += $@"<tr>";
+        //                        }
+
+        //                        page += $@" 
+
+        //                     <td class='cln'> {studentdata[i].Semester}</td>
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode1}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode2}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode3}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode4}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode5}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode6}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode7}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode8}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode9}</td>
+        //                    <td></td>
+
+        //                     <td class='cln'  colspan='3'>{studentdata[i].SubCode10}</td>
+        //        <td></td>
+        //                    <td></td>
+        //        <td></td>
+        //        <td></td>
+        //        <td></td>
+        //        <td></td>
+        //                   </tr>";
+        //                        if (studentdata[i].Semester == "6SEM")
+        //                        {
+        //                            page += $@"   <tr>
+        //                    <td></td>
+        //                    <td>{studentdata[i].Grade1}</td>
+        //                    <td>{studentdata[i].GradePoints1}</td>
+        //                    <td>{studentdata[i].Credits1}</td>
+        //                    <td></td>
+        //                    <td colspan='35'>{studentdata[i].IndustryName}</td>
+
+
+        //                    <td></td>
+        //        <td>P</td>
+        //        <td>{studentdata[i].SemesterCreditsEarned}</td>
+        //        <td>{studentdata[i].SGPA}</td>				
+        //                    <td> {studentdata[i].TotalCreditsEarned} </td>
+        //                    <td>{studentdata[i].CGPA}</td>
+        //                   </tr>	";
+        //                        }
+        //                        else
+        //                        {
+        //                            page += $@"   <tr>
+        //                    <td></td>
+        //                    <td>{studentdata[i].Grade1}</td>
+        //                    <td>{studentdata[i].GradePoints1}</td>
+        //                    <td>{studentdata[i].Credits1}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade2}</td>
+        //                    <td>{studentdata[i].GradePoints2}</td>
+        //                    <td>{studentdata[i].Credits2}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade3}</td>
+        //                    <td>{studentdata[i].GradePoints3}</td>
+        //                    <td>{studentdata[i].Credits3}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade4}</td>
+        //                    <td>{studentdata[i].GradePoints4}</td>
+        //                    <td>{studentdata[i].Credits4}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade5}</td>
+        //                    <td>{studentdata[i].GradePoints5}</td>
+        //                    <td>{studentdata[i].Credits5}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade6}</td>
+        //                    <td>{studentdata[i].GradePoints6}</td>
+        //                    <td>{studentdata[i].Credits6}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade7}</td>
+        //                    <td>{studentdata[i].GradePoints7}</td>
+        //                    <td>{studentdata[i].Credits7}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade8}</td>
+        //                    <td>{studentdata[i].GradePoints8}</td>
+        //                    <td>{studentdata[i].Credits8}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade9}</td>
+        //                    <td>{studentdata[i].GradePoints9}</td>
+        //                    <td>{studentdata[i].Credits9}</td>
+        //                    <td></td>
+
+        //                    <td>{studentdata[i].Grade10}</td>
+        //                    <td>{studentdata[i].GradePoints10}</td>
+        //                    <td>{studentdata[i].Credits10}</td>
+        //                    <td></td>
+        //        <td>P</td>
+        //        <td>{studentdata[i].SemesterCreditsEarned}</td>
+        //        <td>{studentdata[i].SGPA}</td>				
+        //                    <td> {studentdata[i].TotalCreditsEarned} </td>
+        //                    <td>{studentdata[i].CGPA}</td>
+        //                   </tr>	";
+        //                        }                            
+        //                }
+
+
+
+        //                page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
+        //                #endregion
+        //                #region PageFooter
+        //                page += $@"
+        //                    <div class='container-fluid'>
+        //                        <div>Note : 1) CLASSIFICATION FOR AWARD OF CLASS BASED ON TOTAL OF 25% OF I SEM &  II SEM, 100% OF REMAINING SEMESTERS.</div>
+        //                        <div>2) CLASSIFICATION FOR AWARD OF CLASS BASED ON TOTAL OF 100% OF III SEM TO REMAINING SEMESTERS FOR IVC CANDIDATES.</div>
+        //                        <div>* - RULE 12</div>
+
+        //                        <div class='col-md-3'>TOT NO OF CORR : NIL </div>
+        //                            <div class='col-md-1'>ASST.</div>
+        //                        <div class='col-md-1'>SUPDT.</div>
+        //                        <div class='col-md-2'>SECRETARY/DY.</div>
+        //                    <div class='col-md-2'>SECRETARY</div>
+        //                        <div class='col-md-3'>CONTROLLER OF EXAMINATION</div>
+        //                    </div>";
+        //                #endregion
+        //                try
+        //                {
+        //                    sbString += page;
+        //                    sbString += "</body></html>";
+        //                    var converter = new HtmlToPdf();
+        //                    converter.Options.ExternalLinksEnabled = true;
+        //                    converter.Options.DrawBackground = false;
+        //                    converter.Options.JavaScriptEnabled = false;
+        //                    converter.Options.WebPageWidth = 1024;
+        //                    converter.Options.PdfPageSize = PdfPageSize.A4;
+        //                    converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+        //                    converter.Options.CssMediaType = HtmlToPdfCssMediaType.Screen;
+        //                    var doc = converter.ConvertHtmlString(sbString);
+        //                    path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
+        //                    doc.Save(path);
+        //                    doc.Close();
+        //                    sbString = html;
+        //                    pgno++;
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    return "FAILED" + ex.Message;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return dir_id;
+        //}
+
+
+        //body {
+        //                    min-width: 1024px;
+        //                    max-width: 1024px;
+        //                    width: 1024px;
+        //                    margin-left: 10px;
+        //                }
+        //html{
+        //                    min-width: 1024px;
+        //                    max-width: 1024px;
+        //                    width: 1024px;
+        //                }
+
+        //writing-mode:vertical-rl;text-orientation:upright;
+
+        public async Task<string> GetC18ODCTrSheetsAsync(List<C18OdcTrSheet> C18OdcTrSheet)
         {
             var dir_id = Guid.NewGuid().ToString();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
@@ -3431,29 +3824,18 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                    + $"<title></title>"
                    + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
                    + @"<style type='text/css'>
-                         html{
-                            min-width: 1024px;
-                            max-width: 1024px;
-                            width: 1024px;
-                        }
-                        body {
-                            min-width: 1024px;
-                            max-width: 1024px;
-                            width: 1024px;
-                            margin-left: 10px;
-                        }
+                                              
                         table {  
                             font-family: Helvetica, Arial, sans-serif; /* Nicer font */
                             width: 100%; 
                             border-collapse: collapse;
                             border-spacing: 0; 
                         }                        
-                        .news-export-doc th.cln{
-                        writing-mode:vertical-rl;text-orientation:upright;
+                        .news-export-doc th.cln{                        
                         text-decoration-line: overline underline;
                         text-decoration-style: wavy;}
                         td, 
-                          th { border: 1px solid #CCC; height: 40px; } /* Make cells a bit taller */
+                          th { border: 1px solid #000; height: 25px; } /* Make cells a bit taller */
 
                         th {  
                             font-weight: bold; /* Make sure they're bold */
@@ -3465,10 +3847,24 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
                         .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
                             /* border-top: 0; */
-                            height: 130px;
-                            font-size: 0.8em;
-                        }   
-                        
+                            height: 75px;
+                            font-size: 1em;
+                            border: 1px solid #000;
+                         }
+                        .vertical35px
+                        {
+                        transform: rotate(-90deg); 
+                        padding-bottom:35px;
+                        }
+                        .vertical15px
+                        {
+                        transform: rotate(-90deg); 
+                        padding-bottom:15px;
+                        }
+                        .vertical0px
+                        {
+                        transform: rotate(-90deg); 
+                        }
 
                         </style> "
                    + "</head><body>";
@@ -3490,231 +3886,135 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                                 .ToArray();
                 foreach (var branch in branchdata)
                 {
-                    ;
                     var studentarrdata = C18OdcTrSheet.Where(x => x.CEN == col.CEN && x.BR == branch.BR)
-                                                    .OrderBy(x => x.BR)
-                                                    .OrderBy(x => x.PIN)
-                                                    .Distinct()
                                                     .ToArray();
 
-
-                    var groupedItems = SliceArray(studentarrdata, 10);
+                    var groupedItems = SliceArray(studentarrdata, 18);
 
                     //(CURRICULUM - X)
 
                     foreach (var studentdata in groupedItems)
                     {
-                       
                         #region PageHeader
-                        page = $@"<div class='container-fluid'>
-                                   <div class='text-center'>STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S.HYDERABAD</div>
-                                    <div class='col-md-3 pull-right'>Page : {pgno}</div>
-                                    <div class='text-center'>PROVISIONAL SUMMARY OF CUMULATIVE RECORDS OF THE CANDIDATE</div>
-                                    <div class='text-center'>-------------------SCHEME - {branch.scheme}---------------------------</div>
-                                    <div class='col-md-8'>{branch.COURSE} DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
-                                    <div class='col-md-4 pull-right'>EXAMINATION HELD : {branch.MONTH_YEAR}</div>
-                                    <div class='col-md-12'>INSTITUTE CODE & NAME :  {branch.CEN}- {branch.CEN_NAME},{branch.CEN_ADDRESS}</div>
-                                   <hr class='myHr'/>
-                            </div>";
+                        page = $@"
+                                  <div class='col-md-3 pull-right'>Page : {pgno}</div> <br>
+                                  <div style='text-align: center;'>
+                                    <div >STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S.HYDERABAD</div>                                                                       
+                                    <div >CONSOLIDATED TABULATED GRADES SHEET</div>
+                                    <div class='col-md-3 pull-left'>EXAM MONTH & YEAR : {branch.ExamMonthYear} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+                                    <div class='col-md-6 pull-center'>{branch.scheme} SCHEME 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+                                    <div class='col-md-3 pull-right'>INSTITUTE NAME & CODE : {branch.CEN_NAME}</div>       
+                                   </div>";
+                        
                         #endregion
                         #region PageContent
                         page += $@"<div class='container-fluid'>
                          <br><br>
                          <table class='table'>
                                     <thead>
-                                     <tr rowspan='12'>
-                    <th class='text-center' style='color:red;'>PIN Name Father Name Gender</th>
-					<th style='padding-left: 150px;-webkit-transform:rotate(90deg);'>Semester</th>
-                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Grade</th>
-                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Grade Points</th>
-                    <th style='padding-left: 75px;-webkit-transform:rotate(90deg);'>Credits</th>
-                   <th></th>
-				   <th  style='padding-left: 75px;-webkit-transform:rotate(90deg);'> Semester</th>
-                    <th style='-webkit-transform-origin: 255% 55% 0;'>Grade</th>
-                    <th style='-moz-transform:rotate(90deg);'>Grade Points</th>
-                    <th style='-moz-transform-origin: 255% 55% 0;'>Credits</th>
-                   <th class='cln' ></th>
-				   <th style='-ms-writing-mode: tb-rl;'> Semester</th>
-                    <th class='cln'style='writing-mode:vertical-rl;text-orientation:upright' >Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln'style='writing-mode:vertical-rl;text-orientation:upright' >Credits</th>
-                   <th class='cln' ></th>
-				   <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				   <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				     <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Semester</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Grade</th>
-                    <th class='cln' >Grade Points</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>Credits</th>
-                   <th class='cln' ></th>
-				    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'> Rubrics</th>
-                    <th class='cln' >Semester Credits Earned</th>
-                    <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>SGPA</th>
-                   <th class='cln' >Total Credits Earned(Min 130)</th>
-				   <th class='cln' style='writing-mode:vertical-rl;text-orientation:upright'>CGPA</th>
+ 
+                                     <th class='cln' style='width:200px;'>PIN<br> Name<br> Father Name<br> Gender</th>
+					                 <th class='cln' ><div class='vertical35px'>Semester</div></th>
+
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				   
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				   
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+				                     
+                                     <th class='cln' ><div class='vertical15px'>Grade</div></th>
+                                     <th class='cln' ><div class='vertical0px'>Grade Points</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Credits</div></th>
+                                     <th class='cln' ></th>
+
+				                     <th class='cln' ><div class='vertical15px'>Rubrics</div></th>
+                                     <th class='cln' ><div class='vertical15px'>Sem Credits</div></th>
+                                     <th class='cln' ><div class='vertical15px'>SGPA</div></th>                                     
+
                                    </tr>   
                                 </thead>";
                         page += @"<tbody>";
 
-                       
-                      
-                    for (var i = 0; i < studentdata.Length; i++)
+                        //List<Task<string>> tasks = new List<Task<string>>();
+
+                        for (var i = 0; i < studentdata.Length; i++)
                         {
-
-                            if(studentdata[i].Semester == "1SEM")
+                            try
                             {
-                                page += $@"<tr>
-                                <td class='cln'rowspan='12' >{studentdata[i].PIN}, {studentdata[i].NAME}, {studentdata[i].FatherName}, {studentdata[i].SEX} </td>
-                                ";
+                                //tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
+                                page += await GetC18odcHTMLByPin(studentdata[i]);
                             }
-                            else
+                            catch(Exception Ex)
                             {
-                                page += $@"<tr>";
-                            }
-
-                            page += $@" 
-
-                             <td class='cln'> {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode1}</td>
-                            <td></td>
-				             <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode2}</td>
-                            <td></td>
-				             <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode3}</td>
-                            <td></td>
-				             <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode4}</td>
-                            <td></td>
-				             <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode5}</td>
-                            <td></td>
-				             <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode6}</td>
-                            <td></td>
-				              <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode7}</td>
-                            <td></td>
-				              <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode8}</td>
-                            <td></td>
-				              <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode9}</td>
-                            <td></td>
-				              <td class='cln' > {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode10}</td>
-				            <td></td>
-                            <td></td>
-				            <td></td>
-				            <td></td>
-				            <td></td>
-				            <td></td>
-                           </tr>
-                           <tr>
-                            <td></td>
-                            <td>{studentdata[i].Grade1}</td>
-                            <td>{studentdata[i].GradePoints1}</td>
-                            <td>{studentdata[i].Credits1}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade2}</td>
-                            <td>{studentdata[i].GradePoints2}</td>
-                            <td>{studentdata[i].Credits2}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade3}</td>
-                            <td>{studentdata[i].GradePoints3}</td>
-                            <td>{studentdata[i].Credits3}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade4}</td>
-                            <td>{studentdata[i].GradePoints4}</td>
-                            <td>{studentdata[i].Credits4}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade5}</td>
-                            <td>{studentdata[i].GradePoints5}</td>
-                            <td>{studentdata[i].Credits5}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade6}</td>
-                            <td>{studentdata[i].GradePoints6}</td>
-                            <td>{studentdata[i].Credits6}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade7}</td>
-                            <td>{studentdata[i].GradePoints7}</td>
-                            <td>{studentdata[i].Credits7}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade8}</td>
-                            <td>{studentdata[i].GradePoints8}</td>
-                            <td>{studentdata[i].Credits8}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade9}</td>
-                            <td>{studentdata[i].GradePoints9}</td>
-                            <td>{studentdata[i].Credits9}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{studentdata[i].Grade10}</td>
-                            <td>{studentdata[i].GradePoints10}</td>
-                            <td>{studentdata[i].Credits10}</td>
-                            <td></td>
-				            <td>P</td>
-				            <td>{studentdata[i].SemesterCreditsEarned}</td>
-				            <td>{studentdata[i].SGPA}</td>				
-                            <td> {studentdata[i].TotalCreditsEarned} </td>
-                            <td>{studentdata[i].CGPA}</td>
-                           </tr>	";
+                                
+                            }                            
                         }
+                        //await Task.WhenAll(tasks);
 
+                        //foreach (var task in tasks)
+                        //{
+                        //    var result = ((Task<string>)task).Result;
+                        //    page += result;
+                        //}
 
-                    
-                        page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
+                        page += "</tbody></table></div>";
+                        //page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
                         #endregion
-                        #region PageFooter
+
+                        #region Footer
                         page += $@"
-                            <div class='container-fluid'>
-                                <div>Note : 1) CLASSIFICATION FOR AWARD OF CLASS BASED ON TOTAL OF 25% OF I SEM &  II SEM, 100% OF REMAINING SEMESTERS.</div>
-                                <div>2) CLASSIFICATION FOR AWARD OF CLASS BASED ON TOTAL OF 100% OF III SEM TO REMAINING SEMESTERS FOR IVC CANDIDATES.</div>
-                                <div>* - RULE 12</div>
-        
+                            <div style='padding-left:150px'>
+                                <div>Note : <br>1)  Aggregate Equivalent Percentage: (CGPA-0.5) x 10.</div>
+                                <div><br>2) Award of Class:- For CGPA>=8 - First Class with Distinction, For 8>CGPA>=6.5 - First Class, For 6.5>CGPA>=4 - Second Class, For CGPA<4 (Subject to Earning of >=130 Credits) - Pass.</div>                               
+                                <br><br>
                                 <div class='col-md-3'>TOT NO OF CORR : NIL </div>
-                                    <div class='col-md-1'>ASST.</div>
+                                <div class='col-md-1'>ASST.</div>
                                 <div class='col-md-1'>SUPDT.</div>
                                 <div class='col-md-2'>SECRETARY/DY.</div>
-                            <div class='col-md-2'>SECRETARY</div>
+                                <div class='col-md-2'>SECRETARY</div>
                                 <div class='col-md-3'>CONTROLLER OF EXAMINATION</div>
                             </div>";
                         #endregion
+
                         try
                         {
                             sbString += page;
@@ -3744,8 +4044,154 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             return dir_id;
         }
 
+        public async Task<string> GetC18odcHTMLByPin(C18OdcTrSheet studentdata)
+        {
+            string tmphtmlpage = "";
 
-        public string tabledata(string val1, string val2, string val3,string val4,string val5) {
+
+            if (studentdata.Semester == "1SEM")
+            {
+                tmphtmlpage += $@"<tr>
+                                <td rowspan='12' >{studentdata.PIN}, {studentdata.NAME}, {studentdata.FatherName}, {studentdata.SEX} </td>
+                                ";
+            }
+            else
+            {
+                tmphtmlpage += $@"<tr>";
+            }
+
+            tmphtmlpage += $@" 
+
+                             <td class='cln'> {studentdata.Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata.SubCode1}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode2}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode3}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode4}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode5}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode6}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode7}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode8}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode9}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode10}</td>
+				            <td></td>                            
+				            <td></td>
+                            <td></td>
+				            <td></td>
+                           </tr>";
+
+            if (studentdata.Semester == "6SEM")
+            {
+                tmphtmlpage += $@"   <tr>
+                            <td></td>
+                            <td>{studentdata.Grade1}</td>
+                            <td>{studentdata.GradePoints1}</td>
+                            <td>{studentdata.Credits1}</td>
+                            <td></td>
+                            <td colspan='35' style='text-align:left;'>ODC NO : {studentdata.ODCNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMG NO : {studentdata.CMGNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IndustryName : {studentdata.IndustryName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Division : {studentdata.Division} 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Credits Earned(Min : 130) : {studentdata.TotalCreditsEarned} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGPA :  {studentdata.CGPA} </td>                                              
+                            <td></td>
+				            <td>P</td>
+                            <td>{studentdata.SemesterCreditsEarned}</td>
+                            <td>{studentdata.SGPA}</td>
+				            
+                           </tr>	";
+            }
+            else
+            {
+                tmphtmlpage += $@"   <tr>
+                            <td></td>
+                            <td>{studentdata.Grade1}</td>
+                            <td>{studentdata.GradePoints1}</td>
+                            <td>{studentdata.Credits1}</td>
+                            <td></td>
+                         
+                            <td>{studentdata.Grade2}</td>
+                            <td>{studentdata.GradePoints2}</td>
+                            <td>{studentdata.Credits2}</td>
+                            <td></td>
+                           
+                            <td>{studentdata.Grade3}</td>
+                            <td>{studentdata.GradePoints3}</td>
+                            <td>{studentdata.Credits3}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade4}</td>
+                            <td>{studentdata.GradePoints4}</td>
+                            <td>{studentdata.Credits4}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade5}</td>
+                            <td>{studentdata.GradePoints5}</td>
+                            <td>{studentdata.Credits5}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade6}</td>
+                            <td>{studentdata.GradePoints6}</td>
+                            <td>{studentdata.Credits6}</td>
+                            <td></td>
+                         
+                            <td>{studentdata.Grade7}</td>
+                            <td>{studentdata.GradePoints7}</td>
+                            <td>{studentdata.Credits7}</td>
+                            <td></td>
+                      
+                            <td>{studentdata.Grade8}</td>
+                            <td>{studentdata.GradePoints8}</td>
+                            <td>{studentdata.Credits8}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade9}</td>
+                            <td>{studentdata.GradePoints9}</td>
+                            <td>{studentdata.Credits9}</td>
+                            <td></td>
+               
+                            <td>{studentdata.Grade10}</td>
+                            <td>{studentdata.GradePoints10}</td>
+                            <td>{studentdata.Credits10}</td>
+                            <td></td>
+				            <td>P</td>
+                            <td>{studentdata.SemesterCreditsEarned}</td>
+				            <td>{studentdata.SGPA}</td>
+                          </tr>";
+
+                //if (studentdata.Semester == "1SEM")
+                //{
+                //    tmphtmlpage += $@"                                     				
+                //                  <td  rowspan='11'> {studentdata.TotalCreditsEarned} </td>
+                //                  <td  rowspan='11'>{studentdata.CGPA}</td>
+                //                 </tr>	";
+                //}
+                //else
+                //{
+                //    tmphtmlpage += $@"   
+                //                 </tr>	";
+                //}
+
+            }
+
+            return tmphtmlpage;
+        }
+
+        public string tabledata(string val1, string val2, string val3, string val4, string val5)
+        {
             if (val4 == "*" && val5 != "__")
             {
                 return $@" <td class='cln text-center'>{val1}</td>
@@ -3764,7 +4210,8 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                     <td class='cln text-center dotted'>{val2}</td>
                                     <td class='cln text-center dotted'>{val3}</td>";
             }
-            else {
+            else
+            {
                 return $@" <td class='cln text-center'>{val1}</td>
                                     <td class='cln text-center'>{val2}</td>
                                     <td class='cln text-center'>{val3}</td>";
@@ -3773,14 +4220,14 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         public string GetTrSheets(List<TrSheetCertificateData> TrSheetData)
         {
             var dir_id = Guid.NewGuid().ToString();
-            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;          
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
             var path = string.Empty;
             CreateIfMissing(dir);
             string html = @"<html>"
                    + "<head>"
                    + $"<title></title>"
                    + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
-                   +$@"<script src= '{AppDomain.CurrentDomain.BaseDirectory}\scripts\jquery-3.3.1.min.js'></script>"
+                   + $@"<script src= '{AppDomain.CurrentDomain.BaseDirectory}\scripts\jquery-3.3.1.min.js'></script>"
                     + @"<style type='text/css'>
                             .myHr {
                                 color: #000;
@@ -3967,7 +4414,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             string sbString = html;
             var page = string.Empty;
             var pgno = 1;
-            var distinctcenters = TrSheetData.GroupBy(x => x.CENTRE)                                         
+            var distinctcenters = TrSheetData.GroupBy(x => x.CENTRE)
                                             .Select(grp => grp.First())
                                             .OrderBy(x => x.CENTRE)
                                             .Distinct()
@@ -3977,26 +4424,26 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                 var branchdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE)
                                                 .GroupBy(x => x.BRANCH)
                                                 .Select(g => g.First())
-                                                .OrderBy(x => x.BRANCH)                                              
+                                                .OrderBy(x => x.BRANCH)
                                                 .ToArray();
                 foreach (var branch in branchdata)
                 {
-              
-               
-               
-                var tempstudentdata = new List<TrSheetCertificateData>();
-                  
-                var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH)                                              
-                                                .OrderBy(x => x.BRANCH)                                               
-                                                .OrderBy(x => x.PIN)
-                                                .Distinct()
-                                                .ToArray();
 
-                   
-                var groupedItems = SliceArray(studentarrdata,7);
+
+
+                    var tempstudentdata = new List<TrSheetCertificateData>();
+
+                    var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH)
+                                                    .OrderBy(x => x.BRANCH)
+                                                    .OrderBy(x => x.PIN)
+                                                    .Distinct()
+                                                    .ToArray();
+
+
+                    var groupedItems = SliceArray(studentarrdata, 7);
 
                     foreach (var studentdata in groupedItems)
-                        {
+                    {
 
                         #region PageHeader
                         page = $@"<div class='container-fluid sm-spacer'>                            
@@ -4171,12 +4618,12 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             <th class='' colspan='3'>RESULT</th>
                         </tr>
                     </thead>";
-                    page += @"<tbody>";
+                        page += @"<tbody>";
 
                         for (var i = 0; i < studentdata.Length; i++)
-                            {
-                                tempstudentdata.Add(studentdata[i]);
-                                page += $@"<tr>
+                        {
+                            tempstudentdata.Add(studentdata[i]);
+                            page += $@"<tr>
                                     <td class='cln' colspan='4'>{tempstudentdata.Count}</td>
                                     <td class='cln' colspan='6'>{studentdata[i].PIN}</td>
                                     <td class='cln' colspan='12'>{studentdata[i].NAME}</td>
@@ -4204,7 +4651,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 <tr>
                                      <td colspan='22'></td>
                                      <td colspan='18'>RE: {studentdata[i].RE}</td>
-                                </tr>"; 
+                                </tr>";
                         }
 
                         page += "</tbody> </table>";
@@ -4226,7 +4673,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 <div class='col-md-4'>{branch.SUB12_CODE}-{branch.SUB12_NAME}</div>
                             </div>";
                             #endregion
-                        }                    
+                        }
 
 
                         #region PageFooter
@@ -4242,7 +4689,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             <div class='col-md-2'>CONTROLLER OF EXAMINATION</div>
                         </div></div>";
                         #endregion
-                       
+
                         sbString += page;
                         sbString += "</body></html>";
                         var converter = new HtmlToPdf();
@@ -4261,7 +4708,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                     }
                     tempstudentdata.Clear();
                 }
-            } 
+            }
             return dir_id;
         }
 
@@ -4283,7 +4730,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         //                        color: #000;
         //                        border-bottom: 2pX solid #000;
         //                    }
-                           
+
         //                    .table > thead > tr > th {
         //                        vertical-align: bottom;
         //                        border-top: 1px solid #000 !important;
@@ -4350,7 +4797,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         //                       width: 100%;                     
         //                       text-align: center;
         //                    }
-                   
+
         //                    @media print {
         //                        .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
         //                            float: left;

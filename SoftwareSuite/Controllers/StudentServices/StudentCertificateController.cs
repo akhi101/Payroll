@@ -384,7 +384,7 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         [HttpGet, ActionName("GetC18ODCTrsheets")]
-        public string GetC18ODCTrsheets(int ExamMonthYearId)
+        public async Task<string> GetC18ODCTrsheetsAsync(int ExamMonthYearId)
         {
             try
             {
@@ -394,7 +394,7 @@ namespace SoftwareSuite.Controllers.StudentServices
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_GenerateC18ConsolidatedMemoForTsheets", param);
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var C18OdcTrSheet = DataTableHelper.ConvertDataTable<C18OdcTrSheet>(ds?.Tables[0]);
-                var pdf = GenerateCertificate.GetC18ODCTrsheetPdf(C18OdcTrSheet);
+                var pdf = await GenerateCertificate.GetC18ODCTrsheetPdfAsync(C18OdcTrSheet);
                 return pdf;
             }
             catch (Exception ex)
