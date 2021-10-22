@@ -3974,27 +3974,27 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 </thead>";
                         page += @"<tbody>";
 
-                        //List<Task<string>> tasks = new List<Task<string>>();
+                        List<Task<string>> tasks = new List<Task<string>>();
 
                         for (var i = 0; i < studentdata.Length; i++)
                         {
                             try
                             {
-                                //tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
-                                page += await GetC18odcHTMLByPin(studentdata[i]);
+                                tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
+                                //page += await GetC18odcHTMLByPin(studentdata[i]);
                             }
                             catch(Exception Ex)
                             {
                                 
                             }                            
                         }
-                        //await Task.WhenAll(tasks);
+                        await Task.WhenAll(tasks);
 
-                        //foreach (var task in tasks)
-                        //{
-                        //    var result = ((Task<string>)task).Result;
-                        //    page += result;
-                        //}
+                        foreach (var task in tasks)
+                        {
+                            var result = ((Task<string>)task).Result;
+                            page += result;
+                        }
 
                         page += "</tbody></table></div>";
                         //page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
