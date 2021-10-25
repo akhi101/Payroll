@@ -1801,6 +1801,12 @@
                 dependencies: ['controllers/StudentOnlineServices/OdcTrSheetController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
+            'Dashboard.PostExam.C18OdcTrSheet': {
+                url: "/C18OdcTrSheet",
+                templateUrl: 'app/views/PostExam/C18OdcTrSheet.html',
+                dependencies: ['controllers/PostExam/C18OdcTrSheetController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
             'Dashboard.PostExam.ThreeBacklogODCReport': {
                 url: "/ThreeBacklogODCReport",
                 templateUrl: 'app/views/PostExam/ThreeBacklogODCReport.html',

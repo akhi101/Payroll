@@ -440,12 +440,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12"  ng-show="getData">
+                <div class="col-md-12" >
                     <div class="submit-btn" style="margin-bottom:0px;">
                         <button type="submit" ng-click="editData()">Edit Details </button>
                     </div>
                 </div>
-                <div class="col-md-12 mtp-50" ng-show="editStudentData && IsFeePaid ==true">
+                <div class="col-md-12 mtp-50">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-12">
@@ -480,49 +480,79 @@
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 1):</label>
-                                            <div class="input-group date"  id="datepicker1">
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" is-open="showFlag3" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <!--<div class="input-group date" id="datepicker1">
                                                 <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
+                                            </div>-->
 
                                         </div>
                                     </div>
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 2):</label>
-                                            <div class="input-group date" id="datepicker2">
-                                                <input autocomplete="off" ng-model="date2" class="form-control" ng-change="dates(date2,2)" type="text" />
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date2" is-open="showFlag4" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag4 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <!--<div class="input-group date" id="datepicker2">
+        <input autocomplete="off" ng-model="date2" class="form-control" ng-change="dates(date2,2)" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
 
                                         </div>
                                     </div>
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 3):</label>
-                                            <div class="input-group date" id="datepicker3">
-                                                <input autocomplete="off" ng-model="date3" class="form-control" ng-change="dates(date3,3)" type="text" />
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date3" is-open="showFlag5" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag5 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <!--<div class="input-group date" id="datepicker3">
+        <input autocomplete="off" ng-model="date3" class="form-control" ng-change="dates(date3,3)" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
 
                                         </div>
                                     </div>
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 4):</label>
-                                            <div class="input-group date" id="datepicker4">
-                                                <input autocomplete="off" ng-model="date4" class="form-control" ng-change="dates(date4,4)" type="text" />
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date4" is-open="showFlag6" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag6 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <!--<div class="input-group date" id="datepicker4">
+        <input autocomplete="off" ng-model="date4" class="form-control" ng-change="dates(date4,4)" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
                                         </div>
                                     </div>
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 5):</label>
-                                            <div class="input-group date" id="datepicker5">
-                                                <input  autocomplete="off" ng-model="date5" class="form-control" ng-change="dates(date5,5)" type="text" />
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date7" is-open="showFlag2" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag7 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                            <!--<div class="input-group date" id="datepicker5">
+        <input  autocomplete="off" ng-model="date5" class="form-control" ng-change="dates(date5,5)" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
 
                                         </div>
                                     </div>

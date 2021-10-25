@@ -3,6 +3,7 @@
         var data = {};
         $scope.$emit('showLoading', data);
         var authData = $localStorage.authorizationData;
+        // console.log(authData)
         AppSettings.College_Code = authData.College_Code;
         AppSettings.College_Name = authData.College_Name;
         AppSettings.Schemeid = authData.SchemeId;
@@ -11,6 +12,7 @@
         AppSettings.Branchid = authData.BranchId;
         AppSettings.AcademicYearid = authData.AcdYrID;
         $scope.College_Code = authData.College_Code;
+        $scope.BranchCode = authData.BranchCode;
         $scope.College_Name = authData.College_Name;
         $scope.SystemUserTypeId = authData.SystemUserTypeId;
         $scope.StudentRegList = {};
@@ -494,7 +496,7 @@
                                 $scope.$emit('hideLoading', data);
                                 var attendee = data;
                             }
-                           
+
                             // console.log(attendee);
                             if (attendee.respcode == "200") {
                                 $scope.$emit('hideLoading', data);
@@ -598,10 +600,14 @@
                 });
         }
 
-        $scope.showAadhaarModal = function (studentId) {
-            if ($scope.SystemUserTypeId == 1 || $scope.SystemUserTypeId == 2) {
-                alert("Pin Generation Disabled")
-                return;
+        $scope.showAadhaarModal = function (studentId, Pin) {
+            if ($scope.SystemUserTypeId == 3 || $scope.SystemUserTypeId == 2) {
+                if ($scope.BranchCode != 'PH') {
+                    if (Pin == null || Pin == '' || Pin == undefined) {
+                        alert("Pin Generation Disabled")
+                        return;
+                    }
+                }
             }
             $scope.aadhaarPhoto = "";
             $scope.aadhaarName = "";
@@ -1178,9 +1184,9 @@
             };
             StudentRegService.RegisterBmaAttendee(reqData).then(
                 function (data) {
-                //    console.log(data);
+                    //    console.log(data);
                     var attendee = data;
-                  //  console.log(attendee);
+                    //  console.log(attendee);
                     if (attendee.respcode == "200") {
                         alert(attendee.respdesc + " Use the following Attendee Id for attendance: " + attendee.attdid);
                         $scope.attdid = attendee.attdid;

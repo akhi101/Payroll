@@ -208,6 +208,7 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         public async Task<string> GetC18ODCTrsheetPdfAsync(List<C18OdcTrSheet> C18OdcTrSheet)
+
         {            
             string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR";
             CreateIfMissing(dirPath);
@@ -3814,6 +3815,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         //writing-mode:vertical-rl;text-orientation:upright;
 
         public async Task<string> GetC18ODCTrSheetsAsync(List<C18OdcTrSheet> C18OdcTrSheet)
+
         {
             var dir_id = Guid.NewGuid().ToString();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
@@ -3831,11 +3833,13 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             border-collapse: collapse;
                             border-spacing: 0; 
                         }                        
+
                         .news-export-doc th.cln{                        
                         text-decoration-line: overline underline;
                         text-decoration-style: wavy;}
                         td, 
                           th { border: 1px solid #000; height: 25px; } /* Make cells a bit taller */
+
 
                         th {  
                             font-weight: bold; /* Make sure they're bold */
@@ -3847,8 +3851,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
                         .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
                             /* border-top: 0; */
+
                             height: 75px;
                             font-size: 1em;
+
                             border: 1px solid #000;
                          }
                         .vertical35px
@@ -3901,8 +3907,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                   <div style='text-align: center;'>
                                     <div >STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S.HYDERABAD</div>                                                                       
                                     <div >CONSOLIDATED TABULATED GRADES SHEET</div>
+
                                     <div class='col-md-3 pull-left'>EXAM MONTH & YEAR : {branch.ExamMonthYear} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
                                     <div class='col-md-6 pull-center'>{branch.scheme} SCHEME 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+
                                     <div class='col-md-3 pull-right'>INSTITUTE NAME & CODE : {branch.CEN_NAME}</div>       
                                    </div>";
                         
@@ -3912,8 +3920,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                          <br><br>
                          <table class='table'>
                                     <thead>
- 
+
                                      <th class='cln' style='width:200px;'>PIN<br> Name<br> Father Name<br> Gender</th>
+
 					                 <th class='cln' ><div class='vertical35px'>Semester</div></th>
 
                                      <th class='cln' ><div class='vertical15px'>Grade</div></th>
@@ -3968,11 +3977,14 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
 				                     <th class='cln' ><div class='vertical15px'>Rubrics</div></th>
                                      <th class='cln' ><div class='vertical15px'>Sem Credits</div></th>
+
                                      <th class='cln' ><div class='vertical15px'>SGPA</div></th>                                     
+
 
                                    </tr>   
                                 </thead>";
                         page += @"<tbody>";
+
 
                         List<Task<string>> tasks = new List<Task<string>>();
 
@@ -3982,11 +3994,14 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             {
                                 tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
                                 //page += await GetC18odcHTMLByPin(studentdata[i]);
+
                             }
                             catch(Exception Ex)
                             {
+
                                 
                             }                            
+
                         }
                         await Task.WhenAll(tasks);
 
@@ -3995,6 +4010,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             var result = ((Task<string>)task).Result;
                             page += result;
                         }
+
 
                         page += "</tbody></table></div>";
                         //page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
@@ -4014,6 +4030,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 <div class='col-md-3'>CONTROLLER OF EXAMINATION</div>
                             </div>";
                         #endregion
+
 
                         try
                         {
@@ -4043,6 +4060,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             }
             return dir_id;
         }
+
 
         public async Task<string> GetC18odcHTMLByPin(C18OdcTrSheet studentdata)
         {
@@ -4189,6 +4207,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
             return tmphtmlpage;
         }
+
 
         public string tabledata(string val1, string val2, string val3, string val4, string val5)
         {

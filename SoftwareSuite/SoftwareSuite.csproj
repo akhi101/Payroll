@@ -902,6 +902,7 @@
     <Content Include="app\controllers\PostExam\BonafideApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
+    <Content Include="app\controllers\PostExam\C18OdcTrSheetController.js" />
     <Content Include="app\controllers\PostExam\CertificateApprovalDetailsController.js" />
     <Content Include="app\controllers\PostExam\CertificateApprovelistController.js" />
     <Content Include="app\controllers\PostExam\CertificateApproveListDetailsController.js" />
@@ -2357,6 +2358,7 @@
     <Content Include="app\views\PostExam\BonafideApproveListDetails.html" />
     <Content Include="app\views\PostExam\BonafideCertificate.html" />
     <Content Include="app\views\PostExam\BonafideDetailsPopup.html" />
+    <Content Include="app\views\PostExam\C18OdcTrSheet.html" />
     <Content Include="app\views\PostExam\CertificateApproval.html" />
     <Content Include="app\views\PostExam\CertificateApprovalDetails.html" />
     <Content Include="app\views\PostExam\CertificateApproveList.html" />
