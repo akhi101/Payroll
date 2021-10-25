@@ -207,11 +207,12 @@ namespace SoftwareSuite.Controllers.StudentServices
             return pdf;
         }
 
-        public string GetC18ODCTrsheetPdf(List<C18OdcTrSheet> C18OdcTrSheet)
+        public async Task<string> GetC18ODCTrsheetPdfAsync(List<C18OdcTrSheet> C18OdcTrSheet)
+
         {            
             string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR";
             CreateIfMissing(dirPath);
-            var dir_id = GetC18ODCTrSheets(C18OdcTrSheet);
+            var dir_id = await GetC18ODCTrSheetsAsync(C18OdcTrSheet);
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
             var files = Directory.GetFiles(dir);
             var pdf = Guid.NewGuid().ToString();
@@ -3811,8 +3812,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         //                    width: 1024px;
         //                }
 
-   
-    public string GetC18ODCTrSheets(List<C18OdcTrSheet> C18OdcTrSheet)
+        //writing-mode:vertical-rl;text-orientation:upright;
+
+        public async Task<string> GetC18ODCTrSheetsAsync(List<C18OdcTrSheet> C18OdcTrSheet)
+
         {
             var dir_id = Guid.NewGuid().ToString();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR\" + dir_id;
@@ -3830,12 +3833,13 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             border-collapse: collapse;
                             border-spacing: 0; 
                         }                        
-                        .news-export-doc th.cln{
-                        writing-mode:vertical-rl;text-orientation:upright;
+
+                        .news-export-doc th.cln{                        
                         text-decoration-line: overline underline;
                         text-decoration-style: wavy;}
                         td, 
-                          th { border: 1px solid #000; height: 40px; } /* Make cells a bit taller */
+                          th { border: 1px solid #000; height: 25px; } /* Make cells a bit taller */
+
 
                         th {  
                             font-weight: bold; /* Make sure they're bold */
@@ -3847,8 +3851,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
                         .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
                             /* border-top: 0; */
-                            height: 130px;
-                            font-size: 0.8em;
+
+                            height: 75px;
+                            font-size: 1em;
+
                             border: 1px solid #000;
                          }
                         .vertical35px
@@ -3901,7 +3907,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                   <div style='text-align: center;'>
                                     <div >STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S.HYDERABAD</div>                                                                       
                                     <div >CONSOLIDATED TABULATED GRADES SHEET</div>
-                                    <div class='col-md-3 pull-left'>{branch.scheme} SCHEME 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+
+                                    <div class='col-md-3 pull-left'>EXAM MONTH & YEAR : {branch.ExamMonthYear} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+                                    <div class='col-md-6 pull-center'>{branch.scheme} SCHEME 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
+
                                     <div class='col-md-3 pull-right'>INSTITUTE NAME & CODE : {branch.CEN_NAME}</div>       
                                    </div>";
                         
@@ -3911,8 +3920,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                          <br><br>
                          <table class='table'>
                                     <thead>
- 
-                                     <th class='cln' >PIN<br> Name<br> Father Name<br> Gender</th>
+
+                                     <th class='cln' style='width:200px;'>PIN<br> Name<br> Father Name<br> Gender</th>
+
 					                 <th class='cln' ><div class='vertical35px'>Semester</div></th>
 
                                      <th class='cln' ><div class='vertical15px'>Grade</div></th>
@@ -3967,179 +3977,61 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
 				                     <th class='cln' ><div class='vertical15px'>Rubrics</div></th>
                                      <th class='cln' ><div class='vertical15px'>Sem Credits</div></th>
-                                     <th class='cln' ><div class='vertical15px'>SGPA</div></th>
-                                     <th class='cln' ><div class='vertical0px'>Total Credits(Min 130)</div></th>
-				                     <th class='cln' ><div class='vertical15px'>CGPA</div></th>
+
+                                     <th class='cln' ><div class='vertical15px'>SGPA</div></th>                                     
+
 
                                    </tr>   
                                 </thead>";
                         page += @"<tbody>";
 
 
+                        List<Task<string>> tasks = new List<Task<string>>();
 
                         for (var i = 0; i < studentdata.Length; i++)
                         {
+                            try
+                            {
+                                tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
+                                //page += await GetC18odcHTMLByPin(studentdata[i]);
 
-                            if (studentdata[i].Semester == "1SEM")
-                            {
-                                page += $@"<tr>
-                                <td rowspan='12' >{studentdata[i].PIN}, {studentdata[i].NAME}, {studentdata[i].FatherName}, {studentdata[i].SEX} </td>
-                                ";
                             }
-                            else 
+                            catch(Exception Ex)
                             {
-                                page += $@"<tr>";
-                            }
 
-                            page += $@" 
+                                
+                            }                            
 
-                             <td class='cln'> {studentdata[i].Semester}</td>
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode1}</td>
-                            <td></td>
-				             
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode2}</td>
-                            <td></td>
-				             
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode3}</td>
-                            <td></td>
-				             
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode4}</td>
-                            <td></td>
-				             
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode5}</td>
-                            <td></td>
-				             
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode6}</td>
-                            <td></td>
-				              
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode7}</td>
-                            <td></td>
-				              
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode8}</td>
-                            <td></td>
-				              
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode9}</td>
-                            <td></td>
-				              
-                             <td class='cln'  colspan='3'>{studentdata[i].SubCode10}</td>
-				            <td></td>
-                            <td></td>
-                            <td></td>
-				            <td></td>";
+                        }
+                        await Task.WhenAll(tasks);
 
-                            if (studentdata[i].Semester == "1SEM")
-                            {
-                                page += $@"                                     
-                                  <td></td>
-                                  <td></td>
-                                 </tr>	";
-                            }
-                            else
-                            {
-                                page += $@"   
-                                 </tr>	";
-                            }
-                             
-                            if (studentdata[i].Semester == "6SEM")
-                            {
-                                page += $@"   <tr>
-                            <td></td>
-                            <td>{studentdata[i].Grade1}</td>
-                            <td>{studentdata[i].GradePoints1}</td>
-                            <td>{studentdata[i].Credits1}</td>
-                            <td></td>
-                            <td colspan='35'>{studentdata[i].IndustryName}</td>
-                         
-                     
-                            <td></td>
-				            <td>P</td>
-                            <td>{studentdata[i].SemesterCreditsEarned}</td>
-                            <td>{studentdata[i].SGPA}</td>
-				            
-                           </tr>	";
-                                //<td>{studentdata[i].SemesterCreditsEarned}</td>
-                                //<td>{studentdata[i].SGPA}</td>				
-                                //<td> {studentdata[i].TotalCreditsEarned} </td>
-                                //<td>{studentdata[i].CGPA}</td>
-                            }
-                            else
-                            {
-                                page += $@"   <tr>
-                            <td></td>
-                            <td>{studentdata[i].Grade1}</td>
-                            <td>{studentdata[i].GradePoints1}</td>
-                            <td>{studentdata[i].Credits1}</td>
-                            <td></td>
-                         
-                            <td>{studentdata[i].Grade2}</td>
-                            <td>{studentdata[i].GradePoints2}</td>
-                            <td>{studentdata[i].Credits2}</td>
-                            <td></td>
-                           
-                            <td>{studentdata[i].Grade3}</td>
-                            <td>{studentdata[i].GradePoints3}</td>
-                            <td>{studentdata[i].Credits3}</td>
-                            <td></td>
-                          
-                            <td>{studentdata[i].Grade4}</td>
-                            <td>{studentdata[i].GradePoints4}</td>
-                            <td>{studentdata[i].Credits4}</td>
-                            <td></td>
-                          
-                            <td>{studentdata[i].Grade5}</td>
-                            <td>{studentdata[i].GradePoints5}</td>
-                            <td>{studentdata[i].Credits5}</td>
-                            <td></td>
-                          
-                            <td>{studentdata[i].Grade6}</td>
-                            <td>{studentdata[i].GradePoints6}</td>
-                            <td>{studentdata[i].Credits6}</td>
-                            <td></td>
-                         
-                            <td>{studentdata[i].Grade7}</td>
-                            <td>{studentdata[i].GradePoints7}</td>
-                            <td>{studentdata[i].Credits7}</td>
-                            <td></td>
-                      
-                            <td>{studentdata[i].Grade8}</td>
-                            <td>{studentdata[i].GradePoints8}</td>
-                            <td>{studentdata[i].Credits8}</td>
-                            <td></td>
-                          
-                            <td>{studentdata[i].Grade9}</td>
-                            <td>{studentdata[i].GradePoints9}</td>
-                            <td>{studentdata[i].Credits9}</td>
-                            <td></td>
-               
-                            <td>{studentdata[i].Grade10}</td>
-                            <td>{studentdata[i].GradePoints10}</td>
-                            <td>{studentdata[i].Credits10}</td>
-                            <td></td>
-				            <td>P</td>
-                            <td>{studentdata[i].SemesterCreditsEarned}</td>
-				            <td>{studentdata[i].SGPA}</td>";
-
-                            if (studentdata[i].Semester == "1SEM")
-                                {
-                                    page += $@"                                     				
-                                  <td  rowspan='11'> {studentdata[i].TotalCreditsEarned} </td>
-                                  <td  rowspan='11'>{studentdata[i].CGPA}</td>
-                                 </tr>	";
-                                }
-                            else
-                                {
-                                    page += $@"   
-                                 </tr>	";
-                                }
-                            
-                            }
+                        foreach (var task in tasks)
+                        {
+                            var result = ((Task<string>)task).Result;
+                            page += result;
                         }
 
 
-
+                        page += "</tbody></table></div>";
                         //page += "</tbody></table></div>  <p>A Computer Science Portal</p>";
                         #endregion
-                        
+
+                        #region Footer
+                        page += $@"
+                            <div style='padding-left:150px'>
+                                <div>Note : <br>1)  Aggregate Equivalent Percentage: (CGPA-0.5) x 10.</div>
+                                <div><br>2) Award of Class:- For CGPA>=8 - First Class with Distinction, For 8>CGPA>=6.5 - First Class, For 6.5>CGPA>=4 - Second Class, For CGPA<4 (Subject to Earning of >=130 Credits) - Pass.</div>                               
+                                <br><br>
+                                <div class='col-md-3'>TOT NO OF CORR : NIL </div>
+                                <div class='col-md-1'>ASST.</div>
+                                <div class='col-md-1'>SUPDT.</div>
+                                <div class='col-md-2'>SECRETARY/DY.</div>
+                                <div class='col-md-2'>SECRETARY</div>
+                                <div class='col-md-3'>CONTROLLER OF EXAMINATION</div>
+                            </div>";
+                        #endregion
+
+
                         try
                         {
                             sbString += page;
@@ -4168,6 +4060,154 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             }
             return dir_id;
         }
+
+
+        public async Task<string> GetC18odcHTMLByPin(C18OdcTrSheet studentdata)
+        {
+            string tmphtmlpage = "";
+
+
+            if (studentdata.Semester == "1SEM")
+            {
+                tmphtmlpage += $@"<tr>
+                                <td rowspan='12' >{studentdata.PIN}, {studentdata.NAME}, {studentdata.FatherName}, {studentdata.SEX} </td>
+                                ";
+            }
+            else
+            {
+                tmphtmlpage += $@"<tr>";
+            }
+
+            tmphtmlpage += $@" 
+
+                             <td class='cln'> {studentdata.Semester}</td>
+                             <td class='cln'  colspan='3'>{studentdata.SubCode1}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode2}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode3}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode4}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode5}</td>
+                            <td></td>
+				             
+                             <td class='cln'  colspan='3'>{studentdata.SubCode6}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode7}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode8}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode9}</td>
+                            <td></td>
+				              
+                             <td class='cln'  colspan='3'>{studentdata.SubCode10}</td>
+				            <td></td>                            
+				            <td></td>
+                            <td></td>
+				            <td></td>
+                           </tr>";
+
+            if (studentdata.Semester == "6SEM")
+            {
+                tmphtmlpage += $@"   <tr>
+                            <td></td>
+                            <td>{studentdata.Grade1}</td>
+                            <td>{studentdata.GradePoints1}</td>
+                            <td>{studentdata.Credits1}</td>
+                            <td></td>
+                            <td colspan='35' style='text-align:left;'>ODC NO : {studentdata.ODCNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMG NO : {studentdata.CMGNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IndustryName : {studentdata.IndustryName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Division : {studentdata.Division} 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Credits Earned(Min : 130) : {studentdata.TotalCreditsEarned} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGPA :  {studentdata.CGPA} </td>                                              
+                            <td></td>
+				            <td>P</td>
+                            <td>{studentdata.SemesterCreditsEarned}</td>
+                            <td>{studentdata.SGPA}</td>
+				            
+                           </tr>	";
+            }
+            else
+            {
+                tmphtmlpage += $@"   <tr>
+                            <td></td>
+                            <td>{studentdata.Grade1}</td>
+                            <td>{studentdata.GradePoints1}</td>
+                            <td>{studentdata.Credits1}</td>
+                            <td></td>
+                         
+                            <td>{studentdata.Grade2}</td>
+                            <td>{studentdata.GradePoints2}</td>
+                            <td>{studentdata.Credits2}</td>
+                            <td></td>
+                           
+                            <td>{studentdata.Grade3}</td>
+                            <td>{studentdata.GradePoints3}</td>
+                            <td>{studentdata.Credits3}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade4}</td>
+                            <td>{studentdata.GradePoints4}</td>
+                            <td>{studentdata.Credits4}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade5}</td>
+                            <td>{studentdata.GradePoints5}</td>
+                            <td>{studentdata.Credits5}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade6}</td>
+                            <td>{studentdata.GradePoints6}</td>
+                            <td>{studentdata.Credits6}</td>
+                            <td></td>
+                         
+                            <td>{studentdata.Grade7}</td>
+                            <td>{studentdata.GradePoints7}</td>
+                            <td>{studentdata.Credits7}</td>
+                            <td></td>
+                      
+                            <td>{studentdata.Grade8}</td>
+                            <td>{studentdata.GradePoints8}</td>
+                            <td>{studentdata.Credits8}</td>
+                            <td></td>
+                          
+                            <td>{studentdata.Grade9}</td>
+                            <td>{studentdata.GradePoints9}</td>
+                            <td>{studentdata.Credits9}</td>
+                            <td></td>
+               
+                            <td>{studentdata.Grade10}</td>
+                            <td>{studentdata.GradePoints10}</td>
+                            <td>{studentdata.Credits10}</td>
+                            <td></td>
+				            <td>P</td>
+                            <td>{studentdata.SemesterCreditsEarned}</td>
+				            <td>{studentdata.SGPA}</td>
+                          </tr>";
+
+                //if (studentdata.Semester == "1SEM")
+                //{
+                //    tmphtmlpage += $@"                                     				
+                //                  <td  rowspan='11'> {studentdata.TotalCreditsEarned} </td>
+                //                  <td  rowspan='11'>{studentdata.CGPA}</td>
+                //                 </tr>	";
+                //}
+                //else
+                //{
+                //    tmphtmlpage += $@"   
+                //                 </tr>	";
+                //}
+
+            }
+
+            return tmphtmlpage;
+        }
+
 
         public string tabledata(string val1, string val2, string val3, string val4, string val5)
         {
