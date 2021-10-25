@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("OdcTrSheetController", function ($scope, $q, $http, PreExaminationService, $localStorage, $state, $stateParams, AppSettings) {
+    app.controller("C18OdcTrSheetController", function ($scope, $q, $http, PreExaminationService, $localStorage, $state, $stateParams, AppSettings) {
         $scope.NrGenerating = false;
         //var ApproveList = PreExaminationService.GetSchemes();
         //ApproveList.then(function (response) {
@@ -25,17 +25,17 @@
             $scope.ExamMonthYear = response.Table
 
         },
-        function (error) {
-            //$scope.$emit('hideLoading', data);
+            function (error) {
+                //$scope.$emit('hideLoading', data);
 
-            $scope.Data = false;
-            $scope.Nodata = true;
-            alert("error while loading data");
-        });
+                $scope.Data = false;
+                $scope.Nodata = true;
+                alert("error while loading data");
+            });
 
         $scope.DownloadODCTrsheet = function () {
             $scope.NrGenerating = true;
-            var CertificateFeePaymentReports = PreExaminationService.GetOdcTrSheets($scope.ExamMonth);
+            var CertificateFeePaymentReports = PreExaminationService.GetC18OdcTrSheets($scope.ExamMonth);
             CertificateFeePaymentReports.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 0) {

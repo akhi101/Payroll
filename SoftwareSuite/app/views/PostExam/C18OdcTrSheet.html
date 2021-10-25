@@ -1,0 +1,89 @@
+﻿<div ng-controller="C18OdcTrSheetController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>C18 ODC TR Sheets</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PostExam">PostExam </a></li>
+                    <li><a href="#/Dashboard/PostExam/OdcTrSheet">C18 ODC TrSheets </a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PostExam" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+    </div>
+    <div class="container">
+        <!--<div class="sm-spacer"></div>
+        <div class="col-md-12" ng-show="serviceform">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PostExam" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+        <div class="sm-spacer"></div>-->
+        <div class="col-md-12 ng-scope">
+            <div class="cl-details">
+                <h2>C18 ODC TR Sheets</h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <div class="studWishinputs">
+                    <div class="row">
+                        <!--<div class="col-md-3 form-group">
+                            <label for="sel1">
+                                Select Scheme :
+                            </label>
+                            <select class="form-control" ng-model="Scheme" name="Scheme" required>
+                                <option value="" selected>Select Scheme</option>
+                                <option ng-repeat="data in Schemes" value="{{data.Scheme}}">
+                                    {{data.Scheme}}
+                                </option>
+
+                            </select>
+                        </div>-->
+                        <div class="col-md-3 form-group">
+                            <label for="sel1">
+                                Exam Type :
+                            </label>
+                            <select class="form-control" ng-model="ExamMonth" name="StudentType" required>
+                                <option value="" selected>Select Exam Month Year</option>
+                                <option ng-repeat="data in ExamMonthYear" value="{{data.Id}}">
+                                    {{data.ExamYearMonth}}
+                                </option>
+                                <!--ng-options="Student.type for Student in StudentType">-->
+                            </select>
+                        </div>
+                        <!--<div class="col-md-3">
+                            <div class="form-group">
+                                <label for="sel1">
+                                    Select Date :
+                                </label>
+                                <div class="form-group" id="year">
+                                    <input type="date" placeholder="Select Date" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="date">
+                                </div>
+                            </div>
+                        </div>-->
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button class="btn btn-sm btn-primary gr-button btn_top pull-left" ng-click="DownloadODCTrsheet()">
+                                    Get Report
+                                    <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%; text-align: center;" ng-show="NrGenerating">
+            <img src="../../../contents/img/loading1.gif" width="100" />
+            <h4><b>Generating C18 ODC Tr Sheets. This may take a while, Please be Patient.</b></h4>
+        </div>
+    </div>
+</div>

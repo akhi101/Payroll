@@ -143,7 +143,7 @@
                             <th class="text-center" ng-click='sortColumn("ApprovedDate")' ng-class='sortClass("ApprovedDate")'>Approved Date <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center">certificate</th>
                             <th class="text-center" ng-show="UserTypeId==2">Reset</th>
-                            <th class="text-center">Message</th>
+                            <th class="text-center" ng-show="UserTypeId==2">Message</th>
                         </tr>
                     </thead>
 
@@ -164,7 +164,7 @@
                                     <button class="btn btn-warning btn-xs" ng-click=" ResetCertificateStatus(x.PIN,x.CertificatePath)"><span>Reset</span></button>
                                 </span>
                             </td>
-                            <td class="text-center ">
+                            <td class="text-center " ng-show="UserTypeId==2">
                                 <span>
                                     <button class="btn btn-info btn-xs" ng-show="!x.IsSmsSent" ng-disabled="smsbtndisable{{$index}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Send SMS</span></button>
                                 </span>

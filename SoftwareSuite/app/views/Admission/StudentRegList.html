@@ -1,12 +1,12 @@
 ﻿<style>
-   .genAttId{
-       cursor:pointer;
-       color :cornflowerblue;
-
-   }
-   .genAttId:hover { 
-    text-decoration: underline; 
+    .genAttId {
+        cursor: pointer;
+        color: cornflowerblue;
     }
+
+        .genAttId:hover {
+            text-decoration: underline;
+        }
 </style>
 
 <!DOCTYPE html>
@@ -40,25 +40,27 @@
             text-align: left;
             vertical-align: middle;
         }
-      .table-bordered > thead > tr > th {
-   position:sticky;
-   top:0px;
-}
-      .clrRed{
-          color:red;
-          font-weight:bold;
-          
-      }
-      .clrRed:hover{
-          color:red;
-          font-weight:bold;
-          cursor:pointer;
-      }
-      .ClrGreen{
-          color:green;
-          font-weight:bold;
-          
-      }
+
+        .table-bordered > thead > tr > th {
+            position: sticky;
+            top: 0px;
+        }
+
+        .clrRed {
+            color: red;
+            font-weight: bold;
+        }
+
+            .clrRed:hover {
+                color: red;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+        .ClrGreen {
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -136,7 +138,7 @@
                                                     <td>{{x.ADMType}}</td>
                                                     <td ng-show="x.AadharVerfied==true" class="Verify">Completed</td>
                                                     <td ng-show="x.AadharVerfied==false">
-                                                        <a class="notVerify" ng-click="showAadhaarModal(x.StudentId)">Pending</a>
+                                                        <a class="notVerify" ng-click="showAadhaarModal(x.StudentId,x.Pin)">Pending</a>
                                                     </td>
                                                     <td ng-show="SystemUserTypeId ==1||SystemUserTypeId==1014">
                                                         <b class="clrRed" ng-click="GeneratePin(x.StudentId)" title="Click to Generate Pin" ng-show="x.Pin==''||x.Pin==null">Generate Pin</b>
@@ -150,7 +152,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
             </section>
 
         </div>
