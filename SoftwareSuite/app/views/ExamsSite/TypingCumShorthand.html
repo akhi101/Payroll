@@ -182,7 +182,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-title">
+                    <div class="card-title" ng-if="report.ExamMode!=1">
                         <h2>Marks Card {{CardYear}}</h2>
                     </div>
                     <div class="table-responsive customtable ">
@@ -192,6 +192,7 @@
                                     <th>Hall Ticket No</th>
                                     <th>Name</th>
                                     <th>Subject Name</th>
+                                    <th ng-if="report.ExamMode==1">Exam Date Name</th>
 
                                 </tr>
                             </thead>
@@ -201,6 +202,7 @@
                                     <td>{{report.HTNO ==null?'-':report.HTNO}}</td>
                                     <td>{{report.C_NAME ==null?'-':report.C_NAME}}</td>
                                     <td>{{report.SUBNAME ==null?'-':report.SUBNAME}}</td>
+                                    <td ng-if="report.ExamMode==1">{{report.ExamDate ==null?'-':report.ExamDate}}</td>
                                 </tr>
                             </tbody>
                         </table>
