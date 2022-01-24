@@ -341,15 +341,17 @@ namespace SoftwareSuite.Controllers.StudentServices
         //}
 
         [HttpGet, ActionName("GetTrSheets")]
-        public string GetTrSheets(string Scheme, int ExamMonthYearId,string Date)
+        public string GetTrSheets(string Scheme, int ExamMonthYearId,string Date,string CollegeCodesList)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Scheme", Scheme);
                 param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[2] = new SqlParameter("@Date", Date);
+                param[3] = new SqlParameter("@CollegeCodesList", CollegeCodesList);
+                
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TRData", param);
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var TrSheetData = DataTableHelper.ConvertDataTable<TrSheetCertificateData>(ds?.Tables[1]);
@@ -363,15 +365,16 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         [HttpGet, ActionName("GetODCTrsheets")]
-        public string GetODCTrsheets(int ExamMonthYearId)
+        public string GetODCTrsheets(int ExamMonthYearId,string CollegeCodesList)
         {
             try
             {
               
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];              
+                var param = new SqlParameter[2];              
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
-                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ODCTsheetData", param);
+                param[1] = new SqlParameter("@CollegeCodesList", CollegeCodesList);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ODCTsheetData", param);
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var ODCTrSheetData = DataTableHelper.ConvertDataTable<ODCTrSheetData>(ds?.Tables[0]);
                 var pdf = GenerateCertificate.GetODCTrsheetPdf(ODCTrSheetData);
@@ -384,13 +387,14 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         [HttpGet, ActionName("GetC18ODCTrsheets")]
-        public async Task<string> GetC18ODCTrsheetsAsync(int ExamMonthYearId)
+        public async Task<string> GetC18ODCTrsheetsAsync(int ExamMonthYearId,string CollegeCodesList)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[1] = new SqlParameter("@CollegeCodesList", CollegeCodesList);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_GenerateC18ConsolidatedMemoForTsheets", param);
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var C18OdcTrSheet = DataTableHelper.ConvertDataTable<C18OdcTrSheet>(ds?.Tables[0]);

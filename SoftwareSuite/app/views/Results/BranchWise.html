@@ -178,7 +178,7 @@
                                         </select>-->
                                     </div>
 
-                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid != '5'">
+                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid != '5' && scheme.schemeid != '9'">
                                         <label for="sel1">
                                             Academic Year :
                                         </label>
@@ -190,7 +190,7 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid == '5'">
+                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid == '5' || scheme.schemeid == '9'">
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
@@ -452,7 +452,7 @@
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                                <div ng-if="scheme.schemeid == 5">
+                                                                <div ng-if="scheme.schemeid == 5|| scheme.schemeid == 9">
                                                                     <table class="table table-responsive table-bordered custom-table-wdith">
                                                                         <thead>
                                                                             <tr>
@@ -485,8 +485,8 @@
                left:0px;z-index: 9998;background: #ffffff;">{{student.pin}}</td>
                                                                                 <td>{{student.Studentname}}</td>
                                                                                 <td ng-repeat="studentgrade in getChildren(student)">
-                                                                                    <span ng-if="exam.examtypeid=='1'">{{studentgrade.MID1_MARKS}}</span>
-                                                                                    <span ng-if="exam.examtypeid=='2'">{{studentgrade.MID2_MARKS}}</span>
+                                                                                    <span ng-if="exam.examtypeid=='1'||exam.examtypeid=='28'">{{studentgrade.MID1_MARKS}}</span>
+                                                                                    <span ng-if="exam.examtypeid=='2'||exam.examtypeid=='29'">{{studentgrade.MID2_MARKS}}</span>
                                                                                     <span ng-if="exam.examtypeid=='3'">{{studentgrade.Internal_MARKS}}</span>
                                                                                     <span ng-if="exam.examtypeid=='4'">{{studentgrade.EndSemMarks}}</span>
                                                                                     <span ng-if="exam.examtypeid=='5'">

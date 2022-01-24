@@ -223,7 +223,10 @@
         $scope.editData = function () {
             var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
             GetDetailsByMobileDetails.then(function (response) {
+                console.log(response)
+                console.log(response.Table[0].ResponseCode)
                 if (response.Table[0].ResponseCode == '200') {
+                    //alert()
                     $scope.userPhotos = "";
                     $scope.getData = false;
                     $scope.editStudentData = true;
@@ -277,10 +280,10 @@
         }
         $scope.UpdateData = function () {
             if ($scope.tmpmode == 1) {
-                if (arr.length < 5) {
-                    alert("choose all exam dates");
-                    return;
-                }
+                //if (arr.length < 5) {
+                //    alert("choose all exam dates");
+                //    return;
+                //}
 
 
                 $scope.finalArray = arr.map(function (obj) {
@@ -459,7 +462,7 @@
                 }
             }
             else {
-                alert("file size should be less then 300kb. ");
+                alert  ("file size should be less then 300kb. ");
                 return;
             }
         }

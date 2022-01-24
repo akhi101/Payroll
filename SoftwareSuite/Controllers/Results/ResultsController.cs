@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace SoftwareSuite.Controllers.Results
@@ -61,28 +62,89 @@ namespace SoftwareSuite.Controllers.Results
         }
         public HttpResponseMessage GetStudentWiseReport( int StudentTypeId, string Pin, int SchemeId, int ExamMonthYearId, int ExamTypeId = 1, int SemYearId = 1)
         {
-            IEnumerable<StudentWiseReportData> ResultList;
+            List<Output> p = new List<Output>();
+            Output p1 = new Output();
+            Regex objAlphaPattern = new Regex("[^a-zA-Z0-9.-]");
+
+            if (!objAlphaPattern.IsMatch(Pin))
+            {
+
+                IEnumerable<StudentWiseReportData> ResultList;
             ResultBLL ReportResultBLL = new ResultBLL();
             ResultList = ReportResultBLL.GetStudentWiseReport(SemYearId, StudentTypeId, Pin, SchemeId, ExamTypeId, ExamMonthYearId);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ResultList);
             return response;
+            }
+            else
+            {
+
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = "Please Enter a Valid PIN";
+                p.Add(p1);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, p);
+                return response;
+
+            }
+        }
+
+        public class Output
+        {
+            public string Data { get; set; }
+            public string Captcha { get; set; }
+            public string status { get; set; }
+            public string ResponceCode { get; set; }
+            public string ResponceDescription { get; set; }
         }
 
         public HttpResponseMessage GetC18MidStudentWiseReport(int SemYearId, string Pin, int SchemeId, int ExamTypeId)
         {
-            IEnumerable<C18MidStudentWiseReportData> ResultList;
+            List<Output> p = new List<Output>();
+            Output p1 = new Output();
+            Regex objAlphaPattern = new Regex("[^a-zA-Z0-9.-]");
+
+            if (!objAlphaPattern.IsMatch(Pin))
+            {
+                IEnumerable<C18MidStudentWiseReportData> ResultList;
             ResultBLL ReportResultBLL = new ResultBLL();
             ResultList = ReportResultBLL.GetC18MidStudentWiseReport(SemYearId, Pin, SchemeId, ExamTypeId);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ResultList);
             return response;
+            }
+            else
+            {
+
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = "Please Enter a Valid PIN";
+                p.Add(p1);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, p);
+                return response;
+
+            }
         }
         public HttpResponseMessage GetOldStudentWiseReport(int StudentTypeId, string Pin, int SchemeId, int ExamMonthYearId, int ExamTypeId = 1, int SemYearId = 1)
         {
-            ResultBLL ReportResultBLL = new ResultBLL();
+            List<Output> p = new List<Output>();
+            Output p1 = new Output();
+            Regex objAlphaPattern = new Regex("[^a-zA-Z0-9.-]");
+
+            if (!objAlphaPattern.IsMatch(Pin))
+            {
+                ResultBLL ReportResultBLL = new ResultBLL();
             var ResultList = ReportResultBLL.GetOldStudentWiseReport(SemYearId, StudentTypeId, Pin, SchemeId, ExamTypeId, ExamMonthYearId);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ResultList);
             return response;
         }
+            else
+            {
+
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = "Please Enter a Valid PIN";
+                p.Add(p1);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, p);
+                return response;
+
+            }
+}
         public HttpResponseMessage GetSchemeSemBranchInfo(int CollegeId)
         {
             IEnumerable<SchemeSemBranchData> ResultList;
@@ -192,16 +254,17 @@ namespace SoftwareSuite.Controllers.Results
 
 
         [HttpGet, ActionName("GetConsolidatedRVRCPreviewResults")]
-        public string GetConsolidatedRVRCPreviewResults(int ExamMonthYearId,int StudentTypeId,string Scheme, string Pin)
+        public string GetConsolidatedRVRCPreviewResults(int ExamMonthYearId,int StudentTypeId,string Scheme, string Pin,int ExamTypeId =0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@Scheme", Scheme);
                 param[3] = new SqlParameter("@Pin", Pin);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 var ds = dbHandler.ReturnDataWithStoredProcedure("ADM_GET_7_0_ResultsPreviewForTesting", param);
                 return JsonConvert.SerializeObject(ds);
             }

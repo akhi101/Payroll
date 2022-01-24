@@ -842,7 +842,7 @@
             $scope.PreviewLoadImg = true;
             $scope.PreviewResultNotFound = false;
             $scope.PreviewResultFound = false;
-            if ($scope.ConsolidatedPreviewScheme == 'C18') {
+            if ($scope.ConsolidatedPreviewScheme == 'C18' || $scope.ConsolidatedPreviewScheme == 'C21') {
 
                 var resultdata = StudentResultService.GetConsolidatedPreviewResults($scope.SelStudentType, $scope.ConsolidatedPreviewScheme, $scope.Pin);
                 resultdata.then(function (data) {

@@ -13,6 +13,10 @@
             return DataAccessService.getDataAll('api/PreExamination/getActiveExamTypes');
         };
 
+        this.getExamTypesForExamCenters = function () {
+            return DataAccessService.getDataAll('api/PreExamination/getExamTypesForExamCenters');
+        };
+
         this.GetCategory = function () {
             return DataAccessService.getDataAll('Admission/GetCategory');
         };
@@ -208,10 +212,10 @@
             return DataAccessService.getDataWithPara('api/PreExamination/ResultsProcessing', paramObject);
         };
 
-        this.RVRCResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, UserName) {
+        this.RVRCResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, UserName, ExamTypeId) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
-                 "UserName": UserName
+                "UserName": UserName, "ExamTypeId": ExamTypeId
             };
 
             return DataAccessService.getDataWithPara('api/PreExamination/RVRCResultsProcessing', paramObject);
@@ -236,10 +240,10 @@
             return DataAccessService.getDataWithPara('api/PreExamination/ResultsDeployTables', paramObject);
         };
         
-        this.RVRCResultsDeployTables = function (ExamMonthYearId, StudentTypeId, Scheme, UserName) {
+        this.RVRCResultsDeployTables = function (ExamMonthYearId, StudentTypeId, Scheme, UserName, ExamTypeId) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
-                "UserName": UserName
+                "UserName": UserName, "ExamTypeId": ExamTypeId
             };
 
             return DataAccessService.getDataWithPara('api/PreExamination/RVRCResultsDeployTables', paramObject);
@@ -317,8 +321,8 @@
             return promise;
         }
        
-        this.EnableFeePayment = function (ExamMonthYear,Pin, studenttypeid, ExamFee, LateFee, TatkalFee,PremiumTatkalFee) {
-            var paramObject = { "ExamMonthYear": ExamMonthYear,"Pin":Pin, "studenttypeid": studenttypeid, "ExamFee": ExamFee, "LateFee": LateFee, "TatkalFee": TatkalFee,"PremiumTatkalFee":PremiumTatkalFee };
+        this.EnableFeePayment = function (ExamMonthYear, Pin, studenttypeid, ExamFee, LateFee, TatkalFee, PremiumTatkalFee, Semid) {
+            var paramObject = { "ExamMonthYear": ExamMonthYear, "Pin": Pin, "studenttypeid": studenttypeid, "ExamFee": ExamFee, "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "Semid": Semid };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/EnableFeePayment', paramObject);
             return promise;
         }
@@ -1865,24 +1869,24 @@
                 }
                 return DataAccessService.getDataWithPara('api/PreExamination/Memos', paramObj);
             },
-            this.GetTrSheets = function (Scheme, ExamMonthYearId, Date) {
+            this.GetTrSheets = function (Scheme, ExamMonthYearId, Date, CollegeCodesList) {
                 var paramObj = {
-                    "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date
+                    "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList
 
                 }
             return DataAccessService.getDataWithPara('api/StudentCertificate/GetTrSheets', paramObj);
             },
-            this.GetOdcTrSheets = function (ExamMonthYearId) {
+            this.GetOdcTrSheets = function (ExamMonthYearId, CollegeCodesList) {
                 var paramObj = {
-                    "ExamMonthYearId": ExamMonthYearId
+                    "ExamMonthYearId": ExamMonthYearId, "CollegeCodesList": CollegeCodesList
 
                 }
                 return DataAccessService.getDataWithPara('api/StudentCertificate/GetODCTrsheets', paramObj);
             },
 
-            this.GetC18OdcTrSheets = function (ExamMonthYearId) {
+            this.GetC18OdcTrSheets = function (ExamMonthYearId, CollegeCodesList) {
                 var paramObj = {
-                    "ExamMonthYearId": ExamMonthYearId
+                    "ExamMonthYearId": ExamMonthYearId, "CollegeCodesList": CollegeCodesList
 
                 }
             return DataAccessService.getDataWithPara('api/StudentCertificate/GetC18OdcTrSheets', paramObj);
@@ -2374,9 +2378,9 @@
             return promise;
         };
         
-        this.getAdminExamCentersList = function (ExamMonthYearId, StudentTypeId) {
+        this.getAdminExamCentersList = function (ExamMonthYearId, StudentTypeId, ExamTypeID) {
             var paramObject = {
-                "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId
+                "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeID": ExamTypeID
             };
             return DataAccessService.getDataWithPara('api/PreExamination/getAdminExamCentersList', paramObject);
         };
@@ -2420,10 +2424,15 @@
             return DataAccessService.getDataAll('api/PreExamination/GetSchemes');
         };
 
-        this.getExaminationCentersList = function (Examyearid, studentTypeId) {
+        this.GetAllSchemes = function () {
+            return DataAccessService.getDataAll('api/PreExamination/GetSchemes');
+        };
+        
+        this.getExaminationCentersList = function (Examyearid, studentTypeId, ExamTypeID) {
             var paramObject = {
                 "Examyearid": Examyearid,
-                "studentTypeId": studentTypeId
+                "studentTypeId": studentTypeId,
+                "ExamTypeID": ExamTypeID
             };
             return DataAccessService.getDataWithPara('api/PreExamination/getExamCentersList', paramObject);
         };

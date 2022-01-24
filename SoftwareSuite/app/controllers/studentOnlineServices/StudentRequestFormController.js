@@ -273,7 +273,7 @@
                 "Scheme":$scope.Scheme,
                 "Semester": $scope.Sem,
                 "ExamMonthYear": ExamMonthYear,
-                "Amount": 600
+                "Amount": 1000
             }
             $scope.array.push(obj)
             $scope.Amount = 0
