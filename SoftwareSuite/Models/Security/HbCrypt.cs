@@ -65,11 +65,6 @@ namespace SoftwareSuite.Models.Security
             return cipherText;
         }
 
-        internal string Encrypt(object p)
-        {
-            throw new NotImplementedException();
-        }
-
         public string AesDecrypt(string cipherText)
         {
             byte[] cipherBytes = Convert.FromBase64String(cipherText);
@@ -160,10 +155,6 @@ namespace SoftwareSuite.Models.Security
             return result;
         }
 
-        internal string Decrypt(object userPassword)
-        {
-            throw new NotImplementedException();
-        }
 
         private RijndaelManaged GetCryptoAlgorithm()
         {
