@@ -460,7 +460,7 @@
                         alert(response[0].ResponceDescription);
 
                     } else {
-                        alert('Something Went Wrong')
+                        alert(response[0].ResponceDescription);
 
                     }
                 },
@@ -546,7 +546,7 @@
                     if (response[0].ResponceCode == '200') {
                         alert(response[0].ResponceDescription);
                     } else {
-                        alert('Something Went Wrong');
+                        alert(response[0].ResponceDescription);
 
                     }
                 }, function (error) {

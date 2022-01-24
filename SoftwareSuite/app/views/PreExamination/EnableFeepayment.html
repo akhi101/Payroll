@@ -1,4 +1,6 @@
-﻿<div ng-controller="EnableFeepaymentController">
+﻿
+
+<div ng-controller="EnableFeepaymentController" ng-show="UserId==812|| UserId==1">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -13,9 +15,19 @@
         </div>
         <!-- breadcrumb Close -->
     </div>
+
     <div class="container">
         <div class="col-md-12">
             <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+    </div>
+    <div class="container" ng-show="UserId !=1 && UserId !=812">
+        <div class="col-md-12">
+            <div class="no-results">
+                <img src="../../contents/img/Folder-Icon.svg" />
+                <!--<h2>Under Maintainance will Resume Soon</h2>-->
+                <h2> UnAuthorized Access</h2>
+            </div>
         </div>
     </div>
     <div class="container">
@@ -26,7 +38,7 @@
                         <label for="sel1">
                             Exam Type:
                         </label>
-                        <select class="form-control" ng-model="StudentTypeId" name="StudentType" ng-change="changedVal()" required>
+                        <select class="form-control" ng-model="StudentTypeId" name="StudentType" required>
                             <option value="" selected>Select Exam Type</option>
                             <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                 {{Student.type}}
@@ -38,10 +50,22 @@
                         <label for="sel1">
                             Exam Month Year:
                         </label>
-                        <select class="form-control" ng-model="ExamMonthYear" name="StudentType" required>
-                            <option value="" selected>Select Exam Type</option>
+                        <select class="form-control" ng-model="ExamMonthYear" name="ExamMonthYear" required>
+                            <option value="" selected>Select Month Year</option>
                             <option ng-repeat="data in getExamMonthYears" value="{{data.Id}}">
                                 {{data.ExamYearMonth}}
+                            </option>
+                            <!--ng-options="Student.type for Student in StudentType">-->
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group" ng-show="StudentTypeId==2">
+                        <label for="sel1">
+                            Semester:
+                        </label>
+                        <select class="form-control" ng-model="Semester" name="Sem">
+                            <option value="" selected>Select Semester</option>
+                            <option ng-repeat="Student in GetSemesters" value="{{Student.SemId}}">
+                                {{Student.Sem}}
                             </option>
                             <!--ng-options="Student.type for Student in StudentType">-->
                         </select>
@@ -55,7 +79,7 @@
                             <option ng-repeat="data in FeeTypes" value="{{data}}">
                                 {{data.FeeType}}(Rs {{data.FeeAmount}})
                             </option>
-                         
+
                         </select>
                     </div>-->
                     <div class="form-group col-md-3">
@@ -63,38 +87,38 @@
                             Enter Fee :
                         </label>
                         <input class="form-control" type="text" placeholder="Enter Fee" ng-model="Fee" required />
-                    </div> 
+                    </div>
                     <div class="form-group col-md-3">
                         <label for="sel1">
                             Enter Late Fee :
                         </label>
                         <input class="form-control" type="text" placeholder="Enter Late Fee" ng-model="LateFee" required />
-                    </div> 
+                    </div>
                     <div class="form-group col-md-3">
                         <label for="sel1">
                             Enter Tatkal Fee :
                         </label>
                         <input class="form-control" type="text" placeholder="Enter Tatkal Fee" ng-model="TatkalFee" required />
-                    </div> 
+                    </div>
                     <div class="form-group col-md-3">
                         <label for="sel1">
                             Enter Premium Tatkal Fee :
                         </label>
                         <input class="form-control" type="text" placeholder="Enter Premium Tatkal Fee" ng-model="PremiumTatkalFee" required />
-                    </div> 
+                    </div>
                     <div class="form-group col-md-3">
                         <label for="sel1">
                             Enter PIN number :
                         </label>
                         <input class="form-control" type="text" placeholder="Enter PIN" ng-model="Pin" required />
-                    </div> 
+                    </div>
                     <div class="col-md-12 ">
                         <div class="gr-btn">
                             <button type="submit" class="btn btn-sm btn-primary gr-button  pull-right" ng-click="dataForm.$valid && Submit()">Enable Fee Payment<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
                         </div>
                     </div>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
+    </div>
 </div>

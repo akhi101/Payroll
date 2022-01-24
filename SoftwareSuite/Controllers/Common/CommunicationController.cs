@@ -204,6 +204,7 @@ namespace SoftwareSuite.Controllers.Common
             //}
                 message.From.Add(new MailboxAddress(request.From));
                 message.To.Add(new MailboxAddress(request.To));
+                message.Cc.Add(new MailboxAddress(request.cc));
                 //    message.From = new MailAddress(request.From);
                 //message.To.Add(new MailAddress(request.To));
                 //message.CC.Add(new MailAddress(request.cc));

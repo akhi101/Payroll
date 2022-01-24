@@ -221,7 +221,6 @@ namespace SoftwareSuite.Models.Certificate
 
     public class C18OdcTrSheet
     {
-
         public string IndustryName { get; set; }
         public string SNO { get; set; }
 
@@ -337,7 +336,7 @@ namespace SoftwareSuite.Models.Certificate
         public string Year { get; set; }
         public string PhotoPath { get; set; }
         public string Gender { get; set; }
-        public string IndustryName { get; set; }
+        //public string IndustryName { get; set; }
 
     }
 

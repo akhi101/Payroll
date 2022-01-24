@@ -775,16 +775,16 @@
                                         </select>
                                     </div>
                                     <!--<div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="ExamYear" ng-model="ResultsExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>-->
+        <label for="sel1">
+            Exam Type :
+        </label>
+        <select class="form-control" id="ExamYear" ng-model="ResultsExamTypeId" required>
+            <option value="" selected>Select Exam Type</option>
+            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
+                {{data.examname}}
+            </option>
+        </select>
+    </div>-->
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
                                             Student Type :
@@ -794,15 +794,26 @@
                                             <option value="" selected>Select Student Type</option>
                                         </select>
                                     </div>
-                                    <!--<div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
+                                    <div class="col-md-2 form-group" ng-show="ResultsSelStudentType==1 ">
+                                        <label for="ExamType">
+                                            Exam :
                                         </label>
-                                        <select class="form-control" ng-model="ResultsAcademicYear" name="StudentType" required
-                                                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
-                                            <option value="" selected>Select Academic Year</option>
+                                        <select class="form-control" id="ExamType" ng-model="ResultsExamType" ng-change="hidePreviousResult()">
+                                            <option value="" selected>Select Exam</option>
+                                            <option ng-repeat="examtype in getExamTypes" value="{{examtype.examtypeid}}">
+                                                {{examtype.examname}}
+                                            </option>
                                         </select>
-                                    </div>-->
+                                    </div>
+                                    <!--<div class="col-md-2 form-group">
+        <label for="sel1">
+            Academic Year :
+        </label>
+        <select class="form-control" ng-model="ResultsAcademicYear" name="StudentType" required
+                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
+            <option value="" selected>Select Academic Year</option>
+        </select>
+    </div>-->
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
                                             <button class="btn sub_btn submit_btn btn-sm btn-primary gr-button" ng-click="ResultsProcessing()">Submit</button>
@@ -846,17 +857,6 @@
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="PreviewStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-
-                                            <option value="" selected>Student Type</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
                                             Scheme :
                                         </label>
                                         <select class="form-control" id="ExamYear" ng-model="PreviewScheme" ng-change="loadSemExamTypes(7,PreviewScheme)" required>
@@ -866,18 +866,40 @@
                                             </option>
                                         </select>
                                     </div>
-                                  
+                                    <div class="col-md-2 form-group">
+                                        <label for="sel1">
+                                            Student Type :
+                                        </label>
+
+                                        <select class="form-control" ng-model="PreviewStudentType" name="StudentType" required
+                                                ng-options="Student.id as Student.type for Student in StudentType">
+
+                                            <option value="" selected>Student Type</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2 form-group" ng-show="PreviewStudentType==1 ">
+                                        <label for="ExamType">
+                                            Exam :
+                                        </label>
+                                        <select class="form-control" id="ExamType" ng-model="PreviewExamType" ng-change="hidePreviousResult()">
+                                            <option value="" selected>Select Exam</option>
+                                            <option ng-repeat="examtype in getExamTypes" value="{{examtype.examtypeid}}">
+                                                {{examtype.examname}}
+                                            </option>
+                                        </select>
+                                    </div>
                                     <!--<div class="col-md-2 form-group">
-                                <label for="sel1">
-                                    Scheme :
-                                </label>
-                                <select class="form-control" id="ConsolidatedPreviewScheme" ng-model="ConsolidatedPreviewScheme" required>
-                                    <option value="" selected>Select Scheme</option>
-                                    <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                        {{scheme.scheme}}
-                                    </option>
-                                </select>
-                            </div>-->
+        <label for="sel1">
+            Scheme :
+        </label>
+        <select class="form-control" id="ConsolidatedPreviewScheme" ng-model="ConsolidatedPreviewScheme" required>
+            <option value="" selected>Select Scheme</option>
+            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
+                {{scheme.scheme}}
+            </option>
+        </select>
+    </div>-->
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
                                             PIN :
@@ -1109,142 +1131,253 @@
                                     <div class="card-title">
                                         <h2>Result Preview </h2>
                                     </div>
+                                    
+                                <div class="table-responsive customtable" ng-show="PreviewResultFound">
+                
+                                    <table class="table table-bordered" ng-show="((EScheme=='C21' && PreviewExamType=='1')|| (EScheme=='C21' && PreviewExamType=='5') ||(EScheme=='C21' && PreviewExamType=='28')) || (EScheme=='C18' && PreviewExamType=='1')|| (EScheme=='C18' && PreviewExamType=='5') ||(EScheme=='C18' && PreviewExamType=='28')))">
+                                        <thead>
+                                            <tr>
+                                                <th>Pin </th>
+                                                <th>Subject Code </th>
+                                             <!--   <th>Subject Name</th>-->
+                                                <th ng-if="PreviewExamType=='5'">Course Credits</th>
+                                                <th ng-if="PreviewExamType=='1'||PreviewExamType=='5' || PreviewExamType=='28'">Mid SEM1<br />(20)</th>
+                                                <th ng-if="PreviewExamType=='5' || PreviewExamType=='2'">Mid SEM2<br />(20)</th>
+                                                <th ng-if="PreviewExamType=='5' || PreviewExamType=='3'">Internal<br />(20)</th>
+                                                <th ng-if="PreviewExamType=='5' || PreviewExamType=='4'">End SEM<br />(40)</th>
+                                                <th ng-if="PreviewExamType=='5'">Subject Total<br />(100)</th>
+                                                <th ng-if="PreviewExamType=='5'">Grade</th>
+                                                <th ng-if="PreviewExamType=='5' &&SelStudentType.id ==1">Grade Points Equiv</th>
+                                                <th ng-if="PreviewExamType=='5'">Credits Earned</th>
+                                                <th ng-if="PreviewExamType=='5' &&SelStudentType.id ==1">Total Grade Points</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="student in studentData">
+                                                <td>{{student.Pin}}</td>
+                                                <td>{{student.SubjectCode}}</td>
+                                               <!-- <td style="text-align: left;padding-left: 10px !important;">{{student.SubjectName}}</td>-->
+                                                <td ng-if="PreviewExamType=='5'">{{student.MaxCredits}}</td>
+                                                <td ng-if="PreviewExamType=='5'|| PreviewExamType=='1' || PreviewExamType=='28'">{{student.Mid1Marks}}</td>
+                                                <td ng-if="PreviewExamType=='5'|| PreviewExamType=='2'">{{student.MID2_MARKS}}</td>
 
-                                    <div class="table-responsive customtable" ng-show="PreviewResultFound">
+                                                <td ng-if="PreviewExamType=='5'|| PreviewExamType=='3'">{{student.Internal_MARKS}}</td>
 
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Pin</th>
-                                                    <th>Name</th>
-                                                    <th>Branch</th>
-                                                    <th>Scheme</th>
+                                                <td ng-if="(student.Result=='F') && (PreviewExamType=='5'|| PreviewExamType=='4')" style="color: red;font-weight: bold">
+                                                    <u>{{student.EndSemMarks}}</u>
+                                                </td>
+                                                <td ng-if="(student.Result=='P' ||student.Result=='W') && PreviewExamType=='5'">{{student.EndSemMarks}}</td>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{studentInfo.Pin}}</td>
-                                                    <td>{{studentInfo.StudentName}}</td>
-                                                    <td>{{studentInfo.BranchCode}}</td>
-                                                    <td>{{studentInfo.Scheme}}</td>
+                                                <td ng-if="(PreviewExamType=='5'&& student.Result=='W')">W</td>
+                                                <td ng-if="(PreviewExamType=='5' && student.Result!='W')">{{student.SubjectTotal}}</td>
 
-                                                </tr>
+                                                <td ng-if="PreviewExamType=='5'">{{student.HybridGrade}}</td>
 
-                                            </tbody>
-                                        </table>
+                                                <td ng-if="student.GradePoint==0 && PreviewExamType=='5'&&PreviewStudentType ==1">{{student.GradePoint}}</td>
+                                                <td ng-if="student.GradePoint!=0 && PreviewExamType=='5'&&PreviewStudentType ==1">{{student.GradePoint}}</td>
+                                                <!--<td ng-if="student.GradePoint!=0 && PreviewExamType=='5'">{{student.GradePoint}}</td>-->
 
-                                        <table class="table table-bordered " ng-if="!co9Data">
-                                            <thead>
-                                                <tr>
-                                                    <th>SUBJECT CODE</th>
-                                                    <th>SUBJECT NAME</th>
-                                                    <th>MAX CREDITS</th>
-                                                    <th>MID SEM1 <br />(20)</th>
-                                                    <th>MID SEM2 <br />(20)</th>
-                                                    <th>INTERNAL <br />(20)</th>
-                                                    <th>END SEM <br />(40)</th>
-                                                    <th>SUBJECT TOTAL<br /> (100)</th>
-                                                    <th>GRADE</th>
-                                                    <th>GRADE POINTS</th>
-                                                    <th>CREDITS EARNED</th>
-                                                    <th>TOTAL GRADE POINTS</th>
-                                                    <th>R/S</th>
-                                                    <th>EXAM MONTH YEAR</th>
-                                                    <th>EXAM STATUS</th>
+                                                <td ng-if="PreviewExamType=='5'">{{student.CreditsGained}}</td>
+                                                <td ng-if="PreviewExamType=='5' &&PreviewStudentType ==1">{{student.TotalGradePoints}}</td>
+                                            </tr>
+                                            <tr ng-if="PreviewExamType=='5'">
+                                                <td></td>
+                                                <td style=" text-align :left">Rubrics</td>
+                                                <td>2.5</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>P</td>
+                                                <td>-</td>
+                                                <td>2.5</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr ng-if="PreviewExamType=='5'">
+                                                <td colspan="2" ng-if="SelStudentType.id ==1">
+                                                    <strong>Semester Total:</strong>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                                </td>
 
-                                                <tr ng-repeat-start="(key, val) in newresultDisplayInfo">
+                                                <td ng-if="SelStudentType.id ==1">{{getMaxCredits}}</td>
 
-                                                    <td colspan="15">{{val.Semester}}</td>
-                                                </tr>
-                                                <tr ng-repeat="data in val.Subjects">
+                                                <td colspan="7"></td>
 
-                                                    <td>{{data.Subject_Code}}</td>
-                                                    <td>{{data.SubjectName}}</td>
-                                                    <td>{{data.MaxCredits}}</td>
-                                                    <td>{{data.Mid1Marks}}</td>
-                                                    <td>{{data.Mid2Marks}}</td>
-                                                    <td>{{data.InternalMarks}}</td>
-                                                    <td>{{data.EndExamMarks}}</td>
-                                                    <td>{{data.SubjectTotal}}</td>
-                                                    <td>{{data.HybridGrade}}</td>
-                                                    <td>{{data.GradePoint}}</td>
-                                                    <td>{{data.CreditsGained}}</td>
-                                                    <td>{{data.TotalGradePoints}}</td>
-                                                    <td>{{data.WholeOrSupply =='W'?'R':'S'}}</td>
-                                                    <td>{{data.ExamMonthYear}}</td>
-                                                    <td>{{data.ExamStatus}}</td>
+                                                <td class="hidden">
+                                                    <strong>{{getTotalMarks}}</strong>
+                                                </td>
+                                                <td class="hidden"></td>
+                                                <td class="hidden"></td>
+                                                <td>
+                                                    {{getCreditsGained}}
+                                                </td>
+                                                <td>
+                                                    {{SgpaTotalPoints}}
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="PreviewExamType=='5'">
+                                                <td colspan="2">
+                                                    <strong>Course Total:</strong>
 
-                                                </tr>
-                                                <tr ng-repeat="data3 in val.courseinfo">
-                                                    <td colspan="2">Semester Total</td>
-                                                    <td>{{data3.courseMaxCerdits}}</td>
-                                                    <td colspan="7"></td>
-                                                    <td>{{data3.courseCerditsGained}}</td>
-                                                    <td>{{data3.courseTotalGradePoints}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr ng-repeat-end ng-repeat="data2 in val.Sgpainfo">
-                                                    <td colspan="11">Semester Grade Point Average(SGPA) ({{data2.TotalGradePoints+'/'+data2.Credits}})</td>
-                                                    <td>{{data2.SGPA}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                </td>
+                                                <td>{{CumulativeMaxCredits}}</td>
+                                                <td colspan="7"></td>
 
-                                                </tr>
+                                                <td>
+                                                    {{CumulativeCreditsGained}}
+                                                </td>
+                                                <td>
+                                                    {{CumulativeGradePointsGained}}
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="PreviewExamType=='5' &&PreviewStudentType ==1">
+                                                <td colspan="11">
+                                                    Semester Grade Point Average(SGPA)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{SgpaTotalPoints}}/{{SgpaTotalCredits}})
+                                                </td>
+                                                <td>{{SGPA}}</td>
+                                            </tr>
+                                            <!--<tr ng-if="examtype=='5' &&SelStudentType.id ==1">
+                <td colspan="11">
+                    Cummulative Grade Point Average(CGPA)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;({{CgpaTotalPoints}}/{{CgpaTotalCredits}})
+                </td>
+                <td>{{CGPA}}</td>
 
-                                                <tr>
-                                                    <td colspan="2">Course Total</td>
-                                                    <td>{{courseMaxCerdits}}</td>
-                                                    <td colspan="7"></td>
-                                                    <td>{{courseCerditsGained}}</td>
-                                                    <td>{{courseTotalGradePoints}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="11">Cummulative Grade Point Average(CGPA) ({{TotalData.CgpaTotalGained+'/'+TotalData.CgpaTotalCredits}})</td>
+            </tr>-->
+                                            <tr ng-if="PreviewExamType=='5'">
+                                                <td colspan="11">
+                                                    Result
+                                                </td>
+                                                <td>
+                                                    <span ng-if="Result=='MP'" style=" color red;
+                                                          font-weight bold"><strong>{{Result}}</strong></span>
+                                                    <span ng-if="Result=='Promoted'" style=" color red;
+                                                          font-weight bold"><strong>{{Result}}</strong></span>
+                                                    <span ng-if="Result=='Pass'" style=" color green;
+                                                          font-weight:bold"><strong>{{Result}}</strong></span>
+                                                    <span ng-if="Result=='WithHeld'" style=" color green;
+                                                          font-weight bold"><strong>{{Result}}</strong></span>
+                                                    <span ng-if="Result=='Fail'" style=" color red;
+                                                          font-weight bold"><strong>{{Result}}</strong></span>
+                                                </td>
 
-                                                    <td>{{TotalData.CGPA}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                            </tr>
 
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <Label>Abbrevations</strong></Label>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <label><strong>R - Regular Exam</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>S - Supplementary Exam</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>P - Pass</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>F - Fail</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>W - WithHeld</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>MP - MalPractice</strong></label>
-                                            </div>
+                                        </tbody>
+                                    </table>
 
+
+                                    <table class="table table-bordered " ng-if="(!co9Data  && $scope.PreviewExamType != '1') && (!co9Data  && $scope.PreviewExamType != '2') && (!co9Data  && $scope.PreviewExamType != '28')) ">
+                                        <thead>
+                                            <tr>
+                                                <th>SUBJECT CODE</th>
+                                                <th>SUBJECT NAME</th>
+                                                <th>MAX CREDITS</th>
+                                                <th>MID SEM1 <br />(20)</th>
+                                                <th>MID SEM2 <br />(20)</th>
+                                                <th>INTERNAL <br />(20)</th>
+                                                <th>END SEM <br />(40)</th>
+                                                <th>SUBJECT TOTAL<br /> (100)</th>
+                                                <th>GRADE</th>
+                                                <th>GRADE POINTS</th>
+                                                <th>CREDITS EARNED</th>
+                                                <th>TOTAL GRADE POINTS</th>
+                                                <th>R/S</th>
+                                                <th>EXAM MONTH YEAR</th>
+                                                <th>EXAM STATUS</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr ng-repeat-start="(key, val) in newresultDisplayInfo">
+
+                                                <td colspan="15">{{val.Semester}}</td>
+                                            </tr>
+                                            <tr ng-repeat="data in val.Subjects">
+
+                                                <td>{{data.Subject_Code}}</td>
+                                                <td>{{data.SubjectName}}</td>
+                                                <td>{{data.MaxCredits}}</td>
+                                                <td>{{data.Mid1Marks}}</td>
+                                                <td>{{data.Mid2Marks}}</td>
+                                                <td>{{data.InternalMarks}}</td>
+                                                <td>{{data.EndExamMarks}}</td>
+                                                <td>{{data.SubjectTotal}}</td>
+                                                <td>{{data.HybridGrade}}</td>
+                                                <td>{{data.GradePoint}}</td>
+                                                <td>{{data.CreditsGained}}</td>
+                                                <td>{{data.TotalGradePoints}}</td>
+                                                <td>{{data.WholeOrSupply =='W'?'R':'S'}}</td>
+                                                <td>{{data.ExamMonthYear}}</td>
+                                                <td>{{data.ExamStatus}}</td>
+
+                                            </tr>
+                                            <tr ng-repeat="data3 in val.courseinfo">
+                                                <td colspan="2">Semester Total</td>
+                                                <td>{{data3.courseMaxCerdits}}</td>
+                                                <td colspan="7"></td>
+                                                <td>{{data3.courseCerditsGained}}</td>
+                                                <td>{{data3.courseTotalGradePoints}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr ng-repeat-end ng-repeat="data2 in val.Sgpainfo">
+                                                <td colspan="11">Semester Grade Point Average(SGPA) ({{data2.TotalGradePoints+'/'+data2.Credits}})</td>
+                                                <td>{{data2.SGPA}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="2">Course Total</td>
+                                                <td>{{courseMaxCerdits}}</td>
+                                                <td colspan="7"></td>
+                                                <td>{{courseCerditsGained}}</td>
+                                                <td>{{courseTotalGradePoints}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="11">Cummulative Grade Point Average(CGPA) ({{TotalData.CgpaTotalGained+'/'+TotalData.CgpaTotalCredits}})</td>
+
+                                                <td>{{TotalData.CGPA}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <Label>Abbrevations</strong></Label>
+                                    <div class="col-md-12">
+                                        <div class="col-md-3">
+                                            <label><strong>R - Regular Exam</strong></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><strong>S - Supplementary Exam</strong></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><strong>P - Pass</strong></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><strong>F - Fail</strong></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><strong>W - WithHeld</strong></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><strong>MP - MalPractice</strong></label>
                                         </div>
 
-                                        <!--<p id="currenttime"></p>-->
                                     </div>
+
+                                    <!--<p id="currenttime"></p>-->
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -1368,7 +1501,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                 
+
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
                                             Student Type :
@@ -1377,6 +1510,17 @@
                                         <select class="form-control" ng-model="DeploySelStudentType" name="StudentType" required
                                                 ng-options="Student.id as Student.type for Student in StudentType">
                                             <option value="" selected>Select Student Type</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 form-group" ng-show="DeploySelStudentType==1 ">
+                                        <label for="ExamType">
+                                            Exam :
+                                        </label>
+                                        <select class="form-control" id="ExamType" ng-model="DeployExamType" ng-change="hidePreviousResult()">
+                                            <option value="" selected>Select Exam</option>
+                                            <option ng-repeat="examtype in getExamTypes" value="{{examtype.examtypeid}}">
+                                                {{examtype.examname}}
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 ">

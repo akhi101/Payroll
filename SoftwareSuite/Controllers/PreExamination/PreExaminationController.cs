@@ -38,8 +38,11 @@ using SoftwareSuite.Models.DCBills;
 
 namespace SoftwareSuite.Controllers.PreExamination
 {
+    //[Authorize(Users = "Admin")]
+    //[Authorize]
     public class PreExaminationController : ApiController
     {
+       
         public static T? GetValueOrNull<T>(string valueAsString) where T : struct
         {
             if (string.IsNullOrEmpty(valueAsString))
@@ -898,16 +901,17 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("RVRCResultsProcessing")]
-        public string RVRCResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, string username)
+        public string RVRCResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, string username,int ExamTypeId= 0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@scheme", scheme);
                 param[3] = new SqlParameter("@username", username);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_7_2_RVRCResultsProcessinForTheMarksUploaded", param);
                 var ExamMonthYear = string.Empty;
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
@@ -1056,16 +1060,17 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("RVRCResultsDeployTables")]
-        public string RVRCResultsDeployTables(int ExamMonthYearId, int StudentTypeId, string Scheme, string UserName)
+        public string RVRCResultsDeployTables(int ExamMonthYearId, int StudentTypeId, string Scheme, string UserName,int ExamTypeId = 0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@Scheme", Scheme);
                 param[3] = new SqlParameter("@UserName", UserName);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_7_3_RVRCResultsDeploymentToMasterResultsTables ", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1396,8 +1401,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "200";
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -1409,8 +1414,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data Not Found";
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -1505,8 +1510,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "200";
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -1518,8 +1523,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data Not Found";
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -1558,8 +1563,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "200";
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -1571,8 +1576,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data Not Found";
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -1592,7 +1597,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
-                StrQuery = "exec USP_GET_NBAReports@1";
+                StrQuery = "exec USP_GET_NBAReports@3_2";
                 DataSet ds = dbHandler.ReturnDataSet(StrQuery);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -1611,8 +1616,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "200";
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -1624,8 +1629,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data Not Found";
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -1664,8 +1669,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "200";
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -1677,8 +1682,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data Not Found";
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -2784,13 +2789,13 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("EnableFeePayment")]
-        public string EnableFeePayment(int ExamMonthYear,string Pin, int studenttypeid, float ExamFee, float LateFee, float TatkalFee,float PremiumTatkalFee)
+        public string EnableFeePayment(int ExamMonthYear,string Pin, int studenttypeid, float ExamFee, float LateFee, float TatkalFee,float PremiumTatkalFee,int Semid = 0)
         {
             try
             {
          
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[7];
+                var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 param[1] = new SqlParameter("@Pin", Pin);
                 param[2] = new SqlParameter("@studenttypeid", studenttypeid);
@@ -2798,6 +2803,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@LateFee", LateFee); 
                 param[5] = new SqlParameter("@TatkalFee", TatkalFee);
                 param[6] = new SqlParameter("@PremiumTatkalFee", PremiumTatkalFee);
+                param[7] = new SqlParameter("@Semid", Semid);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_ManualUpdation", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -2832,7 +2838,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpGet, ActionName("GetScheme")]
         public HttpResponseMessage GetScheme()
         {
-            try
+            try       
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
@@ -9797,14 +9803,15 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getAdminExamCentersList")]
-        public HttpResponseMessage getAdminExamCentersList(int ExamMonthYearId,int StudentTypeId)
+        public HttpResponseMessage getAdminExamCentersList(int ExamMonthYearId,int StudentTypeId,int ExamTypeID=0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];               
+                var param = new SqlParameter[3];               
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[2] = new SqlParameter("@ExamTypeID", ExamTypeID);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SFP_GET_CollegeExaminationCenterList", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
@@ -9838,7 +9845,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("getExamCentersList")]
-        public HttpResponseMessage getExamCentersList(int Examyearid,int studentTypeId)
+        public HttpResponseMessage getExamCentersList(int Examyearid,int studentTypeId,int ExamTypeID =0)
         {
             try
             {
@@ -9847,9 +9854,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //StrQuery = "exec ADM_SFP_GET_ExaminationCenterList";
                 //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@Examyearid", Examyearid);
                 param[1] = new SqlParameter("@studentTypeId", studentTypeId);
+                param[2] = new SqlParameter("@ExamTypeID", ExamTypeID);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SFP_GET_AffiliatedExaminationCenterListForMapping", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
@@ -9863,6 +9871,24 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+        [HttpGet, ActionName("getExamTypesForExamCenters")]
+        public string getExamTypesForExamCenters()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_GET_ExamTypes_ExamCentres";
+                var dt = dbHandler.ReturnDataSet(StrQuery);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_ExamTypes_ExamCentres", 0, ex.Message);
+                return ex.Message;
+            }
+        }
 
         //[HttpGet, ActionName("getAdminExamCentersList")]
         //public string getAdminExamCentersList(int StudentTypeId, int SchemeId, int AcademicYearId, int ExamYearMonth)
@@ -10301,6 +10327,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public string Examyear { get; set; }
             public int CollegeId { get; set; }
             public int ExaminationCenterId { get; set; }
+            public int ExamTypeID { get; set; }
 
         }
 

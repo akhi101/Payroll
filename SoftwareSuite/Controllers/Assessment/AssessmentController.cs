@@ -257,6 +257,8 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
+
+
         [HttpGet, ActionName("getSchemes")]
         public string getSchemes(int StudentTypeId)
         {
@@ -419,6 +421,7 @@ namespace SoftwareSuite.Controllers.Assessment
             }
         }
 
+        
         //public string getCollegeAssessmentReports(int semid)
         //{
         //    try
@@ -432,7 +435,7 @@ namespace SoftwareSuite.Controllers.Assessment
         //    }
         //    catch (Exception ex)
         //    {
-                
+
         //        dbHandler.SaveErorr("USP_GET_Assessment_CollegeReports", 0, ex.Message);
         //        return ex.Message;
         //    }

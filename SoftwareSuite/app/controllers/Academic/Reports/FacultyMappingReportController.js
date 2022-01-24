@@ -20,6 +20,9 @@
         } else if ($scope.UserTypeId == 1009) {
             $scope.CollegeCode = 'COE'
             ccode = 'Admin'
+        } else if ($scope.UserTypeId == 1014) {
+            $scope.CollegeCode = 'DS_Academic'
+            ccode = 'Admin'
         } else {
             $scope.CollegeCode = authData.College_Code
             ccode = authData.College_Code
