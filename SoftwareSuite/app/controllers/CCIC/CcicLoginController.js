@@ -146,6 +146,7 @@
                             $localStorage.SessionID = $scope.CcicLoginSessionEKey;
 
                             response.data = response.data.data.CcicSystemUser[0];
+
                             try {
                                 $localStorage.authorizationData = {
                                     token: $localStorage.CcicAuthToken,

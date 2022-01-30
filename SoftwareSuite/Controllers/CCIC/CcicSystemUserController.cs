@@ -253,12 +253,12 @@ namespace SoftwareSuite.Controllers.CCIC
             var res = data.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
             var crypt = new HbCrypt(res[3]);
             string NewPassword = crypt.AesDecrypt(res[0]).Replace("'", "''");
-            string oldPassword = crypt.AesDecrypt(res[1]).Replace("'", "''");
+            string OldPassword = crypt.AesDecrypt(res[1]).Replace("'", "''");
             int UserID = Int32.Parse(crypt.AesDecrypt(res[2]));
             var passcrypt = new HbCrypt();
             CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
             CcicSystemRes CcicSystemRes = new CcicSystemRes();
-            var encOldpass = passcrypt.Encrypt(oldPassword);
+            var encOldpass = passcrypt.Encrypt(OldPassword);
             var encNewpass = passcrypt.Encrypt(NewPassword);
             CcicSystemRes = CcicSystemUserBLL.GetCcicChangePassword(UserID, encOldpass, encNewpass);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, CcicSystemRes);

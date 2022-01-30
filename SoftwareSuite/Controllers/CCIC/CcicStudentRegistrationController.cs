@@ -1,0 +1,279 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using RestSharp;
+using SoftwareSuite.BLL;
+using SoftwareSuite.Controllers.Common;
+using SoftwareSuite.Models.CCIC;
+using SoftwareSuite.Models.Database;
+using static SoftwareSuite.Controllers.Common.CommunicationController;
+
+namespace SoftwareSuite.Controllers.CCIC
+{
+    public class CcicStudentRegistrationController : ApiController
+    {
+      
+
+        [HttpGet, ActionName("GetCcicCourses")]
+        public HttpResponseMessage GetCcicCourses()
+        {
+            try
+            {
+                var db = new ccicdbHandler();
+                var Courselist = new List<CcicModels>();
+                var dt = db.ReturnData("exec SP_Get_AffiliatedCourses");
+                Courselist = dt.DataTableToList<CcicModels>();
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Courselist);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_AffiliatedCourses", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetCcicInstitutions")]
+        public HttpResponseMessage GetCcicInstitutions()
+        {
+            try
+            {
+                var db = new ccicdbHandler();
+                var Institutionlist = new List<CcicInstitutions>();
+                var dt = db.ReturnData("exec SP_Get_AffiliatedInsttitutions");
+                Institutionlist = dt.DataTableToList<CcicInstitutions>();
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Institutionlist);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutions", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetCcicInstitutionsByCourse")]
+        public HttpResponseMessage GetCcicInstitutionsByCourse(HttpRequestMessage request)
+        {
+            try
+            {
+                var db = new ccicdbHandler();
+                var InstitutionlistByCourse = new List<CcicInstitutionsByCourse>();
+                IDictionary<string, string> queryParams = request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@CourseID", Convert.ToInt32(queryParams["CourseId"]));
+                var dt = db.ReturnDataWithStoredProcedureTable("SP_Get_AffiliatedInsttitutionsByCourse", param);
+                InstitutionlistByCourse = dt.DataTableToList<CcicInstitutionsByCourse>();
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, InstitutionlistByCourse);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutionsByCourse", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetCcicCoursesByInstitution")]
+        public HttpResponseMessage GetCcicCoursesByInstitution(HttpRequestMessage request)
+        {
+            try
+            {
+                var db = new ccicdbHandler();
+                var CourselistByInstitution = new List<CcicCoursesByInstitution>();
+                IDictionary<string, string> queryParams = request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", Convert.ToInt32(queryParams["InstitutionId"]));
+                var dt = db.ReturnDataWithStoredProcedureTable("SP_Get_AffiliatedCoursesByInstitution", param);
+                CourselistByInstitution = dt.DataTableToList<CcicCoursesByInstitution>();
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, CourselistByInstitution);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_AffiliatedCoursesByInstitution", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+
+        }
+
+
+
+
+        [HttpPost, ActionName("SendMail")]
+        public async Task<HttpResponseMessage> SendMail([FromBody] JsonObject data)
+        {
+            try
+            {
+                var test = string.Empty;
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@CandidateEmail", data["CandidateEmail"]);
+                param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[2] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_RegistrationEmailOTP", param);
+                if (dt.Tables[0].Rows[0]["StatusCode"].ToString() == "200")
+                {
+
+                    var msgbdy = new MailRequest()
+                    {
+                        From = "sbtet-helpdesk@telangana.gov.in",
+                        To = data["CandidateEmail"].ToString(),
+                        Subject = "test mail",
+                        Message = "Your Verification Code for Email verification is " + dt.Tables[1].Rows[0]["EmailOTP"].ToString(),
+                        attachmentdata = "Attachment"
+                    };
+                    var com = new CommunicationController();
+                    test = await com.SendMail(msgbdy);
+                }
+                else
+                {
+                    List<HttpResponse> Resp = dt.Tables[0].DataTableToList<HttpResponse>();
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Resp);
+                    return response;
+                }
+                if (test == "success")
+                {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt.Tables[0].DataTableToList<HttpResponse>());
+                    return response;
+                }
+                else
+                {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.NoContent, "mail error");
+                    return response;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_RegistrationEmailOTP", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+        }
+
+
+        [HttpPost, ActionName("SendSms")]
+        public async Task<HttpResponseMessage> SendSms([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@CandidateMobile", data["CandidateMobile"]);
+                param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[2] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_RegistrationMobileOTP", param);
+                if (dt.Tables[0].Rows[0]["StatusCode"].ToString() == "200")
+                {
+                    var com = new CommunicationController();
+                    var msg = dt.Tables[1].Rows[0]["MobileOTP"].ToString() + " is your otp for validating your Mobile no on" + data["CandidateMobile"].ToString().Substring(0, 2) + "xxxxx" + data["CandidateMobile"].ToString().Substring(6, 4) + ", SBTET TS";
+                    var test = await com.SendSms(data["CandidateMobile"].ToString(), msg, "1007161770830309481");
+                };
+
+                HttpResponseMessage HttpResponse = Request.CreateResponse(HttpStatusCode.OK, dt.Tables[0].DataTableToList<HttpResponse>());
+                return HttpResponse;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_RegistrationMobileOTP", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+        }
+
+
+
+        [HttpPost, ActionName("VerifyMailOtp")]
+        public HttpResponseMessage VerifyMailOtp([FromBody] JsonObject data)
+        {
+            try
+            {
+                var test = string.Empty;
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@CandidateEmail", data["CandidateEmail"]);
+                param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[2] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
+                param[4] = new SqlParameter("@EmailOTP", data["EmailOTP"]);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Verify_RegistrationEmailOTP", param);
+                List<HttpResponse> Resp = dt.Tables[0].DataTableToList<HttpResponse>();
+                HttpResponseMessage HttpResponse = Request.CreateResponse(HttpStatusCode.OK, Resp);
+                return HttpResponse;
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Verify_RegistrationEmailOTP", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+        }
+
+
+        [HttpPost, ActionName("VerifyMobileOtp")]
+        public HttpResponseMessage VerifyMobileOtp([FromBody] JsonObject data)
+        {
+            try
+            {
+                var test = string.Empty;
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@CandidateMobile", data["CandidateMobile"]);
+                param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[2] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
+                param[4] = new SqlParameter("@MobileOTP", data["MobileOTP"]);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Verify_RegistrationMobileOTP", param);
+                var Resp = NewMethod(dt);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Resp);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Verify_RegistrationMobileOTP", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
+            }
+        }
+
+        private object NewMethod(DataSet dt)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+

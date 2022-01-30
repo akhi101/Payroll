@@ -3,11 +3,11 @@
 
         var authData = $localStorage.authorizationData;
 
-        $scope.userType = authData.SystemUserTypeID;
+        $scope.UserTypeID = authData.UserTypeID;
         $scope.UserName = authData.UserName;
 
         AppSettings.UserName = authData.UserName;
-        AppSettings.LoggedUserId = authData.SysUserID;
+        AppSettings.LoggedUserId = authData.UserID;
 
 
 
@@ -50,7 +50,7 @@
                 alert("New Password and Confirm Password did not match.");
                 return;
             }
-            let reqdata = $crypto.encrypt($scope.NewPassword, sessionStorage.Ekey) + "$$@@$$" + $crypto.encrypt($scope.OldPassword, sessionStorage.Ekey) + "$$@@$$" + $crypto.encrypt(AppSettings.CcicLoggedUserId.toString(), sessionStorage.Ekey) + "$$@@$$" + sessionStorage.Ekey;
+            let reqdata = $crypto.encrypt($scope.NewPassword, sessionStorage.Ekey) + "$$@@$$" + $crypto.encrypt($scope.OldPassword, sessionStorage.Ekey) + "$$@@$$" + $crypto.encrypt(AppSettings.LoggedUserId.toString(), sessionStorage.Ekey) + "$$@@$$" + sessionStorage.Ekey;
             var getPromise = CcicChangePasswordService.GetCcicChangePassword(reqdata);
             getPromise.then(function (data) {
                 if (data.ResponceCode == "200") {
@@ -73,29 +73,24 @@
         function RedirectToListPage() {
             $state.go('CcicLogin');
         }
+
         $scope.logOut = function () {
 
+
             sessionStorage.loggedIn = "no";
-            sessionStorage.clear();
+            var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
+
             delete $localStorage.authorizationData;
-            var logUser = CcicSystemUserService.PostCcicUserLogout($scope.UserName);
-            logUser.then(function (response) {
-                console.log(response);
-            }, function (err) {
-                alert(err);
-            });
-            var InsertLoginList = MenuService.GetUpdateLogoutInfo(AppSettings.LoggedUserId, $scope.UserName);
-            InsertLoginList.then(function (Districtdata, status, headers, config, error) {
-            }, function (error) {
-                alert(error);
-            });
+            delete $localStorage.authToken;
+            delete $scope.SessionID;
+
             $scope.authentication = {
                 isAuth: false,
                 UserID: 0,
                 UserName: ""
+
             };
             $state.go('CcicLogin')
-        }
-    });
+        }    });
 });
 

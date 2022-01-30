@@ -411,7 +411,7 @@ namespace SoftwareSuite.Models.Database
             }
 
         }
-        public DataSet ReturnDataSet(string strQuery)
+        public DataSet ReturnDataWithStoredProcedure(string strQuery)
         {
             SqlDataAdapter daFill = new SqlDataAdapter();
             SqlCommand sqlCmd = new SqlCommand();

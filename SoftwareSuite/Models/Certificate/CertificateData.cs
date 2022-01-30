@@ -221,8 +221,18 @@ namespace SoftwareSuite.Models.Certificate
 
     public class C18OdcTrSheet
     {
+        private string industryName;
 
-        public string IndustryName { get; set; }
+        public string GetIndustryName()
+        {
+            return industryName;
+        }
+
+        public void SetIndustryName(string value)
+        {
+            industryName = value;
+        }
+
         public string SNO { get; set; }
 
         public string ODCNO { get; set; }

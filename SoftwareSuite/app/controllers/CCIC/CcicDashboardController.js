@@ -20,8 +20,8 @@
             $scope.UserTypeID = authData.UserTypeID;
 
 
-            var getCcicRecentNews = CcicAdminService.GetCcicRecentNewsByUser($scope.UserTypeID);
-            getCcicRecentNews.then(function (response) {
+            var GetCcicRecentNews = CcicAdminService.getCcicRecentNews();
+            GetCcicRecentNews.then(function (response) {
 
                 $scope.RecentNews = response;
             },
@@ -29,10 +29,10 @@
                     alert("error while loading Recent News");
                     var err = JSON.parse(error);
                 });
-          
+
             var UserTypeID = parseInt($scope.UserTypeID);
             var UserRightsdata = CcicSystemUserService.GetCcicModulesbyRole(UserTypeID);
-             UserRightsdata.then(function (Usersdata, status, headers, config, error) {
+            UserRightsdata.then(function (Usersdata, status, headers, config, error) {
                 UserRights = Usersdata;
                 var modulesList = [];
                 var moduleroutename = "";
@@ -53,7 +53,7 @@
                     $scope.modulesList = [];
                 }
 
-               
+
 
                 AppSettings.UserRights = UserRights;
 
@@ -64,11 +64,11 @@
 
 
 
-            var getCcicRecentNews = CcicAdminService.GetCcicRecentNewsByUser($scope.UserTypeID);
-            getCcicRecentNews.then(function (response) {
+            var GetCcicRecentNews = CcicAdminService.getCcicRecentNews();
+            GetCcicRecentNews.then(function (response) {
                 $scope.RecentNewsText = response;
                 if (response.Table !== undefined) {
-                    $scope.getRecentNews = response.Table[0].RecentNewsText;
+                    $scope.GetCcicRecentNews = response.Table[0].RecentNewsText;
                 }
             },
                 function (error) {
@@ -109,7 +109,7 @@
             });
 
 
-           
+
 
             var UsersRightsdata = [];
             UsersRightsdata = AppSettings.UserRights;
@@ -141,7 +141,7 @@
                     isAuth: false,
                     UserID: 0,
                     UserName: ""
-                   
+
                 };
                 $state.go('CcicLogin')
             }

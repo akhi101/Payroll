@@ -17,7 +17,7 @@
                 alert("Invalid Mobile Number");
                 return false;
             }
-            $scope.SysUserID = 0;
+            $scope.UserID = 0;
             $scope.ShowLoading = true;
             let reqdata = $crypto.encrypt($scope.CcicForgetPassword.UserName, sessionStorage.Ekey) + "$$@@$$" + $crypto.encrypt($scope.CcicForgetPassword.UserMobile, sessionStorage.Ekey) + "$$@@$$" + sessionStorage.Ekey;
             var getPromise = CcicForgetPasswordService.GetCcicForgetPassword(reqdata);

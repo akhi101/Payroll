@@ -13,6 +13,13 @@
             return promise;
         }
 
+
+        this.GetCcicSubModules = function (UserName, ModuleID) {
+            var paramObject = { "UserName": UserName, "ModuleID": ModuleID };
+            var promise = DataAccessService.getDataWithPara('api/CcicSystemUser/GetCcicSubModules', paramObject);
+            return promise;
+        }
+
         this.GetCcicUserLogin = function (Username, UserPassword, IPAddress, SessionID) {
             var paramObject = { "Username": Username, "UserPassword": UserPassword, "IPAddress": IPAddress, "SessionID": SessionID };
             var promise = DataAccessService.getDataWithPara('api/CcicSystemUser/GetCcicUserLogin', paramObject);

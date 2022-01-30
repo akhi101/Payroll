@@ -15,7 +15,6 @@ namespace SoftwareSuite.Models.CCIC
             
             public int UserID { get; set; }
 
-            public int AcademicId { get; set; }
 
 
 
