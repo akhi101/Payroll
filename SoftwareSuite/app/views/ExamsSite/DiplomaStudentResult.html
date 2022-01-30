@@ -99,7 +99,6 @@
                 text-decoration: none !important;
             }
         }
-      
     </style>
     <script type="text/javascript">
         setInterval(function () {
@@ -162,11 +161,11 @@
                                         Scheme :
                                     </label>
                                     <!--<select class="form-control" id="ExamYear" ng-model="scheme" ng-change="loadSemExamTypes(scheme)">
-                            <option value="" selected>Select Scheme</option>
-                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.schemeid}}">
-                                {{scheme.scheme}}
-                            </option>
-                        </select>-->
+                                        <option value="" selected>Select Scheme</option>
+                                        <option ng-repeat="scheme in schemeinfo" value="{{scheme.schemeid}}">
+                                            {{scheme.scheme}}
+                                        </option>
+                                    </select>-->
                                     <select class="form-control" id="ExamYear" ng-model="scheme" ng-change="loadSemExamTypes(scheme)"
                                             ng-options="scheme.scheme for scheme in schemeinfo track by scheme.schemeid">
                                         <option value="" selected>Select Scheme</option>
@@ -178,13 +177,13 @@
                                         Exam Pass Type :
                                     </label>
                                     <!--<select class="form-control" ng-model="SelStudentType" name="StudentType">
-                            <option value="" selected>Select Exam Type</option>
-                            <option ng-repeat="Student in StudentType" value="{{Student.id}}">
-                                {{Student.type}}
-                            </option>
-                        </select>-->
+                                        <option value="" selected>Select Exam Type</option>
+                                        <option ng-repeat="Student in StudentType" value="{{Student.id}}">
+                                            {{Student.type}}
+                                        </option>
+                                    </select>-->
                                     <!--<select class="form-control" ng-model="SelStudentType" name="StudentType" required  ng-change="hidePreviousResult()"
-                        ng-options="Student.id as Student.type for Student in StudentType"></select>-->
+                                    ng-options="Student.id as Student.type for Student in StudentType"></select>-->
                                     <select class="form-control" ng-model="SelStudentType" name="StudentType" required ng-change="hidePreviousResult()"
                                             ng-options="Student.type for Student in StudentType track by Student.id">
                                         <option value="" selected>Select Exam Type</option>
@@ -199,12 +198,12 @@
                                         Sem & Year :
                                     </label>
                                     <!--<select class="form-control" id="ExamYear" ng-model="sem" ng-change="loadExamTypes(sem)">
-                            <option value="" selected>Select Sem</option>
-                            <option ng-repeat="sem in seminfo" value="{{sem.semid}}">
-                                {{sem.semester}}
-                            </option>
+                                        <option value="" selected>Select Sem</option>
+                                        <option ng-repeat="sem in seminfo" value="{{sem.semid}}">
+                                            {{sem.semester}}
+                                        </option>
 
-                        </select>-->
+                                    </select>-->
                                     <select class="form-control" class="form-control" ng-model="sem" ng-change="loadExamTypes(sem)"
                                             ng-options="sem.semester for sem in seminfo track by sem.semid">
                                         <option value="" selected>Select Sem</option>
@@ -224,7 +223,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-2 form-group" ng-show="(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'">
+                                <div class="col-md-2 form-group" ng-show="(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'||(examtype==28 &&scheme.schemeid == '9')||(examtype==29 &&scheme.schemeid == '9')">
                                     <label for="sel1">
                                         Exam Month/Year :
                                     </label>
@@ -308,7 +307,7 @@
                                         </div>
                                 </div>-->
                                 <div class="col-md-3" ng-if="examtype=='5'">
-                                    <div class="down-btn" ng-show="scheme.schemeid == '5'">
+                                    <div class="down-btn" ng-show="scheme.schemeid == '5'|| scheme.schemeid == '9'">
                                         <a class="btn btn-sm btn-primary dwl-button" href="#" target="_blank" data-toggle="modal" data-target="#exampleModalStud">Grade Info<span class="fa fa-info-circle heading_icon btn_icons"></span></a>
                                     </div>
                                 </div>
@@ -910,15 +909,15 @@
 
 
 
-                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==1">
+                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==1  ||scheme.schemeid == 9 &&SelStudentType.id ==1">
                                         <thead>
                                             <tr>
 
                                                 <th>Subject Code</th>
                                                 <th>Subject Name</th>
                                                 <th ng-if="examtype=='5'">Course Credits</th>
-                                                <th ng-if="examtype=='1'||examtype=='5'">Mid SEM1<br />(20)</th>
-                                                <th ng-if="examtype=='5' || examtype=='2'">Mid SEM2<br />(20)</th>
+                                                <th ng-if="examtype=='1'||examtype=='5' || examtype=='28'">Mid SEM1<br />(20)</th>
+                                                <th ng-if="examtype=='5' || examtype=='2'|| examtype=='29'">Mid SEM2<br />(20)</th>
                                                 <th ng-if="examtype=='5' || examtype=='3'">Internal<br />(20)</th>
                                                 <th ng-if="examtype=='5' || examtype=='4'">End SEM<br />(40)</th>
                                                 <th ng-if="examtype=='5'">Subject Total<br />(100)</th>
@@ -934,8 +933,8 @@
                                                 <td>{{student.Subject_Code}}</td>
                                                 <td style="text-align: left;padding-left: 10px !important;" ">{{student.SubjectName}}</td>
                                                 <td ng-if="examtype=='5'">{{student.MaxCredits}}</td>
-                                                <td ng-if="examtype=='5'|| examtype=='1'">{{student.MID1_MARKS}}</td>
-                                                <td ng-if="examtype=='5'|| examtype=='2'">{{student.MID2_MARKS}}</td>
+                                                <td ng-if="examtype=='5'|| examtype=='1' || examtype=='28'">{{student.MID1_MARKS}}</td>
+                                                <td ng-if="examtype=='5'|| examtype=='2'|| examtype=='29'">{{student.MID2_MARKS}}</td>
 
                                                 <td ng-if="examtype=='5'|| examtype=='3'">{{student.Internal_MARKS}}</td>
 
@@ -1159,8 +1158,8 @@
                             <label><strong>F - Fail</strong></label>
                         </div>
                         <!--<div class="col-md-3">
-            <label><strong>W - WithHeld</strong></label>
-        </div>-->
+                            <label><strong>W - WithHeld</strong></label>
+                        </div>-->
                         <div class="col-md-3">
                             <label><strong>MP - MalPractice</strong></label>
                         </div>

@@ -22,6 +22,7 @@
 
             var paramObject = { "SemYearId": SemYearId, "Pin": Pin, "SchemeId": SchemeId, "ExamTypeId": ExamTypeId };
             var promise = DataAccessService.getDataWithPara('api/Results/GetC18MidStudentWiseReport', paramObject);
+            console.log(paramObject)
             return promise;
         }
         this.GetConsolidatedPreviewResults = function (StudentTypeId, scheme,Pin) {
@@ -30,8 +31,8 @@
             return promise;
         };
 
-        this.GetConsolidatedRVRCPreviewResults = function (ExamMonthYearId,StudentTypeId,Scheme, pin) {
-            var paramObject = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "pin": pin };
+        this.GetConsolidatedRVRCPreviewResults = function (ExamMonthYearId, StudentTypeId, Scheme, pin, ExamTypeId) {
+            var paramObject = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "pin": pin, "ExamTypeId": ExamTypeId};
             var promise = DataAccessService.getDataWithPara('api/Results/GetConsolidatedRVRCPreviewResults', paramObject);
             return promise;
         };

@@ -1,6 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("EnableFeepaymentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, $uibModal, PreExaminationService) {
-
+        var authdata = $localStorage.authorizationData;
+        $scope.UserId = authdata.SysUserID;
         $scope.Fee = 0;
         $scope.LateFee = 0;
         $scope.TatkalFee = 0;
@@ -20,6 +21,16 @@
              alert("error while loading Student Types");
              console.log(error);
          });
+
+        var getSemesters = PreExaminationService.GetSemesters();
+        getSemesters.then(function (res) {
+            //var res = JSON.parse(res);
+            $scope.GetSemesters = res.Table;
+          
+        }, function (err) {
+            $scope.LoadImg = false;
+            alert("Error while loading");
+        });
 
 
         var LoadExamMonthyears = PreExaminationService.getExamYearMonths();
@@ -42,7 +53,7 @@
         
         //var LoadExamTypeBysem = PreExaminationService.getFeeTypes();
         //LoadExamTypeBysem.then(function (response) {
-        //    if (response.Table.length > 0) {
+        //    if (response.Table.l0ength > 0) {
         //        $scope.GetFeeTypes = response.Table;
                 
         //    } else {
@@ -58,6 +69,8 @@
 
         
         $scope.ChangeExamMonthYear = function () {
+
+            
             var getFees = PreExaminationService.getFeeTypes($scope.ExamMonthYear, $scope.StudentTypeId);
             getFees.then(function (response) {
                 var response = JSON.parse(response);
@@ -99,7 +112,12 @@
             //    var dataType = 3
             //}
             //ExamMonthYear, studenttypeid, ExamFee, LateFe, TatkalFee, PremiumTatkalFee
-            var SetFeePayment = PreExaminationService.EnableFeePayment($scope.ExamMonthYear,$scope.Pin, $scope.StudentTypeId, $scope.Fee, $scope.LateFee, $scope.TatkalFee, $scope.PremiumTatkalFee);
+            if ($scope.StudentTypeId == 2) {
+                var Semester = $scope.Semester
+            } else {
+                var Semester = 0
+            }
+            var SetFeePayment = PreExaminationService.EnableFeePayment($scope.ExamMonthYear, $scope.Pin, $scope.StudentTypeId, $scope.Fee, $scope.LateFee, $scope.TatkalFee, $scope.PremiumTatkalFee, Semester);
             SetFeePayment.then(function (res) {
                 var response = JSON.parse(res)
                 //console.log(response)

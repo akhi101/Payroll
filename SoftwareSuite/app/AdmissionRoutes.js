@@ -12,7 +12,7 @@
             //'about-right-info': {
             //    url: "/about-right-info",
             //    templateurl:  '/website/about-right-info.html'              
-            //}, 
+            //}, Re
             //'about-sbtet': {AdmissionSub
             //    url: "/about-sbtet",
             //    templateurl: '/website/about-sbtet.html',

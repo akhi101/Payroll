@@ -50,7 +50,7 @@
 
             });
 
-
+     
 
         var expanded = false;
         $scope.showCheckboxes = function () {
@@ -254,14 +254,26 @@
             $scope.PreviewLoadImg = true;
             $scope.PreviewResultNotFound = false;
             $scope.PreviewResultFound = false;
-            if ($scope.Schemeid == 5) {
+            if ($scope.Schemeid == 5 || $scope.Schemeid == 9) {
 
-                var resultdata = StudentResultService.GetConsolidatedRVRCPreviewResults($scope.Previewmonthyear,$scope.PreviewStudentType,$scope.PreScheme, $scope.PreviewPin);
+                var resultdata = StudentResultService.GetConsolidatedRVRCPreviewResults($scope.Previewmonthyear, $scope.PreviewStudentType, $scope.PreScheme, $scope.PreviewPin, $scope.PreviewExamType);
                 resultdata.then(function (data) {
                     $scope.co9Data = false;
                     var data = JSON.parse(data)
 
                     if (data.Table.length > 0) {
+                        if (($scope.PreviewExamType == '1' || $scope.PreviewExamType == '2' || $scope.PreviewExamType == '28') && $scope.PreviewStudentType == 1) {
+                            $scope.showPreviewResultData = 1;
+                            $scope.PreviewLoadImg = false;
+                            $scope.PreviewResultFound = true;
+                            $scope.PreviewResultNotFound = false;
+                            $scope.studentInfo = data.Table[0];
+                            $scope.studentData = data.Table;
+                            $scope.co9Data = false;
+                            $scope.MidsData = true;
+                            console.log($scope.studentData)
+                        }
+
                         if (data.Table2.length > 0) {
                             $scope.showPreviewResultData = 1;
                             $scope.PreviewLoadImg = false;
@@ -892,7 +904,7 @@
 
         $scope.ResultsDeployTables = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.RVRCResultsDeployTables($scope.Deploymonthyear, $scope.DeploySelStudentType, $scope.Deployscheme1, $scope.userName)
+            var loadData1 = PreExaminationService.RVRCResultsDeployTables($scope.Deploymonthyear, $scope.DeploySelStudentType, $scope.Deployscheme1, $scope.userName, $scope.DeployExamType)
             loadData1.then(function (res) {
                 console.log(res)
                 var data = JSON.parse(res)
@@ -937,7 +949,7 @@
         $scope.ResultsProcessing = function () {
             $scope.reload = true;
             //console.log($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.Resultsscheme1, $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
-            var loadData1 = PreExaminationService.RVRCResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.Resultsscheme1, $scope.userName)
+            var loadData1 = PreExaminationService.RVRCResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.Resultsscheme1, $scope.userName, $scope.ResultsExamType)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -996,24 +1008,32 @@
             var res = JSON.parse(data)
             $scope.Schemeid = res.schemeid
             if (dataType == 1) {
+                $scope.EScheme = res.scheme
                 $scope.Scheme1 = res.scheme
             } else if (dataType == 2) {
+                $scope.EScheme = res.scheme
                 $scope.NrScheme1 = res.scheme
             } else if (dataType == 3) {
+                $scope.EScheme = res.scheme
                 $scope.Postscheme1 = res.scheme
             } else if (dataType == 4) {
+                $scope.EScheme = res.scheme
                 $scope.Wantingsscheme1 = res.scheme
             } else if (dataType == 5) {
+                $scope.EScheme = res.scheme
                 $scope.UploadScheme1 = res.scheme
             } else if (dataType == 6) {
+                $scope.EScheme = res.scheme
                 $scope.Resultsscheme1 = res.scheme
             } else if (dataType == 7) {
+                $scope.EScheme = res.scheme
                 $scope.PreScheme = res.scheme
                 console.log( $scope.PreScheme)
             } else if (dataType == 8) {
+                $scope.EScheme = res.scheme
                 $scope.Deployscheme1 = res.scheme
             }
-            var getExamType = PreExaminationService.getActiveExamTypesByScheme($scope.Resultsscheme1);
+            var getExamType = PreExaminationService.getActiveExamTypesByScheme($scope.EScheme);
             getExamType.then(function (response) {
                 var response = JSON.parse(response);
                 if (response.Table.length > 0) {
