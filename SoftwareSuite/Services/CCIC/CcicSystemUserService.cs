@@ -18,7 +18,7 @@ namespace SoftwareSuite.Services.CCIC
             {
                 using (var conn = new SqlConnection(dbHandler.GetConnectionString()))
                 {
-                    using (var cmd = new SqlCommand("SP_GET_UserLoginPermission", conn))
+                    using (var cmd = new SqlCommand("SP_Get_UserLoginPermission", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@UserName", UserName));

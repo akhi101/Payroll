@@ -582,7 +582,8 @@ namespace SoftwareSuite.Controllers.AdminServices
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_GET_Notification", 0, ex.Message);
-                throw ex;
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
             }
         }
 

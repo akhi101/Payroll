@@ -20,11 +20,11 @@
             return promise;
         }
 
-        this.GetCcicUserLogin = function (Username, UserPassword, IPAddress, SessionID) {
-            var paramObject = { "Username": Username, "UserPassword": UserPassword, "IPAddress": IPAddress, "SessionID": SessionID };
-            var promise = DataAccessService.getDataWithPara('api/CcicSystemUser/GetCcicUserLogin', paramObject);
-            return promise;
-        }
+        //this.GetCcicUserLogin = function (Username, UserPassword, IPAddress, SessionID) {
+        //    var paramObject = { "Username": Username, "UserPassword": UserPassword, "IPAddress": IPAddress, "SessionID": SessionID };
+        //    var promise = DataAccessService.getDataWithPara('api/CcicSystemUser/GetCcicUserLogin', paramObject);
+        //    return promise;
+        //}
 
         this.GetCcicSystemUserById = function (CcicSysUserID) {
             var paramObject = { "CcicSysUserID": CcicSysUserID };
