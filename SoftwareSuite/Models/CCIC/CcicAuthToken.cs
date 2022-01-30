@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SoftwareSuite.Models.CCIC
 {
-    public class CcicAuthToken
+    public class CcicAuthToken 
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
