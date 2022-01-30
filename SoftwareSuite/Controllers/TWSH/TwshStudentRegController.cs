@@ -1518,15 +1518,15 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
 
-        [HttpGet, ActionName("Delete_InstituteData")]
-        public HttpResponseMessage Delete_InstituteData(int Id)
+        [HttpPost, ActionName("Delete_InstituteData")]
+        public HttpResponseMessage Delete_InstituteData([FromBody] JsonObject request)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@Id", Id);
+                param[0] = new SqlParameter("@Id", request["Id"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Delete_Institute", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);

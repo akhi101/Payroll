@@ -8,7 +8,7 @@
         $ctrl.$onInit = () => {
             $scope.monthyear = { Id: 4 }
             $scope.scheme = {
-                schemeid: '5'
+                schemeid: '9'
             }
             $scope.SelStudentType = {
                 id: 1
@@ -177,10 +177,10 @@
                 $scope.LoadImg = true;
                 $scope.ResultNotFound = false;
                 $scope.ResultFound = false;
-                if ($scope.scheme.schemeid == '5') {
+            if ($scope.scheme.schemeid == '5' || $scope.scheme.schemeid == '9') {
                     $scope.ResultFound = false;
                     $scope.LoadImg = true;
-                    if (($scope.examtype == '1' || $scope.examtype == '2') && $scope.SelStudentType.id == 1) {
+                    if (($scope.examtype == '1' || $scope.examtype == '2' || $scope.examtype == '28') && $scope.SelStudentType.id == 1) {
                         var resultdata = StudentResultService.GetC18MidStudentWiseReport($scope.sem.semid, $scope.Pin, $scope.scheme.schemeid, $scope.examtype);
                         resultdata.then(function (data) {
                             if (data.length > 0) {

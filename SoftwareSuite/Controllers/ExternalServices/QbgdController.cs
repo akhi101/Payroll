@@ -42,9 +42,10 @@ namespace SoftwareSuite.Controllers.ExternalServices
             {
                 IDictionary<string, string> queryParams = request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
                 var db = new dbHandler();
-                var param = new SqlParameter[2]; 
+                var param = new SqlParameter[3]; 
                 param[0] = new SqlParameter("@ExamMonthYearId", Convert.ToInt32(queryParams["ExamMonthYearId"]));
-                param[1] = new SqlParameter("@StudentTypeId", Convert.ToInt32(queryParams["StudentTypeId"]));                                
+                param[1] = new SqlParameter("@StudentTypeId", Convert.ToInt32(queryParams["StudentTypeId"]));
+                param[2] = new SqlParameter("@ExamTypeId", Convert.ToInt32(queryParams["ExamTypeId"]));
                 var dt = db.ReturnDataWithStoredProcedure("USP_GET_DataForEDEP", param);
                 // List<BranchData> BranchData = dt.DataTableToList<BranchData>().ToList();
                 var data = JsonConvert.SerializeObject(dt);

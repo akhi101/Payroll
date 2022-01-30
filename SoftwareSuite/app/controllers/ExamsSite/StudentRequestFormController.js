@@ -205,7 +205,7 @@
                 "Scheme": $scope.Scheme,
                 "Semester": $scope.Sem,
                 "ExamMonthYear": ExamMonthYear,
-                "Amount": 600
+                "Amount": 1000
             }
             $scope.array.push(obj)
             $scope.Amount = 0
@@ -1912,7 +1912,7 @@
             }
             var universityamt = $scope.UniversityCount == "" || parseInt($scope.UniversityCount) == undefined || $scope.UniversityCount == undefined ? 1 : parseInt($scope.UniversityCount)
 
-            $scope.TranscriptPrice = (100 * universityamt * studeupldamount);
+            $scope.TranscriptPrice = (200 * universityamt * studeupldamount);
             $scope.$apply();
         }
 

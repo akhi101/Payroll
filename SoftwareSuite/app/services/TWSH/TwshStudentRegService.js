@@ -337,7 +337,7 @@
 
         this.Delete_Institute = function (Id) {
             var paramObj = { "Id": Id };
-            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/Delete_InstituteData', paramObj);
+            var promise = DataAccessService.postData('api/TwshStudentReg/Delete_InstituteData', paramObj);
             return promise;
         };
 

@@ -779,6 +779,10 @@
                 alert('please Enter Mother name.');
                 return;
             }
+            if ($scope.StudentDetails.Dateofbirth == null || $scope.StudentDetails.Dateofbirth == '' || $scope.StudentDetails.Dateofbirth == undefined) {
+                alert('please select Date of Birth.');
+                return;
+            }
             if ($scope.StudentDetails.admittedDate == null || $scope.StudentDetails.admittedDate == '' || $scope.StudentDetails.admittedDate == undefined) {
                 alert('please select student college admitted Date.');
                 return;

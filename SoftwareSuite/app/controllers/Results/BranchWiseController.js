@@ -339,7 +339,7 @@
                     alert("Select Scheme");
                     return false;
                 }
-                if ($scope.scheme.schemeid != '5') {
+                if ($scope.scheme.schemeid != '5' && $scope.scheme.schemeid != '9') {
                     if (($scope.selectedyear == undefined) || ($scope.selectedyear == "0") || ($scope.selectedyear == "")) {
                         alert("Select Academic Year");
                         return false;
@@ -370,7 +370,7 @@
                 else
                     var collegeid = AppSettings.CollegeID;            
                 // alert(collegeid);               
-                if ($scope.scheme.schemeid === '5') {
+                if ($scope.scheme.schemeid == '5' || $scope.scheme.schemeid == '9') {
                     $scope.exam = JSON.parse($scope.examtype);
                     //if ($scope.exam.examtypeid == '1' || $scope.exam.examtypeid == '2') {
                     //    if ($scope.UserType == 2 || $scope.UserType == 1) {

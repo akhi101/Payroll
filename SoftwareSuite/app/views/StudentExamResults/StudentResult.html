@@ -237,7 +237,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-2 form-group" ng-show="SelStudentType.id==2 ||(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'">
+                            <div class="col-md-2 form-group" ng-show="SelStudentType.id==2 ||(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'||(examtype==28 &&scheme.schemeid == '9')">
                                 <label for="sel1">
                                     Exam Month/Year :
                                 </label>
@@ -923,14 +923,14 @@
 
 
 
-                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==1">
+                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==1||scheme.schemeid == 9 &&SelStudentType.id ==1">
                                         <thead>
                                             <tr>
 
                                                 <th>Subject Code</th>
                                                 <th>Subject Name</th>
                                                 <th ng-if="examtype=='5'">Course Credits</th>
-                                                <th ng-if="examtype=='1'||examtype=='5'">Mid SEM1<br />(20)</th>
+                                                <th ng-if="examtype=='1'||examtype=='5' || examtype=='28'">Mid SEM1<br />(20)</th>
                                                 <th ng-if="examtype=='5' || examtype=='2'">Mid SEM2<br />(20)</th>
                                                 <th ng-if="examtype=='5' || examtype=='3'">Internal<br />(20)</th>
                                                 <th ng-if="examtype=='5' || examtype=='4'">End SEM<br />(40)</th>
@@ -947,7 +947,7 @@
                                                 <td>{{student.Subject_Code}}</td>
                                                 <td style="text-align: left;padding-left: 10px !important;" ">{{student.SubjectName}}</td>
                                                 <td ng-if="examtype=='5'">{{student.MaxCredits}}</td>
-                                                <td ng-if="examtype=='5'|| examtype=='1'">{{student.MID1_MARKS}}</td>
+                                                <td ng-if="examtype=='5'|| examtype=='1' || examtype=='28'">{{student.MID1_MARKS}}</td>
                                                 <td ng-if="examtype=='5'|| examtype=='2'">{{student.MID2_MARKS}}</td>
 
                                                 <td ng-if="examtype=='5'|| examtype=='3'">{{student.Internal_MARKS}}</td>
@@ -1057,7 +1057,7 @@
 
 
 
-                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==2">
+                                    <table class="table table-bordered" ng-if="scheme.schemeid == 5 &&SelStudentType.id ==2|| scheme.schemeid == 9 &&SelStudentType.id ==2">
                                         <thead>
                                             <tr>
                                                 <!--<th ng-if="examtype=='5' &&SelStudentType ==2">Sem</th>-->

@@ -449,7 +449,7 @@
                     <button type="submit" ng-click="editData()">Edit Details </button>
                 </div>
             </div>
-            <div class="col-md-12 mtp-50" ng-show="editStudentData && IsFeePaid ==true">
+            <div class="col-md-12 mtp-50" ng-show="editStudentData ">
                 <div class="card">
                     <div class="row">
                         <div class="col-md-12">
@@ -485,7 +485,7 @@
                                     <div class="form-group required">
                                         <label>Examination Date(option 1):</label>
                                         <div class="input-group date" id="datepicker1">
-                                            <input  autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
+                                            <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>
 
@@ -579,14 +579,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12" ng-show="editStudentData && IsFeePaid ==true">
+            <div class="col-md-12" ng-show="editStudentData ">
                 <div class="submit-btn" style="margin-bottom:0px;">
                     <button type="submit" ng-click="UpdateData()">Update Details</button>
                 </div>
             </div>
 
         </div>
-        <form name="StudentDetails" ng-submit="submitData()" ng-show="editStudentData && IsFeePaid ==false">
+        <form name="StudentDetails" ng-submit="submitData()" ng-show="editStudentData ">
             <div class="custom-forms">
                 <div class="col-md-12  mtp-50">
                     <div class="card">
@@ -681,7 +681,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4"  ng-show="tmpmode==2">
+                                    <div class="col-md-4" ng-show="tmpmode==2">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Examination Date</label>
                                             <select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
@@ -707,7 +707,7 @@
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group required">
                                             <label>Examination Date(option 1):</label>
-                                            <div class="input-group date"  id="datepicker1">
+                                            <div class="input-group date" id="datepicker1">
                                                 <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -738,7 +738,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 4):</label>
                                             <div class="input-group date" id="datepicker4">
-                                                <input  autocomplete="off" ng-model="date4" class="form-control" ng-change="dates(date4,4)" type="text" />
+                                                <input autocomplete="off" ng-model="date4" class="form-control" ng-change="dates(date4,4)" type="text" />
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
                                         </div>
@@ -747,7 +747,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 5):</label>
                                             <div class="input-group date" id="datepicker5">
-                                                <input  autocomplete="off" ng-model="date5" class="form-control" ng-change="dates(date5,5)" type="text" />
+                                                <input autocomplete="off" ng-model="date5" class="form-control" ng-change="dates(date5,5)" type="text" />
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
                                         </div>

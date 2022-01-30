@@ -174,6 +174,7 @@ namespace SoftwareSuite.Services.Results
        
         public DataSet GetC18MidStudentWiseReport(dbHandler dbHandler, int Semid, string Pin, int SchemeId, int ExamTypeId)
         {
+
             try
             {
                 string StrQuery = "";

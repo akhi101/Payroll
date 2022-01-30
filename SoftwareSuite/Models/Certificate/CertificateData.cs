@@ -234,10 +234,8 @@ namespace SoftwareSuite.Models.Certificate
         }
 
         public string SNO { get; set; }
-
         public string ODCNO { get; set; }
         public string CMGNO { get; set; }
-
         public string NAME { get; set; }
         public string SEX { get; set; }
         public string FNAME { get; set; }
@@ -347,7 +345,7 @@ namespace SoftwareSuite.Models.Certificate
         public string Year { get; set; }
         public string PhotoPath { get; set; }
         public string Gender { get; set; }
-        public string IndustryName { get; set; }
+        //public string IndustryName { get; set; }
 
     }
 
