@@ -636,6 +636,11 @@
                 dependencies: ['controllers/Academic/AcademicDashboardController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/SystemAdministration/SystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
             },
 
+            'CcicDashboard.Academic': {
+                url: "/Academic",
+                templateUrl: 'app/views/CCIC/CcicAcademic.html',
+                dependencies: ['controllers/CCIC/CcicAcademicController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
+            },
 
             'Dashboard.CircularsDashboard': {
                 url: "/CircularsDashboard",
@@ -643,10 +648,25 @@
                 dependencies: ['controllers/Circulars/CircularsDashboardController', 'services/AdminServices/AdminService']
             },
 
+
+            'CcicDashboard.CircularsDashboard': {
+                url: "/CircularsDashboard",
+                templateUrl: 'app/views/CCIC/Circulars/CcicCircularsDashboard.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicCircularsDashboardController', 'services/CCIC/CcicAdminService']
+            },
+
+
             'Dashboard.MasterSettings.Notification': {
                 url: "/Notification",
                 templateUrl: 'app/views/Circulars/Notification.html',
                 dependencies: ['controllers/Circulars/NotificationController', 'directives/saDate']
+            },
+
+
+            'CcicDashboard.Settings.RecentNews': {
+                url: "/RecentNews",
+                templateUrl: 'app/views/CCIC/Circulars/CcicRecentNews.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicRecentNewsController', 'directives/saDate']
             },
 
             'Dashboard.MasterSettings.WebsiteFeedbackReport': {
@@ -666,6 +686,14 @@
                 url: "/Circulars",
                 templateUrl: 'app/views/Circulars/Circulars.html',
                 dependencies: ['controllers/Circulars/CircularsController', 'services/AdminServices/AdminService', 'directives/saFileUpload']
+            },
+
+
+
+            'CcicDashboard.Settings.Circulars': {
+                url: "/Circulars",
+                templateUrl: 'app/views/CCIC/Circulars/CcicCirculars.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicCircularsController', 'services/CCIC/CcicAdminService', 'directives/saFileUpload']
             },
 
             'Dashboard.MasterSettings.CreateDownloads': {
@@ -693,6 +721,14 @@
                 url: "/ModulesSetting",
                 templateUrl: 'app/views/MasterSettings/ModulesSetting.html',
                 dependencies: ['controllers/MasterSettings/ModulesSettingController', 'services/AdminServices/AdminService', 'services/SystemAdministration/SystemUserService', 'services/MasterSettings/MasterSettingsService']
+
+            },
+
+
+            'CcicDashboard.Settings.ModulesSetting': {
+                url: "/ModulesSetting",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicModulesSetting.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicModulesSettingController', 'services/CCIC/CcicAdminService', 'services/CCIC/CcicSystemUserService', 'services/CCIC/CcicSettingsService']
 
             },
 
@@ -1027,6 +1063,12 @@
                 url: "/PostExam",
                 templateUrl: 'app/views/PostExam/PostExam.html',
                 dependencies: ['controllers/PostExam/PostExamController', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'CcicDashboard.PostExamination': {
+                url: "/PostExamination",
+                templateUrl: 'app/views/CCIC/PostExamination/CcicPostExamination.html',
+                dependencies: ['controllers/CCIC/PostExamination/CcicPostExaminationController', 'services/CCIC/CcicSystemUserService']
             },
 
             'Dashboard.DcBillsDashboard': {
@@ -1441,6 +1483,13 @@
                 templateUrl: 'app/views/PreExamination/PreExamination.html',
                 dependencies: ['controllers/PreExamination/PreExaminationController', 'services/SystemAdministration/SystemUserService']
             },
+
+            'CcicDashboard.PreExamination': {
+                url: "/PreExamination",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicPreExamination.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicPreExaminationController', 'services/CCIC/CcicSystemUserService']
+            },
+
             //TimeTable Page
             'Dashboard.TimeTablePage': {
                 url: "/TimeTablePage",
@@ -1950,6 +1999,12 @@
                 dependencies: ['controllers/MasterSettings/MasterSettingsController', 'services/SystemAdministration/SystemUserService']
             },
 
+            'CcicDashboard.Settings': {
+                url: "/Settings",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicSettings.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicSettingsController', 'services/CCIC/CcicSystemUserService']
+            },
+
             'Dashboard.MasterSettings.ExamYearMonth': {
                 url: "/ExamYearMonth",
                 templateUrl: 'app/views/MasterSettings/ExamYearMonth.html',
@@ -2199,6 +2254,15 @@
                 dependencies: ['controllers/Assessment/AssessmentDashboardController', 'services/SystemAdministration/SystemUserService']
 
             },
+
+            'CcicDashboard.Assessment': {
+                url: "/Assessment",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessment.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentController', 'services/CCIC/CcicSystemUserService']
+
+            },
+
+
             'Dashboard.AssessmentDashboard.Assessment': {
                 url: "/Assessment",
                 templateUrl: 'app/views/Assessment.html',
