@@ -159,7 +159,7 @@
         }
 
 
-        $scope.notifcationInactive = function (Id) {
+        $scope.CcicRecentNewsInactive = function (RecentNewsID) {
             var GetCcicRecentNews = CcicAdminService.CcicRecentNewsInactive(RecentNewsID);
             GetCcicRecentNews.then(function (response) {
 

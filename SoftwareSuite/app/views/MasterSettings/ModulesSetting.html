@@ -192,7 +192,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold"> User Type :</label>
-                                            <select class="form-control" ng-model="userTypeId" name="StudentType" ng-change="changeUser(userTypeId)" required>
+                                            <select class="form-control" ng-model="userTypesId" name="StudentType" ng-change="changeUser(userTypeId)" required>
                                                 <option value="" selected="selected">Select Usertype</option>
                                                 <option value="{{data.Id}}" ng-repeat="data in userTypes" class="">
                                                     {{data.UserType}}

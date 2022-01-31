@@ -134,10 +134,10 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="font-weight-bold"> User Type :</label>
-                                        <select class="form-control " ng-model="UserTypeID" name="StudentType" ng-change="changeUser(UserTypeName)" required>
+                                        <select class="form-control " ng-model="usertypes" name="StudentType" ng-change="changeUser(UserTypeID)" required>
                                             <option value="" selected="selected">Select Usertype</option>
                                             <option value="{{data.UserTypeID}}" ng-repeat="data in UserTypes" class="">
-                                                {{data.UserTypeName}}
+                                                {{data.UserType}}
                                             </option>
                                         </select>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="form-group">
 
                                         <label class="font-weight-bold"> Module :</label>
-                                        <select class="form-control " ng-model="ModuleID" name="StudentType" required>
+                                        <select class="form-control " ng-model="modules" name="StudentType" required>
                                             <option value="" selected="selected">Select Module</option>
                                             <option value="{{data.ModuleID}}" ng-repeat="data in GetCcicModules" class="">
                                                 {{data.ModuleName}}
@@ -210,7 +210,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold"> User Type :</label>
-                                            <select class="form-control" ng-model="UserTypeID" name="StudentType" ng-change="changeUser(UserTypeID)" required>
+                                            <select class="form-control" ng-model="usertypes" name="StudentType" ng-change="changeUser(UserTypeID)" required>
                                                 <option value="" selected="selected">Select Usertype</option>
                                                 <option value="{{data.UserTypeID}}" ng-repeat="data in UserTypes" class="">
                                                     {{data.UserType}}
@@ -286,7 +286,7 @@
                                         <label class="font-weight-bold"> Module :</label>
                                         <select class="form-control " ng-model="ModuleID" name="StudentType" required>
                                             <option value="" selected="selected">Select Module</option>
-                                            <option value="{{data.Id}}" ng-repeat="data in GetModules" class="">
+                                            <option value="{{data.ModuleID}}" ng-repeat="data in GetModules" class="">
                                                 {{data.ModuleName}}
                                             </option>
                                         </select>
@@ -376,7 +376,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="font-weight-bold"> User Type :</label>
-                                        <select class="form-control " ng-model="UserTypeID" name="StudentType" ng-change="changeUser(UserTypeID)" required>
+                                        <select class="form-control " ng-model="usertypes" name="StudentType" ng-change="changeUser(UserTypeID)" required>
                                             <option value="" selected="selected">Select Usertype</option>
                                             <option value="{{data.Id}}" ng-repeat="data in UserTypes" class="">
                                                 {{data.UserType}}

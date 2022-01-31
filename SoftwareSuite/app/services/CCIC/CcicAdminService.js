@@ -10,7 +10,7 @@
 
 
         this.GetCcicUserTypes = function () {
-            var promise = DataAccessService.getDataWithPara('api/CcicAdminService/getCcicUserTypes');
+            var promise = DataAccessService.getDataWithPara('api/CcicAdminService/GetCcicUserTypes');
             return promise;
 
         }
