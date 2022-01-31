@@ -1,39 +1,39 @@
 ﻿define(['app'], function (app) {
     app.service("CcicSettingsService", function (DataAccessService) {
 
-        this.getCcicModules = function () {
+        this.GetCcicModules = function () {
             var promise = DataAccessService.getDataWithPara('CcicPage/GetCcicModules');
             return promise;
         }
 
 
-        this.getSubModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/getSubModules');
+        this.GetCcicSubModules = function () {
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetCcicSubModules');
             return promise;
         }
 
-        this.getCcicModuleColours = function () {
-            var promise = DataAccessService.getDataWithPara('api/CCIC/GetCcicModuleColors');
+        this.GetCcicModuleColours = function () {
+            var promise = DataAccessService.getDataWithPara('api/CCIC/GetCcicModuleColours');
             return promise;
         }
 
-        this.getAllModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/getAllModules');
+        this.GetAllCcicModules = function () {
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicModules');
             return promise;
         }
 
-        this.getAllUserModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/getAllUserModules');
+        this.GetAllCcicUserModules = function () {
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicUserModules');
             return promise;
         }
 
-        this.getCcicAllSubModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/getCcicAllSubModules');
+        this.GetAllCcicSubModules = function () {
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicSubModules');
             return promise;
         }
 
-        this.getCcicAllUserSubModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/getAllUserSubModules');
+        this.GetAllCcicUserSubModules = function () {
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicUserSubModules');
             return promise;
         }
 
@@ -63,18 +63,18 @@
 
   
 
-        this.AddModule = function (ModuleName, ModuleOrder, ModuleCardColourID, ModuleRouteName, UserName) {
+        this.AddCcicModule = function (ModuleName, ModuleOrder, ModuleCardColourID, ModuleRouteName, UserName) {
             var paramObject = {
-                "ModuleName": ModuleName, "ModuleRouteName": ModuleRouteName, "ModuleCardClassName": ModuleCardClassName, "ModuleOrder": ModuleOrder, "UserName": UserName
+                "ModuleName": ModuleName, "ModuleRouteName": ModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "ModuleOrder": ModuleOrder, "UserName": UserName
             };
-            return DataAccessService.postData('CcicPage/AddModule', paramObject);
+            return DataAccessService.postData('CcicPage/AddCcicModule', paramObject);
         }
 
-        this.AddUserModule = function (UserTypeID, ModuleID) {
+        this.AddCcicUserModule = function (UserTypeID, ModuleID) {
             var paramObject = {
                  "UserTypeID": UserTypeID, "ModuleID": ModuleID
             };
-            return DataAccessService.postData('CcicPage/AddUserModule', paramObject);
+            return DataAccessService.postData('CcicPage/AddCcicUserModule', paramObject);
         }
 
         this.AddCcicSubModules = function (SubModuleID, SubModuleName, SubModuleRouteName, ModuleCardColourID, SubModuleOrder) {

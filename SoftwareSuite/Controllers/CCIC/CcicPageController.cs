@@ -200,8 +200,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("getAllCcicModules")]
-        public string getAllCcicModules()
+        [HttpGet, ActionName("GetAllCcicModules")]
+        public string GetAllCcicModules()
         {
             try
             {
@@ -219,8 +219,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("getAllCcicUserModules")]
-        public string getAllCcicUserModules()
+        [HttpGet, ActionName("GetAllCcicUserModules")]
+        public string GetAllCcicUserModules()
         {
             try
             {
@@ -238,8 +238,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("getCcicAllSubModules")]
-        public string getCcicAllSubModules()
+        [HttpGet, ActionName("getAllCcicSubModules")]
+        public string getAllCcicSubModules()
         {
             try
             {
