@@ -3276,6 +3276,197 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+        [HttpPost, ActionName("TwshResultsAutomation_1_1_UploadExcel")]
+        public string TwshResultsAutomation_1_1_UploadExcel([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);                
+                param[1] = new SqlParameter("@Json", json["Json"].ToString());
+                param[2] = new SqlParameter("@UserName", json["UserName"]);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_1_1_UploadOsdesMarksAndNrGenForResultsProcessing", param);
+                //return JsonConvert.SerializeObject(dt);
+
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = ds.Tables[0].Rows[0]["ExamMonthYear"].ToString();
+
+                    var filename = ExamMonthYear + '_' + "GeneratedNr_PostedMarks_Wantings" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];                    
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ADM_SET_1_1_UploadOsdesMarksAndNrGenForResultsProcessing", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("TwshResultsAutomation_1_2_UploadWantings")]
+        public string TwshResultsAutomation_1_2_UploadWantings([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);                
+                param[1] = new SqlParameter("@Json", json["Json"].ToString());
+                param[2] = new SqlParameter("@UserName", json["UserName"]);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_1_2_UploadWantings", param);
+
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = ds.Tables[0].Rows[0]["ExamMonthYear"].ToString();
+
+                    var filename = ExamMonthYear + '_' + "Wantings" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ADM_SET_1_2_UploadWantings", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("TwshResultsAutomation_2_1_TwshResultsProcessing")]
+        public string TwshResultsAutomation_2_1_TwshResultsProcessing([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("[ADM_SET_2_1_TwshResultsProcessing]", param);
+
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = ds.Tables[0].Rows[0]["ExamMonthYear"].ToString();
+
+                    var filename = ExamMonthYear + '_' + "ResultsProcessingFile" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("[ADM_SET_2_1_TwshResultsProcessing]", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("TwshResultsAutomation_2_2_DeployResultsIntoMasters")]
+        public string TwshResultsAutomation_2_2_DeployResultsIntoMasters([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_2_2_DeployResultsIntoMasters ", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ADM_SET_2_2_DeployResultsIntoMasters", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
         private class ArrayList
         {
             public ArrayList()
