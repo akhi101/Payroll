@@ -182,6 +182,12 @@
                 dependencies: ['views/newwebsite/controllers/WebsiteLoginController', 'services/SystemAdministration/SystemUserService']
             },
 
+            'index.StudentServicesStatus': {
+                url: "/StudentServicesStatus",
+                templateUrl: 'app/views/newwebsite/StudentServicesStatus.html',
+                dependencies: ['views/newwebsite/controllers/StudentServicesStatusController', 'services/PreExamination/PreExaminationService']
+            },
+
             'index.Timetable': {
                 url: "/Timetable",
                 templateUrl: 'app/views/ExamsSite/PreExamTimetable.html',

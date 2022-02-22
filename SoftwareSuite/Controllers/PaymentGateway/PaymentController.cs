@@ -429,8 +429,179 @@ namespace CoreExamin.Controllers
                     param[25] = new SqlParameter("@errorstatus", errorstatus);
                     param[26] = new SqlParameter("@errordesc", errordesc);
                     param[27] = new SqlParameter("@checksum", checksum);
-                    db.ReturnDataWithStoredProcedureTable("Usp_SFP_SET_S2SLog", param);
+                    var dt = db.ReturnDataWithStoredProcedure("Usp_SFP_SET_S2SLog", param);
+                    //return JsonConvert.SerializeObject(dt);
+                    if (dt.Tables[0].Rows.Count > 0)
+                    {
+                        merchantId = dt.Tables[0].Rows[0]["merchantId"].ToString();
+                        string UniqueTxnNo = dt.Tables[0].Rows[0]["checksum"].ToString();
+                        string TxnReferenceNo = dt.Tables[0].Rows[0]["TxnReferenceNo"].ToString();
+                        string ReceiptNo = dt.Tables[0].Rows[0]["ReceiptNo"].ToString();
+                        string TxnAmount = dt.Tables[0].Rows[0]["TxnAmount"].ToString();
+                        string StatusUpdateDate = dt.Tables[0].Rows[0]["StatusUpdateDate"].ToString();
+                        string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
+                        string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
+                        string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + CheckSum;
+                        return data;
+                    }
+                }
+                else if (!checksum.Equals(strCheckSumValue))
+                {
+
+                    var db1 = new dbHandler();
+                    var para = new SqlParameter[2];
+                    para[0] = new SqlParameter("@FullResponse", _paymentResp);
+                    para[1] = new SqlParameter("@ResponceType", 2);
+                    db1.ReturnDataWithStoredProcedureTable("Usp_SFP_SET_S2SLog", para);
                     return "Added in DB";
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("Usp_SFP_SET_S2SLog", 0, ex.Message);
+                var db1 = new dbHandler();
+                var para = new SqlParameter[2];
+                para[0] = new SqlParameter("@FullResponse", _paymentResp);
+                para[1] = new SqlParameter("@ResponceType", 2);
+                db1.ReturnDataWithStoredProcedureTable("Usp_SFP_SET_S2SLog", para);
+                return JsonConvert.SerializeObject(ex.Message);
+            }
+            return "Not yet added in DB";
+        }
+
+
+
+         [System.Web.Http.HttpPost]
+        public async Task<string> Server2ServerBMS(string msg)
+        {
+            TextWriter writer = null;
+            string _paymentResp = msg.Trim().Trim('\n');
+
+            try
+            {
+                using (var req = Request.InputStream)
+                {
+                    req.Seek(0, SeekOrigin.Begin);
+                    using (var reader = new StreamReader(req))
+                    {
+                        var reqData = await reader.ReadToEndAsync();
+                      //  LogUtility.SaveS2SLog(reqData, DateTime.Now);
+                    }
+                }
+                string strCheckSumValue = "";
+                //_paymentResp = msg;
+                string[] arrResponse = _paymentResp.Split('|');
+                int index = _paymentResp.LastIndexOf("|");
+                string key = "ScG3yshuSFOr";
+                string checksumkeyr = _paymentResp.Substring(0, index);
+                string Checksumvalue = GetHMACSHA256(checksumkeyr, key);
+                //Checksumvalue = Checksumvalue.ToUpper();
+                string _ChecksumvalueReceived = arrResponse[25];
+                //TODO: add Log to Mongo DB
+
+                string amt = arrResponse[4];
+                string merchantId = arrResponse[0];
+                //hdnMerchantId.Value = merchantId;
+                string subscriberid = arrResponse[1];
+                //txtsubscriberid.Text = subscriberid;
+                string txnrefno = arrResponse[2];
+                //txtbankrefno.Text = txnrefno;
+                string bankrefno = arrResponse[3];
+                string txnamt = arrResponse[4];
+                //txtamount.Text = txnamt;
+                string bankid = arrResponse[5];
+                string bankmerid = arrResponse[6];//Not Imp
+                string tcntype = arrResponse[7];//Not Imp
+                string currencyname = arrResponse[8];
+                string temcode = arrResponse[9];//Not Imp
+                string securitytype = arrResponse[10];//Not Imp
+                string securityid = arrResponse[11];//Not Imp
+                string securitypass = arrResponse[12];//Not Imp
+                string txndate = arrResponse[13];
+                string authstatus = arrResponse[14];
+                string settlementtype = arrResponse[15];//Not Imp
+                string addtninfo1 = arrResponse[16];
+                //collegecode.Text = addtninfo1;
+                string addtninfo2 = arrResponse[17];
+                string addtninfo3 = arrResponse[18];//Not Imp
+                                                    //branchcode.Text = addtninfo3;
+                string addtninfo4 = arrResponse[19];//Not Imp
+                                                    // scheme.Text = addtninfo4;
+                string addtninfo5 = arrResponse[20];//Not Imp
+                                                    // semester.Text = addtninfo5;
+                string addtninfo6 = arrResponse[21];//Not Imp
+                                                    // examtype.Text = addtninfo6;
+                string addtninfo7 = arrResponse[22];//Not Imp
+                string errorstatus = arrResponse[23];
+                string errordesc = arrResponse[24];
+                string checksum = arrResponse[25];
+
+
+                string message = merchantId + "|" + subscriberid + "|" + txnrefno + "|" + bankrefno + "|" + txnamt + "|" + bankid + "|" + bankmerid + "|" + tcntype + "|" + currencyname + "|" + temcode + "|" + securitytype + "|" + securityid + "|" + securitypass + "|" + txndate + "|" + authstatus + "|" +
+                  settlementtype + "|" + addtninfo1 + "|" + addtninfo2 + "|" + addtninfo3 + "|" + addtninfo4 + "|" + addtninfo5 + "|" + addtninfo6 + "|" + addtninfo7 + "|" + errorstatus + "|" + errordesc; //+"|ScG3yshuSFOr";
+
+                strCheckSumValue = CheckSumResponse(message);
+
+                //TODO: add Log to Mongo DB
+
+
+
+
+                /*
+                 * inserting log of s2s
+                 * if checkSum is equal then inserting all the data in s2sLog with type = 1
+                 * else checkSum is not equal then inseting data in s2sLog with type = 2
+                 * 
+                 */
+                if (checksum.Equals(strCheckSumValue))
+                {
+                    var db = new dbHandler();
+                    var param = new SqlParameter[28];
+                    param[0] = new SqlParameter("@FullResponse", _paymentResp ?? "");
+                    param[1] = new SqlParameter("@ResponceType", 1);
+                    param[2] = new SqlParameter("@merchantId", merchantId);
+                    param[3] = new SqlParameter("@subscriberid", subscriberid);
+                    param[4] = new SqlParameter("@txnrefno", txnrefno);
+                    param[5] = new SqlParameter("@bankrefno", bankrefno);
+                    param[6] = new SqlParameter("@txnamt", txnamt);
+                    param[7] = new SqlParameter("@bankid", bankid);
+                    param[8] = new SqlParameter("@bankmerid", bankmerid);
+                    param[9] = new SqlParameter("@tcntype", tcntype);
+                    param[10] = new SqlParameter("@currencyname", currencyname);
+                    param[11] = new SqlParameter("@temcode", temcode);
+                    param[12] = new SqlParameter("@securitytype", securitytype);
+                    param[13] = new SqlParameter("@securityid", securityid);
+                    param[14] = new SqlParameter("@securitypass", securitypass);
+                    param[15] = new SqlParameter("@txndate", txndate);
+                    param[16] = new SqlParameter("@authstatus", authstatus);
+                    param[17] = new SqlParameter("@settlementtype", settlementtype);
+                    param[18] = new SqlParameter("@addtninfo1", addtninfo1);
+                    param[19] = new SqlParameter("@addtninfo2", addtninfo2);
+                    param[20] = new SqlParameter("@addtninfo3", addtninfo3);
+                    param[21] = new SqlParameter("@addtninfo4", addtninfo4);
+                    param[22] = new SqlParameter("@addtninfo5", addtninfo5);
+                    param[23] = new SqlParameter("@addtninfo6", addtninfo6);
+                    param[24] = new SqlParameter("@addtninfo7", addtninfo7);
+                    param[25] = new SqlParameter("@errorstatus", errorstatus);
+                    param[26] = new SqlParameter("@errordesc", errordesc);
+                    param[27] = new SqlParameter("@checksum", checksum);
+                    var dt = db.ReturnDataWithStoredProcedure("Usp_SFP_SET_S2SLog", param);
+                    //return JsonConvert.SerializeObject(dt);
+                    if (dt.Tables[0].Rows.Count > 0)
+                    {
+                        merchantId = dt.Tables[0].Rows[0]["merchantId"].ToString();
+                        string UniqueTxnNo = dt.Tables[0].Rows[0]["checksum"].ToString();
+                        string TxnReferenceNo = dt.Tables[0].Rows[0]["TxnReferenceNo"].ToString();
+                        string ReceiptNo = dt.Tables[0].Rows[0]["ReceiptNo"].ToString();
+                        string TxnAmount = dt.Tables[0].Rows[0]["TxnAmount"].ToString();
+                        string StatusUpdateDate = dt.Tables[0].Rows[0]["StatusUpdateDate"].ToString();
+                        string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
+                        string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
+                        string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + CheckSum;
+                        return data;
+                    }
                 }
                 else if (!checksum.Equals(strCheckSumValue))
                 {
