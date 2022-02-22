@@ -214,7 +214,6 @@
                 dependencies: ['views/newwebsite/controllers/WebsiteLoginController', 'services/SystemAdministration/SystemUserService']
             },
 
-
             'index.Timetable': {
                 url: "/Timetable",
                 templateUrl: 'app/views/ExamsSite/PreExamTimetable.html',

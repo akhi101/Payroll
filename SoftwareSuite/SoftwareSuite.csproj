@@ -2369,6 +2369,7 @@
     <Content Include="app\views\newwebsite\controllers\SitemapController.js" />
     <Content Include="app\views\newwebsite\controllers\StaffController.js" />
     <Content Include="app\views\newwebsite\controllers\State-governmentController.js" />
+    <Content Include="app\views\newwebsite\controllers\StudentServicesStatusController.js" />
     <Content Include="app\views\newwebsite\controllers\TendersController.js" />
     <Content Include="app\views\newwebsite\controllers\TwshAffiliatedInstituteController.js" />
     <Content Include="app\views\newwebsite\controllers\TwshCoursesController.js" />
@@ -2398,6 +2399,7 @@
     <Content Include="app\views\newwebsite\staff.html" />
     <Content Include="app\views\newwebsite\state-government.html" />
     <Content Include="app\views\newwebsite\student-portal.html" />
+    <Content Include="app\views\newwebsite\StudentServicesStatus.html" />
     <Content Include="app\views\newwebsite\tenders.html" />
     <Content Include="app\views\newwebsite\time-tables.html" />
     <Content Include="app\views\newwebsite\twsh-portal.html" />

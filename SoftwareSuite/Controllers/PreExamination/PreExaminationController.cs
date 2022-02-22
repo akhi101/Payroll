@@ -10017,8 +10017,9 @@ namespace SoftwareSuite.Controllers.PreExamination
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@PhoneNumber", Phone);
                 dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_MobileUpdate", param);
 
                 if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
