@@ -694,7 +694,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"></script>
 <!-- MultiStep Form -->
-<div ng-controller="ResultsAutomationExcelUploadController">
+<div ng-controller="TwshResultsAutomationController">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -703,8 +703,8 @@
                 <ol class="breadcrumb">
                     <ol class="breadcrumb">
                         <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
-                        <li><a href="#!/Dashboard/PostExam">PostExam </a></li>
-                        <li><a href="#!/Dashboard/PostExam/ResultsAutomationExcelUpload">Results Automation</a></li>
+                        <li><a href="#!/Dashboard/TypeWriting">TypeWriting </a></li>
+                        <li><a href="#!/Dashboard/TypeWriting/TwshResultsAutomation">Results Automation</a></li>
                     </ol>
                 </ol>
             </section>
@@ -713,7 +713,7 @@
     </div>
     <div class="container">
         <div class="col-md-12">
-            <a href="#!/Dashboard/PostExam" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+            <a href="#!/Dashboard/TypeWriting" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
         </div>
     </div>
     <div class="sm-spacer"></div>
@@ -724,36 +724,36 @@
                 <div class="stepwizard-step">
 
                     <a href="#step-1" type="button" class="btn btn-primary btn-circle">1 </a>
-                    <p class="">OSDES Marks Uploading</p>
+                    <p class="">Marks Uploading and Posting</p>
                 </div>
                 <div class="stepwizard-step">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle">2</a>
-                    <p class="">Nr Generation and Marks Posting</p>
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle">2</a>
+                    <p class="">Wanting Uploading</p>
                 </div>
                 <div class="stepwizard-step">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle">3</a>
-                    <p class="">Wantings and Updation</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle">4</a>
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle">3</a>
                     <p class="">Results Generation</p>
                 </div>
+                <!--<div class="stepwizard-step">
+        <a href="#step-4" type="button" class="btn btn-default btn-circle">4</a>
+        <p class="">Results Generation</p>
+    </div>
+    <div class="stepwizard-step">
+        <a href="#step-5" type="button" class="btn btn-default btn-circle">5</a>
+        <p class="">Logics and Reports</p>
+    </div>
+    <div class="stepwizard-step">
+        <a href="#step-6" type="button" class="btn btn-default btn-circle">6</a>
+        <p class="">Preview Results</p>
+    </div>-->
                 <div class="stepwizard-step">
-                    <a href="#step-5" type="button" class="btn btn-default btn-circle">5</a>
-                    <p class="">Logics and Reports</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-6" type="button" class="btn btn-default btn-circle">6</a>
-                    <p class="">Preview Results</p>
-                </div>
-                <div class="stepwizard-step">
-                    <a href="#step-7" type="button" class="btn btn-default btn-circle">7</a>
+                    <a href="#step-7" type="button" class="btn btn-default btn-circle">4</a>
                     <p class="">Results Deployment Master Tables</p>
                 </div>
                 <!--<div class="stepwizard-step">
-                    <a href="#step-7" type="button" class="btn btn-default btn-circle">7</a>
-                    <p class="">deploynt</p>
-                </div>-->
+        <a href="#step-7" type="button" class="btn btn-default btn-circle">7</a>
+        <p class="">deploynt</p>
+    </div>-->
 
             </div>
         </div>
@@ -763,7 +763,7 @@
 
                 <div class="col-md-12">
                     <div class="cl-details">
-                        <h2> Upload Marks</h2>
+                        <h2> Upload Marks, Generate Nr and Post Marks</h2>
                     </div>
                     <div class="alert alert-info">
                         <div class="studWishinputs">
@@ -773,47 +773,15 @@
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
-                                        <select class="form-control" id="monthyear" ng-model="monthyear" required>
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
+                                        <!--<select class="form-control" id="monthyear" ng-model="monthyear" required>-->
+                                            <select class="form-control" id="monthyear" ng-model="monthyear" required>
+                                                <option value="" selected>Select Month/Year of Exam</option>
+                                                <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
+                                                    {{monYer.ExamMonthYear}}
+                                                </option>
+                                            </select>
                                     </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="Scheme" ng-model="Scheme" ng-change="loadSemExamTypes(Scheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="SelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="UploadExamTypeId" ng-model="UploadExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
+                                  
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
                                             <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="ExcelForm1.$valid && SubmitForm()">Submit</button>
@@ -925,240 +893,12 @@
                     </div>
                 </div>-->
             </div>
-
-            <div class="row setup-content" id="step-2">
-                <div class="col-md-12">
-                    <div class="cl-details">
-                        <h2> NR Generation</h2>
-                    </div>
-                    <div class="alert alert-info">
-                        <div class="studWishinputs">
-                            <form name="NrForm">
-                                <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Month/Year :
-                                        </label>
-                                        <select class="form-control" id="Nrmonthyear" ng-model="Nrmonthyear" required>
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="NrScheme" ng-model="NrScheme" ng-change="loadSemExamTypes(NrScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="NrExamTypeId" ng-model="NrExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-                                        <!--<select class="form-control" ng-model="SelStudentType" name="StudentType">
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="Student in StudentType" value="{{Student.id}}">
-                                                {{Student.type}}
-                                            </option>
-                                        </select>-->
-                                        <select class="form-control" ng-model="NrSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                        ec
-                                    </div>
-                                    <div class="col-md-2 ">
-                                        <div class="gr-btn">
-                                            <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" ng-click="NrForm.$valid && GenerateNr(NrScheme)">Submit</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            
+            <div class="row setup-content" id="step-3">                
 
                 <div class="col-md-12">
                     <div class="cl-details">
-                        <h2> Marks Posting in NR</h2>
-                    </div>
-                    <div class="alert alert-info">
-                        <div class="studWishinputs">
-                            <form name="MarksPost">
-                                <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Month/Year :
-                                        </label>
-                                        <select class="form-control" id="Nrmonthyear" ng-model="Nrmonthyear" required>
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="NrScheme" ng-model="NrScheme" ng-change="loadSemExamTypes(Nrscheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="NrExamTypeId" ng-model="NrExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-                                        <!--<select class="form-control" ng-model="SelStudentType" name="StudentType">
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="Student in StudentType" value="{{Student.id}}">
-                                                {{Student.type}}
-                                            </option>
-                                        </select>-->
-                                        <select class="form-control" ng-model="NrSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                        ec
-                                    </div>
-                                    <div class="col-md-2 ">
-                                        <div class="gr-btn">
-                                            <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="MarksPost.$valid &&PostMarks()">Submit</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="sm-spacer"></div>
-                    <div style="width:100%;text-align:center;" ng-show="reload">
-                        <img src="../../../contents/img/loading1.gif" width="100" />
-                        <h4><b>Loading, Please wait...</b></h4>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="alert text-center " ng-class="{SuccessCls: SuccessStatus}" ng-if="SuccessStatus">
-                        <span class="fontSize">{{StatusMessage}} </span>
-                    </div>
-                    <div class="alert text-center " ng-class="{FailCls: FailStatus}" ng-if="FailStatus">
-                        <span class="fontSize">{{StatusMessage}} </span>
-                    </div>
-                    <div class="alert text-center " ng-class="{FailCls: ResultNotFound}" ng-if="ResultNotFound">
-                        <span class="fontSize">No Data Found</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row setup-content" id="step-3">
-                <div class="col-md-12">
-                    <div class="cl-details">
-                        <h2> Generate Wantings</h2>
-                    </div>
-                    <div class="alert alert-info">
-                        <div class="studWishinputs">
-                            <form name="WantingForm">
-                                <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Month/Year :
-                                        </label>
-                                        <select class="form-control" id="Wantingsmonthyear" ng-model="Wantingsmonthyear" required>
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="WantingsScheme" ng-model="WantingsScheme" ng-change="loadSemExamTypes(WantingsScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="WantingsExamTypeId" ng-model="WantingsExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-                                        <!--<select class="form-control" ng-model="SelStudentType" name="StudentType">
-                                        <option value="" selected>Select Exam Type</option>
-                                        <option ng-repeat="Student in StudentType" value="{{Student.id}}">
-                                            {{Student.type}}
-                                         </option>
-                                                  </select>-->
-                                        <select class="form-control" ng-model="WantingsSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-  </select
-                                            >
-                                        </select>
-                                        >
-                                    </div>
-                                    v>
-                                    <div class="col-md-2 ">
-                                        <div class="gr-btn">
-                                            <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="WantingForm.$valid && GenerateWantings()">Submit</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="cl-details">
-                        <h2> Upload Wantings </h2>
+                        <h2> Upload and Generate Wantings </h2>
                     </div>
                     <div class="alert alert-info">
                         <div class="studWishinputs">
@@ -1171,42 +911,10 @@
                                         <select class="form-control" id="Wantingsmonthyear" ng-model="Wantingsmonthyear" required>
                                             <option value="" selected>Select Month/Year of Exam</option>
                                             <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
+                                                {{monYer.ExamMonthYear}}
                                             </option>
                                         </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="WantingsScheme" ng-model="WantingsScheme" ng-change="loadSemExamTypes(WantingsScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="WantingsSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="WantingsExamTypeId" ng-model="WantingsExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
+                                    </div>                                    
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
                                             <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" ng-click="UploadForm.$valid && Submit()">Submit </button>
@@ -1313,10 +1021,11 @@
                     </div>
                 </div>
             </div>
+           
             <div class="row setup-content" id="step-4">
                 <div class="col-md-12">
                     <div class="cl-details">
-                        <h2> Results Processing</h2>
+                        <h2> Results Processing and Logic Reports</h2>
                     </div>
                     <div class="alert alert-info">
                         <div class="studWishinputs">
@@ -1329,50 +1038,11 @@
                                         <select class="form-control" id="Resultsmonthyear" ng-model="Resultsmonthyear" required>
                                             <option value="" selected>Select Month/Year of Exam</option>
                                             <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
+                                                {{monYer.ExamMonthYear}}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="ResultsScheme" ng-model="ResultsScheme" ng-change="loadSemExamTypes(ResultsScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="ResultsExamTypeId" ng-model="ResultsExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-                                        <select class="form-control" ng-model="ResultsSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control" ng-model="ResultsAcademicYear" name="StudentType" required
-                                                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
-                                            <option value="" selected>Select Academic Year</option>
-                                        </select>
-                                    </div>
+                                                                                                                                               
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
                                             <button class="btn sub_btn submit_btn btn-sm btn-primary gr-button" ng-click="ResultsExcel.$valid && ResultsProcessing()">Submit</button>
@@ -1392,486 +1062,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row setup-content" id="step-5">
-                <div class="col-md-12">
-                    <div class="cl-details">
-                        <h2> Results Logic Reports</h2>
-                    </div>
-                    <div class="alert alert-info">
-                        <div class="studWishinputs">
-                            <form name="LogicExcel">
-                                <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Month/Year :
-                                        </label>
-                                        <select class="form-control" id="Logicmonthyear" ng-model="Logicmonthyear" required>
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="LogicScheme" ng-model="LogicScheme" ng-change="loadSemExamTypes(LogicScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="LogicExamTypeId" ng-model="LogicExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-                                        <select class="form-control" ng-model="LogicSelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control" ng-model="LogicAcademicYear" name="StudentType" required
-                                                ng-options="Student.AcademicID as Student.AcademicYear for Student in GetAcademicYears">
-                                            <option value="" selected>Select Academic Year</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 ">
-                                        <div class="gr-btn">
-                                            <button class="btn sub_btn submit_btn btn-sm btn-primary gr-button" ng-click="LogicExcel.$valid && ResultsLogicReports()">Submit</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="sm-spacer"></div>
-                    <div style="width:100%;text-align:center;" ng-show="reload">
-                        <img src="../../../contents/img/loading1.gif" width="100" />
-                        <h4><b>Loading, Please wait...</b></h4>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="row setup-content" id="step-6">
-                <div class="col-md-12">
-                    <div class="cl-details">
-                        <h2> Preview Results</h2>
-                    </div>
-
-                    <div class="alert alert-info">
-                        <div class="studWishinputs">
-                            <form name="ExcelForm6">
-                                <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="SelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-
-                                            <option value="" selected>Student Type</option>
-                                        </select>
-                                    </div>
-                                    <!--<div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="ConsolidatedPreviewScheme" ng-model="ConsolidatedPreviewScheme" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>-->
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            PIN :
-                                        </label>
-                                        <input class="form-control" type="text" ng-model="Pin" />
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="gr-btn">
-                                            <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="SubmitConsolidatedPreview()">Submit </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!--<div class="col-md-12">
-                    <div class="alert text-center clr_green">
-                        <span class="fontSize">In Development </span>
-                    </div>
-                </div>-->
-
-
-
-                <div class="row">
-                    <div style="width: 100%; text-align: center;">
-                        <img src="../../../contents/img/loading.gif" ng-show="PreviewLoadImg" width="100" />
-                    </div>
-
-                    <div class="row" ng-show="PreviewResultFound">
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="down-foramt">
-                                    <div class="col-md-4 hidden">
-                                        <label for="sel1">
-                                            Download Format :
-                                        </label>
-                                    </div>
-                                    <div class="col-md-5 form-group hidden">
-
-                                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" id="ExamYear" ng-model="EquivalancyCertificate.TenExYr">
-                                            <option value="0" selected="selected">Select Format</option>
-                                            <option ng-repeat="Exam_Year in Exam_Years" class="ng-binding ng-scope" value="2019">2019</option>
-                                            <option ng-repeat="Exam_Year in Exam_Years" class="ng-binding ng-scope" value="2018">2018</option>
-                                        </select>
-                                    </div>
-
-
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                        <div class="col-md-2 pull-right" ng-show="PreviewResultFound">
-                            <div class="pt-btn">
-                                <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="PrintPreviewStudentResult()">Print<span class="fa fa-print heading_icon btn_icons"></span></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row print" ng-show="PreviewResultFound" id="idtoDivPreviewPrintAdmin">
-                        <div class="col-md-12 hidden">
-                            <div class="table table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Pin</th>
-                                            <th>Name</th>
-                                            <th>Branch</th>
-                                            <th>Scheme</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{studentInfo.Pin}}</td>
-                                            <td>{{studentInfo.StudentName}}</td>
-                                            <td>{{studentInfo.BranchCode}}</td>
-                                            <td>{{studentInfo.Scheme}}</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>0
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 hidden">
-                            <div class="table table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>College Code</th>
-                                            <th>College Name</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{$studentInfo.CollegeCode}}</td>
-                                            <td>{{$studentInfo.CollegeName}}</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div ng-if="showPreviewResultData == 1" class="col-md-12">
-                            <div class="container">
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-12">
-                                            <div class="logo-img">
-                                                <img src="../../../contents/img/big-logo.png" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-10 col-md-12">
-                                            <div class="logo-name">
-                                                <h2 style="text-align: center">
-                                                    STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA
-                                                </h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-
-                                    <div class="card-title">
-                                        <h2>Result Preview </h2>
-                                    </div>
-
-                                    <div class="table-responsive customtable" ng-show="PreviewResultFound">
-
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Pin</th>
-                                                    <th>Name</th>
-                                                    <th>Branch</th>
-                                                    <th>Scheme</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{studentInfo.Pin}}</td>
-                                                    <td>{{studentInfo.StudentName}}</td>
-                                                    <td>{{studentInfo.BranchCode}}</td>
-                                                    <td>{{studentInfo.Scheme}}</td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-
-                                        <table class="table table-bordered " ng-if="!co9Data">
-                                            <thead>
-                                                <tr>
-                                                    <th>SUBJECT CODE</th>
-                                                    <th>SUBJECT NAME</th>
-                                                    <th>MAX CREDITS</th>
-                                                    <th>MID SEM1 <br />(20)</th>
-                                                    <th>MID SEM2 <br />(20)</th>
-                                                    <th>INTERNAL <br />(20)</th>
-                                                    <th>END SEM <br />(40)</th>
-                                                    <th>SUBJECT TOTAL<br /> (100)</th>
-                                                    <th>GRADE</th>
-                                                    <th>GRADE POINTS</th>
-                                                    <th>CREDITS EARNED</th>
-                                                    <th>TOTAL GRADE POINTS</th>
-                                                    <th>R/S</th>
-                                                    <th>EXAM MONTH YEAR</th>
-                                                    <th>EXAM STATUS</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr ng-repeat-start="(key, val) in newresultDisplayInfo">
-
-                                                    <td colspan="15">{{val.Semester}}</td>
-                                                </tr>
-                                                <tr ng-repeat="data in val.Subjects">
-
-                                                    <td>{{data.Subject_Code}}</td>
-                                                    <td>{{data.SubjectName}}</td>
-                                                    <td>{{data.MaxCredits}}</td>
-                                                    <td>{{data.Mid1Marks}}</td>
-                                                    <td>{{data.Mid2Marks}}</td>
-                                                    <td>{{data.InternalMarks}}</td>
-                                                    <td>{{data.EndExamMarks}}</td>
-                                                    <td>{{data.SubjectTotal}}</td>
-                                                    <td>{{data.HybridGrade}}</td>
-                                                    <td>{{data.GradePoint}}</td>
-                                                    <td>{{data.CreditsGained}}</td>
-                                                    <td>{{data.TotalGradePoints}}</td>
-                                                    <td>{{data.WholeOrSupply =='W'?'R':'S'}}</td>
-                                                    <td>{{data.ExamMonthYear}}</td>
-                                                    <td>{{data.ExamStatus}}</td>
-
-                                                </tr>
-                                                <tr ng-repeat="data3 in val.courseinfo">
-                                                    <td colspan="2">Semester Total</td>
-                                                    <td>{{data3.courseMaxCerdits}}</td>
-                                                    <td colspan="7"></td>
-                                                    <td>{{data3.courseCerditsGained}}</td>
-                                                    <td>{{data3.courseTotalGradePoints}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr ng-repeat-end ng-repeat="data2 in val.Sgpainfo">
-                                                    <td colspan="11">Semester Grade Point Average(SGPA) ({{data2.TotalGradePoints+'/'+data2.Credits}})</td>
-                                                    <td>{{data2.SGPA}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="2">Course Total</td>
-                                                    <td>{{courseMaxCerdits}}</td>
-                                                    <td colspan="7"></td>
-                                                    <td>{{courseCerditsGained}}</td>
-                                                    <td>{{courseTotalGradePoints}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="11">Cummulative Grade Point Average(CGPA) ({{TotalData.CgpaTotalGained+'/'+TotalData.CgpaTotalCredits}})</td>
-
-                                                    <td>{{TotalData.CGPA}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <Label>Abbrevations</strong></Label>
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">
-                                                <label><strong>R - Regular Exam</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>S - Supplementary Exam</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>P - Pass</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>F - Fail</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>W - WithHeld</strong></label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label><strong>MP - MalPractice</strong></label>
-                                            </div>
-
-                                        </div>
-
-                                        <!--<p id="currenttime"></p>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div ng-show="PreviewResultNotFound" class="no-results">
-                                <img src="../../contents/img/Folder-Icon.svg" />
-                                <h2>No Result Found</h2>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-
-                <!--<div id="popupContainer" class="panel">
-                    <div class="modal fade" id="exampleModalStud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document" style="width:100%;">
-                            <div class="modal-content" style="width:100%;">
-
-
-                                <div class="popup_title">
-                                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> </button>
-                                    <h4> <i class="fa fa-info-circle" aria-hidden="true"></i> Grade Info </h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="">
-                                        <div class="customtable scrollbox-content">
-                                            <table class="table table-responsive table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Subject_Code</th>
-                                                        <th>SubjectName</th>
-                                                        <th>A+</th>
-                                                        <th>A</th>
-                                                        <th>B+</th>
-                                                        <th>B</th>
-                                                        <th>C+</th>
-                                                        <th>C</th>
-                                                        <th>D</th>
-                                                    </tr>
-                                                </thead>
-                                                <tr ng-repeat="subject in BranchSubjectGradeInfo">
-                                                    <td>{{subject.Subject_Code}}</td>
-                                                    <td>{{subject.SubjectName}}</td>
-                                                    <td>{{subject.APlusGrade}}</td>
-                                                    <td>{{subject.AGrade}}</td>
-                                                    <td>{{subject.BPlusGrade}}</td>
-                                                    <td>{{subject.BGrade}}</td>
-                                                    <td>{{subject.CPlusGrade}}</td>
-                                                    <td>{{subject.CGrade}}</td>
-                                                    <td>{{subject.DGrade}}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-raised waves-effect cancel-but text-uppercase" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-                <!--<div class="col-md-12">
-                    <div class="sm-spacer"></div>
-                    <div style="width:100%;text-align:center;" ng-show="reload">
-                        <img src="../../../contents/img/loading1.gif" width="100" />
-                        <h4><b>Loading, Please wait...</b></h4>
-                    </div>
-                </div
-
-                <div class="col-md-12">
-                    <div class="alert text-center " ng-class="{SuccessCls: SuccessStatus}" ng-if="SuccessStatus">
-                        <span class="fontSize">{{StatusMessage}} </span>
-                    </div>
-                    <div class="alert text-center " ng-class="{FailCls: FailStatus}" ng-if="FailStatus">
-                        <span class="fontSize">{{StatusMessage}} </span>
-                    </div>
-                    <div class="alert text-center " ng-class="{FailCls: ResultNotFound}" ng-if="ResultNotFound">
-                        <span class="fontSize">No Data Found</span>
-                    </div>
-                </div>-->
-            </div>
+           
             <div class="row setup-content" id="step-7">
                 <div class="col-md-12">
                     <div class="cl-details">
                         <h2> Results Deploying Master Tables</h2>
                     </div>
                     <div class="alert alert-info">
-                        <div c
                         <div class="studWishinputs">
                             <form name="DeployExcel">
                                 <div class="row">
@@ -1882,42 +1079,11 @@
                                         <select class="form-control" id="Deploymonthyear" ng-model="Deploymonthyear" required>
                                             <option value="" selected>Select Month/Year of Exam</option>
                                             <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
+                                                {{monYer.ExamMonthYear }}
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="DeployScheme" ng-model="DeployScheme" ng-change="loadSemExamTypes(DeployScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="DeployExamTypeId" ng-model="DeployExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="DeploySelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
-                                        </select>
-                                    </div>
+                                                                       
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
                                             <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="DeployExcel.$valid && ResultsDeployTables()">Submit</button>
@@ -1927,7 +1093,6 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="sm-spacer"></div>

@@ -3,13 +3,34 @@
         this.UpdateStudentReg = function (object) {
             var promise = DataAccessService.postData('api/TwshSystemUser/PostCredentials', object);
             return promise;
-        }
+        };
+   
+        this.TwshResultsAutomation_1_1_UploadExcel = function (ExamMonthYearId, Json, UserName)  {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "Json": Json, "UserName": UserName }
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshResultsAutomation_1_1_UploadExcel', paramObj);
+            return promise;
+        };
+        this.TwshResultsAutomation_1_2_UploadWantings = function (ExamMonthYearId, Json, UserName) {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "Json": Json, "UserName": UserName }
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshResultsAutomation_1_2_UploadWantings', paramObj);
+            return promise;
+        };
+        this.TwshResultsAutomation_2_1_TwshResultsProcessing = function (ExamMonthYearId) {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId}
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshResultsAutomation_2_1_TwshResultsProcessing', paramObj);
+            return promise;
+        };
+        this.TwshResultsAutomation_2_2_DeployResultsIntoMasters = function (ExamMonthYearId) {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId }
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshResultsAutomation_2_2_DeployResultsIntoMasters', paramObj);
+            return promise;
+        };        
 
         this.TransferStudent = function (ReqData) {
             // var paramObj = { "ReqData": ReqData };PIDResponseXML.InnerXml.Length
             var promise = DataAccessService.postData('api/TwshStudentReg/TransferStudent', ReqData);
             return promise;
-        };
+        };        
 
         this.getTwshFeeDates = function () {
             // var paramObj = { "ReqData": ReqData };PIDResponseXML.InnerXml.Length

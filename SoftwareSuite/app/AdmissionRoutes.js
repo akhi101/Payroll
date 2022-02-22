@@ -2665,6 +2665,14 @@
                 dependencies: ['controllers/TWSH/TwshExamCenterStrengthController', 'services/TWSH/TwshStudentRegService']
             },
 
+            'Dashboard.TypeWriting.TwshResultsAutomation': {
+                url: "/TwshResultsAutomation",
+                templateUrl: 'app/views/TWSH/TwshResultsAutomation.html',
+                // dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService']
+                dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService','controllers/Results/ResultsAutomationExcelUploadController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
+            },
+
+
 
             'Dashboard.TypeWriting.TwshExamMonthYear': {
                 url: "/TwshExamMonthYear",
