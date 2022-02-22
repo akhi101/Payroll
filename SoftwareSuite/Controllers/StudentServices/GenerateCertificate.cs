@@ -4123,7 +4123,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             <td>{studentdata.GradePoints1}</td>
                             <td>{studentdata.Credits1}</td>
                             <td></td>
-                            <td colspan='35' style='text-align:left;'>ODC NO : {studentdata.ODCNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMG NO : {studentdata.CMGNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IndustryName : {studentdata.IndustryName} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Division : {studentdata.Division} 
+                            <td colspan='35' style='text-align:left;'>ODC NO : {studentdata.ODCNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CMG NO : {studentdata.CMGNO} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IndustryName : {studentdata.GetIndustryName()} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Division : {studentdata.Division} 
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Credits Earned(Min : 130) : {studentdata.TotalCreditsEarned} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CGPA :  {studentdata.CGPA} </td>                                              
                             <td></td>
 				            <td>P</td>

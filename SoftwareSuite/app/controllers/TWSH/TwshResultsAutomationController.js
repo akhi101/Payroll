@@ -1,12 +1,6 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshResultsAutomationController", function ($scope, $http, $localStorage, $rootScope, $state, $stateParams, $document, StudentResultService, AppSettings, $timeout, PreExaminationService, AssessmentService, StudentWiseService) {
-
-        //var serializedData = { "Name": ["Akhil"] }
-        //request = $.ajax({
-        //    url: "https://docs.google.com/spreadsheets/d/1FNnXNCX-KF0eaqk9-z0FKZoenocmakvJQLZI1uo1W3Y/edit#gid=0",
-        //    type: "post",
-        //    data: serializedData
-        //});
+    app.controller("TwshResultsAutomationController", function ($scope, $http, $localStorage, $rootScope, $state, $stateParams, $document, TwshStudentRegService, StudentResultService, AppSettings, $timeout, PreExaminationService, AssessmentService, StudentWiseService) {
+       
         $scope.reload = false;
         var authData = $localStorage.authorizationData;
         $scope.ExamCategory = [];
@@ -19,7 +13,6 @@
         $scope.CollegeID = authData.CollegeID;
         $scope.userType = authData.SystemUserTypeId
 
-
         $scope.SubmitForm = function () {
             $scope.ShowData = true;
         }
@@ -28,29 +21,19 @@
             $scope.ShowData = true;
         }
         $scope.GetTable = false;
-        //$scope.MonthAndYear = [
-        //   { "Id": 1, "ExamYearMonth": "Oct - Nov 2018" },
-        //   { "Id": 2, "ExamYearMonth": "Mar - Apr 2019" },
-        //   { "Id": 3, "ExamYearMonth": "June 2019" },
-        //   { "Id": 4, "ExamYearMonth": "Nov - Dec 2019" }
-        //]
-        var getExamMonth = PreExaminationService.GetExamMonthYear();
-        getExamMonth.then(function (response) {
-            var response = JSON.parse(response)
+
+        var getexammonth = TwshStudentRegService.getTwshExamMonthYears()            
+        getexammonth.then(function (response) {
             if (response.Table.length > 0) {
                 $scope.MonthAndYear = response.Table;
             } else {
-                $scope.StudentType = [];
-                alert("No Student found on this Record");
+                console.log(response);
             }
         },
             function (error) {
-                alert("error while loading Exam Month Years");
+                alert("error while loading exam month years");
                 console.log(error);
-
             });
-
-
 
         var expanded = false;
         $scope.showCheckboxes = function () {
@@ -231,49 +214,7 @@
         }
 
 
-        $scope.SampleData = [{
-            "sbtet_code": "",
-            "sbtet_branch_code": "",
-            "Candidatename": "",
-            "FatherName": "",
-            "MotherName": "",
-            "sex": "",
-            "dob_date": "",
-            "e_mail": "",
-            "StudentContact": "",
-            "SCHEME": "",
-            "ActiveFlag": "",
-            "AcademicYearId": "",
-            "CategoryId": "",
-            "TenthRollNo": "",
-            "StudentRecided": "",
-            "PolycetHallTicketNo": "",
-            "ReligionId": "",
-            "Region": "",
-            "MinorityType": "",
-            "PermanentAddress": "",
-            "TempararyAddress": "",
-            "HouseNo": "",
-            "VillageorTown": "",
-            "District": "",
-            "Mandal": "",
-            "IsPhysicallyHandicaped": "",
-            "FatherAadhaarNo": "",
-            "MotherAadhaarNo": "",
-            "IsFatherGorthEmp": "",
-            "Income": "",
-            "IncomeStatusValidity": "",
-            "IncomeCategory": "",
-            "Occupation": "",
-            "CasteNo": "",
-            "CasteCertificateValidity": "",
-            "Bank": "",
-            "BankAccountNo": "",
-            "IfscCode": "",
-            "BankBranch": "",
-            "mandal": "",
-            "district": "",
-        }]
+      
 
         function uploadFile(file, i) {
             var url = 'https://api.cloudinary.com/v1_1/joezimim007/image/upload'
@@ -389,7 +330,7 @@
 
                         $scope.Exceldat = $scope.Exceldata[0]
 
-                        var tempArray = ["Pin", "SubjectCode", "Marks", "MaxMarks", "MpRule"];
+                        var tempArray = ["HallTicket", "PaperCode", "Marks", "MaxMarks"];
                         var keysMached = false;
                         for (let q = 0; q < Object.keys($scope.Exceldat[0]).length; q++) {
                             if (tempArray.includes(Object.keys($scope.Exceldat[0])[q])) {
@@ -497,7 +438,7 @@
 
                             $scope.Exceldat1 = $scope.Exceldata1[0]
 
-                            var tempArray1 = ["Pin", "SubjectCode", "Marks", "MaxMarks"];
+                            var tempArray1 = ["HallTicket", "PaperCode", "Marks", "MaxMarks"];
                             var keysMached1 = false;
                             for (let q = 0; q < Object.keys($scope.Exceldat1[0]).length; q++) {
                                 if (tempArray1.includes(Object.keys($scope.Exceldat1[0])[q])) {
@@ -568,40 +509,40 @@
 
 
         //$scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.ExamTypeId, $scope.userName
-        $scope.GenerateNr = function (Nrscheme) {
+        //$scope.GenerateNr = function (Nrscheme) {
 
-            $scope.reload = true;
+        //    $scope.reload = true;
 
-            var loadData1 = PreExaminationService.GenerateNrData($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
-            loadData1.then(function (res) {
-                var data = JSON.parse(res)
-                if (data[0].ResponceCode == '200') {
-                    $scope.Result = true;
-                    var location = data[0].file;
-                    window.location.href = location;
-                    $scope.reload = false;
-                } else
-                    if (data[0].ResponceCode == '400') {
-                        $scope.reload = false;
-                        alert(data[0].ResponceDescription);
-                    }
-                    else {
-                        $scope.reload = false;
-                        alert('Something Went Wrong')
-                    }
+        //    var loadData1 = PreExaminationService.GenerateNrData($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
+        //    loadData1.then(function (res) {
+        //        var data = JSON.parse(res)
+        //        if (data[0].ResponceCode == '200') {
+        //            $scope.Result = true;
+        //            var location = data[0].file;
+        //            window.location.href = location;
+        //            $scope.reload = false;
+        //        } else
+        //            if (data[0].ResponceCode == '400') {
+        //                $scope.reload = false;
+        //                alert(data[0].ResponceDescription);
+        //            }
+        //            else {
+        //                $scope.reload = false;
+        //                alert('Something Went Wrong')
+        //            }
 
-            }, function (error) {
-                $scope.reload = false;
-                $scope.gentmetbl = false;
-                $scope.ResultNotFound = true;
-                $scope.Result = false;
-                $scope.LoadImg = false;
-            });
-        }
+        //    }, function (error) {
+        //        $scope.reload = false;
+        //        $scope.gentmetbl = false;
+        //        $scope.ResultNotFound = true;
+        //        $scope.Result = false;
+        //        $scope.LoadImg = false;
+        //    });
+        //}
 
         $scope.ResultsDeployTables = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.ResultsDeployTables($scope.Deploymonthyear, $scope.DeploySelStudentType, $scope.DeployScheme, $scope.DeployExamTypeId, $scope.userName)
+            var loadData1 = TwshStudentRegService.TwshResultsAutomation_2_2_DeployResultsIntoMasters($scope.Deploymonthyear)
             loadData1.then(function (res) {
                 console.log(res)
                 var data = JSON.parse(res)
@@ -645,7 +586,8 @@
 
         $scope.ResultsProcessing = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.ResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.ResultsScheme, $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
+            $scope.Deploymonthyear = $scope.Resultsmonthyear;
+            var loadData1 = TwshStudentRegService.TwshResultsAutomation_2_1_TwshResultsProcessing($scope.Resultsmonthyear);
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -700,29 +642,7 @@
             });
         }
 
-        $scope.loadSemExamTypes = function (Scheme) {
-            //var res = JSON.parse(data)
-
-            //$scope.Schemeid = res.schemeid
-            //if (dataType == 1) {
-            //    $scope.Scheme1 = res.scheme
-            //} else if (dataType == 2) {
-            //    $scope.NrScheme1 = res.scheme
-            //} else if (dataType == 3) {
-            //    $scope.PostScheme = res.scheme
-
-            //} else if (dataType == 4) {
-            //    $scope.Wantingsscheme1 = res.scheme
-            //} else if (dataType == 5) {
-            //    $scope.UploadScheme1 = res.scheme
-
-            //} else if (dataType == 6) {
-            //    $scope.Resultsscheme1 = res.scheme
-            //} else if (dataType == 7) {
-            //    $scope.Logicscheme1 = res.scheme
-            //} else if (dataType == 8) {
-            //    $scope.Deployscheme1 = res.scheme
-            //}
+        $scope.loadSemExamTypes = function (Scheme) {            
             var getExamType = PreExaminationService.getActiveExamTypesByScheme(Scheme);
             getExamType.then(function (response) {
                 var response = JSON.parse(response);
@@ -740,416 +660,324 @@
 
         }
 
-        $scope.GenerateWantings = function () {
-            $scope.reload1 = true;
-            var loadData1 = PreExaminationService.GenerateWantings($scope.Wantingsmonthyear, $scope.WantingsSelStudentType, $scope.WantingsScheme, $scope.WantingsExamTypeId)
-            loadData1.then(function (res) {
-                var data = JSON.parse(res)
-                if (data[0].ResponceCode == '200') {
-                    $scope.Result = true;
-                    var location = data[0].file;
-                    window.location.href = location;
-                    $scope.reload1 = false;
-                } else
-                    if (data[0].ResponceCode == '400') {
-                        $scope.reload1 = false;
-                        alert(data[0].ResponceDescription);
-                    }
-                    else {
-                        $scope.reload1 = false;
-                        alert('Something Went Wrong')
-                    }
-            }, function (error) {
-                $scope.reload1 = false;
-                $scope.gentmetbl = false;
-                $scope.ResultNotFound = true;
-                $scope.Result = false;
-                $scope.LoadImg = false;
-            });
-        }
+        //$scope.GenerateWantings = function () {
+        //    $scope.reload1 = true;
+        //    var loadData1 = PreExaminationService.GenerateWantings($scope.Wantingsmonthyear, $scope.WantingsSelStudentType, $scope.WantingsScheme, $scope.WantingsExamTypeId)
+        //    loadData1.then(function (res) {
+        //        var data = JSON.parse(res)
+        //        if (data[0].ResponceCode == '200') {
+        //            $scope.Result = true;
+        //            var location = data[0].file;
+        //            window.location.href = location;
+        //            $scope.reload1 = false;
+        //        } else
+        //            if (data[0].ResponceCode == '400') {
+        //                $scope.reload1 = false;
+        //                alert(data[0].ResponceDescription);
+        //            }
+        //            else {
+        //                $scope.reload1 = false;
+        //                alert('Something Went Wrong')
+        //            }
+        //    }, function (error) {
+        //        $scope.reload1 = false;
+        //        $scope.gentmetbl = false;
+        //        $scope.ResultNotFound = true;
+        //        $scope.Result = false;
+        //        $scope.LoadImg = false;
+        //    });
+        //}
 
-        $scope.PostMarks = function () {
-            $scope.reload = true;
-            $scope.ResultNotFound = false;
-            $scope.SuccessStatus = false;
-            $scope.FailStatus = false;
+        //$scope.PostMarks = function () {
+        //    $scope.reload = true;
+        //    $scope.ResultNotFound = false;
+        //    $scope.SuccessStatus = false;
+        //    $scope.FailStatus = false;
 
-            var loadData1 = PreExaminationService.PostMarks($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
-            loadData1.then(function (data) {
-                var data = JSON.parse(data)
-                if (data.Table[0].ResponceCode == '200') {
-                    $scope.reload = false;
-                    alert(data.Table[0].ResponceDescription)
-                    $scope.ResultNotFound = false;
-                    $scope.SuccessStatus = true;
-                    $scope.FailStatus = false;
-                    $scope.StatusMessage = data.Table[0].ResponceDescription;
-                    setTimeout(function () {
-                        $scope.StatusMessage = '';
+        //    var loadData1 = PreExaminationService.PostMarks($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
+        //    loadData1.then(function (data) {
+        //        var data = JSON.parse(data)
+        //        if (data.Table[0].ResponceCode == '200') {
+        //            $scope.reload = false;
+        //            alert(data.Table[0].ResponceDescription)
+        //            $scope.ResultNotFound = false;
+        //            $scope.SuccessStatus = true;
+        //            $scope.FailStatus = false;
+        //            $scope.StatusMessage = data.Table[0].ResponceDescription;
+        //            setTimeout(function () {
+        //                $scope.StatusMessage = '';
 
-                    }, 1000);
+        //            }, 1000);
 
-                } else if (data.Table[0].ResponceCode == '400') {
-                    $scope.reload = false;
-                    alert(data.Table[0].ResponceDescription)
-                    $scope.SuccessStatus = false;
-                    $scope.FailStatus = true;
-                    $scope.ResultNotFound = false;
-                    $scope.StatusMessage = data.Table[0].ResponceDescription;
-                } else {
-                    $scope.reload = false;
-                    $scope.ResultNotFound = true;
-                    $scope.SuccessStatus = false;
-                    $scope.FailStatus = false;
-                    alert("Something Went Wrong.");
-                }
-                $scope.LoadImg = false;
-            }, function (error) {
-                $scope.reload = false;
-                $scope.ResultNotFound = true;
-                $scope.SuccessStatus = false;
-                $scope.FailStatus = false;
-                alert("Something Went Wrong.");
-                $scope.Result = false;
-                $scope.LoadImg = false;
-            });
-        }
-
-
-        $scope.ConsolidatedPreviewScheme = {
-            schemeid: 5,
-            scheme: 'C18'
-        }
-        $scope.SubmitConsolidatedPreview = function () {
-            if ($scope.SelStudentType == "" || $scope.SelStudentType == undefined || $scope.SelStudentType == null) {
-                alert("select student type.");
-                return;
-            }
-            if ($scope.ConsolidatedPreviewScheme == "" || $scope.ConsolidatedPreviewScheme == undefined || $scope.ConsolidatedPreviewScheme == null) {
-                alert("select Scheme.");
-                return;
-            }
-
-            if ($scope.Pin == "" || $scope.Pin == undefined || $scope.Pin == null) {
-                alert("Enter Pin");
-                return;
-            }
+        //        } else if (data.Table[0].ResponceCode == '400') {
+        //            $scope.reload = false;
+        //            alert(data.Table[0].ResponceDescription)
+        //            $scope.SuccessStatus = false;
+        //            $scope.FailStatus = true;
+        //            $scope.ResultNotFound = false;
+        //            $scope.StatusMessage = data.Table[0].ResponceDescription;
+        //        } else {
+        //            $scope.reload = false;
+        //            $scope.ResultNotFound = true;
+        //            $scope.SuccessStatus = false;
+        //            $scope.FailStatus = false;
+        //            alert("Something Went Wrong.");
+        //        }
+        //        $scope.LoadImg = false;
+        //    }, function (error) {
+        //        $scope.reload = false;
+        //        $scope.ResultNotFound = true;
+        //        $scope.SuccessStatus = false;
+        //        $scope.FailStatus = false;
+        //        alert("Something Went Wrong.");
+        //        $scope.Result = false;
+        //        $scope.LoadImg = false;
+        //    });
+        //}
 
 
-            $scope.showPreviewResultData = 0
-            $scope.PreviewLoadImg = true;
-            $scope.PreviewResultNotFound = false;
-            $scope.PreviewResultFound = false;
-            if ($scope.ConsolidatedPreviewScheme.schemeid == 5) {
+        //$scope.ConsolidatedPreviewScheme = {
+        //    schemeid: 5,
+        //    scheme: 'C18'
+        //}
+        //$scope.SubmitConsolidatedPreview = function () {
+        //    if ($scope.SelStudentType == "" || $scope.SelStudentType == undefined || $scope.SelStudentType == null) {
+        //        alert("select student type.");
+        //        return;
+        //    }
+        //    if ($scope.ConsolidatedPreviewScheme == "" || $scope.ConsolidatedPreviewScheme == undefined || $scope.ConsolidatedPreviewScheme == null) {
+        //        alert("select Scheme.");
+        //        return;
+        //    }
 
-                var resultdata = StudentResultService.GetConsolidatedPreviewResults($scope.SelStudentType, $scope.Pin);
-                resultdata.then(function (data) {
-                    $scope.co9Data = false;
-                    var data = JSON.parse(data)
-
-                    if (data.Table.length > 0) {
-                        if (data.Table2.length > 0) {
-                            $scope.showPreviewResultData = 1;
-                            $scope.PreviewLoadImg = false;
-                            $scope.PreviewResultFound = true;
-                            $scope.PreviewResultNotFound = false;
-                            $scope.studentInfo = data.Table[0];
-                            var resultData = [];
-                            resultData = data.Table2;
-                            $scope.TotalData = data.Table1[0];
-
-                            $scope.totalearnedCourseCredits = data.Table1[0].CgpaTotalGained;
-                            $scope.CreditsGained = parseFloat(data.Table1[0].CreditsGained) + 2.5 * data.Table3.length;
-                            $scope.CgpaTotalCredits = parseFloat(data.Table1[0].CgpaTotalCredits) + 2.5 * data.Table3.length;
-
-                            $scope.newresultDisplayInfo = [];
-
-                            var SemesterList = [];
-                            var sems = []
-                            for (var i = 0; i < data.Table3.length; i++) {
+        //    if ($scope.Pin == "" || $scope.Pin == undefined || $scope.Pin == null) {
+        //        alert("Enter Pin");
+        //        return;
+        //    }
 
 
-                                if (!SemesterList.includes(data.Table3[i].SemId)) {
-                                    SemesterList.push(data.Table3[i].SemId);
-                                    var temp = {};
-                                    temp.Subjects = [];
-                                    var temcount = [];
-                                    temp.Sgpainfo = [];
-                                    temp.courseinfo = [];
-                                    temp.semtotalinfo = [];
-                                    temp.Semester = data.Table3[i].Semester;
+        //    $scope.showPreviewResultData = 0
+        //    $scope.PreviewLoadImg = true;
+        //    $scope.PreviewResultNotFound = false;
+        //    $scope.PreviewResultFound = false;
+        //    if ($scope.ConsolidatedPreviewScheme.schemeid == 5) {
 
-                                    temp.SemId = data.Table3[i].SemId;
-                                    var temp1 = {
-                                        TotalGradePoints: data.Table3[i].TotalGradePoints,
-                                        SGPA: data.Table3[i].SGPA,
-                                        Credits: data.Table3[i].Credits
-                                    }
+        //        var resultdata = StudentResultService.GetConsolidatedPreviewResults($scope.SelStudentType, $scope.Pin);
+        //        resultdata.then(function (data) {
+        //            $scope.co9Data = false;
+        //            var data = JSON.parse(data)
 
-                                    temp.Sgpainfo.push(temp1);
-                                    var courseTotalGradePoints = 0;
-                                    if (temp.SemId == 6) {
-                                        var courseCerditsGained = 0;
-                                    } else {
-                                        var courseCerditsGained = 2.5;
-                                    }
+        //            if (data.Table.length > 0) {
+        //                if (data.Table2.length > 0) {
+        //                    $scope.showPreviewResultData = 1;
+        //                    $scope.PreviewLoadImg = false;
+        //                    $scope.PreviewResultFound = true;
+        //                    $scope.PreviewResultNotFound = false;
+        //                    $scope.studentInfo = data.Table[0];
+        //                    var resultData = [];
+        //                    resultData = data.Table2;
+        //                    $scope.TotalData = data.Table1[0];
 
-                                    var courseMaxcerdits = "";
-                                    for (var j = 0; j < resultData.length; j++) {
-                                        if (resultData[j].SemId == temp.SemId) {
-                                            temp.Subjects.push(resultData[j]);
-                                            courseTotalGradePoints += parseFloat(resultData[j].TotalGradePoints);
-                                            courseCerditsGained += resultData[j].CreditsGained;
+        //                    $scope.totalearnedCourseCredits = data.Table1[0].CgpaTotalGained;
+        //                    $scope.CreditsGained = parseFloat(data.Table1[0].CreditsGained) + 2.5 * data.Table3.length;
+        //                    $scope.CgpaTotalCredits = parseFloat(data.Table1[0].CgpaTotalCredits) + 2.5 * data.Table3.length;
 
-                                        }
+        //                    $scope.newresultDisplayInfo = [];
 
-                                    }
-
-                                    if (temp.SemId == 6) {
-                                        var temp2 = {
-                                            courseTotalGradePoints: courseTotalGradePoints,
-                                            courseCerditsGained: courseCerditsGained,
-                                            courseMaxCerdits: data.Table3[i].Credits,
-                                        }
-
-                                    } else {
-                                        var temp2 = {
-                                            courseTotalGradePoints: courseTotalGradePoints,
-                                            courseCerditsGained: courseCerditsGained,
-                                            courseMaxCerdits: data.Table3[i].Credits + 2.5,
-                                        }
-
-                                    }
-
-                                    sems.push(temp2);
-                                    temp.courseinfo.push(temp2);
-
-                                    if (!temcount.includes(temp.SemId)) {
-                                        if (temp.SemId != '6') {
-                                            temcount.push(temp.SemId);
-                                            var tempobj = {
-                                                Subject_Code: "",
-                                                SubjectName: "Rubrics",
-                                                MaxCredits: "2.5",
-                                                Mid1Marks: "-",
-                                                Mid2Marks: "-",
-                                                InternalMarks: "-",
-                                                EndExamMarks: "-",
-                                                SubjectTotal: "-",
-                                                HybridGrade: "-",
-                                                GradePoint: "-",
-                                                CreditsGained: "2.5",
-                                                TotalGradePoints: "-",
-                                                WholeOrSupply: "W",
-                                                ExamMonthYear: "",
-                                                ExamStatus: "P"
-                                            };
+        //                    var SemesterList = [];
+        //                    var sems = []
+        //                    for (var i = 0; i < data.Table3.length; i++) {
 
 
-                                            temp.Subjects.push(tempobj);
-                                        }
-                                    }
-                                    $scope.newresultDisplayInfo.push(temp);
-                                }
-                            }
+        //                        if (!SemesterList.includes(data.Table3[i].SemId)) {
+        //                            SemesterList.push(data.Table3[i].SemId);
+        //                            var temp = {};
+        //                            temp.Subjects = [];
+        //                            var temcount = [];
+        //                            temp.Sgpainfo = [];
+        //                            temp.courseinfo = [];
+        //                            temp.semtotalinfo = [];
+        //                            temp.Semester = data.Table3[i].Semester;
 
-                            var courseTotalGradePoints = 0
-                            var courseCerditsGained = 0
-                            var courseMaxCerdits = 0
-                            for (var j = 0; j < sems.length; j++) {
-                                courseTotalGradePoints += parseFloat(sems[j].courseTotalGradePoints);
-                                courseCerditsGained += sems[j].courseCerditsGained;
-                                courseMaxCerdits += sems[j].courseMaxCerdits;
-                                $scope.courseTotalGradePoints = courseTotalGradePoints
-                                $scope.courseCerditsGained = courseCerditsGained
-                                $scope.courseMaxCerdits = courseMaxCerdits
+        //                            temp.SemId = data.Table3[i].SemId;
+        //                            var temp1 = {
+        //                                TotalGradePoints: data.Table3[i].TotalGradePoints,
+        //                                SGPA: data.Table3[i].SGPA,
+        //                                Credits: data.Table3[i].Credits
+        //                            }
 
-                            }
+        //                            temp.Sgpainfo.push(temp1);
+        //                            var courseTotalGradePoints = 0;
+        //                            if (temp.SemId == 6) {
+        //                                var courseCerditsGained = 0;
+        //                            } else {
+        //                                var courseCerditsGained = 2.5;
+        //                            }
 
-                        }
-                        else {
-                            $scope.co9Data = false;
-                            $scope.PreviewResultFound = false;
-                            $scope.PreviewResultNotFound = true;
-                            $scope.PreviewLoadImg = false;
-                        }
-                    }
-                    else {
-                        $scope.co9Data = false;
-                        $scope.PreviewResultFound = false;
-                        $scope.PreviewResultNotFound = true;
-                        $scope.PreviewLoadImg = false;
-                    }
-                }, function (error) {
-                    $scope.co9Data = false;
-                    $scope.PreviewResultFound = false;
-                    $scope.ResultNotFound = true;
-                    $scope.LoadImg = false;
+        //                            var courseMaxcerdits = "";
+        //                            for (var j = 0; j < resultData.length; j++) {
+        //                                if (resultData[j].SemId == temp.SemId) {
+        //                                    temp.Subjects.push(resultData[j]);
+        //                                    courseTotalGradePoints += parseFloat(resultData[j].TotalGradePoints);
+        //                                    courseCerditsGained += resultData[j].CreditsGained;
 
-                });
-            } else {
+        //                                }
 
-            }
+        //                            }
 
-        }
+        //                            if (temp.SemId == 6) {
+        //                                var temp2 = {
+        //                                    courseTotalGradePoints: courseTotalGradePoints,
+        //                                    courseCerditsGained: courseCerditsGained,
+        //                                    courseMaxCerdits: data.Table3[i].Credits,
+        //                                }
+
+        //                            } else {
+        //                                var temp2 = {
+        //                                    courseTotalGradePoints: courseTotalGradePoints,
+        //                                    courseCerditsGained: courseCerditsGained,
+        //                                    courseMaxCerdits: data.Table3[i].Credits + 2.5,
+        //                                }
+
+        //                            }
+
+        //                            sems.push(temp2);
+        //                            temp.courseinfo.push(temp2);
+
+        //                            if (!temcount.includes(temp.SemId)) {
+        //                                if (temp.SemId != '6') {
+        //                                    temcount.push(temp.SemId);
+        //                                    var tempobj = {
+        //                                        Subject_Code: "",
+        //                                        SubjectName: "Rubrics",
+        //                                        MaxCredits: "2.5",
+        //                                        Mid1Marks: "-",
+        //                                        Mid2Marks: "-",
+        //                                        InternalMarks: "-",
+        //                                        EndExamMarks: "-",
+        //                                        SubjectTotal: "-",
+        //                                        HybridGrade: "-",
+        //                                        GradePoint: "-",
+        //                                        CreditsGained: "2.5",
+        //                                        TotalGradePoints: "-",
+        //                                        WholeOrSupply: "W",
+        //                                        ExamMonthYear: "",
+        //                                        ExamStatus: "P"
+        //                                    };
 
 
-        $scope.PrintPreviewStudentResult = function () {
+        //                                    temp.Subjects.push(tempobj);
+        //                                }
+        //                            }
+        //                            $scope.newresultDisplayInfo.push(temp);
+        //                        }
+        //                    }
 
-            var divName = "idtoDivPreviewPrintAdmin";
-            var divToPrint = document.getElementById(divName);
-            var temp = document.body.innerHTML;
-            $("#studentresult1").hide();
-            var domClone = divToPrint.cloneNode(true);
-            var $printSection = document.getElementById("printSection");
-            //document.body.innerHTML = "";
-            if (!$printSection) {
-                var $printSection = document.createElement("div");
-                $printSection.id = "printSection";
-                document.body.appendChild($printSection);
-            }
-            $printSection.innerHTML = "";
-            $printSection.appendChild(domClone);
-            // alert($printSection.innerHTML);
-            window.print();
-            document.body.removeChild($printSection);
-            $("#studentresult1").show();
-        };
+        //                    var courseTotalGradePoints = 0
+        //                    var courseCerditsGained = 0
+        //                    var courseMaxCerdits = 0
+        //                    for (var j = 0; j < sems.length; j++) {
+        //                        courseTotalGradePoints += parseFloat(sems[j].courseTotalGradePoints);
+        //                        courseCerditsGained += sems[j].courseCerditsGained;
+        //                        courseMaxCerdits += sems[j].courseMaxCerdits;
+        //                        $scope.courseTotalGradePoints = courseTotalGradePoints
+        //                        $scope.courseCerditsGained = courseCerditsGained
+        //                        $scope.courseMaxCerdits = courseMaxCerdits
+
+        //                    }
+
+        //                }
+        //                else {
+        //                    $scope.co9Data = false;
+        //                    $scope.PreviewResultFound = false;
+        //                    $scope.PreviewResultNotFound = true;
+        //                    $scope.PreviewLoadImg = false;
+        //                }
+        //            }
+        //            else {
+        //                $scope.co9Data = false;
+        //                $scope.PreviewResultFound = false;
+        //                $scope.PreviewResultNotFound = true;
+        //                $scope.PreviewLoadImg = false;
+        //            }
+        //        }, function (error) {
+        //            $scope.co9Data = false;
+        //            $scope.PreviewResultFound = false;
+        //            $scope.ResultNotFound = true;
+        //            $scope.LoadImg = false;
+
+        //        });
+        //    } else {
+
+        //    }
+
+        //}
+
+
+        //$scope.PrintPreviewStudentResult = function () {
+
+        //    var divName = "idtoDivPreviewPrintAdmin";
+        //    var divToPrint = document.getElementById(divName);
+        //    var temp = document.body.innerHTML;
+        //    $("#studentresult1").hide();
+        //    var domClone = divToPrint.cloneNode(true);
+        //    var $printSection = document.getElementById("printSection");
+        //    //document.body.innerHTML = "";
+        //    if (!$printSection) {
+        //        var $printSection = document.createElement("div");
+        //        $printSection.id = "printSection";
+        //        document.body.appendChild($printSection);
+        //    }
+        //    $printSection.innerHTML = "";
+        //    $printSection.appendChild(domClone);
+        //    // alert($printSection.innerHTML);
+        //    window.print();
+        //    document.body.removeChild($printSection);
+        //    $("#studentresult1").show();
+        //};
 
         //-----end-----
+
+        $scope.GetExamYearMonth = function () {
+            var ApprovalLists = TwshStudentRegService.getTwshExamMonthYears();
+            ApprovalLists.then(function (response) {
+                $scope.MonthAndYear = JSON.parse(response)                
+            }, function (error) {
+            });
+        }
+
         $scope.UploadExcel = function () {
 
             $scope.reload = true;
-            //for (let obj of $scope.SampleData) {
-            ////console.log("object:", obj);
-            //    for (let key in obj) {
-            //        //console.log("      key:", key, "value:", obj[key]);
-            //        for (let obj1 of $scope.tabledata) {
-            //        //console.log("object:", obj1);
-            //            for (let key1 in obj1) {
-            //                //  console.log("      key:", key, "value:", obj[key]);
-            //                console.log(key, key1)
-            //                if (key == key1) {
-            //                    console.log('Matched')
-            //                    break;
-            //                } else {
-            //                    console.log('Not Matched')
-
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //        $scope.SampleData.forEach(obj => {
-            //    Object.entries(obj).forEach((key1, value1) => {
-
-            //        $scope.tabledata.forEach(obj1 => {
-            //            Object.entries(obj1).forEach((key2, value2) => {
-            //                if (key1 == key2[0]) {
-            //                                console.log("All Keys Matched")
-            //                                // here is where you grab the value2.color
-            //                            } else {
-            //                    console.log(key2+"Column Names Not Matched")
-            //                    return;
-
-            //                            }
-            //            });
-            //            console.log('-------------------');
-            //        });
-            //    });
-            //    console.log('-------------------');
-            //});
-
-            //for (i = 0; i < $scope.SampleData.length; i++) {
-            // var   SampleData = $scope.SampleData[i];
-            // for (i = 0; i < $scope.tabledata.length; i++) {
-            //     var JsonObj = $scope.tabledata[i];
-            //    }
-            //}
-
-            //angular.forEach($scope.SampleData, function (value1, key1) {
-            //    angular.forEach($scope.tabledata, function (value2, key2) {
-
-            //        if (key1 == key2) {
-            //            alert("All Keys Matched")
-            //            // here is where you grab the value2.color
-            //        } else {
-            //            alert("Column Names Not Matched")
-            //        }
-            //    });
-            //});
-
-            //console.log($scope.Exceldat);
-
-
-            //var empid=[1,4,5]
-            //var records = [{ "empid": 1, "fname": "X", "lname": "Y" }, { "empid": 2, "fname": "A", "lname": "Y" }, { "empid": 3, "fname": "B", "lname": "Y" }, { "empid": 4, "fname": "C", "lname": "Y" }, { "empid": 5, "fname": "C", "lname": "Y" }] ;
-
-            //var empIdObj={};
-
-            //empid.forEach(function(element) {
-            //    empIdObj[element]=true;
-            //});
-
-            //angular.forEach($scope.Exceldat, function (value, key) {
-            //    console.log(value)
-            //    console.log($scope.Exceldat[key])
-            //    //if (value == "Pin") {
-            //    //    if (value == "SubjectCode") {
-            //    //        //alert('Subject Code is required in uploaded Excel')
-            //    //        //return;
-            //    //        if (value == "Marks") {
-            //    //            //alert('Marks is required in uploaded Excel')
-            //    //            //return;
-            //    //            if (value == "MaxMarks") {
-            //    //                //alert('Max Marks is required in uploaded Excel')
-            //    //                //return;
-            //    //            } else {
-            //    //                alert('Max Marks is required in uploaded Excel')
-            //    //                return;
-            //    //            }
-            //    //        } else {
-            //    //            alert('Marks is required in uploaded Excel')
-            //    //            return;
-            //    //        }
-            //    //    } else {
-            //    //        alert('Subject Code is required in uploaded Excel')
-            //    //        return;
-            //    //    }
-            //    //} else {
-            //    //    alert('Pin is required in uploaded Excel')
-            //    //    return;
-            //    //}
-            //    //console.log("username is thomas");
-            //});
-
-
-            //console.log(filteredArray)
-            //console.log($scope.monthyear, $scope.SelStudentType, $scope.Scheme,$scope.SelStudentType, filteredArray, $scope.userName)
             $scope.Exceldat = $scope.Exceldata[0]
             $scope.filteredArray = [];
             $scope.Exceldat.forEach(function (element) {
-                //console.log(element)
-                var obj = { "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks, "MpRule": element.MpRule }
+                var obj = {
+                    "HallTicket": element.HallTicket, "PaperCode": element.PaperCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks }
                 $scope.filteredArray.push(obj)
             });
-            var uploadJson = PreExaminationService.UploadResultFileJson($scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.UploadExamTypeId, $scope.filteredArray, $scope.userName);
-            uploadJson.then(function (data) {
 
+            $scope.Wantingsmonthyear = $scope.monthyear;
+            $scope.Resultsmonthyear = $scope.monthyear;
+            $scope.Deploymonthyear = $scope.monthyear;
+            var uploadJson = TwshStudentRegService.TwshResultsAutomation_1_1_UploadExcel($scope.monthyear, $scope.filteredArray, $scope.userName);
+
+            uploadJson.then(function (data) {
                 var data = JSON.parse(data);
-                if (data.Table[0].ResponceCode == '200') {
+
+                if (data[0].ResponceCode == '200') {
                     $scope.reload = false;
                     $('#upldfile').val(null);
                     $('#File').val(null);
                     $scope.filename = '';
                     $scope.myFile = '';
-                    //document.getElementById('myFile').value = "";
-                    //document.getElementById('file').value = "";
-                    alert(data.Table[0].ResponceDescription)
-                } else if (data.Table[0].ResponceCode == '400') {
+                    var location = data[0].file;
+                    window.location.href = location;
+                    alert(data[0].ResponceDescription)
+                } else if (data[0].ResponceCode == '400') {
                     $('#File').val(null);
                     $scope.reload = false;
-                    alert(data.Table[0].ResponceDescription)
+                    alert(data[0].ResponceDescription)
                 }
                 else {
                     $scope.reload = false;
@@ -1164,97 +992,7 @@
                 $scope.ResultNotFound = true;
                 $scope.Result = false;
                 $scope.LoadImg = false;
-            });
-            //  angular.forEach($scope.Exceldata, function (value, key) {
-            //       for (i = 0; i < $scope.Exceldata.length; i++) {
-            //           if ($scope.Exceldata[i].examcent == "" || $scope.Exceldata[i].examcent == null || $scope.Exceldata[i].examcent == undefined || $scope.Exceldata[i].examcent == 'NULL') {
-            //               alert('examcent is required');
-            //               return;
-            //               break;
-
-            //           }
-            //           if ($scope.Exceldata[i].ExamcentName == "" || $scope.Exceldata[i].ExamcentName == null || $scope.Exceldata[i].ExamcentName == undefined || $scope.Exceldata[i].ExamcentName == 'NULL') {
-            //               alert('ExamcentName is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].scheme == "" || $scope.Exceldata[i].scheme == null || $scope.Exceldata[i].scheme == undefined || $scope.Exceldata[i].scheme == 'NULL') {
-            //               alert('scheme is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].Branchcode == "" || $scope.Exceldata[i].Branchcode == null || $scope.Exceldata[i].Branchcode == undefined || $scope.Exceldata[i].Branchcode == 'NULL') {
-            //               alert('Branchcode is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].Subcode == "" || $scope.Exceldata[i].Subcode == null || $scope.Exceldata[i].Subcode == undefined || $scope.Exceldata[i].Subcode == 'NULL') {
-            //               alert('Subcode is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].subname == "" || $scope.Exceldata[i].subname == null || $scope.Exceldata[i].subname == undefined || $scope.Exceldata[i].subname == 'NULL') {
-            //               alert('subname is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].pcode == "" || $scope.Exceldata[i].pcode == null || $scope.Exceldata[i].pcode == undefined || $scope.Exceldata[i].pcode == 'NULL') {
-            //               alert('pcode is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].pinno == "" || $scope.Exceldata[i].pinno == null || $scope.Exceldata[i].pinno == undefined || $scope.Exceldata[i].pinno == 'NULL') {
-            //               alert('pinno is required');
-            //               return;
-            //               break;
-            //           }
-            //           if ($scope.Exceldata[i].SName == "" || $scope.Exceldata[i].SName == null || $scope.Exceldata[i].SName == undefined || $scope.Exceldata[i].SName == 'NULL') {
-            //               alert('SName is required');
-            //               return;
-            //               break;
-            //           }
-
-            //       }
-            ////   })
-            //   $scope.ShowTableData = false;
-            //   $scope.reload = false
-            //   var type = 1;
-            //   var uploadJson = PreExaminationService.UploadResultJson($scope.Exceldata);
-            //   uploadJson.then(function (data) {
-            //       console.log(data)
-            //       //try {
-            //       //    var data = JSON.parse(data);
-            //       //    console.log(data)
-            //       //    if (data.ResponceCode == '400') {
-            //       //        alert('Data Already Inserted, Please check the downloaded Excel for more details')
-            //       //        var location = data.ResponceDescription;
-            //       //        window.location.href = location;
-
-            //       //    }
-            //       //} catch (err) { }
-            //       var data = JSON.parse(data);
-            //       if (data.Table[0].ResponceCode == '200') {
-            //           $scope.reload = true;
-            //           $('#upldfile').val(null);
-            //           alert(data.Table[0].ResponceDescription)
-            //       } else if (data.Table[0].ResponceCode == '400') {
-            //           $scope.reload = true;
-            //           alert(data.Table[0].ResponceDescription)
-            //       }
-            //       else {
-            //           $scope.reload = true;
-            //           $('#upldfile').val(null);
-            //           alert('Something Went Wrong')
-            //       }
-            //       //$scope.tabledata;
-            //   }, function (error) {
-            //       $('#upldfile').val(null);
-            //       $scope.reload = true;
-            //       $scope.gentmetbl = false;
-            //       $scope.ResultNotFound = true;
-            //       $scope.Result = false;
-            //       $scope.LoadImg = false;
-            //   });
+            });            
         }
 
         $scope.UploadWantingsExcel = function () {
@@ -1267,21 +1005,26 @@
             var filteredArray1 = [];
 
             $scope.Exceldat1.forEach(function (element) {
-                var obj = { "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks }
+                var obj = {
+                    "HallTicket": element.HallTicket, "PaperCode": element.PaperCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks }
                 filteredArray1.push(obj)
             });
 
-            var uploadJson = PreExaminationService.UploadWantingsJson($scope.Wantingsmonthyear, $scope.WantingsSelStudentType, $scope.WantingsScheme, $scope.WantingsExamTypeId, 1, $scope.userName, filteredArray1);
+            $scope.Resultsmonthyear = $scope.Wantingsmonthyear;
+            $scope.Deploymonthyear = $scope.Wantingsmonthyear;
+
+            var uploadJson = TwshStudentRegService.TwshResultsAutomation_1_2_UploadWantings($scope.Wantingsmonthyear, filteredArray1, $scope.userName);                
             uploadJson.then(function (data) {
 
                 var data = JSON.parse(data);
-                if (data.Table[0].ResponceCode == '200') {
+                if (data[0].ResponceCode == '200') {
                     $scope.reload1 = false;
-                    //$('#upldfile').val(null);
-                    alert(data.Table[0].ResponceDescription)
-                } else if (data.Table[0].ResponceCode == '400') {
+                    var location = data[0].file;
+                    window.location.href = location;
+                    alert(data[0].ResponceDescription)
+                } else if (data[0].ResponceCode == '400') {
                     $scope.reload1 = false;
-                    alert(data.Table[0].ResponceDescription)
+                    alert(data[0].ResponceDescription)
                 }
                 else {
                     $scope.reload1 = false;
@@ -1402,64 +1145,14 @@
             }
 
             $scope.numColumns = record.length;
-        };
-        //var LoadActiveSchemes = AssessmentService.getSchemes(2);
-        //LoadActiveSchemes.then(function (response) {
-        //    $scope.ActiveSchemes = response;
-        //},
-        //    function (error) {
-        //        alert("error while loading Schemes");
-        //        var err = JSON.parse(error);
-        //        console.log(err.Message);
-        //    });
-
-        //var LoadActiveSemesters = AssessmentService.getActiveSemester();
-        //LoadActiveSemesters.then(function (response) {
-        //    $scope.Semester = response.Table;
-        //    //  console.log($scope.ActiveSemesters)
-        //},
-        //function (error) {
-        //    alert("error while loading semesters");
-        //    var err = JSON.parse(error);
-        //    console.log(err.Message);
-        //});
-
-
-
-
-
-
-        //var LoadActiveSchemes = AssessmentService.getSchemes(2);
-        //LoadActiveSchemes.then(function (response) {
-        //    $scope.getActiveSchemes = response;
-        //},
-        //    function (error) {
-        //        alert("error while loading Schemes");
-        //        var err = JSON.parse(error);
-        //        console.log(err.Message);
-        //    });
-
-
-
-
-        //var LoadActiveSemesters = AssessmentService.getActiveSemester();
-        //LoadActiveSemesters.then(function (response) {
-        //    $scope.sems = response.Table;
-        //    //  console.log($scope.ActiveSemesters)
-        //},
-        //function (error) {
-        //    alert("error while loading semesters");
-        //    var err = JSON.parse(error);
-        //    console.log(err.Message);
-        //});
-
+        };       
 
         $scope.Download = function () {
 
             var location = window.location.origin
             //console.log(location + '/Results/C18/C16C18SamapleFormate.xlsx');
             //window.location.replace('/Results/C18/C16C18SamapleFormate.xlsx');
-            window.location.href = location + '/Results/Results_Sample_Format.xlsx';
+            window.location.href = location + '/Results/TWSH_Results_Sample_Format.xlsx';
 
 
 
@@ -1520,17 +1213,6 @@
             });
         };
 
-        //var SCHEMESEMINFO = StudentWiseService.GetSchemeDataForResults();
-        //$scope.pin = "";
-        //SCHEMESEMINFO.then(function (data) {
-        //    if (data.length > 0) {
-
-        //        $scope.Schemeinfo = data;
-
-        //    }
-        //}, function (error) {
-        //    alert(error);00000000000000000000004
-        //});
         $scope.validate = function () {
             $scope.getTable = true;
         }

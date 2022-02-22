@@ -12,7 +12,7 @@
             //'about-right-info': {
             //    url: "/about-right-info",
             //    templateurl:  '/website/about-right-info.html'              
-            //}, Re
+            //}, 
             //'about-sbtet': {AdmissionSub
             //    url: "/about-sbtet",
             //    templateurl: '/website/about-sbtet.html',
@@ -165,27 +165,53 @@
                 templateUrl: 'app/views/login.html',
                 dependencies: ['controllers/loginController', 'services/SystemAdministration/SystemUserService']
             },
-			
-			
+
+            'CcicLogin': {
+                url: "/CcicLogin",
+                templateUrl: 'app/views/CCIC/CcicLogin.html',
+                dependencies: ['controllers/CCIC/CcicLoginController', 'services/CCIC/CcicSystemUserService']
+            },
+
+
+
+
+
+            'CcicCoursesCards': {
+                url: "/CcicCoursesCards",
+                templateUrl: 'app/views/CCIC/CcicCoursesCards.html',
+                dependencies: ['controllers/CCIC/CcicCoursesCardsController', 'services/CCIC/CcicStudentRegistrationService']
+
+            },
+
+
+
+
+            'CcicInstiTable': {
+                url: "/CcicInstiTable",
+                templateUrl: 'app/views/CCIC/CcicInstiTable.html',
+                dependencies: ['controllers/CCIC/CcicInstiTableController', 'services/CCIC/CcicStudentRegistrationService']
+
+            },
+
+
+
+
+
+
+
             ///////////-----------------------------------Website Routes Start-------------------------------//////////////
 
             'index': {
                 url: "/index",
                 templateUrl: 'app/views/newwebsite/index.html',
-                dependencies: ['views/newwebsite/controllers/IndexController', 'services/PreExamination/PreExaminationService' , 'services/AdminServices/AdminService']
+                dependencies: ['views/newwebsite/controllers/IndexController', 'services/PreExamination/PreExaminationService', 'services/AdminServices/AdminService']
             },
-            
-            
+
+
             'index.WebsiteLogin': {
                 url: "/WebsiteLogin",
                 templateUrl: 'app/views/newwebsite/WebsiteLogin.html',
                 dependencies: ['views/newwebsite/controllers/WebsiteLoginController', 'services/SystemAdministration/SystemUserService']
-            },
-
-            'index.StudentServicesStatus': {
-                url: "/StudentServicesStatus",
-                templateUrl: 'app/views/newwebsite/StudentServicesStatus.html',
-                dependencies: ['views/newwebsite/controllers/StudentServicesStatusController', 'services/PreExamination/PreExaminationService']
             },
 
             'index.Timetable': {
@@ -269,12 +295,12 @@
                 dependencies: ['controllers/Examssite/FeePaymentController', 'services/TWSH/TwshStudentRegService', 'services/BillDesk/paymentService']
             },
 
-            
+
             'index.TwshCourses': {
-                 url: "/TwshCourses",
-                 templateUrl: 'app/views/newwebsite/TwshCourses.html',
-                 dependencies: ['views/newwebsite/controllers/TwshCoursesController', 'services/AdminServices/AdminService']
-             },
+                url: "/TwshCourses",
+                templateUrl: 'app/views/newwebsite/TwshCourses.html',
+                dependencies: ['views/newwebsite/controllers/TwshCoursesController', 'services/AdminServices/AdminService']
+            },
             'index.Aboutsbtet': {
                 url: "/Aboutsbtet",
                 templateUrl: 'app/views/newwebsite/about-sbtet.html',
@@ -285,13 +311,13 @@
                 templateUrl: 'app/views/newwebsite/ViewSyllabus.html',
                 dependencies: ['views/newwebsite/controllers/ViewSyllabusController']
             },
-            
+
             'index.CommingSoon': {
                 url: "/ComingSoon",
                 templateUrl: 'app/views/newwebsite/CommingSoon.html',
                 dependencies: ['views/newwebsite/controllers/CommingSoonController']
             },
-            
+
 
             'index.Courses': {
                 url: "/Courses",
@@ -306,7 +332,7 @@
             'index.ContactUs': {
                 url: "/ContactUs",
                 templateUrl: 'app/views/newwebsite/contact-us.html',
-                dependencies: ['views/newwebsite/controllers/ContactusController',  'services/AdminServices/AdminService']
+                dependencies: ['views/newwebsite/controllers/ContactusController', 'services/AdminServices/AdminService']
             },
             //more
             'index.Disclaimer': {
@@ -332,7 +358,7 @@
             'index.Notifications': {
                 url: "/Notifications",
                 templateUrl: 'app/views/newwebsite/notifications.html',
-                dependencies: ['views/newwebsite/controllers/NotificationsController',  'services/AdminServices/AdminService']
+                dependencies: ['views/newwebsite/controllers/NotificationsController', 'services/AdminServices/AdminService']
             },
 
             'index.AffiliatedTwshInstitutions': {
@@ -394,7 +420,7 @@
             'index.Feedback': {
                 url: "/Feedback",
                 templateUrl: 'app/views/newwebsite/feedback.html',
-                dependencies: ['views/newwebsite/controllers/FeedbackController', 'services/PreExamination/PreExaminationService', ]
+                dependencies: ['views/newwebsite/controllers/FeedbackController', 'services/PreExamination/PreExaminationService',]
             },
 
             'index.StudentConsolidatedResult': {
@@ -418,14 +444,14 @@
             ///////////-----------------------------------Website Routes End-------------------------------//////////////
 
 
-            
+
             'ResultsDashboard.StudentResult': {
                 url: "/StudentResult",
                 templateUrl: 'app/views/StudentExamResults/StudentResult.html',
                 dependencies: ['controllers/StudentExamResults/StudentResultController', 'services/StudentResultService']
             },
 
-			
+
             'Dashboard.ExamType': {
                 url: "/ExamType",
                 templateUrl: 'app/views/ExamType/ExamType.html',
@@ -576,11 +602,11 @@
                 templateUrl: 'app/views/TWSH/TwshForgotPassword.html',
                 dependencies: ['controllers/TWSH/TwshForgotPasswordController', 'services/TWSH/TwshStudentRegService']
             },
-			'Dashboard.AdmissionDashboard.ReAdmissionSetDate': {
+            'Dashboard.AdmissionDashboard.ReAdmissionSetDate': {
                 url: "/ReAdmissionSetDate",
                 templateUrl: 'app/views/Admission/ReAdmissionSetDate.html',
                 dependencies: ['controllers/Admission/ReAdmissionSetDateController', 'directives/saFileUpload', 'services/Admission/ReAdmissionService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
-	        },
+            },
             'Dashboard.TwshNewCertificate': {
                 url: "/TwshNewCertificate",
                 templateUrl: 'app/views/TWSH/TwshNewCertificate.html',
@@ -592,6 +618,15 @@
                 templateUrl: 'app/views/Dashboard.html',
                 dependencies: ['controllers/DashboardController', 'services/SystemAdministration/SystemUserService', 'services/MenuService', 'services/AdminServices/AdminService']
             },
+
+
+            'CcicDashboard': {
+                url: "/CcicDashboard",
+                templateUrl: 'app/views/CCIC/CcicDashboard.html',
+                dependencies: ['controllers/CCIC/CcicDashboardController', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/CCIC/CcicAdminService']
+            },
+
+
             'Dashboard.AdmissionDashboard.SetSemisterDates': {
                 url: "/SetSemisterDates",
                 templateUrl: 'app/views/Admission/SetSemisterDates.html',
@@ -642,6 +677,12 @@
                 dependencies: ['controllers/Academic/AcademicDashboardController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/SystemAdministration/SystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
             },
 
+            'CcicDashboard.Academic': {
+                url: "/Academic",
+                templateUrl: 'app/views/CCIC/Academic/CcicAcademic.html',
+                dependencies: ['controllers/CCIC/Academic/CcicAcademicController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
+            },
+
 
             'Dashboard.CircularsDashboard': {
                 url: "/CircularsDashboard",
@@ -649,18 +690,33 @@
                 dependencies: ['controllers/Circulars/CircularsDashboardController', 'services/AdminServices/AdminService']
             },
 
+
+            'CcicDashboard.CircularsDashboard': {
+                url: "/CircularsDashboard",
+                templateUrl: 'app/views/CCIC/Circulars/CcicCircularsDashboard.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicCircularsDashboardController', 'services/CCIC/CcicAdminService']
+            },
+
+
             'Dashboard.MasterSettings.Notification': {
                 url: "/Notification",
                 templateUrl: 'app/views/Circulars/Notification.html',
                 dependencies: ['controllers/Circulars/NotificationController', 'directives/saDate']
             },
 
+
+            'CcicDashboard.Settings.RecentNews': {
+                url: "/RecentNews",
+                templateUrl: 'app/views/CCIC/Circulars/CcicRecentNews.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicRecentNewsController', 'directives/saDate']
+            },
+
             'Dashboard.MasterSettings.WebsiteFeedbackReport': {
                 url: "/WebsiteFeedbackReport",
                 templateUrl: 'app/views/MasterSettings/WebsiteFeedbackReport.html',
-                dependencies: ['controllers/MasterSettings/WebsiteFeedbackReportController','services/MasterSettings/MasterSettingsService', 'directives/saDate']
+                dependencies: ['controllers/MasterSettings/WebsiteFeedbackReportController', 'services/MasterSettings/MasterSettingsService', 'directives/saDate']
             },
-            
+
 
             'Dashboard.MasterSettings.StaffInfo': {
                 url: "/StaffInfo",
@@ -674,13 +730,21 @@
                 dependencies: ['controllers/Circulars/CircularsController', 'services/AdminServices/AdminService', 'directives/saFileUpload']
             },
 
+
+
+            'CcicDashboard.Settings.Circulars': {
+                url: "/Circulars",
+                templateUrl: 'app/views/CCIC/Circulars/CcicCirculars.html',
+                dependencies: ['controllers/CCIC/Circulars/CcicCircularsController', 'services/CCIC/CcicAdminService', 'directives/saFileUpload']
+            },
+
             'Dashboard.MasterSettings.CreateDownloads': {
                 url: "/CreateDownloads",
                 templateUrl: 'app/views/Circulars/CreateDownloads.html',
                 dependencies: ['controllers/Circulars/CreateDownloadsController', 'services/AdminServices/AdminService']
             },
 
-            
+
 
             'Dashboard.MasterSettings.Tenders': {
                 url: "/Tenders",
@@ -689,16 +753,24 @@
             },
 
             'Dashboard.MasterSettings.MobileAppUpdate': {
-                 url: "/MobileAppUpdate",
-                 templateUrl: 'app/views/MasterSettings/MobileAppUpdate.html',
-                 dependencies: ['controllers/MasterSettings/MobileAppUpdateController', 'services/MasterSettings/MasterPageService']
+                url: "/MobileAppUpdate",
+                templateUrl: 'app/views/MasterSettings/MobileAppUpdate.html',
+                dependencies: ['controllers/MasterSettings/MobileAppUpdateController', 'services/MasterSettings/MasterPageService']
             },
-            
-         
+
+
             'Dashboard.MasterSettings.ModulesSetting': {
                 url: "/ModulesSetting",
                 templateUrl: 'app/views/MasterSettings/ModulesSetting.html',
                 dependencies: ['controllers/MasterSettings/ModulesSettingController', 'services/AdminServices/AdminService', 'services/SystemAdministration/SystemUserService', 'services/MasterSettings/MasterSettingsService']
+
+            },
+
+
+            'CcicDashboard.Settings.ModulesSetting': {
+                url: "/ModulesSetting",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicModulesSetting.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicModulesSettingController', 'services/CCIC/CcicAdminService', 'services/CCIC/CcicSystemUserService', 'services/CCIC/CcicSettingsService']
 
             },
 
@@ -720,7 +792,7 @@
                 dependencies: ['controllers/MasterSettings/AttendanceSmsController', 'services/MasterSettings/MasterSettingsService']
             },
 
-            'Dashboard.MasterSettings.ViewPresumptiveAttendance': {	
+            'Dashboard.MasterSettings.ViewPresumptiveAttendance': {
                 url: "/ViewPresumptiveAttendance",
                 templateUrl: 'app/views/MasterSettings/ViewPresumptiveAttendance.html',
                 dependencies: ['controllers/MasterSettings/ViewPresumptiveAttendanceController', 'services/MasterSettings/MasterSettingsService', 'services/SystemAdministration/SystemUserService', 'services/PreExamination/PreExaminationService']
@@ -739,7 +811,7 @@
             },
 
 
-           
+
 
             'Dashboard.MasterSettings.CreateBranchScheme': {
                 url: "/CreateBranchScheme",
@@ -761,280 +833,286 @@
                 templateUrl: 'app/views/MasterSettings/SubModuleSettings.html',
                 dependencies: ['controllers/MasterSettings/SubModuleSettingsController', 'services/AdminServices/AdminService', 'services/SystemAdministration/SystemUserService', 'services/MasterSettings/MasterSettingsService']
             },
-            
+
             'Dashboard.DcBillsDashboard': {
-	
+
                 url: "/DcBillsDashboard",
-	
+
                 templateUrl: 'app/views/DcBills/DcBillsDashboard.html',
-	
+
                 dependencies: ['controllers/DcBills/DcBillsDashboardController', 'services/SystemAdministration/SystemUserService']
-	
+
             },
-	
-	
+
+
             'Dashboard.DcBillsDashboard.ExamAdvance': {
-	
+
                 url: "/ExamAdvance",
-	
+
                 templateUrl: 'app/views/PostExam/ExamAdvance.html',
-	
+
                 dependencies: ['controllers/PostExam/ExamAdvanceController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.DcBillsDashboard.AddExamExpenditure': {
-	
+
                 url: "/AddExamExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/AddExamExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/AddExamExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.DcBillsDashboard.SetExaminationExpenditureCharges': {
-	
+
                 url: "/SetExaminationExpenditureCharges",
-	
+
                 templateUrl: 'app/views/DcBills/Annexture.html',
-	
+
                 dependencies: ['controllers/DcBills/AnnextureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.DcBillsDashboard.TotalExpenditure': {
-	
+
                 url: "/TotalExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/TotalExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/TotalExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.DcBillsDashboard.DetailedExpenditure': {
-	
+
                 url: "/DetailedExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/DetailedExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/DetailedExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.SessionWiseStrength': {
-	
+
                 url: "/SessionWiseStrength",
-	
+
                 templateUrl: 'app/views/PreExamination/SessionWiseStrength.html',
-	
+
                 dependencies: ['controllers/PreExamination/SessionWiseStrengthController', 'services/PreExamination/PreExaminationService']
-	
-            },
-	
 
-	
+            },
+
+
+
             'Dashboard.PostExam.GeneratePinOdcData': {
-	
+
                 url: "/GeneratePinOdcData",
-	
+
                 templateUrl: 'app/views/PostExam/GeneratePinOdcData.html',
-	
+
                 dependencies: ['controllers/PostExam/GeneratePinOdcDataController', 'services/PreExamination/PreExaminationService']
-	
-            },
-	
-	
 
-	
-	
+            },
+
+
+
+
+
             'Dashboard.PostExam.WantingsReport': {
-	
+
                 url: "/WantingsReport",
-	
+
                 templateUrl: 'app/views/Admission/Reports/WantingsReport.html',
-	
+
                 dependencies: ['controllers/Admission/Reports/WantingsReportController', 'services/Admission/AdmissionService']
-	
+
             },
-	
 
-	
 
-	
+
+
+
             'Dashboard.DcBillsDashboard': {
-	
+
                 url: "/DcBillsDashboard",
-	
+
                 templateUrl: 'app/views/DcBills/DcBillsDashboard.html',
-	
+
                 dependencies: ['controllers/DcBills/DcBillsDashboardController', 'services/SystemAdministration/SystemUserService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.ExamAdvance': {
-	
+
                 url: "/ExamAdvance",
-	
+
                 templateUrl: 'app/views/PostExam/ExamAdvance.html',
-	
+
                 dependencies: ['controllers/PostExam/ExamAdvanceController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.AddExamExpenditure': {
-	
+
                 url: "/AddExamExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/AddExamExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/AddExamExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.SetExaminationExpenditureCharges': {
-	
+
                 url: "/SetExaminationExpenditureCharges",
-	
+
                 templateUrl: 'app/views/DcBills/Annexture.html',
-	
+
                 dependencies: ['controllers/DcBills/AnnextureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.TotalExpenditure': {
-	
+
                 url: "/TotalExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/TotalExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/TotalExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PreExamination.DetailedExpenditure': {
-	
+
                 url: "/DetailedExpenditure",
-	
+
                 templateUrl: 'app/views/DcBills/DetailedExpenditure.html',
-	
+
                 dependencies: ['controllers/DcBills/DetailedExpenditureController', 'services/PreExamination/PreExaminationService']
-	
+
             },
-			
+
             'Dashboard.PostExam.ResultsAutomationExcelUpload': {
-	
+
                 url: "/ResultsAutomationExcelUpload",
-	
+
                 templateUrl: 'app/views/Results/ResultsAutomationExcelUpload.html',
-	
+
                 dependencies: ['controllers/Results/ResultsAutomationExcelUploadController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PostExam.RVRCResultsUpdation': {
-	
+
                 url: "/RVRCResultsUpdation",
-	
+
                 templateUrl: 'app/views/Results/RVRCResultsUpdation.html',
-	
+
                 dependencies: ['controllers/Results/RVRCResultsUpdationController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
-	
-            },
-	
 
-	
-	
+            },
+
+
+
+
             'Dashboard.PreExamination.StudyCertificate': {
-	
+
                 url: "/StudyCertificate",
-	
+
                 templateUrl: 'app/views/PostExam/BonafideCertificate.html',
-	
+
                 dependencies: ['controllers/PostExam/BonafideCertificateController', 'services/PreExamination/PreExaminationService']
-	
-            },
-	
-	
 
-	
+            },
+
+
+
+
             'Dashboard.PostExam.AmbedkarResultsReport': {
-	
+
                 url: "/AmbedkarResultsReport",
-	
+
                 templateUrl: 'app/views/PostExam/AmbedkarResultsReport.html',
-	
+
                 dependencies: ['controllers/PostExam/AmbedkarResultsReportController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
-	
-            },
-	
 
-	
-	
+            },
+
+
+
+
             'Dashboard.PostExam.BacklogSubjects': {
-	
+
                 url: "/BacklogSubjects",
-	
+
                 templateUrl: 'app/views/PostExam/BacklogSubjects.html',
-	
+
                 dependencies: ['controllers/PostExam/BacklogSubjectsController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
-	
+
             },
-	
-	
+
+
             'Dashboard.PostExam.ResultsReports': {
-	
+
                 url: "/ResultsReports",
-	
+
                 templateUrl: 'app/views/PostExam/ResultsReports.html',
-	
-                dependencies: ['controllers/PostExam/ResultsReportsController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService','services/StudentResultService']
-	
+
+                dependencies: ['controllers/PostExam/ResultsReportsController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService', 'services/StudentResultService']
+
             },
-	
-	
+
+
             'Dashboard.PostExam.BacklogIndustrialFailedReport': {
-	
+
                 url: "/BacklogIndustrialFailedReport",
-	
+
                 templateUrl: 'app/views/PostExam/BacklogIndustrialFailedReport.html',
-	
+
                 dependencies: ['controllers/PostExam/BacklogIndustrialFailedReportController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
-	
+
             },
-	
 
-	
 
-	
+
+
+
             'Dashboard.PostExam.ExamAdvance': {
-	
+
                 url: "/ExamAdvance",
-	
+
                 templateUrl: 'app/views/PostExam/ExamAdvance.html',
-	
+
                 dependencies: ['controllers/PostExam/ExamAdvanceController', 'services/PreExamination/PreExaminationService']
-	
-            },        
-			
+
+            },
+
             'Dashboard.PostExam': {
                 url: "/PostExam",
                 templateUrl: 'app/views/PostExam/PostExam.html',
                 dependencies: ['controllers/PostExam/PostExamController', 'services/SystemAdministration/SystemUserService']
             },
 
+            'CcicDashboard.PostExamination': {
+                url: "/PostExamination",
+                templateUrl: 'app/views/CCIC/PostExamination/CcicPostExamination.html',
+                dependencies: ['controllers/CCIC/PostExamination/CcicPostExaminationController', 'services/CCIC/CcicSystemUserService']
+            },
+
             'Dashboard.DcBillsDashboard': {
                 url: "/DcBillsDashboard",
                 templateUrl: 'app/views/DcBills/DcBillsDashboard.html',
@@ -1060,7 +1138,7 @@
             },
 
             'Dashboard.DcBillsDashboard.TotalExpenditure': {
-                 url: "/TotalExpenditure",
+                url: "/TotalExpenditure",
                 templateUrl: 'app/views/DcBills/TotalExpenditure.html',
                 dependencies: ['controllers/DcBills/TotalExpenditureController', 'services/PreExamination/PreExaminationService']
             },
@@ -1076,22 +1154,22 @@
                 templateUrl: 'app/views/PreExamination/SessionWiseStrength.html',
                 dependencies: ['controllers/PreExamination/SessionWiseStrengthController', 'services/PreExamination/PreExaminationService']
             },
-            
+
             'Dashboard.PostExam.GeneratePinOdcData': {
                 url: "/GeneratePinOdcData",
                 templateUrl: 'app/views/PostExam/GeneratePinOdcData.html',
                 dependencies: ['controllers/PostExam/GeneratePinOdcDataController', 'services/PreExamination/PreExaminationService']
             },
 
-          
+
 
             'Dashboard.PostExam.WantingsReport': {
                 url: "/WantingsReport",
                 templateUrl: 'app/views/Admission/Reports/WantingsReport.html',
                 dependencies: ['controllers/Admission/Reports/WantingsReportController', 'services/Admission/AdmissionService']
             },
-            
-           
+
+
             'Dashboard.DcBillsDashboard': {
                 url: "/DcBillsDashboard",
                 templateUrl: 'app/views/DcBills/DcBillsDashboard.html',
@@ -1141,11 +1219,11 @@
             },
 
             'Dashboard.PostExam.RVRCResultsUpdation': {
-                 url: "/RVRCResultsUpdation",
+                url: "/RVRCResultsUpdation",
                 templateUrl: 'app/views/Results/RVRCResultsUpdation.html',
                 dependencies: ['controllers/Results/RVRCResultsUpdationController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
             },
-            
+
 
             'Dashboard.PreExamination.StudyCertificate': {
                 url: "/StudyCertificate",
@@ -1153,13 +1231,13 @@
                 dependencies: ['controllers/PostExam/BonafideCertificateController', 'services/PreExamination/PreExaminationService']
             },
 
-            
+
             'Dashboard.PostExam.AmbedkarResultsReport': {
                 url: "/AmbedkarResultsReport",
                 templateUrl: 'app/views/PostExam/AmbedkarResultsReport.html',
                 dependencies: ['controllers/PostExam/AmbedkarResultsReportController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
             },
-            
+
 
             'Dashboard.PostExam.BacklogSubjects': {
                 url: "/BacklogSubjects",
@@ -1170,22 +1248,22 @@
             'Dashboard.PostExam.ResultsReports': {
                 url: "/ResultsReports",
                 templateUrl: 'app/views/PostExam/ResultsReports.html',
-                dependencies: ['controllers/PostExam/ResultsReportsController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService','services/StudentResultService']
+                dependencies: ['controllers/PostExam/ResultsReportsController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService', 'services/StudentResultService']
             },
 
             'Dashboard.PostExam.3BacklogIndustrialFailedReport': {
-                 url: "/3BacklogIndustrialFailedReport",
+                url: "/3BacklogIndustrialFailedReport",
                 templateUrl: 'app/views/PostExam/3BacklogIndustrialFailedReport.html',
                 dependencies: ['controllers/PostExam/3BacklogIndustrialFailedReportController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
             },
-            
-           
+
+
             'Dashboard.PostExam.ExamAdvance': {
                 url: "/ExamAdvance",
                 templateUrl: 'app/views/PostExam/ExamAdvance.html',
                 dependencies: ['controllers/PostExam/ExamAdvanceController', 'services/PreExamination/PreExaminationService']
             },
-            
+
 
 
             'Dashboard.PostExam.TwshCertificate': {
@@ -1447,6 +1525,13 @@
                 templateUrl: 'app/views/PreExamination/PreExamination.html',
                 dependencies: ['controllers/PreExamination/PreExaminationController', 'services/SystemAdministration/SystemUserService']
             },
+
+            'CcicDashboard.PreExamination': {
+                url: "/PreExamination",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicPreExamination.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicPreExaminationController', 'services/CCIC/CcicSystemUserService']
+            },
+
             //TimeTable Page
             'Dashboard.TimeTablePage': {
                 url: "/TimeTablePage",
@@ -1465,7 +1550,7 @@
                 templateUrl: 'app/views/PreExamination/EligibleStudentsForFeePayment.html',
                 dependencies: ['controllers/PreExamination/EligibleStudentsForFeePaymentController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
             },
-            
+
 
             //'Dashboard.PreExamination.ElectiveMappingSubjectReport': {
             //    url: "/ElectiveMappingReport/ElectiveMappingSubjectReport",
@@ -1759,14 +1844,14 @@
                 dependencies: ['controllers/PostExam/OdcGenerationController', 'services/PreExamination/PreExaminationService']
             },
 
-           
-            
+
+
             'Dashboard.PostExam.NBAReports': {
                 url: "/NBAReports",
                 templateUrl: 'app/views/PostExam/NBAReports.html',
                 dependencies: ['controllers/PostExam/NBAReportsController', 'services/PreExamination/PreExaminationService']
             },
-            
+
             'Dashboard.PostExam.GenerateC18MemosData': {
                 url: "/GenerateC18MemosData",
                 templateUrl: 'app/views/PostExam/GenerateC18MemosData.html',
@@ -1786,16 +1871,16 @@
                 dependencies: ['controllers/PostExam/MarksMemoController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-			'Dashboard.PreExamination.TrSheet': {
-	
+            'Dashboard.PreExamination.TrSheet': {
+
                 url: "/TrSheet",
-	
+
                 templateUrl: 'app/views/StudentOnlineServices/TrSheet.html',
-	
+
                 dependencies: ['controllers/StudentOnlineServices/TrSheetController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
-	
+
             },
-			
+
             'Dashboard.PostExam.MemoTrSheet': {
                 url: "/MemoTrSheet",
                 templateUrl: 'app/views/StudentOnlineServices/MemoTrSheet.html',
@@ -1806,7 +1891,6 @@
                 templateUrl: 'app/views/StudentOnlineServices/OdcTrSheet.html',
                 dependencies: ['controllers/StudentOnlineServices/OdcTrSheetController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
-
             'Dashboard.PostExam.C18OdcTrSheet': {
                 url: "/C18OdcTrSheet",
                 templateUrl: 'app/views/PostExam/C18OdcTrSheet.html',
@@ -1871,7 +1955,7 @@
                 dependencies: ['controllers/StudentOnlineServices/TrCertificateController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-           
+
 
             'Dashboard.PreExamination.MigrationCertificate': {
                 url: "/MigrationCertificate",
@@ -1956,6 +2040,12 @@
                 dependencies: ['controllers/MasterSettings/MasterSettingsController', 'services/SystemAdministration/SystemUserService']
             },
 
+            'CcicDashboard.Settings': {
+                url: "/Settings",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicSettings.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicSettingsController', 'services/CCIC/CcicSystemUserService']
+            },
+
             'Dashboard.MasterSettings.ExamYearMonth': {
                 url: "/ExamYearMonth",
                 templateUrl: 'app/views/MasterSettings/ExamYearMonth.html',
@@ -2009,7 +2099,7 @@
             },
 
 
-          
+
             'Dashboard.MasterSettings.DateSheetMonthYearSettings': {
                 url: "/DateSheetMonthYearSettings",
                 templateUrl: 'app/views/MasterSettings/DateSheetMonthYear.html',
@@ -2043,7 +2133,6 @@
                 templateUrl: 'app/views/MasterSettings/MasterMandal.html',
                 dependencies: ['controllers/MasterSettings/MasterMandalController', 'services/MasterSettings/MasterPageService']
             },
-           
 
             'Dashboard.Academic': {
                 url: "/Academic",
@@ -2115,6 +2204,12 @@
                 url: "/AcademicYearSettings",
                 templateUrl: 'app/views/MasterSettings/AcademicYearSettings.html',
                 dependencies: ['controllers/MasterSettings/AcademicYearSettingsController', 'services/MasterSettings/MasterPageService', 'services/PreExamination/PreExaminationService']
+            },
+
+            'Dashboard.CcicAcademic.CcicAcademicYearSettings': {
+                url: "/CcicAcademicYearSettings",
+                templateUrl: 'app/views/MasterSettings/CcicAcademicYearSettings.html',
+                dependencies: ['controllers/MasterSettings/CcicAcademicYearSettingsController', 'services/MasterSettings/MasterPageService', 'services/PreExamination/PreExaminationService']
             },
 
             'Dashboard.Academic.6thSemStudiedReport': {
@@ -2193,6 +2288,13 @@
                     'services/SystemAdministration/SystemUserService']
             },
 
+            'CcicDashboard.CcicChangePassword': {
+                url: "/CcicChangePassword",
+                templateUrl: 'app/views/CCIC/CcicChangePassword.html',
+                dependencies: ['controllers/CCIC/CcicChangePasswordController', 'services/CCIC/CcicChangePasswordService', 'directives/inputNumberOnly', 'services/MenuService',
+                    'services/CCIC/CcicSystemUserService']
+            },
+
             //AssessMent Module
             'Dashboard.AssessmentDashboard.SetDates': {
                 url: "/SetDates",
@@ -2205,6 +2307,15 @@
                 dependencies: ['controllers/Assessment/AssessmentDashboardController', 'services/SystemAdministration/SystemUserService']
 
             },
+
+            'CcicDashboard.Assessment': {
+                url: "/Assessment",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessment.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentController', 'services/CCIC/CcicSystemUserService']
+
+            },
+
+
             'Dashboard.AssessmentDashboard.Assessment': {
                 url: "/Assessment",
                 templateUrl: 'app/views/Assessment.html',
@@ -2298,7 +2409,7 @@
             'Dashboard.AssessmentDashboard.TheorySummary': {
                 url: "/MarksSummary/TheoryEvents/TheoryReports/TheorySummary",
                 templateUrl: 'app/views/Assessment/Reports/TheorySummary.html',
-                dependencies: ['controllers/Assessment/Reports/TheorySummaryController', 'services/MenuService', 'services/Assessment/AssessmentService','services/Assessment/MarksEntryService']
+                dependencies: ['controllers/Assessment/Reports/TheorySummaryController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService']
             },
             //'Assessment': {
             //    url: "/Assessment",
@@ -2333,12 +2444,12 @@
                 dependencies: ['controllers/Assessment/Reports/AdminReportSummaryController', 'services/Assessment/AssessmentService']
             },
 
-            
+
             'Dashboard.AssessmentDashboard.AssessmentConsolidatedReport': {
-                     url: "/AssessmentConsolidatedReport",
-                    templateUrl: 'app/views/Assessment/Reports/AssessmentConsolidatedReport.html',
-                    dependencies: ['controllers/Assessment/Reports/AssessmentConsolidatedReportController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/StudentResultService', 'services/Assessment/AssessmentService',  'services/Admission/StudentRegService','services/Results/StudentWiseService']
-                },
+                url: "/AssessmentConsolidatedReport",
+                templateUrl: 'app/views/Assessment/Reports/AssessmentConsolidatedReport.html',
+                dependencies: ['controllers/Assessment/Reports/AssessmentConsolidatedReportController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Admission/StudentRegService', 'services/Results/StudentWiseService']
+            },
 
             'Dashboard.AssessmentDashboard.PracticalSubjectList': {
                 url: "/Assessment/Practicals/SubjectList", templateUrl: 'app/views/Assessment/PracticalMarksEntrySubjectList.html',
@@ -2418,7 +2529,7 @@
                 templateUrl: 'app/views/Assessment/ReleaseMarksEntry.html',
                 dependencies: ['controllers/Assessment/ReleaseMarksEntryController', 'services/Admission/StudentRegService', 'services/PreExamination/PreExaminationService']
             },
-            
+
             'Dashboard.AdminServices': {
                 url: "/AdminServices",
                 templateUrl: 'app/views/AdminServices/AdminServiceModule.html',
@@ -2453,7 +2564,7 @@
                 dependencies: ['controllers/StudentExamResults/StudentResultController', 'services/StudentResultService']
             },
 
-          
+
 
 
             //'ResultsDashboard.StudentConsolidatedResult': {
@@ -2499,20 +2610,20 @@
                 templateUrl: 'app/views/TWSH/ApplyCertificate.html',
                 dependencies: ['controllers/TWSH/ApplyCertificateController', 'services/TWSH/TwshStudentRegService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
-            
+
             'Dashboard.TypeWriting.TwshCertificateReports': {
                 url: "/TwshCertificateReports",
                 templateUrl: 'app/views/TWSH/TwshCertificateReports.html',
                 dependencies: ['controllers/TWSH/TwshCertificateReportsController', 'services/TWSH/TwshStudentRegService']
             },
-            
 
-            
+
+
             'Dashboard.TypeWriting.TwshAuthorizationReport': {
-            url: "/TwshAuthorizationReport",
-            templateUrl: 'app/views/TWSH/TwshAuthorizationReport.html',
-            dependencies: ['controllers/TWSH/TwshAuthorizationReportController', 'services/TWSH/TwshStudentRegService']
-          },
+                url: "/TwshAuthorizationReport",
+                templateUrl: 'app/views/TWSH/TwshAuthorizationReport.html',
+                dependencies: ['controllers/TWSH/TwshAuthorizationReportController', 'services/TWSH/TwshStudentRegService']
+            },
 
             'Dashboard.TypeWriting.TwshAuthorizationReportList': {
                 url: "/TwshAuthorizationReport/TwshAuthorizationReportList",
@@ -2553,6 +2664,14 @@
                 dependencies: ['controllers/TWSH/TwshExamCenterStrengthController', 'services/TWSH/TwshStudentRegService']
             },
 
+            'Dashboard.TypeWriting.TwshResultsAutomation': {
+                url: "/TwshResultsAutomation",
+                templateUrl: 'app/views/TWSH/TwshResultsAutomation.html',
+                // dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService']
+                dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService','controllers/Results/ResultsAutomationExcelUploadController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
+            },
+
+
 
             'Dashboard.TypeWriting.TwshExamMonthYear': {
                 url: "/TwshExamMonthYear",
@@ -2579,7 +2698,7 @@
                 dependencies: ['controllers/TWSH/InstituteRegistrationController', 'services/TWSH/TwshStudentRegService']
             },
 
-            
+
             'Dashboard.TypeWriting.TwshExamCenters': {
                 url: "/TwshExamCenters",
                 templateUrl: 'app/views/TWSH/TwshExamCenters.html',
@@ -2591,7 +2710,7 @@
                 templateUrl: 'app/views/TWSH/TwshExamTimeSlots.html',
                 dependencies: ['controllers/TWSH/TwshExamTimeSlotsController', 'services/TWSH/TwshStudentRegService']
             },
-            
+
             'Dashboard.TypeWriting.TwshFeeSetDates': {
                 url: "/TwshFeeSetDates",
                 templateUrl: 'app/views/TWSH/TwshFeeSetDates.html',
@@ -2618,33 +2737,33 @@
             'Dashboard.AdmissionDashboard.AdmissionReports': {
                 url: "/AdmissionReports",
                 templateUrl: 'app/views/Admission/Reports/AdmissionReports.html',
-                dependencies: ['controllers/Admission/Reports/AdmissionReportsController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService','services/Admission/AdmissionService', 'services/Results/StudentWiseService']
+                dependencies: ['controllers/Admission/Reports/AdmissionReportsController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Admission/AdmissionService', 'services/Results/StudentWiseService']
             },
-                
-                'Dashboard.AdmissionDashboard.AdmissionSubReports': {
+
+            'Dashboard.AdmissionDashboard.AdmissionSubReports': {
                 url: "/AdmissionReports/AdmissionSubReports",
                 templateUrl: 'app/views/Admission/Reports/AdmissionSubReports.html',
                 dependencies: ['controllers/Admission/Reports/AdmissionSubReportsController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Admission/AdmissionService', 'services/Results/StudentWiseService']
             },
-            
-                //'Dashboard.AdmissionDashboard.AdmissionSubReports': {
-                //    url: "/AdmissionReports/AdmissionSubReports",
-                //    templateUrl: 'app/views/Admission/Reports/AdmissionSubReports.html',
-                //    dependencies: ['controllers/Admission/Reports/AdmissionSubReportsController', 'services/PreExamination/PreExaminationService']
-                //},
 
-                'Dashboard.AdmissionDashboard.AdmissionReportPinList': {
-                    url: "/AdmissionReports/AdmissionReportPinList",
-                    templateUrl: 'app/views/Admission/Reports/AdmissionReportPinList.html',
-                    dependencies: ['controllers/Admission/Reports/AdmissionReportPinListController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService', 'services/Admission/RegisterAdmittedStudentService']
-                },
+            //'Dashboard.AdmissionDashboard.AdmissionSubReports': {
+            //    url: "/AdmissionReports/AdmissionSubReports",
+            //    templateUrl: 'app/views/Admission/Reports/AdmissionSubReports.html',
+            //    dependencies: ['controllers/Admission/Reports/AdmissionSubReportsController', 'services/PreExamination/PreExaminationService']
+            //},
+
+            'Dashboard.AdmissionDashboard.AdmissionReportPinList': {
+                url: "/AdmissionReports/AdmissionReportPinList",
+                templateUrl: 'app/views/Admission/Reports/AdmissionReportPinList.html',
+                dependencies: ['controllers/Admission/Reports/AdmissionReportPinListController', 'services/PreExamination/PreExaminationService', 'services/Admission/StudentRegService', 'services/Admission/RegisterAdmittedStudentService']
+            },
 
 
-                //'Dashboard.AdmissionDashboard.AdmissionReportPinList': {
-                //    url: "/AdmissionReports/AdmissionSubReports/AdmissionReportPinList",
-                //    templateUrl: 'app/views/Admission/Reports/AdmissionReportPinList.html',
-                //    dependencies: ['controllers/Admission/Reports/AdmissionReportPinListController', 'services/PreExamination/PreExaminationService']
-                //},
+            //'Dashboard.AdmissionDashboard.AdmissionReportPinList': {
+            //    url: "/AdmissionReports/AdmissionSubReports/AdmissionReportPinList",
+            //    templateUrl: 'app/views/Admission/Reports/AdmissionReportPinList.html',
+            //    dependencies: ['controllers/Admission/Reports/AdmissionReportPinListController', 'services/PreExamination/PreExaminationService']
+            //},
             //Sms setting 
             'Dashboard.Academic.StudentTransferReport': {
                 url: "/StudentTransferReport",
@@ -2682,7 +2801,7 @@
                 dependencies: ['controllers/Academic/Reports/HodTransferReportsController', 'services/Academic/AcademicService']
             },
 
-           
+
             'Dashboard.AdmissionDashboard.TantalizationReports': {
                 url: "/TantalizationReports",
                 templateUrl: 'app/views/Admission/Reports/TantalizationReports.html',
@@ -2865,7 +2984,7 @@
                 url: "/MobileAppHallticket/StudentTypeId/:StudentTypeId/ExamMonthYearId/:ExamMonthYearId/Pin/:Pin",
                 templateUrl: 'app/views/PreExamination/MobileAppHallticket.html',
                 dependencies: ['controllers/PreExamination/MobileAppHallticketController', 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
-               
+
             },
 
             'StudentMobileAppAttendance': {
@@ -2981,11 +3100,22 @@
                 templateUrl: 'app/views/ForgetPasswordSaved.html',
                 dependencies: ['controllers/ForgetPasswordSavedController', 'services/ForgetPasswordService']
             },
+
+
+
             'ForgetPassword': {
                 url: "/ForgetPassword",
                 templateUrl: 'app/views/ForgetPassword.html',
                 dependencies: ['controllers/ForgetPasswordController', 'services/ForgetPasswordService']
             },
+
+            'CcicForgetPassword': {
+                url: "/CcicForgetPassword",
+                templateUrl: 'app/views/CCIC/CcicForgetPassword.html',
+                dependencies: ['controllers/CCIC/CcicForgetPasswordController', 'services/CCIC/CcicForgetPasswordService']
+            },
+
+
 
             'BoardReportList': {
                 url: "/BoardReportList",
@@ -3117,13 +3247,15 @@
                 dependencies: ['controllers/PostExamController', 'directives/inputNumberOnly', 'services/MenuService']
             },
 
+
+
             'PostExam.studentStatusReport': {
                 url: "/studentStatusReport",
                 templateUrl: 'app/views/PostExam/studentStatusReport.html',
                 dependencies: ['controllers/PostExam/studentStatusReportController', 'directives/saNumber', 'directives/saInput', 'services/PostExam/basicCourseService', 'services/PostExam/basicBranchService', 'services/PostExam/basicExamService', 'services/PostExam/studentStatusReportService']
             },
 
-           
+
 
 
             //'Dashboard.Results.ResultsAutomationExcelUpload': {
