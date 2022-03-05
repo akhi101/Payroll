@@ -81,6 +81,7 @@
 
 
         $scope.getDetails = function () {
+            $scope.editStudentData = false;
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined && !$scope.CandidateNameDOBfound && !(reg == $scope.CandidateNameDOBfound)) {
                 var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
@@ -91,6 +92,7 @@
             }
             var GetApplicationData = TwshStudentRegService.getApplicationData($scope.ApplicationNo, $scope.CandidateNameDOBchange);
             GetApplicationData.then(function (response) {
+                $scope.editStudentData = false;
 
                 if (response.length > 0) {
                     $scope.getData = true;
