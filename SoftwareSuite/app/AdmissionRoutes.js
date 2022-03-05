@@ -2995,7 +2995,7 @@
                 dependencies: ['controllers/ExamsSite/StudentMobileAppAttendanceController', 'services/AcademicService']
             },
 
-            'Dashboard.Results.StudentConsolidatedResult': {``
+            'Dashboard.Results.StudentConsolidatedResult': {
                 url: "/StudentConsolidatedResult",
                 templateUrl: 'app/views/StudentExamResults/StudentConsolidatedResult.html',
                 dependencies: ['controllers/StudentExamResults/StudentConsolidatedResultController', 'services/StudentResultService']

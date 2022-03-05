@@ -3475,9 +3475,10 @@ namespace SoftwareSuite.Controllers.TWSH
                 var dbHandler = new Twshdbandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);
-                param[1] = new SqlParameter("@Json", json["Json"].ToString());
+                param[1] = new SqlParameter("@json", json["Json"].ToString());
                 param[2] = new SqlParameter("@UserName", json["UserName"]);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_1_RvRcMarksUploadandResultsProcessing", param);
+                //var ds = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_1_RvRcMarksUploadandResultsProcessing", param);
 
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
@@ -3502,8 +3503,6 @@ namespace SoftwareSuite.Controllers.TWSH
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
-                    //return ;
-
                 }
                 else
                 {
@@ -3515,14 +3514,15 @@ namespace SoftwareSuite.Controllers.TWSH
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
+                //return JsonConvert.SerializeObject(ds);
             }
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("ADM_SET_1_RvRcMarksUploadandResultsProcessing", 0, ex.Message);
                 return ex.Message;
             }
-
-        }
+            
+            }
 
         [HttpPost, ActionName("TwshRvRcResultsDeployment")]
         public string TwshRvRcResultsDeployment([FromBody] JsonObject json)

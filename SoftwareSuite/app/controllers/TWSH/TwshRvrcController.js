@@ -310,7 +310,7 @@
                 reader.onload = function (e) {
                     var data = e.target.result;
                     var workbook = XLSX.read(data, {
-                        type: 'binary',
+                        type: 'binary'
                     });
                     workbook.SheetNames.forEach(function (sheetName) {
                         // Here is your object
@@ -330,7 +330,7 @@
 
                         $scope.Exceldat = $scope.Exceldata[0]
 
-                        var tempArray = ["HallTicket", "PaperCode", "Marks", "MaxMarks"];
+                        var tempArray = ["HallTicket", "P1Marks", "P2Marks"];
                         var keysMached = false;
                         for (let q = 0; q < Object.keys($scope.Exceldat[0]).length; q++) {
                             if (tempArray.includes(Object.keys($scope.Exceldat[0])[q])) {
@@ -542,7 +542,7 @@
 
         $scope.ResultsDeployTables = function () {
             $scope.reload = true;
-            var loadData1 = TwshStudentRegService.TwshResultsAutomation_2_2_DeployResultsIntoMasters($scope.Deploymonthyear)
+            var loadData1 = TwshStudentRegService.TwshRvRcResultsDeployment($scope.Deploymonthyear, $scope.userName)
             loadData1.then(function (res) {
                 console.log(res)
                 var data = JSON.parse(res)
@@ -961,7 +961,7 @@
             $scope.Wantingsmonthyear = $scope.monthyear;
             $scope.Resultsmonthyear = $scope.monthyear;
             $scope.Deploymonthyear = $scope.monthyear;
-            var uploadJson = TwshStudentRegService.TwshResultsAutomation_1_1_UploadExcel($scope.monthyear, $scope.filteredArray, $scope.userName);
+            var uploadJson = TwshStudentRegService.TwshRvRcMarksUploadandResultsProcessing($scope.monthyear, $scope.filteredArray, $scope.userName);
 
             uploadJson.then(function (data) {
                 var data = JSON.parse(data);
