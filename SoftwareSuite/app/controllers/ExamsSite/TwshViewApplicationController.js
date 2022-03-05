@@ -299,7 +299,7 @@
                     //    }
 
                     var myDate = new Date();
-                    myDate = $filter('date')(obj.date, "yyyy-MM-dd 11:30");
+                    myDate = $filter('date')(obj.date, "yyyy-MM-dd");
 
                     return myDate;
                 });
