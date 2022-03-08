@@ -34,7 +34,8 @@ using System.Xml;
 using SoftwareSuite.Models.PreExamination;
 using SoftwareSuite.Models.Admission;
 using SoftwareSuite.Models.DCBills;
-
+using SoftwareSuite.Controllers.Common;
+using Newtonsoft.Json.Linq;
 
 namespace SoftwareSuite.Controllers.PreExamination
 {
@@ -2595,6 +2596,257 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
+
+        [HttpPost, ActionName("SendAttendance")]
+        public HttpResponseMessage SendAttendance(HttpRequestMessage request)
+        {
+            try
+            {
+
+                var apikey = request.Headers.GetValues("apikey").FirstOrDefault();
+                var apikeyOrig = ConfigurationManager.AppSettings["AttendanceSharingApiKey"].ToString();
+                if (apikey != apikeyOrig)
+                {
+                    var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                    SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+                var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                return response;
+            }
+            try
+            {
+
+                string Attendancejson = "" + request.Content.ReadAsStringAsync().Result;
+                #region RequestLog
+                try
+                {
+                    //TODO: add Log to Mongo DB
+                    //System.IO.File.WriteAllText($"AttendanceLog/{DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss").Replace(":", ".")}.json", Attendancejson);
+                }
+                catch (Exception ex) { }
+                #endregion
+                if (Attendancejson != "")
+                {
+                    JObject obj = JObject.Parse(Attendancejson);
+                    string optype = "" + obj["optype"];
+                    string totalrecords = "" + obj["totalrecords"];
+                    string hlevel = "" + obj["hlevel"];
+                    string holidaydate = "" + obj["holidaydate"];
+                    string holidaycategory = "" + obj["holidaycategory"];
+                    JArray dataarray = obj["data"].Value<JArray>();
+                    var attjson = JsonConvert.SerializeObject(dataarray);
+                    //TODO: add Log to Mongo DB
+                    //string datetofile = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss").Replace(":", ".") + ".json";
+                    //var attendancefile = ConfigurationManager.AppSettings["AttendanceFile"].ToString();
+                    //AttendanceService.WriteToJsonFile(attendancefile + datetofile, obj);
+                    var dbHandler = new dbHandler();
+                    var param = new SqlParameter[5];
+                    param[0] = new SqlParameter("@OpType", optype);
+                    param[1] = new SqlParameter("@TotalRecords", totalrecords);
+                    param[2] = new SqlParameter("@HLevel", hlevel);
+                    param[3] = new SqlParameter("@Holidaydate", holidaydate);
+                    param[4] = new SqlParameter("@json", attjson);
+                    DataTable dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ATTENDENCE_API_INSERTION", param);
+                    try
+                    {
+                        UpdateWorkingDays();
+                    }
+                    catch (Exception ex) { }
+                    if (dt.Rows.Count > 0)
+                    {
+                        int rescode = (int)dt.Rows[0][0];
+                        string respdesc = (string)dt.Rows[0][1];
+                        var response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" + rescode + "\",\"respdesc\" : \"" + respdesc + "\"\" }"), System.Text.Encoding.UTF8, "application/json");
+
+                        //succuss message
+                        // SendSms(1, 1, " Attendance Successfully Pushed into DataBase");
+                        return response;
+
+
+                    }
+                    else
+                    {
+
+                        var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"500\",\"respdesc\" : \"Server Error\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                        SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 500, respdesc: Server Error");
+                        return response;
+
+                    }
+                }
+            }
+            catch (FormatException)
+            {
+
+                var response = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"406\",\"respdesc\" : \"Unprocessable Entity, Check the json data format \" }"), System.Text.Encoding.UTF8, "application/json");
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 406, respdesc : Unprocessable Entity, Check the json data format");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"500\",\"respdesc\" : \"" + ex.Message + "\" }"), System.Text.Encoding.UTF8, "application/json");
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 500");
+
+                return response;
+
+            }
+            var res = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+            res.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"406\",\"respdesc\" : \"Unprocessable Entity, Check the json data format \" }"), System.Text.Encoding.UTF8, "application/json");
+            SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 406, respdesc : Unprocessable Entity, Check the json data format");
+            return res;
+        }
+
+        public class PhoneMessageData
+        {
+            public string Mobile { get; set; }
+            public string Message { get; set; }
+        }
+        public void SendSms(int p1, int p2, string Message)
+        {
+
+            var dbHandler1 = new dbHandler();
+            var param1 = new SqlParameter[2];
+            var dt1 = new DataTable();
+            var map = new Dictionary<string, string>();
+            string Josn = string.Empty;
+            List<PhoneMessageData> listPhoneMessageData = new List<PhoneMessageData>();
+            JsonObject jsonObject = new JsonObject();
+            CommunicationController communicationController = new CommunicationController();
+
+            param1[0] = new SqlParameter("@ExamType", p1);
+            param1[1] = new SqlParameter("@Status", p2);
+            dt1 = dbHandler1.ReturnDataWithStoredProcedureTable("USP_Attendace_GET_PhoneNumbers", param1);
+            if (dt1.Rows.Count > 0)
+            {
+                foreach (DataRow dtRow in dt1.Rows)
+                {
+                    var Name = dtRow["Name"].ToString();
+                    var PhoneNumber = dtRow["PhoneNumber"].ToString();
+                    if (!map.ContainsKey(PhoneNumber))
+                    {
+                        map.Add(PhoneNumber, "Hi, " + Name + Message);
+                    }
+                }
+            }
+
+            foreach (string key in map.Keys)
+            {
+                PhoneMessageData phoneMessageData = new PhoneMessageData();
+                phoneMessageData.Mobile = key;
+                phoneMessageData.Message = map[key];
+                listPhoneMessageData.Add(phoneMessageData);
+            }
+
+
+            jsonObject["data"] = listPhoneMessageData;
+            communicationController.BulkListSendSms(jsonObject);
+
+
+        }
+
+
+        [HttpGet, ActionName("UpdateWorkingDays")]
+        public void UpdateWorkingDays()
+        {
+
+            try
+            {
+                AbasWorkingDays d = new AbasWorkingDays();
+                var clientUrl = ConfigurationManager.AppSettings["BMA_API_ROOT"];
+                var client = new RestClient(clientUrl);
+
+                //-----------getting all departments working days--------------
+                var semstartdatealldep = ConfigurationManager.AppSettings["All_Dep_startDate"];
+                var deptflag = 0;
+                string apistring = string.Empty;
+                string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
+                apistring = string.Format(apiparams, semstartdatealldep, deptflag);
+                var req = new RestRequest(apistring, Method.POST);
+                req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                var data = client.Post<AbasWorkingDays>(req).Data;
+                var db = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
+                param[0].Value = JsonConvert.SerializeObject(data.orglist);
+                param[1] = new SqlParameter("@deptType", deptflag);
+                param[2] = new SqlParameter("@startdate", semstartdatealldep);
+                db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param);
+
+                //-----------getting pharmacy 1st year college working days--------------            
+                var client1 = new RestClient(clientUrl);
+                var semstartdatepharm1styear = ConfigurationManager.AppSettings["Pharm_1styearStartDate"];
+                deptflag = 1;
+                apistring = string.Format(apiparams, semstartdatepharm1styear, deptflag);
+                var req1 = new RestRequest(apistring, Method.POST);
+                req1.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                var data1 = client.Post<AbasWorkingDays>(req1).Data;
+                var db1 = new dbHandler();
+                var param1 = new SqlParameter[3];
+                param1[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
+                param1[0].Value = JsonConvert.SerializeObject(data1.orglist);
+                param1[1] = new SqlParameter("@deptType", deptflag);
+                param1[2] = new SqlParameter("@startdate", semstartdatepharm1styear);
+                db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param1);
+
+                //-----------getting pharmacy 2nd year college working days--------------             
+                var client2 = new RestClient(clientUrl);
+                var semstartdatepharm2ndyear = ConfigurationManager.AppSettings["Pharm_2ndyearStartDate"];
+                deptflag = 1;
+                apistring = string.Format(apiparams, semstartdatepharm2ndyear, deptflag);
+                var req2 = new RestRequest(apistring, Method.POST);
+                req2.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                var data2 = client.Post<AbasWorkingDays>(req2).Data;
+                var param2 = new SqlParameter[3];
+                param2[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
+                param2[0].Value = JsonConvert.SerializeObject(data2.orglist);
+                param2[1] = new SqlParameter("@deptType", deptflag);
+                param2[2] = new SqlParameter("@startdate", semstartdatepharm2ndyear);
+                db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param2);
+
+
+                //succuss message
+                // SendSms(2, 1, " Updated Working Days Successfully Pushed into DataBase");
+
+                try
+                {
+                    ProcessAttendanceDisplay();
+                }
+                catch (Exception ex) { }
+            }
+            catch (Exception ex)
+            {
+                SendSms(2, 0, " Updated Working Days Unsuccessfully Updated in DataBase");
+                dbHandler.SaveErorr("usp_SaveAbasWorkingDays", 0, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("ProcessAttendanceDisplay")]
+        public void ProcessAttendanceDisplay()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_SET_AttendenceDisplay";
+                dbHandler.ReturnDataSet(StrQuery);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SET_AttendenceDisplay", 0, ex.Message);
+            }
+        }
+
+
 
         [HttpPost, ActionName("AdmissionSubReportsFilter")]
         public string AdmissionSubReportsFilter([FromBody] JsonObject request)

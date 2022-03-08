@@ -86,7 +86,120 @@ namespace SoftwareSuite.Controllers.Admission
 
 
         }
+
         #region Post Methods
+        [HttpPost, ActionName("SendAttendance")]
+        public HttpResponseMessage SendAttendance(HttpRequestMessage request)
+        {
+            try
+            {
+
+                var apikey = request.Headers.GetValues("apikey").FirstOrDefault();
+                var apikeyOrig = ConfigurationManager.AppSettings["AttendanceSharingApiKey"].ToString();
+                if (apikey != apikeyOrig)
+                {
+                    var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                    SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+                var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                return response;
+            }
+            try
+            {
+
+                string Attendancejson = "" + request.Content.ReadAsStringAsync().Result;
+                #region RequestLog
+                try
+                {
+                    //TODO: add Log to Mongo DB
+                    //System.IO.File.WriteAllText($"AttendanceLog/{DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss").Replace(":", ".")}.json", Attendancejson);
+                }
+                catch (Exception ex) { }
+                #endregion
+                if (Attendancejson != "")
+                {
+                    JObject obj = JObject.Parse(Attendancejson);
+                    string optype = "" + obj["optype"];
+                    string totalrecords = "" + obj["totalrecords"];
+                    string hlevel = "" + obj["hlevel"];
+                    string holidaydate = "" + obj["holidaydate"];
+                    string holidaycategory = "" + obj["holidaycategory"];
+                    JArray dataarray = obj["data"].Value<JArray>();
+                    var attjson = JsonConvert.SerializeObject(dataarray);
+                    //TODO: add Log to Mongo DB
+                    //string datetofile = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss").Replace(":", ".") + ".json";
+                    //var attendancefile = ConfigurationManager.AppSettings["AttendanceFile"].ToString();
+                    //AttendanceService.WriteToJsonFile(attendancefile + datetofile, obj);
+                    var dbHandler = new dbHandler();
+                    var param = new SqlParameter[5];
+                    param[0] = new SqlParameter("@OpType", optype);
+                    param[1] = new SqlParameter("@TotalRecords", totalrecords);
+                    param[2] = new SqlParameter("@HLevel", hlevel);
+                    param[3] = new SqlParameter("@Holidaydate", holidaydate);
+                    param[4] = new SqlParameter("@json", attjson);
+                    DataTable dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ATTENDENCE_API_INSERTION", param);
+                    try
+                    {
+                        UpdateWorkingDays();
+                    }
+                    catch (Exception ex) { }
+                    if (dt.Rows.Count > 0)
+                    {
+                        int rescode = (int)dt.Rows[0][0];
+                        string respdesc = (string)dt.Rows[0][1];
+                        var response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" + rescode + "\",\"respdesc\" : \"" + respdesc + "\"\" }"), System.Text.Encoding.UTF8, "application/json");
+
+                        //succuss message
+                        // SendSms(1, 1, " Attendance Successfully Pushed into DataBase");
+                        return response;
+
+
+                    }
+                    else
+                    {
+
+                        var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"500\",\"respdesc\" : \"Server Error\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                        SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 500, respdesc: Server Error");
+                        return response;
+
+                    }
+                }
+            }
+            catch (FormatException)
+            {
+
+                var response = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"406\",\"respdesc\" : \"Unprocessable Entity, Check the json data format \" }"), System.Text.Encoding.UTF8, "application/json");
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 406, respdesc : Unprocessable Entity, Check the json data format");
+                return response;
+            }
+            catch (Exception ex)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"500\",\"respdesc\" : \"" + ex.Message + "\" }"), System.Text.Encoding.UTF8, "application/json");
+                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 500");
+
+                return response;
+
+            }
+            var res = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+            res.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"406\",\"respdesc\" : \"Unprocessable Entity, Check the json data format \" }"), System.Text.Encoding.UTF8, "application/json");
+            SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 406, respdesc : Unprocessable Entity, Check the json data format");
+            return res;
+        }
+
+
+
+
         [HttpPost, ActionName("PostAttendance")]
         public HttpResponseMessage PostAttendance(HttpRequestMessage request)
         {
@@ -224,7 +337,7 @@ namespace SoftwareSuite.Controllers.Admission
         }
 
         [HttpPost, ActionName("UpdateStudentAttendance")]
-        public string UpdateStudentAttendance([FromBody]PostAttUpdateData UpDAttData)
+        public string UpdateStudentAttendance([FromBody] PostAttUpdateData UpDAttData)
         {
             try
             {
@@ -256,6 +369,10 @@ namespace SoftwareSuite.Controllers.Admission
 
 
         #endregion
+
+
+
+       
 
         #region Get Methods
 
