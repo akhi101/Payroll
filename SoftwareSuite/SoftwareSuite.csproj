@@ -1313,7 +1313,11 @@
     <Content Include="app\controllers\TWSH\TwshQualifiedListController.js" />
     <Content Include="app\controllers\TWSH\TwshReportsController.js" />
     <Content Include="app\controllers\TWSH\TwshResetPasswordController.js" />
+
+    <Content Include="app\controllers\TWSH\TwshResultsAutomationController.js" />
+
     <Content Include="app\controllers\TWSH\TwshRvrcController.js" />
+
     <Content Include="app\controllers\TWSH\TwshSmsDetailsController.js" />
     <Content Include="app\controllers\TWSH\TwshStudentDetails.js" />
     <Content Include="app\controllers\TWSH\TwshStudentRegController.js" />
@@ -2875,6 +2879,7 @@
     <Content Include="app\views\TWSH\TwshQualifiedList.html" />
     <Content Include="app\views\TWSH\TwshReports.html" />
     <Content Include="app\views\TWSH\TwshResetPassword.html" />
+    <Content Include="app\views\TWSH\TwshResultsAutomation.html" />
     <Content Include="app\views\TWSH\TwshResult_Popup.html" />
     <Content Include="app\views\TWSH\TwshRvrc.html" />
     <Content Include="app\views\TWSH\TwshSendSmsDetails.html" />

@@ -223,7 +223,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-2 form-group" ng-show="(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'||(examtype==28 &&scheme.schemeid == '9')||(examtype==29 &&scheme.schemeid == '9')">
+                                <div class="col-md-2 form-group" ng-show="(examtype==5 ||scheme.schemeid == '5') || scheme.schemeid == '3' || scheme.schemeid == '4' || scheme.schemeid == '1' || scheme.schemeid == '8' || scheme.schemeid == '2'||(examtype==28 &&scheme.schemeid == '9')||(examtype==29 &&scheme.schemeid == '9')||(examtype==5 &&scheme.schemeid == '9')">
                                     <label for="sel1">
                                         Exam Month/Year :
                                     </label>
@@ -396,7 +396,7 @@
                             </div>
                             <div class="col-lg-12">
 
-                                <div class="card-title" ng-show="AcadamicYear && (scheme.schemeid =='2' ||scheme.schemeid =='5' || scheme.schemeid =='3' ||scheme.schemeid =='4'||scheme.schemeid=='1'||scheme.schemeid =='8')">
+                                <div class="card-title" ng-show="AcadamicYear && (scheme.schemeid =='2' ||scheme.schemeid =='5' || scheme.schemeid =='3' ||scheme.schemeid =='4'||scheme.schemeid=='1'||scheme.schemeid =='8'|| scheme.schemeid =='9')">
                                     <h2><bold ng-if="SelStudentType.id ==2">Supplementary </bold>Marks Card <bold ng-if="examtype=='5'">{{AcadamicYear}}</bold></h2>
                                 </div>
                                 <div class="card-title" ng-if="!AcadamicYear &&  scheme.schemeid =='5'">
@@ -831,7 +831,7 @@
 
                                     <!--for old students marks display-->
 
-                                    <table class="table table-bordered" ng-if="(scheme.schemeid != '5' && scheme.schemeid != '8' && scheme.schemeid != '3' && scheme.schemeid != '4' &&  scheme.schemeid != '1' && scheme.schemeid != '2') && scheme.schemeid == '2'&& Result!='MALPRACTICE' && Result!='WITHHELD' ">
+                                    <table class="table table-bordered" ng-if="(scheme.schemeid != '9' &&scheme.schemeid != '5' && scheme.schemeid != '8' && scheme.schemeid != '3' && scheme.schemeid != '4' &&  scheme.schemeid != '1' && scheme.schemeid != '2') && scheme.schemeid == '2'&& Result!='MALPRACTICE' && Result!='WITHHELD' ">
                                         <thead>
                                             <tr>
                                                 <th>Subject Code</th>

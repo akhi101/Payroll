@@ -434,7 +434,7 @@ namespace CoreExamin.Controllers
                     if (dt.Tables[0].Rows.Count > 0)
                     {
                         merchantId = dt.Tables[0].Rows[0]["merchantId"].ToString();
-                        string UniqueTxnNo = dt.Tables[0].Rows[0]["checksum"].ToString();
+                        string UniqueTxnNo = dt.Tables[0].Rows[0]["UniqueTxnNo"].ToString();
                         string TxnReferenceNo = dt.Tables[0].Rows[0]["TxnReferenceNo"].ToString();
                         string ReceiptNo = dt.Tables[0].Rows[0]["ReceiptNo"].ToString();
                         string TxnAmount = dt.Tables[0].Rows[0]["TxnAmount"].ToString();
@@ -442,7 +442,7 @@ namespace CoreExamin.Controllers
                         string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
                         string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
                         string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
-                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + CheckSum;
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode;
                         return data;
                     }
                 }
