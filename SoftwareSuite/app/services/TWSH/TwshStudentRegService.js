@@ -24,7 +24,19 @@
             var paramObj = { "ExamMonthYearId": ExamMonthYearId }
             var promise = DataAccessService.postData('api/TwshStudentReg/TwshResultsAutomation_2_2_DeployResultsIntoMasters', paramObj);
             return promise;
-        };        
+        };
+
+        this.TwshRvRcMarksUploadandResultsProcessing = function (ExamMonthYearId, Json, UserName)  {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "Json": Json, "UserName": UserName }
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshRvRcMarksUploadandResultsProcessing', paramObj);
+            return promise;
+        };
+        this.TwshRvRcResultsDeployment = function (ExamMonthYearId, UserName) {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "UserName": UserName }
+            var promise = DataAccessService.postData('api/TwshStudentReg/TwshRvRcResultsDeployment', paramObj);
+            return promise;
+        };
+
 
         this.TransferStudent = function (ReqData) {
             // var paramObj = { "ReqData": ReqData };PIDResponseXML.InnerXml.Length

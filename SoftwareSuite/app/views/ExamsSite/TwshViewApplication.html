@@ -449,7 +449,7 @@
                     <button type="submit" ng-click="editData()">Edit Details </button>
                 </div>
             </div>
-            <div class="col-md-12 mtp-50">
+            <!--<div class="col-md-12 mtp-50">
                 <div class="card">
                     <div class="row">
                         <div class="col-md-12">
@@ -490,12 +490,14 @@
                                                 <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
                                             </span>
                                         </p>
-                                        <!--<div class="input-group date" id="datepicker1">
-                                            <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                        </div>-->
 
-                                    </div>
+                                        test : {{date1}}--> 
+                                        <!--<div class="input-group date" id="datepicker1">
+        <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
+
+                                    <!--</div>
                                 </div>
                                 <div class="col-md-4 " ng-show="tmpmode==1">
                                     <div class="form-group required">
@@ -505,13 +507,13 @@
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" ng-click="showFlag4 = true"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                        </p>
+                                        </p>-->
                                         <!--<div class="input-group date" id="datepicker2">
                                             <input autocomplete="off" ng-model="date2" class="form-control" ng-change="dates(date2,2)" type="text" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>-->
 
-                                    </div>
+                                    <!--</div>
                                 </div>
                                 <div class="col-md-4 " ng-show="tmpmode==1">
                                     <div class="form-group required">
@@ -521,13 +523,13 @@
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" ng-click="showFlag5 = true"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                        </p>
+                                        </p>-->
                                         <!--<div class="input-group date" id="datepicker3">
                                             <input autocomplete="off" ng-model="date3" class="form-control" ng-change="dates(date3,3)" type="text" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>-->
 
-                                    </div>
+                                    <!--</div>
                                 </div>
                                 <div class="col-md-4 " ng-show="tmpmode==1">
                                     <div class="form-group required">
@@ -537,12 +539,12 @@
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" ng-click="showFlag6 = true"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                        </p>
+                                        </p>-->
                                         <!--<div class="input-group date" id="datepicker4">dates
                                             <input autocomplete="off" ng-model="date4" class="form-control" ng-change="dates(date4,4)" type="text" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>-->
-                                    </div>
+                                    <!--</div>
                                 </div>
                                 <div class="col-md-4 " ng-show="tmpmode==1">
                                     <div class="form-group required">
@@ -552,13 +554,13 @@
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" ng-click="showFlag7 = true"><i class="fa fa-calendar"></i></button>
                                             </span>
-                                        </p>
+                                        </p>-->
                                         <!--<div class="input-group date" id="datepicker5">
                                             <input  autocomplete="off" ng-model="date5" class="form-control" ng-change="(date5,5)" type="text" />
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                         </div>-->
 
-                                    </div>
+                                    <!--</div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group required ">
@@ -575,7 +577,7 @@
                                         <input type="text" placeholder="Email Address" autocomplete="off" class="form-control" ng-model="EmailId" />
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12">-->
                                     <!--<div class="col-md-4">
                                         <div class="form-group required custom-img">
                                             <label>Update  Photo with a sign(size less than 50KB) :</label>-->
@@ -584,20 +586,20 @@
                                             <input type="file" id="stdPhotoFile" ng-model="userPhoto" onchange="angular.element(this).scope().uploadPhoto()" class="upld-file" required>
                                         </div>
                                     </div>-->
-                                    <div class="col-md-4" ng-show="stdSscCert != ''&& stdSscCert != null">
+                                    <!--<div class="col-md-4" ng-show="stdSscCert != ''&& stdSscCert != null">
                                         <div class="form-group required custom-img">
-                                            <label>Upload SSC/10th Certificate(size less than 300KB) :</label>
+                                            <label>Upload SSC/10th Certificate(size less than 300KB) :</label>-->
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
+                                            <!--<img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
                                             <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4" ng-show="StdinterCert != ''&& StdinterCert != null">
                                         <div class="form-group required custom-img">
-                                            <label>Lower Qualified Exam Certificate(size less than 300KB) :</label>
+                                            <label>Lower Qualified Exam Certificate(size less than 300KB) :</label>-->
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
+                                            <!--<img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
                                             <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
                                         </div>
                                     </div>
@@ -613,7 +615,7 @@
                 <div class="submit-btn" style="margin-bottom:0px;">
                     <button type="submit" ng-click="UpdateData()">Update Details</button>
                 </div>
-            </div>
+            </div>-->
 
         </div>
         <form name="StudentDetails" ng-submit="submitData()" ng-show="editStudentData ">
@@ -738,15 +740,19 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 1):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" is-open="showFlag3" required />
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag3" required />
+                                                <!--<input type="date" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag3" required />-->
+                                                <!--<input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag1" required />-->
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </p>
+                                            test : {{date1}}
+
                                             <!--<div class="input-group date" id="datepicker1">
-                                                <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
-                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            </div>-->
+        <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>-->
 
                                         </div>
                                     </div>
@@ -754,7 +760,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 2):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date2" is-open="showFlag4" required />
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date2" ng-change="dates(date2,2)" is-open="showFlag4" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag4 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -770,7 +776,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 3):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date3" is-open="showFlag5" required />
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date3" ng-change="dates(date3,3)" is-open="showFlag5" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag5 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -786,7 +792,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 4):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date4" is-open="showFlag6" required />
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date4" ng-change="dates(date4,4)" is-open="showFlag6" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag6 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -801,7 +807,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 5):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date5" is-open="showFlag7" required />
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date5" ng-change="dates(date5,5)" is-open="showFlag7" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag7 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>

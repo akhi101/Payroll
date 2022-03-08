@@ -2667,11 +2667,13 @@
             'Dashboard.TypeWriting.TwshResultsAutomation': {
                 url: "/TwshResultsAutomation",
                 templateUrl: 'app/views/TWSH/TwshResultsAutomation.html',
-                // dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService']
                 dependencies: ['controllers/TWSH/TwshResultsAutomationController', 'services/TWSH/TwshStudentRegService','controllers/Results/ResultsAutomationExcelUploadController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
             },
-
-
+            'Dashboard.TypeWriting.TwshRvrc': {
+                url: "/TwshRvrc",
+                templateUrl: 'app/views/TWSH/TwshRvrc.html',
+                dependencies: ['controllers/TWSH/TwshRvrcController', 'services/TWSH/TwshStudentRegService', 'controllers/Results/ResultsAutomationExcelUploadController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Results/StudentWiseService']
+            },
 
             'Dashboard.TypeWriting.TwshExamMonthYear': {
                 url: "/TwshExamMonthYear",
@@ -3539,8 +3541,7 @@
                 url: "/TranscriptApproval/TranscriptApprovalDetails/Transcript_StudentDetails",
                 templateUrl: 'app/views/PostExam/Transcript_StudentDetails.html',
                 dependencies: ['controllers/PostExam/Transcript_StudentDetailsController', 'services/PreExamination/PreExaminationService']
-            },
-
+            }, 
             //
 
             'Dashboard.StudentServices.TcApprovalList': {
