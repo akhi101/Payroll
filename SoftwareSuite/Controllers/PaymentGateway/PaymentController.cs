@@ -392,7 +392,7 @@ namespace CoreExamin.Controllers
 
 
                 /*
-                 * inserting log of s2s
+                 * inserting log of s2s0
                  * if checkSum is equal then inserting all the data in s2sLog with type = 1
                  * else checkSum is not equal then inseting data in s2sLog with type = 2
                  * 
@@ -442,8 +442,17 @@ namespace CoreExamin.Controllers
                         string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
                         string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
                         string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
-                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode;
-                        return data;
+
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode;
+                        string strCheckSumValue1 = "";
+                        //_paymentResp = msg;
+                        string[] arrResponse1 = data.Split('|');
+                        int index1 = data.LastIndexOf("|");
+                        string key1 = "ScG3yshuSFOr";
+                        string checksumkeyr1 = data.Substring(0, index1);
+                        string Checksumvalue1 = GetHMACSHA256(checksumkeyr1, key1);
+                        string _ChecksumvalueReceived1 = arrResponse1[7];
+                        return data + "|" + Checksumvalue1;
                     }
                 }
                 else if (!checksum.Equals(strCheckSumValue))
@@ -591,7 +600,7 @@ namespace CoreExamin.Controllers
                     if (dt.Tables[0].Rows.Count > 0)
                     {
                         merchantId = dt.Tables[0].Rows[0]["merchantId"].ToString();
-                        string UniqueTxnNo = dt.Tables[0].Rows[0]["checksum"].ToString();
+                        string UniqueTxnNo = dt.Tables[0].Rows[0]["UniqueTxnNo"].ToString();
                         string TxnReferenceNo = dt.Tables[0].Rows[0]["TxnReferenceNo"].ToString();
                         string ReceiptNo = dt.Tables[0].Rows[0]["ReceiptNo"].ToString();
                         string TxnAmount = dt.Tables[0].Rows[0]["TxnAmount"].ToString();
@@ -599,8 +608,16 @@ namespace CoreExamin.Controllers
                         string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
                         string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
                         string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
-                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode + '|' + CheckSum;
-                        return data;
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode ;
+                            string strCheckSumValue1 = "";
+                        //_paymentResp = msg;
+                        string[] arrResponse1 = data.Split('|');
+                        int index1 = data.LastIndexOf("|");
+                        string key1 = "ScG3yshuSFOr";
+                        string checksumkeyr1 = data.Substring(0, index1);
+                        string Checksumvalue1 = GetHMACSHA256(checksumkeyr1, key1);
+                        string _ChecksumvalueReceived1 = arrResponse1[7];
+                        return data+ "|"+ Checksumvalue1;
                     }
                 }
                 else if (!checksum.Equals(strCheckSumValue))
