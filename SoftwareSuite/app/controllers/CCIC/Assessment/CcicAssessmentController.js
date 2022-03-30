@@ -8,8 +8,7 @@
         AppSettings.UserName = authData.UserName;
 
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var UserTypeID = parseInt($scope.UserTypeID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             if (Usersdata.length > 0) {

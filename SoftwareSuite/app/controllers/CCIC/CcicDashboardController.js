@@ -11,27 +11,35 @@
         $scope.SessionID = $localStorage.SessionID;
         if (authData == undefined) {
             $state.go('index.WebsiteLogin');
-        } else {
+        }
+        else {
             $scope.UserName = authData.UserName;
-            AppSettings.UserName = authData.UserName;
-
-
-            AppSettings.LoggedUserId = authData.UserID;
             $scope.UserTypeID = authData.UserTypeID;
 
-
-            var GetCcicRecentNews = CcicAdminService.getCcicRecentNews();
+          
+        
+            var GetCcicRecentNews = CcicAdminService.GetCcicRecentNews();
             GetCcicRecentNews.then(function (response) {
 
-                $scope.RecentNews = response;
+                $scope.GetCcicRecentNews = response;
             },
                 function (error) {
                     alert("error while loading Recent News");
                     var err = JSON.parse(error);
                 });
 
+
+            AppSettings.InstitutionCode = authData.InstitutionCode;
+            AppSettings.InstitutionName = authData.InstitutionName;
+          
+            $scope.InstitutionCode = authData.InstitutionCode == "" || authData.InstitutionCode == null ? "" : authData.InstitutionCode;
+            $scope.InstitutionName = authData.InstitutionName == "" || authData.InstitutionName == null ? "" : authData.InstitutionName;
+           
+
+
+       
             var UserTypeID = parseInt($scope.UserTypeID);
-            var UserRightsdata = CcicSystemUserService.GetCcicModulesbyRole(UserTypeID);
+            var UserRightsdata = CcicSystemUserService.GetCcicUserModules(UserTypeID);
             UserRightsdata.then(function (Usersdata, status, headers, config, error) {
                 UserRights = Usersdata;
                 var modulesList = [];
@@ -64,7 +72,7 @@
 
 
 
-            var GetCcicRecentNews = CcicAdminService.getCcicRecentNews();
+            var GetCcicRecentNews = CcicAdminService.GetCcicRecentNews();
             GetCcicRecentNews.then(function (response) {
                 $scope.RecentNewsText = response;
                 if (response.Table !== undefined) {

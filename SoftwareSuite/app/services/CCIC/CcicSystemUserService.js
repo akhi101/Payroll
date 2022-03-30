@@ -2,14 +2,14 @@
     app.service("CcicSystemUserService", function (DataAccessService) {
 
 
-        this.GetCcicModulesbyRole = function (UserTypeID) {
+        this.GetCcicUserModules = function (UserTypeID) {
             var paramObject = { "UserTypeID": UserTypeID };
-            var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicModulesbyRole', paramObject);
+            var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicUserModules', paramObject);
             return promise;
         }
-        this.GetCcicSubModulesbyRole = function (UserTypeID, ModuleID) {
-            var paramObject = { "UserTypeID": UserTypeID, "ModuleID": ModuleID };
-            var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicSubModulesbyRole', paramObject);
+        this.GetCcicUserSubModules = function (UserTypeID,ModuleID) {
+            var paramObject = { "UserTypeID": UserTypeID,"ModuleID": ModuleID };
+            var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicUserSubModules', paramObject);
             return promise;
         }
 

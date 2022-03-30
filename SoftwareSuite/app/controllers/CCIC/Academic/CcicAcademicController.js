@@ -6,10 +6,11 @@
     
      
         AppSettings.UserName = authData.UserName;
-       
+        var UserTypeID = authData.UserTypeID;
+        
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var UserTypeID = parseInt($scope.UserTypeID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+       
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID,ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             if (Usersdata.length > 0) {
@@ -30,26 +31,6 @@
         });
         var SubmodulesList = [];
 
-        var obj = {};
-        obj.SysModName = 'Syllabus Coverage';
-        obj.SysModID = '4';
-        obj.ModuleRouteName = 'SyllabusCoverage';
-        obj.ModuleImageClass = 'small-box bg-maroon';
-        SubmodulesList.push(obj);
-
-        var obj = {};
-        obj.SysModName = 'Student Feedback';
-        obj.SysModID = '4';
-        obj.ModuleRouteName = 'StudentFeedback';
-        obj.ModuleImageClass = 'small-box bg-blue';
-        SubmodulesList.push(obj);
-
-        var obj = {};
-        obj.SysModName = 'Electives Selection';
-        obj.SysModID = '3';
-        obj.ModuleRouteName = 'ElectiveSelection';
-        obj.ModuleImageClass = 'small-box bg-yellow';
-        SubmodulesList.push(obj);
         $scope.SubmodulesList = SubmodulesList;
 
         $scope.OpenCcicDashboard = function () {

@@ -39,7 +39,7 @@
                 AppSettings.DistrictIDs = authData.DistrictIDs;
             AppSettings.College_Code = authData.College_Code;
             AppSettings.College_Name = authData.College_Name;
-            //alert("dashboard " + authData.SystemUserTypeId);
+           /* alert("dashboard " + authData.SystemUserTypeId);*/
             $scope.College_Code = authData.College_Code == "" || authData.College_Code == null ? "" : authData.College_Code;
             $scope.College_Name = authData.College_Name == "" || authData.College_Name == null ? "" : authData.College_Name;
             var UserTypeId = parseInt($scope.userType);

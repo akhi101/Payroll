@@ -9,9 +9,10 @@
         }
 
         var submodules = [];
+        var UserTypeID = authData.UserTypeID;
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var UserTypeID = parseInt($scope.UserTypeID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+      
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID,ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             var moduleroutename = "";

@@ -84,7 +84,7 @@
 
                     <marquee>
                         <ul>
-                            <li ng-repeat="data in RecentNews" style="list-style-type: none;" ng-bind-html-unsafe="data.RecentNewsText">
+                            <li ng-repeat="data in GetCcicRecentNews" style="list-style-type: none;" ng-bind-html-unsafe="data.RecentNewsText">
                                 <img class="gifImg" height="40" width="40" src="../../contents/img/gif.gif" /> <b style="letter-spacing:1px;">{{data.RecentNewsText}}</b>
                             </li>
                         </ul>

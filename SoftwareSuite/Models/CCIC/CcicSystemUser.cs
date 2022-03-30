@@ -9,11 +9,15 @@ namespace SoftwareSuite.Models.CCIC
     public class CcicSystemUser
     {
  
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
+            public int InstitutionID { get; set; }
+            public string InstitutionCode { get; set; }
+            public string InstitutionName { get; set; }
+
             public int UserTypeID { get; set; }
             
             public int UserID { get; set; }
+
+            public int CourseID { get; set; }
 
 
 

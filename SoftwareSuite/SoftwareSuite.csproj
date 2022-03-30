@@ -286,6 +286,7 @@
     <Compile Include="Controllers\CCIC\CcicStudentRegistrationController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemEntityRightsController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemUserController.cs" />
+    <Compile Include="Controllers\CCIC\Request.cs" />
     <Compile Include="Controllers\Common\CommunicationController.cs" />
     <Compile Include="Controllers\Common\Html2PDFGenerator.cs" />
     <Compile Include="Controllers\DigitalSignatureController.cs" />
@@ -568,6 +569,10 @@
     <Content Include="app\controllers\CCIC\CcicForgetPasswordController.js" />
     <Content Include="app\controllers\CCIC\CcicInstiTableController.js" />
     <Content Include="app\controllers\CCIC\CcicLoginController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicAcademicYearSettingsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentSettingsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\NewController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicCircularsController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicCircularsDashboardController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
@@ -1411,6 +1416,7 @@
     <Content Include="app\services\CCIC\CcicAdminService.js" />
     <Content Include="app\services\CCIC\CcicChangePasswordService.js" />
     <Content Include="app\services\CCIC\CcicForgetPasswordService.js" />
+    <Content Include="app\services\CCIC\CcicPreExaminationService.js" />
     <Content Include="app\services\CCIC\CcicSettingsService.js" />
     <Content Include="app\services\CCIC\CcicStudentRegistrationService.js" />
     <Content Include="app\services\CCIC\CcicSystemUserService.js" />
@@ -1837,14 +1843,20 @@
     <Content Include="app\views\BranchWise.html" />
     <Content Include="app\views\CCIC\Academic\CcicAcademic.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessment.html" />
+    <Content Include="app\views\CCIC\CcicAllRecentNewsPopup.html" />
     <Content Include="app\views\CCIC\CcicChangePassword.html" />
     <Content Include="app\views\CCIC\CcicCoursesCards.html" />
     <Content Include="app\views\CCIC\CcicDashboard.html" />
+    <Content Include="app\views\CCIC\CcicEditPopup.html" />
     <Content Include="app\views\CCIC\CCICFooter.html" />
     <Content Include="app\views\CCIC\CcicForgetPassword.html" />
     <Content Include="app\views\CCIC\CCICHeader.html" />
     <Content Include="app\views\CCIC\CcicInstiTable.html" />
     <Content Include="app\views\CCIC\CcicLogin.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicAcademicYearSettings.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicEnrollment.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicEnrollmentSettings.html" />
+    <Content Include="app\views\CCIC\CcicSettings\New.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCircularsDashboard.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicPostExamination.html" />
@@ -1856,6 +1868,7 @@
     <Content Include="app\views\CCIC\CourseDetailsPopup.html" />
     <Content Include="app\views\CCIC\CoursesPopup.html" />
     <Content Include="app\views\CCIC\InstitutesPopup.html" />
+    <Content Include="app\views\CCIC\Sa-Date.html" />
     <Content Include="app\views\CCIC\WebsiteLogin.html" />
     <Content Include="app\views\CenterManagemenet\AttachCollegeToPreZoneCenter.html" />
     <Content Include="app\views\CenterManagemenet\CenterPracticalBatchCreation.html" />

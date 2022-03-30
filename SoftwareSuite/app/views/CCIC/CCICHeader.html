@@ -54,12 +54,12 @@
                         <div class="time">
                             <p id="example">Date: <span>11-05-2019 16:45:11  GMT+0530 (India Standard Time)</span></p>
                         </div>
-                        <div class="college-details" ng-show="userType!=1">
+                        <div class="college-details" ng-if="UserTypeID!=1">
                             <ul class="cg-ul">
-                                <li ng-if="College_Code">College Code: <span>{{College_Code}}</span></li>
-                                <li ng-if="College_Name">College Name: <span>{{College_Name}}</span></li>
+                                <li><span>{{InstitutionCode}}:{{InstitutionName}}</span></li>
                             </ul>
                         </div>
+                      
                     </div>
                 </div>
             </div>
