@@ -191,7 +191,7 @@
             'CcicDashboard.Academic': {
                 url: "/Academic",
                 templateUrl: 'app/views/CCIC/Academic/CcicAcademic.html',
-                dependencies: ['controllers/CCIC/Academic/CcicAcademicController', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
+                dependencies: ['controllers/CCIC/Academic/CcicAcademicController', 'services/CCIC/CcicPreExaminationService', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
             },
 
 

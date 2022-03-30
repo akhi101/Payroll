@@ -14,8 +14,17 @@
         };
 
 
-        this.getSSCDetails = function (object) {
-            var promise = DataAccessService.postData('api/CcicPreExamination/GetSSCDetails', object);
+        //this.getSSCDetails = function (object) {
+        //    //var promise = DataAccessService.postData('api/CcicPreExamination/GetSSCDetails', object);
+        //    var promise = DataAccessService.postDataCustomUrl('https://www.sbtet.telangana.gov.in/API/api/TwshStudentReg/GetSSCDetails', object);
+        //    return promise;
+        //};
+
+        this.getSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAM) {
+            var paramObj = {
+                "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAM": STREAM
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetSSCDetails', paramObj);
             return promise;
         };
 
@@ -27,6 +36,10 @@
             return promise;
         };
 
+        this.VerifyEnrollmentDate = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate');
+        };
+
       
 
         this.GetCcicCurrentAcademicYear = function () {
@@ -36,6 +49,8 @@
         this.GetCcicCourseDurations = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCourseDurations');
         };
+
+
 
         this.GetCcicCourseDurationBatches = function (CourseDuration) {
             var paramObj = {
@@ -68,7 +83,14 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCourseExperience', paramObject);
             return promise;
         };
-       
+
+        this.AddStudentDetails = function (ApplicationNumber, InstitutionID, CourseID, CourseQualificationID, CourseExperienceID, SSC, SSCHallticketNumber, SSCPassedYear, SSCPassedType, StudentName, FatherName, MotherName, DateofBirth, SSCDateofBirth, Gender, AadharNumber, HouseNumber, Street, Landmark, Village, Pincode, District, AddressState, StudentMobile, StudentEmail,SSCValidated,UserName,StudentPhoto,StudentSign,SSCCertificate,QualificationCertificate, ExperienceCertificate) {
+            var paramObj = {
+                "ApplicationNumber": ApplicationNumber, "InstitutionID": InstitutionID, "CourseID": CourseID, "CourseQualificationID": CourseQualificationID, "CourseExperienceID": CourseExperienceID, "SSC": SSC, "SSCHallticketNumber": SSCHallticketNumber, "SSCPassedYear": SSCPassedYear, "SSCPassedType": SSCPassedType, "StudentName": StudentName, "FatherName": FatherName, "MotherName": MotherName, "DateofBirth": DateofBirth, "SSCDateofBirth": SSCDateofBirth, "Gender": Gender, "AadharNumber": AadharNumber, "HouseNumber": HouseNumber, "Street": Street, "Landmark": Landmark, "Village": Village, "Pincode": Pincode, "District": District, "AddressState": AddressState, "StudentMobile": StudentMobile, "StudentEmail": StudentEmail, "SSCValidated": SSCValidated, "UserName": UserName, "StudentPhoto": StudentPhoto, "StudentSign": StudentSign, "SSCCertificate": SSCCertificate, "QualificationCertificate": QualificationCertificate, "ExperienceCertificate": ExperienceCertificate
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddStudentDetails', paramObj);
+            return promise;
+        }
 
         this.AddAcademicYear = function (AcademicStartYear, AcademicYear, AcademicYearStartDate, AcademicYearEndDate,CurrentAcademicYear,UserName) {
             var paramObj = {

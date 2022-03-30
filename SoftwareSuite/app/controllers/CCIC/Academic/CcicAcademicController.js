@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, CcicSystemUserService) {
+    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, CcicPreExaminationService,$stateParams, AppSettings, CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
         $scope.userType = authData.SystemUserTypeID;
         $scope.UserName = authData.UserName;
@@ -37,14 +37,36 @@
             $scope.homeDashBoard = true;
             $state.go("CcicDashboard");
         }
+
+       
+        
         $scope.OpenSubModule = function (Module) {
-            $localStorage.Academic = {};
-            var academic = {
-              
-                
+          
+          
+            if (Module.ModuleRouteName == 'Enrollment') {
+                var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate();
+                VerifyDate.then(function (response) {
+                    if (response.Table[0].ResponseCode == '200') {
+                       
+                        $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
+
+                    } else {
+                        alert('Enrollment Dates Are Not Found')
+                        $state.go("CcicDashboard.Academic")
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
             }
-            $localStorage.Academic = academic;
-            $state.go("CcicDashboard.Academic" + Module.SubModuleRouteName);
+            else {
+                $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
+            }
+            
+            
         }
         $scope.logOut = function () {
             sessionStorage.loggedIn = "no";
