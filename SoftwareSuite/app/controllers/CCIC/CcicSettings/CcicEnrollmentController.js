@@ -17,7 +17,8 @@
             $scope.showEducation = false;
             $scope.SscForm = false;
             $scope.coursedetail = false;
-            var isSSCValidiated = false;
+            isSSCValidiated = false;
+           
                  
             $scope.StudentSscCertificate = false;
         }
@@ -153,6 +154,7 @@
             $scope.Experience = '';
             $scope.ExpDescription = '';
            
+           
 
             $scope.mode = '';
             $scope.sscHallticket = '';
@@ -263,24 +265,34 @@
             //}
 
             console.log($scope.stdPhoto);
-            var isSSC = $scope.mode == 1 ? 1 : 0
+            isSSC = $scope.mode == 1 ? 1 : 0;
 
             var addstddetails = CcicPreExaminationService.AddStudentDetails('', authData.InstitutionID, parseInt($scope.Course), $scope.CourseQualifications[0].CourseQualificationsID, $scope.CourseExperience[0].CourseExperienceID, isSSC, $scope.TENTH_HT_NO, parseInt($scope.TENTH_YEAR), $scope.STREAM, $scope.CNAME, $scope.FNAME, '', $scope.DOB_DATE, '', $scope.SEX, parseInt($scope.Aadhar), $scope.houseNo, $scope.street, $scope.landmark, $scope.village, $scope.pincode, $scope.district, $scope.state, $scope.mobileNO, $scope.email, isSSCValidiated, $scope.UserName, $scope.stdPhoto, $scope.stdSignature, $scope.stdSscCertificate, $scope.stdCertificateType, $scope.stdExperienceCertificate);
-            addstddetails.then(function (response) {
+            addstddetails.then(function (res) {
 
 
-                    if (res.ResponseCode == '200') {
-                        alert('Details Added Succesfully')
+                if (res.ResponseCode == '200') {
+                    alert('Details Added Succesfully')
 
-                    } else if (res.ResponseCode == '200') {
-                        alert('Details not correct')
-                    }
+                }
+             
+                else if (res.ResponseCode == '400') {
+                    alert('Reached Alloted Intake')
+                }
 
-                },
+                else if (res.ResponseCode == '200') {
+                    alert('Details Updated Successfully')
+                }
+              
+
+            },
+
                     function (error) {
 
                         var err = JSON.parse(error);
-                    })
+                })
+
+
             }
 
            
@@ -503,7 +515,8 @@
                     let resdata = JSON.parse(res)
                     if (resdata.length>0) {
                         $scope.applicationForm = true;
-                        isSSCValidiated = true;
+                       
+                        isSSCValidiated = $scope.getSSCDetails== true ? true : false;
 
 
                         $scope.CNAME = resdata[0].CNAME;
