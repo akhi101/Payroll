@@ -281,7 +281,7 @@
         </div>
 
         <div class="tab-content ">
-            <div class="row">
+            <div class="row" >
                 <div class="col-md-12">
                     <div class="col-md-12  mtp-50">
                         <div class="card">
@@ -322,11 +322,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4" ng-if="GetCcicCourseExperienceInfo.length>0">
+                                            <div class="col-md-4" ng-hide="GetCcicCourseExperienceInfo.length<0" ng-if="GetCcicCourseExperienceInfo.length>0">
                                                 <div class="form-group required">
                                                     <label>Experience</label>
 
-                                                    <select class="form-control " ng-model="Experience" name="Experience" ng-disabled="Submitted" required>
+                                                    <select class="form-control" ng-model="Experience" name="Experience" ng-disabled="Submitted" required>
                                                         <option value="" selected="selected">Select experience</option>
                                                         <option value="{{data.Experience}}" ng-repeat="data in GetCcicCourseExperienceInfo" class="">
                                                             {{data.Experience}}
@@ -433,7 +433,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="submit-btn " style="margin:0px;">
-                                                        <button type="submit"   ng-click="getsscDetails(TENTH_HT_NO,TENTH_YEAR,STREAM)">GetDetails</button>
+                                                        <button type="submit" ng-click="getsscDetails(TENTH_HT_NO,TENTH_YEAR,STREAM)">GetDetails</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -520,7 +520,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Aadhar Number</label>
-                                                        <input type="text" placeholder="AadharNumber" class="form-control" autocomplete="off" ng-model="Aadhar" required />
+                                                        <input type="text" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="Aadhar" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -687,7 +687,7 @@
                         </div>
 
                       
-                        <div class="col-md-12 mtp-50" ng-if="">
+                        <div class="col-md-12 mtp-50" ng-show="ShowDetails">
                             <div class="card">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -830,17 +830,18 @@
                                             </div>
 
                                             <div class="col-md-1 pull-right mtp-50">
-                                                <div class="submit-btn" style="margin-bottom:0px;">
-                                                    <button type="submit" ng-model="SubmitDetails" ng-click="SubmitDetails()">Submit</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 pull-right mtp-50">
 
                                                 <div class="cancel-btn" style="margin-bottom:0px;">
                                                     <button type="button" ng-model="EditDetails" ng-click="Modify()">Edit</button>
                                                 </div>
 
                                             </div>
+                                            <div class="col-md-2 pull-right mtp-50">
+                                                <div class="submit-btn" style="margin-bottom:0px;">
+                                                    <button type="submit" ng-model="SubmitDetails" ng-click="SubmitDetails()">Submit</button>
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-1 pull-right mtp-50">
 
                                             </div>
