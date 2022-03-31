@@ -152,6 +152,10 @@
                                     token: $localStorage.CcicAuthToken,
                                     SessionID: $scope.CcicLoginSessionEkey,
                                     UserName: $scope.CcicLogin.UserName.toUpperCase(),
+                                    CourseID: response.data.CourseID,
+                                    InstitutionID: response.data.InstitutionID,
+                                    InstitutionCode: response.data.InstitutionCode,                                  
+                                    InstitutionName: response.data.InstitutionName,
                                     UserTypeID: response.data.UserTypeID,
                                     UserID: response.data.UserID,
 

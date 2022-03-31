@@ -11,18 +11,18 @@ namespace SoftwareSuite.Controllers.CCIC
 {
     public class CcicSystemEntityRightsController : BaseController
     {
-        public string GetCcicModulesbyRole(Int32 UserTypeID)
+        public string GetCcicUserModules(int UserTypeID)
         {
             CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
-            IEnumerable<CcicSystemModules> SystemGroups = CcicSystemUserBLL.GetCcicModulesbyRole(UserTypeID);
+            IEnumerable<CcicSystemModules> SystemGroups = CcicSystemUserBLL.GetCcicUserModules(UserTypeID);
 
             return JsonConvert.SerializeObject(SystemGroups);
         }
 
-        public string GetCcicSubModulesbyRole(Int32 UserTypeID, Int32 ModuleID)
+        public string GetCcicUserSubModules(int UserTypeID,int ModuleID)
         {
             CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
-            IEnumerable<CcicSystemSubModules> SystemGroups = CcicSystemUserBLL.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+            IEnumerable<CcicSystemSubModules> SystemGroups = CcicSystemUserBLL.GetCcicUserSubModules(UserTypeID,ModuleID);
             return JsonConvert.SerializeObject(SystemGroups);
         }
 

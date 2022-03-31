@@ -1,12 +1,12 @@
 ﻿define(['app'], function (app) {
     app.controller("CcicSettingsController", function ($scope, $http, $localStorage, $state, AppSettings, CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
-        $scope.UserTypeID = authData.UserTypeID;
+       
         $scope.AssessmentModules = [];
-
+        var UserTypeID = parseInt(authData.UserTypeID);
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var UserTypeID = parseInt($scope.UserTypeID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+        
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID,ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             var moduleroutename = "";

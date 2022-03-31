@@ -1,31 +1,29 @@
-﻿using Newtonsoft.Json;
-using SoftwareSuite.Models.Database;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.SqlClient;
+using SoftwareSuite.Models.Database;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
-    public class CcicPageController
+    public class CcicPageController : BaseController
     {
 
-        [HttpPost, ActionName("AddCcicModule")]
-        public string AddCcicModule(string ModuleName, string ModuleRouteName, string ModuleCardClassName, int ModuleOrder, string UserName)
+        [HttpGet, ActionName("AddCcicModule")]
+        public string AddCcicModule(string ModuleName, string ModuleRouteName, int ModuleCardColourID,string UserName)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@ModuleName", ModuleName);
                 param[1] = new SqlParameter("@ModuleRouteName", ModuleRouteName);
-                param[2] = new SqlParameter("@ModuleCardClassName", ModuleCardClassName);
-                param[3] = new SqlParameter("@ModuleOrder", ModuleOrder);
-                param[4] = new SqlParameter("@UserName", UserName);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_AddModule", param);
+                param[2] = new SqlParameter("@ModuleCardColourID", ModuleCardColourID);
+                param[3] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Module", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -36,18 +34,185 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpPost, ActionName("AddCcicUserModule")]
-        public string AddCcicUserModule(int UserModuleID,int UserTypeID, int ModuleID)
+        [HttpGet, ActionName("UpdateCcicModule")]
+        public string UpdateCcicModule(int UpdateType, string UserName, int ModuleID,string ModuleName, bool Active,string ModuleRouteName, int ModuleCardColourID,int ModuleOrder)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2]= new SqlParameter("@ModuleID", ModuleID);
+                param[3] = new SqlParameter("@ModuleName", ModuleName);
+                param[4] = new SqlParameter("@Active", Active);
+                param[5] = new SqlParameter("@ModuleRouteName", ModuleRouteName);
+                param[6] = new SqlParameter("@ModuleCardColourID", ModuleCardColourID);
+                param[7] = new SqlParameter("@ModuleOrder", ModuleOrder);              
+                
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_Modules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("UpdateCcicSubModule")]
+        public string UpdateCcicSubModule(int UpdateType, string UserName, int SubModuleID, string SubModuleName, bool Active, string SubModuleRouteName, int ModuleCardColourID, int SubModuleOrder,int ModuleID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[9];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@SubModuleID", SubModuleID);
+                param[3] = new SqlParameter("@SubModuleName", SubModuleName);
+                param[4] = new SqlParameter("@Active", Active);
+                param[5] = new SqlParameter("@SubModuleRouteName", SubModuleRouteName);
+                param[6] = new SqlParameter("@ModuleCardColourID", ModuleCardColourID);
+                param[7] = new SqlParameter("@SubModuleOrder", SubModuleOrder);
+                param[8] = new SqlParameter("@ModuleID", ModuleID);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_SubModules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("AddCcicUserModule")]
+        public string AddCcicUserModule(int UserTypeID, int ModuleID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+               
+                param[0] = new SqlParameter("@UserTypeID", UserTypeID);
+                param[1] = new SqlParameter("@ModuleID", ModuleID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_UserModules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("AddCcicSubModules")]
+        public string AddCcicSubModules(int ModuleID,string SubModuleName, string SubModuleRouteName, int ModuleCardColourID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@ModuleID", ModuleID);
+                param[1] = new SqlParameter("@SubModuleName", SubModuleName);            
+                param[2] = new SqlParameter("@SubModuleRouteName", SubModuleRouteName);
+                param[3] = new SqlParameter("@ModuleCardColourID", ModuleCardColourID);
+                param[4] = new SqlParameter("@UserName", UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_SubModule", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("AddCcicUserSubModules")]
+        public string AddCcicUserSubModules(int UserTypeID, int ModuleID, int SubModuleID,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@UserTypeID", UserTypeID);
+                param[1] = new SqlParameter("@ModuleID", ModuleID);
+                param[2] = new SqlParameter("@SubModuleID", SubModuleID);
+                param[3] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_UserSubModules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("SetCcicModuleInactive")]
+        public string SetCcicModuleInactive(int UpdateType, string UserName, int ModuleID,string ModuleName,bool Active)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@ModuleID", ModuleID);
+                param[3] = new SqlParameter("@ModuleName", ModuleName);
+                param[4] = new SqlParameter("@Active", Active);
+                
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_Modules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("SetCcicSubModuleInactive")]
+        public string SetCcicSubModuleInactive(int UpdateType, string UserName, int SubModuleID, string SubModuleName, bool Active)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@SubModuleID", SubModuleID);
+                param[3] = new SqlParameter("@SubModuleName", SubModuleName);
+                param[4] = new SqlParameter("@Active", Active);
+                
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_SubModules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("SetCcicUserModuleInactive")]
+        public string SetCcicUserModuleInactive(int UserModuleID, bool Active, string UserName)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@UserModuleID", UserModuleID);
-                param[1] = new SqlParameter("@UserTypeID", UserTypeID);
-                param[2] = new SqlParameter("@ModuleID", ModuleID);
+                param[1] = new SqlParameter("@Active", Active);
+                param[2] = new SqlParameter("@UserName", UserName);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_AddUserModules", param);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Inactive_UserModules", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -56,102 +221,20 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-
-        [HttpPost, ActionName("AddCcicSubModules")]
-        public string AddCcicSubModules(int SubModuleID, string SubModuleName, string SubModuleRouteName, int ModuleCardColourID, int SubModuleOrder)
+        [HttpGet, ActionName("SetCcicUserSubModuleInactive")]
+        public string SetCcicUserSubModuleInactive(int UserSubModuleID, bool Active, string UserName)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@SubModuleID", SubModuleID);            
-                param[1] = new SqlParameter("@SubModuleName", SubModuleName);
-                param[2] = new SqlParameter("@SubModuleRouteName", SubModuleRouteName);
-                param[3] = new SqlParameter("@ModuleCardColourID", ModuleCardColourID);
-                param[2] = new SqlParameter("@SubModuleOrder", SubModuleOrder);
-
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_AddSubModules", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpPost, ActionName("AddCcicUserSubModule")]
-        public string AddCcicUserSubModule(int UserSubModuleID,int UserTypeID, int ModuleID, int SubModuleID)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@UserSubModuleID", UserSubModuleID);
-                param[1] = new SqlParameter("@UserTypeID", UserTypeID);
-                param[2] = new SqlParameter("@ModuleID", ModuleID);
-                param[3] = new SqlParameter("@SubModuleID", SubModuleID);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_AddUserSubModules", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpPost, ActionName("CcicUserModuleInactive")]
-        public string CcicUserModuleInactive(int ModuleID, int UserModuleID, int UserTypeID, int Active)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@ModuleID", ModuleID);
-                param[1] = new SqlParameter("@UserModuleID", UserModuleID);
-                param[2] = new SqlParameter("@UserTypeID", UserTypeID);
-                param[3] = new SqlParameter("@Active", Active);
-           
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_UserModuleInactive", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpPost, ActionName("CcicUserSubModuleInactive")]
-        public string CcicUserSubModuleInactive(int UserSubModuleID, int UserTypeID, int ModuleID, int SubModuleID, int Active)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@UserSubModuleID", UserSubModuleID);
-                param[1] = new SqlParameter("@UserTypeID", UserTypeID);
-                param[2] = new SqlParameter("@ModuleID", ModuleID);
-                param[3] = new SqlParameter("@SubModuleID", SubModuleID);
-                param[4] = new SqlParameter("@Active", Active);
+                param[1] = new SqlParameter("@Active", Active);
+                param[2] = new SqlParameter("@UserName", UserName);
+                
+                
              
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_UserSubModuleInactive", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpPost, ActionName("GetCcicSubmodulesByModule")]
-        public string GetCcicSubmodulesByModule(int ModuleID)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@ModuleID", ModuleID);
-
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GetSubModuleByModules", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Inactive_UserSubModules", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -162,43 +245,6 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-        [HttpGet, ActionName("GetCcicModules")]
-        public string GetCcicModules()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec USP_Get_Modules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
-                return JsonConvert.SerializeObject(res);
-            }
-            catch (Exception ex)
-            {
-
-                dbHandler.SaveErorr("USP_Get_Modules", 0, ex.Message);
-                throw ex;
-            }
-        }
-
-        [HttpGet, ActionName("getCcicSubModules")]
-        public string getCcicSubModules()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec USP_GetSubModules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
-                return JsonConvert.SerializeObject(res);
-            }
-            catch (Exception ex)
-            {
-
-                dbHandler.SaveErorr("USP_GetSubModules", 0, ex.Message);
-                throw ex;
-            }
-        }
 
         [HttpGet, ActionName("GetAllCcicModules")]
         public string GetAllCcicModules()
@@ -207,76 +253,102 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec USP_Get_AllModules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
+                StrQuery = "exec SP_Get_Modules";
+                var res = dbHandler.ReturnDataSet(StrQuery);
                 return JsonConvert.SerializeObject(res);
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("USP_Get_AllModules", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_Modules", 0, ex.Message);
                 throw ex;
             }
         }
 
-        [HttpGet, ActionName("GetAllCcicUserModules")]
-        public string GetAllCcicUserModules()
+
+        [HttpGet, ActionName("GetAllCcicSubModules")]
+        public string GetAllCcicSubModules()
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec SP_Get_AllUserModules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
+                StrQuery = "exec SP_Temp_Get_AllSubModules";
+                var res = dbHandler.ReturnDataSet(StrQuery);
                 return JsonConvert.SerializeObject(res);
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_AllUserModules", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Temp_Get_AllSubModules", 0, ex.Message);
                 throw ex;
             }
         }
 
-        [HttpGet, ActionName("getAllCcicSubModules")]
-        public string getAllCcicSubModules()
+        [HttpGet, ActionName("GetCcicUserModules")]
+        public string GetCcicUserModules(int UserTypeID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_GetAllSubModules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
-                return JsonConvert.SerializeObject(res);
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserTypeID", UserTypeID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AllUserModules", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-
-                dbHandler.SaveErorr("SP_GetAllSubModules", 0, ex.Message);
-                throw ex;
+                return ex.Message;
             }
         }
 
-        [HttpGet, ActionName("getCcicAllUserSubModules")]
-        public string getCcicAllUserSubModules()
+
+
+   
+
+
+
+        [HttpGet, ActionName("GetCcicSubModules")]
+        public string GetCcicSubModules(int ModuleID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_GetAllUserSubModules";
-                var res = dbHandler.ReturnDataWithStoredProcedure(StrQuery);
-                return JsonConvert.SerializeObject(res);
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ModuleID", ModuleID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_SubModules", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-
-                dbHandler.SaveErorr("SP_GetAllUserSubModules", 0, ex.Message);
-                throw ex;
+                return ex.Message;
             }
         }
 
 
-      
+        [HttpGet, ActionName("GetCcicUserSubModules")]
+        public string GetCcicUserSubModules(int UserTypeID,int ModuleID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@UserTypeID", UserTypeID);
+                param[1] = new SqlParameter("@ModuleID", ModuleID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AllUserSubModules", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
+
     }
 }

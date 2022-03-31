@@ -43,7 +43,7 @@ namespace SoftwareSuite.Controllers.CCIC
             StringBuilder builder = new StringBuilder();
             Random random = new Random();
             char ch;
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 30; i++)
             {
                 ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
                 builder.Append(ch);
@@ -80,7 +80,7 @@ namespace SoftwareSuite.Controllers.CCIC
             if (User.CcicSystemUser.Count > 0 && User.CcicUserAuth[0].ResponceCode == "200")
             {
                 var u = User.CcicSystemUser[0];
-                CcicAuthToken t = new CcicAuthToken { FirstName = u.FirstName, LastName = u.LastName, UserTypeID = u.UserTypeID, UserID = u.UserID, ExpiryDate = DateTime.Now.AddHours(1) };
+                CcicAuthToken t = new CcicAuthToken { CourseID = u.CourseID,InstitutionID = u.InstitutionID, InstitutionCode = u.InstitutionCode, InstitutionName =u.InstitutionName, UserTypeID = u.UserTypeID, UserID = u.UserID, ExpiryDate = DateTime.Now.AddHours(1) };
 
                 token = crypt.Encrypt(JsonConvert.SerializeObject(t));
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User, clientIPAddress });
@@ -90,7 +90,7 @@ namespace SoftwareSuite.Controllers.CCIC
             else
             {
                 var u = User.CcicSystemUser[0];
-                CcicAuthToken t = new CcicAuthToken { FirstName = u.FirstName, LastName = u.LastName, UserTypeID = u.UserTypeID, UserID = u.UserID, ExpiryDate = DateTime.Now.AddHours(1) };
+                CcicAuthToken t = new CcicAuthToken { CourseID = u.CourseID, InstitutionID = u.InstitutionID, InstitutionCode = u.InstitutionCode, InstitutionName = u.InstitutionName, UserTypeID = u.UserTypeID, UserID = u.UserID, ExpiryDate = DateTime.Now.AddHours(1) };
 
                 token = crypt.Encrypt(JsonConvert.SerializeObject(t));
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User });
@@ -185,7 +185,7 @@ namespace SoftwareSuite.Controllers.CCIC
             CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
             CcicSystemRes CcicForgetRes = new CcicSystemRes();
             var passcrypt = new CcicCrypt();
-            CcicForgetRes = CcicSystemUserBLL.GetCcicForgetPassword(UserName.Replace("'", "''"), UserMobile);
+            CcicForgetRes = CcicSystemUserBLL.GetCcicForgetPassword(UserName.Replace("'", "''"),UserMobile);
             string retMsg = string.Empty;
             if (CcicForgetRes.ResponceCode == "200")
             {

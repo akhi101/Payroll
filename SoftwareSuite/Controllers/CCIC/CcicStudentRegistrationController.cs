@@ -28,7 +28,7 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 var db = new ccicdbHandler();
                 var Courselist = new List<CcicModels>();
-                var dt = db.ReturnData("exec SP_Get_AffiliatedCourses");
+                var dt = db.ReturnDataSet("exec SP_Get_AffiliatedCourses");
                 Courselist = dt.DataTableToList<CcicModels>();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Courselist);
                 return response;
@@ -50,7 +50,7 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 var db = new ccicdbHandler();
                 var Institutionlist = new List<CcicInstitutions>();
-                var dt = db.ReturnData("exec SP_Get_AffiliatedInsttitutions");
+                var dt = db.ReturnDataSet("exec SP_Get_AffiliatedInsttitutions");
                 Institutionlist = dt.DataTableToList<CcicInstitutions>();
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Institutionlist);
                 return response;
@@ -132,7 +132,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
                 param[2] = new SqlParameter("@CourseID", data["CourseID"]);
                 param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
-                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_RegistrationEmailOTP", param);
+                DataSet dt = dbHandler.ReturnDataSet("SP_Get_RegistrationEmailOTP", param);
                 if (dt.Tables[0].Rows[0]["StatusCode"].ToString() == "200")
                 {
 
@@ -185,7 +185,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
                 param[2] = new SqlParameter("@CourseID", data["CourseID"]);
                 param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
-                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_RegistrationMobileOTP", param);
+                DataSet dt = dbHandler.ReturnDataSet("SP_Get_RegistrationMobileOTP", param);
                 if (dt.Tables[0].Rows[0]["StatusCode"].ToString() == "200")
                 {
                     var com = new CommunicationController();
@@ -219,7 +219,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[2] = new SqlParameter("@CourseID", data["CourseID"]);
                 param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
                 param[4] = new SqlParameter("@EmailOTP", data["EmailOTP"]);
-                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Verify_RegistrationEmailOTP", param);
+                DataSet dt = dbHandler.ReturnDataSet("SP_Verify_RegistrationEmailOTP", param);
                 List<HttpResponse> Resp = dt.Tables[0].DataTableToList<HttpResponse>();
                 HttpResponseMessage HttpResponse = Request.CreateResponse(HttpStatusCode.OK, Resp);
                 return HttpResponse;
@@ -247,7 +247,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[2] = new SqlParameter("@CourseID", data["CourseID"]);
                 param[3] = new SqlParameter("@CandidateName", data["CandidateName"]);
                 param[4] = new SqlParameter("@MobileOTP", data["MobileOTP"]);
-                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Verify_RegistrationMobileOTP", param);
+                DataSet dt = dbHandler.ReturnDataSet("SP_Verify_RegistrationMobileOTP", param);
                 var Resp = NewMethod(dt);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, Resp);
                 return response;

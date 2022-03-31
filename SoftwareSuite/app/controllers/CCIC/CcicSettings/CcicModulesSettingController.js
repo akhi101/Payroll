@@ -1,63 +1,94 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicModulesSettingController", function ($scope, $http, $localStorage, $state, AppSettings, CcicAdminService, CcicSystemUserService, CcicSettingsService) {
+    app.controller("CcicModulesSettingController", function ($scope, $http, $localStorage, $uibModal, $state, AppSettings, CcicAdminService, CcicSystemUserService, CcicSettingsService) {
         const $ctrl = this
 
-        //$ctrl.$onInit = () => {
-        //    $scope.UserTypeID = $localStorage.moduleData.UserTypeID
-        //    $scope.ModuleID = $localStorage.moduleData.ModuleID
-        //    $scope.getSubModules()
-        //    $scope.getUserSubModules()
-        //}
-
-        var authData = $localStorage.authorizationData;
-        $scope.UserTypeID = authData.UserTypeID
         $ctrl.$onInit = () => {
             $scope.result = false;
 
-            $scope.getUserModules();
+    
+            $scope.modulecolours()
+            $scope.getModules()
         }
-        var GetAllCcicModules = CcicSettingsService.GetAllCcicModules();
-        GetAllCcicModules.then(function (response) {
-            if (response.Table.length > 0) {
-                $scope.modules = response.Table;
+
+
+        var authData = $localStorage.authorizationData;
+        $scope.UserTypeID = authData.UserTypeID
+       
+        $scope.tab1 = function () {
+            $scope.CardName = '';
+            $scope.CardColour = '';
+            $scope.CardRoute = '';
+        }
+        $scope.tab2 = function () {
+            $scope.UserType = '';
+            $scope.ModuleName = '';
+            $scope.ModuleID = '';
+        }
+        $scope.tab3 = function () {
+
+            $scope.moduleid = '';
+            $scope.SubModuleName = '';
+            $scope.SubModuleRouteName = '';
+            $scope.modulecolour = '';
+
+
+
+         
+        }
+        $scope.tab4 = function () {
+            $scope.userTypeId = '';
+            $scope.ModuleId = '';
+            $scope.submodule = '';
+        }
+
+        $scope.Editsemesterdat = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+                ele1[j].style['-webkit-appearance'] = "auto";
+                ele1[j].style['-moz-appearance'] = "auto";
             }
-        },
-            function (error) {
-                alert("error while loading Modules");
-               var err = JSON.parse(error);
+            $scope['edit' + ind] = false;
 
-            });
+        }
 
-        var GetCcicModuleColours = CcicSettingsService.GetCcicModuleColours();
-        GetCcicModuleColours.then(function (response) {
-            if (response.Table.length > 0) {
+        $scope.getModules = function () {
+            var GetAllCcicModules = CcicSettingsService.GetAllCcicModules();
+            GetAllCcicModules.then(function (response) {
+
+                $scope.GetAllCcicModules = response;
+
+            },
+                function (error) {
+                    alert("error while loading Modules");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+        $scope.modulecolours = function () {
+            var getCcicModuleColours = CcicAdminService.GetCcicModuleColours();
+            getCcicModuleColours.then(function (response) {
+
                 $scope.ModuleCardColours = response.Table;
-            }
-        },
-            function (error) {
 
-                var err = JSON.parse(error);
+            },
+                function (error) {
+                    var err = JSON.parse(error);
+                });
+        }
 
-            });
-
-
-        var GetAllCcicModules = CcicSettingsService.GetAllCcicModules();
-        GetAllCcicModules.then(function (response) {
-            if (response.Table.length > 0) {
-                $scope.GetAllCcicModules = response.Table;
-            }
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
-
-            });
         $scope.getUserModules = function () {
-            var GetAllCcicUserModules = CcicSettingsService.GetAllCcicUserModules();
-            GetAllCcicUserModules.then(function (response) {
-                if (response.Table.length > 0) {
-                    $scope.GetAllCcicUserModules = response.Table;
-                }
+            if ($scope.UserType == null || $scope.UserType == undefined || $scope.UserType == "") {
+                return;
+            }
+            var GetCcicUserModules = CcicSettingsService.GetCcicUserModules($scope.UserType);
+            GetCcicUserModules.then(function (response) {
+
+                $scope.GetCcicUserModules = response;
+
             },
                 function (error) {
                     alert("error while loading Modules");
@@ -66,11 +97,40 @@
                 });
 
         }
-        var GetCcicModules = CcicSettingsService.GetCcicModules();
+
+
+        $scope.getAllUserModules = function () {
+            var GetAllCcicUserModules = CcicSettingsService.GetAllCcicUserModules();
+            GetAllCcicUserModules.then(function (response) {
+
+                $scope.GetAllCcicUserModules = response;
+
+            },
+                function (error) {
+                    alert("error while loading Modules");
+                    var err = JSON.parse(error);
+
+                });
+
+        }
+
+        var GetCcicModules = CcicSettingsService.GetAllCcicModules();
         GetCcicModules.then(function (response) {
-            if (response.Table.length > 0) {
-                $scope.GetCcicModules = response.Table;
-            }
+
+            $scope.GetAllCcicModules = response;
+
+        },
+            function (error) {
+                alert("error while loading Modules");
+                var err = JSON.parse(error);
+
+            });
+
+        var GetAllCcicSubModules = CcicSettingsService.GetAllCcicSubModules();
+        GetAllCcicSubModules.then(function (response) {
+
+            $scope.GetAllCcicSubModules = response;
+
         },
             function (error) {
                 alert("error while loading Modules");
@@ -81,25 +141,30 @@
 
 
 
-        $scope.GetAllModulesbyRoles = function () {
-            var getModues = CcicAdminService.GetAllCcicModulesbyRole($scope.UserTypeID);
-            getModues.then(function (response) {
-                if (response.length > 0) {
-                    $scope.modules = response;
-                    $scope.result = true;
+        $scope.AddCcicModule = function () {
+            var SetModues = CcicSettingsService.AddCcicModule($scope.CardName, $scope.CardRoute, $scope.CardColour, $scope.UserName);
+            SetModues.then(function (response) {
+                if (response[0].ResponseCode == '400') {
+                    alert(response[0].ResponseDescription)
+                    $scope.getModules();
+                    $scope.clearDefaults();
+                } else {
+                    alert('Module Added Succesfully')
+                    $scope.getModules();
+                    $scope.clearDefaults();
+
                 }
+                
             },
                 function (error) {
 
                     var err = JSON.parse(error);
-                    $scope.result = false;
-                });
-        };
+                })
+        }
 
-        $scope.Switchmodule = function (ModuleID, Active) {
+        $scope.SetModuleStatus = function (ModuleID, ModuleName,Active) {
 
-            $scope.UserTypeID = authData.UserTypeID
-            $scope.UserTypeID = authData.UserTypeID
+          
 
             if (Active == true) {
                 var Active = 0;
@@ -107,10 +172,17 @@
                 var Active = 1;
             }
 
-            var SetModues = CcicAdminService.SetCcicModuleInactive($scope.UserTypeID, ModuleID, Active);
-            SetModues.then(function (response) {
-                alert(response[0].Message);
-                $scope.GetAllModulesbyRoles();
+            var SetModues = CcicSettingsService.SetCcicModuleInactive(1, $scope.UserName, ModuleID, ModuleName, Active);
+            SetModues.then(function (responce) {
+                if (responce[0].ResponceCode == '400') {
+                    alert(responce[0].ResponceDescription)
+                    $scope.clearDefaults();
+                } else {
+                    alert('Module Status Changed Successfully')
+                    $scope.getModules();
+                    $scope.clearDefaults();
+                }
+
             },
                 function (error) {
 
@@ -118,44 +190,62 @@
                 })
         };
 
-        $scope.AddCcicModule = function () {
-            var SetModues = CcicSettingsService.AddCcicModule($scope.ModuleName, $scope.ModuleCardColourID, $scope.ModuleRouteName);
-            SetModues.then(function (response) {
-                alert(response[0].Message);
-                $scope.GetAllCcicModules();
-                alert('Module Added Succesfully')
-            },
-                function (error) {
+        $scope.modify = function (ind) {
+            $scope.viewField = true;
+            $scope.modifyField = true;
+           
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+                ele1[j].style['-webkit-appearance'] = "auto";
+                ele1[j].style['-moz-appearance'] = "auto";
+            }
+            $scope['edit' + ind] = false;
 
-                    var err = JSON.parse(error);
-                })
-        }
+        };
 
-        $scope.InactiveUserModule = function (ModuleID, Active, UserTypeID) {
-            if (IsActive == true) {
-                var Active = 0;
-            } else {
-                var Active = 1;
+        $scope.update = function (ind,ModuleID, ModuleName, ModuleRouteName, ModuleCardColourName, ModuleOrder) {
+
+            $scope.viewField = false;
+            $scope.modifyField = false;
+            $scope['edit' + ind] = true;
+
+            var ele2 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele2.length; j++) {
+                ele2[j].style['pointer-events'] = "none";
+                ele2[j].style.border = "0";
+                ele2[j].style['-webkit-appearance'] = "none";
+                ele2[j].style['-moz-appearance'] = "none";
             }
 
-            var SetModues = CcicSettingsService.CcicUserModuleInactive(ModuleID, Active, UserTypeID);
-            SetModues.then(function (response) {
-                alert('Status Changed Successfully')
-                $scope.getUserModules();
+            var update = CcicSettingsService.UpdateCcicModule(2, $scope.UserName, ModuleID, ModuleName, true, ModuleRouteName, ModuleCardColourName, ModuleOrder);
+            update.then(function (response) {
+                alert("Module Updated Successfully")
+                $scope.getModules();
+                $scope.clearDefaults();
             },
                 function (error) {
-                    var err = JSON.parse(error);
-                })
-        };
+                    alert("error while loading Data");
+                    console.log(error);
+                });
+        }
+
 
         $scope.AddCcicUserModule = function () {
-            var SetModues = CcicSettingsService.AddCcicUserModule($scope.UserTypeID, $scope.ModuleID);
+            var SetModues = CcicSettingsService.AddCcicUserModule($scope.UserType, $scope.ModuleID, $scope.UserName);
             SetModues.then(function (response) {
                 if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription)
+                    $scope.clearDefaults();
+                    
                 } else {
-                    alert('User Module Added Successfully')
+                    
+                    alert('User Module Added Successfully')                 
                     $scope.getUserModules();
+                    $scope.clearDefaults();
+                   
+                    
                 }
 
             },
@@ -166,6 +256,32 @@
         }
 
 
+        $scope.SwitchUserModule = function (UserModuleID, Active) {
+
+            if ($scope.UserType == null || $scope.UserType == undefined || $scope.UserType == "") {
+                alert("Please Select UserType to use the Operation");
+                return
+            }
+
+            if (Active == true) {
+                var Active = 0;
+            } else {
+                var Active = 1;
+            }
+
+            var SetModues = CcicSettingsService.SetCcicUserModuleInactive(UserModuleID, Active, $scope.UserName);
+            SetModues.then(function (response) {
+                alert("UserModule Status Updated Successfully");
+                $scope.getUserModules();
+                $scope.clearDefaults();
+                
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+        };
 
 
         var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
@@ -178,10 +294,10 @@
             });
 
         $scope.GetAllCcicModules = function () {
-            var GetAllCcicModules = CcicAdminService.GetAllCcicModules;
+            var GetAllCcicModules = CcicSettingsService.GetAllCcicModules;
             GetAllCcicModules.then(function (response) {
                 if (response.length > 0) {
-                    $scope.modules = response;
+                    $scope.GetAllCcicModules = response.Table;
                     $scope.result = true;
                 }
 
@@ -202,221 +318,246 @@
         }
 
 
-        $scope.AddSubModule = function () {
-            var AddModules = MasterSettingsService.AddSubModules($scope.ModuleId, $scope.ColourId, $scope.SubModule, $scope.SubModuleRouteName);
-            AddModules.then(function (response) {
-                alert('Sub Module Changed Successfully')
-                $scope.getSubModules()
-                var getModues = MasterSettingsService.getAllSubModules();
-                getModues.then(function (response) {
-                    if (response.Table.length > 0) {
-                        //     console.log(response);
-                        $scope.getAllSubModules = response.Table;
-                        // $scope.result = true;
-                    }
-                },
-                    function (error) {
-                        alert("error while loading Modules");
-                        var err = JSON.parse(error);
-
-                    });
-                $scope.getUserSubModules()
-
-                //$scope.getUserSubModules()
-            },
-                function (error) {
-                    alert("error while loading Modules");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                })
-        }
-
+       
 
         $scope.getSubModules = function () {
-            var getModues = AdminService.GetSubModulesbyRole($scope.usertypeId, $scope.ModuleId);;
-            getModues.then(function (response) {
-                console.log(response)
-                $scope.SubModules = response;
-            },
-                function (error) {
-                    alert("error while loading Modules");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
-        }
-        var GetCcicSubModules = CcicSettingsService.GetCcicSubModules();
-        GetCcicSubModules.then(function (response) {
-            if (response.Table.length > 0) {
-                console.log(response);
-                $scope.GetCcicSubModules = response.Table;
-                // $scope.result = true;
+            if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
+                return;
             }
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
+            var GetCcicSubModules = CcicSettingsService.GetCcicSubModules($scope.moduleid);
+            GetCcicSubModules.then(function (response) {
 
-            });
-
-        var GetCcicModuleColours = CcicSettingsService.GetCcicModuleColours();
-        GetCcicModuleColours.then(function (response) {
-            if (response.Table.length > 0) {
-                console.log(response);
-                $scope.GetCcicModuleColours = response.Table;
-                // $scope.result = true;
-            }
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
-
-            });
-
-        var GetCcicModules = CcicSettingsService.GetCcicModules();
-        GetCcicModules.then(function (response) {
-            if (response.Table.length > 0) {
-                //     console.log(response);
-                $scope.GetCcicModules = response.Table;
-                // $scope.result = true;
-            }
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
-
-            });
-
-        var GetAllCcicSubModules = CcicSettingsService.GetAllCcicSubModules();
-        GetAllCcicSubModules.then(function (response) {
-            if (response.Table.length > 0) {
-                //     console.log(response);
-                $scope.GetAllCcicSubModules = response.Table;
-                // $scope.result = true;
-            }
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
-
-            });
-        $scope.getUserSubModules = function () {
-            var getModues = CcicSettingsService.getAllUserSubModules();
-            getModues.then(function (response) {
-                if (response.Table.length > 0) {
-                    //     console.log(response);
-                    $scope.getAllUserSubModules = response.Table;
-                    // $scope.result = true;
-                }
-            },
-                function (error) {
-                    alert("error while loading Modules");
-                    var err = JSON.parse(error);
-
-                });
-        }
-
-        $scope.ChangeModules = function (ModuleId) {
-            var SetModues = CcicSettingsService.GetSubmodulesByModule(ModuleId);
-            SetModues.then(function (response) {
-                if (response.length > 0) {
-                    $scope.GetSubModulesByModule = response;
-                } else {
-                    alert('No Sub-Modules Found')
-                }
+                $scope.GetCcicSubModules = response;
 
             },
                 function (error) {
                     alert("error while loading SubModules");
                     var err = JSON.parse(error);
-                    console.log(err.Message);
-                })
+
+                });
+
         }
 
-        $scope.SubModuleInactive = function (ModuleId, IsActive, UserTypeId) {
-            //alert(IsActive)
-            if (IsActive == true) {
-                var Active = 0;
-            } else {
-                var Active = 1;
-            }
+        $scope.clearDefaults = function () {
 
-            var SetModues = CcicSettingsService.UserSubModuleInactive(ModuleId, Active, UserTypeId);
+            $scope.CardName = '';
+            $scope.CardColour = '';
+            $scope.CardRoute = '';
+
+
+
+
+            $scope.UserType = '';
+            $scope.ModuleName = '';
+            $scope.ModuleID = '';
+          
+            
+
+            $scope.moduleid = '';
+            $scope.SubModuleName = '';
+            $scope.SubModuleRouteName = '';
+            $scope.modulecolour = '';
+
+
+
+            $scope.userTypeId = '';
+            $scope.ModuleId = '';
+            $scope.submodule = '';
+        }
+        $scope.AddCcicSubModules = function () {
+            var SetModues = CcicSettingsService.AddCcicSubModules($scope.moduleid, $scope.SubModuleName, $scope.SubModuleRouteName, $scope.modulecolour, $scope.UserName);
             SetModues.then(function (response) {
-                alert('Status Changed Successfully')
-                $scope.getUserSubModules()
-
-            },
-                function (error) {
-                    alert("error while loading Modules");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                })
-        };
-
-
-
-        var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
-        GetCcicUserTypes.then(function (response) {
-            // $scope.ActiveSemesters = response.Table;
-
-            $scope.UserTypes = response.Table
-        },
-            function (error) {
-                alert("error while loading User Types");
-                var err = JSON.parse(error);
-                console.log(err.Message);
-            });
-
-
-        $scope.AddUserSubModule = function (userTypeId, ModuleId, SubModuleId) {
-
-
-            //alert($scope.userTypeId)
-            var SetSubModues = MasterSettingsService.AddUserSubModule(userTypeId, ModuleId, SubModuleId);
-            SetSubModues.then(function (response) {
                 if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription)
+                    $scope.getSubModules();
+                    $scope.clearDefaults();
                 } else {
-                    // console.log(response);
-                    alert('User Sub Module Added Succesfully')
-                    $scope.getUserSubModules()
-                }
 
+                    alert('Sub Module Added Successfully')
+                    $scope.getSubModules();
+                    $scope.clearDefaults();
+
+                }
 
             },
                 function (error) {
-                    alert("error while loading Modules");
+
                     var err = JSON.parse(error);
-                    console.log(err.Message);
                 })
         }
+        
+        $scope.SetSubModuleStatus = function (SubModuleID, SubModuleName, Active) {
 
-
-
-
-        $scope.SwitchSubmodule = function (SubModuleId, IsActive) {
-            //alert(SubModuleId);
-            //alert(IsActive)
-            if (IsActive == true) {
+            if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
+                alert("Please Select Module to use the Operation");
+                return
+            }
+    
+            if (Active == true) {
                 var Active = 0;
             } else {
                 var Active = 1;
             }
-            //console.log(usertypeId, ModuleId, SubModuleId, Active)
-            var SetModues = AdminService.SetSubModuleInactive($scope.usertypeId, $scope.ModuleId, SubModuleId, Active);
-            SetModues.then(function (response) {
-                console.log(response)
-                // $scope.SubModules = response;
-                alert(response[0].Message);
-                $scope.getSubModules();
+
+            var SetModues = CcicSettingsService.SetCcicSubModuleInactive(1, $scope.UserName, SubModuleID, SubModuleName, Active);
+            SetModues.then(function (responce) {
+                if (responce[0].ResponceCode == '400') {
+                    alert(responce[0].ResponceDescription)
+                    $scope.getSubModules();
+                    $scope.clearDefaults();
+                } else {
+                    alert('SubModule Status Updated Successfully')
+                    $scope.getSubModules();
+                    $scope.clearDefaults();
+                }
+
             },
                 function (error) {
-                    alert("error while loading Modules");
+
                     var err = JSON.parse(error);
-                    console.log(err.Message);
                 })
         };
 
+        $scope.ModifyStatus = function (ind) {
 
+            if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
+                alert("Please Select Module to use the Operation");
+                return
+            }
+            $scope.viewField = true;
+            $scope.modifyField = true;
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+                ele1[j].style['-webkit-appearance'] = "auto";
+                ele1[j].style['-moz-appearance'] = "auto";
+            }
+            $scope['edit' + ind] = false;
+
+        };
+
+        $scope.UpdateStatus = function (ind, SubModuleID, SubModuleName, SubModuleRouteName, ModuleCardColourName, SubModuleOrder) {
+
+
+            if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
+                alert("Please Select Module to use the Operation");
+                return
+            }
+            $scope.viewField = false;
+            $scope.modifyField = false;
+            $scope['edit' + ind] = true;
+
+            var ele2 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele2.length; j++) {
+                ele2[j].style['pointer-events'] = "none";
+                ele2[j].style.border = "0";
+                ele2[j].style['-webkit-appearance'] = "none";
+                ele2[j].style['-moz-appearance'] = "none";
+            }
+
+            var Update = CcicSettingsService.UpdateCcicSubModule(2, $scope.UserName, SubModuleID, SubModuleName, true, SubModuleRouteName, ModuleCardColourName, SubModuleOrder, 1);
+            Update.then(function (response) {
+                alert("SubModule Updated Successfully")
+                $scope.getSubModules();
+                $scope.clearDefaults();
+            },
+                function (error) {
+                    alert("error while loading Data");
+                    console.log(error);
+                });
+        }
+
+
+        $scope.changeUser = function (userTypeId) {
+            $scope.userTypeId = userTypeId;
+            $scope.getusersubModules();
+        }
+        $scope.ChangeModules = function (ModuleId) {
+            $scope.ModuleId = ModuleId;
+            $scope.getusersubModules();
+        }
+
+        $scope.getusersubModules = function () {
+            if ($scope.userTypeId == 0 || $scope.userTypeId == null || $scope.userTypeId == undefined) {
+                return;
+            }
+            if ($scope.ModuleId == 0 || $scope.ModuleId == null || $scope.ModuleId == undefined) {
+                return;
+            }
+
+
+            var GetCcicUserSubModules = CcicSettingsService.GetCcicUserSubModules($scope.userTypeId, $scope.ModuleId);
+            GetCcicUserSubModules.then(function (response) {
+
+                $scope.GetCcicUserSubModules = response;
+
+            },
+                function (error) {
+                    alert("error while loading UserSubModules");
+                    var err = JSON.parse(error);
+
+                });
+
+        }
+
+        $scope.AddCcicUserSubModules = function () {
+            var SetModues = CcicSettingsService.AddCcicUserSubModules($scope.userTypeId, $scope.ModuleId, $scope.submodule, $scope.UserName);
+            SetModues.then(function (response) {
+                if (response[0].ResponseCode == '400') {
+                    alert(response[0].ResponseDescription)
+                    $scope.getusersubModules();
+                    $scope.clearDefaults();
+                } else {
+
+                    alert('User SubModule Added Successfully')
+                    
+                    $scope.getusersubModules();
+                    $scope.clearDefaults();
+                    
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                });
+        }
+
+        $scope.SwitchUserSubModule = function (UserSubModuleID, Active) {
+            if ($scope.userTypeId == null || $scope.userTypeId == undefined || $scope.userTypeId == "") {
+                alert("Please Select UserName to use the Operation");
+                return
+            }
+
+            if ($scope.ModuleId == null || $scope.ModuleId == undefined || $scope.ModuleId == "") {
+                alert("Please Select Module to use the Operation");
+                return
+            }
+
+
+
+            if (Active == true) {
+                var Active = 0;
+            } else {
+                var Active = 1;
+            }
+
+            var SetModues = CcicSettingsService.SetCcicUserSubModuleInactive(UserSubModuleID, Active, $scope.UserName);
+            SetModues.then(function () {
+                alert("UserSubModule Status Updated Successfully");
+                $scope.getusersubModules();
+                $scope.clearDefaults();
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+        };
+
+       
+
+        
     })
 })

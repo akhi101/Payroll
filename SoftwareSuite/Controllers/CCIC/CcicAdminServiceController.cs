@@ -12,15 +12,15 @@ namespace SoftwareSuite.Controllers.CCIC
     public class CcicAdminServiceController : ApiController
 {
 
-    [HttpGet, ActionName("getCcicRecentNews")]
-    public HttpResponseMessage getCcicRecentNews()
+    [HttpGet, ActionName("GetCcicRecentNews")]
+    public HttpResponseMessage GetCcicRecentNews()
     {
         try
         {
             var dbHandler = new ccicdbHandler();
             string StrQuery = "";
             StrQuery = "exec SP_Get_RecentNews";
-            return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedure(StrQuery));
+            return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
         }
         catch (Exception ex)
         {
@@ -30,7 +30,83 @@ namespace SoftwareSuite.Controllers.CCIC
 
     }
 
-      
+
+        [HttpGet, ActionName("GetRecentNews")]
+        public HttpResponseMessage GetRecentNews()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_RecentNews";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_RecentNews", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetAllRecentNews")]
+        public HttpResponseMessage GetAllRecentNews()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Temp_Get_AllRecentNews";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Temp_Get_AllRecentNews", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetAllCcicModules")]
+        public HttpResponseMessage GetAllCcicModules()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Modules";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Modules", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetCcicModuleColours")]
+        public HttpResponseMessage GetCcicModuleColours()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_GetColours";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_GetColours", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
 
 
         [HttpGet, ActionName("getCcicUserTypes")]
@@ -41,7 +117,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_UserTypes";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedure(StrQuery));
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
             }
             catch (Exception ex)
             {
@@ -76,21 +152,21 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-        [HttpGet, ActionName("GetModulesbyRole")]
-        public HttpResponseMessage GetCcicModulesbyRole(int UserTypeID)
+        [HttpGet, ActionName("GetCcicUserModules")]
+        public HttpResponseMessage GetCcicUserModules(int UserTypeID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@UserTypeID", UserTypeID);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Modules", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_UserModules", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_Modules", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_UserModules", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
@@ -195,8 +271,8 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpGet, ActionName("PostCcicRecentNews")]
-        public HttpResponseMessage PostCcicRecentNews(string RecentNewsText, DateTime FromDate, DateTime ToDate, string UserName)
+        [HttpGet, ActionName("AddCcicRecentNews")]
+        public HttpResponseMessage AddCcicRecentNews(string RecentNewsText, string FromDate, string ToDate, string UserName)
         {
             try
             {
@@ -218,24 +294,25 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        [HttpGet, ActionName("SetSubModuleInactive")]
-        public HttpResponseMessage SetSubModuleInactive(int usertypeid, int moduleId, int SubModuleId, int IsActive)
+        [HttpGet, ActionName("CcicRecentNewsUpdate")]
+        public HttpResponseMessage CcicRecentNewsUpdate(int RecentNewsID, string RecentNewsText, string FromDate, string ToDate,string UserName)
         {
             try
             {
-                var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@usertypeid", usertypeid);
-                param[1] = new SqlParameter("@moduleId", moduleId);
-                param[2] = new SqlParameter("@SubModuleId", SubModuleId);
-                param[3] = new SqlParameter("@IsActive", IsActive);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("ADM_Login_SET_SubmodueInctive ", param);
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@RecentNewsID", RecentNewsID);
+                param[1] = new SqlParameter("@RecentNewsText", RecentNewsText);
+                param[2] = new SqlParameter("@FromDate", FromDate);
+                param[3] = new SqlParameter("@ToDate", ToDate);
+                param[4] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_RecentNews ", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("ADM_Login_SET_SubmodueInctive ", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Update_RecentNews ", 0, ex.Message);
                 throw ex;
             }
 

@@ -1,15 +1,16 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, CcicSystemUserService) {
+    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, CcicPreExaminationService,$stateParams, AppSettings, CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
         $scope.userType = authData.SystemUserTypeID;
         $scope.UserName = authData.UserName;
     
      
         AppSettings.UserName = authData.UserName;
-       
+        var UserTypeID = authData.UserTypeID;
+        
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var UserTypeID = parseInt($scope.UserTypeID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(UserTypeID, ModuleID);
+       
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID,ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             if (Usersdata.length > 0) {
@@ -30,40 +31,42 @@
         });
         var SubmodulesList = [];
 
-        var obj = {};
-        obj.SysModName = 'Syllabus Coverage';
-        obj.SysModID = '4';
-        obj.ModuleRouteName = 'SyllabusCoverage';
-        obj.ModuleImageClass = 'small-box bg-maroon';
-        SubmodulesList.push(obj);
-
-        var obj = {};
-        obj.SysModName = 'Student Feedback';
-        obj.SysModID = '4';
-        obj.ModuleRouteName = 'StudentFeedback';
-        obj.ModuleImageClass = 'small-box bg-blue';
-        SubmodulesList.push(obj);
-
-        var obj = {};
-        obj.SysModName = 'Electives Selection';
-        obj.SysModID = '3';
-        obj.ModuleRouteName = 'ElectiveSelection';
-        obj.ModuleImageClass = 'small-box bg-yellow';
-        SubmodulesList.push(obj);
         $scope.SubmodulesList = SubmodulesList;
 
         $scope.OpenCcicDashboard = function () {
             $scope.homeDashBoard = true;
             $state.go("CcicDashboard");
         }
+
+       
+        
         $scope.OpenSubModule = function (Module) {
-            $localStorage.Academic = {};
-            var academic = {
-              
-                
+          
+          
+            if (Module.ModuleRouteName == 'Enrollment') {
+                var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate();
+                VerifyDate.then(function (response) {
+                    if (response.Table[0].ResponseCode == '200') {
+                       
+                        $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
+
+                    } else {
+                        alert('Enrollment Dates Are Not Found')
+                        $state.go("CcicDashboard.Academic")
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
             }
-            $localStorage.Academic = academic;
-            $state.go("CcicDashboard.Academic" + Module.SubModuleRouteName);
+            else {
+                $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
+            }
+            
+            
         }
         $scope.logOut = function () {
             sessionStorage.loggedIn = "no";

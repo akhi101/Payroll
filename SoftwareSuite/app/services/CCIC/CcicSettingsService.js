@@ -7,23 +7,11 @@
         }
 
 
-        this.GetCcicSubModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/GetCcicSubModules');
-            return promise;
-        }
 
-        this.GetCcicModuleColours = function () {
-            var promise = DataAccessService.getDataWithPara('api/CCIC/GetCcicModuleColours');
-            return promise;
-        }
+       
 
         this.GetAllCcicModules = function () {
             var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicModules');
-            return promise;
-        }
-
-        this.GetAllCcicUserModules = function () {
-            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicUserModules');
             return promise;
         }
 
@@ -32,65 +20,125 @@
             return promise;
         }
 
+        this.GetCcicUserModules = function (UserTypeID) {
+            var paramObject = {
+                "UserTypeID": UserTypeID
+            };
+            return DataAccessService.getDataWithPara('CcicPage/GetCcicUserModules', paramObject);
+        }
+
+        this.GetAllCcicUserModules = function () {         
+            var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicUserModules');
+            return promise;
+        }
+
+
+        this.GetCcicSubModules = function (ModuleID) {
+            var paramObject = {
+                "ModuleID": ModuleID
+            };
+            return DataAccessService.getDataWithPara('CcicPage/GetCcicSubModules', paramObject);
+        }
+
         this.GetAllCcicUserSubModules = function () {
             var promise = DataAccessService.getDataWithPara('CcicPage/GetAllCcicUserSubModules');
             return promise;
         }
 
-        this.CcicUserSubModuleInactive = function (UserSubModuleID, UserTypeID, ModuleID, SubModuleID, Active) {
+        this.GetCcicUserSubModules = function (UserTypeID,ModuleID) {
             var paramObject = {
-                "UserSubModuleID": UserSubModuleID, "Active": Active, "UserTypeID": UserTypeID, "ModuleID": ModuleID, "SubModuleID": SubModuleID
+                "UserTypeID": UserTypeID,"ModuleID": ModuleID
             };
-            return DataAccessService.postData('CcicPage/CcicUserSubModuleInactive', paramObject);
+            return DataAccessService.getDataWithPara('CcicPage/GetCcicUserSubModules', paramObject);
         }
 
-        this.GetCcicSubmodulesByModule = function (ModuleID) {
+       
+
+        this.SetCcicModuleInactive = function (UpdateType, UserName, ModuleID, ModuleName, Active) {
             var paramObject = {
-                "ModuleID": ModuleID
+                "UpdateType": UpdateType, "UserName": UserName, "ModuleID": ModuleID, "ModuleName": ModuleName, "Active": Active
             };
-            return DataAccessService.postData('CcicPage/GetCcicSubmodulesByModule', paramObject);
+            var promise = DataAccessService.postData('CcicPage/SetCcicModuleInactive', paramObject);
+            return promise;
         }
 
+        this.SetCcicSubModuleInactive = function (UpdateType, UserName, SubModuleID, SubModuleName, Active) {
+            var paramObject = {
+                "UpdateType": UpdateType, "UserName": UserName, "SubModuleID": SubModuleID, "SubModuleName": SubModuleName, "Active": Active
+            };
+            var promise = DataAccessService.postData('CcicPage/SetCcicSubModuleInactive', paramObject);
+            return promise;
+        }
    
 
 
-        this.UserModuleInactive = function (ModuleID, UserModuleID, UserTypeID, Active) {
+        this.SetCcicUserModuleInactive = function (UserModuleID, Active, UserName ) {
             var paramObject = {
-                "ModuleID": ModuleID, "UserModuleID": UserModuleID, "UserTypeID": UserTypeID, "Active": Active
+                "UserModuleID": UserModuleID, "Active": Active, "UserName": UserName
             };
-            return DataAccessService.postData('CcicPage/UserModuleInactive', paramObject);
+            var promise = DataAccessService.postData('CcicPage/SetCcicUserModuleInactive', paramObject);
+            return promise;
+        }
+
+
+        this.SetCcicUserSubModuleInactive = function (UserSubModuleID, Active, UserName) {
+            var paramObject = {
+                "UserSubModuleID": UserSubModuleID, "Active": Active, "UserName": UserName
+            };
+            var promise = DataAccessService.postData('CcicPage/SetCcicUserSubModuleInactive', paramObject);
+            return promise;
         }
 
   
 
-        this.AddCcicModule = function (ModuleName, ModuleOrder, ModuleCardColourID, ModuleRouteName, UserName) {
-            var paramObject = {
-                "ModuleName": ModuleName, "ModuleRouteName": ModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "ModuleOrder": ModuleOrder, "UserName": UserName
+        this.AddCcicModule = function (ModuleName, ModuleRouteName, ModuleCardColourID, UserName) {
+            var paramObj = {
+                "ModuleName": ModuleName, "ModuleRouteName": ModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "UserName": UserName
             };
-            return DataAccessService.postData('CcicPage/AddCcicModule', paramObject);
+            var promise = DataAccessService.postData('CcicPage/AddCcicModule', paramObj);
+            return promise;
         }
 
-        this.AddCcicUserModule = function (UserTypeID, ModuleID) {
-            var paramObject = {
-                 "UserTypeID": UserTypeID, "ModuleID": ModuleID
+        this.UpdateCcicModule = function (UpdateType, UserName, ModuleID, ModuleName, Active, ModuleRouteName, ModuleCardColourID,ModuleOrder) {
+            var paramObj = {
+                "UpdateType": UpdateType, "UserName": UserName, "ModuleID": ModuleID, "ModuleName": ModuleName, "Active": Active, "ModuleRouteName": ModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "ModuleOrder": ModuleOrder
             };
-            return DataAccessService.postData('CcicPage/AddCcicUserModule', paramObject);
+            var promise = DataAccessService.getDataWithPara('CcicPage/UpdateCcicModule', paramObj);
+            return promise;
         }
 
-        this.AddCcicSubModules = function (SubModuleID, SubModuleName, SubModuleRouteName, ModuleCardColourID, SubModuleOrder) {
+        this.UpdateCcicSubModule = function (UpdateType, UserName, SubModuleID, SubModuleName, Active, SubModuleRouteName, ModuleCardColourID, SubModuleOrder,ModuleID) {
+            var paramObj = {
+                "UpdateType": UpdateType, "UserName": UserName, "SubModuleID": SubModuleID, "SubModuleName": SubModuleName, "Active": Active, "SubModuleRouteName": SubModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "SubModuleOrder": SubModuleOrder, "ModuleID": ModuleID
+            };
+            var promise = DataAccessService.getDataWithPara('CcicPage/UpdateCcicSubModule', paramObj);
+            return promise;
+        }
+
+        this.AddCcicUserModule = function (UserTypeID, ModuleID, UserName) {
+            var paramObj = {
+                "UserTypeID": UserTypeID, "ModuleID": ModuleID, "UserName": UserName
+            };
+            var promise = DataAccessService.postData('CcicPage/AddCcicUserModule', paramObj);
+            return promise;
+        }
+
+        this.AddCcicSubModules = function (ModuleID,SubModuleName, SubModuleRouteName, ModuleCardColourID, UserName) {
             var paramObject = {
-                "SubModuleID": SubModuleID, "SubModuleName": SubModuleName, "SubModuleRouteName": SubModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "SubModuleOrder": SubModuleOrder
+                "ModuleID":ModuleID, "SubModuleName": SubModuleName, "SubModuleRouteName": SubModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "UserName": UserName
             };
             return DataAccessService.postData('CcicPage/AddCcicSubModules', paramObject);
         }
 
 
-        this.AddCcicUserSubModule = function (UserSubModuleID, UserTypeID, ModuleID, SubModuleID) {
+        this.AddCcicUserSubModules = function (UserTypeID, ModuleID, SubModuleID, UserName) {
             var paramObject = {
-                "UserSubModuleID": UserSubModuleID, "UserTypeID": UserTypeID, "ModuleID": ModuleID, "SubModuleID": SubModuleID
+                "UserTypeID": UserTypeID, "ModuleID": ModuleID, "SubModuleID": SubModuleID, "UserName": UserName
             };
-            return DataAccessService.postData('CcicPage/AddCcicUserSubModule', paramObject);
+            return DataAccessService.postData('CcicPage/AddCcicUserSubModules', paramObject);
         }
+
+     
 
 
     })

@@ -11,6 +11,8 @@ namespace SoftwareSuite.Models.CCIC
         public string ModuleRouteName { get; set; }
         public string ModuleCardClassName { get; set; }
         public int ModuleID { get; set; }
+
+        public int UserTypeID { get; set; }
     }
 
     public class CcicSystemSubModules
@@ -19,6 +21,8 @@ namespace SoftwareSuite.Models.CCIC
         public string SubModuleRouteName { get; set; }
         public string ModuleCardClassName { get; set; }
         public int ModuleID { get; set; }
+
+        public int UserTypeID { get; set; }
 
     }
 }

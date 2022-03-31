@@ -100,7 +100,7 @@ namespace SoftwareSuite.Services.CCIC
             }
         }
 
-        public DataTable GetCcicChangePassword(ccicdbHandler dbHandler, Int32 UserID, string OldPassword, string NewPassword)
+        public DataTable GetCcicChangePassword(ccicdbHandler dbHandler, int UserID, string OldPassword, string NewPassword)
         {
             DataTable dt = new DataTable();
             try
@@ -128,7 +128,7 @@ namespace SoftwareSuite.Services.CCIC
         }
 
 
-        public Int32 GetCcicCheckOldPassword(ccicdbHandler dbHandler, string OldPassword, int LoggedUserId)
+        public int GetCcicCheckOldPassword(ccicdbHandler dbHandler, string OldPassword, int LoggedUserId)
         {
             try
             {
@@ -143,13 +143,13 @@ namespace SoftwareSuite.Services.CCIC
         }
 
 
-        public DataTable GetCcicModulesbyRole(ccicdbHandler ccicdbHandler, Int32 UserTypeID)
+        public DataTable GetCcicUserModules(ccicdbHandler ccicdbHandler, int UserTypeID)
         {
             try
             {
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@UserTypeID", UserTypeID);
-                return ccicdbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Modules", param);
+                return ccicdbHandler.ReturnDataWithStoredProcedureTable("SP_Get_UserModules", param);
 
             }
             catch (Exception ex)
@@ -158,14 +158,15 @@ namespace SoftwareSuite.Services.CCIC
             }
         }
 
-        public DataTable GetCcicSubModulesbyRole(ccicdbHandler dbHandler, Int32 UserTypeID, Int32 ModuleID)
+        public DataTable GetCcicUserSubModules(ccicdbHandler dbHandler,int UserTypeID, int ModuleID)
         {
             try
             {
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@UserTypeID", UserTypeID);
                 param[1] = new SqlParameter("@ModuleID", ModuleID);
-                return dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_SubModules", param);
+             
+                return dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_UserSubModules", param);
 
             }
             catch (Exception ex)

@@ -117,7 +117,7 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
         }
-        public DataTable ReturnData(string strQuery)
+        public DataTable ReturnDataSet(string strQuery)
         {
             if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
             {
@@ -215,7 +215,7 @@ namespace SoftwareSuite.Models.Database
 
             }
         }
-        public DataSet ReturnDataWithStoredProcedure(string strProcedureName, SqlParameter[] param)
+        public DataSet ReturnDataSet(string strProcedureName, SqlParameter[] param)
         {
 
             SqlDataAdapter daFill = new SqlDataAdapter();
@@ -411,7 +411,7 @@ namespace SoftwareSuite.Models.Database
             }
 
         }
-        public DataSet ReturnDataWithStoredProcedure(string strQuery)
+        public DataSet ReturnDataWithStoredProcedureTable(string strQuery)
         {
             SqlDataAdapter daFill = new SqlDataAdapter();
             SqlCommand sqlCmd = new SqlCommand();

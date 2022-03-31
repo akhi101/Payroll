@@ -154,7 +154,7 @@ namespace SoftwareSuite.BLL
         }
 
 
-        public IEnumerable<CcicSystemModules> GetCcicModulesbyRole(Int32 UserTypeID)
+        public IEnumerable<CcicSystemModules> GetCcicUserModules(Int32 UserTypeID)
         {
 
             try
@@ -162,7 +162,7 @@ namespace SoftwareSuite.BLL
                 CcicSystemUserService CcicSystemUserService = new CcicSystemUserService();
                 ccicdbHandler ccicdbHandler = new ccicdbHandler();
                 DataTable tblUsersList = new DataTable();
-                tblUsersList = CcicSystemUserService.GetCcicModulesbyRole(ccicdbHandler, UserTypeID);
+                tblUsersList = CcicSystemUserService.GetCcicUserModules(ccicdbHandler, UserTypeID);
                 List<CcicSystemModules> SystemGroups = tblUsersList.DataTableToList<CcicSystemModules>();
                 return SystemGroups;
             }
@@ -174,14 +174,14 @@ namespace SoftwareSuite.BLL
         }
 
 
-        public IEnumerable<CcicSystemSubModules> GetCcicSubModulesbyRole(Int32 UserTypeID, Int32 ModuleID)
+        public IEnumerable<CcicSystemSubModules> GetCcicUserSubModules(int UserTypeID,Int32 ModuleID)
         {
             try
             {
                 CcicSystemUserService CcicSystemUserService = new CcicSystemUserService();
                 ccicdbHandler dbHandler = new ccicdbHandler();
                 DataTable tblUsersList = new DataTable();
-                tblUsersList = CcicSystemUserService.GetCcicSubModulesbyRole(dbHandler, UserTypeID, ModuleID);
+                tblUsersList = CcicSystemUserService.GetCcicUserSubModules(dbHandler,UserTypeID, ModuleID);
                 List<CcicSystemSubModules> SystemGroups = tblUsersList.DataTableToList<CcicSystemSubModules>();
                 return SystemGroups;
             }
