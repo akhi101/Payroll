@@ -128,7 +128,8 @@
             // $scope.ExamAppearDetails = true;
             //--------------offline districts------
             $scope.Districts = [];
-            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+            //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id,-1, $scope.selectedgrade.Id);
             ExamDistricts.then(function (res) {
                 $scope.offlineDistricts = res;
 
@@ -167,7 +168,8 @@
                 $scope.Grade = $scope.selectedgrade.GradeName;
                 $scope.tmpmode = 2;
                 $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
-                var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+                //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+                var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.selectedgrade.Id);
                 ExamDistricts.then(function (res) {
                     $scope.offlineDistricts = res;
                     $scope.Districts = $scope.offlineDistricts;
@@ -770,7 +772,8 @@
 
             } else if ($scope.mode == 2) {
                 //-----------------load offline Exam Centers----------------------
-                var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
+                //var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
+                var ExamCenters = TwshStudentRegService.getExaminationCenters(-1, $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
                 ExamCenters.then(function (req) {
                     $scope.examCenterList = req
                 }, function (err) {
