@@ -100,18 +100,18 @@
                             <!--ng-options="Student.type for Student in StudentType">-->
                         </select>
                     </div>
-                    <div class="col-md-2 form-group"  ng-show="Student.id !=999">
-                        <label for="sel1">
-                            Exam Month Year:
-                        </label>
-                        <select class="form-control" ng-model="ExamMonthYear" name="StudentType">
-                            <option value="" selected>Select Exam Month Year</option>
-                            <option ng-repeat="data in GetExamMonthYear" value="{{data.Id}}">
-                                {{data.ExamYearMonth}}
-                            </option>
-                            <!--ng-options="Student.type for Student in StudentType">-->
-                        </select>
-                    </div>
+                <div class="col-md-2 form-group" ng-show="Student.id !=999">
+                    <label for="sel1">
+                        Exam Month Year:
+                    </label>
+                    <select class="form-control" ng-model="ExamMonthYea" ng-change="ChangeData(ExamMonthYea)" name="StudentType">
+                        <option value="" selected>Select Exam Month Year</option>
+                        <option ng-repeat="data in GetExamMonthYear" value="{{data}}">
+                            {{data.ExamYearMonth}}
+                        </option>
+                        <!--ng-options="Student.type for Student in StudentType">-->
+                    </select>
+                </div>
                     <div class="form-group col-md-2">
                         <label for="sel1">
                             Enter PIN number :

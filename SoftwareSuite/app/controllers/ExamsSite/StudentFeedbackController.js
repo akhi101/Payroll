@@ -22,6 +22,15 @@ define(['app'], function (app) {
         }
         $window.validateRecaptcha = $scope.validateRecaptcha;
 
+        $scope.ChangeFType = function (data) {
+            var dat = JSON.parse(data)
+
+            $scope.FeedbacktypeId = dat.Id
+            $scope.FeedbackName = dat.FeedbackName
+
+
+        }
+
         $scope.generateOtp = function () {
             if (($scope.userPin == undefined) || ($scope.userPin == "0") || ($scope.userPin == "")) {
                 alert("Enter PIN");
@@ -31,7 +40,8 @@ define(['app'], function (app) {
                 alert("Enter Feedback type");
                 return false;
             }
-            // $scope.loading = true;
+            $scope.disable = true
+            $scope.load = true;
 
             var generateOtp = AcademicService.GenerateOtpForFeedback($scope.userPin, $scope.FeedbacktypeId)
             generateOtp.then(function (response) {
@@ -39,22 +49,30 @@ define(['app'], function (app) {
                     var detail = JSON.parse(response);
                 } catch (err) {
                     alert();
+                    $scope.disable = false
+                    $scope.load = false;
                 }
 
 
                 if (detail.status == '200') {
                     alert(detail.description);
+                    $scope.disable = false
+                    $scope.load = false;
                     $scope.otpsent = true;
                     $scope.loading = false;
                 } else {
                     alert(detail.description);
                     $scope.otpsent = false;
                     $scope.loading = false;
+                    $scope.disable = false
+                    $scope.load = false;
                 }
 
             },
                 function (error) {
                     $scope.loading = false;
+                    $scope.disable = false
+                    $scope.load = false;
                     console.log(error)
                 })
 
@@ -237,11 +255,11 @@ define(['app'], function (app) {
 
 
                 },
-                         function (error) {
-                             alert("Somthing went wrong");
-                             var err = JSON.parse(error);
+                    function (error) {
+                        alert("Somthing went wrong");
+                        var err = JSON.parse(error);
 
-                         });
+                    });
 
             } else {
                 alert("Please Submit feedback for all Subjects");

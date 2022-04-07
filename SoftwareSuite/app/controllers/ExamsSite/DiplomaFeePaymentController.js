@@ -55,20 +55,7 @@
             }
         }
 
-        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1);
-        loadHallticket.then(function (response) {
-            if (response.Table[0].ResponceCode == '200') {
-                $scope.GetExamMonthYear = [];
-                $scope.GetExamMonthYear = response.Table1;
-            } else {
-                $scope.GetExamMonthYear = [];
-                alert("No Exam Month Year found on this Record");
-            }
-        },
-            function (error) {
-                alert("error while loading Exam Month Years");
-                console.log(error);
-            });
+    
 
 
 
@@ -474,6 +461,28 @@
 
         $scope.changedVal = function () {
             $scope.DetailsFound = false;
+            var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
+            loadHallticket.then(function (response) {
+                if (response.Table[0].ResponceCode == '200') {
+                    $scope.GetExamMonthYear = [];
+                    $scope.GetExamMonthYear = response.Table1;
+                } else {
+                    $scope.GetExamMonthYear = [];
+                    alert("No Exam Month Year found on this Record");
+                }
+            },
+                function (error) {
+                    alert("error while loading Exam Month Years");
+                    console.log(error);
+                });
+        }
+
+
+        $scope.ChangeData = function (data) {
+            var Data = JSON.parse(data)
+            $scope.ExamMonthYear = Data.Id
+            $scope.ExamMonthYearName = Data.ExamYearMonth
+           
         }
 
         $scope.getStudentDetails = function (Pin, Studtype) {
@@ -833,10 +842,10 @@
             }
             var addInfo1 = College_Code;
             var addInfo3 = $scope.feepayingpins;
-            var addInfo4 = "NA"//$scope.loadedScheme.Scheme;
+            var addInfo4 = "NA"//$scope.loadedScheme.Scheme;t
             var addInfo5 = "NA";//Semester;
             var addInfo6 = "SINGLE"//PaymentType;
-            var addInfo7 = "NA";
+            var addInfo7 = $scope.ExamMonthYearName;
             var amount = "";
             if ($scope.Student.id == 1) {
                 addInfo5 = "REGULAR";

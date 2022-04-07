@@ -104,9 +104,26 @@
                     });
           
         }
-        $scope.FeedbackType = [
-            { "Id": 1, "Name": "2019-2020 MID 1 FEEDBACK" },
-            { "Id": 2, "Name": "2019-2020 MID 2 FEEDBACK" }]
+        //$scope.FeedbackType = [
+        //    { "Id": 1, "Name": "2019-2020 MID 1 FEEDBACK" },
+        //    { "Id": 2, "Name": "2019-2020 MID 2 FEEDBACK" }]
+
+        //-----------------------get available feedbacks for dropdown ------------------
+        var GetAvailableFeedbacks = AcademicService.GetAvailableFeedbacks();
+        GetAvailableFeedbacks.then(function (res) {
+            try {
+                var res = JSON.parse(res);
+            } catch (err) { }
+
+            $scope.FeedbackType = res.Table;
+        },
+            function (error) {
+                var err = JSON.parse(error);
+                console.log(err.Message);
+
+            });
+
+       
 
         $scope.Submit = function () {
             var authData = $localStorage.authorizationData;

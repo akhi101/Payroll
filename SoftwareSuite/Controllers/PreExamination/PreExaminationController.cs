@@ -10405,7 +10405,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 if (dt.Tables[1].Rows[0]["Phone"] != null || dt.Tables[1].Rows[0]["Phone"] != string.Empty || dt.Tables[1].Rows[0]["Phone"] != DBNull.Value)
                 {
-                    string urlParameters = "?mobile=" + dt.Tables[1].Rows[0]["Phone"] + "&message=" + Message;
+                    string urlParameters = "?mobile=" + dt.Tables[1].Rows[0]["Phone"] + "&message=" + Message + "&templateid=1007164809127079375"; ;
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -12365,14 +12365,15 @@ namespace SoftwareSuite.Controllers.PreExamination
         
 
         [HttpGet, ActionName("GetExamMonthYearForHallticketandFeepayment")]
-        public HttpResponseMessage GetExamMonthYearForHallticketandFeepayment(int DataTypeId)
+        public HttpResponseMessage GetExamMonthYearForHallticketandFeepayment(int DataTypeId,int StudentTypeId)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
+                param[1] = new SqlParameter("@StudentTypeId ", StudentTypeId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_ExamMonthYearForHallTicketAndFeePayment", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;

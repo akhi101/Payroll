@@ -20,7 +20,7 @@ namespace CoreExamin.Controllers
     {
         // GET: Payment
 
-        public async Task<System.Web.Mvc.ActionResult> BillResponse([FromBody]string msg)
+        public async Task<System.Web.Mvc.ActionResult> BillResponse([FromBody] string msg)
         {
             string redirect = "";
             string strCheckSumValue = "";
@@ -139,7 +139,7 @@ namespace CoreExamin.Controllers
             return Redirect(redirect + "/" + Base64Encode(retMsg));
         }
 
-        public async Task<System.Web.Mvc.ActionResult> BulkBillResponse([FromBody]string msg)
+        public async Task<System.Web.Mvc.ActionResult> BulkBillResponse([FromBody] string msg)
         {
             string redirect = string.Empty;
             string retMsg = string.Empty;
@@ -190,7 +190,7 @@ namespace CoreExamin.Controllers
                 string settlementtype = arrResponse[15].ToString();//Not Imp
                 string addtninfo1 = arrResponse[16].ToString();
                 //collegecode.Text = addtninfo1;
-                 addtninfo2 = arrResponse[17].ToString();
+                addtninfo2 = arrResponse[17].ToString();
                 string addtninfo3 = arrResponse[18].ToString();//Not Imp
                                                                //branchcode.Text = addtninfo3;
                 string addtninfo4 = arrResponse[19].ToString();//Not Imp
@@ -261,21 +261,25 @@ namespace CoreExamin.Controllers
                 {
                     redirect = ConfigurationManager.AppSettings["CertificateFeePaymentGateRouteRedirect"].ToString();
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
-                } else if (addtninfo2 == "TSTWSH") {
+                }
+                else if (addtninfo2 == "TSTWSH")
+                {
                     redirect = ConfigurationManager.AppSettings["TwshCertificateFeePaymentRouteRedirect"].ToString();
 
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
-                }else {
+                }
+                else
+                {
                     redirect = ConfigurationManager.AppSettings["PaymentGateRouteRedirect"].ToString();
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
-                }              
+                }
             }
             catch (Exception ex)
             {
 
                 dbHandler.SaveErorr("USP_SFP_SET_BrowserResponce", 0, ex.Message);
 
-                 if (addtninfo2 == "STUSERVICES")
+                if (addtninfo2 == "STUSERVICES")
                 {
                     redirect = ConfigurationManager.AppSettings["CertificateFeePaymentGateRouteRedirect"].ToString();
                     retMsg = "{\"txnrefno\":\"\",\"Refno\":\"\",\"statusdesc\": \"Internal Server Error\"}";
@@ -287,12 +291,13 @@ namespace CoreExamin.Controllers
                     retMsg = "{\"txnrefno\":\"\",\"Refno\":\"\",\"statusdesc\": \"Internal Server Error\"}";
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
                 }
-                else {
+                else
+                {
                     redirect = ConfigurationManager.AppSettings["PaymentGateRouteRedirect"].ToString();
                     retMsg = "{\"txnrefno\":\"\",\"Refno\":\"\",\"statusdesc\": \"Internal Server Error\"}";
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
-                }              
-               
+                }
+
             }
         }
 
@@ -329,7 +334,7 @@ namespace CoreExamin.Controllers
                     using (var reader = new StreamReader(req))
                     {
                         var reqData = await reader.ReadToEndAsync();
-                      //  LogUtility.SaveS2SLog(reqData, DateTime.Now);
+                        //  LogUtility.SaveS2SLog(reqData, DateTime.Now);
                     }
                 }
                 string strCheckSumValue = "";
@@ -401,7 +406,7 @@ namespace CoreExamin.Controllers
                 {
                     var db = new dbHandler();
                     var param = new SqlParameter[28];
-                    param[0] = new SqlParameter("@FullResponse", _paymentResp ?? "");
+                    param[0] = new SqlParameter("@FullResponse", _paymentResp);
                     param[1] = new SqlParameter("@ResponceType", 1);
                     param[2] = new SqlParameter("@merchantId", merchantId);
                     param[3] = new SqlParameter("@subscriberid", subscriberid);
@@ -441,8 +446,7 @@ namespace CoreExamin.Controllers
                         string StatusUpdateDate = dt.Tables[0].Rows[0]["StatusUpdateDate"].ToString();
                         string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
                         string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
-                        string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
-
+                        //string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
                         string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode;
                         string strCheckSumValue1 = "";
                         //_paymentResp = msg;
@@ -452,7 +456,28 @@ namespace CoreExamin.Controllers
                         string checksumkeyr1 = data.Substring(0, index1);
                         string Checksumvalue1 = GetHMACSHA256(checksumkeyr1, key1);
                         string _ChecksumvalueReceived1 = arrResponse1[7];
-                        return data + "|" + Checksumvalue1;
+                        var param1 = new SqlParameter[9];
+                        param1[0] = new SqlParameter("@MerchantID", merchantId);
+                        param1[1] = new SqlParameter("@UniqueTxnNo", UniqueTxnNo);
+                        param1[2] = new SqlParameter("@TxnReferenceNo", TxnReferenceNo);
+                        param1[3] = new SqlParameter("@ReceiptNo", ReceiptNo);
+                        param1[4] = new SqlParameter("@TxnAmount", TxnAmount);
+                        param1[5] = new SqlParameter("@StatusUpdateDate", StatusUpdateDate);
+                        param1[6] = new SqlParameter("@ConsumerNumber", ConsumerNumber);
+                        param1[7] = new SqlParameter("@Statuscode", Statuscode);
+                        param1[8] = new SqlParameter("@CheckSum", Checksumvalue1);
+                        var dt1 = db.ReturnDataWithStoredProcedure("Usp_SFP_SET_S2SLog_BMS", param1);
+                        //string merchantId1 = dt1.Tables[0].Rows[0]["merchantId"].ToString();
+                        //string UniqueTxnNo1 = dt1.Tables[0].Rows[0]["UniqueTxnNo"].ToString();
+                        //string TxnReferenceNo1 = dt1.Tables[0].Rows[0]["TxnReferenceNo"].ToString();
+                        //string ReceiptNo1 = dt1.Tables[0].Rows[0]["ReceiptNo"].ToString();
+                        //string TxnAmount1 = dt1.Tables[0].Rows[0]["TxnAmount"].ToString();
+                        //string StatusUpdateDate1 = dt1.Tables[0].Rows[0]["StatusUpdateDate"].ToString();
+                        //string ConsumerNumber1 = dt1.Tables[0].Rows[0]["ConsumerNumber"].ToString();
+                        //string Statuscode1 = dt1.Tables[0].Rows[0]["Statuscode"].ToString();
+                        //string CheckSum = dt1.Tables[0].Rows[0]["CheckSum"].ToString();
+                        string val = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode+'|'+ Checksumvalue1;
+                        return val;
                     }
                 }
                 else if (!checksum.Equals(strCheckSumValue))
@@ -481,7 +506,7 @@ namespace CoreExamin.Controllers
 
 
 
-         [System.Web.Http.HttpPost]
+        [System.Web.Http.HttpPost]
         public async Task<string> Server2ServerBMS(string msg)
         {
             TextWriter writer = null;
@@ -495,7 +520,7 @@ namespace CoreExamin.Controllers
                     using (var reader = new StreamReader(req))
                     {
                         var reqData = await reader.ReadToEndAsync();
-                      //  LogUtility.SaveS2SLog(reqData, DateTime.Now);
+                        //  LogUtility.SaveS2SLog(reqData, DateTime.Now);
                     }
                 }
                 string strCheckSumValue = "";
@@ -567,7 +592,7 @@ namespace CoreExamin.Controllers
                 {
                     var db = new dbHandler();
                     var param = new SqlParameter[28];
-                    param[0] = new SqlParameter("@FullResponse", _paymentResp ?? "");
+                    param[0] = new SqlParameter("@FullResponse", _paymentResp);
                     param[1] = new SqlParameter("@ResponceType", 1);
                     param[2] = new SqlParameter("@merchantId", merchantId);
                     param[3] = new SqlParameter("@subscriberid", subscriberid);
@@ -608,8 +633,8 @@ namespace CoreExamin.Controllers
                         string ConsumerNumber = dt.Tables[0].Rows[0]["ConsumerNumber"].ToString();
                         string Statuscode = dt.Tables[0].Rows[0]["Statuscode"].ToString();
                         string CheckSum = dt.Tables[0].Rows[0]["CheckSum"].ToString();
-                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode ;
-                            string strCheckSumValue1 = "";
+                        string data = merchantId + '|' + UniqueTxnNo + '|' + TxnReferenceNo + '|' + ReceiptNo + '|' + TxnAmount + '|' + StatusUpdateDate + '|' + ConsumerNumber + '|' + Statuscode;
+                        string strCheckSumValue1 = "";
                         //_paymentResp = msg;
                         string[] arrResponse1 = data.Split('|');
                         int index1 = data.LastIndexOf("|");
@@ -617,7 +642,7 @@ namespace CoreExamin.Controllers
                         string checksumkeyr1 = data.Substring(0, index1);
                         string Checksumvalue1 = GetHMACSHA256(checksumkeyr1, key1);
                         string _ChecksumvalueReceived1 = arrResponse1[7];
-                        return data+ "|"+ Checksumvalue1;
+                        return data + "|" + Checksumvalue1;
                     }
                 }
                 else if (!checksum.Equals(strCheckSumValue))

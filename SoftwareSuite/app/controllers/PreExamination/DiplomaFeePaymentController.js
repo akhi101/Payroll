@@ -14,7 +14,7 @@ define(['app'], function (app) {
         $scope.ispromotional = false;
         $scope.PaymentStudent = [];
 
-        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1);
+        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
         loadHallticket.then(function (response) {
             if (response.Table[0].ResponceCode == '200') {
                 $scope.GetExamMonthYear = [];
@@ -474,6 +474,20 @@ define(['app'], function (app) {
 
         $scope.changedVal = function () {
             $scope.DetailsFound = false;
+            var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
+            loadHallticket.then(function (response) {
+                if (response.Table[0].ResponceCode == '200') {
+                    $scope.GetExamMonthYear = [];
+                    $scope.GetExamMonthYear = response.Table1;
+                } else {
+                    $scope.GetExamMonthYear = [];
+                    alert("No Exam Month Year found on this Record");
+                }
+            },
+                function (error) {
+                    alert("error while loading Exam Month Years");
+                    console.log(error);
+                });
         }
 
         $scope.getStudentDetails = function (Pin, Studtype) {
@@ -812,7 +826,12 @@ define(['app'], function (app) {
             }
         }
 
+        $scope.ChangeData = function (data) {
+            var Data = JSON.parse(data)
+            $scope.ExamMonthYear = Data.Id
+            $scope.ExamMonthYearName = Data.ExamYearMonth
 
+        }
 
         $scope.Proceedtopayfine = function () {
             if ($scope.Student.id == 2) {
@@ -833,15 +852,15 @@ define(['app'], function (app) {
             }
             var addInfo1 = College_Code;
             var addInfo3 = $scope.feepayingpins;
-            var addInfo4 = "NA"//$scope.loadedScheme.Scheme;
+            var addInfo4 = $scope.Sems; //"NA"//$scope.loadedScheme.Scheme;
             var addInfo5 = "NA";//Semester;
             var addInfo6 = "SINGLE"//PaymentType;
-            var addInfo7 = "NA";
+            var addInfo7 = $scope.ExamMonthYearName;
             var amount = "";
             if ($scope.Student.id == 1) {
                 addInfo5 = "REGULAR";
                 amount = $scope.AmountDB.toFixed(2) == null || $scope.AmountDB.toFixed(2) == "" ? $scope.studentTotalFee.toFixed(2) : $scope.AmountDB.toFixed(2);
-
+                addInfo4 = $scope.Sems;
             }
             else if ($scope.Student.id == 2) {
                 amount = $scope.FinalAmountDB.toFixed(2);
@@ -964,7 +983,11 @@ define(['app'], function (app) {
                                         //feepayingpins = $scope.userJsonData.Table[0].Pin;
                                         for (let i = 0; i < $scope.userJsonData.Table.length; i++) {
                                             feepayingpins += $scope.userJsonData.Table[i].Pin + ",";
+                                            Sems += $scope.userJsonData.Table[i].Semester + ",";
                                         }
+                                        Sems = Sems.substring(0, Sems.length - 1);
+                                        $scope.Sems = Sems;
+                                        //}
                                     }
                                     else if ($scope.userJsonData.Table.length > 0 && $scope.Student.id == 2) {
                                         feepayingpins = $scope.userJsonData.Table[0].Pin + ",";

@@ -293,6 +293,13 @@ define(['app'], function (app) {
             $scope.modalInstance.close();
         }
 
+        $scope.ChangeData = function (data) {
+            var Data = JSON.parse(data)
+            $scope.ExamMonthYear = Data.Id
+            $scope.ExamMonthYearName = Data.ExamYearMonth
+
+        }
+
         $scope.Proceedtopayfine = function () {
             $scope.noteChallan = false;
             $scope.secondClick = false;
@@ -301,9 +308,12 @@ define(['app'], function (app) {
             var addInfo1 = authData.College_Code;
             var addInfo3 = "NA";
             var addInfo4 = "NA";//$scope.loadedScheme.Scheme;
-            var addInfo5 = $scope.current_schemeid;//Semester;
+            if ($scope.Student.id == 1) {
+                var addInfo5 = "REGULAR";
+            }
+            //var addInfo5 = $scope.current_schemeid;//Semester;
             var addInfo6 = "Bulk"//$scope.Examtype;
-            var addInfo7 = "NA";
+            var addInfo7 = $scope.ExamMonthYearName;
             var amount = $scope.AmountDB.toFixed(2) == null || $scope.AmountDB.toFixed(2) == "" ? $scope.sum.toFixed(2) : $scope.AmountDB.toFixed(2);
             var subMarchantid = "TSDOFP";
             $localStorage.PaymentGatewayResponse = {};
@@ -353,7 +363,7 @@ define(['app'], function (app) {
         //    copyText.remove();
         //}
 
-        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1);
+        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1,1);
         loadHallticket.then(function (response) {
             if (response.Table[0].ResponceCode == '200') {
                 $scope.GetExamMonthYear = [];
