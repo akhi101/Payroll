@@ -84,7 +84,7 @@
                             </label>
                             <select class="form-control" name="Feedback" required ng-model="FeedbacktypeId">
                                 <option value="" selected>Select feedback</option>
-                                <option ng-repeat="Feedback in AvailableFeedbacks" value="{{Feedback.Id}}">
+                                <option ng-repeat="Feedback in AvailableFeedbacks"  ng-show="Feedback.IsActive==1" value="{{Feedback.Id}}">
                                     {{Feedback.FeedbackName}}
                                 </option>
                             </select>

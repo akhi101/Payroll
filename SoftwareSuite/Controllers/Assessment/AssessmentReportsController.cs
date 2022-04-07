@@ -33,7 +33,7 @@ namespace SoftwareSuite.Controllers.Assessment
         //    }
         //}
         [HttpGet, ActionName("getAdminReport")]
-        public string getAdminReport(int examtypeid,int studentType, int AcademicYearId,string Semester)
+        public string getAdminReport(int examtypeid,int studentType, int AcademicYearId,string Semester,string ExamMonthYear)
         {
             try
             {
@@ -50,12 +50,13 @@ namespace SoftwareSuite.Controllers.Assessment
                 //}
                 //else
                 //{
-                  var   param = new SqlParameter[4];
+                  var   param = new SqlParameter[5];
                  
                     param[0] = new SqlParameter("@examtypeid", examtypeid);
                     param[1] = new SqlParameter("@studentType", studentType);
                     param[2] = new SqlParameter("@AcademicYearId", AcademicYearId);
                     param[3] = new SqlParameter("@Semester", Semester);
+                    param[4] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 //}
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Assessment_AdminReports", param);
                 return JsonConvert.SerializeObject(dt);
@@ -70,7 +71,7 @@ namespace SoftwareSuite.Controllers.Assessment
 
 
         [HttpGet, ActionName("getAdminReportsCollege")]
-        public string getAdminReportsCollege(int examtypeid, string collegecode,int studentType,int AcademicYearId,string Semester)
+        public string getAdminReportsCollege(int examtypeid, string collegecode,int studentType,int AcademicYearId,string Semester,string ExamMonthYear)
         {
             try
             {
@@ -87,16 +88,17 @@ namespace SoftwareSuite.Controllers.Assessment
                 //}
                 //else
                 //{
-                    var param = new SqlParameter[5];
+                    var param = new SqlParameter[6];
                     param[0] = new SqlParameter("@examtypeid", examtypeid);
                     param[1] = new SqlParameter("@studentType", studentType);
                     param[2] = new SqlParameter("@collegecode", collegecode);
                     param[3] = new SqlParameter("@AcademicYearId", AcademicYearId);
                     param[4] = new SqlParameter("@Semester", Semester);
+                    param[5] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 //}
 
-            
-               
+
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Assessment_AdminReportsCollege", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -110,7 +112,7 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
         [HttpGet, ActionName("getAdminBranchReports")]
-        public string getAdminBranchReports(int examtypeid, string collegecode, int branchid, int subid, int semid,int studentType,int AcademicYearId)
+        public string getAdminBranchReports(int examtypeid, string collegecode, int branchid, int subid, int semid,int studentType,int AcademicYearId,string ExamMonthYear)
         {
             try
             {
@@ -118,7 +120,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 var param = new SqlParameter[0];
                 if (studentType == 2)
                 {
-                    param = new SqlParameter[6];
+                    param = new SqlParameter[7];
 
                     param[0] = new SqlParameter("@collegecode", collegecode);
                     param[1] = new SqlParameter("@branchid", branchid);
@@ -126,11 +128,12 @@ namespace SoftwareSuite.Controllers.Assessment
                     param[3] = new SqlParameter("@semid", semid);
                     param[4] = new SqlParameter("@studentType", studentType);
                     param[5] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                    param[6] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
 
                 }
                 else
                 {
-                    param = new SqlParameter[7];
+                    param = new SqlParameter[8];
 
                     param[0] = new SqlParameter("@examtypeid", examtypeid);
                     param[1] = new SqlParameter("@collegecode", collegecode);
@@ -139,6 +142,7 @@ namespace SoftwareSuite.Controllers.Assessment
                     param[4] = new SqlParameter("@semid", semid);
                     param[5] = new SqlParameter("@studentType", studentType);
                     param[6] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                    param[7] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 }
 
               

@@ -114,7 +114,7 @@
                     <label for="sel1">
                         Exam Month Year:
                     </label>
-                    <select class="form-control" ng-model="ExamMonthYear" name="StudentType">
+                    <select class="form-control" ng-model="ExamMonthYea" ng-change="ChangeData(ExamMonthYea)" name="StudentType">
                         <option value="" selected>Select Exam Month Year</option>
                         <option ng-repeat="data in GetExamMonthYear" value="{{data.Id}}">
                             {{data.ExamYearMonth}}

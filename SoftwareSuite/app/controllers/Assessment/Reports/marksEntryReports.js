@@ -34,7 +34,7 @@
                 });
         }
 
-        if ($scope.userType == "1" || $scope.userType == "5" || $scope.userType == "1000" || $scope.userType == "1010" || $scope.userType == "1011" || $scope.userType == "1002" || $scope.userType == "1007" || $scope.userType == "1009") {
+        if ($scope.userType == "1" || $scope.userType == "5" || $scope.userType == "1000" || $scope.userType == "1010" || $scope.userType == "1011" || $scope.userType == "1002" || $scope.userType == "1007" || $scope.userType == "1009" || $scope.userType == "1012") {
             $scope.access1 = true;
             $scope.access2 = false;
             $scope.access3 = false;
@@ -413,7 +413,7 @@
 
         $scope.exams = [];
         $localStorage.assessment = {};
-        if ($scope.userType == "1" || $scope.userType == "5" || $scope.userType == "1000" || $scope.userType == "1010" || $scope.userType == "1011" || $scope.userType == "1002" || $scope.userType == "1007" || $scope.userType == "1009") {
+        if ($scope.userType == "1" || $scope.userType == "5" || $scope.userType == "1000" || $scope.userType == "1010" || $scope.userType == "1011" || $scope.userType == "1002" || $scope.userType == "1007" || $scope.userType == "1009" || $scope.userType == "1012") {
 
             var getActiveExamTypes = AssessmentService.getActiveExamTypes();
             getActiveExamTypes.then(function (response) {
@@ -502,7 +502,7 @@
                 //}
                 //alert($scope.Semester)
                 //console.log($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), $scope.arr)
-                var getCollegeReports = AssessmentService.getAdminReport($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), JSON.stringify($scope.arr));
+                var getCollegeReports = AssessmentService.getAdminReport($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), JSON.stringify($scope.arr), $scope.ExamMonthYear);
                 getCollegeReports.then(function (response) {
 
                     if (response.length > 0) {
@@ -569,7 +569,8 @@
                     AcademicYearsActiveResponse: $scope.years,
                     access1: $scope.access1,
                     SemsArray: $scope.arr,
-                    Semester:$scope.SemesterId
+                    Semester: $scope.SemesterId,
+                    ExamMonthYear: $scope.ExamMonthYear
                 }
                 $localStorage.finalReport = finalReport;
 

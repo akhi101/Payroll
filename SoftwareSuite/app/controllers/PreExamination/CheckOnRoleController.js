@@ -77,7 +77,7 @@
         var ApprovalData = $localStorage.authorizationData.onRoleDetails;
         //console.log(ApprovalData.type, authData.SystemUserTypeId, ApprovalData.CollegeCode, ApprovalData.BranchCode, ApprovalData.Semester,
         //$scope.ExamMonthyearId, $scope.Semester)
-        if ($scope.userTypeId == 3) {
+        if ($scope.userTypeId == 3 || $scope.userTypeId == 2) {
             var data = $localStorage.OnrollData
 
             $scope.ExamMonthyearId = data.ExamMonthYear
@@ -88,7 +88,14 @@
             userid = 1;
         } else if ($scope.userTypeId == 2 || $scope.userTypeId == 3) {
             userid = $scope.userTypeId;
-        } 
+
+            var data = $localStorage.OnrollData
+
+            $scope.ExamMonthyearId = data.ExamMonthYear
+            $scope.Semester = data.SemArray
+
+
+        }
 
         var ApprovalList = PreExaminationService.getApprovalList(ApprovalData.type, userid, ApprovalData.CollegeCode, ApprovalData.BranchCode,
             $scope.ExamMonthyearId, $scope.Semester);
@@ -154,17 +161,17 @@
                 function (error) {
                     alert("error while loading Academic Year");
                 });
-           
+
             $scope.showPaymentDetails = function () {
-            if ($scope.userTypeId == 1 || $scope.userTypeId == 1011 || $scope.userTypeId == 1012 || $scope.userTypeId == 1000) {
-                     userid = 1;
+                if ($scope.userTypeId == 1 || $scope.userTypeId == 1011 || $scope.userTypeId == 1012 || $scope.userTypeId == 1000) {
+                    userid = 1;
                 } else if ($scope.userTypeId == 2 || $scope.userTypeId == 3) {
-                     userid = $scope.userTypeId;
-                } 
+                    userid = $scope.userTypeId;
+                }
 
 
                 if ($scope.Student.id !== undefined && $scope.Student.id != '') {
-                    
+
                     var getAdmissionsubmod = PreExaminationService.getApproveExamFee(userid, $scope.Student.id, $scope.ExamMonthyearId, $scope.Semester);
                     getAdmissionsubmod.then(function (Usersdata) {
 

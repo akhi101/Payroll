@@ -21,6 +21,7 @@
 
         $scope.CollegeCode = report.collegecode;
         $scope.examtypeid = report.examtypeid;
+        $scope.ExamMonthYearId = report.ExamMonthYear;
         if ($scope.userType == 2) {
             var reportData =$localStorage.PrincipalReports
             studentTypeId: $scope.studentType
@@ -30,6 +31,7 @@
         } else {
             $scope.SemsArray = report.SemsArray;
             $scope.studentTypeId = report.studentTypeId;
+       
         }
       
         $scope.years = report.AcademicYearsActiveResponse;
@@ -41,7 +43,7 @@
       
         var data = {};
         $scope.$emit('showLoading', data);
-        var getAdminReports = AssessmentService.getAdminReportsCollege($scope.examtypeid, $scope.CollegeCode, parseInt($scope.studentTypeId), parseInt($scope.years.AcademicID), JSON.stringify($scope.SemsArray));
+        var getAdminReports = AssessmentService.getAdminReportsCollege($scope.examtypeid, $scope.CollegeCode, parseInt($scope.studentTypeId), parseInt($scope.years.AcademicID), JSON.stringify($scope.SemsArray), $scope.ExamMonthYearId);
         getAdminReports.then(function (response) {
 
             if (response.length > 0) {
@@ -116,7 +118,8 @@
                 subid: data.SubId,
                 semid: data.SemId,
                 AcademicYearsActiveResponse: $scope.years,
-                studentTypeId:$scope.studentTypeId 
+                studentTypeId: $scope.studentTypeId,
+                ExamMonthYearId: $scope.ExamMonthYearId
             }
             $localStorage.branchReports = branchReports;
             $state.go("Dashboard.AssessmentDashboard.AdminReportSummary");

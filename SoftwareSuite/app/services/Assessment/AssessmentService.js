@@ -84,9 +84,9 @@
             return DataAccessService.getDataWithPara('Assessment/getExamTypesBySem', paramObject);
         };
 
-        this.getAdminReport = function (examtypeid, studentType, AcademicYearId, Semester) {
+        this.getAdminReport = function (examtypeid, studentType, AcademicYearId, Semester,ExamMonthYear) {
          
-            var paramObject = { "examtypeid": examtypeid, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester };
+            var paramObject = { "examtypeid": examtypeid, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester, "ExamMonthYear": ExamMonthYear };
            
             return DataAccessService.getDataWithPara('AssessmentReports/getAdminReport', paramObject);
         };
@@ -97,8 +97,8 @@
             return DataAccessService.getDataWithPara('Assessment/getSchemes', paramObject);
         };
 
-        this.getAdminReportsCollege = function (examtypeid, collegecode, studentType, AcademicYearId, Semester) {
-            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester };
+        this.getAdminReportsCollege = function (examtypeid, collegecode, studentType, AcademicYearId, Semester, ExamMonthYear) {
+            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester "ExamMonthYear": ExamMonthYear};
             console.log(paramObject)
             return DataAccessService.getDataWithPara('AssessmentReports/getAdminReportsCollege', paramObject);
         };
@@ -112,8 +112,10 @@
             return DataAccessService.getDataWithPara('AssessmentReports/getBranchReports', paramObject);
         };
         
-        this.getAdminBranchReports = function (examtypeid, collegecode, branchid, subid, semid, studentType, AcademicYearId) {
-            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "branchid": branchid, "subid": subid, "semid": semid, "studentType": studentType, "AcademicYearId": AcademicYearId };
+        this.getAdminBranchReports = function (examtypeid, collegecode, branchid, subid, semid, studentType, AcademicYearId,ExamMonthYear) {
+            var paramObject = {
+                "examtypeid": examtypeid, "collegecode": collegecode, "branchid": branchid, "subid": subid, "semid": semid, "studentType": studentType, "AcademicYearId": AcademicYearId,
+                "ExamMonthYear": ExamMonthYear            };
             return DataAccessService.getDataWithPara('AssessmentReports/getAdminBranchReports', paramObject);
         };
 

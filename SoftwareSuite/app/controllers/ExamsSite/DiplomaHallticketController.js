@@ -75,22 +75,23 @@
                 console.log(error);
             });
 
-        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(2);
-        loadHallticket.then(function (response) {
-            if (response.Table[0].ResponceCode == '200') {
-                $scope.GetExamMonthYear = [];
-                $scope.GetExamMonthYear = response.Table1;
-            } else {
-                $scope.GetExamMonthYear = [];
-                alert("No Exam Month Year found on this Record");
-            }
-        },
-            function (error) {
-                alert("error while loading Exam Month Years");
-                console.log(error);
-            });
+    
 
         $scope.changedVal = function () {
+            var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(2, $scope.Student.id);
+            loadHallticket.then(function (response) {
+                if (response.Table[0].ResponceCode == '200') {
+                    $scope.GetExamMonthYear = [];
+                    $scope.GetExamMonthYear = response.Table1;
+                } else {
+                    $scope.GetExamMonthYear = [];
+                    alert("No Exam Month Year found on this Record");
+                }
+            },
+                function (error) {
+                    alert("error while loading Exam Month Years");
+                    console.log(error);
+                });
             $scope.result = false;
         }
 

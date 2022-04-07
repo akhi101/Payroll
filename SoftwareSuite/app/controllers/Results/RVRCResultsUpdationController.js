@@ -50,7 +50,7 @@
 
             });
 
-     
+
 
         var expanded = false;
         $scope.showCheckboxes = function () {
@@ -156,20 +156,20 @@
         // ************************ Drag and drop ***************** //
         let dropArea = document.getElementById("drop-area")
 
-        // Prevent default drag behaviors
-        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false)
-            document.body.addEventListener(eventName, preventDefaults, false)
-        })
+            // Prevent default drag behaviors
+            ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false)
+                document.body.addEventListener(eventName, preventDefaults, false)
+            })
 
-        // Highlight drop area when item is dragged over it
-        ;['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false)
-        })
+            // Highlight drop area when item is dragged over it
+            ;['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false)
+            })
 
-        ;['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false)
-        })
+            ;['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false)
+            })
 
         // Handle dropped files
         dropArea.addEventListener('drop', handleDrop, false)
@@ -248,7 +248,7 @@
             //    alert("Enter Pin");
             //    return;
             //}
-          
+
 
             $scope.showPreviewResultData = 0
             $scope.PreviewLoadImg = true;
@@ -413,8 +413,8 @@
                     $scope.LoadImg = false;
 
                 });
-            }else if ($scope.Schemeid == 8 ||$scope.Schemeid == 1 || $scope.Schemeid == 3 || $scope.Schemeid == 4 || $scope.Schemeid == 2 || $scope.Schemeid == 6 || $scope.Schemeid == 7) {
-                var resultdata = StudentResultService.GetConsolidatedRVRCPreviewResults($scope.Previewmonthyear,$scope.PreviewStudentType,$scope.PreScheme, $scope.PreviewPin);
+            } else if ($scope.Schemeid == 8 || $scope.Schemeid == 1 || $scope.Schemeid == 3 || $scope.Schemeid == 4 || $scope.Schemeid == 2 || $scope.Schemeid == 6 || $scope.Schemeid == 7) {
+                var resultdata = StudentResultService.GetConsolidatedRVRCPreviewResults($scope.Previewmonthyear, $scope.PreviewStudentType, $scope.PreScheme, $scope.PreviewPin);
                 resultdata.then(function (data) {
                     $scope.co9Data = true;
                     var data = JSON.parse(data)
@@ -498,7 +498,7 @@
                                     }
                                     temp.courseinfo.push(temp2);
 
-                                 
+
                                 }
                                 $scope.newresultDisplayInfo1.push(temp);
                                 console.log($scope.newresultDisplayInfo1);
@@ -527,11 +527,11 @@
                     $scope.PreviewLoadImg = false;
 
                 });
-            
+
             }
         }
-          
-      
+
+
 
         $scope.SampleData = [{
             "sbtet_code": "",
@@ -692,7 +692,7 @@
                         $scope.Exceldat = $scope.Exceldata[0]
 
                         var tempArray = ["Pin", "SubjectCode", "Mid1Marks", "Mid1MaxMarks", "Mid2Marks", "Mid2MaxMarks", "Mid3Marks", "Mid3MaxMarks", "InternalMarks", "InternalMaxMarks"
-                            , "EndMarks", "EndMaxMarks", "IndustryName","MpRule"];
+                            , "EndMarks", "EndMaxMarks", "IndustryName", "MpRule", "BranchCode"];
                         var keysMached = false;
                         for (let q = 0; q < Object.keys($scope.Exceldat[0]).length; q++) {
                             if (tempArray.includes(Object.keys($scope.Exceldat[0])[q])) {
@@ -1028,7 +1028,7 @@
             } else if (dataType == 7) {
                 $scope.EScheme = res.scheme
                 $scope.PreScheme = res.scheme
-                console.log( $scope.PreScheme)
+                console.log($scope.PreScheme)
             } else if (dataType == 8) {
                 $scope.EScheme = res.scheme
                 $scope.Deployscheme1 = res.scheme
@@ -1238,17 +1238,17 @@
             $scope.filteredArray = [];
             $scope.Exceldat.forEach(function (element) {
                 //console.log(element)
-               
+
                 var obj = {
                     "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Mid1Marks": element.Mid1Marks, "Mid1MaxMarks": element.Mid1MaxMarks,
                     "Mid2Marks": element.Mid2Marks, "Mid2MaxMarks": element.Mid2MaxMarks, "Mid3Marks": element.Mid3Marks,
                     "Mid3MaxMarks": element.Mid3MaxMarks, "InternalMarks": element.InternalMarks, "InternalMaxMarks": element.InternalMaxMarks,
-                    "EndMarks": element.EndMarks, "EndMaxMarks": element.EndMaxMarks, "IndustryName": element.IndustryName, "MpRule": element.MpRule
-                    
+                    "EndMarks": element.EndMarks, "EndMaxMarks": element.EndMaxMarks, "IndustryName": element.IndustryName, "MpRule": element.MpRule, "BranchCode": element.BranchCode
+
                 }
                 $scope.filteredArray.push(obj)
             });
-            var uploadJson = PreExaminationService.UploadRVRCFileJson($scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.userName, $scope.filteredArray, );
+            var uploadJson = PreExaminationService.UploadRVRCFileJson($scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.userName, $scope.filteredArray,);
             uploadJson.then(function (data) {
 
                 var data = JSON.parse(data);

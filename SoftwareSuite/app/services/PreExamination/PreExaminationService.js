@@ -501,8 +501,8 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseTcPin', paramObject);
             return promise;
         }
-        this.GetExamMonthYearForHallticketandFeepayment = function (DataTypeId) {
-            var paramObject = { "DataTypeId": DataTypeId };
+        this.GetExamMonthYearForHallticketandFeepayment = function (DataTypeId, StudentTypeId) {
+            var paramObject = { "DataTypeId": DataTypeId, "StudentTypeId": StudentTypeId };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearForHallticketandFeepayment', paramObject);
             return promise;
         }

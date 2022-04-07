@@ -25,6 +25,7 @@
         $scope.SemId = branchReports.semid;
         $scope.studentTypeId = branchReports.studentTypeId;
         $scope.years = branchReports.AcademicYearsActiveResponse;
+        $scope.ExamMonthYearId= branchReports.ExamMonthYearId,
         $scope.access1 = branchReports.access1;
         $scope.OpenReport = function () {
             $state.go("Dashboard.MarksSummary");
@@ -36,7 +37,7 @@
         if ($scope.studentType == 2) {
             $scope.examtypeid = 0;
         }
-        var getAdminBranchReports = AssessmentService.getAdminBranchReports($scope.examtypeid, $scope.CollegeCode, $scope.branchid, $scope.SubId, $scope.SemId, $scope.studentTypeId,parseInt($scope.years.AcademicID));
+        var getAdminBranchReports = AssessmentService.getAdminBranchReports($scope.examtypeid, $scope.CollegeCode, $scope.branchid, $scope.SubId, $scope.SemId, $scope.studentTypeId, parseInt($scope.years.AcademicID), $scope.ExamMonthYearId);
         getAdminBranchReports.then(function (response) {
 
             if (response.length > 0) {
