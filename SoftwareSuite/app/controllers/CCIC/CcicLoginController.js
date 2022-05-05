@@ -26,8 +26,7 @@
 
 
         var code;
-        //  function createCaptcha() {
-        //clear the contents of captcha div first 
+       
         $scope.createCaptcha = function () {
             $scope.newCapchaCode = "";
             document.getElementById('captcha').innerHTML = "";
@@ -53,11 +52,7 @@
             $scope.newCapchaCode = captcha.join("");
             document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
         }
-        //function validateCaptcha() {
-        //    event.preventDefault();
-        //    debugger
-
-        //}
+       
 
 
         $scope.validateRecaptcha = function (token) {
@@ -66,11 +61,9 @@
                     if (response.data) {
 
                     } else {
-                        //  return;
                     }
                 },
                 function () {
-                    // return;
                 });
 
         }
@@ -89,7 +82,6 @@
         $scope.CcicLogin = function () {
             delete $localStorage.authorizationData;
 
-            //  $scope.message = "Invalid Username And Password";           
             if ($scope.CcicLogin.Captcha == undefined || $scope.CcicLogin.Captcha == "") {
                 $scope.CcicLogin.Captcha = "";
                 alert("Enter Captcha");
