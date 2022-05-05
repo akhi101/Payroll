@@ -9,7 +9,7 @@
         const $ctrl = this;
         $ctrl.$onInit = () => {
            
-            $scope.getCcicCourseDurationBatches();
+            $scope.GetCcicCourseDurations();
 
             /* $scope.CcicCourseDurationBatches();*/
             //  $scope.disabletable();
@@ -38,17 +38,36 @@
 
             });
 
-        var getCcicCourseDurations = CcicPreExaminationService.GetCcicCourseDurations();
-        getCcicCourseDurations.then(function (response) {
+        $scope.GetCcicCourseDurations = function (Batch) {
 
-            $scope.GetCcicCourseDurations = response;
+            if (Batch == null || Batch == undefined || Batch == "") {
+                return
+            }
+            var GetCcicCourseDurationBatches = CcicPreExaminationService.GetCcicCourseDurations(Batch);
+            GetCcicCourseDurationBatches.then(function (response) {
 
-        },
-            function (error) {
-                alert("error while loading CourseDurations");
-                var err = JSON.parse(error);
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
 
-            });
+                if (res.Table.length > 0) {
+                    $scope.GetCcicCourseDurationsTable = res.Table;
+                }
+                else {
+                    $scope.GetCcicCourseDurationsTable = [];
+                }
+
+                $scope.CourseDurations = res;
+
+
+            },
+                function (error) {
+                    alert("error while loading CourseDuration");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
 
 
@@ -86,7 +105,12 @@
       
         $scope.AddEnrollmentDates = function () {
 
-            if ($scope.Batch == null || $scope.Batch == undefined || $scope.Batch == "") {
+            if ($scope.BaTch == null || $scope.BaTch == undefined || $scope.BaTch == "") {
+                alert("Select Batch");
+                return;
+            }
+
+            if ($scope.courseduration == null || $scope.courseduration == undefined || $scope.courseduration == "") {
                 alert("Select Batch");
                 return;
             }
@@ -101,7 +125,7 @@
             }
 
 
-            var SetEnrollmentDates = CcicPreExaminationService.AddEnrollmentDates($scope.AcademicYear, $scope.CourseDuration, $scope.Batch, moment($scope.EnrollementStartDate).format("YYYY-MM-DD"), moment($scope.EnrollementEndDate).format("YYYY-MM-DD"), $scope.UserName);
+            var SetEnrollmentDates = CcicPreExaminationService.AddEnrollmentDates($scope.AcademicYear, $scope.courseduration, $scope.BaTch, moment($scope.EnrollementStartDate).format("YYYY-MM-DD"), moment($scope.EnrollementEndDate).format("YYYY-MM-DD"), $scope.UserName);
             SetEnrollmentDates.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -136,6 +160,64 @@
             }
 
             $scope.AcademicYearID = AcademicYearID;
+
+            var GetCurrentBatchData = CcicPreExaminationService.GetCurrentBatch(AcademicYearID);
+            GetCurrentBatchData.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetCurrentBatch = res.Table;
+                }
+                else {
+                    $scope.GetCurrentBatch = [];
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading CurrentBatch");
+                    var err = JSON.parse(error);
+
+                });
+
+
+            $scope.getCcicCourseDurations = function (BaTch) {
+
+                if (BaTch == null || BaTch == undefined || BaTch == "") {
+                    return
+                }
+                $scope.BaTch = BaTch;
+                var getCcicCourseDurations = CcicPreExaminationService.GetCcicCourseDurations(BaTch);
+                getCcicCourseDurations.then(function (response) {
+
+                    try {
+                        var res = JSON.parse(response);
+                    }
+                    catch (err) { }
+
+                    if (res.Table.length > 0) {
+                        $scope.GetCcicCourseDurationsData = res.Table;
+                    }
+                    else {
+                        $scope.GetCcicCourseDurationsData = [];
+                    }
+
+
+                },
+
+                    function (error) {
+                        alert("error while loading CourseDuration");
+                        var err = JSON.parse(error);
+
+                    });
+            }
+
+
             var getCcicEnrollmentDates = CcicPreExaminationService.GetEnrollmentDates(AcademicYearID)
             getCcicEnrollmentDates.then(function (res) {
                 try {
@@ -231,10 +313,13 @@
         $scope.clearDefaults = function () {
 
             $scope.AcademicYear = '';
-            $scope.CourseDuration = '';
-            $scope.Batch = '';
+            $scope.courseduration = '';
+            $scope.BaTch = '';
             $scope.EnrollementStartDate = '';
             $scope.EnrollementEndDate = '';
+
+
+
         }
 
 

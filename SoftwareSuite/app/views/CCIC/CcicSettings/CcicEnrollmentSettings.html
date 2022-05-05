@@ -75,11 +75,11 @@
         <!-- breadcrumb Open -->
         <div class="container">
             <section class="content-header">
-                <h5>Academic Year Setting</h5>
+                <h5>Enrollment Setting</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li><a href="#!/CcicDashboard/Academic">Academic</a></li>
-                    <li><a href="#!/CcicDashboard/Academic/AcademicYearSettings">Academic Year Setting</a></li>
+                    <li><a href="#!/CcicDashboard/Academic/EnrollmentSettings">Enrollment Setting</a></li>
                 </ol>
             </section>
         </div>
@@ -110,7 +110,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="font-weight-bold"> Academic Year :</label>
-                                        <select class="form-control " ng-model="AcademicYear" name="StudentType" required ng-change="GetEnrollmentData(AcademicYear)">
+                                        <select class="form-control " ng-model="AcademicYear" name="AcademicYear" required ng-change="GetEnrollmentData(AcademicYear)">
                                             <option value="" selected="selected">Select Year</option>
                                             <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                                 {{data.AcademicYear}}
@@ -118,13 +118,28 @@
                                         </select>
                                     </div>
                                 </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="font-weight-bold"> Batch :</label>
+                                        <select class="form-control " ng-model="BaTch" name="BatchType" required ng-change="getCcicCourseDurations(BaTch)">
+                                            <option value="" selected="selected">Select Batch</option>
+                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
+                                                {{data.Batch}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
 
                                         <label class="font-weight-bold"> Course Duration :</label>
-                                        <select class="form-control " ng-model="CourseDuration" name="StudentType" ng-change="getCcicCourseDurationBatches(CourseDuration)" required>
+                                        <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
                                             <option value="" selected="selected">Select Duration</option>
-                                            <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurations" class="">
+                                            <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
                                                 {{data.CourseDuration}}
                                             </option>
                                         </select>
@@ -134,18 +149,6 @@
 
 
 
-                                <div class="col-md-3">
-                                    <div class="form-group">
-
-                                        <label class="font-weight-bold"> Batch :</label>
-                                        <select class="form-control " ng-model="Batch" name="StudentType" required>
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCcicCourseDurationBatchesTable" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
 
                                 <div class="col-md-3 form-group">
                                     <label class="font-weight-bold">Enrollment Start Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="EnrollementStartDate" placeholder="Select Start Date">

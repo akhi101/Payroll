@@ -9,14 +9,7 @@ using System.Data.SqlClient;
 using Newtonsoft.Json;
 
 using SoftwareSuite.Models.Database;
-using SoftwareSuite.Models.CCIC;
-using System.Collections.Generic;
-using System.Linq;
-using SoftwareSuite.BLL;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Xml;
-using static SoftwareSuite.Controllers.PreExamination.PreExaminationController;
+
 using RestSharp;
 
 namespace SoftwareSuite.Controllers.CCIC
@@ -58,19 +51,56 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetCcicCourseDurations")]
-        public HttpResponseMessage GetCcicCourseDurations()
+        public string GetCcicCourseDurations(int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Batch", Batch);
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_CourseDurations", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetBatches")]
+        public HttpResponseMessage GetBatches()
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec SP_Get_CourseDurations";
+                StrQuery = "exec SP_Get_Batches";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_CourseDurations", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_Batches", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetCurrentBatch")]
+        public string GetCurrentBatch(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_CurrentBatch", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
 
@@ -93,8 +123,147 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpGet, ActionName("GetCcicAcademicYearBatch")]
-        public string GetCcicAcademicYearBatch(int AcademicYearID)
+        [HttpGet, ActionName("GetCcicAcademicYearCurrentBatch")]
+        public string GetCcicAcademicYearCurrentBatch(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AcademicYearCurrentBatch", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetInstitutionEnrollmentReportCount")]
+        public string GetInstitutionEnrollmentReportCount(int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionEnrollmentReportCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetAdminEnrollmentReportCount")]
+        public HttpResponseMessage GetAdminEnrollmentReportCount()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_AdminEnrollmentReportCount";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AdminEnrollmentReportCount", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetExamMonthYears")]
+        public string GetExamMonthYears(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_ExamMonthYears", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetAYBatchExamMonthYear")]
+        public string GetAYBatchExamMonthYear(int AcademicYearID,int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_AYBatchExamMonthYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetHolidaysForTimeTable")]
+        public string GetHolidaysForTimeTable(string StartDate, int NofDates)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@StartDate", StartDate);
+                param[1] = new SqlParameter("@NofDates", NofDates);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_HolidayDatesForTimeTable", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
+        [HttpGet, ActionName("AddExamMonthYear")]
+        public string AddExamMonthYear(int AcademicYearID,int Batch,string ExamMonthYearName,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                param[2] = new SqlParameter("@ExamMonthYearName", ExamMonthYearName);
+                param[3] = new SqlParameter("@UserName", UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_ExamMonthYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetCcicAcademicYearBatches")]
+        public string GetCcicAcademicYearBatches(int AcademicYearID)
         {
             try
             {
@@ -282,7 +451,104 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
+        [HttpPost, ActionName("GetViewStudentDetails")]
+        public string GetViewStudentDetails([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
+                param[1] = new SqlParameter("@StudentID", data["StudentID"]);
+                
 
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_ViewStudentDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ViewStudentDetails", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("GetStudentDetails")]
+        public string GetStudentDetails([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
+                param[1] = new SqlParameter("@StudentID", data["StudentID"]);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_StudentDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_StudentDetails", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpPost, ActionName("GetInstitutionEnrollmentReportData")]
+        public string GetInstitutionEnrollmentReportData([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[1] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionEnrollmentReportData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_InstitutionEnrollmentReportData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("SubmitStdDetails")]
+        public string SubmitStdDetails([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
+                param[1] = new SqlParameter("@StudentID", data["StudentID"]);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_ApplicationSubmit", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_ApplicationSubmit", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
 
         [HttpGet, ActionName("UpdateAcademicYear")]
         public string UpdateAcademicYear(int AcademicYearID,  DateTime AcademicYearStartDate, DateTime AcademicYearEndDate, bool CurrentAcademicYear, string UserName)
@@ -310,8 +576,33 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        [HttpGet, ActionName("AddAcademicYearBatch")]
-        public string AddAcademicYearBatch(int AcademicYearID, string CourseDuration, int Batch, DateTime AYBatchStartDate, DateTime AYBatchEndDate,string UserName)
+        [HttpGet, ActionName("AddAcademicYearCurrentBatch")]
+        public string AddAcademicYearCurrentBatch(int AcademicYearID,int Batch,bool CurrentBatch,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                param[2] = new SqlParameter("@CurrentBatch", CurrentBatch);
+                param[3] = new SqlParameter("@UserName", UserName);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_AcademicYearCurrentBatch", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_AcademicYearCurrentBatch", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("AddAYCourseDurationBatches")]
+        public string AddAYCourseDurationBatches(int AcademicYearID, string CourseDuration, int Batch,DateTime AYBatchStartDate,DateTime AYBatchEndDate, string UserName)
         {
             try
             {
@@ -365,8 +656,82 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpGet, ActionName("UpdateAcademicYearBatch")]
-        public string UpdateAcademicYearBatch(int UpdateType,string UserName, int AcademicYearBatchID, bool Active,DateTime AYBatchStartDate, DateTime AYBatchEndDate)
+        [HttpGet, ActionName("UpdateAcademicYearCurrentBatch")]
+        public string UpdateAcademicYearCurrentBatch(int AcademicYearCurrentBatchID,bool CurrentBatch, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearCurrentBatchID", AcademicYearCurrentBatchID);
+                param[1] = new SqlParameter("@CurrentBatch", CurrentBatch);
+                param[2] = new SqlParameter("@UserName", UserName);
+            
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_AcademicYearCurrentBatch", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_AcademicYearCurrentBatch", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("SetAYCourseDurationBatchStatus")]
+        public string SetAYCourseDurationBatchStatus(int UpdateType, string UserName, int AcademicYearBatchID, bool Active)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@AcademicYearBatchID", AcademicYearBatchID);
+                param[3] = new SqlParameter("@Active", Active);
+                
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_AcademicYearBatch", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_AcademicYearBatch", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("SetExamMonthYearStatus")]
+        public string SetExamMonthYearStatus(int UpdateType, string UserName, int ExamMonthYearID, bool Active)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@UpdateType", UpdateType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[3] = new SqlParameter("@Active", Active);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExamMonthYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_ExamMonthYear", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("UpdateAYCourseDurationBatchDates")]
+        public string UpdateAYCourseDurationBatchDates(int UpdateType, string UserName, int AcademicYearBatchID, bool Active, DateTime AYBatchStartDate, DateTime AYBatchEndDate)
         {
             try
             {
@@ -392,26 +757,27 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpGet, ActionName("SetAcademicYearBatchStatus")]
-        public string SetAcademicYearBatchStatus(int UpdateType, string UserName, int AcademicYearBatchID, bool Active)
+        [HttpGet, ActionName("UpdateExamMonthYear")]
+        public string UpdateExamMonthYear(int UpdateType, string UserName, int ExamMonthYearID, bool Active,string ExamMonthYearName)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@UpdateType", UpdateType);
                 param[1] = new SqlParameter("@UserName", UserName);
-                param[2] = new SqlParameter("@AcademicYearBatchID", AcademicYearBatchID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[3] = new SqlParameter("@Active", Active);
+                param[4] = new SqlParameter("@ExamMonthYearName", ExamMonthYearName);
+               
 
-
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_AcademicYearBatch", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExamMonthYear", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Update_AcademicYearBatch", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Update_ExamMonthYear", 0, ex.Message);
                 return ex.Message;
             }
 
@@ -472,81 +838,7 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-        //[HttpPost, ActionName("GetSSCDetails")]
-        //public async Task<HttpResponseMessage> GetSSCDetails([FromBody] SscDetails ReqData)
-        //{
-
-        //    var url = ConfigurationManager.AppSettings["SSC_API"].ToString();
-        //    var urlwithparam = url + "?RollNo=" + ReqData.RollNo + "&Year=" + ReqData.Year + "&Stream=" + ReqData.Stream + "&channel=SBTT&password=S2T20";
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        try
-        //        {
-        //            HttpResponseMessage response = new HttpResponseMessage();
-        //            var resMsg = await client.GetAsync(urlwithparam);
-        //            var content = await resMsg.Content.ReadAsStringAsync();
-        //            XmlDocument PIDResponseXML = new XmlDocument();
-        //            PIDResponseXML.LoadXml(content);
-        //            if (PIDResponseXML.InnerXml.Length != 22)
-        //            {
-        //                var ROLLNO = string.Empty;
-        //                var NAME = string.Empty;
-        //                var FNAME = string.Empty;
-        //                var MNAME = string.Empty;
-        //                var DOB = string.Empty;
-        //                var SEX = string.Empty;
-        //                var RESULT = string.Empty;
-        //                try
-        //                {
-        //                    ROLLNO = PIDResponseXML["NewDataSet"]["Table"]["ROLLNO"].InnerText;
-        //                    NAME = PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText;
-        //                    FNAME = PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText;
-        //                    MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
-        //                    DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
-        //                    SEX = PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText;
-        //                    RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
-        //                }
-        //                catch (Exception ex)
-        //                {
-        //                    ROLLNO = PIDResponseXML["NewDataSet"]["Table"]["ROLLNO"].InnerText;
-        //                    NAME = PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText;
-        //                    FNAME = PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText;
-        //                    MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
-        //                    DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
-        //                    SEX = "-";
-        //                    RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
-        //                }
-
-        //                if (RESULT == "PASS")
-        //                {
-        //                    response = Request.CreateResponse(HttpStatusCode.OK);
-        //                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"200\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
-        //                    return response;
-        //                }
-        //                else
-        //                {
-        //                    response = Request.CreateResponse(HttpStatusCode.OK);
-        //                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
-        //                    return response;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                response = Request.CreateResponse(HttpStatusCode.OK);
-        //                response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"Response\" : \"No Data Found\" }"), System.Text.Encoding.UTF8, "application/json");
-        //                return response;
-        //            }
-
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            var response = Request.CreateResponse(HttpStatusCode.NotFound);
-        //            response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"Response\" : \"" + ex + "\" }"), System.Text.Encoding.UTF8, "application/json");
-        //            return response;
-        //        }
-
-        //    }
-        //}
+      
 
         [HttpGet, ActionName("GetSSCDetails")]
         public string GetSSCDetails(string TENTH_HT_NO, string TENTH_YEAR, string STREAM)

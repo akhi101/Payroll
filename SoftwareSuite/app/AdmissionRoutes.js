@@ -243,6 +243,25 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicPreExaminationService']
             },
 
+
+            'CcicDashboard.Academic.EnrollmentReport': {
+                url: "/EnrollmentReport",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollmentReport.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.Academic.AdminEnrollmentReport': {
+                url: "/AdminEnrollmentReport",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdminEnrollmentReportCount.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicAdminEnrollmentReportCountController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicPreExaminationService']
+            },
+
+
+            'CcicDashboard.Academic.CcicStudentRegList': {
+                url: "/EnrollmentReport/CcicStudentRegList",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicStudentRegList.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicStudentRegListController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicPreExaminationService']
+            },
           
 
 
@@ -259,6 +278,26 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicPreExaminationController', 'services/CCIC/CcicSystemUserService']
             },
 
+
+            'CcicDashboard.PreExamination.ExamMonthYearSettings': {
+                url: "/ExamMonthYearSettings",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicCreateExamMonthYear.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicCreateExamMonthYearController', 'services/CCIC/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.GenerateDateSheet': {
+                url: "/GenerateDateSheet",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicGenerateDateSheet.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicGenerateDateSheetController', 'services/CCIC/CcicPreExaminationService']
+            },
+
+
+
+            'CcicDashboard.Academic.CcicStudentRegList': {
+                url: "/CcicStudentRegList",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicStudentRegList.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicStudentRegListController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicPreExaminationService']
+            },
 
 
 

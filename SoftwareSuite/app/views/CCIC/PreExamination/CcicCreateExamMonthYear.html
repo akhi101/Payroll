@@ -1,0 +1,132 @@
+﻿<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;      
+    }
+
+</style>
+<div ng-controller="CcicCreateExamMonthYearController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Set Exam Month Year</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> CcicDashboard</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination">PreExamination</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/CcicDashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="alert alert-info">
+            <form name="dataForm">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold"> Academic Year :</label>
+                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                <option value="" selected="selected">Select Year</option>
+                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                    {{data.AcademicYear}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <label class="font-weight-bold"> Batch :</label>
+                            <select class="form-control " ng-model="BaTch" name="BatchType" required">
+                                <option value="" selected="selected">Select Batch</option>
+                                <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
+                                    {{data.Batch}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="sel1">
+                            Exam Month Year:
+                        </label>
+                        <input class="form-control" type="text" placeholder="Enter Exam Month Year" ng-model="ExamMonthYear" required />
+                    </div>
+                    <div class="col-md-3">
+                        <div class="gr-btn">
+                            <button type="submit" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="Submit()">Add Month/ year<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="sm-spacer"></div>
+        <div class="col-md-12" style="padding:0px!important">
+            <div class="cl-details"  ng-if="GetExamMonthYearTable.length>0" >
+                <h2>Exam Month Year's list</h2>
+            </div>
+        </div>
+        <div class="row">
+          
+            <div id="preExamReports"  ng-if="GetExamMonthYearTable.length>0"  class="table-responsive table-custom-tables-tb col-md-12">
+                <table class="table table-bordered  table-striped table-rounded">
+                    <thead>
+                        <tr class="cb-1">
+                            <th style="width:5%" class="text-center">S.No</th>
+                            <th width="15%" class="text-center">Current Academic Year</th>
+                            <th width="15%" class="text-center">Current Batch</th>
+                            <th width="15%" class="text-center">Exam Month Year</th>
+                            <th width="15%" class="text-center">Status</th>
+                            <th width="15%" class="text-center">Edit/Update</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetExamMonthYearTable">
+
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td class="text-center"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.AcademicYear" /></td>
+                            <td class="text-center"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Batch" /></td>
+                            <td class="text-center"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ExamMonthYearName" /></td>
+                         
+
+                            <td class="text-center">
+                                <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="data.Active == true" ng-click="SetExamMonthYearStatus(data.ExamMonthYearID,false)">Active</button>
+                                <button class="btn btn-danger btn-xs" style="width: 70px;" ng-show="data.Active == false" ng-click="SetExamMonthYearStatus(data.ExamMonthYearID,true)">InActive</button>
+                            </td>
+
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="ChangeStatus(data,$index+1,data.ExamMonthYearName)">
+                                    Edit
+                                </button>
+                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdationStatus(data,$index+1,data.ExamMonthYearName)">
+                                    Update
+                                </button>
+
+                            </td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>
+            <div style="width:100%;text-align:center;">
+                <!--<div class="loadingImg">
+               <img src="../../contents/img/loading2.gif" ng-show="loading" width="64" />
+            </div>-->
+
+            </div>
+        </div>
+    </div>
+    <div class="sm-spacer"></div>
+</div>

@@ -254,10 +254,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="YeaJur.Data.MongoDb, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YeaJur.Data.MongoDb.1.0.0\lib\net45\YeaJur.Data.MongoDb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -571,12 +567,17 @@
     <Content Include="app\controllers\CCIC\CcicLoginController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicAcademicYearSettingsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentReportController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicAdminEnrollmentReportCountController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentSettingsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicStudentRegListController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\NewController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicCircularsController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicCircularsDashboardController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicPostExaminationController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicCreateExamMonthYearController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicGenerateDateSheetController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPreExaminationController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicModulesSettingController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicSettingsController.js" />
@@ -1318,11 +1319,8 @@
     <Content Include="app\controllers\TWSH\TwshQualifiedListController.js" />
     <Content Include="app\controllers\TWSH\TwshReportsController.js" />
     <Content Include="app\controllers\TWSH\TwshResetPasswordController.js" />
-
     <Content Include="app\controllers\TWSH\TwshResultsAutomationController.js" />
-
     <Content Include="app\controllers\TWSH\TwshRvrcController.js" />
-
     <Content Include="app\controllers\TWSH\TwshSmsDetailsController.js" />
     <Content Include="app\controllers\TWSH\TwshStudentDetails.js" />
     <Content Include="app\controllers\TWSH\TwshStudentRegController.js" />
@@ -1860,11 +1858,17 @@
     <Content Include="app\views\CCIC\CcicLogin.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicAcademicYearSettings.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicEnrollment.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicEnrollmentReport.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicAdminEnrollmentReportCount.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicEnrollmentSettings.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicStudentRegList.html" />
     <Content Include="app\views\CCIC\CcicSettings\New.html" />
+    <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsPopup.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCircularsDashboard.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicPostExamination.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicCreateExamMonthYear.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicGenerateDateSheet.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicPreExamination.html" />
     <Content Include="app\views\CCIC\CcicRegPopup.html" />
     <Content Include="app\views\CCIC\Circulars\CcicRecentNews.html" />
