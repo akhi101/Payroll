@@ -9,7 +9,7 @@
         color: #337ab7;
         text-decoration: none;
     }
-    .table-custom-tables-tb .table-bordered > tbody > tr > td {
+    .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
         color: #337ab7;
         font-size: 14px !important;
@@ -62,20 +62,20 @@
                     </div>
                     <section class="content">
                         <div class="container ">
-                         
 
-                            
-                            <div class="col-md-12">
+
+
+                            <div class="col-md-12"   ng-show="EnrollmentReportTable">
                                 <div class="row base-row">
-                                    
+
                                     <div class="col-md-12">
                                         <div id="EnrollmentReportTable">
                                             <div class="cl-details">
                                                 <h2>Enrollment Report</h2>
                                             </div>
                                             <!--<div style="width:100%;text-align:center;">
-                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                                            </div>-->
+                        <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                    </div>-->
 
                                             <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
                                                 <table class="table table-bordered table-hover table-rounded">
@@ -89,7 +89,7 @@
                                                             <th>Pending</th>
                                                             <th>Revised</th>
                                                             <th>Rejected</th>
-                                                            
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -104,7 +104,61 @@
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,5)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,6)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
                                                         </tr>
-                                                       
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12"  ng-show="AdminEnrollmentReportTable">
+                                <div class="row base-row">
+
+                                    <div class="col-md-12">
+                                        <div id="AdminEnrollmentReportTable">
+                                            <div class="cl-details">
+                                                <h2>Enrollment Report</h2>
+                                            </div>
+                                            <!--<div style="width:100%;text-align:center;">
+                        <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                    </div>-->
+                                            <br>
+                                            <label class="notifylabel" ng-if="AdminEnrollmentReportCountTable.length>0" for="sel1" style="color: red;top:33px"> Double click on row to Update Student</label>
+
+                                            <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
+                                                <table class="table table-bordered table-hover table-rounded">
+                                                    <thead>
+                                                        <tr class="cb-1">
+
+                                                            <th>InstitutionCode</th>
+                                                            <th>InstitutionName</th>
+                                                            <th>Enrolled</th>
+                                                            <th>Submitted</th>
+                                                            <th>Approved</th>
+                                                            <th>Pending</th>
+                                                            <th>Revised</th>
+                                                            <th>Rejected</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="Data in AdminEnrollmentReportCountTable" ng-dblclick="showAdminEnrollmentCount(Data.InstitutionID)">
+
+                                                            <td>{{Data.InstitutionCode}}</td>
+                                                            <td>{{Data.InstitutionName}}</td>
+                                                            <td><b>{{Data.Enrolled}}</></b></td>
+                                                            <td><b>{{Data.Submitted}}</b></td>
+                                                            <td><b>{{Data.Approved}}</b></td>
+                                                            <td><b>{{Data.Pending}}</b></td>
+                                                            <td><b>{{Data.Revised}}</b></td>
+                                                            <td><b>{{Data.Rejected}}</b></td>
+                                                        </tr>
+
                                                     </tbody>
                                                 </table>
                                             </div>

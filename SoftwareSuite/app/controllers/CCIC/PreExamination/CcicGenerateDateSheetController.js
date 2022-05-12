@@ -154,9 +154,9 @@
 
         $scope.toggleAll = function () {
             var toggleStatus = $scope.isAllSelected;
-            angular.forEach($scope.holdate, function (itm) { itm.selected = toggleStatus; });
+            angular.forEach($scope.HolidaysDates, function (itm) { itm.selected = toggleStatus; });
             $scope.arr = [];
-            angular.forEach($scope.holdate, function (value, key) {
+            angular.forEach($scope.HolidaysDates, function (value, key) {
                 if (value.selected === true) {
                     $scope.arr.push({ "HolidayDate": moment(value.Dates).format("YYYY-MM-DD") })
                 }
@@ -164,19 +164,19 @@
         }
 
         $scope.loadHolidaydates = function () {
-            try {
-                var res = JSON.parse(response);
-            }
-            catch (err) { }
+            //try {
+            //    var res = JSON.parse(response);
+            //}
+            //catch (err) { }
 
             if ($scope.StartDate == null || $scope.StartDate == undefined) {
                 return;
             }
             var startDate = moment($scope.StartDate).format("YYYY-MM-DD")
             var Holidaydates = CcicPreExaminationService.GetHolidaysForTimeTable(startDate, 30);
-            Holidaydates.then(function (data) {
-                if (data[0].length > 0) {
-                    $scope.HolidaysData = data[0];
+            Holidaydates.then(function (res) {
+                if (res.Table.length > 0) {
+                    $scope.HolidaysDates = res.Table;
                 }
 
             }, function (error) {
@@ -185,9 +185,9 @@
         }
 
         $scope.optionToggled = function () {
-            $scope.isAllSelected = $scope.holdate.every(function (itm) { return itm.selected; })
+            $scope.isAllSelected = $scope.HolidaysDates.every(function (itm) { return itm.selected; })
             $scope.arr = [];
-            angular.forEach($scope.holdate, function (value, key) {
+            angular.forEach($scope.HolidaysDates, function (value, key) {
                 if (value.selected === true) {
                     if (value.Day == "Sunday") {
                         var Holidays = "Sunday"

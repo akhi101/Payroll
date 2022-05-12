@@ -1,0 +1,430 @@
+﻿<style>
+
+    .selectBox {
+        position: relative;
+    }
+
+        .selectBox select {
+            width: 100%;
+            font-weight: bold;
+        }
+
+    .overSelect {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+    }
+
+        #checkboxes label {
+            display: block;
+        }
+
+            #checkboxes label:hover {
+                background-color: #1e90ff;
+            }
+
+    .contain {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        /* margin-bottom: 12px; */
+        /* padding-top: 5px; */
+        cursor: pointer;
+        margin: 5px !important;
+        font-size: 15px !important;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .contain input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        background-color: #eee;
+        border: 1px solid #cac6c6;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .contain:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .contain input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .contain input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .contain .checkmark:after {
+        left: 8px;
+        top: 4px;
+        width: 6px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+    }
+
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+</style>
+
+<div ng-controller="CcicSetExamCentersController">
+    <div class="breadcrumb-header">
+        <div class="container">
+            <section class="content-header">
+                <h5>Update DateSheet </h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination">Ccic PreExamination</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination/UpdateDateSheet">Update DateSheet</a></li>
+                </ol>
+            </section>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="col-md-12">
+            <a href="#!/CcicDashboard/PreExamination" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+        </div>
+
+
+        <div id="exTab2" class="container">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#1" data-toggle="tab" ng-click="setexamcenter()">set exam center</a>
+                </li>
+                <li>
+                    <a href="#2" data-toggle="tab" ng-click="setpreviousexamcenterstocurrentbatch()">set previous exam centers to current batch</a>
+                </li>
+
+
+            </ul>
+
+
+            <div class="tab-content ">
+
+
+                <div class="tab-pane active" id="1">
+                    <div class="col-md-12">
+                        <div class="cl-details">
+                            <h2>Set Exam Center</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="base-row" style="padding:15px!important;">
+                            <div class="row">
+                            
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold"> Academic Year :</label>
+                                        <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCourseDurationBatchData(academicYear)">
+                                            <option value="" selected="selected">Select Year</option>
+                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                {{data.AcademicYear}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="font-weight-bold"> Batch :</label>
+                                        <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
+                                            <option value="" selected="selected">Select Batch</option>
+                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
+                                                {{data.Batch}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="sel1">
+                                        Exam Month/Year :
+                                    </label>
+                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
+                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <option value="" selected>Select Month/Year of Exam</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+
+                                            <label class="font-weight-bold"> Examination Center :</label>
+                                            <select class="form-control " ng-model="examcenter" name="ExamCenter" required">
+                                                <option value="" selected="selected">Select ExamCenter</option>
+                                                <option value="{{data.ExamCenterID}}" ng-repeat="data in GetExamCenter" class="">
+                                                    {{data.ExamCenterID}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="AddCcicModule()">
+                                            Set Data
+                                            <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive table-custom-tables-tb" ng-if="">
+                            <table class="table table-bordered  table-striped table-rounded">
+                                <thead>
+                                    <tr class="cb-1">
+                                        <th style="width: 5%;">S.No</th>
+                                        <th class="">Module Name</th>
+                                        <th class="">Module Route Name</th>
+                                        <th class="" style="">Colour</th>
+                                        <th class="" style="">Module Order</th>
+                                        <th class="" style="">Status</th>
+                                        <th class="">Edit/Update</th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetAllCcicModules">
+                                        <td class="">{{$index+1}}</td>
+                                        <td>
+
+                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleName" /></div>
+                                        </td>
+
+                                        <td>
+
+                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleRouteName" /></div>
+                                        </td>
+
+                                        <td>
+
+
+                                            <select class="form-control tableinpt enabletable{{$index + 1}}" id="ModuleCardColourID" ng-model="data.ModuleCardColourID"
+                                                    ng-options="data.ModuleCardColourID as data.ModuleCardColourName for data in ModuleCardColours">
+                                                <option value="" selected>Select Module Colour</option>
+                                            </select>
+                                        </td>
+
+
+                                        <td>
+
+                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleOrder" /></div>
+                                        </td>
+
+
+                                        <td class="" style="" text-align:center" width="10%" ;">
+                                            <button class="btn btn-success btn-xs" ng-show="data.Active == true" ng-click="SetModuleStatus(data.ModuleID,data.ModuleName,data.Active)">Active</button>
+                                            <button class="btn btn-danger btn-xs" ng-show="data.Active == false" ng-click="SetModuleStatus(data.ModuleID,data.ModuleName,data.Active)">InActive</button>
+                                        </td>
+
+                                        <td style="text-align:center" width="8%">
+                                            <button ng-hide="viewField" class="btn-xs btn btn-info" style="width: 70px;" ng-click="modify($index+1)">Edit</button>
+                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="modifyField" ng-click="update($index+1,data.ModuleID,data.ModuleName,data.ModuleRouteName,data.ModuleCardColourID,data.ModuleOrder)"><span>Update</span></button>
+                                        </td>
+
+
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="sm-spacer"></div>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="tab-pane" id="2">
+                    <div class="col-md-12">
+                        <div class="cl-details">
+                            <h2>Set Previous Exam Centers to Current Batch </h2>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="base-row" style="padding:15px!important;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold"> Academic Year :</label>
+                                        <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCourseDurationBatchData(academicYear)">
+                                            <option value="" selected="selected">Select Year</option>
+                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                {{data.AcademicYear}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="font-weight-bold"> Batch :</label>
+                                        <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
+                                            <option value="" selected="selected">Select Batch</option>
+                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
+                                                {{data.Batch}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="sel1">
+                                        Exam Month/Year :
+                                    </label>
+                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
+                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <option value="" selected>Select Month/Year of Exam</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Courses</label>
+                                        <div class="multiselect">
+                                            <div class="selectBox" ng-click="showCheckboxes()">
+                                                <select class="form-control ">
+                                                    <option ng-blur="closeCheckbox()">Select an option</option>
+                                                </select>
+                                                <div class="overSelect"></div>
+                                            </div>
+                                            <div id="checkboxes" style="max-height: 12em; overflow-y: scroll;">
+                                                <label class="contain">
+                                                    <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" /><span class="checkmark"></span>Select All
+                                                </label>
+                                                <label class="contain" ng-repeat="data in UserTypes">
+                                                    <input type="checkbox" ng-model="data.selected" ng-change="optionToggled(data.selected)"><span class="checkmark"></span>{{data.UserType}}
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row">
+
+                           <div class="col-md-10"></div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="AddCcicUserModule()">
+                                            Set Data
+                                            <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="sm-spacer"></div>
+                        <div class="sm-spacer"></div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>

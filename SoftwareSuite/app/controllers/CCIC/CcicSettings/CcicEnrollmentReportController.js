@@ -7,48 +7,95 @@
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-          
+
          
         }
 
-       
+
+     
 
 
-        var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
+        if ($scope.UserName =='ADMIN') {
+           
+            $scope.AdminEnrollmentReportTable = true;
 
-        var enrollmentreportCount = CcicPreExaminationService.GetInstitutionEnrollmentReportCount(InstitutionID);
-        enrollmentreportCount.then(function (response) {
-            try {
-                var res = JSON.parse(response);
+
+
+            $scope.showAdminEnrollmentCount = function (InstitutionID) {
+
+                $localStorage.TempData = {
+                    InstitutionID: InstitutionID,
+                };
+
+                $state.go('CcicDashboard.Academic.EnrollmentReport');
+
             }
-            catch (err) { }
-            $scope.EnrollmentReportCountTable = [];
-            if (res.length >= 0) {
-                $scope.EnrollmentReportCountTable = res;
-            } else {
-                $scope.EnrollmentReportCountTable = [];
-            }
-        },
-            function (error) {
-                //   alert("error while loading Notification");
-                var err = JSON.parse(error);
-            });
+            var adminenrollmentreportCount = CcicPreExaminationService.GetAdminEnrollmentReportCount();
+            adminenrollmentreportCount.then(function (Res) {
+                //try {
+                //    var Res = JSON.parse(response);
+                //}
+                //catch (err) { }
+                $scope.AdminEnrollmentReportCountTable = [];
+                if (Res.Table.length >= 0) {
+                    $scope.AdminEnrollmentReportCountTable = Res.Table;
+                } else {
+                    $scope.AdminEnrollmentReportCountTable = [];
+                }
+            },
+                function (error) {
+                    //   alert("error while loading Notification");
+                    var err = JSON.parse(error);
+                });
 
-
-       
-        $scope.showDetails = function (CourseID,ReportTypeID) {
-            
-            $localStorage.TempData2 = {
-                CourseID: CourseID,
-                ReportTypeID: ReportTypeID,
-
-            };
-            $state.go('CcicDashboard.Academic.CcicStudentRegList');
+        
+          
+           
 
         }
 
+        else {
 
-        
+            var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
+
+            var enrollmentreportCount = CcicPreExaminationService.GetInstitutionEnrollmentReportCount(InstitutionID);
+            enrollmentreportCount.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                $scope.EnrollmentReportCountTable = [];
+                if (res.length >= 0) {
+                    $scope.EnrollmentReportCountTable = res;
+                } else {
+                    $scope.EnrollmentReportCountTable = [];
+                }
+            },
+                function (error) {
+                    //   alert("error while loading Notification");
+                    var err = JSON.parse(error);
+                });
+
+
+
+            $scope.showDetails = function (CourseID, ReportTypeID) {
+
+                $localStorage.TempData2 = {
+                    CourseID: CourseID,
+                    ReportTypeID: ReportTypeID,
+
+                };
+                $state.go('CcicDashboard.Academic.CcicStudentRegList');
+
+            }
+
+            $scope.EnrollmentReportTable = true;
+            $scope.AdminEnrollmentReportTable = false;
+        }
+
+
+    
+
 
 
     });

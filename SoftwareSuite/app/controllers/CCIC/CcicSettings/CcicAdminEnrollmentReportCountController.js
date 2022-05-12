@@ -1,16 +1,14 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicEnrollmentReportController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("CcicAdminEnrollmentReportCountController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
+        
 
         }
-
-
 
 
 
@@ -45,6 +43,8 @@
         }
 
 
+
+      
 
 
     });
