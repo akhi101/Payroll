@@ -4,7 +4,6 @@
         var authData = $localStorage.authorizationData;
         var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
-
         $scope.UserName = authData.UserName;
        
         const $ctrl = this;

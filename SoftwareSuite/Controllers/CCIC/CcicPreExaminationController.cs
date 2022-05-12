@@ -217,9 +217,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-
         [HttpGet, ActionName("GetHolidaysForTimeTable")]
-        public string GetHolidaysForTimeTable(string StartDate, int NofDates)
+        public HttpResponseMessage GetHolidaysForTimeTable(string StartDate, int NofDates)
         {
             try
             {
@@ -227,16 +226,20 @@ namespace SoftwareSuite.Controllers.CCIC
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@StartDate", StartDate);
                 param[1] = new SqlParameter("@NofDates", NofDates);
-
-
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_HolidayDatesForTimeTable", param);
-                return JsonConvert.SerializeObject(dt);
+                var dt = dbHandler.ReturnDataSet("SP_Get_HolidayDatesForTimeTable", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+
+                dbHandler.SaveErorr(" SP_Get_HolidayDatesForTimeTable", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.NotFound, ex.Message);
             }
         }
+
+
+
 
 
 

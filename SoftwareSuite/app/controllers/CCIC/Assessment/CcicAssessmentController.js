@@ -1,15 +1,15 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAssessmentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, CcicSystemUserService) {
+    app.controller("CcicAssessmentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings,CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
         $scope.UserTypeID = authData.UserTypeID;
         $scope.UserName = authData.UserName;
 
 
         AppSettings.UserName = authData.UserName;
-
+        var UserTypeID = authData.UserTypeID;
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicSubModulesbyRole(ModuleID);
-        getAdmissionsubmod.then(function (Usersdata) {
+        var getAssessmentsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID, ModuleID);
+        getAssessmentsubmod.then(function (Usersdata) {
             var modulesList = [];
             if (Usersdata.length > 0) {
                 for (var i = 0; i < Usersdata.length; i++) {
@@ -65,7 +65,6 @@
             $state.go("CcicDashboard.Assessment" + Module.SubModuleRouteName);
         }
         $scope.logOut = function () {
-            $scope.$emit("logout", authData.UserName);
             sessionStorage.loggedIn = "no";
             var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
 
@@ -78,7 +77,7 @@
                 UserID: 0,
                 UserName: ""
             };
-            $state.go('index.WebsiteLogin');
+            $state.go('CcicLogin');
         }
 
     });

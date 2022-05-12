@@ -231,6 +231,32 @@
         font-weight: bold;
     }
 </style>
+<script type="text/javascript">
+    // When the document is ready
+    $(document).ready(function () {
+
+        $('#example1').datepicker({
+            minViewMode: 'years',
+            autoclose: true,
+            format: 'yyyy'
+        });
+        $('#example2').datepicker({
+            minViewMode: 1,
+            autoclose: true,
+            format: 'yyyy-mm'
+        });
+        $('.tabledate').datepicker({
+            //minViewMode: 1,
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+        //$('#example4').datepicker({
+        //    //minViewMode: 1,
+        //    autoclose: true,
+        //    //format: 'dd-mm-yyyy'
+        //});
+    });
+</script>
 <div ng-controller="CcicGenerateDatesheetController">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
@@ -312,7 +338,7 @@
 
 
                     <div class="col-md-3 form-group">
-                        <label class="font-weight-bold">Start date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="StartDate" ng-change="loadHolidaydates()" placeholder="Select Start Date">
+                        <label class="font-weight-bold">Start date:</label> <input  autocomplete="off" class="form-control" type="date"  ng-model="StartDate"  ng-change="loadHolidaydates()" placeholder="Select Start Date">
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -328,7 +354,7 @@
                                     <label class="contain">
                                         <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" /><span class="checkmark"></span>Select All
                                     </label>
-                                    <label class="contain" ng-repeat="data in HolidaysData">
+                                    <label class="contain" ng-repeat="data in HolidaysDates">
                                         <input type="checkbox" ng-model="data.selected" ng-change="optionToggled(data.selected)"><span class="checkmark"></span><span ng-class="{'clr_red':data.Day=='Sunday'}">{{data.Dates|date: "dd-MM-yyyy"}}</span>
                                     </label>
 
