@@ -106,10 +106,7 @@
         };
 
       
-        this.VerifyEnrollmentDate = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate');
-        };
-
+      
       
 
         this.GetCcicCurrentAcademicYear = function () {
@@ -284,9 +281,9 @@
 
 
 
-        this.UpdateExamMonthYear = function (UpdateType, UserName, ExamMonthYearID, Active, ExamMonthYearName) {
+        this.UpdateExamMonthYear = function (UserName, ExamMonthYearID, ExamMonthYearName, ExamMonthYearSequence) {
             var paramObj = {
-                "UpdateType": UpdateType, "UserName": UserName, "ExamMonthYearID": ExamMonthYearID, "Active": Active, "ExamMonthYearName": ExamMonthYearName
+                "UserName": UserName, "ExamMonthYearID": ExamMonthYearID, "ExamMonthYearName": ExamMonthYearName, "ExamMonthYearSequence": ExamMonthYearSequence
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/UpdateExamMonthYear', paramObj);
             return promise;

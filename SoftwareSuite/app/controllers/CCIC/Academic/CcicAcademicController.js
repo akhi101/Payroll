@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, CcicPreExaminationService,$stateParams, AppSettings, CcicSystemUserService) {
+    app.controller("CcicAcademicController", function ($scope, $localStorage, $state, CcicAcademicService, AppSettings, CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
         $scope.userType = authData.SystemUserTypeID;
         $scope.UserName = authData.UserName;
@@ -44,7 +44,7 @@
           
           
             if (Module.ModuleRouteName == 'Enrollment') {
-                var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate();
+                var VerifyDate = CcicAcademicService.VerifyEnrollmentDate();
                 VerifyDate.then(function (response) {
                     if (response.Table[0].ResponseCode == '200') {
                        

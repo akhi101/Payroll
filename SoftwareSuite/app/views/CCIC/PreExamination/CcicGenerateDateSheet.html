@@ -8,6 +8,30 @@
     }
 
 
+    element.style {
+        margin-top: 23px;
+    }
+
+    .btn:not(.btn-link):not(.btn-circle) {
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        /* -webkit-border-radius: 2px; */
+        /* border-radius: 0px !important; */
+    }
+
+  
+    .myBtn1 {
+/*        margin-top: 23px;
+*/        font-size: 12px;
+        padding: 2px;
+        width: 150px;
+        border-radius: 2px;
+    }
+
+    pull-left {
+        float: left !important;
+    }
+
+
     .input-group-addon {
         padding: 4px 12px !important;
     }
@@ -338,7 +362,7 @@
 
 
                     <div class="col-md-3 form-group">
-                        <label class="font-weight-bold">Start date:</label> <input  autocomplete="off" class="form-control" type="date"  ng-model="StartDate"  ng-change="loadHolidaydates()" placeholder="Select Start Date">
+                        <label class="font-weight-bold">Start date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="StartDate" ng-change="loadHolidaydates()" placeholder="Select Start Date">
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -363,6 +387,7 @@
                         </div>
                     </div>
 
+
                     <div class="col-md-3 form-group">
                         <label for="ExamType">
                             No of Exam slots per day :
@@ -371,6 +396,20 @@
                                 ng-options="Bac.id as Bac.lbl for Bac in maxsoltsarr">
                             <option value="" selected>Select No of Slots</option>
                         </select>
+                    </div>
+
+                    <div class="col-md-2 pull-left">
+                        <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="getpdfTimeTableData()">
+                            Download PDF <span class="fa fa-file-pdf-o  heading_icon btn_icons"></span>
+                        </button>
+
+                    </div>
+                    <div class="col-md-2 pull-left">
+
+                        <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="exportTimetableToExcel()">
+                            Download Excel <span class="fa fa-file-excel-o  heading_icon btn_icons"></span>
+                        </button>
+
                     </div>
 
                     <div class="col-md-12" ng-show="slotarr.length>0">
