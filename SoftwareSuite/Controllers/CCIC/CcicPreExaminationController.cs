@@ -59,7 +59,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Batch", Batch);
 
-                var dt = dbHandler.ReturnDataSet("SP_Get_CourseDurations", param);
+                var dt = dbHandler.ReturnDataSet("SP_Get_BatchCourseDurations", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -761,17 +761,16 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("UpdateExamMonthYear")]
-        public string UpdateExamMonthYear(int UpdateType, string UserName, int ExamMonthYearID, bool Active,string ExamMonthYearName)
+        public string UpdateExamMonthYear(string UserName, int ExamMonthYearID, string ExamMonthYearName, int ExamMonthYearSequence)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@UpdateType", UpdateType);
-                param[1] = new SqlParameter("@UserName", UserName);
-                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
-                param[3] = new SqlParameter("@Active", Active);
-                param[4] = new SqlParameter("@ExamMonthYearName", ExamMonthYearName);
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@UserName", UserName);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamMonthYearName", ExamMonthYearName);
+                param[3] = new SqlParameter("@ExamMonthYearSequence", ExamMonthYearSequence);
                
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExamMonthYear", param);

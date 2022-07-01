@@ -182,9 +182,21 @@
             'CcicDashboard': {
                 url: "/CcicDashboard",
                 templateUrl: 'app/views/CCIC/CcicDashboard.html',
-                dependencies: ['controllers/CCIC/CcicDashboardController', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/CCIC/AdminServices/CcicAdminService']
+                dependencies: ['controllers/CCIC/CcicDashboardController', 'services/CCIC/CcicSystemUserService', 'services/CCIC/AdminServices/CcicAdminService']
             },
 
+
+            'CcicDashboard.CcicChangePassword': {
+                url: "/CcicChangePassword",
+                templateUrl: 'app/views/CCIC/CcicChangePassword.html',
+                dependencies: ['controllers/CCIC/CcicChangePasswordController', 'services/CCIC/CcicChangePasswordService','services/CCIC/CcicSystemUserService']
+            },
+
+            'CcicForgetPassword': {
+                url: "/CcicForgetPassword",
+                templateUrl: 'app/views/CCIC/CcicForgetPassword.html',
+                dependencies: ['controllers/CCIC/CcicForgetPasswordController', 'services/CCIC/CcicForgetPasswordService']
+            },
 
             'CcicDashboard.Settings': {
                 url: "/Settings",
@@ -196,16 +208,16 @@
             'CcicDashboard.Academic': {
                 url: "/Academic",
                 templateUrl: 'app/views/CCIC/Academic/CcicAcademic.html',
-                dependencies: ['controllers/CCIC/Academic/CcicAcademicController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/CCIC/CcicSystemUserService', 'services/MenuService', 'services/Admission/AdmissionService']
+                dependencies: ['controllers/CCIC/Academic/CcicAcademicController', 'services/CCIC/Academic/CcicAcademicService', 'services/CCIC/CcicSystemUserService']
             },
 
 
 
-            'CcicDashboard.CircularsDashboard': {
-                url: "/CircularsDashboard",
-                templateUrl: 'app/views/CCIC/Circulars/CcicCircularsDashboard.html',
-                dependencies: ['controllers/CCIC/Circulars/CcicCircularsDashboardController', 'services/CCIC/AdminServices/CcicAdminService']
-            },
+            //'CcicDashboard.CircularsDashboard': {
+            //    url: "/CircularsDashboard",
+            //    templateUrl: 'app/views/CCIC/Circulars/CcicCircularsDashboard.html',
+            //    dependencies: ['controllers/CCIC/Circulars/CcicCircularsDashboardController', 'services/CCIC/AdminServices/CcicAdminService']
+            //},
 
 
 
@@ -216,18 +228,18 @@
             },
 
 
-            'CcicDashboard.Settings.Circulars': {
-                url: "/Circulars",
-                templateUrl: 'app/views/CCIC/Circulars/CcicCirculars.html',
-                dependencies: ['controllers/CCIC/Circulars/CcicCircularsController', 'services/CCIC/AdminServices/CcicAdminService', 'directives/saFileUpload']
-            },
+            //'CcicDashboard.Settings.Circulars': {
+            //    url: "/Circulars",
+            //    templateUrl: 'app/views/CCIC/Circulars/CcicCirculars.html',
+            //    dependencies: ['controllers/CCIC/Circulars/CcicCircularsController', 'services/CCIC/AdminServices/CcicAdminService', 'directives/saFileUpload']
+            //},
 
 
 
             'CcicDashboard.Settings.ModulesSetting': {
                 url: "/ModulesSetting",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicModulesSetting.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicModulesSettingController', 'services/CCIC/AdminServices/CcicAdminService', 'services/CCIC/CcicSystemUserService', 'services/CCIC/CcicSettingsService']
+                dependencies: ['controllers/CCIC/CcicSettings/CcicModulesSettingController', 'services/CCIC/AdminServices/CcicAdminService', 'services/CCIC/CcicSettingsService']
 
             },
 
@@ -434,6 +446,7 @@
 
             },
 
+           
 
 
 
@@ -2488,12 +2501,6 @@
                     'services/SystemAdministration/SystemUserService']
             },
 
-            'CcicDashboard.CcicChangePassword': {
-                url: "/CcicChangePassword",
-                templateUrl: 'app/views/CCIC/CcicChangePassword.html',
-                dependencies: ['controllers/CCIC/CcicChangePasswordController', 'services/CCIC/CcicChangePasswordService', 'directives/inputNumberOnly', 'services/MenuService',
-                    'services/CCIC/CcicSystemUserService']
-            },
 
             //AssessMent Module
             'Dashboard.AssessmentDashboard.SetDates': {
@@ -3306,12 +3313,7 @@
                 dependencies: ['controllers/ForgetPasswordController', 'services/ForgetPasswordService']
             },
 
-            'CcicForgetPassword': {
-                url: "/CcicForgetPassword",
-                templateUrl: 'app/views/CCIC/CcicForgetPassword.html',
-                dependencies: ['controllers/CCIC/CcicForgetPasswordController', 'services/CCIC/CcicForgetPasswordService']
-            },
-
+          
 
 
             'BoardReportList': {

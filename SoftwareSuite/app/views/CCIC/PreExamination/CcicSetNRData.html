@@ -32,11 +32,11 @@
     <div class="breadcrumb-header">
         <div class="container">
             <section class="content-header">
-                <h5>Update DateSheet </h5>
+                <h5>Set NR Data</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
                     <li><a href="#!/CcicDashboard/PreExamination">Ccic PreExamination</a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination/UpdateDateSheet">Update DateSheet</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination/SetNRData">NR Data</a></li>
                 </ol>
             </section>
         </div>
@@ -73,17 +73,14 @@
                     <div class="col-md-12">
                         <div class="base-row" style="padding:15px!important;">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-
-                                        <label class="font-weight-bold"> Course Duration :</label>
-                                        <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
-                                            <option value="" selected="selected">Select Duration</option>
-                                            <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
-                                                {{data.CourseDuration}}
-                                            </option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="sel1">
+                                        Exam Month/Year :
+                                    </label>
+                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
+                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <option value="" selected>Select Month/Year of Exam</option>
+                                    </select>
                                 </div>
 
                                 <div class="col-md-3">
@@ -111,15 +108,19 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 form-group">
-                                    <label for="sel1">
-                                        Exam Month/Year :
-                                    </label>
-                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
-                                        <option value="" selected>Select Month/Year of Exam</option>
-                                    </select>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="font-weight-bold"> Course Duration :</label>
+                                        <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
+                                            <option value="" selected="selected">Select Duration</option>
+                                            <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
+                                                {{data.CourseDuration}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
+
 
 
                                 <div class="col-md-3">

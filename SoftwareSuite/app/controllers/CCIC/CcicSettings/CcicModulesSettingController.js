@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicModulesSettingController", function ($scope, $http, $localStorage, $uibModal, $state, AppSettings, CcicAdminService, CcicSystemUserService, CcicSettingsService) {
+    app.controller("CcicModulesSettingController", function ($scope, $localStorage, $state, CcicAdminService, CcicSettingsService) {
         const $ctrl = this
 
         $ctrl.$onInit = () => {
