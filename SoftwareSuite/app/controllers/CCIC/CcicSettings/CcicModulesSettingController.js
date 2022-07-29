@@ -58,7 +58,7 @@
             var GetAllCcicModules = CcicSettingsService.GetAllCcicModules();
             GetAllCcicModules.then(function (response) {
 
-                $scope.GetAllCcicModules = response;
+                $scope.Modules = response;
 
             },
                 function (error) {
@@ -438,13 +438,16 @@
 
         };
 
-        $scope.UpdateStatus = function (ind, SubModuleID, SubModuleName, SubModuleRouteName, ModuleCardColourName, SubModuleOrder) {
+        $scope.UpdateStatus = function (ind, SubModuleID, SubModuleName, SubModuleRouteName, ModuleCardColourName, SubModuleOrder, moduleid) {
 
 
             if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
                 alert("Please Select Module to use the Operation");
                 return
             }
+            
+            //var moduleid = ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "" ? "" : moduleid)
+
             $scope.viewField = false;
             $scope.modifyField = false;
             $scope['edit' + ind] = true;
@@ -457,7 +460,7 @@
                 ele2[j].style['-moz-appearance'] = "none";
             }
 
-            var Update = CcicSettingsService.UpdateCcicSubModule(2, $scope.UserName, SubModuleID, SubModuleName, true, SubModuleRouteName, ModuleCardColourName, SubModuleOrder, 1);
+            var Update = CcicSettingsService.UpdateCcicSubModule(2, $scope.UserName, SubModuleID, SubModuleName, true, SubModuleRouteName, ModuleCardColourName, SubModuleOrder, moduleid);
             Update.then(function (response) {
                 alert("SubModule Updated Successfully")
                 $scope.getSubModules();

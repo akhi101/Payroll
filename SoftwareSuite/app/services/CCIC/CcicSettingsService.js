@@ -107,7 +107,7 @@
             return promise;
         }
 
-        this.UpdateCcicSubModule = function (UpdateType, UserName, SubModuleID, SubModuleName, Active, SubModuleRouteName, ModuleCardColourID, SubModuleOrder,ModuleID) {
+        this.UpdateCcicSubModule = function (UpdateType, UserName, SubModuleID, SubModuleName, Active, SubModuleRouteName, ModuleCardColourID, SubModuleOrder, ModuleID) {
             var paramObj = {
                 "UpdateType": UpdateType, "UserName": UserName, "SubModuleID": SubModuleID, "SubModuleName": SubModuleName, "Active": Active, "SubModuleRouteName": SubModuleRouteName, "ModuleCardColourID": ModuleCardColourID, "SubModuleOrder": SubModuleOrder, "ModuleID": ModuleID
             };

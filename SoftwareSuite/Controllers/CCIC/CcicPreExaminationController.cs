@@ -142,8 +142,8 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        [HttpGet, ActionName("GetInstitutionEnrollmentReportCount")]
-        public string GetInstitutionEnrollmentReportCount(int InstitutionID)
+        [HttpGet, ActionName("GetInsEnrollmentReportCoursesCount")]
+        public string GetInsEnrollmentReportCoursesCount(int InstitutionID)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@InstitutionID", InstitutionID);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionEnrollmentReportCount", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportCoursesCount", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -160,20 +160,150 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("GetInsRegisterReportCoursesCount")]
+        public string GetInsRegisterReportCoursesCount(int InstitutionID,int AcademicYearID,int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@Batch", Batch);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportCoursesCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
-        [HttpGet, ActionName("GetAdminEnrollmentReportCount")]
-        public HttpResponseMessage GetAdminEnrollmentReportCount()
+        [HttpGet, ActionName("GetInstitutionVerificationReportCount")]
+        public string GetInstitutionVerificationReportCount(int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportCoursesCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        [HttpGet, ActionName("GetAdminEnrollmentReportInsCount")]
+        public HttpResponseMessage GetAdminEnrollmentReportInsCount()
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec SP_Get_AdminEnrollmentReportCount";
+                StrQuery = "exec SP_Get_Admin_EnrollmentReportInsCount";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_AdminEnrollmentReportCount", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_Admin_EnrollmentReportInsCount", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetAdminRegisterReportCount")]
+        public string GetAdminRegisterReportCount(int AcademicYearID, int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Admin_RegisterReportInsCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetRegisterCoursesCount")]
+        public string GetRegisterCoursesCount(int InstitutionID,int AcademicYearID, int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportCoursesCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetAdminRegisterCoursesCount")]
+        public string GetAdminRegisterCoursesCount(int InstitutionID, int AcademicYearID, int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@Batch", Batch);
+               
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportCoursesCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetAdminRegisterReportData")]
+        public string GetAdminRegisterReportData(int InstitutionID, int CourseID,int ReportTypeID,int AcademicYearID, int Batch)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[1] = new SqlParameter("@CourseID", CourseID);
+                param[2] = new SqlParameter("@ReportTypeID", ReportTypeID);
+                param[3] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[4] = new SqlParameter("@Batch", Batch);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetAdminVerificationReportCount")]
+        public HttpResponseMessage GetAdminVerificationReportCount()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Admin_EnrollmentReportInsCount";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Admin_EnrollmentReportInsCount", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -283,8 +413,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetEnrollmentDates")]
-        public string GetEnrollmentDates(int AcademicYearID)
+        [HttpGet, ActionName("GetEnrollementDates")]
+        public string GetEnrollementDates(int AcademicYearID)
         {
             try
             {
@@ -516,18 +646,69 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
 
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionEnrollmentReportData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportData", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_InstitutionEnrollmentReportData", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_Ins_EnrollmentReportData", 0, ex.Message);
                 return ex.Message;
             }
 
         }
 
+
+        [HttpPost, ActionName("GetInstitutionRegisterReportData")]
+        public string GetInstitutionRegisterReportData([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[1] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
+                param[3] = new SqlParameter("@AcademicYearID", data["AcademicYearID"]);
+                param[4] = new SqlParameter("@Batch", data["Batch"]);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Ins_RegisterReportData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("GetInstitutionVerificationReportData")]
+        public string GetInstitutionVerificationReportData([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[1] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Ins_EnrollmentReportData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
 
         [HttpPost, ActionName("SubmitStdDetails")]
         public string SubmitStdDetails([FromBody] JsonObject data)
@@ -631,8 +812,8 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        [HttpGet, ActionName("AddEnrollmentDates")]
-        public string AddEnrollmentDates(int AcademicYearID, string CourseDuration, int Batch, DateTime EnrollementStartDate, DateTime EnrollementEndDate, string UserName)
+        [HttpGet, ActionName("AddEnrollementDates")]
+        public string AddEnrollementDates(int AcademicYearID, string CourseDuration, int Batch, DateTime EnrollementStartDate, DateTime EnrollementEndDate, string UserName)
         {
             try
             {
@@ -785,8 +966,8 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        [HttpGet, ActionName("UpdateEnrollmentDates")]
-        public string UpdateEnrollmentDates(int UpdateType, string UserName, int EnrollementDatesID, bool Active, DateTime EnrollementStartDate, DateTime EnrollementEndDate)
+        [HttpGet, ActionName("UpdateEnrollementDates")]
+        public string UpdateEnrollementDates(int UpdateType, string UserName, int EnrollementDatesID, bool Active, DateTime EnrollementStartDate, DateTime EnrollementEndDate)
         {
             try
             {
@@ -813,8 +994,8 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-        [HttpGet, ActionName("SetEnrollmentDatesStatus")]
-        public string SetEnrollmentDatesStatus(int UpdateType, string UserName, int EnrollementDatesID, bool Active)
+        [HttpGet, ActionName("SetEnrollementDatesStatus")]
+        public string SetEnrollementDatesStatus(int UpdateType, string UserName, int EnrollementDatesID, bool Active)
         {
             try
             {

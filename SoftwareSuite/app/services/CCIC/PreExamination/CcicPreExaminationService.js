@@ -59,16 +59,70 @@
             return promise;
         };
 
-        this.GetInstitutionEnrollmentReportCount = function (InstitutionID) {
+        this.GetInsEnrollmentReportCoursesCount = function (InstitutionID) {
             var paramObj = {
                 "InstitutionID": InstitutionID
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutionEnrollmentReportCount', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInsEnrollmentReportCoursesCount', paramObj);
             return promise;
         };
 
-        this.GetAdminEnrollmentReportCount = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportCount');
+        this.GetInsRegisterReportCoursesCount = function (InstitutionID,AcademicYearID,Batch) {
+            var paramObj = {
+                "InstitutionID": InstitutionID, "AcademicYearID": AcademicYearID, "Batch": Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInsRegisterReportCoursesCount', paramObj);
+            return promise;
+        };
+
+        this.GetInstitutionVerificationReportCount = function (InstitutionID) {
+            var paramObj = {
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutionVerificationReportCount', paramObj);
+            return promise;
+        };
+
+        this.GetAdminEnrollmentReportInsCount = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportInsCount');
+        };
+
+        this.GetAdminVerificationReportCount = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportCount');
+        };
+
+        this.GetAdminRegisterReportCount = function (AcademicYearID, Batch) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID, Batch: Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminRegisterReportCount', paramObj);
+            return promise;
+        };
+
+
+
+        this.GetAdminRegisterCoursesCount = function (InstitutionID,AcademicYearID, Batch) {
+            var paramObj = {
+                "InstitutionID": InstitutionID,"AcademicYearID": AcademicYearID, Batch: Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminRegisterCoursesCount', paramObj);
+            return promise;
+        };
+
+        this.GetRegisterCoursesCount = function (InstitutionID, AcademicYearID, Batch) {
+            var paramObj = {
+                "InstitutionID": InstitutionID, "AcademicYearID": AcademicYearID, Batch: Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetRegisterCoursesCount', paramObj);
+            return promise;
+        };
+
+        this.GetAdminRegisterReportData = function (InstitutionID, CourseID, ReportTypeID,AcademicYearID, Batch) {
+            var paramObj = {
+                "InstitutionID": InstitutionID, "CourseID": CourseID, "ReportTypeID": ReportTypeID, "AcademicYearID": AcademicYearID, Batch: Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminRegisterReportData', paramObj);
+            return promise;
         };
 
         this.GetExamMonthYears = function (AcademicYearID) {
@@ -89,6 +143,22 @@
             return promise;
         };
 
+        this.GetInstitutionRegisterReportData = function (InstitutionID, CourseID, ReportTypeID, AcademicYearID,Batch) {
+            var paramObj = {
+                "InstitutionID": InstitutionID, "CourseID": CourseID, "ReportTypeID": ReportTypeID, "AcademicYearID": AcademicYearID, "Batch": Batch
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetInstitutionRegisterReportData', paramObj);
+            return promise;
+        };
+
+        this.GetInstitutionVerificationReportData = function (InstitutionID, CourseID, ReportTypeID) {
+            var paramObj = {
+                "InstitutionID": InstitutionID, "CourseID": CourseID, "ReportTypeID": ReportTypeID
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetInstitutionVerificationReportData', paramObj);
+            return promise;
+        };
+
         this.getSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAM) {
             var paramObj = {
                 "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAM": STREAM
@@ -97,12 +167,17 @@
             return promise;
         };
 
-        this.GetEnrollmentDates = function (AcademicYearID) {
+        this.GetEnrollementDates = function (AcademicYearID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetEnrollmentDates', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetEnrollementDates', paramObj);
             return promise;
+        };
+
+
+        this.VerifyEnrollmentDate = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate');
         };
 
       
@@ -221,11 +296,11 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/AddAYCourseDurationBatches', paramObj);
             return promise;
         }
-        this.AddEnrollmentDates = function (AcademicYearID, CourseDuration, Batch, EnrollementStartDate, EnrollementEndDate, UserName) {
+        this.AddEnrollementDates = function (AcademicYearID, CourseDuration, Batch, EnrollementStartDate, EnrollementEndDate, UserName) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID, "CourseDuration": CourseDuration, "Batch": Batch, "EnrollementStartDate": EnrollementStartDate, "EnrollementEndDate": EnrollementEndDate, "UserName": UserName
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/AddEnrollmentDates', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/AddEnrollementDates', paramObj);
             return promise;
         }
 
@@ -237,11 +312,11 @@
             return promise;
         }
 
-        this.SetEnrollmentDatesStatus = function (UpdateType, UserName, EnrollementDatesID, Active) {
+        this.SetEnrollementDatesStatus = function (UpdateType, UserName, EnrollementDatesID, Active) {
             var paramObj = {
                 "UpdateType": UpdateType, "UserName": UserName, "EnrollementDatesID": EnrollementDatesID, "Active": Active
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/SetEnrollmentDatesStatus', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/SetEnrollementDatesStatus', paramObj);
             return promise;
         }
 
@@ -263,11 +338,11 @@
             return promise;
         }
 
-        this.UpdateEnrollmentDates = function (UpdateType, UserName, EnrollementDatesID, Active, EnrollementStartDate, EnrollementEndDate) {
+        this.UpdateEnrollementDates = function (UpdateType, UserName, EnrollementDatesID, Active, EnrollementStartDate, EnrollementEndDate) {
             var paramObj = {
                 "UpdateType": UpdateType, "UserName": UserName, "EnrollementDatesID": EnrollementDatesID, "Active": Active, "EnrollementStartDate": EnrollementStartDate, "EnrollementEndDate": EnrollementEndDate
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/UpdateEnrollmentDates', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/UpdateEnrollementDates', paramObj);
             return promise;
         }
 

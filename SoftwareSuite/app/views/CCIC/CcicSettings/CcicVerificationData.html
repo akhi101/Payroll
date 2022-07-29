@@ -1,0 +1,687 @@
+﻿<style>
+    .genAttId {
+        cursor: pointer;
+        color: cornflowerblue;
+    }
+
+        .genAttId:hover {
+            text-decoration: underline;
+        }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .textCss {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+    }
+
+    .overlayCss {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgb(241, 241, 241);
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    legend.group-border {
+        width: inherit;
+        /* Or auto */
+        padding: 0 10px;
+        /* To give a bit of padding on the left and right */
+        border-bottom: none;
+    }
+
+    fieldset.group-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+    }
+</style>
+
+<style>
+
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+    }
+
+
+    .card .body {
+        font-size: 14px;
+        color: #444;
+        padding: 30px;
+        font-weight: 400;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 12px !important;
+    }
+
+
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+    /*
+    button > span.active {
+        color: #ffffff !important;
+    }*/
+
+    span {
+        color: black !important;
+    }
+
+    .college-details ul li span {
+        color: #ffffff;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+
+
+
+
+    .custom-forms label {
+        color: #222;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 10px 0px 10px 0px;
+        font-weight: 600;
+    }
+
+    .col-md-4 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .col-md-12 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .offer-custom-style h2 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+
+
+
+
+
+    /*   .footer_section {
+        position: relative;
+        bottom: 0px;
+        z-index: 99;
+        background: #0497FF;
+        color: #ffffff;
+        padding-top: 10px;
+        border-top: 1px solid #ced4da;
+        background: #f0f2f7 !important;
+    }*/
+
+
+
+    .zoom {
+        transition: transform .2s; /* Animation */
+
+        margin: 0 auto;
+    }
+
+
+    .cancel-btn button {
+        background: #e51313;
+        padding: 5px 20px;
+        color: #fff;
+        float: right;
+        border: none;
+        font-size: 14px;
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        border-radius: 2px;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Users">
+    <title>Verification Report</title>
+    <style>
+        /*.col-md-3 {
+            padding-right: 2px !important;
+            padding-left: 2px !important;
+        }*/
+        .modal {
+            text-align: center;
+            padding: 0 !important;
+        }
+
+            .modal:before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+                margin-right: -4px;
+            }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .table-bordered > thead > tr > th {
+            position: sticky;
+            top: 0px;
+        }
+
+        .clrRed {
+            color: red;
+            font-weight: bold;
+        }
+
+            .clrRed:hover {
+                color: red;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+        .ClrGreen {
+            color: green;
+            font-weight: bold;
+        }
+
+        .notVerify {
+            color: #dd1010;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .Verify {
+            color: limegreen;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-controller="CcicVerificationDataController">
+        <!-- New Style Start-->
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+
+
+
+
+        <div class="breadcrumb-header">
+            <!-- breadcrumb Open -->
+            <div class="container">
+                <section class="content-header">
+                    <h5>Verification Report Data View</h5>
+                    <ol class="breadcrumb">
+                        <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                        <li><a href="#!/CcicDashboard/Academic">Academic Dashboard</a></li>
+                        <li><a href="#!/CcicDashboard/Academic/CcicVerificationData">Verification Report Data</a></li>
+                    </ol>
+                </section>
+            </div>
+            <!-- breadcrumb Close -->
+        </div>
+
+        <div class="container">
+
+            <div class="col-md-12">
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            </div>
+            <div class="col-md-12" ng-show="DataTable">
+                <div class="row base-row">
+                    <div class="col-md-12">
+                        <!--<div class="pull-right" ng-if="StudentDetailsFound">
+                            <a class="ExportToExcel1 pointer"
+                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                                <i class="fa fa-file-excel-o"></i>
+                                Export to Excel
+                            </a>
+                        </div>-->
+                        <div class="col-lg-12">
+                            <form class="form-inline" ng-if="VerificationReportDataTable.length>0">
+                                <div class="form-group">
+                                    <label>Search</label>
+                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                                </div>
+                            </form>
+                            <label class="notifylabel" ng-if="VerificationReportDataTable.length>0" for="sel1" style="color: red;"> Double click on row to Update Student</label>
+                            <!--<div style="width:100%;text-align:center;">
+                                <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                            </div>-->
+
+                            <div ng-if="VerificationReportDataTable.length<=0">
+                                <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
+                            </div>
+                            <div class="scrollbox" id="tblParent" ng-if="VerificationReportDataTable.length>0">
+                                <table id="studentRegTable" class="table table-hover table-fixed table-bordered studentadmission-table table-responsive scrollbox-content">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">S No.</th>
+                                            <th style="width: 10%" ng-click="sort('PIN')">PIN<i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 10%" ng-click="sort('ApplicationNumber')">Application Number <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 15%" ng-click="sort('Name')">Student Name <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 5%" ng-click="sort('Submitted')">Submitted <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 10%">Application Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in VerificationReportDataTable|orderBy:sortKey:reverse|filter:search">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{x.ApplicationNumber}}</td>
+                                            <td>{{x.PIN}}</td>
+                                            <td>{{x.StudentName}}</td>
+                                            <td>{{x.Submitted?'Yes':'No'}}</td>
+                                            <td ng-dblclick="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
+                                                <a class="{{x.ApplicationStatus=='Pending'?'notVerify':'Verify'}}">{{x.ApplicationStatus}}</a>
+                                            </td>
+                                            <!--<td ng-show="SystemUserTypeId ==1||SystemUserTypeId==1014">
+                                                <b class="clrRed" ng-click="GeneratePin(x.StudentId)" title="Click to Generate Pin" ng-show="x.Pin==''||x.Pin==null">Generate Pin</b>
+                                                <b class="ClrGreen" ng-show="x.Pin!=''&&x.Pin!=null">Pin Generated</b>
+                                            </td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12  mtp-50">
+                <!--<div style="width:100%;text-align:center;" ng-show="LoadImg">
+                    <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
+                    <p>please wait while data is loading...</p>
+                </div>-->
+                <div style="width:100%;text-align:center;">
+                    <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" style="width:64px;height:64px" />
+                </div>
+            </div>
+
+
+        </div>
+        <div class="container">
+
+            <div class="col-md-6" style="margin-bottom:100px" ng-show="ShowStudentDetails">
+
+                <fieldset class="group-border">
+                    <legend class="group-border">Application Details</legend>
+             
+                    <div class="body">
+                        <div class="custom-forms">
+
+                            <div class="row">
+                                <div class="col-md-12 ">
+
+                                    <div class="col-md-3"><label>Course  </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
+
+                                </div>
+
+                                <div class="col-md-12 ">
+                                    <div class="col-md-3"><label>Qualification  </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
+
+                                </div>
+
+                                <div class="col-md-12 ">
+                                    <div class="col-md-3"><label>Experience  </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
+
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>sscHallticket </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>sscPassedYear </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>sscType </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <hr />
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>CandidateName </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.StudentName}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>FatherName </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.FatherName}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>MotherName </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.MotherName}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>CandidateNameDOB </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.DateofBirth}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>Gender </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Gender}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>Aadhar Number </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.AadharNumber}}</div>
+
+                                </div>
+
+
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>houseNo </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.HouseNumber}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>street </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Street}}</div>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"> <label>landmark </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Landmark}}</div>
+
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>village</label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Village}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>pincode</label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.Pincode}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>district </label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.District}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>state</label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.AddressState}}</div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>Mobile Number</label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.StudentMobile}}</div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-3"><label>email</label></div>
+                                    <div class="col-md-9 pre-text">: {{PreviewData.StudentEmail}}</div>
+                                </div>
+
+
+                            </div>
+
+
+                          
+
+
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row">
+                    <div class="col-md-2  pull-right">
+                        <button class="btn btn-danger btn-css" ng-click="Reject()">
+                            Reject
+                        </button>
+                    </div>
+
+                    <div class="col-md-2 pull-right">
+
+                        <button class="btn  btn-warning btn-css" ng-click="Revise()">
+                            Revise
+                        </button>
+                    </div>
+                    <div class="col-md-2 pull-right">
+                        <button class="btn  btn-success btn-css" ng-click="Approve()">
+                            Approve
+                        </button>
+                    </div>
+
+
+                </div>
+
+                </div>
+          
+
+            <div class="col-md-6" style="margin-bottom:100px" ng-show="ShowStudentDetails">
+
+                <fieldset class="group-border">
+                    <legend class="group-border">Application Details</legend>
+
+                    <div class="body">
+                        <div class="custom-forms">
+                            <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                </div>
+
+                                <div class="col-md-6 text-center">
+                                    <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="col-md-4 text-center">
+                                <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
+                            </div>
+                            <!--</div>-->
+                            <!--<div class="row">
+                        <div class="col-md-1 pull-right mtp-50">
+
+                            <div class="cancel-btn" style="margin-bottom:0px;">
+                                <button type="button" ng-show="Edit" ng-click="Modify(ApplicationNumber,StudentId)">Edit</button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2 pull-right mtp-50">
+                            <div class="submit-btn" ng-show="Submit" style="margin-bottom:0px;">
+                                <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 pull-right mtp-50" style="left:250px">
+
+                            <div class="cancel-btn" ng-show="Clear" style="margin-bottom:0px;">
+                                <button type="button" ng-click="Close()">Close</button>
+                            </div>
+
+                        </div>
+                    </div>-->
+
+
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <!--<div class="col-md-12" style="margin-bottom:100px" ng-show="ShowStudentDetails">
+
+                <div class="card">-->
+                    <!--<legend class="group-border">Application Details</legend>-->
+                    <!--<div class="row">-->
+                <!--<div class="col-md-12">
+                    <div class="offer-custom-style">
+                        <h2>Application Details</h2>
+                    </div>
+                </div>-->
+            <!--</div>
+                  
+                    <div class="body">
+                        <div class="custom-forms">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <label>Select Option:</label>
+                                    </div>
+                                    <div class="col-md-8 pull-left">
+                                        <div class="rdo-grp">
+                                            <input id="rdo1" type="radio" name="radio" ng-value=1 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
+                                            <label for="rdo1"><span></span><span>Revised</span></label>
+                                            <input id="rdo2" type="radio" name="radio" ng-value=2 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
+                                            <label for="rdo2"><span></span><span>Rejected</span></label>
+                                            <input id="rdo3" type="radio" name="radio" ng-value=3 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
+                                            <label for="rdo3"><span></span><span>Approved</span></label>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+
+
+                                <!--<div class="custom-forms" ng-show="SscForm">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label>{{sscHtLbl}}</label>
+                                                <input type="text" ng-model="Tenth_HNo" ng-disabled="Submitted2" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label>{{passYrLbl}}</label>
+                                                <input type="text" ng-model="Tenth_Year" ng-disabled="Submitted2" maxlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label for="date-picker-example">Examination Pass Type</label>
+                                                <select class="form-control" ng-disabled="Submitted2" ng-model="Stream">
+                                                    <option value="">Select Pass Type</option>
+                                                    <option value="R">Regular</option>
+                                                    <option value="A">Supplmentary</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 pull-right mtp-50">
+                                            <div class="cancel-btn" style="margin-bottom:0px;">
+                                                <button type="button" ng-model="Cancel" ng-click="Cancel2()">Cancel</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 pull-right mtp-50">
+                                            <div class="submit-btn " style="margin:0px;">
+                                                <button type="submit" ng-disabled="Submitted2" ng-click="getsscDetails(Tenth_HNo,Tenth_Year,Stream)">{{sscGetLbl}}</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 pull-right mtp-50">
+
+                                        </div>
+                                    </div>
+
+                                </div>-->
+
+
+
+
+
+
+                            <!--</div>
+                        </div>
+                   
+                </div>
+
+            </div>
+        </div>-->
+
+    </div>
+
+</body>
+
+</html>
