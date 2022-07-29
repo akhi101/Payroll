@@ -392,8 +392,15 @@
 
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                   
+                    $state.go('CcicDashboard.Academic.Enrollment');
+                    $scope.ShowDetails = false;
+                    $scope.Course = null;
+                    $scope.Qualification = null;
+                    $scope.Experience = null;
+                    $scope.ExperienceDescription = '';
+                    $scope.GetCcicCourseExperienceInfo = [];
                     $scope.coursedetails = true;
+                  
    
                 }
 

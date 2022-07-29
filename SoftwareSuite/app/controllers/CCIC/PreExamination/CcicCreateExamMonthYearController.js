@@ -1,15 +1,16 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicCreateExamMonthYearController", function ($scope, $localStorage, CcicPreExaminationService) {
+    app.controller("CcicCreateExamMonthYearController", function ($scope,$localStorage, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName
 
         $scope.finalList = [];
-        //$ctrl.$onInit = () => {
+        const $ctrl = this;
+        $ctrl.$onInit = () => {
+            $scope.GetCurrentAcademicYearData();
+            $scope.GetExamMonthYearData();
 
-        //    $scope.GetExamMonthYearData();
-
-        //}
+        }
 
         $scope.disabletable = function () {
             var ele = document.getElementsByClassName("tableinpt");
@@ -59,15 +60,7 @@
                     alert("data is not loaded");
                     var err = JSON.parse(error);
                 });
-            Array.prototype.remByVal = function (val) {
-                for (var i = 0; i < this.length; i++) {
-                    if (this[i].ElectiveSet === val) {
-                        this.splice(i, 1);
-                        break;
-                    }
-                }
-                return this;
-            }
+         
 
 
 
@@ -146,6 +139,29 @@
 
 
 
+        $scope.GetCurrentAcademicYearData = function () {
+            var getacayrs = CcicPreExaminationService.GetCcicAcademicYears()
+            getacayrs.then(function (response) {
+                $scope.GetCcicAcademicYears = response.Table;
+
+                for (let i = 0; i < $scope.GetCcicAcademicYears.length; i++) {
+                    if ($scope.GetCcicAcademicYears[i].GetCcicAcademicYears == true) {
+                        $scope.finalList.push($scope.GetCcicAcademicYears[i]);
+                    }
+                }
+
+                //  var ele = document.getElementsByClassName("tableinpt");
+                for (var j = 1; j < response.Table.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+        }
 
      
 
@@ -165,6 +181,8 @@
 
 
         $scope.UpdateExamMonthYear = function (data, ind) {
+
+          
             $scope['edit' + ind] = true;
 
             var ele2 = document.getElementsByClassName("enabletable" + ind);
@@ -176,44 +194,50 @@
 
 
 
-            if (data.ExamMonthYear == null || data.ExamMonthYear == undefined || data.ExamMonthYear == "") {
-                alert("Enter exam month and year.");
-                return;
-            }
-            if (data.ExamMonthYearSequence == null || data.ExamMonthYearSequence == undefined || data.ExamMonthYearSequence == "") {
-                alert("Enter ExamMonthYearSequence.");
-                return;
-            }
+            //if (data.ExamMonthYear == null || data.ExamMonthYear == undefined || data.ExamMonthYear == "") {
+            //    alert("Enter exam month and year.");
+            //    return;
+            //}
+            //if (data.ExamMonthYearSequence == null || data.ExamMonthYearSequence == undefined || data.ExamMonthYearSequence == "") {
+            //    alert("Enter ExamMonthYearSequence.");
+            //    return;
+            //}
             var UpdateExmMthYr = CcicPreExaminationService.UpdateExamMonthYear($scope.UserName, parseInt(data.ExamMonthYearID), data.ExamMonthYearName, parseInt(data.ExamMonthYearSequence))
             UpdateExmMthYr.then(function (response) {
-                // var response = JSON.parse(response)
-                if (response[0].ResponceCode == '200') {
-                    alert(response[0].ResponceDescription)
-                    $scope.GetExamYearMonth();
-                } else {
-                    alert('Something Went Wrong')
+                try {
+                    var res = JSON.parse(response);
                 }
+                catch (err) { }
+                if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.GetExamMonthYearData($scope.AcademicYearID);
+                    $scope.clearDefaults();
+                } else {
+                    alert('Exam Month Year Updated Successfully');
+                    $scope.GetExamMonthYearData($scope.AcademicYearID);
+                    $scope.clearDefaults();
+
+                }
+
             },
+
                 function (error) {
-                    alert("something Went Wrong")
 
-
-                });
-        }
-
-
-        $scope.clearDefaults = function () {
-
-            $scope.academicYear = null;
-            $scope.BaTch = null;
-            $scope.ExamMonthYear = null;
-
-
+                    var err = JSON.parse(error);
+                })
 
         }
 
 
+            $scope.clearDefaults = function () {
+
+                $scope.AcademicYear = null;
+                $scope.BaTch = null;
+                $scope.ExamMonthYear = null;
+
+            }
 
 
-    })
+
+        })
 })

@@ -1,47 +1,47 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicEnrollmentReportController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("CcicVerificationController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
-        $scope.UserTypeID = authData.UserTypeID;
         var tmp = $localStorage.TempData;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
-         
+            $scope.AdminVerificationReportTable = true;
+            $scope.VerificationReportTable = false;
         }
 
 
-     
-
-
-        if ($scope.UserTypeID == 1) {
-           
-            $scope.AdminEnrollmentReportTable = true;
 
 
 
-            $scope.showAdminEnrollmentInsCount = function (InstitutionID) {
+        if ($scope.UserName == 'ADMIN') {
+
+            $scope.AdminVerificationReportTable = true;
+            $scope.VerificationReportTable = false;
+
+
+            $scope.showAdminVerificationCount = function (InstitutionID) {
 
                 $localStorage.TempData = {
                     InstitutionID: InstitutionID,
                 };
 
-                $state.go('CcicDashboard.Academic.CcicAdmEnrollReportCourses');
+                $state.go('CcicDashboard.Academic.CcicAdmVerificationCourses');
 
             }
-            var adminenrollreportinsCount = CcicPreExaminationService.GetAdminEnrollmentReportInsCount();
-            adminenrollreportinsCount.then(function (Res) {
+            var admverifyreportcourses = CcicPreExaminationService.GetAdminVerificationReportCount();
+            admverifyreportcourses.then(function (Res) {
                 //try {
                 //    var Res = JSON.parse(response);
                 //}
                 //catch (err) { }
-                $scope.AdminEnrollmentReportInsCountTable = [];
+                $scope.AdminVerificationReportCountTable = [];
                 if (Res.Table.length >= 0) {
-                    $scope.AdminEnrollmentReportInsCountTable = Res.Table;
+                    $scope.AdminVerificationReportCountTable = Res.Table;
                 } else {
-                    $scope.AdminEnrollmentReportInsCountTable = [];
+                    $scope.AdminVerificationReportCountTable = [];
                 }
             },
                 function (error) {
@@ -49,28 +49,28 @@
                     var err = JSON.parse(error);
                 });
 
-        
-          
-           
+
+
+
 
         }
 
         else {
-            $scope.EnrollmentReportCoursesTable = true;
-            $scope.AdminEnrollmentReportTable = false;
+            $scope.VerificationReportTable = true;
+
             var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
-            var enrollrepcoursescount = CcicPreExaminationService.GetInsEnrollmentReportCoursesCount(InstitutionID);
-            enrollrepcoursescount.then(function (response) {
+            var verifyreportCount = CcicPreExaminationService.GetInstitutionVerificationReportCount(InstitutionID);
+            verifyreportCount.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 }
                 catch (err) { }
-                $scope.EnrollmentReportCoursesTable = [];
+                $scope.VerificationReportCountTable = [];
                 if (res.length >= 0) {
-                    $scope.EnrollmentReportCoursesTable = res;
+                    $scope.VerificationReportCountTable = res;
                 } else {
-                    $scope.EnrollmentReportCoursesTable = [];
+                    $scope.VerificationtReportCountTable = [];
                 }
             },
                 function (error) {
@@ -87,20 +87,17 @@
                     ReportTypeID: ReportTypeID,
 
                 };
-                $state.go('CcicDashboard.Academic.CcicEnrollmentReportData');
+                $state.go('CcicDashboard.Academic.CcicVerificationReportData');
 
             }
 
- 
+            $scope.VerificationReportTable = true;
+            $scope.AdminVerificationReportTable = false;
         }
 
 
-    
-
-
-
     });
- });
+});
 
 
 
@@ -110,9 +107,9 @@
 
 
 
-      
 
 
-      
-       
-    
+
+
+
+

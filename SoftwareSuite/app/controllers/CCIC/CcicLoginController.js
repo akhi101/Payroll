@@ -129,7 +129,7 @@
                         $scope.LoadImg = true;
                         var UserRights = [];
                         sessionStorage.loggedIn = "yes";
-                        $localStorage.authToken = response.data.token + "$$@@$$" + $scope.CcicLoginEKey + "$$@@$$";
+                        $localStorage.authToken = response.data.token + "$$@@$$" + $scope.CcicLoginEKey;
                         var status = response.data.data.CcicUserAuth[0].ResponceCode;
                         if (status != "200") {
                             alert(response.data.data.CcicUserAuth[0].RespoceDescription);

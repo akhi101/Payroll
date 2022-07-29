@@ -80,7 +80,7 @@ namespace SoftwareSuite.Controllers.CCIC
             if (User.CcicSystemUser.Count > 0 && User.CcicUserAuth[0].ResponceCode == "200")
             {
                 var u = User.CcicSystemUser[0];
-                CcicAuthToken t = new CcicAuthToken { CourseID = u.CourseID,InstitutionID = u.InstitutionID, InstitutionCode = u.InstitutionCode, InstitutionName =u.InstitutionName, UserTypeID = u.UserTypeID, UserID = u.UserID, ExpiryDate = DateTime.Now.AddHours(1) };
+                CcicAuthToken t = new CcicAuthToken { CourseID = u.CourseID,InstitutionID = u.InstitutionID, InstitutionCode = u.InstitutionCode, InstitutionName =u.InstitutionName, UserTypeID = u.UserTypeID, UserID = u.UserID,ExpiryDate = DateTime.Now.AddHours(1) };
 
                 token = crypt.Encrypt(JsonConvert.SerializeObject(t));
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User, clientIPAddress });

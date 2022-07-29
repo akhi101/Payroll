@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <style>
     span {
         color: white !important;
@@ -9,6 +8,7 @@
         color: #337ab7;
         text-decoration: none;
     }
+
     .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
         color: #337ab7;
@@ -42,7 +42,7 @@
     </style>
 </head>
 <body>
-    <div ng-controller="CcicEnrollmentReportController">
+    <div ng-controller="CcicEnrollReportCoursesController">
 
         <div class="clearfix"></div>
         <div>
@@ -62,16 +62,25 @@
                     </div>
                     <section class="content">
                         <div class="container ">
+
+
+
+
+
                             <div class="col-md-12">
-                                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-                            </div>
-                            <div class="col-md-12" ng-show="EnrollmentReportCoursesTable">
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
                                         <div id="EnrollmentReportTable">
+                                            <div class="cl-details">
+                                                <h2>Enrollment Report</h2>
+                                            </div>
+                                            <!--<div style="width:100%;text-align:center;">
+                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                                            </div>-->
+
                                             <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
-                                                <table class="table table-bordered table-rounded">
+                                                <table class="table table-bordered table-hover table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
                                                             <th>CourseCode</th>
@@ -86,7 +95,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in EnrollmentReportCoursesTable">
+                                                        <tr ng-repeat="Data in EnrollmentReportCountTable">
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
@@ -109,58 +118,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" ng-show="AdminEnrollmentReportTable">
-                                <div class="row base-row">
 
-                                    <div class="col-md-12">
-                                        <div id="AdminEnrollmentReportTable">
-                                            <form class="form-inline">
-                                                <div class="form-group">
-                                                    <label>Search</label>
-                                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
-                                                </div>
-                                            </form>
-                                            <label class="notifylabel" for="sel1" style="color: red;">double click on row to get courses count details</label>
-
-                                            <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
-                                                <table class="table table-bordered table-hover table-rounded">
-                                                    <thead>
-                                                        <tr class="cb-1">
-
-                                                            <th>InstitutionCode</th>
-                                                            <th>InstitutionName</th>
-                                                            <th>Enrolled</th>
-                                                            <th>Submitted</th>
-                                                            <th>Approved</th>
-                                                            <th>Pending</th>
-                                                            <th>Revised</th>
-                                                            <th>Rejected</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr ng-repeat="Data in AdminEnrollmentReportInsCountTable" ng-dblclick="showAdminEnrollmentInsCount(Data.InstitutionID)|orderBy:sortKey:reverse|filter:search">
-
-                                                            <td>{{Data.InstitutionCode}}</td>
-                                                            <td>{{Data.InstitutionName}}</td>
-                                                            <td><b>{{Data.Enrolled}}</></b></td>
-                                                            <td><b>{{Data.Submitted}}</b></td>
-                                                            <td><b>{{Data.Approved}}</b></td>
-                                                            <td><b>{{Data.Pending}}</b></td>
-                                                            <td><b>{{Data.Revised}}</b></td>
-                                                            <td><b>{{Data.Rejected}}</b></td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-                            </div>
                         </div>
                     </section>
                 </ui-view>
@@ -171,6 +129,6 @@
 
     </div>
     <div class="col-md-12 footer_section" ng-include="'app/views/CCIC/CCICFooter.html'"></div>
-  
+
 </body>
 </html>

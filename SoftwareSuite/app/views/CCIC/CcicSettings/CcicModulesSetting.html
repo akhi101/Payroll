@@ -315,7 +315,7 @@
                                         <label class="font-weight-bold"> Module :</label>
                                         <select class="form-control " ng-model="moduleid" id="moduleid" ng-change="getSubModules(moduleid)" required>
                                             <option value="" selected="selected">Select Module</option>
-                                            <option value="{{data.ModuleID}}" ng-repeat="data in GetAllCcicModules" class="">
+                                            <option value="{{data.ModuleID}}" ng-repeat="data in Modules" class="">
                                                 {{data.ModuleName}}
                                             </option>
                                         </select>
@@ -380,7 +380,12 @@
                                     <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetCcicSubModules"  class="ng-scope">
                                         <td class="">{{$index+1}}</td>
                                         <td>
-                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleName" /></div>
+                                            <select class="form-control tableinpt enabletable{{$index + 1}}" id="modid" ng-model="moduleid"  required>
+                                                <option value="" selected="selected">{{data.ModuleName}}</option>
+                                                <option value="{{data.ModuleID}}" ng-repeat="data in Modules" class="">
+                                                    {{data.ModuleName}}
+                                                </option>
+                                            </select>
                                         </td>
                                         <td>
                                             <select class="form-control tableinpt enabletable{{$index + 1}}" id="ModuleCardColourID" ng-model="data.ModuleCardColourID"
@@ -405,7 +410,7 @@
 
                                         <td class="text-center">
                                             <button ng-hide="viewField" class="btn-xs btn btn-info" style="width: 70px;" ng-click="ModifyStatus($index+1)">Edit</button>
-                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="modifyField" ng-click="UpdateStatus($index+1,data.SubModuleID,data.SubModuleName,data.SubModuleRouteName,data.ModuleCardColourID,data.SubModuleOrder)"><span>Update</span></button>
+                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="modifyField" ng-click="UpdateStatus($index+1,data.SubModuleID,data.SubModuleName,data.SubModuleRouteName,data.ModuleCardColourID,data.SubModuleOrder,moduleid)"><span>Update</span></button>
                                         </td>
                                     </tr>
 

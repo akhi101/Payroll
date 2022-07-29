@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicChangePasswordController", function ($scope, $state, $filter, $localStorage, $stateParams, $crypto, AppSettings, CcicChangePasswordService, MenuService, CcicSystemUserService) {
+    app.controller("CcicChangePasswordController", function ($scope, $state, $filter, $localStorage, $stateParams, $crypto, AppSettings, CcicChangePasswordService, CcicSystemUserService) {
 
         var authData = $localStorage.authorizationData;
 

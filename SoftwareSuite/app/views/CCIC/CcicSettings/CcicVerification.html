@@ -9,6 +9,7 @@
         color: #337ab7;
         text-decoration: none;
     }
+
     .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
         color: #337ab7;
@@ -23,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Enrollment Report</title>
+    <title>Verification Report</title>
     <style>
         .mya {
             color: #337ab7 !important;
@@ -42,7 +43,7 @@
     </style>
 </head>
 <body>
-    <div ng-controller="CcicEnrollmentReportController">
+    <div ng-controller="CcicVerificationController">
 
         <div class="clearfix"></div>
         <div>
@@ -52,7 +53,7 @@
                         <!-- breadcrumb Open -->
                         <div class="container">
                             <section class="content-header">
-                                <h5>Enrollment Report View </h5>
+                                <h5>Verification Report View </h5>
                                 <ol class="breadcrumb">
                                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> CcicDashboard</a></li>
                                     <li><a href="#!/CcicDashboard/Academic">Academic</a></li>
@@ -62,16 +63,23 @@
                     </div>
                     <section class="content">
                         <div class="container ">
-                            <div class="col-md-12">
-                                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-                            </div>
-                            <div class="col-md-12" ng-show="EnrollmentReportCoursesTable">
+
+
+
+                            <div class="col-md-12" ng-show="VerificationReportTable">
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
-                                        <div id="EnrollmentReportTable">
-                                            <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
-                                                <table class="table table-bordered table-rounded">
+                                        <div id="VerificationReportTable">
+                                            <div class="cl-details">
+                                                <h2>Verification Report</h2>
+                                            </div>
+                                            <!--<div style="width:100%;text-align:center;">
+                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                                            </div>-->
+
+                                            <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
+                                                <table class="table table-bordered table-hover table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
                                                             <th>CourseCode</th>
@@ -86,11 +94,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in EnrollmentReportCoursesTable">
+                                                        <tr ng-repeat="Data in VerificationReportCountTable">
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,1)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
+                                                            <td><b><a class="Verify">{{Data.Enrolled}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,2)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,3)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
@@ -109,20 +117,21 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12" ng-show="AdminEnrollmentReportTable">
+                            <div class="col-md-12" ng-show="AdminVerificationReportTable">
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
-                                        <div id="AdminEnrollmentReportTable">
-                                            <form class="form-inline">
-                                                <div class="form-group">
-                                                    <label>Search</label>
-                                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
-                                                </div>
-                                            </form>
-                                            <label class="notifylabel" for="sel1" style="color: red;">double click on row to get courses count details</label>
+                                        <div id="AdminVerificationReportTable">
+                                            <div class="cl-details">
+                                                <h2>Verification Report</h2>
+                                            </div>
+                                            <!--<div style="width:100%;text-align:center;">
+                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                                            </div>-->
+                                            <br>
+                                            <label class="notifylabel" ng-if="AdminVerificationReportCountTable.length>0" for="sel1" style="color: red;top:33px"> Double click on row to Update Student</label>
 
-                                            <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
+                                            <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
                                                 <table class="table table-bordered table-hover table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
@@ -139,7 +148,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in AdminEnrollmentReportInsCountTable" ng-dblclick="showAdminEnrollmentInsCount(Data.InstitutionID)|orderBy:sortKey:reverse|filter:search">
+                                                        <tr ng-repeat="Data in AdminVerificationReportCountTable" ng-dblclick="showAdminVerificationCount(Data.InstitutionID)">
 
                                                             <td>{{Data.InstitutionCode}}</td>
                                                             <td>{{Data.InstitutionName}}</td>
@@ -171,6 +180,6 @@
 
     </div>
     <div class="col-md-12 footer_section" ng-include="'app/views/CCIC/CCICFooter.html'"></div>
-  
+
 </body>
 </html>

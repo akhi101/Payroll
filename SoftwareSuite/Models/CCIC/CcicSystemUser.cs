@@ -17,7 +17,15 @@ namespace SoftwareSuite.Models.CCIC
             
             public int UserID { get; set; }
 
+
             public int CourseID { get; set; }
+
+            public int AcademicYearID { get; set; }
+
+            public int Batch { get; set; }
+
+
+
 
 
 
