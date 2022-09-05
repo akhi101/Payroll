@@ -15,8 +15,8 @@
         }
 
 
-
-        var registerreportcoursesCount = CcicPreExaminationService.GetInsRegisterReportCoursesCount(tmp.InstitutionID,tmp.academicYear,tmp.batch);
+        var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
+        var registerreportcoursesCount = CcicPreExaminationService.GetInsRegisterReportCoursesCount(InstitutionID,tmp.academicYear,tmp.batch);
         registerreportcoursesCount.then(function (response) {
             try {
                 var res = JSON.parse(response);
@@ -50,7 +50,7 @@
 
             };
 
-            $state.go('CcicDashboard.Academic.CcicRegisterReportData');
+            $state.go('CcicDashboard.Academic.CcicAdmRegisterReportData');
 
 
         }

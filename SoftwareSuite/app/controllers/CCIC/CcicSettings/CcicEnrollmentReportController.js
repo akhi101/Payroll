@@ -55,7 +55,7 @@
 
         }
 
-        else {
+        else if ($scope.UserTypeID==2) {
             $scope.EnrollmentReportCoursesTable = true;
             $scope.AdminEnrollmentReportTable = false;
             var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID

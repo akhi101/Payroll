@@ -14,6 +14,8 @@
 
         }
 
+        var data = {};
+        $scope.$emit('showLoading', data);
 
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
@@ -26,8 +28,10 @@
             $scope.VerificationReportCountTable = [];
             if (res.length >= 0) {
                 $scope.VerificationReportCountTable = res;
+                $scope.$emit('hideLoading', data);
             } else {
                 $scope.VerificationReportCountTable = [];
+                $scope.$emit('hideLoading', data);
             }
         },
             function (error) {

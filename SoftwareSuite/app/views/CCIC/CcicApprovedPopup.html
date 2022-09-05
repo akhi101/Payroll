@@ -81,23 +81,43 @@
                                 <div class="box-body">
                                     <div class="row">
 
-                                        <div class="col-sm-6 col-md-9">
+                                        <div class="col-sm-6 col-md-9" style="right:100px">
                                             <div class="box box-primary">
                                                 <!-- /.box-header -->
                                                 <div class="box-body">
                                                     <strong class="course-label">StudentName</strong>
                                                     <p class="text-muted word-break fl-right">
-                                                        {{previewData[0].StudentName}}
+                                                        {{ApproveData.StudentName}}
                                                     </p>
                                                     <hr>
 
                                                     <strong class="course-label">DateofBirth</strong>
                                                     <p class="text-muted word-break fl-right">
-                                                        {{previewData[0].DateofBirth}}
+                                                        {{ApproveData.DateofBirth}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="course-label">CourseName</strong>
+                                                    <p class="text-muted word-break fl-right">
+                                                        {{ApproveData.CourseName}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="course-label">Qualification</strong>
+                                                    <p class="text-muted word-break fl-right">
+                                                        {{ApproveData.Qualification}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="course-label">Experience</strong>
+                                                    <p class="text-muted word-break fl-right">
+                                                        {{ApproveData.Experience}}
+                                                    </p>
+                                                    <hr>
+                                                    <strong class="course-label">HallTicketNo</strong>
+                                                    <p class="text-muted word-break fl-right">
+                                                        {{ApproveData.SSCHallticketNumber}}
                                                     </p>
                                                     <hr>
 
-                                                   <p style="font-size:15px">Are you Sure You Want to Approve?</p>
+                                                    <p style="font-size:15px">Are you Sure You Want to Approve?</p>
 
 
 
@@ -121,9 +141,8 @@
         </div>
         <div class="modal-footer ng-scope">
 
+            <button type="button" class="btn btn-success">Yes</button>
             <button type="button" class="btn btn-primary" ng-click="closeModal1()">No</button>
-            <button type="button" class="btn btn-success" >Yes</button>
-
         </div>
     </div>
 </div>

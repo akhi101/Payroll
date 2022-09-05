@@ -12,7 +12,7 @@ define(['app'], function (app) {
         $ctrl.$onInit = () => {
             $scope.GetCurrentAcademicYearData();
             $scope.GetCurrentBatchData();
-            $scope.GetCourseDurationBatchData();
+            //$scope.GetCourseDurationBatchData();
 
 
         }

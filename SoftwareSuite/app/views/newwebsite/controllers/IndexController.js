@@ -12,24 +12,24 @@
         }
         var location = window.location.origin;
 
-     
+
         $scope.LoginUrl = location + "/index.html#!/index/WebsiteLogin";
 
         $scope.ContactusUrl = location + "/index.html#!/index/ContactUs";
 
-   
+
 
         $scope.GoToCourses = function () {
-           
+
             setTimeout(function () {
-               
+
                 $('html, body').animate({
                     scrollTop: $("#divName").offset().top
                 }, 1500)
-               
+
             }, 100);
             $state.go('index')
-        
+
             //window.scrollBy({
             //    top: 1150, // could be negative value
             //    left: 0,
@@ -38,14 +38,14 @@
         }
 
         $("#courses").on('click touchstart', function () {
-            
+
             $('.nav-menus-wrapper-close-button').click();
-           
+
             setTimeout(function () {
 
                 $('html, body').animate({
                     scrollTop: $("#divName").offset().top
-                    
+
                 }, 1500)
 
             }, 100);
@@ -62,19 +62,19 @@
 
             }, 100);
             $state.go('index')
-         
+
 
         });
 
-       
+
 
 
         $(".MobileSidebar").on('click touchstart', function () {
-         
+
             $('.nav-menus-wrapper-close-button').click();
             var myId = this.id
-         
-          
+
+
             if (myId == 'index.Courses1') {
                 localStorage.setItem('CourseType', 1)
                 $state.go('index.Courses');
@@ -94,15 +94,15 @@
         }
         //
         $scope.OpenCourse = function () {
-          
+
             $state.go('index.Courses');
         }
 
         $scope.OpenTwshCourse = function () {
-          
+
             $state.go('index.TwshCourses');
         }
-        
+
 
         var getcircular = AdminService.getCircularsList();
         getcircular.then(function (res) {
@@ -126,7 +126,7 @@
             });
 
         $scope.OpenModule = function (Module) {
-          
+
             //$localStorage.selectedModule = {
             //    Id: Module.SysModID,
             //    ModuleRouteName: Module.ModuleRouteName
@@ -144,26 +144,26 @@
                 $scope.SiteViews = response.Table[0].WebsiteVisitedCount;
             },
                 function (error) {
-                 
+
                     var err = JSON.parse(error);
                 });
         }
 
-              
+
         var getNotifications = AdminService.GetNotificationByUser(1017);
         getNotifications.then(function (response) {
-           
+
 
             $scope.Notifications = response;
             $scope.websiteCounts();
         },
-                function (error) {
+            function (error) {
 
-                    alert("error while loading Notification");
-                    //alert("error while loading Notification");
+                alert("error while loading Notification");
+                //alert("error while loading Notification");
 
-                    var err = JSON.parse(error);
-                });
+                var err = JSON.parse(error);
+            });
 
 
 
@@ -196,19 +196,19 @@
             }
 
         },
-        function (error) {
-            $scope.BonafiedCount = 0;
-            $scope.DDCCount = 0;
-            $scope.DMMCount = 0;
-            $scope.InterimCount = 0;
-            $scope.MigrationCount = 0;
-            $scope.NameCorrectionCount = 0;
-            $scope.TranscriptsCount = 0;
-            $scope.TransferCount = 0;
-            $scope.loading = false;
-            $scope.reports = false;
-            $scope.Noreports = true;          
-        });
+            function (error) {
+                $scope.BonafiedCount = 0;
+                $scope.DDCCount = 0;
+                $scope.DMMCount = 0;
+                $scope.InterimCount = 0;
+                $scope.MigrationCount = 0;
+                $scope.NameCorrectionCount = 0;
+                $scope.TranscriptsCount = 0;
+                $scope.TransferCount = 0;
+                $scope.loading = false;
+                $scope.reports = false;
+                $scope.Noreports = true;
+            });
 
     });
 });
