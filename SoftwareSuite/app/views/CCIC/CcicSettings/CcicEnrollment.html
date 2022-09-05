@@ -698,37 +698,37 @@
                                         <div class="">
                                             <div class="col-md-12 ">
                                                 <div class="col-md-3"><label>Course  </label></div>
-                                                <div class="col-md-9 pre-text" style="padding-left:0px!important;">: {{PreviewData.CourseName}}</div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
 
                                             </div>
 
                                             <div class="col-md-12 ">
                                                 <div class="col-md-3"><label>Qualification  </label></div>
-                                                <div class="col-md-9 pre-text" style="padding-left:0px!important;">: {{PreviewData.Qualification}}</div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
 
                                             </div>
 
-                                            <div class="col-md-12 ">
+                                            <div class="col-md-12" ng-if="PreviewData.Experience">
                                                 <div class="col-md-3"><label>Experience  </label></div>
-                                                <div class="col-md-9 pre-text" style="padding-left:0px!important;">: {{PreviewData.Experience}}</div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
 
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="col-md-5"> <label>sscHallticket </label></div>
-                                                <div class="col-md-7 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCHallticket </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
 
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="col-md-6"> <label>sscPassedYear </label></div>
-                                                <div class="col-md-6 pre-text">: {{PreviewData.SSCPassedYear}}</div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCPassedYear </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
 
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <div class="col-md-5"> <label>sscType </label></div>
-                                                <div class="col-md-7 pre-text">: {{PreviewData.SSCPassedType}}</div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCType </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
 
                                             </div>
 
@@ -760,14 +760,14 @@
 
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" ng-if="PreviewData.MotherName">
                                         <div class="col-md-5"> <label>MotherName </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
 
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="col-md-5"> <label>CandidateNameDOB </label></div>
+                                        <div class="col-md-5"> <label>DateofBirth </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
 
                                     </div>
@@ -788,38 +788,38 @@
 
 
                                     <div class="col-md-6">
-                                        <div class="col-md-5"> <label>houseNo </label></div>
+                                        <div class="col-md-5"> <label>HouseNo </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
 
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="col-md-5"> <label>street </label></div>
+                                        <div class="col-md-5"> <label>Street </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
 
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="col-md-5"> <label>landmark </label></div>
+                                        <div class="col-md-5"> <label>Landmark </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
 
                                     </div>
 
 
                                     <div class="col-md-6">
-                                        <div class="col-md-5"><label>village</label></div>
+                                        <div class="col-md-5"><label>Village</label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="col-md-5"><label>pincode</label></div>
+                                        <div class="col-md-5"><label>Pincode</label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="col-md-5"><label>district </label></div>
+                                        <div class="col-md-5"><label>District </label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="col-md-5"><label>state</label></div>
+                                        <div class="col-md-5"><label>State</label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
                                     </div>
 
@@ -829,7 +829,7 @@
                                         <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="col-md-5"><label>email</label></div>
+                                        <div class="col-md-5"><label>Email</label></div>
                                         <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
                                     </div>
 
@@ -843,15 +843,15 @@
                                 <hr />
                                 <div class="row " style="padding: 0px 15px;">
 
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
                                         <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                     </div>
 
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
                                         <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                     </div>
 
-                                    <div class="col-md-4 text-center">
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
                                         <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
                                     </div>
 

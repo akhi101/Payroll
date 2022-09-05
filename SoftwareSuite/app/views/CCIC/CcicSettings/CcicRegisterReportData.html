@@ -239,7 +239,7 @@
         </div>
         <div class="container">
 
-            <div class="col-md-12">
+            <!--<div class="col-md-12">
                 <div class="col-md-12  mtp-50">
                     <div class="card" ng-show="coursedetails">
                         <form name="coursedetail">
@@ -641,17 +641,17 @@
                                         </div>
                                     </div>
 
-                                    <div class="submit-btn" ng-click="SaveNext()" style="margin-bottom:0px;">
+                                    <div class="submit-btn" ng-click="SaveNext()" style="margin-bottom:0px;">-->
                                         <!--ng-disabled="Submitted1" ng-show="Save"-->
-                                        <button type="submit">Save & Next</button>
-                                    </div>
+                                        <!--<button type="submit">Save & Next</button>
+                                    </div>-->
 
 
                                     <!--<div class="submit-btn" ng-click="UpdateStdDetails(ApplicationNumber,StudentId)" ng-show="Update" style="margin-bottom:0px;">
                                     <button type="submit">Update</button>
                                 </div>-->
 
-                                </div>
+                                <!--</div>
 
                             </div>
                         </div>
@@ -660,7 +660,7 @@
 
 
                 </div>
-            </form>
+            </form>-->
 
             <div class="col-md-12" style="margin-bottom:100px" ng-show="ShowStudentDetails">
                 <div class="card">
@@ -688,7 +688,7 @@
 
                                         </div>
 
-                                        <div class="col-md-12 ">
+                                        <div class="col-md-12" ng-if="PreviewData.Experience">
                                             <div class="col-md-3"><label>Experience  </label></div>
                                             <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
 
@@ -696,19 +696,19 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="col-md-3"> <label>sscHallticket </label></div>
+                                            <div class="col-md-3"> <label>SSCHallTicket </label></div>
                                             <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
 
                                         </div>
 
                                         <div class="col-md-12">
-                                            <div class="col-md-3"> <label>sscPassedYear </label></div>
+                                            <div class="col-md-3"> <label>SSCPassedYear </label></div>
                                             <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
 
                                         </div>
 
                                         <div class="col-md-12">
-                                            <div class="col-md-3"> <label>sscType </label></div>
+                                            <div class="col-md-3"> <label>SSCType </label></div>
                                             <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
 
                                         </div>
@@ -740,14 +740,14 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" ng-if="PreviewData.MotherName">
                                     <div class="col-md-5"> <label>MotherName </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
 
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="col-md-5"> <label>CandidateNameDOB </label></div>
+                                    <div class="col-md-5"> <label>DateofBirth </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
 
                                 </div>
@@ -768,38 +768,38 @@
 
 
                                 <div class="col-md-6">
-                                    <div class="col-md-5"> <label>houseNo </label></div>
+                                    <div class="col-md-5"> <label>HouseNo </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
 
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="col-md-5"> <label>street </label></div>
+                                    <div class="col-md-5"> <label>Street </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
 
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="col-md-5"> <label>landmark </label></div>
+                                    <div class="col-md-5"> <label>Landmark </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
 
                                 </div>
 
 
                                 <div class="col-md-6">
-                                    <div class="col-md-5"><label>village</label></div>
+                                    <div class="col-md-5"><label>Village</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="col-md-5"><label>pincode</label></div>
+                                    <div class="col-md-5"><label>Pincode</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="col-md-5"><label>district </label></div>
+                                    <div class="col-md-5"><label>District </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="col-md-5"><label>state</label></div>
+                                    <div class="col-md-5"><label>State</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
                                 </div>
 
@@ -809,7 +809,7 @@
                                     <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="col-md-5"><label>email</label></div>
+                                    <div class="col-md-5"><label>Email</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
                                 </div>
 
@@ -818,42 +818,29 @@
                             <hr />
                             <div class="row " style="padding: 0px 15px;">
 
-                                <div class="col-md-4 text-center">
+                                <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
                                     <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center">
+                                <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
                                     <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center">
-                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
+                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}"  style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-1 pull-right mtp-50">
 
-                                    <div class="cancel-btn" style="margin-bottom:0px;">
-                                        <button type="button" ng-show="Edit" ng-click="Modify(ApplicationNumber,StudentId)">Edit</button>
-                                    </div>
+                                <div class="col-md-2 pull-right">
 
-                                </div>
-                                <div class="col-md-2 pull-right mtp-50">
-                                    <div class="submit-btn" ng-show="Submit" style="margin-bottom:0px;">
-                                        <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2 pull-right mtp-50" style="left:250px">
-
-                                    <div class="cancel-btn" ng-show="Clear" style="margin-bottom:0px;">
+                                    <div class="cancel-btn"  style="margin-bottom:0px;">
                                         <button type="button" ng-click="Close()">Close</button>
                                     </div>
 
                                 </div>
-                            </div>
+                           
 
 
                         </div>

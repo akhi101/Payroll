@@ -192,6 +192,7 @@
             font-weight: 600;
             text-decoration: none;
         }
+
         .Verify {
             color: green;
             font-weight: 600;
@@ -201,7 +202,7 @@
 </head>
 
 <body>
-    <div ng-controller="CcicEnrollmentReportDataController">
+    <div ng-controller="CcicAdmEnrollmentReportDataController">
         <!-- New Style Start-->
         <div class="clearfix"></div>
         <div class="clearfix"></div>
@@ -227,18 +228,18 @@
         <div class="container">
 
             <div class="col-md-12">
-                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport/CcicAdmEnrollReportCourses" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
             <div class="col-md-12" ng-show="DataTable">
                 <div class="row base-row">
                     <div class="col-md-12">
                         <!--<div class="pull-right" ng-if="StudentDetailsFound">
-                        <a class="ExportToExcel1 pointer"
-                           id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
-                            <i class="fa fa-file-excel-o"></i>
-                            Export to Excel
-                        </a>
-                    </div>-->
+                            <a class="ExportToExcel1 pointer"
+                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                                <i class="fa fa-file-excel-o"></i>
+                                Export to Excel
+                            </a>
+                        </div>-->
                         <div class="col-lg-12">
                             <form class="form-inline" ng-if="EnrollmentReportDataTable.length>0">
                                 <div class="form-group">
@@ -248,8 +249,8 @@
                             </form>
                             <label class="notifylabel" ng-if="EnrollmentReportDataTable.length>0" for="sel1" style="color: red;"> click on link to view student details</label>
                             <!--<div style="width:100%;text-align:center;">
-                            <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                        </div>-->
+                                <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                            </div>-->
 
                             <div ng-if="EnrollmentReportDataTable.length<=0">
                                 <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
@@ -301,213 +302,213 @@
 
         </div>
         <div class="container">
-        <div class="col-md-12 mtp-50" style="padding-bottom:50px" ng-show="ShowDetails">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="offer-custom-style">
-                            <h2>Application Details</h2>
+            <div class="col-md-12 mtp-50" style="padding-bottom:50px" ng-show="ShowDetails">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="offer-custom-style">
+                                <h2>Application Details</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="custom-forms">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="">
+                                        <div class="col-md-12 ">
+                                            <div class="col-md-3"><label>Course  </label></div>
+                                            <div class="col-md-9">: {{PreviewData.CourseName}}</div>
+
+                                        </div>
+
+                                        <div class="col-md-12 ">
+                                            <div class="col-md-3"><label>Qualification  </label></div>
+                                            <div class="col-md-9">: {{PreviewData.Qualification}}</div>
+
+                                        </div>
+
+                                        <div class="col-md-12" ng-if="PreviewData.Experience">
+                                            <div class="col-md-3"><label>Experience  </label></div>
+                                            <div class="col-md-9">: {{PreviewData.Experience}}</div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"> <label>SSCHallTicket </label></div>
+                                            <div class="col-md-9">: {{PreviewData.SSCHallticketNumber}}</div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"> <label>SSCPassedYear </label></div>
+                                            <div class="col-md-9">: {{PreviewData.SSCPassedYear}}</div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3"> <label>SSCType </label></div>
+                                            <div class="col-md-9">: {{PreviewData.SSCPassedType}}</div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 pull-right">
+                                        <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    </div>
+
+                                    <div class="col-md-3 pull-right">
+                                        <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="row " style="padding: 0px 15px;">
+
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>CandidateName </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>FatherName </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
+
+                                </div>
+
+                                <div class="col-md-6" ng-if="PreviewData.MotherName">
+                                    <div class="col-md-5"> <label>MotherName </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>DateofBirth </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>Gender </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>Aadhar Number </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
+
+                                </div>
+
+
+
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>HouseNo </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>Street </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"> <label>Landmark </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Village</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Pincode</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>District </label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>State</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Mobile Number</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Email</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
+                                </div>
+
+
+                            </div>
+
+
+                            <hr />
+                            <div class="row " style="padding: 0px 15px;">
+
+                                <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
+                                    <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                </div>
+
+                                <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
+                                    <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                </div>
+
+                                <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
+                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+
                         </div>
                     </div>
                 </div>
-                <div class="body">
-                    <div class="custom-forms">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="">
-                                    <div class="col-md-12 ">
-                                        <div class="col-md-3"><label>Course  </label></div>
-                                        <div class="col-md-9">: {{PreviewData.CourseName}}</div>
 
-                                    </div>
+                <div class="spacer"></div>
+                <div class="col-md-8">
 
-                                    <div class="col-md-12 ">
-                                        <div class="col-md-3"><label>Qualification  </label></div>
-                                        <div class="col-md-9">: {{PreviewData.Qualification}}</div>
+                </div>
 
-                                    </div>
+                <div class="col-md-1 pull-right mtp-50">
 
-                                    <div class="col-md-12" ng-if="PreviewData.Experience">
-                                        <div class="col-md-3"><label>Experience  </label></div>
-                                        <div class="col-md-9">: {{PreviewData.Experience}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCHallTicket </label></div>
-                                        <div class="col-md-9">: {{PreviewData.SSCHallticketNumber}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCPassedYear </label></div>
-                                        <div class="col-md-9">: {{PreviewData.SSCPassedYear}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCType </label></div>
-                                        <div class="col-md-9">: {{PreviewData.SSCPassedType}}</div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row" >
-                            <div class="col-md-3 pull-right">
-                                <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="col-md-3 pull-right">
-                                <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
-                            </div>
-                                </div>
-                        </div>
-                        <hr />
-
-                        <div class="row " style="padding: 0px 15px;">
-
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>CandidateName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>FatherName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
-
-                            </div>
-
-                            <div class="col-md-6" ng-if="PreviewData.MotherName">
-                                <div class="col-md-5"> <label>MotherName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>DateofBirth </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Gender </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Aadhar Number </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
-
-                            </div>
-
-
-
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>HouseNo </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Street </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
-
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Landmark </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
-
-                            </div>
-
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Village</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Pincode</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>District </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>State</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
-                            </div>
-
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Mobile Number</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Email</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
-                            </div>
-
-
-                        </div>
-
-
-                        <hr />
-                        <div class="row " style="padding: 0px 15px;">
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}"  style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-
-
-
-                        </div>
-
-
-
-
+                    <div class="cancel-btn" style="margin-bottom:0px;">
+                        <button type="button" ng-click="Close()">Close</button>
                     </div>
+
                 </div>
-            </div>
+                <!--<div class="col-md-2 pull-right mtp-50">
+                    <div class="submit-btn" style="margin-bottom:0px;">
+                        <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+                    </div>
+                </div>-->
 
-            <div class="spacer"></div>
-            <div class="col-md-8">
+                <div class="col-md-1 pull-right mtp-50">
 
-            </div>
-
-            <div class="col-md-1 pull-right mtp-50">
-
-                <div class="cancel-btn" style="margin-bottom:0px;">
-                    <button type="button" ng-click="Close()">Close</button>
                 </div>
 
             </div>
-            <!--<div class="col-md-2 pull-right mtp-50">
-            <div class="submit-btn" style="margin-bottom:0px;">
-                <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
-            </div>
-        </div>-->
-
-            <div class="col-md-1 pull-right mtp-50">
-
-            </div>
-
         </div>
-            </div>
         <div class="container">
 
             <div class="col-md-12">
@@ -919,8 +920,8 @@
 
 
                                     <!--<div class="submit-btn" ng-click="UpdateStdDetails(ApplicationNumber,StudentId)" ng-show="Update" style="margin-bottom:0px;">
-                                    <button type="submit">Update</button>
-                                </div>-->
+                                        <button type="submit">Update</button>
+                                    </div>-->
 
                                 </div>
 
@@ -937,7 +938,7 @@
         </div>
 
     </div>
-   
+
 </body>
 
 </html>

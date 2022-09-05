@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicVerificationDataController", function ($scope, $uibModal, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("CcicAdmVerificationDataController", function ($scope, $uibModal, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         var tempData2 = $localStorage.TempData2;
@@ -9,10 +9,10 @@
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
-            $scope.GetVerificationReportData();
+            //$scope.GetVerificationReportData();
             $scope.ShowStudentDetails = false;
             $scope.DataTable = true;
-            
+
             $scope.Clear = false;
         }
         var data = {};
@@ -22,18 +22,16 @@
             $scope.reverse = !$scope.reverse; //if true make it false and vice versa
         }
 
-
-        
+      
             $scope.loading = false;
-            var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
-            $scope.GetVerificationReportData = function () {
-
+                var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
                 var verifyreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
                 verifyreportData.then(function (response) {
                     try {
                         var res = JSON.parse(response);
                     }
                     catch (err) { }
+
                     $scope.VerificationReportDataTable = [];
                     if (res.length >= 0) {
                         $scope.loading = false;
@@ -41,7 +39,7 @@
                         $scope.$emit('hideLoading', data);
 
                     } else {
-                        $scope.loading = false;
+                        //$scope.loading = false;
                         $scope.VerificationReportDataTable = [];
                         $scope.$emit('hideLoading', data);
                     }
@@ -50,7 +48,10 @@
                         //   alert("error while loading Notification");
                         var err = JSON.parse(error);
                     });
-            }
+            
+
+
+       
         
 
 
@@ -58,7 +59,7 @@
             $state.go('CcicDashboard.Academic.VerificationReport')
         }
 
-        
+
         $scope.ViewStudentDetails = function (AppNo, StdId) {
             //$scope.loading = true;
             $scope.DataTable = false;

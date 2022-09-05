@@ -62,16 +62,16 @@
 
     
 
-            $scope.ShowDetails = function (CourseID, ReportTypeID) {
+            $scope.ShowDetails = function (InstitutionID,CourseID, ReportTypeID) {
 
             $localStorage.TempData2 = {
-                
+                InstitutionID: InstitutionID,
                 CourseID: CourseID,
                 ReportTypeID: ReportTypeID,
 
             };
 
-            $state.go('CcicDashboard.Academic.CcicEnrollmentReportData');
+            $state.go('CcicDashboard.Academic.CcicAdmEnrollmentReportData');
 
 
         }

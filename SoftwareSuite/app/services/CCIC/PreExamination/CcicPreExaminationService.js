@@ -5,8 +5,29 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetBatches');
         };
 
+        this.GetStudentType = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentType');
+        };
+
         this.GetCcicAcademicYears = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicAcademicYears');
+        };
+
+        this.GetAffiliatedCourses = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAffiliatedCourses');
+        };
+
+        this.GetExaminationCenters = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetExaminationCenters');
+        };
+
+
+        this.GetAffiliatedInstitutions = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAffiliatedInstitutions');
+        };
+
+        this.GetStudentFeeDates = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentFeeDates');
         };
 
         this.GetCcicAcademicYearCurrentBatch = function (AcademicYearID) {
@@ -80,6 +101,22 @@
                 "InstitutionID": InstitutionID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutionVerificationReportCount', paramObj);
+            return promise;
+        };
+
+        this.GetAdminExamCentersList = function (AcademicYearID, CourseIds, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID, "CourseIds": CourseIds, "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetAdminExamCentersList', paramObj);
+            return promise;
+        };
+
+        this.SetAdminExamCentersList = function (Json,ExamMonthYearID) {
+            var paramObj = {
+                "Json": Json, "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/SetAdminExamCentersList', paramObj);
             return promise;
         };
 
@@ -363,5 +400,17 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/UpdateExamMonthYear', paramObj);
             return promise;
         }
+
+        this.PostFeePaymentDates = function (AcademicYearId, ExamMonthYearId, CourseId ,StudentType, StartDate, EndDate, LateFeeDate, TatkalDate, PremiumTatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
+
+            var paramObject = {
+                "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "CourseId": CourseId,
+                "StudentType": StudentType, "StartDate": StartDate, "EndDate": EndDate, "LateFeeDate": LateFeeDate, "TatkalDate": TatkalDate, "PremiumTatkalDate": PremiumTatkalDate, "Fee": Fee, "LateFee": LateFee,"TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CertificateFee": CertificateFee
+          
+            };
+
+            var promise = DataAccessService.postData('api/CcicPreExamination/SetStudentFeePayments', paramObject);
+            return promise;
+        };
     });
 });

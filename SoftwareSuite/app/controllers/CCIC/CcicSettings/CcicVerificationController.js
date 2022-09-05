@@ -14,7 +14,8 @@
 
 
 
-
+        var data = {};
+        $scope.$emit('showLoading', data);
 
         if ($scope.UserName == 'ADMIN') {
 
@@ -23,12 +24,13 @@
 
 
             $scope.showAdminVerificationCount = function (InstitutionID) {
-
+                
                 $localStorage.TempData = {
                     InstitutionID: InstitutionID,
                 };
 
                 $state.go('CcicDashboard.Academic.CcicAdmVerificationCourses');
+               
 
             }
             var admverifyreportcourses = CcicPreExaminationService.GetAdminVerificationReportCount();
@@ -40,8 +42,10 @@
                 $scope.AdminVerificationReportCountTable = [];
                 if (Res.Table.length >= 0) {
                     $scope.AdminVerificationReportCountTable = Res.Table;
+                    $scope.$emit('hideLoading', data);
                 } else {
                     $scope.AdminVerificationReportCountTable = [];
+                    $scope.$emit('hideLoading', data);
                 }
             },
                 function (error) {
@@ -69,8 +73,12 @@
                 $scope.VerificationReportCountTable = [];
                 if (res.length >= 0) {
                     $scope.VerificationReportCountTable = res;
+                    $scope.$emit('hideLoading', data);
+
                 } else {
                     $scope.VerificationtReportCountTable = [];
+                    $scope.$emit('hideLoading', data);
+
                 }
             },
                 function (error) {

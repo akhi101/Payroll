@@ -12,7 +12,7 @@
         -moz-appearance: none;
         text-indent: 1px;
         text-overflow: '';
-    }
+    } 
 </style>
 
 <div ng-controller="CcicRecentNewsController">
@@ -134,7 +134,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetRecentNews">
+                            <tr style="background-color:#fff!important;cursor:pointer"  ng-repeat="data in GetRecentNews">
                                 <td>
                                     {{$index+1}}
                                 </td>

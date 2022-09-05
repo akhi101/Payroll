@@ -1,5 +1,9 @@
-﻿<style>
-
+﻿
+<style>
+    .table-bordered > thead > tr > th {
+        position: sticky;
+        top: 0px;
+    }
     .selectBox {
         position: relative;
     }
@@ -17,18 +21,34 @@
         bottom: 0;
     }
 
-    #checkboxes {
+    thead > tr > th {
+        position: sticky;
+        top: 0px;
+    }
+
+    #checkboxescourse {
         display: none;
         border: 1px #dadada solid;
     }
 
-        #checkboxes label {
-            display: block;
+   
+    .txt_decorate {
+        text-transform: uppercase;
+    }
+
+    
+    #checkboxescourse label {
+        display: block;
+    }
+
+        #checkboxescourse label:hover {
+            background-color: #1e90ff;
         }
 
-            #checkboxes label:hover {
-                background-color: #1e90ff;
-            }
+    .ExportToExcel1 {
+        margin-left: 10px;
+    }
+
 
     .contain {
         display: block;
@@ -86,7 +106,6 @@
     .contain input:checked ~ .checkmark:after {
         display: block;
     }
-
     /* Style the checkmark/indicator */
     .contain .checkmark:after {
         left: 8px;
@@ -99,332 +118,186 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-    .tableinpt {
-        width: 100%;
-        box-shadow: none;
-        border: 0;
-        pointer-events: none;
-        cursor: pointer;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: 1px;
-        text-overflow: '';
+
+    .contain {
+        font-size: 13px !important;
     }
 
-    .btn-default, .btn-dark-blue {
-        border-color: #314559;
-        color: #000;
-        background-color: white;
-    }
-
-        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
-            border-color: #2c3e50;
-            color: #fff;
-            background-color: #2f4254;
-        }
-
-    button > span.active {
-        color: #ffffff !important;
-    }
-</style>
+    </style>
 
 <div ng-controller="CcicSetExamCentersController">
     <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+
         <div class="container">
             <section class="content-header">
-                <h5>Update DateSheet </h5>
+                <h5>Set Examination Centers</h5>
                 <ol class="breadcrumb">
-                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination">Ccic PreExamination</a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination/UpdateDateSheet">Update DateSheet</a></li>
+                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination"> Pre Examination</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination/SetExamCenters">Set Examination Centers</a></li>
+
                 </ol>
             </section>
         </div>
+        <!-- breadcrumb Close -->
     </div>
-    <div class="container">
-
-        <div class="col-md-12">
-            <a href="#!/CcicDashboard/PreExamination" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
-        </div>
-
-
-        <div id="exTab2" class="container">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#1" data-toggle="tab" ng-click="setexamcenter()">set exam center</a>
-                </li>
-                <li>
-                    <a href="#2" data-toggle="tab" ng-click="setpreviousexamcenterstocurrentbatch()">set previous exam centers to current batch</a>
-                </li>
-
-
-            </ul>
-
-
-            <div class="tab-content ">
-
-
-                <div class="tab-pane active" id="1">
-                    <div class="col-md-12">
-                        <div class="cl-details">
-                            <h2>Set Exam Center</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="base-row" style="padding:15px!important;">
-                            <div class="row">
-                            
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="font-weight-bold"> Academic Year :</label>
-                                        <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCourseDurationBatchData(academicYear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-
-                                        <label class="font-weight-bold"> Batch :</label>
-                                        <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 form-group">
-                                    <label for="sel1">
-                                        Exam Month/Year :
-                                    </label>
-                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
-                                        <option value="" selected>Select Month/Year of Exam</option>
-                                    </select>
-                                </div>
-
-
-                                <div class="row">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-
-                                            <label class="font-weight-bold"> Examination Center :</label>
-                                            <select class="form-control " ng-model="examcenter" name="ExamCenter" required">
-                                                <option value="" selected="selected">Select ExamCenter</option>
-                                                <option value="{{data.ExamCenterID}}" ng-repeat="data in GetExamCenter" class="">
-                                                    {{data.ExamCenterID}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="AddCcicModule()">
-                                            Set Data
-                                            <span class="fa fa-arrow-down heading_icon btn_icons"></span>
-
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive table-custom-tables-tb" ng-if="">
-                            <table class="table table-bordered  table-striped table-rounded">
-                                <thead>
-                                    <tr class="cb-1">
-                                        <th style="width: 5%;">S.No</th>
-                                        <th class="">Module Name</th>
-                                        <th class="">Module Route Name</th>
-                                        <th class="" style="">Colour</th>
-                                        <th class="" style="">Module Order</th>
-                                        <th class="" style="">Status</th>
-                                        <th class="">Edit/Update</th>
-
-
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetAllCcicModules">
-                                        <td class="">{{$index+1}}</td>
-                                        <td>
-
-                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleName" /></div>
-                                        </td>
-
-                                        <td>
-
-                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleRouteName" /></div>
-                                        </td>
-
-                                        <td>
-
-
-                                            <select class="form-control tableinpt enabletable{{$index + 1}}" id="ModuleCardColourID" ng-model="data.ModuleCardColourID"
-                                                    ng-options="data.ModuleCardColourID as data.ModuleCardColourName for data in ModuleCardColours">
-                                                <option value="" selected>Select Module Colour</option>
-                                            </select>
-                                        </td>
-
-
-                                        <td>
-
-                                            <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ModuleOrder" /></div>
-                                        </td>
-
-
-                                        <td class="" style="" text-align:center" width="10%" ;">
-                                            <button class="btn btn-success btn-xs" ng-show="data.Active == true" ng-click="SetModuleStatus(data.ModuleID,data.ModuleName,data.Active)">Active</button>
-                                            <button class="btn btn-danger btn-xs" ng-show="data.Active == false" ng-click="SetModuleStatus(data.ModuleID,data.ModuleName,data.Active)">InActive</button>
-                                        </td>
-
-                                        <td style="text-align:center" width="8%">
-                                            <button ng-hide="viewField" class="btn-xs btn btn-info" style="width: 70px;" ng-click="modify($index+1)">Edit</button>
-                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="modifyField" ng-click="update($index+1,data.ModuleID,data.ModuleName,data.ModuleRouteName,data.ModuleCardColourID,data.ModuleOrder)"><span>Update</span></button>
-                                        </td>
-
-
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="sm-spacer"></div>
-
-                    </div>
-                </div>
-
-
-
-
-                <div class="tab-pane" id="2">
-                    <div class="col-md-12">
-                        <div class="cl-details">
-                            <h2>Set Previous Exam Centers to Current Batch </h2>
-
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="base-row" style="padding:15px!important;">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="font-weight-bold"> Academic Year :</label>
-                                        <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCourseDurationBatchData(academicYear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-
-                                        <label class="font-weight-bold"> Batch :</label>
-                                        <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 form-group">
-                                    <label for="sel1">
-                                        Exam Month/Year :
-                                    </label>
-                                    <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                            ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
-                                        <option value="" selected>Select Month/Year of Exam</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Courses</label>
-                                        <div class="multiselect">
-                                            <div class="selectBox" ng-click="showCheckboxes()">
-                                                <select class="form-control ">
-                                                    <option ng-blur="closeCheckbox()">Select an option</option>
-                                                </select>
-                                                <div class="overSelect"></div>
-                                            </div>
-                                            <div id="checkboxes" style="max-height: 12em; overflow-y: scroll;">
-                                                <label class="contain">
-                                                    <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" /><span class="checkmark"></span>Select All
-                                                </label>
-                                                <label class="contain" ng-repeat="data in UserTypes">
-                                                    <input type="checkbox" ng-model="data.selected" ng-change="optionToggled(data.selected)"><span class="checkmark"></span>{{data.UserType}}
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-                            <div class="row">
-
-                           <div class="col-md-10"></div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="AddCcicUserModule()">
-                                            Set Data
-                                            <span class="fa fa-arrow-down heading_icon btn_icons"></span>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="sm-spacer"></div>
-                        <div class="sm-spacer"></div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <section class="">
+        <div class="container">
+
+            <div class="col-md-6">
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <div class="studWishinputs">
+                        <div class="row">
+                            <form novalidate>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold"> Academic Year :</label>
+                                        <select class="form-control " ng-model="AcademicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(AcademicYear)">
+                                            <option value="" selected="selected">Select Year</option>
+                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                {{data.AcademicYear}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="ExamMonthYear">
+                                        Exam Month/Year :
+                                    </label>
+                                    <select class="form-control" name="ExamMonthYear" required ng-model="monthyear">
+                                        <option value="" selected>Select Exam Month/Year</option>
+                                        <option ng-repeat="data in GetExamMonthYear" value="{{data.ExamMonthYearID}}">
+                                            {{data.ExamMonthYearName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="sel1">
+                                        Course:
+                                    </label>
+                                    <div class="multiselect">
+                                        <div class="selectBox" ng-click="showcourseCheckboxes()">
+                                            <select class="form-control ">
+                                                <option ng-blur="closecourseCheckbox()">Select Course</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="checkboxescourse" style="max-height: 12em; overflow-y: scroll;">
+                                            <label class="contain">
+                                                <input type="checkbox" ng-click="toggleAllcourse()" ng-model="isAllSelectedcourses" /><span class="checkmark"></span>Select All
+                                            </label>
+                                            <label class="contain" ng-repeat="data in CoursesData">
+                                                <input type="checkbox" ng-model="data.selected" ng-change="optionToggledcourse(data.selected)"><span class="checkmark"></span>{{data.CourseName}}
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div class="col-md-2 ">
+                                    <div class="gr-btn">
+                                        <button type="submit" style="margin-top:5px!important;" class="btn btn-sm btn-primary gr-button" ng-click="Submit()">
+                                            Get Exam Centers<span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width:100%;text-align:center;">
+                    <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" class="ng-hide">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-show="ResultNotFound" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Result Found</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width:100%;text-align:center;">
+                <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+            </div>
+            <div ng-show="result">
+                <div class="col-md-6 pull-right" ng-show="edit">
+                    <button class="btn btn-success pull-right" style="margin-bottom:10px" ng-click="editDetails()">Edit Exam Centers</button>
+                </div>
+                <div class="col-md-6 pull-right" ng-show="update">
+                    <button class="btn btn-success pull-right" style="margin-bottom:10px" ng-click="UpdateData()">Save</button>
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="edit">
+                <div class="pull-right" ng-show="result">
+                    <a class="ExportToExcel1 pointer"
+                       id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                        <i class="fa fa-file-excel-o"></i>
+                        Export to Excel
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-12" ng-if="GetInstitutionCenters.length>0">
+                <div class="cl-details">
+                    <h2>Set Examination Centers</h2>
+                </div>
+
+                <div class="table-responsive table-custom-tables-tb scrollbox">
+                    <table id="tblParent" class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
+                        <thead>
+                            <tr class="cb-1">
+                                <th width="2%">S.No</th>
+                                <th>Institution Name</th>
+                                <th>Course Name</th>
+                                <th>Examination Center</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in GetInstitutionCenters">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.InstitutionID}} - {{x.InstitutionCode}} - {{x.InstitutionName}} </td>
+                                <td>{{x.CourseID}} - {{x.CourseName}}</td>
+                                <td>
+                                    <span ng-if="edit">
+                                        {{x.ExaminationCenter}}
+                                    </span>
+                                    <span ng-if="!edit">
+                                        <select class="form-control" ng-model="x.ExaminationCenterID"
+                                                ng-options="data.ExaminationCenterID as data.ExaminationCenterName for data in ExamCenters" ng-change="changeCenter(x)">
+                                            <option value="" selected>Choose</option>
+                                        </select>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div ng-if="Noresult" class="no-results">
+                    <img src="../../contents/img/Folder-Icon.svg" />
+                    <h2>No Result Found</h2>
+                </div>
+            </div>
+
+
+
+
+
         </div>
 
-
-
-
+   
+        </section>
     </div>
-
-</div>

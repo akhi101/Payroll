@@ -170,6 +170,18 @@
 
 
             ///////CCIC PORTAL ROUTES///////
+            'index.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CCIC/ExamsSite/CcicFeePayment.html',
+                dependencies: ['controllers/CCIC/ExamsSite/CcicFeePaymentController', 'services/PreExamination/PreExaminationService', 'services/Assessment/MarksEntryService', 'services/BillDesk/paymentService', 'directives/saTable']
+            },
+
+            'index.HallTicketDownload': {
+                url: "/HallTicketDownload",
+                templateUrl: 'app/views/CCIC/ExamsSite/CcicHallTicket.html',
+                dependencies: ['controllers/CCIC/ExamsSite/CcicHallTicketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
 
             'CcicLogin': {
                 url: "/CcicLogin",
@@ -267,20 +279,10 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.Academic.CcicEnrollReportCourses': {
-                url: "/EnrollmentReport/CcicEnrollReportCourses",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollReportCourses.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollReportCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
+            
 
             'CcicDashboard.Academic.CcicEnrollmentReportData': {
-                url: "/CcicEnrollmentReportData",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollmentReportData.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
-
-            'CcicDashboard.Academic.CcicEnrollmentReportData': {
-                url: "/EnrollmentReport/CcicAdmEnrollReportCourses/CcicEnrollmentReportData",
+                url: "/EnrollmentReport/CcicEnrollmentReportData",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollmentReportData.html',
                 dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
@@ -292,23 +294,17 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicAdmEnrollReportCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.Academic.CcicAdmEnrollmentReportData': {
+                url: "/EnrollmentReport/CcicAdmEnrollReportCourses/CcicAdmEnrollmentReportData",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdmEnrollmentData.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicAdmEnrollmentDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
 
             'CcicDashboard.Academic.Register': {
                 url: "/Register",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicRegister.html',
                 dependencies: ['controllers/CCIC/CcicSettings/CcicRegisterController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
-
-            'CcicDashboard.Academic.CcicRegisterCourses': {
-                url: "/Register/CcicRegisterCourses",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicRegisterCourses.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicRegisterCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
-
-            'CcicDashboard.Academic.CcicAdmRegisterReportCourses': {
-                url: "/Register/CcicAdmRegisterReportCourses",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdmRegisterReportCourses.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicAdmRegisterReportCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
             'CcicDashboard.Academic.CcicRegisterReportData': {
@@ -318,12 +314,23 @@
             },
 
 
-            'CcicDashboard.Academic.CcicRegisterReportData': {
-                url: "/CcicRegisterReportData",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicRegisterReportData.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicRegisterReportDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.Academic.CcicAdmRegisterReportCourses': {
+                url: "/Register/CcicAdmRegisterReportCourses",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdmRegisterReportCourses.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicAdmRegisterReportCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.Academic.CcicAdmRegisterReportData': {
+                url: "/Register/CcicAdmRegisterReportCourses/CcicAdmRegisterReportData",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdmRegisterData.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicAdmRegisterDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            //'CcicDashboard.Academic.CcicRegisterCourses': {
+            //    url: "/Register/CcicRegisterCourses",
+            //    templateUrl: 'app/views/CCIC/CcicSettings/CcicRegisterCourses.html',
+            //    dependencies: ['controllers/CCIC/CcicSettings/CcicRegisterCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            //},
 
 
             'CcicDashboard.Academic.Verification': {
@@ -332,10 +339,10 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.Academic.CcicVerificationCourses': {
-                url: "/Verification/CcicVerificationCourses",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationCourses.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.Academic.CcicVerificationData': {
+                url: "Verification/CcicVerificationData",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationData.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
             'CcicDashboard.Academic.CcicAdmVerificationCourses': {
@@ -344,17 +351,23 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicAdmVerificationCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.Academic.CcicVerificationData': {
-                url: "/CcicVerificationData",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationData.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.Academic.CcicAdmVerificationData': {
+                url: "/Verification/CcicAdmVerificationCourses/CcicAdmVerificationData",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicAdmVerificationData.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicAdmVerificationDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.Academic.CcicVerificationData': {
-                url: "/Verification/CcicAdmVerificationCourses/CcicVerificationData",
-                templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationData.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
+            //'CcicDashboard.Academic.CcicVerificationCourses': {
+            //    url: "/Verification/CcicVerificationCourses",
+            //    templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationCourses.html',
+            //    dependencies: ['controllers/CCIC/CcicSettings/CcicVerificationCoursesController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            //},
+
+           
+
+           
+
+           
 
             'CcicDashboard.PreExamination': {
                 url: "/PreExamination",
@@ -436,6 +449,24 @@
                 url: "/Amount",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicAmount.html',
                 dependencies: ['controllers/CCIC/PreExamination/CcicAmountController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.ExamFeePayment': {
+                url: "/ExamFeePayment",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeepayment.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeepaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.HallTicketDownload': {
+                url: "/HallTicketDownload",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicHallTicketDownload.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicHallTicketDownloadController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.PaymentProcess': {
+                url: "/ExamFeePayment/PaymentProcess",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicPaymentProcess.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicPaymentProcessController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
 

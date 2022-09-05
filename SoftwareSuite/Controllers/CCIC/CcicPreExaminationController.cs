@@ -16,6 +16,27 @@ namespace SoftwareSuite.Controllers.CCIC
 {
     public class CcicPreExaminationController : ApiController
     {
+
+        public class PaymentDetails
+        {
+            public int AcademicYearId { get; set; }
+            public int ExamMonthYearId { get; set; }
+            public int CourseId { get; set; }
+            public int StudentType { get; set; }        
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public DateTime LateFeeDate { get; set; }
+            public DateTime TatkalDate { get; set; }
+            public DateTime PremiumTatkalDate { get; set; }
+            public double Fee { get; set; }
+            public double LateFee { get; set; }            
+            public double TatkalFee { get; set; }
+            public double PremiumTatkalFee { get; set; }
+            public double CertificateFee { get; set; }
+            
+            
+        }
+
         [HttpGet, ActionName("GetCcicAcademicYears")]
         public HttpResponseMessage GetCcicAcademicYears()
         {
@@ -81,6 +102,92 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("SP_Get_Batches", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetAffiliatedCourses")]
+        public HttpResponseMessage GetAffiliatedCourses()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_AffiliatedCourses";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AffiliatedCourses", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetExaminationCenters")]
+        public HttpResponseMessage GetExaminationCenters()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_ExaminationCenters";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_ExaminationCenters", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetStudentFeeDates")]
+        public HttpResponseMessage GetStudentFeeDates()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_FeePaymentDates";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_FeePaymentDates", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetStudentType")]
+        public HttpResponseMessage GetStudentType()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_StudentType";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_StudentType", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetAffiliatedInstitutions")]
+        public HttpResponseMessage GetAffiliatedInstitutions()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_AffiliatedInsttitutions";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutions", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -1049,6 +1156,81 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpPost, ActionName("GetAdminExamCentersList")]
+        public HttpResponseMessage GetAdminExamCentersList([FromBody] JsonObject request)
+        {
+            try
+            {
 
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", request["AcademicYearID"]);
+                param[1] = new SqlParameter("@CourseIds", request["CourseIds"]);
+                param[2] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"]);
+               
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionVsExamCenter", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_InstitutionVsExamCenter", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("SetAdminExamCentersList")]
+        public HttpResponseMessage SetAdminExamCentersList([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Json", request["Json"]);
+                param[1] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"]);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_InstitutionVsExamCenter", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_InstitutionVsExamCenter", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("SetStudentFeePayments")]
+        public string SetStudentFeePayments([FromBody] PaymentDetails request)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[14];
+                param[0] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
+                param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
+                param[2] = new SqlParameter("@CourseId", request.CourseId);
+                param[3] = new SqlParameter("@StudentType", request.StudentType);
+                param[4] = new SqlParameter("@StartDate", request.StartDate);
+                param[5] = new SqlParameter("@EndDate", request.EndDate);
+                param[6] = new SqlParameter("@LateFeeDate", request.LateFeeDate);
+                param[7] = new SqlParameter("@TatkalDate", request.TatkalDate);
+                param[8] = new SqlParameter("@PremiumTatkalDate", request.PremiumTatkalDate);
+                param[9] = new SqlParameter("@Fee", request.Fee);
+                param[10] = new SqlParameter("@LateFee", request.LateFee);
+                param[11] = new SqlParameter("@TatkalFee", request.TatkalFee);
+                param[12] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
+                param[13] = new SqlParameter("@CertificateFee", request.CertificateFee);               
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

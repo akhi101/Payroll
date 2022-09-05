@@ -96,14 +96,14 @@
                 $scope.ShowStudentDetails = true;
                 $scope.DataTable1 = false;
                 $scope.DataTable2 = false;
-                if (res[0].Submitted == 'Yes') {
-                    $scope.Edit = true;
-                    $scope.Submit = true;
+                //if (res[0].Submitted == 'Yes') {
+                //    $scope.Edit = true;
+                //    $scope.Submit = true;
 
-                }
-                else {
-                    $scope.Clear = true;
-                }
+                //}
+                //else {
+                //    $scope.Clear = true;
+                //}
 
                 $scope.PreviewData = [];
                 if (res.length >= 0) {
@@ -122,43 +122,43 @@
                 });
 
 
-            $scope.Modify = function () {
-                var editstddetails = CcicPreExaminationService.GetStudentDetails($scope.ApplicationNumber, $scope.StudentId);
-                editstddetails.then(function (response) {
-                    try {
-                        var editRes = JSON.parse(response);
-                    }
-                    catch (err) { }
-                    $scope.LoadImg = true;
-                    $scope.ShowDetails = false;
-                    /*     $scope.Save = false;*/
+            //$scope.Modify = function () {
+            //    var editstddetails = CcicPreExaminationService.GetStudentDetails($scope.ApplicationNumber, $scope.StudentId);
+            //    editstddetails.then(function (response) {
+            //        try {
+            //            var editRes = JSON.parse(response);
+            //        }
+            //        catch (err) { }
+            //        $scope.LoadImg = true;
+            //        $scope.ShowDetails = false;
+            //        /*     $scope.Save = false;*/
 
 
 
 
-                    $scope.EditData = editRes[0];
-                    $scope.LoadImg = false;
-                    $scope.coursedetails = true;
-                    $scope.showEducation = true;
-                    $scope.applicationForm = true;
-                    /* $scope.Update = true;*/
+            //        $scope.EditData = editRes[0];
+            //        $scope.LoadImg = false;
+            //        $scope.coursedetails = true;
+            //        $scope.showEducation = true;
+            //        $scope.applicationForm = true;
+            //        /* $scope.Update = true;*/
 
-                }, function (error) {
+            //    }, function (error) {
 
-                    var err = JSON.parse(error);
-                });
+            //        var err = JSON.parse(error);
+            //    });
 
-                $scope.ShowDetails = false;
-                $scope.coursedetails = true;
-                $scope.Submitted1 = true;
-                $scope.showEducation = true;
-                $scope.Submitted2 = true;
-                $scope.Submitted3 = true;
-                $scope.applicationForm = true;
-                $scope.SscForm = true;
+            //    $scope.ShowDetails = false;
+            //    $scope.coursedetails = true;
+            //    $scope.Submitted1 = true;
+            //    $scope.showEducation = true;
+            //    $scope.Submitted2 = true;
+            //    $scope.Submitted3 = true;
+            //    $scope.applicationForm = true;
+            //    $scope.SscForm = true;
 
 
-            }
+            //}
 
 
             //$scope.modalInstance = $uibModal.open({
