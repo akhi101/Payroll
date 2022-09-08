@@ -115,7 +115,7 @@
             <div class="col-md-12">
                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Register/CcicAdmRegisterReportCourses" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
-            <div class="col-md-12" ng-show="DataTable1">
+            <!--<div class="col-md-12" ng-show="DataTable1">
                 <div class="row base-row">
                     <div class="col-md-12">
 
@@ -126,12 +126,12 @@
                                     <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                 </div>
                             </form>
-                            <label class="notifylabel" ng-if="AdmRegisterReportDataTable.length>0" for="sel1" style="color: red;"> click on link to view student details</label>
+                            <label class="notifylabel" ng-if="AdmRegisterReportDataTable.length>0" for="sel1" style="color: red;"> click on link to view student details</label>-->
                             <!--<div style="width:100%;text-align:center;">
                             <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
                         </div>-->
 
-                            <div ng-if="AdmRegisterReportDataTable.length<=0">
+                            <!--<div ng-if="AdmRegisterReportDataTable.length<=0">
                                 <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
                             </div>
                             <div class="scrollbox" id="tblParent" ng-if="AdmRegisterReportDataTable.length>0">
@@ -168,9 +168,9 @@
 
                     </div>
                 </div>
-            </div>
+            </div>-->
 
-            <div class="col-md-12" ng-show="DataTable2">
+            <div class="col-md-12" ng-if="RegisterReportDataTable">
                 <div class="row base-row">
                     <div class="col-md-12">
 
@@ -186,7 +186,7 @@
                             <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
                         </div>-->
 
-                            <div ng-if="AdmRegisterReportDataTable.length<=0">
+                            <div ng-if="RegisterReportDataTable.length<=0">
                                 <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
                             </div>
                             <div class="scrollbox" id="tblParent" ng-if="RegisterReportDataTable.length>0">
@@ -228,12 +228,12 @@
 
 
 
-            <div class="col-md-12  mtp-50">
+            <!--<div class="col-md-12  mtp-50">
                 <div style="width:100%;text-align:center;" ng-show="LoadImg">
                     <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
                     <p>please wait while data is loading...</p>
                 </div>
-            </div>
+            </div>-->
 
 
         </div>
@@ -662,7 +662,7 @@
                 </div>
             </form>-->
 
-            <div class="col-md-12" style="margin-bottom:100px" ng-show="ShowStudentDetails">
+            <!--<div class="col-md-12" style="margin-bottom:100px" ng-show="ShowStudentDetails">
                 <div class="card">
                     <div class="row">
                         <div class="col-md-12">
@@ -849,7 +849,7 @@
 
 
 
-            </div>
+            </div>-->
         </div>
 
     </div>

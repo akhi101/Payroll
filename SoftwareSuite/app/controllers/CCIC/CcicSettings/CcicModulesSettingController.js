@@ -6,8 +6,9 @@
             $scope.result = false;
 
     
-            $scope.modulecolours()
-            $scope.getModules()
+            $scope.modulecolours();
+            $scope.getModules();
+            $scope.getsubmodules();
         }
 
 
@@ -58,7 +59,7 @@
             var GetAllCcicModules = CcicSettingsService.GetAllCcicModules();
             GetAllCcicModules.then(function (response) {
 
-                $scope.Modules = response;
+                $scope.ModulesTableData = response;
 
             },
                 function (error) {
@@ -114,30 +115,20 @@
 
         }
 
-        var GetCcicModules = CcicSettingsService.GetAllCcicModules();
-        GetCcicModules.then(function (response) {
 
-            $scope.GetAllCcicModules = response;
+        $scope.getsubmodules = function () {
+            var getallsubmod = CcicSettingsService.GetAllCcicSubModules();
+            getallsubmod.then(function (response) {
 
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
+                $scope.SubModulesData = response;
 
-            });
+            },
+                function (error) {
+                    alert("error while loading Modules");
+                    var err = JSON.parse(error);
 
-        var GetAllCcicSubModules = CcicSettingsService.GetAllCcicSubModules();
-        GetAllCcicSubModules.then(function (response) {
-
-            $scope.GetAllCcicSubModules = response;
-
-        },
-            function (error) {
-                alert("error while loading Modules");
-                var err = JSON.parse(error);
-
-            });
-
+                });
+        }
 
 
 
@@ -324,10 +315,10 @@
             if ($scope.moduleid == null || $scope.moduleid == undefined || $scope.moduleid == "") {
                 return;
             }
-            var GetCcicSubModules = CcicSettingsService.GetCcicSubModules($scope.moduleid);
-            GetCcicSubModules.then(function (response) {
+            var getsubmods = CcicSettingsService.GetCcicSubModules($scope.moduleid);
+            getsubmods.then(function (response) {
 
-                $scope.GetCcicSubModules = response;
+                $scope.SubModulesTable = response;
 
             },
                 function (error) {
@@ -370,11 +361,13 @@
                 if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription)
                     $scope.getSubModules();
+                    $scope.getsubmodules();
                     $scope.clearDefaults();
                 } else {
 
                     alert('Sub Module Added Successfully')
                     $scope.getSubModules();
+                    $scope.getsubmodules();
                     $scope.clearDefaults();
 
                 }
@@ -404,10 +397,12 @@
                 if (responce[0].ResponceCode == '400') {
                     alert(responce[0].ResponceDescription)
                     $scope.getSubModules();
+                    $scope.getsubmodules();
                     $scope.clearDefaults();
                 } else {
                     alert('SubModule Status Updated Successfully')
                     $scope.getSubModules();
+                    $scope.getsubmodules();
                     $scope.clearDefaults();
                 }
 
@@ -464,6 +459,7 @@
             Update.then(function (response) {
                 alert("SubModule Updated Successfully")
                 $scope.getSubModules();
+                $scope.getsubmodules();
                 $scope.clearDefaults();
             },
                 function (error) {

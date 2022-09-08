@@ -10,20 +10,18 @@
         text-indent: 1px;
         text-overflow: '';
     }
-        
-        .btn-default, .btn-dark-blue
-    
-    {
+
+    .btn-default, .btn-dark-blue {
         border-color: #314559;
         color: #000;
         background-color: white;
     }
 
-    .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
-        border-color: #2c3e50;
-        color: #fff;
-        background-color: #2f4254;
-    }
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
 
     button > span.active {
         color: #ffffff !important;
@@ -40,7 +38,6 @@
     .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: #f9f9f9 !important;
     }
-    
 </style>
 
 <div ng-controller="CcicAcademicYearSettingsController">
@@ -479,19 +476,35 @@
                                         <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.AcademicYear" /></td>
                                         <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.CourseDuration" /></td>
                                         <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.Batch" /></td>
+                                        <!--<td class="text-center pointer" style="padding: 3px;">
+        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" />
+            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+            </span>
+        </p>
+    </td>
+    <td class="text-center pointer" style="padding: 3px;">
+        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="End Date" autocomplete="off" name="EndDate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchEndDate" />
+            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                <button type="button" class="btn btn-primary"> <i class="fa fa-calendar"></i></button>
+            </span>
+        </p>
+    </td>-->
                                         <td class="text-center pointer" style="padding: 3px;">
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" />
+                                                <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" is-open="showFlag2" />
                                                 <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                                    <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </p>
                                         </td>
                                         <td class="text-center pointer" style="padding: 3px;">
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="End Date" autocomplete="off" name="EndDate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchEndDate" />
+                                                <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="End Date" autocomplete="off" name="EndDate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchEndDate" is-open="showFlag1" />
                                                 <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                                    <button type="button" class="btn btn-primary"> <i class="fa fa-calendar"></i></button>
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
                                             </p>
                                         </td>

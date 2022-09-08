@@ -138,7 +138,7 @@
 
                                 <tbody>
 
-                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetAllCcicModules">
+                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in ModulesTableData">
                                         <td class="">{{$index+1}}</td>
                                         <td>
                                            
@@ -218,7 +218,7 @@
                                         <label class="font-weight-bold"> Module :</label>
                                         <select class="form-control " ng-model="ModuleID" name="ModuleID" required>
                                             <option value="" selected="selected">Select Module</option>
-                                            <option value="{{data.ModuleID}}" ng-hide=""  ng-repeat="data in GetAllCcicModules" class="">
+                                            <option value="{{data.ModuleID}}" ng-hide=""  ng-repeat="data in ModulesTableData" class="">
                                                 {{data.ModuleName}}
                                             </option>
                                         </select>
@@ -315,7 +315,7 @@
                                         <label class="font-weight-bold"> Module :</label>
                                         <select class="form-control " ng-model="moduleid" id="moduleid" ng-change="getSubModules(moduleid)" required>
                                             <option value="" selected="selected">Select Module</option>
-                                            <option value="{{data.ModuleID}}" ng-repeat="data in Modules" class="">
+                                            <option value="{{data.ModuleID}}" ng-repeat="data in ModulesTableData" class="">
                                                 {{data.ModuleName}}
                                             </option>
                                         </select>
@@ -360,7 +360,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div ng-if="GetCcicSubModules.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
+                        <div ng-if="SubModulesTable.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
                             <table class="table table-bordered  table-striped table-rounded">
                                 <thead>
                                     <tr class="cb-1">
@@ -377,12 +377,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetCcicSubModules"  class="ng-scope">
+                                    <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in SubModulesTable"  class="ng-scope">
                                         <td class="">{{$index+1}}</td>
                                         <td>
                                             <select class="form-control tableinpt enabletable{{$index + 1}}" id="modid" ng-model="moduleid"  required>
                                                 <option value="" selected="selected">{{data.ModuleName}}</option>
-                                                <option value="{{data.ModuleID}}" ng-repeat="data in Modules" class="">
+                                                <option value="{{data.ModuleID}}" ng-repeat="data in ModulesTableData" class="">
                                                     {{data.ModuleName}}
                                                 </option>
                                             </select>
@@ -450,7 +450,7 @@
                                         <label class="font-weight-bold"> Module :</label>
                                         <select class="form-control " ng-model="ModuleId" id="ModuleId" required ng-change="ChangeModules(ModuleId)">
                                             <option value="" selected="selected">Select Module</option>
-                                            <option value="{{data.ModuleID}}" ng-repeat="data in GetAllCcicModules" class="">
+                                            <option value="{{data.ModuleID}}" ng-repeat="data in ModulesTableData" class="">
                                                 {{data.ModuleName}}
                                             </option>
                                         </select>
@@ -460,9 +460,9 @@
                                     <div class="form-group">
 
                                         <label class="font-weight-bold"> SubModule :</label>
-                                        <select class="form-control " ng-model="submodule" name="submodule" required>
+                                        <select class="form-control " ng-model="SubMod" name="submodule" required>
                                             <option value="" selected="selected">Select SubModule</option>
-                                            <option value="{{data.SubModuleID}}" ng-repeat="data in GetAllCcicSubModules" class="">
+                                            <option value="{{data.SubModuleID}}" ng-repeat="data in SubModulesData" class="">
                                                 {{data.SubModuleName}}
                                             </option>
                                         </select>

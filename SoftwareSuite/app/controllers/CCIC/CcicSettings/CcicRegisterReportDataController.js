@@ -7,51 +7,56 @@
         $scope.RegisterReportData = false;
         $scope.AdmRegisterReportData = false;
         var tempData2 = $localStorage.TempData2;
-        var tempData3 = $localStorage.TempData3;
         var InstitutionID = authData.InstitutionID;
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
             /*$scope.GetEnrollmentReportData();*/
-            $scope.ShowStudentDetails = false;
-            $scope.LoadImg = false;
+            //$scope.ShowStudentDetails = false;
+            //$scope.LoadImg = false;
             $scope.Clear = false;
         }
 
+        var data = {};
+        $scope.$emit('showLoading', data);
+
        
-        if ($scope.UserTypeID == 1) {
+        //if ($scope.UserTypeID == 1) {
 
-            $scope.AdmRegisterReportData = true;
-            $scope.RegisterReportData = false;
-            $scope.DataTable1 = true;
-            var registerreportData = CcicPreExaminationService.GetAdminRegisterReportData(tmp.InstitutionID, tempData3.CourseID, tempData3.ReportTypeID, tmp.academicYear, tmp.batch);
-            registerreportData.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                $scope.AdmRegisterReportDataTable = [];
-                if (res.length >= 0) {
+        //    $scope.AdmRegisterReportData = true;
+        //    $scope.RegisterReportData = false;
+        //    $scope.DataTable1 = true;
+        //    var registerreportData = CcicPreExaminationService.GetAdminRegisterReportData(tmp.InstitutionID, tempData3.CourseID, tempData3.ReportTypeID, tmp.academicYear, tmp.batch);
+        //    registerreportData.then(function (response) {
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        $scope.AdmRegisterReportDataTable = [];
+        //        if (res.length >= 0) {
 
-                    $scope.AdmRegisterReportDataTable = res;
+        //            $scope.AdmRegisterReportDataTable = res;
 
-                } else {
+        //        } else {
 
-                    $scope.AdmRegisterReportDataTable = [];
-                }
-            },
-                function (error) {
-                    //   alert("error while loading Notification");
-                    var err = JSON.parse(error);
-                });
-        }
+        //            $scope.AdmRegisterReportDataTable = [];
+        //        }
+        //    },
+        //        function (error) {
+        //            //   alert("error while loading Notification");
+        //            var err = JSON.parse(error);
+        //        });
+        //}
 
 
 
-        else if ($scope.UserTypeID==2) {
-            $scope.RegisterReportData = true;
-            $scope.AdmRegisterReportData = false;
-            $scope.DataTable2 = true;
+      /*  else if ($scope.UserTypeID==2) {*/
+            //$scope.RegisterReportData = true;
+            //$scope.AdmRegisterReportData = false;
+        //$scope.DataTable = true;
+        $scope.loading = true;
+        var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
+
             var enrollmentreportData = CcicPreExaminationService.GetInstitutionRegisterReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID, tmp.academicYear, tmp.batch);
             enrollmentreportData.then(function (response) {
                 try {
@@ -60,19 +65,23 @@
                 catch (err) { }
                 $scope.RegisterReportDataTable = [];
                 if (res.length >= 0) {
-
+                    $scope.loading = false;
                     $scope.RegisterReportDataTable = res;
+                    $scope.$emit('hideLoading', data);
+
 
                 } else {
-
+                    $scope.loading = false;
                     $scope.RegisterReportDataTable = [];
+                    $scope.$emit('hideLoading', data);
+
                 }
             },
                 function (error) {
                     //   alert("error while loading Notification");
                     var err = JSON.parse(error);
                 });
-        }
+      /*  }*/
 
 
 
@@ -82,98 +91,112 @@
             $state.go('CcicDashboard.Academic.Register')
         }
 
-        $scope.ViewStudentDetails = function (AppNo, StdId) {
-            $scope.LoadImg = true;
-            $scope.DataTable1 = false;
-            $scope.DataTable2 = false;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(AppNo, StdId);
-            ViewStudentDetail.then(function (response) {
+        //$scope.ViewStudentDetails = function (AppNo, StdId) {
+        //    $scope.LoadImg = true;
+        //    $scope.DataTable1 = false;
+        //    $scope.DataTable2 = false;
+        //    var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(AppNo, StdId);
+        //    ViewStudentDetail.then(function (response) {
 
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                $scope.ShowStudentDetails = true;
-                $scope.DataTable1 = false;
-                $scope.DataTable2 = false;
-                //if (res[0].Submitted == 'Yes') {
-                //    $scope.Edit = true;
-                //    $scope.Submit = true;
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        $scope.ShowStudentDetails = true;
+        //        $scope.DataTable1 = false;
+        //        $scope.DataTable2 = false;
+        //        //if (res[0].Submitted == 'Yes') {
+        //        //    $scope.Edit = true;
+        //        //    $scope.Submit = true;
 
-                //}
-                //else {
-                //    $scope.Clear = true;
-                //}
+        //        //}
+        //        //else {
+        //        //    $scope.Clear = true;
+        //        //}
 
-                $scope.PreviewData = [];
-                if (res.length >= 0) {
-                    $scope.LoadImg = true;
-                    $scope.PreviewData = res[0];
-                    $scope.LoadImg = false;
+        //        $scope.PreviewData = [];
+        //        if (res.length >= 0) {
+        //            $scope.LoadImg = true;
+        //            $scope.PreviewData = res[0];
+        //            $scope.LoadImg = false;
 
-                } else {
-                    $scope.LoadImg = false;
-                    $scope.PreviewData = [];
-                }
-            },
-                function (error) {
-                    //   alert("error while loading Notification");
-                    var err = JSON.parse(error);
-                });
-
-
-            //$scope.Modify = function () {
-            //    var editstddetails = CcicPreExaminationService.GetStudentDetails($scope.ApplicationNumber, $scope.StudentId);
-            //    editstddetails.then(function (response) {
-            //        try {
-            //            var editRes = JSON.parse(response);
-            //        }
-            //        catch (err) { }
-            //        $scope.LoadImg = true;
-            //        $scope.ShowDetails = false;
-            //        /*     $scope.Save = false;*/
+        //        } else {
+        //            $scope.LoadImg = false;
+        //            $scope.PreviewData = [];
+        //        }
+        //    },
+        //        function (error) {
+        //            //   alert("error while loading Notification");
+        //            var err = JSON.parse(error);
+        //        });
 
 
+        //    //$scope.Modify = function () {
+        //    //    var editstddetails = CcicPreExaminationService.GetStudentDetails($scope.ApplicationNumber, $scope.StudentId);
+        //    //    editstddetails.then(function (response) {
+        //    //        try {
+        //    //            var editRes = JSON.parse(response);
+        //    //        }
+        //    //        catch (err) { }
+        //    //        $scope.LoadImg = true;
+        //    //        $scope.ShowDetails = false;
+        //    //        /*     $scope.Save = false;*/
 
 
-            //        $scope.EditData = editRes[0];
-            //        $scope.LoadImg = false;
-            //        $scope.coursedetails = true;
-            //        $scope.showEducation = true;
-            //        $scope.applicationForm = true;
-            //        /* $scope.Update = true;*/
-
-            //    }, function (error) {
-
-            //        var err = JSON.parse(error);
-            //    });
-
-            //    $scope.ShowDetails = false;
-            //    $scope.coursedetails = true;
-            //    $scope.Submitted1 = true;
-            //    $scope.showEducation = true;
-            //    $scope.Submitted2 = true;
-            //    $scope.Submitted3 = true;
-            //    $scope.applicationForm = true;
-            //    $scope.SscForm = true;
 
 
-            //}
+        //    //        $scope.EditData = editRes[0];
+        //    //        $scope.LoadImg = false;
+        //    //        $scope.coursedetails = true;
+        //    //        $scope.showEducation = true;
+        //    //        $scope.applicationForm = true;
+        //    //        /* $scope.Update = true;*/
+
+        //    //    }, function (error) {
+
+        //    //        var err = JSON.parse(error);
+        //    //    });
+
+        //    //    $scope.ShowDetails = false;
+        //    //    $scope.coursedetails = true;
+        //    //    $scope.Submitted1 = true;
+        //    //    $scope.showEducation = true;
+        //    //    $scope.Submitted2 = true;
+        //    //    $scope.Submitted3 = true;
+        //    //    $scope.applicationForm = true;
+        //    //    $scope.SscForm = true;
 
 
-            //$scope.modalInstance = $uibModal.open({
-            //    templateUrl: "/app/views/CCIC/CcicSettings/ViewStdDetailsPopup.html",
-            //    size: 'lg',
-            //    scope: $scope,
-            //    windowClass: 'modal-fit',
-            //    backdrop: 'static',
-            //    keyboard: false
-            //});
+        //    //}
 
 
-            //$scope.closeModal = function () {
-            //    $scope.modalInstance.close();
-            //};
+        //    //$scope.modalInstance = $uibModal.open({
+        //    //    templateUrl: "/app/views/CCIC/CcicSettings/ViewStdDetailsPopup.html",
+        //    //    size: 'lg',
+        //    //    scope: $scope,
+        //    //    windowClass: 'modal-fit',
+        //    //    backdrop: 'static',
+        //    //    keyboard: false
+        //    //});
+
+
+        //    //$scope.closeModal = function () {
+        //    //    $scope.modalInstance.close();
+        //    //};
+
+
+        //}
+
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID) {
+
+            $localStorage.TempData3 = {
+                ApplicationNumber: ApplicationNumber,
+                StudentID: StudentID
+
+
+            };
+
+            $state.go('CcicDashboard.Academic.ViewStdDetails');
 
 
         }
