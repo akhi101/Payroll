@@ -12,12 +12,13 @@
          
         }
 
-
+        var data = {};
+        $scope.$emit('showLoading', data);
      
 
 
         if ($scope.UserTypeID == 1) {
-           
+            $scope.loading = true;
             $scope.AdminEnrollmentReportTable = true;
 
 
@@ -39,9 +40,13 @@
                 //catch (err) { }
                 $scope.AdminEnrollmentReportInsCountTable = [];
                 if (Res.Table.length >= 0) {
+                    $scope.loading = false;
                     $scope.AdminEnrollmentReportInsCountTable = Res.Table;
+                    $scope.$emit('hideLoading', data);
                 } else {
+                    $scope.loading = false;
                     $scope.AdminEnrollmentReportInsCountTable = [];
+                    $scope.$emit('hideLoading', data);
                 }
             },
                 function (error) {
@@ -55,7 +60,8 @@
 
         }
 
-        else if ($scope.UserTypeID==2) {
+        else if ($scope.UserTypeID == 2) {
+            $scope.loading = true;
             $scope.EnrollmentReportCoursesTable = true;
             $scope.AdminEnrollmentReportTable = false;
             var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
@@ -68,9 +74,15 @@
                 catch (err) { }
                 $scope.EnrollmentReportCoursesTable = [];
                 if (res.length >= 0) {
+                    $scope.loading = false;
                     $scope.EnrollmentReportCoursesTable = res;
+                    $scope.$emit('hideLoading', data);
+
                 } else {
+                    $scope.loading = false
                     $scope.EnrollmentReportCoursesTable = [];
+                    $scope.$emit('hideLoading', data);
+
                 }
             },
                 function (error) {

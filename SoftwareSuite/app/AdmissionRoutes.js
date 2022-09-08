@@ -273,6 +273,18 @@
             },
 
 
+            'CcicDashboard.Academic.ViewStdDetails': {
+                url: "/ViewStdDetails",
+                templateUrl: 'app/views/CCIC/CcicSettings/ViewStdDetails.html',
+                dependencies: ['controllers/CCIC/CcicSettings/ViewStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.Academic.ViewStdDetailsVerification': {
+                url: "/ViewStdDetailsVerification",
+                templateUrl: 'app/views/CCIC/CcicSettings/ViewStdDetailsVer.html',
+                dependencies: ['controllers/CCIC/CcicSettings/ViewStdDetailsVerController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.Academic.EnrollmentReport': {
                 url: "/EnrollmentReport",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollmentReport.html',

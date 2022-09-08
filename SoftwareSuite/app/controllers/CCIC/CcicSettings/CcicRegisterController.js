@@ -14,6 +14,8 @@
 
         }
 
+        var data = [];
+        $scope.$emit('showLoading', data);
 
         $scope.getAdminRegisterReportCount = function (academicYear, batch) {
             if ($scope.UserTypeID == 1) {
@@ -26,8 +28,9 @@
 
         var GetCcicAcademicYears = CcicPreExaminationService.GetCcicAcademicYears()
         GetCcicAcademicYears.then(function (response) {
+            $scope.loading = false;
             $scope.GetCcicAcademicYears = response.Table;
-
+            $scope.$emit('hideLoading', data);
 
         },
             function (error) {
@@ -41,7 +44,6 @@
 
 
         $scope.GetAdmDetails = function (academicYear, batch) {
-
             if ($scope.academicYear == null || $scope.academicYear == undefined || $scope.academicYear == "") {
                 alert('Select Academic Year');
                 return;
@@ -51,7 +53,7 @@
                 return;
             }
 
-
+            $scope.loading = true;
             $scope.DropDownTable = true;
             $scope.AdminRegisterInsTable = true;
             $scope.RegisterCoursesTable = false;
@@ -63,9 +65,14 @@
                 catch (err) { }
                 $scope.AdmRegisterReportInsCountTable = [];
                 if (res.length >= 0) {
+                    $scope.loading = false;
                     $scope.AdmRegisterReportInsCountTable = res;
+                    $scope.$emit('hideLoading', data);
                 } else {
+                    $scope.loading = false;
                     $scope.AdmRegisterReportInsCountTable = [];
+                    $scope.$emit('hideLoading', data);
+
                 }
             },
                 function (error) {
@@ -91,9 +98,10 @@
                 alert('Select Batch');
                 return;
             }
+            $scope.loading = true;
             $scope.AdminRegisterInsTable = false;
             $scope.RegisterCoursesTable = true;
-            $scope.DropDownTable = false;
+            $scope.DropDownTable = true;
             var regcourscount = CcicPreExaminationService.GetRegisterCoursesCount(InstitutionID, academicYear, batch);
             regcourscount.then(function (response) {
                 try {
@@ -102,9 +110,14 @@
                 catch (err) { }
                 $scope.RegisterCoursesCountTable = [];
                 if (res.length >= 0) {
+                    $scope.loading = false;
                     $scope.RegisterCoursesCountTable = res;
+                    $scope.$emit('hideLoading', data);
+
                 } else {
+                    $scope.loading = false;
                     $scope.RegisterCoursesCountTable = [];
+                    $scope.$emit('hideLoading', data);
                 }
             },
                 function (error) {

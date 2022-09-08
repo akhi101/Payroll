@@ -14,7 +14,11 @@
           
         }
 
+        var data = [];
+        $scope.$emit('showLoading', data);
 
+
+        $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
         var enrollmentreportCount = CcicPreExaminationService.GetInsEnrollmentReportCoursesCount(InstitutionID);
@@ -25,9 +29,13 @@
             catch (err) { }
             $scope.EnrollmentReportCoursesTable = [];
             if (res.length >= 0) {
+                $scope.loading = false;
                 $scope.EnrollmentReportCoursesTable = res;
+                $scope.$emit('hideLoading', data);
             } else {
+                $scope.loading = false;
                 $scope.EnrollmentReportCoursesTable = [];
+                $scope.$emit('hideLoading', data);
             }
         },
             function (error) {

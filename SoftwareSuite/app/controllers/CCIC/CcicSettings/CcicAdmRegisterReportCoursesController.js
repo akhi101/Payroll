@@ -13,8 +13,10 @@
 
 
         }
+        var data = [];
+        $scope.$emit('showLoading', data);
 
-
+        $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
         var registerreportcoursesCount = CcicPreExaminationService.GetInsRegisterReportCoursesCount(InstitutionID,tmp.academicYear,tmp.batch);
         registerreportcoursesCount.then(function (response) {
@@ -24,9 +26,15 @@
             catch (err) { }
             $scope.RegisterReportCoursesTable = [];
             if (res.length >= 0) {
+                $scope.loading = false;
                 $scope.RegisterReportCoursesTable = res;
+                $scope.$emit('hideLoading', data);
+
             } else {
+                $scope.loading = false;
                 $scope.RegisterReportCoursesTable = [];
+                $scope.$emit('hideLoading', data);
+
             }
         },
             function (error) {

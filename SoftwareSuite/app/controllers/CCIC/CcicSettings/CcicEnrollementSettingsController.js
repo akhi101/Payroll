@@ -234,8 +234,8 @@ define(['app'], function (app) {
                     }
                 }
 
-                //  var ele = document.getElementsByClassName("tableinpt");
-                for (var j = 1; j < response.Table.length + 1; j++) {
+                  var ele = document.getElementsByClassName("tableinpt");
+                for (var j = 1; j < response.Table.length +10000; j++) {
                     $scope['edit' + j] = true;
                 }
             },

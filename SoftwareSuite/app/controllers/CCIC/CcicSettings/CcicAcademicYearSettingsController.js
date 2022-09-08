@@ -514,8 +514,8 @@ define(['app'], function (app) {
 
 
         $scope.GetCurrentAcademicYearData = function () {
-            var GetCcicAcademicYears = CcicPreExaminationService.GetCcicAcademicYears()
-            GetCcicAcademicYears.then(function (response) {
+            var getacayrs = CcicPreExaminationService.GetCcicAcademicYears()
+            getacayrs.then(function (response) {
                 $scope.GetCcicAcademicYears = response.Table;
 
                 for (let i = 0; i < $scope.GetCcicAcademicYears.length; i++) {
@@ -524,8 +524,8 @@ define(['app'], function (app) {
                     }
                 }
 
-                //  var ele = document.getElementsByClassName("tableinpt");
-                for (var j = 1; j < response.Table.length + 1; j++) {
+                var ele = document.getElementsByClassName("tableinpt");
+                for (var j = 1; j < response.Table.length + 10000; j++) {
                     $scope['edit' + j] = true;
                 }
             },
