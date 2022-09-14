@@ -84,13 +84,13 @@
             font-weight: 600;
             text-decoration: none;
         }
+
         fieldset.group-border {
             border: 1px groove #ddd !important;
             padding: 0 1.4em 1.4em 1.4em !important;
             margin: 0 0 1.5em 0 !important;
             -webkit-box-shadow: 0px 0px 0px 0px #000;
             box-shadow: 0px 0px 0px 0px #000;
-            
         }
     </style>
 </head>
@@ -315,26 +315,26 @@
                 <div class="col-md-8">
 
                 </div>
-                <div ng-if="((isSubmitted&&UserTypeID==2)|| UserTypeID==1)">
-                <div class="col-md-1 pull-right mtp-50">
+                <div>
+                    <div class="col-md-1 pull-right mtp-50">
 
-                    <div class="cancel-btn" style="margin-bottom:0px;">
-                        <button type="button" ng-click="Close()">Close</button>
+                        <div class="cancel-btn" style="margin-bottom:0px;">
+                            <button type="button" ng-click="Close()">Close</button>
+                        </div>
                     </div>
                 </div>
+                <!--<div ng-if="!isSubmitted&&UserTypeID==2">
+                    <div class="col-md-2 pull-right mtp-50">
+                        <div class="submit-btn" style="margin-bottom:0px;">
+                            <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+                        </div>
                     </div>
-                <div ng-if="!isSubmitted&&UserTypeID==2">
-                <div class="col-md-2 pull-right mtp-50">
-                    <div class="submit-btn" style="margin-bottom:0px;">
-                        <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+                    <div class="col-md-2 pull-right mtp-50">
+                        <div class="submit-btn" style="margin-bottom:0px;">
+                            <button type="submit" ng-model="ModifyStdDet" ng-click="ModifyStdDetails(ApplicationNumber,StudentId)">Modify</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-2 pull-right mtp-50">
-                    <div class="submit-btn" style="margin-bottom:0px;">
-                        <button type="submit" ng-model="ModifyStdDet" ng-click="ModifyStdDetails(ApplicationNumber,StudentId)">Modify</button>
-                    </div>
-                </div>
-                    </div>
+                </div>-->
                 <div class="col-md-1 pull-right mtp-50">
 
                 </div>

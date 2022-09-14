@@ -57,7 +57,7 @@
         $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
-            var enrollmentreportData = CcicPreExaminationService.GetInstitutionRegisterReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID, tmp.academicYear, tmp.batch);
+        var enrollmentreportData = CcicPreExaminationService.GetInstitutionRegisterReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID, tempData2.academicYear, tempData2.batch);
             enrollmentreportData.then(function (response) {
                 try {
                     var res = JSON.parse(response);

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using SoftwareSuite.Models.Database;
 
-namespace SoftwareSuite.Services.CCIC
+namespace SoftwareSuite.Services
 {
     public class CcicSystemUserService
     {

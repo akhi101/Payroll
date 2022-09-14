@@ -98,43 +98,7 @@
         //        });
 
 
-        //    $scope.Modify = function () {
-        //        var editstddetails = CcicPreExaminationService.GetStudentDetails($scope.ApplicationNumber, $scope.StudentId);
-        //        editstddetails.then(function (response) {
-        //            try {
-        //                var editRes = JSON.parse(response);
-        //            }
-        //            catch (err) { }
-        //            $scope.LoadImg = true;
-        //            $scope.ShowDetails = false;
-        //            /*     $scope.Save = false;*/
-
-
-
-
-        //            $scope.EditData = editRes[0];
-        //            $scope.LoadImg = false;
-        //            $scope.coursedetails = true;
-        //            $scope.showEducation = true;
-        //            $scope.applicationForm = true;
-        //            /* $scope.Update = true;*/
-
-        //        }, function (error) {
-
-        //            var err = JSON.parse(error);
-        //        });
-
-        //        $scope.ShowDetails = false;
-        //        $scope.coursedetails = true;
-        //        $scope.Submitted1 = true;
-        //        $scope.showEducation = true;
-        //        $scope.Submitted2 = true;
-        //        $scope.Submitted3 = true;
-        //        $scope.applicationForm = true;
-        //        $scope.SscForm = true;
-
-
-        //    }
+         
 
 
         //    //$scope.modalInstance = $uibModal.open({
@@ -154,11 +118,12 @@
 
         //}
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID) {
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID,isSubmitted) {
 
             $localStorage.TempData3 = {
                 ApplicationNumber: ApplicationNumber,
-                StudentID: StudentID
+                StudentID: StudentID,
+                isSubmitted: isSubmitted
                
 
             };
