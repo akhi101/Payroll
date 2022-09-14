@@ -764,6 +764,9 @@
                 return;
             }
 
+
+         
+
             $scope.Submitted2 = true;
             $scope.Save = true;
             $scope.radiodisable = true;
@@ -771,14 +774,18 @@
             $scope.Tenth_HNo = Tenth_HNo;
             $scope.Tenth_Year = Tenth_Year;
             $scope.Stream = Stream;
-
+            var reqData = {
+                RollNo: Tenth_HNo,
+                Year: Tenth_Year,
+                Stream: Stream
+            };
           
-            var sscdetails = CcicPreExaminationService.getSSCDetails(Tenth_HNo, Tenth_Year, Stream);
+            var sscdetails = CcicPreExaminationService.getSSCDetails(reqData);
             sscdetails.then(function (res) {
                 if (res) {
 
                     let resdata = JSON.parse(res)
-                    if (resdata.length>0) {
+                    if (resdata.Status == 200) {
                         $scope.applicationForm = true;
 
                         $scope.LoadImg = false;
@@ -795,7 +802,8 @@
                         $scope.SEX = resdata[0].SEX == "B" || resdata[0].SEX == "M" ? "M" : resdata[0].SEX == "G" || resdata[0].SEX == "F" ? "F" : "";
                         $scope.Genderfound = $scope.SEX != "" ? true : false;
                         let date1 = resdata.DateOfBirth;
-
+                        let ch = date1.split('');
+                        var datelength = ch.length;
                         $scope.sscForm = false;
 
                     } else {
@@ -807,7 +815,7 @@
                     }
 
                 }else {
-                        alert("Continue to fillApplication");
+                    alert("Details not found, Continue to fillApplication");
                         $scope.applicationForm = true;
                         $scope.sscForm = false;
                         isSSCValidiated = false;
@@ -816,7 +824,7 @@
                 
 
             }, function (err) {
-                alert("Continue to fillApplication");
+                alert("Details not found, Continue to fillApplication");
                 $scope.applicationForm = true;
                 $scope.sscForm = false;
                 isSSCValidiated = false;

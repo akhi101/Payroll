@@ -196,11 +196,21 @@
             return promise;
         };
 
-        this.getSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAM) {
-            var paramObj = {
-                "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAM": STREAM
-            };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetSSCDetails', paramObj);
+        //this.getSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAM) {
+        //    var paramObj = {
+        //        "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAM": STREAM
+        //    };
+        //    var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetSSCDetails', paramObj);
+        //    return promise;
+        //};
+
+        //this.GetSSCDetails = function (RollNo, Year, Stream) {
+        //    var param = { "RollNo": RollNo, "Year": Year, "Stream": Stream }
+        //    return DataAccessService.postData('api/TwshStudentReg/GetSSCDetails', param);
+        //};
+
+        this.getSSCDetails = function (object) {
+            var promise = DataAccessService.postData('api/TwshStudentReg/GetSSCDetails', object);
             return promise;
         };
 

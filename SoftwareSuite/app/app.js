@@ -22,19 +22,19 @@
 
                 }
                 //$provide.errorOnUnhandledRejections(false);
-               //$locationProvider.hashPrefix('');             
+                //$locationProvider.hashPrefix('');             
                 //$locationProvider.html5Mode({                 
                 //    enabled: true,                            
                 //    requireBase: false                        
                 //});
-               
+
                 if (config.defaultRoutePaths !== undefined) {
                     $urlRouterProvider.otherwise(config.defaultRoutePaths);
                 }
                 app.compileProvider = $compileProvider;
             }
         ]);
-   
+
 
 
     app.factory('beforeUnload', function ($rootScope, $window) {
@@ -76,7 +76,7 @@
         {
             var d = new Date();
             var n = d.getTime();  //n in ms
-          
+
 
             if (n > $rootScope.idleEndTime) {
                 $document.find('body').off('mousemove keydown DOMMouseScroll mousewheel mousedown touchstart'); //un-monitor events
@@ -130,7 +130,7 @@
         var authData = $localStorage.authorizationData;
         if (authData == undefined) {
             //$state.transitionTo("login", null, { notify: true });
-           //  $state.go('login');
+            //  $state.go('login');
             $state.go('index');
             //$state.go('StudentResult');
         };
@@ -158,15 +158,15 @@
         //    console.log(event);
         //});
 
-         //$rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState, fromParams) {
-         //   console.log(event);
-         //});
+        //$rootScope.$on('$locationChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        //   console.log(event);
+        //});
 
         $state.defaultErrorHandler(function () {
-           // console.log('Default error handler fired!');
+            // console.log('Default error handler fired!');
         });
 
-      
+
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -184,9 +184,9 @@
                 return;
             }
             if (authData) {
-                config.headers.Authorization = $localStorage.authToken;              
+                config.headers.Authorization = $localStorage.authToken;
             }
-          
+
             if (toState.name.indexOf("Exam") == 0) {
                 if (toState.name != 'Exam' && toState.name != 'login') {
                     var UsersRightsdata = [];

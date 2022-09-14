@@ -201,10 +201,10 @@
 <html lang="en">
 
 <head>
-    <!--<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Users">
-    <title>Verification Report</title>-->
+    <title>Verification Report</title>
     <style>
         /*.col-md-3 {
             padding-right: 2px !important;
@@ -266,11 +266,110 @@
 
 <body>
     <div ng-controller="ViewStdDetailsVerController">
+        <!-- New Style Start-->
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+
+
+
+
+        <div class="breadcrumb-header">
+            <!-- breadcrumb Open -->
+            <div class="container">
+                <section class="content-header">
+                    <h5>Verification Report Data View</h5>
+                    <ol class="breadcrumb">
+                        <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                        <li><a href="#!/CcicDashboard/Academic">Academic Dashboard</a></li>
+                        <li><a href="#!/CcicDashboard/Academic/CcicVerificationData">Verification Report Data</a></li>
+                    </ol>
+                </section>
+            </div>
+            <!-- breadcrumb Close -->
+        </div>
 
         <div class="container">
+
+            <div class="col-md-12" ng-if="ShowStudentDetails">
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            </div>
+            <div class="col-md-12" ng-show="DataTable">
+                <div class="row base-row">
+                    <div class="col-md-12">
+                        <!--<div class="pull-right" ng-if="StudentDetailsFound">
+                            <a class="ExportToExcel1 pointer"
+                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                                <i class="fa fa-file-excel-o"></i>
+                                Export to Excel
+                            </a>
+                        </div>-->
+                        <div class="col-lg-12">
+                            <form class="form-inline" ng-if="VerificationReportDataTable.length>0">
+                                <div class="form-group">
+                                    <label>Search</label>
+                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                                </div>
+                            </form>
+                            <label class="notifylabel" ng-if="VerificationReportDataTable.length>0" for="sel1" style="color: red;"> Double click on row to Update Student</label>
+                            <!--<div style="width:100%;text-align:center;">
+                                <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                            </div>-->
+
+                            <div ng-if="VerificationReportDataTable.length<=0">
+                                <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
+                            </div>
+                            <div class="scrollbox" id="tblParent" ng-if="VerificationReportDataTable.length>0">
+                                <table id="studentRegTable" class="table table-hover table-fixed table-bordered studentadmission-table table-responsive scrollbox-content">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">S No.</th>
+                                            <th style="width: 10%" ng-click="sort('PIN')">PIN<i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 10%" ng-click="sort('ApplicationNumber')">Application Number <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 15%" ng-click="sort('Name')">Student Name <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 5%" ng-click="sort('Submitted')">Submitted <i class="fa fa-fw fa-sort"></i></th>
+                                            <th style="width: 10%">Application Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="x in VerificationReportDataTable|orderBy:sortKey:reverse|filter:search">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{x.ApplicationNumber}}</td>
+                                            <td>{{x.PIN}}</td>
+                                            <td>{{x.StudentName}}</td>
+                                            <td>{{x.Submitted?'Yes':'No'}}</td>
+                                            <td ng-dblclick="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
+                                                <a class="{{x.ApplicationStatus=='Pending'?'notVerify':'Verify'}}">{{x.ApplicationStatus}}</a>
+                                            </td>
+                                            <!--<td ng-show="SystemUserTypeId ==1||SystemUserTypeId==1014">
+                                                <b class="clrRed" ng-click="GeneratePin(x.StudentId)" title="Click to Generate Pin" ng-show="x.Pin==''||x.Pin==null">Generate Pin</b>
+                                                <b class="ClrGreen" ng-show="x.Pin!=''&&x.Pin!=null">Pin Generated</b>
+                                            </td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-md-12  mtp-50">
+
+                <div style="width:100%;text-align:center;">
+                    <img src="../../../contents/img/loading2.gif" ng-show="loading" width="100" style="width:64px;height:64px" />
+                </div>
+            </div>-->
+
+
+        </div>
+
+
         <div class="col-md-12">
 
-            <div class="col-md-5"  id="stddetails" style="margin-bottom:100px">
+            <div class="col-md-5" ng-show="ShowStudentDetails" id="stddetails" style="margin-bottom:100px">
                 <div class="">
                     <div class="cl-details">
                         <h2>StudentDetails</h2>
@@ -347,7 +446,7 @@
                             </div>
 
 
-                            <div class="row padRow">
+                            <!--<div class="row padRow">
                                 <div class="col-md-3"><label>HouseNo</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.HouseNumber}}</data></div>
                             </div>
@@ -378,7 +477,7 @@
                             <div class="row padRow">
                                 <div class="col-md-3"><label>State</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.AddressState}}</data></div>
-                            </div>
+                            </div>-->
                             <div class="row padRow">
                                 <div class="col-md-3"><label>MobileNo</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.StudentMobile}}</data></div>
@@ -452,7 +551,6 @@
 
             </div>
         </div>
-            </div>
     </div>
 
 

@@ -2,7 +2,7 @@
     app.controller("CcicRecentNewsController", function ($scope, $uibModal, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService) {
         const $ctrl = this
         $ctrl.$onInit = () => {
-           
+
             $scope.getuserRecentNews();
         }
         //var data = [];
@@ -225,7 +225,7 @@
             GetAllRecentNews.then(function (response) {
                 if (response.Table.length) {
                     $scope.GetAllRecentNews = response.Table;
-               
+
                 } else {
                     $scope.loading = false;
                     $scope.NoData = true;

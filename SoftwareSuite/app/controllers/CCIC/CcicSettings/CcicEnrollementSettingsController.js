@@ -16,7 +16,7 @@ define(['app'], function (app) {
 
         }
 
-   
+        $scope.loading = false;
         $scope.clearDefaults = function () {
 
             $scope.academicYear = null;
@@ -27,17 +27,6 @@ define(['app'], function (app) {
 
 
         }
-
-
-
-
-
-
-
-   
-
-       
-
 
         $scope.AddEnrollementDates = function () {
 
@@ -59,22 +48,23 @@ define(['app'], function (app) {
                 alert("Select Course Duration");
                 return;
             }
-
-
-
-
+            $scope.loading = true;
             var addenmtdates = CcicPreExaminationService.AddEnrollementDates($scope.academicYear, $scope.courseduration, $scope.BaTch, moment($scope.EnrollementStartDate).format("YYYY-MM-DD"), moment($scope.EnrollementEndDate).format("YYYY-MM-DD"), $scope.UserName);
             addenmtdates.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 }
                 catch (err) { }
+                $scope.loading = false;
                 if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription)
+                    alert(res[0].ResponseDescription);
                     $scope.GetEnrollementDatesData($scope.AcademicYearID);
+                    $scope.loading = false;
                     $scope.clearDefaults();
                 } else {
-                    alert('AcademicYearBatch Added Succesfully')
+                    $scope.loading = false;
+                    alert('AcademicYearBatch Added Succesfully');
+                    $scope.loading = false;
                     $scope.GetEnrollementDatesData($scope.AcademicYearID);
                     $scope.clearDefaults();
 
@@ -89,23 +79,13 @@ define(['app'], function (app) {
 
         }
 
-
-
-
-
-
-
         $scope.GetEnrollementDatesData = function (AcademicYearID) {
             if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
                 return;
 
             }
-
-
-
             $scope.AcademicYearID = AcademicYearID;
-
-
+            $scope.loading = true;
             var getcurrbtchdata = CcicPreExaminationService.GetCurrentBatch(AcademicYearID);
             getcurrbtchdata.then(function (response) {
 
@@ -115,10 +95,14 @@ define(['app'], function (app) {
                 catch (err) { }
 
                 if (res.Table.length > 0) {
+                    $scope.loading = false;
                     $scope.GetCurrentBatch = res.Table;
+                    $scope.NoData = false;
                 }
                 else {
+                    $scope.loading = false;
                     $scope.GetCurrentBatch = [];
+                    $scope.NoData = true;
                 }
 
 
@@ -280,6 +264,7 @@ define(['app'], function (app) {
 
             var srtdate = dat.EnrollementStartDate == undefined || dat.EnrollementStartDate == null || dat.EnrollementStartDate == "" ? " " : moment(dat.EnrollementStartDate).format("YYYY-MM-DD");
             var enddate = dat.EnrollementEndDate == undefined || dat.EnrollementEndDate == null || dat.EnrollementEndDate == "" ? " " : moment(dat.EnrollementEndDate).format("YYYY-MM-DD");
+            $scope.loading = true;
             var updenroldatesdates = CcicPreExaminationService.UpdateEnrollementDates(2, $scope.UserName, parseInt(dat.EnrollementDatesID), true, srtdate, enddate);
             updenroldatesdates.then(function (response) {
 
@@ -288,11 +273,15 @@ define(['app'], function (app) {
                 }
                 catch (err) { }
                 if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription)
+                    $scope.loading = false;
+                    alert(res[0].ResponseDescription);
+                    $scope.loading = false;
                     $scope.GetEnrollementDatesData($scope.AcademicYearID);
                     $scope.clearDefaults();
                 } else {
-                    alert('Enrollement Dates Updated Successfully')
+                    $scope.loading = false;
+                    alert('Enrollement Dates Updated Successfully');
+                    $scope.loading = false;
                     $scope.GetEnrollementDatesData($scope.AcademicYearID);
                     $scope.clearDefaults();
 
@@ -313,17 +302,20 @@ define(['app'], function (app) {
                 alert("Please Select AcademicYear to use the Operation");
                 return
             }
-
+            $scope.loading = true;
             var setstatus = CcicPreExaminationService.SetEnrollementDatesStatus(1, $scope.UserName, EnrollementDatesID, Active);
             setstatus.then(function (res) {
                 if (res[0].ResponceCode == '400') {
-                    alert(res[0].ResponceDescription)
-
+                    $scope.loading = false;
+                    alert(res[0].ResponceDescription);
+                    $scope.loading = false;
+                    $scope.GetEnrollementDatesData($scope.AcademicYearID);
                     $scope.clearDefaults();
                 } else {
-                    alert('Enrollement Dates Status Updated Successfully')
+                    $scope.loading = false;
+                    alert('Enrollement Dates Status Updated Successfully');
+                    $scope.loading = false;
                     $scope.GetEnrollementDatesData($scope.AcademicYearID);
-
                     $scope.clearDefaults();
                 }
 

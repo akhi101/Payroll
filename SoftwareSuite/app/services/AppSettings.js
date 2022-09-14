@@ -2,9 +2,9 @@
     app.service('AppSettings', function () {
         return {
 
-          //  WebApiUrl: 'https://sbtet.telangana.gov.in',
-            WebApiUrl: '/',
-           // WebApiUrl: 'http://sbptest.hebeon.com/API/',
+            //  WebApiUrl: 'https://sbtet.telangana.gov.in',
+            WebApiUrl: '/API/',
+            // WebApiUrl: 'http://sbptest.hebeon.com/API/',
             SMSApiUrl: 'https://api.smscountry.com/SMSCwebservice_bulk.aspx',
             ExportToExcelUrl: '',
             ExportToWordUrl: '',

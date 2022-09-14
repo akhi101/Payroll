@@ -330,7 +330,7 @@
     <Compile Include="Models\Assessment\PostExamMarks.cs" />
     <Compile Include="Models\CCIC\CcicAuthToken.cs" />
     <Compile Include="Models\CCIC\CcicCrypt.cs" />
-    <Compile Include="Models\CCIC\ccicdbHandler.cs" />
+    <Compile Include="Models\Database\ccicdbHandler.cs" />
     <Compile Include="Models\CCIC\CcicModels.cs" />
     <Compile Include="Models\CCIC\CcicSystemModules.cs" />
     <Compile Include="Models\CCIC\CcicSystemUser.cs" />
@@ -384,7 +384,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Admission\AdmissionService.cs" />
     <Compile Include="Services\Admission\AttendanceService.cs" />
-    <Compile Include="Services\CCIC\CcicSystemUserService.cs" />
+    <Compile Include="Services\CcicSystemUserService.cs" />
     <Compile Include="Services\ExternalPortalService.cs" />
     <Compile Include="Services\Results\ResultService.cs" />
     <Compile Include="Services\SchedulerService.cs" />
@@ -586,8 +586,10 @@
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationCoursesController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationDataController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\EditStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsVerController.js" />
+    <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicHallTicketController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicCertificatesDataController.js" />
@@ -601,9 +603,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentReportDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\NewController.js" />
-    <Content Include="app\controllers\CCIC\Circulars\CcicCircularsController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicCircularsDashboardController.js" />
-    <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicPostExaminationController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicCreateExamMonthYearController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicDateSheetController.js" />
@@ -1919,13 +1919,13 @@
     <Content Include="app\views\CCIC\CcicSettings\CcicEnrollmentReportData.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicVerification.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicVerificationData.html" />
+    <Content Include="app\views\CCIC\CcicSettings\EditStdDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\New.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsPopup.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsVer.html" />
     <Content Include="app\views\CCIC\CcicVerificationCourses.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
-    <Content Include="app\views\CCIC\Circulars\CcicCircularsDashboard.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicFeePayment.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicHallTicket.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicCertificatesData.html" />
@@ -1945,7 +1945,6 @@
     <Content Include="app\views\CCIC\PreExamination\CcicPaymentProcess.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicPreExamination.html" />
     <Content Include="app\views\CCIC\CcicRegPopup.html" />
-    <Content Include="app\views\CCIC\Circulars\CcicRecentNews.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicModulesSetting.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicSettings.html" />
     <Content Include="app\views\CCIC\CourseDetailsPopup.html" />
@@ -4368,6 +4367,7 @@
     <Folder Include="scripts\syncfusion\scripts\common\" />
     <Folder Include="scripts\syncfusion\scripts\datavisualization\" />
     <Folder Include="scripts\syncfusion\scripts\Web\" />
+    <Folder Include="Services\CCIC\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\controllers\Admission\ReAdmissionController.js.r1094" />
