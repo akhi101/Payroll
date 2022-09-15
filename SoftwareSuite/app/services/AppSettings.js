@@ -3,7 +3,7 @@
         return {
 
             //  WebApiUrl: 'https://sbtet.telangana.gov.in',
-            WebApiUrl: '/API/',
+            WebApiUrl: '/',
             // WebApiUrl: 'http://sbptest.hebeon.com/API/',
             SMSApiUrl: 'https://api.smscountry.com/SMSCwebservice_bulk.aspx',
             ExportToExcelUrl: '',
