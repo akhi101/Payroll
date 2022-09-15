@@ -74,7 +74,7 @@
 
             };
 
-            $state.go('CcicDashboard.Academic.CcicAdmVerificationData');
+            $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
 
 
         }

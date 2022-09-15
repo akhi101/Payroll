@@ -586,6 +586,7 @@
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationCoursesController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationDataController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\EditStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsVerController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
@@ -1919,6 +1920,7 @@
     <Content Include="app\views\CCIC\CcicSettings\CcicEnrollmentReportData.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicVerification.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicVerificationData.html" />
+    <Content Include="app\views\CCIC\CcicSettings\EditStdDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\New.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsPopup.html" />

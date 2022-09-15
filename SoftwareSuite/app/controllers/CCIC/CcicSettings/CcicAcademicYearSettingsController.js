@@ -1,6 +1,4 @@
-﻿
-
-define(['app'], function (app) {
+﻿define(['app'], function (app) {
     app.controller("CcicAcademicYearSettingsController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, CcicSettingsService, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
@@ -16,7 +14,7 @@ define(['app'], function (app) {
 
 
         }
-
+        $scope.loading = false;
         $scope.UpdateAcaYear = function (StartYear) {
             var tempyr = (parseInt(StartYear) + 1).toString();
             var yr = StartYear + '-' + tempyr.substring(2, 4);
@@ -91,7 +89,7 @@ define(['app'], function (app) {
             var CurrentAca = $scope.CurrentAcademicYear == "0" ? false : true;
 
 
-
+            $scope.loading = true;
             var SetAcademicYear = CcicPreExaminationService.AddAcademicYear($scope.AcademicStartYear, $scope.AcademicYear, moment($scope.AcademicYearStartDate).format("YYYY-MM-DD"), moment($scope.AcademicYearEndDate).format("YYYY-MM-DD"), CurrentAca, $scope.UserName);
             SetAcademicYear.then(function (response) {
                 try {
@@ -99,11 +97,15 @@ define(['app'], function (app) {
                 }
                 catch (err) { }
                 if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription)
+                    $scope.loading = false;
+                    alert(res[0].ResponseDescription);
+                    $scope.loading = false;
                     $scope.GetCurrentAcademicYearData();
                     $scope.clearDefaults();
                 } else {
-                    alert('AcademicYear Added Succesfully')
+                    $scope.loading = false;
+                    alert('AcademicYear Added Succesfully');
+                    $scope.loading = false;
                     $scope.GetCurrentAcademicYearData();
                     $scope.clearDefaults();
 
@@ -243,13 +245,10 @@ define(['app'], function (app) {
         $scope.GetCurrentBatchData = function (AcademicYearID) {
             if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
                 return;
-
             }
 
             $scope.AcademicYearID = AcademicYearID;
-
-          
-
+            $scope.loading = true;
             var getCcicAcademicYearBatch = CcicPreExaminationService.GetCcicAcademicYearCurrentBatch(AcademicYearID)
             getCcicAcademicYearBatch.then(function (res) {
                 try {
@@ -258,14 +257,21 @@ define(['app'], function (app) {
                 catch (err) { }
 
                 if (res.length > 0) {
+                    $scope.loading = false;
                     $scope.GetCcicAcademicYearCurrentBatchTable = res;
+                    $scope.NoData = false;
                 }
                 else {
+                    $scope.loading = false;
                     $scope.GetCcicAcademicYearCurrentBatchTable = [];
+                    $scope.NoData = true;
+
                 }
 
             },
                 function (error) {
+                    $scope.loading = false;
+                    $scope.NoData = true;
                     alert("data is not loaded");
                     var err = JSON.parse(error);
                 });
@@ -390,25 +396,24 @@ define(['app'], function (app) {
                 return;
 
             }
-
-           
-
             $scope.AcademicYearID = AcademicYearID;
-          
-
+            $scope.loading = true;
             var GetCurrentBatchData = CcicPreExaminationService.GetCurrentBatch(AcademicYearID);
             GetCurrentBatchData.then(function (response) {
-
                 try {
                     var res = JSON.parse(response);
                 }
                 catch (err) { }
 
                 if (res.Table.length > 0) {
+                    $scope.loading = false;
                     $scope.GetCurrentBatch = res.Table;
+                    $scope.NoData = false;
                 }
                 else {
+                    $scope.loading = false;
                     $scope.GetCurrentBatch = [];
+                    $scope.NoData = true;
                 }
 
 
@@ -514,10 +519,19 @@ define(['app'], function (app) {
 
 
         $scope.GetCurrentAcademicYearData = function () {
+            $scope.loading = true;
             var getacayrs = CcicPreExaminationService.GetCcicAcademicYears()
             getacayrs.then(function (response) {
-                $scope.GetCcicAcademicYears = response.Table;
+                if (response.Table.length > 0) {
+                    $scope.loading = false;
+                    $scope.GetCcicAcademicYears = response.Table;
+                    $scope.NoData = false;
+                }
+                else {
+                    $scope.loading = false;
+                    $scope.NoData = true;
 
+                }
                 for (let i = 0; i < $scope.GetCcicAcademicYears.length; i++) {
                     if ($scope.GetCcicAcademicYears[i].GetCcicAcademicYears == true) {
                         $scope.finalList.push($scope.GetCcicAcademicYears[i]);
