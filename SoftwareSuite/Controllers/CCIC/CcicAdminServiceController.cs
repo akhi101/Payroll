@@ -295,7 +295,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("CcicRecentNewsUpdate")]
-        public HttpResponseMessage CcicRecentNewsUpdate(int RecentNewsID, string RecentNewsText, string FromDate, string ToDate,string UserName)
+        public HttpResponseMessage CcicRecentNewsUpdate(int RecentNewsID, string RecentNewsText, DateTime FromDate, DateTime ToDate,string UserName)
         {
             try
             {

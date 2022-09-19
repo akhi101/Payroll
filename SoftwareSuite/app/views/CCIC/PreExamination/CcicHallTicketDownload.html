@@ -1,0 +1,142 @@
+﻿<style>
+
+    .sm_btn {
+        background-color: #1da462;
+        color: #fff;
+        min-width: 50px;
+    }
+
+        .sm_btn:hover {
+            background-color: #1da462;
+            color: #fff;
+            min-width: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    .fail-btn, .fail-btn:hover, .fail-btn:focus {
+        background-color: #f5632d;
+        color: #fff;
+        min-width: 30px;
+    }
+</style>
+<div ng-controller="CcicHallTicketDownloadController">
+    <div class="container">
+        <div class="spacer"></div>
+        <div class="tab-pane" id="2">
+            <div class="col-md-12">
+                <div class="cl-details">
+                    <h2>Students Detail </h2>
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="base-row" style="padding:15px!important;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="font-weight-bold"> Student Type:</label>
+                                <div class="">
+                                    <select class="form-control" ng-model="StudentType" name="StudentType" required>
+                                        <option value="" selected>Select Student Type</option>
+                                        <option ng-repeat="Student in StudentTypeTable" value="{{Student.ID}}">
+                                            {{Student.Type}}
+                                        </option>
+                                        <!--ng-options="Student.type for Student in StudentType">-->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="col-md-12 pull-left">
+                            <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="AddAcademicYearCurrentBatch()">
+                                Create
+                            </button>
+                        </div>-->
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-show="StudentType==1">
+                    <div class="cl-details">
+                        <h2>Applied Student  Details</h2>
+                    </div>
+                    <div id="attendanceReport" class="table-responsive table-custom-tables-tb scrollbox">
+                        <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                            <thead>
+                                <tr class="cb-1">
+                                    <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
+                                    <th style="width: 5%">Sno</th>
+                                    <th style="width: 10%">CourseCode</th>
+                                    <th class="text-center" style="width: 10%">CourseName</th>                                 
+                                    <th class="text-center" style="width: 10%">Fee Paid</th>
+                                    
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="data in InstituteReports" style="background-color:#fff!important;">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.CourseCode}}</td>
+                                    <td>{{data.CourseName}}</td>
+                                    <td class="text-center">{{data.FeePaid}}</td>
+                                    <td class="pointer text-center">
+                                        <button class="btn-xs btn sm_btn" ng-click="feePaid()" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeePaid == '0' ">{{data.FeePaid}}</button>
+                                        <button class="btn-xs btn fail-btn" ng-click="openFeePaid(data.id)" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeePaid != '0' ">{{data.FeePaid}}</button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-show="StudentType==2">
+                    <div class="cl-details">
+                        <h2>Applied Student  Details</h2>
+                    </div>
+                    <div id="attendanceReport" class="table-responsive table-custom-tables-tb scrollbox">
+                        <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                            <thead>
+                                <tr class="cb-1">
+                                    <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
+                                    <th style="width: 5%">Sno</th>
+                                    <th style="width: 10%">CourseCode</th>
+                                    <th class="text-center" style="width: 10%">CourseName</th>
+                                    <th class="text-center" style="width: 10%">Fee Paid</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="data in InstituteReports" style="background-color:#fff!important;">
+                                    <td>{{data.id}}</td>
+                                    <td>{{data.CourseCode}}</td>
+                                    <td>{{data.CourseName}}</td>
+                                    <td class="text-center">{{data.FeePaid}}</td>
+                                    <td class="pointer text-center">
+                                        <button class="btn-xs btn sm_btn" ng-click="feePaid()" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeePaid == '0' ">{{data.FeePaid}}</button>
+                                        <button class="btn-xs btn fail-btn" ng-click="openFeePaid(data.id)" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeePaid != '0' ">{{data.FeePaid}}</button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="sm-spacer"></div>
+                <div class="sm-spacer"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+
+                <!--<div style="width:100%;text-align:center;">
+                    <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

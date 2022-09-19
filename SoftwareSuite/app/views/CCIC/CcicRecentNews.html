@@ -1,7 +1,4 @@
-﻿
-
-
-<style>
+﻿<style>
     .tableinpt {
         width: 100%;
         box-shadow: none;
@@ -12,7 +9,7 @@
         -moz-appearance: none;
         text-indent: 1px;
         text-overflow: '';
-    }
+    } 
 </style>
 
 <div ng-controller="CcicRecentNewsController">
@@ -81,7 +78,7 @@
                                     </div>-->
                                     <div class="col-md-4">
                                         <label>Start Date</label>
-                                        <sa-Date ng-model="StartDate"  displaylabel="Start Date" object="StartDate" objectname="StartDate" length="100" ispascal="true"> </sa-Date>
+                                        <sa-Date ng-model="StartDate" displaylabel="Start Date" object="StartDate" objectname="StartDate" length="100" ispascal="true"> </sa-Date>
                                     </div>
                                     <div class="col-md-4">
                                         <label>End Date</label>
@@ -110,67 +107,76 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 " ng-show="result">
+            <div class="col-md-12">
                 <div class="notifylabel pull-right" for="sel1" style="color: red; padding-left:700px;">Click on Get Button to get all recent news</div>
-                <div class="sm-spacer"><button class="btn-xs btn btn-primary" ng-click="getAllRecentNews()">Get</button>
-                
+                <div class="sm-spacer">
+                    <button class="btn-xs btn btn-primary" ng-click="getAllRecentNews()">Get</button>
+
                 </div>
-
-                <div class="cl-details">
-                    <h2>Ccic RecentNews</h2>
+                <div class="col-md-12" ng-if="loading">
+                    <div class="sm-spacer"></div>
+                    <div style="width:100%;text-align:center;">
+                        <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+                    </div>
                 </div>
-
-                <div class="table-responsive table-custom-tables-tb ">
-                    <table class="table table-bordered  table-striped table-rounded">
-                        <thead>
-                            <tr class="cb-1">
-                                <th>S no</th>
-                                <th>Notification</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <!--<th style="text-align:center;">Status</th>-->
-                                <th style="text-align:center;">Edit/Update</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="data in GetRecentNews">
-                                <td>
-                                    {{$index+1}}                               
-                                </td>
-
-                                <td>
-                                    <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.RecentNewsText" /></div>
-                                </td>
-
-                                <td>
-                                    <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FromDate" /></div>
-                                </td>
-
-                                <td>
-                                    <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ToDate" /></div>
-                                </td>
-
-
-
-                                <td style="text-align:center" width="8%">
-                                    <button ng-hide="viewField" class="btn-xs btn btn-primary" ng-click="modify($index+1)">Edit</button>
-                                    <button class="btn-xs btn btn-success" ng-show="modifyField" ng-click="update($index+1,data.RecentNewsID,data.RecentNewsText,data.FromDate,data.ToDate)"><span>Update</span></button>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-                <div class="col-md-12" ng-show="NoResult">
+                <div class="col-md-12" ng-if="NoData">
                     <div class="col-md-12 no-results">
                         <img src="../../contents/img/Folder-Icon.svg" />
                         <h2>No Data</h2>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="cl-details">
+                        <h2>Ccic RecentNews</h2>
+                    </div>
 
+                    <div class="table-responsive table-custom-tables-tb ">
+                        <table class="table table-bordered  table-striped table-rounded">
+                            <thead>
+                                <tr class="cb-1">
+                                    <th>S no</th>
+                                    <th>Notification</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <!--<th style="text-align:center;">Status</th>-->
+                                    <th style="text-align:center;">Edit/Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in GetRecentNews">
+                                    <td>
+                                        {{$index+1}}
+                                    </td>
+
+                                    <td>
+                                        <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.RecentNewsText" /></div>
+                                    </td>
+
+                                    <td>
+                                        <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FromDate" /></div>
+                                    </td>
+
+                                    <td>
+                                        <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ToDate" /></div>
+                                    </td>
+
+
+
+                                    <td style="text-align:center" width="8%">
+                                        <button ng-hide="viewField" class="btn-xs btn btn-primary" ng-click="modify($index+1)">Edit</button>
+                                        <button class="btn-xs btn btn-success" ng-show="modifyField" ng-click="update($index+1,data.RecentNewsID,data.RecentNewsText,data.FromDate,data.ToDate)"><span>Update</span></button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="sm-spacer"></div>
-</section>
+         
+
+        </div>
+        <div class="sm-spacer"></div>
+    </section>
 
 </div>

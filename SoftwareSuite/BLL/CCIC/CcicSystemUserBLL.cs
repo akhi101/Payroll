@@ -7,7 +7,6 @@ using SoftwareSuite.Models.Database;
 using SoftwareSuite.Services;
 using System.Data;
 using Newtonsoft.Json;
-using SoftwareSuite.Services.CCIC;
 using SoftwareSuite.BLL.CCIC;
 using SoftwareSuite.Models.CCIC;
 using SoftwareSuite.Models;

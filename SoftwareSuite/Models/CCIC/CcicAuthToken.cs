@@ -16,6 +16,7 @@ namespace SoftwareSuite.Models.CCIC
 
         public int UserID { get; set; }
 
+     
         public DateTime ExpiryDate { get; internal set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAcademicController", function ($scope, $http, $localStorage, $state, CcicPreExaminationService,$stateParams, AppSettings, CcicSystemUserService) {
+    app.controller("CcicAcademicController", function ($scope, $localStorage, $state, CcicPreExaminationService, AppSettings, CcicSystemUserService) {
         var authData = $localStorage.authorizationData;
         $scope.userType = authData.SystemUserTypeID;
         $scope.UserName = authData.UserName;
@@ -83,6 +83,8 @@
             };
             $state.go('CcicLogin');
         }
+
+      
 
     });
 });

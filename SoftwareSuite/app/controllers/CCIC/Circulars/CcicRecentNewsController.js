@@ -1,40 +1,48 @@
 ﻿define(['app'], function (app) {
     app.controller("CcicRecentNewsController", function ($scope, $uibModal, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService) {
+        const $ctrl = this
+        $ctrl.$onInit = () => {
 
-        var markslist = [];
-
-
-        $scope.Editsemesterdat = function (data, ind) {
-
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-                ele1[j].style['-webkit-appearance'] = "auto";
-                ele1[j].style['-moz-appearance'] = "auto";
-            }
-            $scope['edit' + ind] = false;
-
+            $scope.getuserRecentNews();
         }
+        //var data = [];
+        //$scope.$emit('showLoading', data);
 
-        var GetRecentNews = CcicAdminService.GetRecentNews();
-        GetRecentNews.then(function (response) {
-            if (response.Table.length) {
-                $scope.GetRecentNews = response.Table;
-                $scope.result = true;
-                $scope.NoResult = false;
-            } else {
-                $scope.result = false;
-                $scope.NoResult = true;
-                alert("No Data Found");
-            }
-        },
-            function (error) {
-                $scope.result = false;
-                $scope.NoResult = true;
-                alert("error while loading Data");
-                console.log(error);
-            });
+        //$scope.Editsemesterdat = function (data, ind) {
+
+        //    var ele1 = document.getElementsByClassName("enabletable" + ind);
+        //    for (var j = 0; j < ele1.length; j++) {
+        //        ele1[j].style['pointer-events'] = "auto";
+        //        ele1[j].style.border = "1px solid #ddd";
+        //        ele1[j].style['-webkit-appearance'] = "auto";
+        //        ele1[j].style['-moz-appearance'] = "auto";
+        //    }
+        //    $scope['edit' + ind] = false;
+
+        //}
+        $scope.loading = false;
+        //var GetRecentNews = CcicAdminService.GetRecentNews();
+        //GetRecentNews.then(function (response) {
+        //    if (response.Table.length>0) {
+        //        $scope.loading = false;
+        //        $scope.GetRecentNews = response.Table;
+        //        $scope.$emit('hideLoading', data);
+        //        $scope.result = true;
+        //        $scope.NoResult = false;
+        //    } else {
+        //        $scope.loading = false;
+        //        $scope.result = false;
+        //        $scope.NoResult = true;
+        //        alert("No Data Found");
+        //        $scope.$emit('hideLoading', data);
+        //    }
+        //},
+        //    function (error) {
+        //        $scope.result = false;
+        //        $scope.NoResult = true;
+        //        alert("error while loading Data");
+        //        console.log(error);
+        //    });
 
 
 
@@ -57,24 +65,31 @@
 
         $scope.getuserRecentNews = function () {
 
+            $scope.loading = true;
 
 
             var GetRecentNews = CcicAdminService.GetRecentNews();
             GetRecentNews.then(function (response) {
                 if (response.Table.length) {
+                    $scope.loading = false;
                     $scope.GetRecentNews = response.Table;
-                    $scope.result = true;
-                    $scope.NoResult = false;
+                    //$scope.result = true;
+                    $scope.NoData = false;
+                    //$scope.$emit('hideLoading', data);
+
                 } else {
+                    $scope.loading = false;
                     $scope.StudentType = [];
-                    $scope.result = false;
-                    $scope.NoResult = true;
+                    //$scope.result = false;
+                    $scope.NoData = true;
                     alert("No Data Found");
+                    $scope.$emit('hideLoading', data);
+
                 }
             },
                 function (error) {
                     $scope.result = false;
-                    $scope.NoResult = true;
+                    $scope.NoData = true;
                     alert("error while loading Data");
                     console.log(error);
                 });
@@ -146,6 +161,7 @@
 
 
         $scope.AddRecentNews = function () {
+            $scope.loading = true;
             var startDate = moment($scope.StartDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var date = new Date($scope.EndDate.toString());
             month = '' + (date.getMonth() + 1);
@@ -179,11 +195,12 @@
             var SendRecentNews = CcicAdminService.AddCcicRecentNews($scope.array[0].RecentNewsText, $scope.array[0].FromDate, $scope.array[0].ToDate, $scope.array[0].UserName);
 
             SendRecentNews.then(function (response) {
-                alert("RecentNews Saved Successfully")
-
+                $scope.loading = false;
+                alert("RecentNews Saved Successfully");
                 $scope.getuserRecentNews();
             },
                 function (error) {
+                    $scope.loading = false;
                     alert("error while loading Data");
                     console.log(error);
                 });
@@ -191,7 +208,7 @@
 
         }
 
-       
+
 
         $scope.getAllRecentNews = function () {
 
@@ -204,22 +221,20 @@
                 keyboard: false
             });
 
-
             var GetAllRecentNews = CcicAdminService.GetAllRecentNews();
             GetAllRecentNews.then(function (response) {
                 if (response.Table.length) {
                     $scope.GetAllRecentNews = response.Table;
-                    $scope.result = true;
-                    $scope.NoResult = false;
+
                 } else {
-                    $scope.result = false;
-                    $scope.NoResult = true;
+                    $scope.loading = false;
+                    $scope.NoData = true;
                     alert("No Data Found");
+
                 }
             },
                 function (error) {
-                    $scope.result = false;
-                    $scope.NoResult = true;
+
                     alert("error while loading Data");
                     console.log(error);
                 });
@@ -227,7 +242,7 @@
                 $scope.modalInstance.close();
             };
 
-           
+
         }
 
 
@@ -270,7 +285,7 @@
 
         $scope.modify = function (ind) {
 
-         
+
 
             $scope.viewField = true;
             $scope.modifyField = true;
@@ -285,12 +300,12 @@
             $scope['edit' + ind] = false;
 
         };
-        
 
-        $scope.update = function (ind,RecentNewsID, RecentNewsText, FromDate, ToDate) {
 
-            
+        $scope.update = function (ind, RecentNewsID, RecentNewsText, FromDate, ToDate) {
 
+
+            $scope.loading = true;
             $scope.viewField = false;
             $scope.modifyField = false;
             $scope['edit' + ind] = true;
@@ -302,19 +317,25 @@
                 ele2[j].style['-webkit-appearance'] = "none";
                 ele2[j].style['-moz-appearance'] = "none";
             }
-          
+
 
             var update = CcicAdminService.CcicRecentNewsUpdate(RecentNewsID, RecentNewsText.toString(), FromDate.toString(), ToDate.toString(), $scope.UserName);
             update.then(function (response) {
+                $scope.loading = false;
                 alert("RecentNews Updated Successfully")
                 $scope.getuserRecentNews();
+                $scope.$emit('hideLoading', data);
+
             },
                 function (error) {
+                    $scope.loading = false;
                     alert("error while loading Data");
                     console.log(error);
+                    $scope.$emit('hideLoading', data);
+
                 });
         }
-    
-        
+
+
     })
 })
