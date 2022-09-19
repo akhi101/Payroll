@@ -6,7 +6,7 @@
         $scope.ExamMonthYear = '';
 
         /// recaptcha
-
+       
         $scope.createCaptcha = function () {
             $scope.newCapchaCode = "";
             document.getElementById('captcha').innerHTML = "";
@@ -75,7 +75,7 @@
                 console.log(error);
             });
 
-    
+
 
         $scope.changedVal = function () {
             var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(2, $scope.Student.id);
@@ -155,6 +155,9 @@
         }
 
         $scope.getHallTkt = function () {
+            const d = new Date();
+            $scope.DownloadTime = moment(d).format("DD-MM-YYYY HH:mm:ss");
+         
             //  $scope.PinNumber = PinNo;
 
             //var dob = '09-09-2002'
@@ -214,6 +217,7 @@
                             $scope.studentattendance = resp.Table1[0].PresemptiveAttendance;
                             $scope.studentPaymentStatus = resp.Table1[0].Status;
                             $scope.studentTatkalFee = resp.Table1[0].TatkalFee;
+                            $scope.ReferenceNumber = resp.Table1[0].ReferenceNumber;
                             $scope.studentCondonationFee = resp.Table1[0].Condonation;
                             $scope.studentLateFee = resp.Table1[0].LateFee;
                             $scope.studentExamFee = resp.Table1[0].ExamFee;
@@ -320,6 +324,7 @@
                             $scope.studentattendance = resp.Table1[0].PresemptiveAttendance;
                             $scope.studentPaymentStatus = resp.Table1[0].Status;
                             $scope.studentTatkalFee = resp.Table1[0].TatkalFee;
+                            $scope.ReferenceNumber = resp.Table1[0].ReferenceNumber;
                             $scope.studentCondonationFee = resp.Table1[0].Condonation;
                             $scope.studentLateFee = resp.Table1[0].LateFee;
                             $scope.studentExamFee = resp.Table1[0].ExamFee;

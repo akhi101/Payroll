@@ -256,16 +256,27 @@ namespace SoftwareSuite.Controllers.Admission
                     param[2] = new SqlParameter("@HLevel", hlevel);
                     param[3] = new SqlParameter("@Holidaydate", holidaydate);
                     param[4] = new SqlParameter("@json", attjson);
-                    DataTable dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ATTENDENCE_API_INSERTION", param);
-                    try
+                    DataSet dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_ATTENDENCE_API_INSERTION", param);
+                    if (dt.Tables[0].Rows.Count > 0)
+                    {
+                        UpdateWorkingDays();
+                    }
+                    else
+                    {
+                        var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"500\",\"respdesc\" : \"Server Error\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                        SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase Because respcode : 500, respdesc: Server Error");
+                        return response;
+                    }
+                        try
                     {
                         UpdateWorkingDays();
                     }
                     catch (Exception ex) { }
-                    if (dt.Rows.Count > 0)
+                    if (dt.Tables[0].Rows.Count > 0)
                     {
-                        int rescode = (int)dt.Rows[0][0];
-                        string respdesc = (string)dt.Rows[0][1];
+                        int rescode = (int)dt.Tables[0].Rows[0][0];
+                        string respdesc = (string)dt.Tables[0].Rows[0][1];
                         var response = Request.CreateResponse(HttpStatusCode.OK);
                         response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" + rescode + "\",\"respdesc\" : \"" + respdesc + "\"\" }"), System.Text.Encoding.UTF8, "application/json");
 

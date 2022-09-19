@@ -2,20 +2,23 @@
     app.controller("CertificateFeePaymentGatewayResponseController", function ($scope, $http, $localStorage, $state, $stateParams, $interval, AppSettings, PaymentService, PreExaminationService) {
         $scope.success = false;
         $scope.LoadpaymentImg = true;
-        $scope.Detailsfound = false;
+        setTimeout(
+            $scope.Detailsfound = false
+            , 10000);
+       
         $scope.paymentResponseFound = false;
         var paymentdetails = $stateParams.data;
         var detail = JSON.parse(atob(paymentdetails));
         $scope.transactionno = detail.bankrefno;
         $scope.refno = detail.Refno;
         if ($scope.Detailsfound == false) {
-
+      
 
 
             var calls2s = function () {
                 if (detail.Refno != null && detail.Refno != undefined && detail.Refno != "" && $scope.Detailsfound == false) {
 
-                    var s2sresponsedata = PaymentService.billDeskS2SResponse($scope.refno);
+                    var s2sresponsedata = PaymentService.GetFeeReciept($scope.refno);
                     s2sresponsedata.then(function (res) {
 
 
@@ -160,7 +163,7 @@
                 $state.go($localStorage.CertificateFeePaymentGatewayResponse.redirecturl);
 
             } else {
-                $state.go('Dashboard.DiplomaDashboard.StudentOnlineRequest');
+                $state.go('index.StudentOnlineRequest');
 
             }
 

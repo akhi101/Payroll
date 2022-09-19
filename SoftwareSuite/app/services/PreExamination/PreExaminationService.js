@@ -473,6 +473,12 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ResetCertificateStatus', paramObject);
             return promise;
         }
+    
+        this.GetChallanNumbers = function (PaymentTypeID, PaymentSubTypeID, ExamMonthYearID, PIN) {
+            var paramObject = { "PaymentTypeID": PaymentTypeID, "PaymentSubTypeID": PaymentSubTypeID, "PIN": PIN, "ExamMonthYearID": ExamMonthYearID };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetChallanNumbers', paramObject);
+            return promise;
+        }
 
         this.ResetNameCorrectionToDs = function (Pin) {
             var paramObject = { "Pin": Pin};
@@ -1191,6 +1197,28 @@
             return promise;
         }
 
+        
+        this.getTwoYearsCertificateDetails = function (pin) {
+            var paramObject = { "pin": pin };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getTwoYearsCertificateDetails', paramObject);
+            return promise;
+        }
+
+
+        this.GetTwoYearsListByScheme = function (userType) {
+            var paramObject = { "userType": userType };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsListByScheme', paramObject);
+            return promise;
+        }
+
+ 
+        this.GetTwoYearsApproveList = function (Scheme, datatype, userType) {
+            var paramObject = { "Scheme": Scheme, "datatype": datatype, "userType": userType };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsApproveList', paramObject);
+            return promise;
+        }
+
+
         this.getFeeTypes = function (ExamMonthYearId, StudentTypeId) {
             var paramObject = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getFeeTypes', paramObject);
@@ -1271,6 +1299,19 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseMarksEntry', paramObj);
             return promise;
         };
+
+
+        this.ReleaseSixthSem = function (AcademicYearId,CollegeCode, BranchId) {
+            var paramObj = {
+                "AcademicYearId": AcademicYearId,
+                "CollegeCode": CollegeCode,
+                "BranchId": BranchId
+            }
+
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseSixthSem', paramObj);
+            return promise;
+        };
+        
 
         this.GETMemoDataByPinForPrinting = function (Scheme, sem, ExamYearMonth, pin) {
             var paramObj = {
@@ -1504,6 +1545,16 @@
             return promise;
         };
 
+        this.SetTwoYearsCertificateVerifyStatus = function (PIN, userType) {
+            var paramObj = {
+                "PIN": PIN,
+                "userType": userType
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/SetTwoYearsCertificateVerifyStatus', paramObj);
+            return promise;
+        };
+
+        
 
         this.SetMigrationData = function (pin) {
             var paramObj = {
@@ -1854,13 +1905,21 @@
             return promise;
         };
 
-        this.CertificateFeePaymentReports = function (Scheme, datatype) {
+        this.TwoYearsFeePaymentReports = function (Scheme, datatype, userType) {
             var paramObj = {
-                "Scheme": Scheme, "datatype": datatype
+                "Scheme": Scheme, "datatype": datatype, "userType": userType
 
             }
-            return DataAccessService.getDataWithPara('api/PreExamination/CertificateFeePaymentReports', paramObj);
+            return DataAccessService.getDataWithPara('api/PreExamination/TwoYearsFeePaymentReports', paramObj);
         },
+
+            this.CertificateFeePaymentReports = function (Scheme, datatype) {
+                var paramObj = {
+                    "Scheme": Scheme, "datatype": datatype
+
+                }
+            return DataAccessService.getDataWithPara('api/PreExamination/CertificateFeePaymentReports', paramObj);
+            },
 
             this.Memos = function (Scheme, ExamMonthYearId, Date) {
                 var paramObj = {
@@ -1869,6 +1928,22 @@
                 }
                 return DataAccessService.getDataWithPara('api/PreExamination/Memos', paramObj);
             },
+
+            this.GetTwoYearsOdcData = function ( FromDate, Todate) {
+                var paramObj = {
+                     "FromDate": FromDate, "Todate": Todate
+
+                }
+            return DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsOdcData', paramObj);
+            },
+
+            this.GetChangePassword = function (reqdata) {
+                var paramObject = reqdata;
+                var promise = DataAccessService.postData('api/SystemUser/GetChangePassword', paramObject);
+                return promise;
+            }
+
+            
             this.GetTrSheets = function (Scheme, ExamMonthYearId, Date, CollegeCodesList) {
                 var paramObj = {
                     "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList
@@ -1907,6 +1982,13 @@
             return promise;
         };
 
+        this.getTwoYearsFeePaymentStatus = function (pin) {
+            var paramObj = {
+                "pin": pin
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getTwoYearsFeePaymentStatus', paramObj);
+            return promise;
+        };
 
         this.getFileUploadDetails = function (pin) {
             var paramObj = {
@@ -2076,6 +2158,17 @@
             return promise;
         };
 
+        this.TwoYearsCertificateSetApproveStatus = function (PINjson, userType, approvestatus, Scheme) {
+            var paramObj = {
+                "PINjson": PINjson, "userType": userType, "Scheme": Scheme, "approvestatus": approvestatus
+            }
+            var promise = DataAccessService.postData('api/PreExamination/TwoYearsCertificateSetApproveStatus', paramObj);
+            return promise;
+        };
+
+        
+
+
         this.DMMSetApproveStatusReject = function (PINjson, userType, approvestatus, remarks) {
             var paramObj = {
                 "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus, "Remarks": remarks
@@ -2084,6 +2177,14 @@
             return promise;
         };
 
+        
+        this.TwoYearsCertificateSetApproveStatusReject = function (PINjson, userType, approvestatus,Scheme, remarks) {
+            var paramObj = {
+                "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus, "Scheme": Scheme, "Remarks": remarks
+            }
+            var promise = DataAccessService.postData('api/PreExamination/TwoYearsCertificateSetApproveStatusReject', paramObj);
+            return promise;
+        };
 
 
         this.GenuinenessSetApproveStatus = function (PINjson, userType, approvestatus) {
@@ -2331,9 +2432,9 @@
             return promise;
         };
 
-        this.CertificateFeePaymentChallanNumber = function (PIN) {
+        this.CertificateFeePaymentChallanNumber = function (PIN, CertificateType) {
             var paramObj = {
-                "PIN": PIN
+                "PIN": PIN, "CertificateType": CertificateType
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/CertificateFeePaymentChallanNumber', paramObj);
             return promise;
@@ -2409,6 +2510,11 @@
             return promise;
         }
 
+        this.GetTwoYearsPinDetails = function (pin) {
+            var paramObject = { "pin": pin };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsPinDetails', paramObject);
+            return promise;
+        }
 
         this.getUserDataByPin = function (pin) {
             var paramObject = {
@@ -2554,6 +2660,13 @@
             return DataAccessService.postData('api/PreExamination/GetApprovalList', paramObject);
         }
 
+
+        this.getAttendanceReport = function (Pin) {
+            var paramObject = {
+                "Pin": Pin
+            };
+            return DataAccessService.getDataWithPara('api/PreExamination/getAttendanceReport', paramObject);
+        };
         this.getApprovalSingleList = function (UserTypeId, CollegeCode, BranchCode, Semester, StudentTypeId) {
             var paramObject = {
                 "StudentTypeId": StudentTypeId,

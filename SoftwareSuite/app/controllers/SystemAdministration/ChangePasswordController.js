@@ -44,7 +44,7 @@
             RedirectToListPage();
         }
         function RedirectToListPage() {
-            $state.go('login');
+            $state.go('index.WebsiteLogin');
         }
     });
 });

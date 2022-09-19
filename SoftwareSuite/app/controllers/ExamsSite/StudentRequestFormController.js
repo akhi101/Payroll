@@ -1264,15 +1264,15 @@
                         alert('Please upload SSC marks memo.');
                         return;
                     }
-                    //$scope.loader = true;
+                    $scope.loader = true;
                     var SetInterimData = PreExaminationService.SetNameCorrectionData($scope.userData.Pin, $scope.userData.Name, $scope.NewName, $scope.userData.FatherName,
                         $scope.NewFatherName, $scope.Gender, $scope.userPhoto)
                     SetInterimData.then(function (res) {
                         if (res.Table[0].ResponceCode == '200') {
-                            //$scope.loader = false;
+                            $scope.loader = false;
                             $scope.GetChallanData();
                         } else {
-                            //$scope.loader = false;
+                            $scope.loader = false;
                             alert(res.Table[0].ResponseDesription);
                             return;
                         }
@@ -1291,7 +1291,7 @@
                         return;
                     }
 
-                    //$scope.loader = true;
+                    $scope.loader = true;
                     //if ($scope.userData.Pin != null && $scope.Reason != null && $scope.IdMark1 != null && $scope.IdMark2 != null && $scope.userData.FatherName != null && $scope.userData.Mothername != null &&
                     //    $scope.Religion != null && $scope.userData.Nationality != null && $scope.Caste != null && $scope.userData.Dateofbirth != null) {
                     var SetInterimData = PreExaminationService.UpdateTcData($scope.userData.Pin, $scope.userData.Remarks, $scope.IdMark1, $scope.IdMark2)
@@ -1305,17 +1305,17 @@
 
 
                         } else if (res.Table[0].ResponseCode == '400') {
-                            //$scope.loader = false;
+                            $scope.loader = false;
                             alert(res.Table[0].ResponseDesription + ', Please Note the Application Number for further Reference : ' + $scope.tcapplicatioNo)
 
                         } else {
-                            //   $scope.loader = false;
+                               $scope.loader = false;
                             //alert(res.Table[0].ResponseDesription);
                         }
 
 
                     }, function (error) {
-                        //  $scope.loader = false;
+                          $scope.loader = false;
                         $scope.result = false;
                     })
                     //} else {
@@ -1473,7 +1473,7 @@
                         SetMarksMemo.then(function (res) {
                             if (res[0].ResponceCode == '200') {
 
-                                //$scope.loader = false;
+                                $scope.loader = false;
 
                                 $scope.applicatioNo = res[0].ApplicationNumber;
                                 $scope.GetChallanData();
@@ -1497,7 +1497,7 @@
 
                 } else if ($scope.Certificate == 5) {
 
-                    //$scope.loader = true;
+                    $scope.loader = true;
                     //if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
 
                     //    alert('Please Enter Pin.');
@@ -1719,7 +1719,7 @@
                         $scope.Submit();
                     } else {
 
-                        //$scope.loader = true;
+                        $scope.loader = true;
                         var SetGenuineness = PreExaminationService.SetGenuinenessCheckPayment($scope.userData.Pin, $scope.OrganizationType, $scope.OrganizationName, $scope.OrganizationAddress, $scope.OrganizationEmail, $scope.OrganizationMobile, $scope.OdcNo, $scope.Aadharxerox,
                        ExamMonthYear, $scope.Price)
                         SetGenuineness.then(function (res) {
@@ -1730,14 +1730,14 @@
                             if (res.Table[0].ResponseCode == '200') {
                                 //alert(res.Table[0].ResponseDesription);
                                 $scope.GetChallanData();
-                                //$scope.loader = false;
+                                $scope.loader = false;
                                 $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                             } else {
-                                //$scope.loader = false;
+                               $scope.loader = false;
                                 alert(res.Table[0].ResponseDescription);
                             }
                         }, function (error) {
-                            //$scope.loader = false;
+                            $scope.loader = false;
                             $scope.result = false;
                         });
 
@@ -1869,14 +1869,14 @@
                             if (res.Table[0].ResponceCode == '200') {
                                 alert(res.Table[0].ResponceDescription);
                                 $scope.GetChallanData();
-                                //$scope.loader = false;
+                                $scope.loader = false;
                                 $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                             } else {
-                                //$scope.loader = false;
+                                $scope.loader = false;
                                 alert(res.Table[0].ResponceDescription);
                             }
                         }, function (error) {
-                            //$scope.loader = false;
+                            $scope.loader = false;
                             $scope.result = false;
                             alert("Pdf documents uploaded are corrupted,try scan documents again correctly.");
                         });
@@ -1943,7 +1943,7 @@
                 if (response[0].ResponseCode == '400') {
                     $scope.ProceedDisable = false;
                     $scope.loader = false;
-                    alert('Already Applied for Certificate')
+                    alert(response[0].ResponceDescription)
                 } else {
                     try {
                         var response = JSON.parse(response);
@@ -1990,7 +1990,7 @@
                 if (response[0].ResponseCode == '400') {
                     $scope.ProceedDisable = false;
                     $scope.loader = false;
-                    alert('Already Applied for Certificate')
+                    alert(response[0].ResponceDescription)
                 } else {
                     try {
                         var response = JSON.parse(response);
@@ -2046,7 +2046,7 @@
             var subMarchantid = "STUSERVICES";
             $localStorage.CertificateFeePaymentGatewayResponse = {};
             redirecturl = {
-                redirecturl: "Dashboard.DiplomaDashboard.StudentRequestForm"
+                redirecturl: "index.StudentRequestForm"
             }
             $localStorage.CertificateFeePaymentGatewayResponse = redirecturl;
 

@@ -269,7 +269,7 @@
                                         $scope.CumulativeGradePointsGained = data[0].CumulativeGradeInfo[0].CumulativeGradePointsGained;
 
                                     }
-                                    else if ($scope.examtype == '5' && $scope.SelStudentType.id == 2) {
+                                    else if ($scope.examtype == '5' && $scope.SelStudentType.id == 2 || $scope.examtype == '9' && $scope.SelStudentType.id == 2) {
                                         if (data[0].C18SemInfo.length > 0 && data[0].studentWiseReport.length > 0) {
                                             $scope.studentInfo = data[0].studentInfo[0];
 

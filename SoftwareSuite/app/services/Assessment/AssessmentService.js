@@ -98,7 +98,7 @@
         };
 
         this.getAdminReportsCollege = function (examtypeid, collegecode, studentType, AcademicYearId, Semester, ExamMonthYear) {
-            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester "ExamMonthYear": ExamMonthYear};
+            var paramObject = { "examtypeid": examtypeid, "collegecode": collegecode, "studentType": studentType, "AcademicYearId": AcademicYearId, "Semester": Semester, "ExamMonthYear": ExamMonthYear};
             console.log(paramObject)
             return DataAccessService.getDataWithPara('AssessmentReports/getAdminReportsCollege', paramObject);
         };

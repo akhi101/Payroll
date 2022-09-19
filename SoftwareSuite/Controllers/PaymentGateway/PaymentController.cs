@@ -402,6 +402,8 @@ namespace CoreExamin.Controllers
                  * else checkSum is not equal then inseting data in s2sLog with type = 2
                  * 
                  */
+                strCheckSumValue = strCheckSumValue.ToLower();
+                checksum = checksum.ToLower();
                 if (checksum.Equals(strCheckSumValue))
                 {
                     var db = new dbHandler();

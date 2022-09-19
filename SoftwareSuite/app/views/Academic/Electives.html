@@ -50,7 +50,7 @@
 <body>
     <div ng-controller="ElectivesController">
         <div class="clearfix"></div>
-        <div ng-if="CollegeID!=0">
+        <div ng-show="CollegeID!=0">
             <div class="">
                 <ui-view>
                     <div class="breadcrumb-header">
@@ -73,14 +73,14 @@
                             <div class="col-md-12">
                                 <button class="btn bck_btn"><a href="#!/Dashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="label"> Exam Type:</label>
                                     <select class="form-control" ng-model="SelectedStudent"
                                             ng-options="Student.type for Student in StudentType"></select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="label">
                                         Academic Year :
@@ -90,12 +90,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="label" for="collegSelect">Select Semester :</label>
-                                    <select class="form-control" ng-model="selectedsem" ng-change="loadsubjects(selectedsem)"
-                                            ng-options="x.semester for x in sems"></select>
+                                    <label class="label" for="collegSelect"> Semester :</label>
+                                    <select class="form-control" ng-model="selectedsem" ng-change="LoadSchemeForSemester(selectedsem)"
+                                            ng-options="x.semester for x in sems">
+                                        <option value="" selected>Select Semester</option>
+                                    </select>
                                 </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Session</label>
+                                    <select class="form-control" id="selSession" ng-model="selSession" 
+                                            ng-options="ses.val as ses.session for ses in sessioninfo">
+                                        <option value="" selected>Select Session</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-success pull-right" ng-click="loadsubjects(selectedsem,selSession)"> Get Details</button>
                             </div>
                         </div>
 
@@ -134,7 +148,7 @@
                                                         <td>{{x.ElectiveSet}}</td>
                                                         <td style="text-align:center">
                                                             <div class="form-check">
-                                                                <input ng-model="x.active" disabled ng-change="change(x, x.active,$index)" type="checkbox" />
+                                                                <input ng-model="x.active"  ng-change="change(x, x.active,$index)" type="checkbox" />
                                                             </div>
                                                         </td>
 
@@ -156,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12" ng-if="valid">
-                                        <button class="btn btn-success pull-right" disabled style="margin-bottom:10px" ng-click="savedata()">Save</button>
+                                        <button class="btn btn-success pull-right"  style="margin-bottom:10px" ng-click="savedata()">Save</button>
                                     </div>
 
                                     <div class="col-md-12">

@@ -14,6 +14,13 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getTantalizationReport');
             return promise;
         }
+
+        this.UploadHomePageSlides = function (FileName,sign) {
+            var paramObject = { "FileName": FileName, "photoPath": sign };
+            var promise = DataAccessService.postData('api/PreExamination/UploadHomePageSlides', paramObject);
+            return promise;
+        }
+
         
         this.getAttendanceSMSList = function () {
             return DataAccessService.getDataAll('api/PreExamination/getAttendanceSMSList');

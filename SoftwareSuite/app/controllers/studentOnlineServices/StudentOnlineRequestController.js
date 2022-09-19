@@ -322,6 +322,12 @@
                     var getChallannumber = PreExaminationService.CertificateFeePaymentChallanNumber($scope.PinNumber)
                     getChallannumber.then(function (resp) {
                         if (resp.Table.length > 0) {
+                            if (resp.Table[0].ResponceCode == '400') {
+                                $scope.ProceedDisable = false;
+                                $scope.loader = false;
+                                alert(resp.Table[0].ResponceDescription)
+                                return;
+                            }
                             $scope.challan = resp.Table1[0].ChallanNumber;
                             $scope.paymentPin = $scope.PinNumber;
                             $scope.Amount = resp.Table1[0].Amount;
@@ -461,6 +467,12 @@
                     var getChallannumber = PreExaminationService.CertificateFeePaymentChallanNumber($scope.PinNo)
                     getChallannumber.then(function (resp) {
                         if (resp.Table.length > 0) {
+                            if (resp.Table[0].ResponceCode == '400') {
+                                $scope.ProceedDisable = false;
+                                $scope.loader = false;
+                                alert(resp.Table[0].ResponceDescription)
+                                return;
+                            }
                             $scope.challan = resp.Table1[0].ChallanNumber;
                             $scope.paymentPin = $scope.PinNo;
                             $scope.Amount = resp.Table1[0].Amount;

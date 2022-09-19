@@ -290,6 +290,7 @@
     <Compile Include="Controllers\Common\CommunicationController.cs" />
     <Compile Include="Controllers\Common\Html2PDFGenerator.cs" />
     <Compile Include="Controllers\DigitalSignatureController.cs" />
+    <Compile Include="Controllers\Diploma\DiplomaController.cs" />
     <Compile Include="Controllers\ExternalServices\AffliationInfoController.cs" />
     <Compile Include="Controllers\ExternalServices\BranchInfoController.cs" />
     <Compile Include="Controllers\ExternalServices\ExamTimetableController.cs" />
@@ -405,6 +406,7 @@
     <Content Include="app\controllers\Academic\ElectivesController.js" />
     <Content Include="app\controllers\Academic\ElectivesPinListController.js" />
     <Content Include="app\controllers\Academic\FacultySubjectMappingController.js" />
+    <Content Include="app\controllers\Academic\ReleaseSixthSemController.js" />
     <Content Include="app\controllers\Academic\Reports\6thSemStudiedReportController.js" />
     <Content Include="app\controllers\Academic\Reports\FacultyMappingReportController.js" />
     <Content Include="app\controllers\Academic\Reports\FeedbackReportController.js" />
@@ -780,6 +782,7 @@
     <Content Include="app\controllers\MasterSettings\DateSheetMonthYearController.js" />
     <Content Include="app\controllers\MasterSettings\ExamSessionSettingsController.js" />
     <Content Include="app\controllers\MasterSettings\ExamSchemeSemesterSettingsController.js" />
+    <Content Include="app\controllers\MasterSettings\HomePagePhotosController.js" />
     <Content Include="app\controllers\MasterSettings\InsertMarksController.js" />
     <Content Include="app\controllers\MasterSettings\MobileAppUpdateController.js" />
     <Content Include="app\controllers\MasterSettings\SemesterDataController.js" />
@@ -988,6 +991,10 @@
     <Content Include="app\controllers\PostExam\Transcript_StudentDetailsController.js" />
     <Content Include="app\controllers\PostExam\TransferCertificatePendingController.js" />
     <Content Include="app\controllers\PostExam\TransferPopupController.js" />
+    <Content Include="app\controllers\PostExam\TwoYearsCertificateListBySchemeController.js" />
+    <Content Include="app\controllers\PostExam\TwoYearsCertificateListController.js" />
+    <Content Include="app\controllers\PostExam\TwoYearsCertificateRequestController.js" />
+    <Content Include="app\controllers\PostExam\TwoYearsOdcReportController.js" />
     <Content Include="app\controllers\PreAssessmentController.js" />
     <Content Include="app\controllers\preAssessment\DiplomaFeePaymentController.js" />
     <Content Include="app\controllers\preAssessment\hallTicketGenerationController.js" />
@@ -1012,6 +1019,7 @@
     <Content Include="app\controllers\PreExamination\EligibleStudentsForFeePaymentController.js" />
     <Content Include="app\controllers\PreExamination\EnableFeepaymentController.js" />
     <Content Include="app\controllers\PreExamination\ExaminationHallDetailsController.js" />
+    <Content Include="app\controllers\PreExamination\FeeRecieptController.js" />
     <Content Include="app\controllers\PreExamination\FeeSetDatesController.js" />
     <Content Include="app\controllers\PreExamination\GenerateTimeTableController.js" />
     <Content Include="app\controllers\PreExamination\HallticketController.js" />
@@ -1318,11 +1326,8 @@
     <Content Include="app\controllers\TWSH\TwshQualifiedListController.js" />
     <Content Include="app\controllers\TWSH\TwshReportsController.js" />
     <Content Include="app\controllers\TWSH\TwshResetPasswordController.js" />
-
     <Content Include="app\controllers\TWSH\TwshResultsAutomationController.js" />
-
     <Content Include="app\controllers\TWSH\TwshRvrcController.js" />
-
     <Content Include="app\controllers\TWSH\TwshSmsDetailsController.js" />
     <Content Include="app\controllers\TWSH\TwshStudentDetails.js" />
     <Content Include="app\controllers\TWSH\TwshStudentRegController.js" />
@@ -1674,6 +1679,7 @@
     <Content Include="app\views\Academic\Electives.html" />
     <Content Include="app\views\Academic\ElectivesPinList.html" />
     <Content Include="app\views\Academic\FacultySubjectMapping.html" />
+    <Content Include="app\views\Academic\ReleaseSixthSem.html" />
     <Content Include="app\views\Academic\Reports\6thSemStudiedReport.html" />
     <Content Include="app\views\Academic\Reports\FacultyMappingReport.html" />
     <Content Include="app\views\Academic\Reports\HodTransferReports.html" />
@@ -2130,6 +2136,7 @@
     <Content Include="app\views\MasterSettings\DateSheetMonthYear.html" />
     <Content Include="app\views\MasterSettings\ExamSchemeSemesterSettings.html" />
     <Content Include="app\views\MasterSettings\ExamSessionSettings.html" />
+    <Content Include="app\views\MasterSettings\HomePagePhotos.html" />
     <Content Include="app\views\MasterSettings\InsertMarks.html" />
     <Content Include="app\views\MasterSettings\MobileAppUpdate.html" />
     <Content Include="app\views\MasterSettings\SemesterSetDates.html" />
@@ -2488,6 +2495,7 @@
     <Content Include="app\views\PostExam\SemesterData.html" />
     <Content Include="app\views\PostExam\SemMigration.html" />
     <Content Include="app\views\PostExam\SscPopup.html" />
+    <Content Include="app\views\PostExam\StudentConsolidatedPopup.html" />
     <Content Include="app\views\PostExam\TcApprovalList.html" />
     <Content Include="app\views\PostExam\TcApprovalListDetails.html" />
     <Content Include="app\views\PostExam\TcDeatilsPopup.html" />
@@ -2500,6 +2508,10 @@
     <Content Include="app\views\PostExam\Transcript_StudentDetails.html" />
     <Content Include="app\views\PostExam\TransferCertificatePending.html" />
     <Content Include="app\views\PostExam\TransferPopup.html" />
+    <Content Include="app\views\PostExam\TwoYearsCertificateList.html" />
+    <Content Include="app\views\PostExam\TwoYearsCertificateListByScheme.html" />
+    <Content Include="app\views\PostExam\TwoYearsCertificateRequest.html" />
+    <Content Include="app\views\PostExam\TwoYearsOdcReport.html" />
     <Content Include="app\views\PostExam\wantingList.html" />
     <Content Include="app\views\preAssessment\hallTicketGeneration.html" />
     <Content Include="app\views\preAssessment\markEntry.html" />
@@ -2523,6 +2535,7 @@
     <Content Include="app\views\PreExamination\EligibleStudentsForFeePayment.html" />
     <Content Include="app\views\PreExamination\EnableFeepayment.html" />
     <Content Include="app\views\PreExamination\ExaminationHallDetails.html" />
+    <Content Include="app\views\PreExamination\FeeReciept.html" />
     <Content Include="app\views\PreExamination\FeeSetDates.html" />
     <Content Include="app\views\PreExamination\GenerateTimeTable.html" />
     <Content Include="app\views\PreExamination\Hallticket.html" />
@@ -2847,6 +2860,7 @@
     <Content Include="app\views\test.html.txt" />
     <Content Include="app\views\TotalExampaymentPopup.html" />
     <Content Include="app\views\TwalletRedirect.html" />
+    <Content Include="app\views\TwoYearsCertificatePopup.html" />
     <Content Include="app\views\TwshHome.html" />
     <Content Include="app\views\TWSH\ApplyCertificate.html" />
     <Content Include="app\views\TWSH\ChalanDetails.html" />
@@ -4277,6 +4291,7 @@
     <Folder Include="app\customControls\sa-canvas\" />
     <Folder Include="app\views\BillDesk\" />
     <Folder Include="app\views\DigitalSignature\" />
+    <Folder Include="app\views\Diploma\" />
     <Folder Include="app\views\Home\" />
     <Folder Include="app\views\StudentOnlineRequest\Reports\" />
     <Folder Include="App_Data\" />

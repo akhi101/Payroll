@@ -8,9 +8,20 @@
                 var paramObject = { "msg": msg };
                 return DataAccessService.postData('api/BillDesk/getPaymentResponse', paramObject);
             }
+        //this.billDeskS2SResponse = function (chalanaNo) {
+        //    var paramObject = { "chalanaNo": chalanaNo };
+        //    return DataAccessService.getDataWithParaCustomUrl('https://sbtet.telangana.gov.in/API/Payment/FindchalanaNo', paramObject);
+        //}
+
         this.billDeskS2SResponse = function (chalanaNo) {
             var paramObject = { "chalanaNo": chalanaNo };
-            return DataAccessService.getDataWithParaCustomUrl('https://sbtet.telangana.gov.in/API/Payment/FindchalanaNo', paramObject);
+            return DataAccessService.getDataWithParaCustomUrl('Payment/FindchalanaNo', paramObject);
+        }
+
+        //
+        this.GetFeeReciept = function (chalanaNo) {
+            var paramObject = { "chalanaNo": chalanaNo };
+            return DataAccessService.getDataWithPara('api/PreExamination/FindchalanaNo', paramObject);
         }
         this.callSms = function (chalanaNo) {
             var paramObject = { "ChallanNumber": chalanaNo };

@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
 
     app.controller("TheoryMarksEntryController", function ($scope, $http, $localStorage, $state, $uibModal, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService, PaymentService) {
-       
+
         var authData = $localStorage.authorizationData;
         $scope.userName = authData.userName;
         AppSettings.userName = authData.userName;
@@ -30,10 +30,10 @@
         var SubjectCode = $localStorage.assessment.selectSubjectDetails.Subject_Code;
         var AcademicId = $localStorage.assessment.AcademicYearsActiveResponse.AcademicID;
         var semId = $localStorage.assessment.selectedsem.semid;
-         var examId = $localStorage.assessment.entryListid;
+        var examId = $localStorage.assessment.entryListid;
         var branchCode = authData.userName.split('_')[0];
         var semName = $localStorage.assessment.selectedsem.sem;
-        var collegeName = authData.College_Name;        
+        var collegeName = authData.College_Name;
         var examTypeId = $localStorage.assessment.entryListid
         var StudentTypeId = $localStorage.assessment.StudentTypeId
         var schemeid = parseInt($localStorage.assessment.Scheme);
@@ -49,7 +49,7 @@
 
                 var CurrentDate = moment();
                 let beforeTime = moment(startdate, format);
-                let fineTime = moment(enddate, format);               
+                let fineTime = moment(enddate, format);
                 let endTime = moment(finedate, format);
 
                 //$scope.payFineAmount();
@@ -87,16 +87,16 @@
                         console.log(err);
                     });
 
-                } else if(CurrentDate.isBefore(beforeTime)) {
+                } else if (CurrentDate.isBefore(beforeTime)) {
                     alert("Marks Entry is not scheduled.");
                     $state.go('Dashboard.AssessmentDashboard.TheorySubjectList');
-                   
-                }                  
-                
-                else if(CurrentDate.isAfter(endTime)){
+
+                }
+
+                else if (CurrentDate.isAfter(endTime)) {
                     alert("Last Date for marks entry is completed");
                     $state.go('Dashboard.AssessmentDashboard.TheorySubjectList');
-                   
+
                 }
 
             }
@@ -105,7 +105,7 @@
         }, function (error) {
 
         });
-       
+
 
 
         var loadedScheme = '';
@@ -115,7 +115,7 @@
             SchemesList.forEach(function (scheme) {
                 if (schemeid === scheme.SchemeID) {
                     loadedScheme = scheme;
-                    $scope.loadedScheme = scheme;                   
+                    $scope.loadedScheme = scheme;
                     // $scope.loadPinAndMarks();
                 }
             });
@@ -129,7 +129,7 @@
             $scope.reverse = !$scope.reverse; //if true make it false and vice versa
         }
 
-  
+
         var markslist = [];
         var previewlist = [];
         var NEMarksList = [];
@@ -167,10 +167,10 @@
                     }
                 } else {
                     alert('No Pins available for the selected inputs.')
-                    if (!angular.isUndefined(response.Table2) && response.Table2.length>0 ) {
+                    if (!angular.isUndefined(response.Table2) && response.Table2.length > 0) {
                         alert(response.Table2[0].ResponceDescription);
-                }
-                   
+                    }
+
                 }
             }, function (error) {
                 $scope.pinWise = [];
@@ -183,7 +183,7 @@
             });
 
         }
-  
+
         $scope.getExamStatus = function (exam) {
             $scope.examName = exam;
             $scope.homeDashBoard = false;
@@ -202,13 +202,13 @@
             });
 
         }
-       
+
 
         $scope.OpenDashboard = function () {
             $scope.homeDashBoard = true;
             $state.go("Dashboard");
         }
-       
+
         var tempId = [];
 
         $scope.addData = function (id, marks) {
@@ -218,65 +218,71 @@
             };
         },
 
-            $scope.AddMarksById = function (data) {
+            $scope.FeedbackCheck = function (data) {
+                if (data.IsFeedBackSubmitted == false) {
+                    alert("Student Feedback Not Submitted")
+                }
+            }
+
+        $scope.AddMarksById = function (data) {
             var isvalied = false;
             if (data.marks.length > $scope.MaxMarks.length) {
                 alert("Marks Entered character length should not exceed maximum marks length.");
                 $('#' + data.id).val('');
                 return;
             }
-                if (data.marks > $scope.MaxMarks) {
-                    alert("Marks Entered should not be greater than maximum marks.");
-                    $('#' + data.id).val('');
-                    if (markslist.length > 0) {
-                        markslist.map((obj) => {
-                            if (obj.id == data.id) {
-                                obj.marks = '';
-                            }
-                        });
-                    }
-                    return;
+            if (data.marks > $scope.MaxMarks) {
+                alert("Marks Entered should not be greater than maximum marks.");
+                $('#' + data.id).val('');
+                if (markslist.length > 0) {
+                    markslist.map((obj) => {
+                        if (obj.id == data.id) {
+                            obj.marks = '';
+                        }
+                    });
+                }
+                return;
             }
             if (data.marks.includes(".")) {
                 alert('Entered marks are not valid');
                 $('#' + data.id).val('');
                 return;
             }
-                data.marks = data.marks.trim();
-                if (data.marks != null && data.marks != "") {
-                    if (isNaN(data.marks)) {
-                        if (data.marks.toUpperCase() == 'AB' || data.marks.toUpperCase() == 'MP' || data.marks.toUpperCase() == 'DC' || data.marks.toUpperCase() == 'TC' || data.marks.toUpperCase() == 'DT') {
-                            isvalied = true;
-                        } else {
-                            isvalied = false;
-                        }
-
-                    } else {
+            data.marks = data.marks.trim();
+            if (data.marks != null && data.marks != "") {
+                if (isNaN(data.marks)) {
+                    if (data.marks.toUpperCase() == 'AB' || data.marks.toUpperCase() == 'MP' || data.marks.toUpperCase() == 'DC' || data.marks.toUpperCase() == 'TC' || data.marks.toUpperCase() == 'DT') {
                         isvalied = true;
+                    } else {
+                        isvalied = false;
                     }
 
+                } else {
+                    isvalied = true;
                 }
-                if (data.marks != null && data.marks != "" && isvalied) {
-                    if (markslist.length > 0) {
-                        markslist.map((obj) => {
-                            if (obj.id == data.id) {
-                                obj.marks = data.marks;
-                                tempId.push(data.id);
-                            }
-                            if (obj.id != data.id && !tempId.includes(data.id)) {
-                                var marksdata = $scope.addData(data.id, data.marks);
-                                tempId.push(data.id);
-                                markslist.push(marksdata);
 
-                            }
-                        });
+            }
+            if (data.marks != null && data.marks != "" && isvalied) {
+                if (markslist.length > 0) {
+                    markslist.map((obj) => {
+                        if (obj.id == data.id) {
+                            obj.marks = data.marks;
+                            tempId.push(data.id);
+                        }
+                        if (obj.id != data.id && !tempId.includes(data.id)) {
+                            var marksdata = $scope.addData(data.id, data.marks);
+                            tempId.push(data.id);
+                            markslist.push(marksdata);
 
-                    } else if (markslist.length == 0) {
-                        var marksdata = $scope.addData(data.id, data.marks);
-                        markslist.push(marksdata);
-                    }
+                        }
+                    });
+
+                } else if (markslist.length == 0) {
+                    var marksdata = $scope.addData(data.id, data.marks);
+                    markslist.push(marksdata);
                 }
-            },
+            }
+        },
 
 
             $scope.save = function () {
@@ -300,8 +306,8 @@
                 }
 
             }
-      
-        $scope.back = function () {           
+
+        $scope.back = function () {
             $state.go("Dashboard.AssessmentDashboard.TheorySubjectList");
         }
         $scope.submit = function () {
@@ -320,8 +326,8 @@
             }
 
         },
-       
-       
+
+
 
             $scope.printMarksEntered = function () {
                 if (issaved == false) {
@@ -340,7 +346,7 @@
                 var parse = new DOMParser();
                 var al = parse.parseFromString('<div id="divtop" ><span id="text-left"><label class="label-pad">College : </label>' + collegeName + '</span><span id="text-right"><label class="label-pad">Branch :</label>' + branchName + "(" + BranchCode + ")" + ' </span> </div>', "text/html");
                 var parser = new DOMParser();
-            var el = parser.parseFromString('<div id="divtoadd" ><span id="text-left"><label class="label-pad">Scheme : </label>' + $scope.loadedScheme.Scheme + '</span><span id="text-center"><label class="label-pad sem-pad"> Semester :</label>' + semName + "     " + '</span><span id="text-right"><label class="label-pad">Subject Code :</label>' + SubjectCode + '</span></div>', "text/html");
+                var el = parser.parseFromString('<div id="divtoadd" ><span id="text-left"><label class="label-pad">Scheme : </label>' + $scope.loadedScheme.Scheme + '</span><span id="text-center"><label class="label-pad sem-pad"> Semester :</label>' + semName + "     " + '</span><span id="text-right"><label class="label-pad">Subject Code :</label>' + SubjectCode + '</span></div>', "text/html");
                 var divToPrint = document.getElementById(divName);
                 var temp = document.body.innerHTML;
                 $("#markslist").hide();
@@ -412,7 +418,7 @@
             $scope.$emit("logout", authData.userName);
             sessionStorage.loggedIn = "no";
             delete $localStorage.authorizationData;
-           
+
             $scope.authentication = {
                 isAuth: false,
                 UserId: 0,

@@ -183,46 +183,71 @@
                                     <thead>
                                         <tr>
                                             <th style="font-size:bold;">S.No</th>
-                                            <th>College Code</th>                                         
+                                            <th>College Code</th>
+                                            <th class="text-center"> Student Strength</th>
+                                            <th class="text-center"> Exam Date</th>
+                                            <th class="text-center"> Exam Time</th>
                                             <th class="text-center">Chief Superintendent</th>
                                             <th class="text-center">Delivery Charges PerDay</th>
                                             <th class="text-center"> Examination Clerk Typing Charges</th>
-                                            <th class="text-center"> Exam Date</th>
-                                            <th class="text-center"> Exam Time</th>
+
                                             <th class="text-center"> Internal Flying SquadCharges</th>
                                             <th class="text-center"> Joint Chief Superintendent</th>
                                             <th class="text-center"> Police Bandobasth</th>
-                                            <th class="text-center"> Student Strength</th>
+
                                             <th class="text-center"> Total Control Room Charges</th>
                                             <th class="text-center"> Total EDEP Charges</th>
                                             <th class="text-center"> Total Invigilator charges</th>
                                             <th class="text-center"> Total Printing Charges</th>
                                             <th class="text-center"> Total Theory Attender Cum Waterman Cum Sweeper Charges Per Subject</th>
-                                          
+                                            <th class="text-center"> Total </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+
                                         <tr style="background-color:#fff!important;" ng-repeat="data in TheoryExpenditureReport">
                                             <td>{{$index+1}}</td>
                                             <td>{{data.ExamCenterCode}} - {{data.ExamCenterName}}</td>
+                                            <td class="text-center">{{data.StudentStrength}}</td>
+                                            <td class="text-center">{{data.ExamDate}}</td>
+                                            <td class="text-center">{{data.ExamTime}}</td>
                                             <td class="text-center">{{data.ChiefSuperintendent}}</td>
                                             <td class="text-center">{{data.DeliveryChargesPerDay}}</td>
                                             <td class="text-center">{{data.ExaminationClerk_TypingCharges}}</td>
-                                            <td class="text-center">{{data.ExamDate}}</td>
-                                            <td class="text-center">{{data.ExamTime}}</td>
+
                                             <td class="text-center">{{data.InternalFlyingSquadCharges}}</td>
                                             <td class="text-center">{{data.JointChiefSuperintendent}}</td>
                                             <td class="text-center">{{data.PoliceBandobasth}}</td>
-                                            <td class="text-center">{{data.StudentStrength}}</td>
+
                                             <td class="text-center">{{data.TotalControlRoomCharges}}</td>
                                             <td class="text-center">{{data.TotalEDEPCharges}}</td>
                                             <td class="text-center">{{data.TotalInvigilatorcharges}}</td>
                                             <td class="text-center">{{data.TotalPrintingCharges}}</td>
                                             <td class="text-center">{{data.TotalTheoryAttenderCumWatermanCumSweeperChargesPerSubject}}</td>
-                                            
+                                            <td class="text-center">
+                                                {{data.ChiefSuperintendent+data.DeliveryChargesPerDay+data.ExaminationClerk_TypingCharges+data.InternalFlyingSquadCharges+data.JointChiefSuperintendent+data.PoliceBandobasth+data.TotalControlRoomCharges+data.TotalEDEPCharges+data.TotalInvigilatorcharges+data.TotalPrintingCharges+data.TotalTheoryAttenderCumWatermanCumSweeperChargesPerSubject}}
+                                            </td>
                                         </tr>
+                                        <tr style="background-color:#fff!important;">
+                                            <td colspan="2">Total</td>
+                                            <td class="text-center">{{StudentStrength}}</td>
+                                            <td class="text-center"> </td>
+                                            <td class="text-center"> </td>
+                                            <td class="text-center">{{ChiefSuperintendent}}</td>
+                                            <td class="text-center">{{DeliveryChargesPerDay}}</td>
+                                            <td class="text-center">{{ExaminationClerk_TypingCharges}}</td>
 
+                                            <td class="text-center">{{InternalFlyingSquadCharges}}</td>
+                                            <td class="text-center">{{JointChiefSuperintendent}}</td>
+                                            <td class="text-center">{{PoliceBandobasth}}</td>
+
+                                            <td class="text-center">{{TotalControlRoomCharges}}</td>
+                                            <td class="text-center">{{TotalEDEPCharges}}</td>
+                                            <td class="text-center">{{TotalInvigilatorcharges}}</td>
+                                            <td class="text-center">{{TotalPrintingCharges}}</td>
+                                            <td class="text-center">{{TotalTheoryAttenderCumWatermanCumSweeperChargesPerSubject}}</td>
+                                            <td class="text-center">{{ChiefSuperintendent+DeliveryChargesPerDay+ExaminationClerk_TypingCharges+InternalFlyingSquadCharges+JointChiefSuperintendent+PoliceBandobasth+TotalControlRoomCharges+TotalEDEPCharges+TotalInvigilatorcharges+TotalPrintingCharges+TotalTheoryAttenderCumWatermanCumSweeperChargesPerSubject}}</td>
+                                        </tr>
                                     </tbody>
 
 
@@ -268,11 +293,11 @@
                                             <th class="text-center"> Total Practical Viva Charges (Industrial Training)</th>
                                             <th class="text-center"> Total Practical Technical Assistant Charges</th>
                                             <th class="text-center"> Total Practical Waterman Cum Sweeper Charges</th>
-
+                                            <th class="text-center"> Total </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
+
                                         <tr style="background-color:#fff!important;" ng-repeat="data in PracticalExpenditureReport">
                                             <td>{{$index+1}}</td>
                                             <td>{{data.ExamCenterCode}} - {{data.ExamCenterName}}</td>
@@ -288,8 +313,23 @@
                                             <td class="text-center">{{data.TotalPracticalVivaChargesforSixthSem}}</td>
                                             <td class="text-center">{{data.TotalPracticalTechnicalAssistantCharges}}</td>
                                             <td class="text-center">{{data.TotalPracticalWatermanCumSweeperCharges}}</td>
+                                           
+                                            <td class="text-center"> {{data.TotalPracticalAttenderCharges+data.TotalPracticalExternalPaperSettingCharges+data.TotalPracticalInternalPaperSettingCharges+data.TotalPracticalLocalConveyanceCharges+data.TotalPracticalPaperValuationCharges+data.TotalPracticalVivaChargesforSixthSem+data.TotalPracticalTechnicalAssistantCharges+data.TotalPracticalWatermanCumSweeperCharges}}</td>
                                         </tr>
-
+                                        <tr style="background-color:#fff!important;">
+                                            <td colspan="4">Total</td>
+                                            <td class="text-center">{{NO_OF_STUDENTS}}</td>
+                                            <td class="text-center">{{NoOfExternalExaminers}}</td>
+                                            <td class="text-center">{{TotalPracticalAttenderCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalExternalPaperSettingCharges}} </td>
+                                            <td class="text-center">{{TotalPracticalInternalPaperSettingCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalLocalConveyanceCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalPaperValuationCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalVivaChargesforSixthSem}}</td>
+                                            <td class="text-center">{{TotalPracticalTechnicalAssistantCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalWatermanCumSweeperCharges}}</td>
+                                            <td class="text-center">{{TotalPracticalAttenderCharges+TotalPracticalExternalPaperSettingCharges+TotalPracticalInternalPaperSettingCharges+TotalPracticalLocalConveyanceCharges+TotalPracticalPaperValuationCharges+TotalPracticalVivaChargesforSixthSem+TotalPracticalTechnicalAssistantCharges+TotalPracticalWatermanCumSweeperCharges}}</td>
+                                        </tr>
                                     </tbody>
 
 
@@ -327,6 +367,7 @@
                                             <th class="text-center">Seat Clerk Charges</th>
                                             <th class="text-center"> Superintendent</th>
                                             <th class="text-center"> Total Seating Charges</th>
+                                            <th class="text-center"> Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -338,9 +379,16 @@
                                             <td class="text-center">{{data.SeatclerkCharges}}</td>
                                             <td class="text-center">{{data.Superintendent}}</td>
                                             <td class="text-center">{{data.TotalSeatingCharges}}</td>
-
+                                            <td class="text-center">{{data.AoNotification+data.SeatclerkCharges+data.Superintendent+data.TotalSeatingCharges}}</td>
                                         </tr>
-
+                                        <tr style="background-color:#fff!important;">
+                                            <td colspan="2">Total</td>
+                                            <td class="text-center">{{AoNotification}}</td>
+                                            <td class="text-center">{{SeatclerkCharges}}</td>
+                                            <td class="text-center">{{Superintendent}}</td>
+                                            <td class="text-center">{{TotalSeatingCharges}} </td>
+                                            <td class="text-center">{{AoNotification+SeatclerkCharges+Superintendent+TotalSeatingCharges}} </td>
+                                        </tr>
                                     </tbody>
 
 

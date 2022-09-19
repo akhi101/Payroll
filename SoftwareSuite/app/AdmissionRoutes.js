@@ -310,6 +310,12 @@
                 dependencies: ['controllers/ExamsSite/PreExamTimetableController', , 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/StudentResultService', 'directives/saDate']
             },
 
+            'index.FeeReciept': {
+                url: "/FeeReciept",
+                templateUrl: 'app/views/PreExamination/FeeReciept.html',
+                dependencies: ['controllers/PreExamination/FeeRecieptController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
             'index.StudentRequestForm': {
                 url: "/StudentRequestForm",
                 templateUrl: 'app/views/ExamsSite/StudentRequestForm.html',
@@ -349,7 +355,7 @@
             'index.StudentAttendance': {
                 url: "/StudentAttendance",
                 templateUrl: 'app/views/Examssite/StudentAttendance.html',
-                dependencies: ['controllers/Examssite/StudentAttendanceController', 'services/Academic/AcademicService']
+                dependencies: ['controllers/Examssite/StudentAttendanceController', 'services/PreExamination/PreExaminationService']
             },
             'index.GenuinenessCheckForm': {
                 url: "/GenuinenessCheckForm",
@@ -501,8 +507,8 @@
                 templateUrl: 'app/views/newwebsite/state-government.html',
                 dependencies: ['views/newwebsite/controllers/State-governmentController']
             },
-            'index.Faq': {
-                url: "/Faq",
+            'index.PrivacyPolicy': {
+                url: "/PrivacyPolicy",
                 templateUrl: 'app/views/newwebsite/faq.html',
                 dependencies: ['views/newwebsite/controllers/FaqController']
             },
@@ -524,6 +530,13 @@
                 templateUrl: 'app/views/ExamsSite/StudentOnlineRequest.html',
                 dependencies: ['controllers/ExamsSite/StudentOnlineRequestController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
+
+            'index.TwoYearsCertificateRequest': {
+                url: "/TwoYearsCertificateRequest",
+                templateUrl: 'app/views/PostExam/TwoYearsCertificateRequest.html',
+                dependencies: ['controllers/PostExam/TwoYearsCertificateRequestController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+            
 
             'index.ApplyCertificate': {
                 url: "/ApplyCertificate",
@@ -1924,6 +1937,12 @@
                 dependencies: ['controllers/PostExam/MarksMemoController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
+            'Dashboard.PostExam.TwoYearsOdcReport': {
+                url: "/TwoYearsOdcReport",
+                templateUrl: 'app/views/PostExam/TwoYearsOdcReport.html',
+                dependencies: ['controllers/PostExam/TwoYearsOdcReportController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
             'Dashboard.PreExamination.TrSheet': {
 
                 url: "/TrSheet",
@@ -2101,6 +2120,13 @@
                 dependencies: ['controllers/MasterSettings/ExamYearMonthController', 'services/Admission/AdmissionService', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/MasterSettings/MasterSettingsService']
             },
 
+            'Dashboard.MasterSettings.HomePagePhotos': {
+                url: "/HomePagePhotos",
+                templateUrl: 'app/views/MasterSettings/HomePagePhotos.html',
+                dependencies: ['controllers/MasterSettings/HomePagePhotosController', 'services/Admission/AdmissionService', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/MasterSettings/MasterSettingsService']
+            },
+
+            
 
             'Dashboard.MasterSettings.AdminFeePayment': {
                 url: "/AdminFeePayment",
@@ -2329,7 +2355,7 @@
             'Dashboard.ChangePassword': {
                 url: "/ChangePassword",
                 templateUrl: 'app/views/ChangePassword.html',
-                dependencies: ['controllers/ChangePasswordController', 'services/SystemAdministration/ChangePasswordService', 'directives/inputNumberOnly', 'services/MenuService',
+                dependencies: ['controllers/ChangePasswordController', 'services/SystemAdministration/ChangePasswordService',  'services/PreExamination/PreExaminationService', 'directives/inputNumberOnly', 'services/MenuService',
                     'services/SystemAdministration/SystemUserService']
             },
 
@@ -2816,6 +2842,13 @@
                 url: "/StudentTransferReport",
                 templateUrl: 'app/views/Academic/Reports/StudentTransferReport.html',
                 dependencies: ['controllers/Academic/Reports/StudentTransferReportController', 'services/Academic/AcademicService']
+            },
+
+            
+             'Dashboard.Academic.ReleaseSixthSem': {
+                 url: "/ReleaseSixthSem",
+                 templateUrl: 'app/views/Academic/ReleaseSixthSem.html',
+                 dependencies: ['controllers/Academic/ReleaseSixthSemController', 'services/Academic/AcademicService', 'services/Admission/StudentRegService', 'services/PreExamination/PreExaminationService', , 'services/Assessment/AssessmentService']
             },
 
             'Dashboard.Academic.PrincipalTransferReport': {
@@ -3530,6 +3563,19 @@
                 url: "/NameCorrectionApproveList/NameCorrectionApproveListDetails/NC_StudentDetails",
                 templateUrl: 'app/views/PostExam/NC_StudentDetails.html',
                 dependencies: ['controllers/PostExam/NC_StudentDetailsControllers', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
+            
+            'Dashboard.PostExam.TwoYearsCertificateListByScheme': {
+                url: "/TwoYearsCertificateListByScheme",
+                templateUrl: 'app/views/PostExam/TwoYearsCertificateListByScheme.html',
+                dependencies: ['controllers/PostExam/TwoYearsCertificateListBySchemeController', 'services/PreExamination/PreExaminationService']
+            },
+
+            'Dashboard.PostExam.TwoYearsCertificateList': {
+                url: "/TwoYearsCertificateListByScheme/TwoYearsCertificateList",
+                templateUrl: 'app/views/PostExam/TwoYearsCertificateList.html',
+                dependencies: ['controllers/PostExam/TwoYearsCertificateListController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
             },
 
             'Dashboard.StudentServices.MigrationApprovalList': {
