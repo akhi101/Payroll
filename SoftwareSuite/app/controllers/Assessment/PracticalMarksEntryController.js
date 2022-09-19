@@ -327,7 +327,7 @@
 
 
             $scope.save = function () {
-                if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId ==4) {
+            if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
                     var outArr = [];
                     PinIdlist.forEach(function (value) {
                         var existing = Induslist.filter(function (v, i) {

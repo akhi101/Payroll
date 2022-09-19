@@ -281,7 +281,10 @@
             //if ($scope.SelStudent == undefined || $scope.SelStudent=="") {
             //    return;
             //}
-            $scope.ExamMonthYear = ExamMonthYear
+            if ($scope.ExamMonthYear == null || $scope.ExamMonthYear == '') {
+                $scope.ExamMonthYear = ExamMonthYear
+            }
+           
            
             if ($scope.StudentId != undefined && $scope.StudentId != "" && $scope.SemesterId != undefined && $scope.schemeId != "") {
                 $scope.LoadSchemeForSemester($scope.selsem);
@@ -488,7 +491,7 @@
                 }
             }
 
-            $scope.getReport = function () {
+            $scope.getReport = function (ExamMonthYear) {
                 var checkboxes = document.getElementById("checkboxes");
                 if (expanded) {
                     checkboxes.style.display = "none";
@@ -500,7 +503,9 @@
                 //if ($scope.studentType == 2) {
                 //    $scope.examTypeId = 0;
                 //}
-                //alert($scope.Semester)
+
+                $scope.ExamMonthYear = ExamMonthYear;
+              
                 //console.log($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), $scope.arr)
                 var getCollegeReports = AssessmentService.getAdminReport($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), JSON.stringify($scope.arr), $scope.ExamMonthYear);
                 getCollegeReports.then(function (response) {

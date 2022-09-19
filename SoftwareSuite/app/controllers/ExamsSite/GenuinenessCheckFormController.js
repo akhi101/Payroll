@@ -537,7 +537,7 @@
             var subMarchantid = "STUSERVICES";
             $localStorage.CertificateFeePaymentGatewayResponse = {};
             redirecturl = {
-                redirecturl: "Dashboard.DiplomaDashboard.GenuinenessCheckForm",
+                redirecturl: "index.GenuinenessCheckForm",
                 CertificateType: 8,
                 OrgMobile: $scope.OrganizationMobile
             }

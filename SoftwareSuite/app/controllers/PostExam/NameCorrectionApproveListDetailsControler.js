@@ -32,6 +32,29 @@
             }
         };
 
+
+        $scope.ReleasePin = function (PIN, CertificateTypeId, Id) {
+
+            var ReleasePin = PreExaminationService.ReleaseStudentServicesPin(PIN, CertificateTypeId, Id);
+            ReleasePin.then(function (response) {
+                try { var response = JSON.parse(response) } catch (err) { }
+                if (response.Table[0].ResponseCode == "200") {
+                    alert(response.Table[0].ResponseDesc);
+                    $scope.ApproveListDetails();
+                } else {
+                    alert(response.Table[0].ResponseDesc);
+                    $scope.ApproveListDetails();
+                }
+
+            }, function (err) {
+                $scope.ApproveListDetails();
+            });
+
+
+
+        }
+
+
         // remove and change class
         $scope.sortClass = function (col) {
             if ($scope.column == col) {

@@ -22,6 +22,10 @@
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription);
                     $scope.GetExamYearMonth();
+                }else
+                    if (response[0].ResponceCode == '400') {
+                        alert(response[0].ResponceDescription);
+                        $scope.GetExamYearMonth();
                 } else {
                     alert('Something Went Wrong')
                 }
@@ -69,6 +73,9 @@
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription)
                     $scope.GetExamYearMonth();
+                }else if (response[0].ResponceCode == '400') {
+                        alert(response[0].ResponceDescription);
+                        $scope.GetExamYearMonth();
                 } else {
                     alert('Something Went Wrong')
                 }

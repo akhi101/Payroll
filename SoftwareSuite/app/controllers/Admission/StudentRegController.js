@@ -69,6 +69,11 @@
                 alert('Please Upload photo')
             } else if ($scope.StudentReg.CandidateSign == null || $scope.StudentReg.CandidateSign == '') {
                 alert('Please Upload Sign')
+            } else if ($scope.StudentReg.StudentContact.length > 10) {
+                alert("Student Mobile number must be 10 digits")
+            } else if ($scope.StudentReg.ParentContact.length > 10) {
+                alert("Parent Mobile number must be 10 digits")
+            
             } else {
                 //alert("Updating Student Details");
                 //validation

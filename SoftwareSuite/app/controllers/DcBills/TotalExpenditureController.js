@@ -54,11 +54,13 @@
             $scope.FinalList = [];
             var loadDates = PreExaminationService.GetDcBillsAbstract($scope.monthyear, $scope.AcademicYear, $scope.ExaminationType);
             loadDates.then(function (res) {
-                var response = JSON.parse(res);
+                var response = JSON.parse(res)
+                    console.log(response)
                 if (response.Table4.length > 0 || response.Table9.length > 0 || response.Table7.length > 0 || response.Table10.length > 0) {
                    
                     $scope.CollegeWiseReport = response.Table7;
                     $scope.EventwiseReport = response.Table9;
+                    $scope.Eventrep = response.Table3;
                     $scope.DaywiseReport = response.Table4;
                     $scope.BanksReport = response.Table10;
                     $scope.RadioChange();
@@ -91,7 +93,13 @@
                 return _.extend(item, _.findWhere($scope.EventwiseReport, { ExamCenterCode: item.ExamCenterCode }));
             }); 
             
-            var mergedList2 = _.map($scope.CollegeWiseReport, function (item) {              
+            var mergedList4 = _.map($scope.Eventrep, function (item) {
+                return _.extend(item, _.findWhere(mergedList, { ExamCenterCode: item.ExamCenterCode }));
+            });
+            var mergedList5 = _.map($scope.CollegeWiseReport, function (item) {
+                return _.extend(item, _.findWhere(mergedList4, { ExamCenterCode: item.ExamCenterCode }));
+            });
+            var mergedList2 = _.map(mergedList5, function (item) {
                 return _.extend(item, _.findWhere(mergedList, { ExamCenterCode: item.ExamCenterCode }));
             }); 
 
@@ -101,17 +109,20 @@
             if ($scope.DaywiseReport.length > 0 && $scope.CollegeWiseReport.length > 0) {
                 $scope.FinalList = _.map(mergedList2, function (item) {
                     return _.extend(item, _.findWhere(mergedList3, { ExamCenterCode: item.ExamCenterCode }));
-                }); 
+                });
+                console.log($scope.FinalList)
                 } else if ($scope.DaywiseReport.length <= 0) {
                     $scope.FinalList = mergedList2;
                 } else if ($scope.CollegeWiseReport.length <= 0) {
-                    $scope.FinalList = mergedList3;
+                $scope.FinalList = mergedList3;
+               
                 } else {
                     $scope.FinalList = [];
                 }
            
             var TotalSessionalAmount = 0
             var TotalPracticalAmount = 0
+            var TotalSeatingCharges = 0
             var TotalEventwiseAmount = 0
           
             for (var i = 0; i < $scope.FinalList.length; i++) {
@@ -119,6 +130,9 @@
                     TotalSessionalAmount = TotalSessionalAmount + $scope.FinalList[i].TotalSessionalAmount;
                 if ($scope.FinalList[i].TotalPracticalAmount != null)
                     TotalPracticalAmount = TotalPracticalAmount + $scope.FinalList[i].TotalPracticalAmount;
+                if ($scope.FinalList[i].TotalSeatingCharges != null)
+                    TotalSeatingCharges = TotalSeatingCharges + $scope.FinalList[i].TotalSeatingCharges;
+                
                 if ($scope.FinalList[i].TotalEventwiseAmount != null)
                     TotalEventwiseAmount = TotalEventwiseAmount + $scope.FinalList[i].TotalEventwiseAmount;
                
@@ -126,8 +140,9 @@
 
             $scope.TotalSessionalAmount = Math.round(TotalSessionalAmount);
             $scope.TotalPracticalAmount = Math.round(TotalPracticalAmount);
-            $scope.TotalEventwiseAmount = Math.round(TotalEventwiseAmount);
-            $scope.TotalAmount = Math.round(TotalSessionalAmount + TotalPracticalAmount + TotalEventwiseAmount);
+            $scope.TotalSeatingCharges = Math.round(TotalSeatingCharges);
+            $scope.TotalEventwiseAmount = Math.round(TotalEventwiseAmount) + Math.round(TotalSeatingCharges);
+            $scope.TotalAmount = Math.round(TotalSessionalAmount + TotalPracticalAmount + TotalEventwiseAmount + TotalSeatingCharges);
             $scope.TotalPercentage = Math.round($scope.TotalAmount * $scope.percent);
 
             console.log($scope.TotalPercentage)

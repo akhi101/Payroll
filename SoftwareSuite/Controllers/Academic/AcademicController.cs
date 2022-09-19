@@ -49,20 +49,23 @@ namespace SoftwareSuite.Controllers.Academic
         private string countryCode;
         #region Get Methods
         [HttpGet, ActionName("GetElectiveSubjects")]
-        public string GetElectiveSubjects(int semId, int schemeId, int branchId, string collegeCode)
+        public string GetElectiveSubjects(int semId, int schemeId, int branchId, string collegeCode,int AcademicYearID,int SessionID)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@semid", semId);
                 param[1] = new SqlParameter("@schemeid", schemeId);
                 param[2] = new SqlParameter("@branchid", branchId);
                 param[3] = new SqlParameter("@collegeCode", collegeCode);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_ACC_ELECTIVES", param);
+                param[4] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[5] = new SqlParameter("@SessionID", SessionID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_ACC_ELECTIVES", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
+           
             {
                 return ex.Message;
             }
@@ -184,7 +187,7 @@ namespace SoftwareSuite.Controllers.Academic
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Pin", Pin);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_Attendance_GET_PercentageByPin", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_Attendance_GET_PercentageByPin100", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

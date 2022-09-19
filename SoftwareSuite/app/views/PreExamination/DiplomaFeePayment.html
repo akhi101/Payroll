@@ -116,7 +116,7 @@
                     </label>
                     <select class="form-control" ng-model="ExamMonthYea" ng-change="ChangeData(ExamMonthYea)" name="StudentType">
                         <option value="" selected>Select Exam Month Year</option>
-                        <option ng-repeat="data in GetExamMonthYear" value="{{data.Id}}">
+                        <option ng-repeat="data in GetExamMonthYear" value="{{data}}">
                             {{data.ExamYearMonth}}
                         </option>
                         <!--ng-options="Student.type for Student in StudentType">-->

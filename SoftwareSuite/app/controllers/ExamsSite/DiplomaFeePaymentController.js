@@ -43,7 +43,10 @@
             document.getElementById("captcha").appendChild(canv); // adds the canvas to the body element
         }
 
-
+        $scope.OpenPage = function () {
+           // window.open("https://sbtet.telangana.gov.in/index.html#!/index/FeeReciept", "_blank")
+            $state.go('index.FeeReciept')
+        }
 
 
         $window.validateRecaptcha = $scope.validateRecaptcha;
@@ -459,6 +462,21 @@
             return this;
         }
 
+        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1,1);
+        loadHallticket.then(function (response) {
+            if (response.Table[0].ResponceCode == '200') {
+                $scope.GetExamMonthYear = [];
+                $scope.GetExamMonthYear = response.Table1;
+            } else {
+                $scope.GetExamMonthYear = [];
+                alert("No Exam Month Year found on this Record");
+            }
+        },
+            function (error) {
+                alert("error while loading Exam Month Years");
+                console.log(error);
+            });
+
         $scope.changedVal = function () {
             $scope.DetailsFound = false;
             var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
@@ -868,7 +886,7 @@
             var subMarchantid = "TSDOFP";
             $localStorage.PaymentGatewayResponse = {};
             redirecturl = {
-                redirecturl: "Dashboard.DiplomaDashboard.DiplomaFeePayment"
+                redirecturl: "index.DiplomaFeePayment"
             }
             $localStorage.PaymentGatewayResponse = redirecturl;
 
@@ -981,7 +999,11 @@
 
                                     feepayingpins = feepayingpins.substring(0, feepayingpins.length - 1);
                                     $scope.feepayingpins = feepayingpins;
-
+                                    if ($scope.userJsonData.Table[0].ResponceCode == '400') {
+                                       
+                                        alert($scope.userJsonData.Table[0].ResponceDescription)
+                                        return;
+                                    }
                                     $scope.challan = $scope.userJsonData.Table[0].ChalanaNumber;
                                     $scope.AmountDB = $scope.userJsonData.Table1[0].TotalAmount;
                                     $scope.FinalAmountDB = $scope.userJsonData.Table1[0].TotalAmount;
@@ -1040,7 +1062,11 @@
 
                                 feepayingpins = feepayingpins.substring(0, feepayingpins.length - 1);
                                 $scope.feepayingpins = feepayingpins;
+                                if ($scope.userJsonData.Table[0].ResponceCode == '400') {
 
+                                    alert($scope.userJsonData.Table[0].ResponceDescription)
+                                    return;
+                                }
                                 $scope.challan = $scope.userJsonData.Table[0].ChalanaNumber;
                                 $scope.AmountDB = $scope.userJsonData.Table1[0].TotalAmount;
                                 $scope.FinalAmountDB = $scope.userJsonData.Table1[0].TotalAmount;

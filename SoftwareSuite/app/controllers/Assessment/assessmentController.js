@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("AssessmentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, MarksEntryService, MenuService, AssessmentService, Excel, $timeout) {
         var authData = $localStorage.authorizationData;
-       
+        console.log(authData)
         $scope.ExamCategory = [];
         $scope.userName = authData.userName;
         $scope.College_Code = authData.College_Code;

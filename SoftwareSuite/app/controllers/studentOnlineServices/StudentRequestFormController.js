@@ -2013,10 +2013,15 @@
                 if (response[0].ResponseCode == '400') {
                     $scope.ProceedDisable = false;
                     $scope.loader = false;
-                    alert('Already Applied for Certificate')
+                    alert(response[0].ResponceDescription)
                 } else {
                     try {
                         var response = JSON.parse(response);
+                        if (response.Table[0].ResponceCode == '400') {
+                            $scope.ProceedDisable = false;
+                            $scope.loader = false;
+                            alert(response.Table[0].ResponceDescription)
+                        }
                     } catch (err) {
                         $scope.ProceedDisable = false;
                         $scope.loader = false;
@@ -2060,10 +2065,15 @@
                             if (response[0].ResponseCode == '400') {
                                 $scope.ProceedDisable = false;
                                 $scope.loader = false;
-                                alert('Already Applied for Certificate')
+                                alert(response[0].ResponceDescription)
                             } else {
                                 try {
                                     var response = JSON.parse(response);
+                                    if (response.Table[0].ResponceCode == '400') {
+                                        $scope.ProceedDisable = false;
+                                        $scope.loader = false;
+                                        alert(response.Table[0].ResponceDescription)
+                                    }
                                 } catch (err) {
                                     $scope.ProceedDisable = false;
                                     $scope.loader = false;

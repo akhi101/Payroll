@@ -111,7 +111,7 @@ define(['app'], function (app) {
                         $scope.SubjectList = response.Table2;
                         $scope.FeedBackDescriptions = response.Table3;
                     } else {
-                        alert("Not Eligible To give the Feedback");
+                        alert("Faculty Data Not Found");
                         $scope.StudentData = [];
                         $scope.SubjectList = [];
                         $scope.FeedBackDescriptions = [];

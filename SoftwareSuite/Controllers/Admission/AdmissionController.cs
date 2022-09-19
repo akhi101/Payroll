@@ -607,6 +607,24 @@ namespace SoftwareSuite.Controllers.Admission
         }
 
 
+        [HttpGet, ActionName("GetReleaseAttendeeIdBypin")]
+        public string GetReleaseAttendeeIdBypin(string Pin)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_RELEASE_ATTENDEEID_BY_PIN", param);
+
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_RELEASE_ATTENDEEID_BY_PIN", 0, ex.Message);
+                return ex.Message;
+            }
+        }
 
         [HttpGet, ActionName("GetAdmissionStatistics")]
         public string GetAdmissionStatistics(int AcademicId)
@@ -973,7 +991,7 @@ namespace SoftwareSuite.Controllers.Admission
             parms.LANG = "N";
             parms.PFR = "N";
             parms.VER = "2.5";
-            parms.SERTYPE = ReqData.ServiceType;
+            parms.SERTYPE = ReqData.ServiceType; //Auth with finger 24  or ekyc 25
             parms.AADHAARID = ReqData.AadhaarNo;
             parms.SLK = ConfigurationManager.AppSettings["SLK"];
             parms.RRN = DateTime.Now.ToString("yyyyMMddHHmmssfff");

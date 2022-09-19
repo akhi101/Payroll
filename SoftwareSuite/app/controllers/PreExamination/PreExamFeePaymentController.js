@@ -219,7 +219,7 @@ define(['app'], function (app) {
 
                 $scope.dataRegular = true;
                 $scope.ExamMonthYearId = ExamMonthYear
-                var getAdmissionsubmod = PreExaminationService.getPayExamFee(authData.SysUserID, $scope.Student.id, $scope.current_schemeid, $scope.ExamMonthYearId);
+                var getAdmissionsubmod = PreExaminationService.getPayExamFee(authData.SysUserID, $scope.Student.id, $scope.current_schemeid, $scope.ExamMonthYear);
                 getAdmissionsubmod.then(function (Usersdata) {
                     //$scope.userName = Usersdata;
 
@@ -295,6 +295,7 @@ define(['app'], function (app) {
 
         $scope.ChangeData = function (data) {
             var Data = JSON.parse(data)
+      //      console.log(Data)
             $scope.ExamMonthYear = Data.Id
             $scope.ExamMonthYearName = Data.ExamYearMonth
 

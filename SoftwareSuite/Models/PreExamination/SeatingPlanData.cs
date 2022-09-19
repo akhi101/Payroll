@@ -10,6 +10,7 @@ namespace SoftwareSuite.Models.PreExamination
         public int Id { get; set; }
         public string HallName { get; set; }
         public int RowId { get; set; }
+        public int HallSno { get; set; }
         public int ColumnId { get; set; }
         public int StudentPosition { get; set; }
         public string Pin { get; set; }
@@ -25,6 +26,16 @@ namespace SoftwareSuite.Models.PreExamination
         public int semid { get; set; }
         public string CollegeCode { get; set; }
         public string CollegeName { get; set; }
+
+    }
+
+    public class BranchData
+    {
+        public string BranchCode { get; set; }
+
+        public int Alloted { get; set; }
+        public string HallName { get; set; }
+
 
     }
 }

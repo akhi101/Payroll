@@ -14,7 +14,7 @@ define(['app'], function (app) {
         $scope.ispromotional = false;
         $scope.PaymentStudent = [];
 
-        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
+        var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, 1);
         loadHallticket.then(function (response) {
             if (response.Table[0].ResponceCode == '200') {
                 $scope.GetExamMonthYear = [];
@@ -995,7 +995,11 @@ define(['app'], function (app) {
 
                                     feepayingpins = feepayingpins.substring(0, feepayingpins.length - 1);
                                     $scope.feepayingpins = feepayingpins;
+                                    if ($scope.userJsonData.Table[0].ResponceCode == '400') {
 
+                                        alert($scope.userJsonData.Table[0].ResponceDescription)
+                                        return;
+                                    }
                                     $scope.challan = $scope.userJsonData.Table[0].ChalanaNumber;
                                     $scope.AmountDB = $scope.userJsonData.Table1[0].TotalAmount;
                                     $scope.FinalAmountDB = $scope.userJsonData.Table1[0].TotalAmount;
@@ -1012,7 +1016,7 @@ define(['app'], function (app) {
                                     }
                                 }
                                 else if ($scope.userJsonData.Table[0].ResponceCode !== undefined) {
-                                    alert($scope.userJsonData.Table[0].Message);
+                                    alert($scope.userJsonData.Table[0].ResponceDescription);
                                 }
                             }
                         }
@@ -1054,7 +1058,11 @@ define(['app'], function (app) {
 
                                 feepayingpins = feepayingpins.substring(0, feepayingpins.length - 1);
                                 $scope.feepayingpins = feepayingpins;
+                                if ($scope.userJsonData.Table[0].ResponceCode == '400') {
 
+                                    alert($scope.userJsonData.Table[0].ResponceDescription)
+                                    return;
+                                }
                                 $scope.challan = $scope.userJsonData.Table[0].ChalanaNumber;
                                 $scope.AmountDB = $scope.userJsonData.Table1[0].TotalAmount;
                                 $scope.FinalAmountDB = $scope.userJsonData.Table1[0].TotalAmount;
@@ -1071,7 +1079,7 @@ define(['app'], function (app) {
                                 }
                             }
                             else if ($scope.userJsonData.Table[0].ResponceCode !== undefined) {
-                                alert($scope.userJsonData.Table[0].Message);
+                                alert($scope.userJsonData.Table[0].ResponceDescription);
                             }
                         }
                         else {

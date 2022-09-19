@@ -242,6 +242,27 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("FindchalanaNo")]
+        public HttpResponseMessage FindchalanaNo(string chalanaNo)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@subscriberid", chalanaNo);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_S2SReceipt", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+              
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_GET_S2SReceipt", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetStudentServicesCounts")]
         public HttpResponseMessage GetStudentServicesCounts()
         {
@@ -354,8 +375,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-              [HttpGet, ActionName("GetAsssessmentConsolidatedReport")]
+        [HttpGet, ActionName("GetChallanNumbers")]
+        public string GetChallanNumbers(int PaymentTypeID,int PaymentSubTypeID,string PIN,int ExamMonthYearID=0)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@PaymentTypeID", PaymentTypeID);
+                param[1] = new SqlParameter("@PaymentSubTypeID", PaymentSubTypeID);
+                param[2] = new SqlParameter("@PIN", PIN);
+                param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_DownloadChalanNumber", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GET_DownloadChalanNumber", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetAsssessmentConsolidatedReport")]
         public string GetAsssessmentConsolidatedReport(int AcademicyearId,string collegecode,int branchId,int  schemeid,int semid,int ExamType)
         {
             List<person> p = new List<person>();
@@ -477,8 +519,63 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-         [HttpGet, ActionName("SetSemTransfer")]
+        [HttpGet, ActionName("GetTwoYearsOdcData")]
+        public string GetTwoYearsOdcData( string FromDate, string todate)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FromDate", FromDate);
+                param[1] = new SqlParameter("@todate", todate);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_GET_2YearCertificateODCData", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+
+                    //var Date = DateTime.Now.ToString("dd-MM-yyyy_hh:mm:ss");
+                    var filename = "Two_Years_ODC_Data" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SPB_GET_2YearCertificateODCData", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("SetSemTransfer")]
         public string SetSemTransfer(int AcademicYearId, string SemId)
         {
             try
@@ -2360,6 +2457,45 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
+
+       
+
+        [HttpPost, ActionName("UploadHomePageSlides")]
+        public string UploadHomePageSlides([FromBody] JsonObject data)
+        {
+            try
+            {
+
+                var CircularUrl = string.Empty;
+                string relativePath = string.Empty;
+                var path = ConfigurationManager.AppSettings["HomeSlidesPath"];
+                var Name = data["FileName"];
+                 var CircularName = Name+".Png";
+                bool folder = Directory.Exists(path);
+                if (!folder)
+                    Directory.CreateDirectory(path);
+                string CoeSignPath = Path.Combine(path, CircularName);
+                string photoPath = data["photoPath"].ToString();
+                byte[] PrincipalimageBytes = Convert.FromBase64String(photoPath);
+                File.WriteAllBytes(CoeSignPath, PrincipalimageBytes);
+                relativePath = CoeSignPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                CircularUrl = relativePath;
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@photoPath", CircularUrl);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("usp_set_HomePageSlides", param);
+               
+               
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
+
+
 
 
 
@@ -4535,6 +4671,25 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("getTwoYearsFeePaymentStatus")]
+        public string getTwoYearsFeePaymentStatus(string Pin)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_60PercentCertificateFeepaidStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("GetNoDataCertificateApprovalListByScheme")]
         public string GetNoDataCertificateApprovalListByScheme(string Scheme, int datatype)
         {
@@ -5018,6 +5173,28 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@ApplicationNo", ApplicationNo);
                 param[1] = new SqlParameter("@userType", userType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_VerifyTranscript", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("SetTwoYearsCertificateVerifyStatus")]
+        public string SetTwoYearsCertificateVerifyStatus(string PIN, int userType)
+        {
+
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@PIN", PIN);
+                param[1] = new SqlParameter("@userType", userType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_Verify2YearCertificate", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -5756,6 +5933,55 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpPost, ActionName("TwoYearsCertificateSetApproveStatus")]
+        public string TwoYearsCertificateSetApproveStatus([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    jsonArray.Add(jobject);
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+
+                param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
+                param[1] = new SqlParameter("@userType", request["userType"]);
+                param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
+                param[3] = new SqlParameter("@Scheme", request["Scheme"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_2YearCertificate_ApproveStatus", param);
+                //string Msg = "PIN : {0}, Your application request for Duplicate Marks Memo is Approved. Secretary, SBTET TS.";
+                //string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "1009")
+                //{
+                //    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    {
+                //        var Message = string.Format(Msg, dt.Tables[1].Rows[i]["Pin"].ToString());
+                //        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //        {
+                //            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161786840913519";
+                //            HttpClient client = new HttpClient();
+                //            client.BaseAddress = new Uri(url);
+                //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                //        }
+                //    }
+                //}
+                return JsonConvert.SerializeObject(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpPost, ActionName("DMMSetApproveStatusReject")]
         public string DMMSetApproveStatusReject([FromBody] JsonObject request)
         {
@@ -5794,6 +6020,54 @@ namespace SoftwareSuite.Controllers.PreExamination
                         }
                     }
                 }
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("TwoYearsCertificateSetApproveStatusReject")]
+        public string TwoYearsCertificateSetApproveStatusReject([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    jsonArray.Add(jobject);
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
+                param[1] = new SqlParameter("@userType", request["userType"]);
+                param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
+                param[3] = new SqlParameter("@Scheme", request["Scheme"]);
+                param[4] = new SqlParameter("@Remarks", request["Remarks"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_2YearCertificate_ApproveStatus", param);
+                //string Msg = "PIN : {2}, Your application request for Duplicate Marks Memo is {0} due to {1}. Secretary, SBTET TS.";
+                //string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200")
+                //{
+                //    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    {
+                //        var Message = string.Format(Msg, "Rejected", request["Remarks"].ToString(), dt.Tables[1].Rows[i]["Pin"].ToString());
+                //        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //        {
+                //            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161786852990603";
+                //            HttpClient client = new HttpClient();
+                //            client.BaseAddress = new Uri(url);
+                //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                //        }
+                //    }
+                //}
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -6357,6 +6631,24 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        [HttpGet, ActionName("getTwoYearsCertificateDetails")]
+        public string getTwoYearsCertificateDetails(string pin)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@pin", pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_2YearsCertificateDataByPin", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
 
         [HttpGet, ActionName("getNCdetails")]
         public string getNCdetails(string Pin)
@@ -6852,14 +7144,36 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        [HttpGet, ActionName("CertificateFeePaymentChallanNumber")]
-        public HttpResponseMessage CertificateFeePaymentChallanNumber(string pin)
+        [HttpGet, ActionName("GetTwoYearsPinDetails")]
+        public HttpResponseMessage GetTwoYearsPinDetails(string pin)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@pin", pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_GetStudentDetailsFor60PercentCertificate", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_GET_GetStudentDetailsFor60PercentCertificate", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+
+        }
+
+        [HttpGet, ActionName("CertificateFeePaymentChallanNumber")]
+        public HttpResponseMessage CertificateFeePaymentChallanNumber(string pin,int CertificateType=0)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@pin", pin);
+                param[1] = new SqlParameter("@CertificateType", CertificateType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_CertificateFeePaymentChallanNumber", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -7165,6 +7479,37 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@datatype", datatype);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_CertificateFeePaymentReports", param);
                 var filename = Scheme + "CertificateFeePaymentReport" + "_" + Guid.NewGuid() + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(60000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+
+            }
+
+        }
+
+        [HttpGet, ActionName("TwoYearsFeePaymentReports")]
+        public string TwoYearsFeePaymentReports(string Scheme, int datatype,int userType)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@Scheme", Scheme);
+                param[1] = new SqlParameter("@datatype", datatype);
+                param[2] = new SqlParameter("@userType", userType);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SPB_GET_2YearCertificateApprovePinListExcel", param);
+                var filename = Scheme + "TwoYearsFeePaymentReport" + "_" + Guid.NewGuid() + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
@@ -10462,6 +10807,31 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        [HttpGet, ActionName("ReleaseSixthSem")]
+        public string ReleaseSixthSem(int AcademicYearId, string CollegeCode, int BranchId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[2] = new SqlParameter("@BranchId", BranchId);
+                DataSet dt = new DataSet();
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_Release6thSemStudied", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SET_Release6thSemStudied", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        
+
+
         [HttpPost, ActionName("getChanllanForExamFee")]
         public string getChanllanForExamFee(JsonObject JsonObj)
         {
@@ -10711,9 +11081,9 @@ namespace SoftwareSuite.Controllers.PreExamination
 
             try
             {
-                string msgAbove75 = "{0} ({1}) Rs. {2} received. Download your H.T. for {3} from sbtet.telangana.gov.in. Secretary, SBTET TS.";
-                string msgbelow75 = "{0} ({1}) Rs. {2} received. Download your H.T. after {3} subject to  meeting  attendance eligibility  from sbtet.telangana.gov.in. Secretary, SBTET TS.";
-                string msgbelowStanderd = "{0} ({1}) Rs. {2} received. Download your H.T from sbtet.telangana.gov.in. Secretary, SBTET TS.";
+                string msgAbove75 = "{0} {1} Rs {2} received.Download your HT {3} from sbtet.telangana.gov.in Secretary SBTET, TS";
+                string msgbelow75 = "{0} {1} Rs{2} received.Download your HT after Last working day, subject to eligibility as per attendance from sbtet.telangana.gov.in. Secretary, SBTET TS.";
+                string msgbelowStanderd = "{0} {1} Rs{2} received. Download your Hallticket from sbtet.telangana.gov.in.Secretary, SBTET TS.";
                 string Message = string.Empty;
                 var param1 = new SqlParameter[1];
                 param1[0] = new SqlParameter("@ChallanNumber", ChallanNumber);
@@ -10721,29 +11091,35 @@ namespace SoftwareSuite.Controllers.PreExamination
                 DataTable dt = db1.ReturnDataWithStoredProcedureTable("USP_SFP_GET_StudentPhoneNumbers", param1);
                 int percentage = 0;
                 int StudentTyepId = 0;
+                string StudentContact = "";
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     int.TryParse(dt.Rows[i]["PresumptivePercentage"].ToString(), out percentage);
                     int.TryParse(dt.Rows[i]["StudentTyepId"].ToString(), out StudentTyepId);
-
+                    StudentContact = dt.Rows[i]["StudentContact"].ToString();
+                    string urlParameters = "";
                     if (StudentTyepId == 2)
                     {
+
                         Message = string.Format(msgbelowStanderd, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"]);
+                         urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087135060103";
                     }
                     else if (StudentTyepId == 1)
                     {
                         if (percentage >= 75)
                         {
                             Message = string.Format(msgAbove75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"], dt.Rows[i]["MMYY_Exam"]);
+                             urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087071082321";
                         }
                         else
                         {
                             Message = string.Format(msgbelow75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"], "02-11-2019");
+                             urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087123571784";
                         }
                     }
                     //Message = string.Format(msgAbove75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"],"02-11-2019");
                     string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
-                    string urlParameters = "?mobile=" + dt.Rows[i]["StudentContact"] + "&message=" + Message;
+                    //string urlParameters = "?mobile=" + dt.Rows[i]["StudentContact"] + "&message=" + Message;
                     //string urlParameters = "?mobile=9491408259&message=" + Message;
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
@@ -10816,8 +11192,52 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-              [HttpGet, ActionName("GetSemsBySchemePin")]
+        [HttpGet, ActionName("GetTwoYearsListByScheme")]
+        public HttpResponseMessage GetTwoYearsListByScheme(string userType)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@userType", userType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_2YearCertificateListByScheme", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_GET_2YearCertificateListByScheme", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetTwoYearsApproveList")]
+        public HttpResponseMessage GetTwoYearsApproveList(string Scheme, int datatype, int userType)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@Scheme", Scheme);
+                param[1] = new SqlParameter("@datatype", datatype);
+                param[2] = new SqlParameter("@userType", userType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_GET_2YearCertificateApprovePinList", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_GET_2YearCertificateListByScheme", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+
+        [HttpGet, ActionName("GetSemsBySchemePin")]
         public HttpResponseMessage GetSemsBySchemePin(string pin, string Scheme)
         {
             try
@@ -12508,6 +12928,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         public string SeatingPlanPdf(int StudentTypeId, string CollegeCode, string ExamDate,string timeSlot,int ExamMonthYearId,int ExamTypeId)
         {
             var res = string.Empty;
+            var ResponseDescription = string.Empty;
             try
             {
              
@@ -12520,16 +12941,20 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[5] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SeatingPlanGeneration", param);
+                ResponseDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                 SeatingPlan SeatingPlan = new SeatingPlan();
                 var SeatingData = DataTableHelper.ConvertDataTable<SeatingPlanData>(ds?.Tables[1]);
-                var pdf = SeatingPlan.SeatingPlanPdf(SeatingData);
+                var BranchData = DataTableHelper.ConvertDataTable<BranchData>(ds?.Tables[3]);
+                var pdf = SeatingPlan.SeatingPlanPdf(SeatingData, BranchData);
                 var excelpath = SeatingPlanAbtract(StudentTypeId, CollegeCode, ExamDate, timeSlot, ExamMonthYearId, ExamTypeId);
-                res = JsonConvert.SerializeObject("{\"Status\" : \"200\",\"seatingpdf\" : \"" + pdf + "\",\"excelpath\" : \"" + excelpath + "\" }");
+               
+
+                res = JsonConvert.SerializeObject("{\"Status\" : \"200\",\"seatingpdf\" : \"" + pdf + "\",\"excelpath\" : \"" + excelpath + "\",\"ResponseDescription\" : \"" + ResponseDescription + "\" }");
                 return res;             
             }
             catch (Exception ex)
             {
-                res = JsonConvert.SerializeObject("{\"Status\" : \"400\",\"seatingpdf\" : \" \",\"excelpath\" : \"\" }");
+                res = JsonConvert.SerializeObject("{\"Status\" : \"400\",\"seatingpdf\" : \" \",\"excelpath\" : \"\",\"ResponseDescription\" : \"" + ResponseDescription + "\" }");
                 return res;
             }
         }
@@ -12606,7 +13031,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(600000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
