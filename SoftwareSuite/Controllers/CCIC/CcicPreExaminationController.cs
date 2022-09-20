@@ -14,6 +14,8 @@ using RestSharp;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Xml;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -25,19 +27,19 @@ namespace SoftwareSuite.Controllers.CCIC
             public int AcademicYearId { get; set; }
             public int ExamMonthYearId { get; set; }
             public int CourseId { get; set; }
-            public int StudentType { get; set; }        
+            public int StudentType { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public DateTime LateFeeDate { get; set; }
             public DateTime TatkalDate { get; set; }
             public DateTime PremiumTatkalDate { get; set; }
             public double Fee { get; set; }
-            public double LateFee { get; set; }            
+            public double LateFee { get; set; }
             public double TatkalFee { get; set; }
             public double PremiumTatkalFee { get; set; }
             public double CertificateFee { get; set; }
-            
-            
+
+
         }
 
         [HttpGet, ActionName("GetCcicAcademicYears")]
@@ -271,7 +273,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetInsRegisterReportCoursesCount")]
-        public string GetInsRegisterReportCoursesCount(int InstitutionID,int AcademicYearID,int Batch)
+        public string GetInsRegisterReportCoursesCount(int InstitutionID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -342,7 +344,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetRegisterCoursesCount")]
-        public string GetRegisterCoursesCount(int InstitutionID,int AcademicYearID, int Batch)
+        public string GetRegisterCoursesCount(int InstitutionID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -370,7 +372,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@InstitutionID", InstitutionID);
                 param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[2] = new SqlParameter("@Batch", Batch);
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportCoursesCount", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -381,7 +383,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetAdminRegisterReportData")]
-        public string GetAdminRegisterReportData(int InstitutionID, int CourseID,int ReportTypeID,int AcademicYearID, int Batch)
+        public string GetAdminRegisterReportData(int InstitutionID, int CourseID, int ReportTypeID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -438,7 +440,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetAYBatchExamMonthYear")]
-        public string GetAYBatchExamMonthYear(int AcademicYearID,int Batch)
+        public string GetAYBatchExamMonthYear(int AcademicYearID, int Batch)
         {
             try
             {
@@ -484,7 +486,7 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("AddExamMonthYear")]
-        public string AddExamMonthYear(int AcademicYearID,int Batch,string ExamMonthYearName,string UserName)
+        public string AddExamMonthYear(int AcademicYearID, int Batch, string ExamMonthYearName, string UserName)
         {
             try
             {
@@ -614,7 +616,7 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("AddAcademicYear")]
-        public string AddAcademicYear(int AcademicStartYear, string AcademicYear, DateTime AcademicYearStartDate, DateTime AcademicYearEndDate,bool CurrentAcademicYear, string UserName)
+        public string AddAcademicYear(int AcademicStartYear, string AcademicYear, DateTime AcademicYearStartDate, DateTime AcademicYearEndDate, bool CurrentAcademicYear, string UserName)
         {
             try
             {
@@ -626,8 +628,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[3] = new SqlParameter("@AcademicYearEndDate", AcademicYearEndDate);
                 param[4] = new SqlParameter("@CurrentAcademicYear", CurrentAcademicYear);
                 param[5] = new SqlParameter("@UserName", UserName);
-               
-               
+
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_AcademicYear", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -648,7 +650,7 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[32];
-                param[0] = new SqlParameter("@ApplicationNumber",data["ApplicationNumber"]);
+                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
                 param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
                 param[2] = new SqlParameter("@CourseID", data["CourseID"]);
                 param[3] = new SqlParameter("@CourseQualificationID", data["CourseQualificationID"]);
@@ -680,7 +682,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[29] = new SqlParameter("@SSCCertificate", data["SSCCertificate"]);
                 param[30] = new SqlParameter("@QualificationCertificate", data["QualificationCertificate"]);
                 param[31] = new SqlParameter("@ExperienceCertificate", data["ExperienceCertificate"]);
-                
+
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
                 return JsonConvert.SerializeObject(dt);
@@ -693,6 +695,120 @@ namespace SoftwareSuite.Controllers.CCIC
             }
 
         }
+        //public class filelist
+        //{
+        //    public int fileindex { get; set; }
+        //    public string file { get; set; }
+        //}
+
+
+        //public class CertificateReqAtt
+        //{
+        //  public string ApplicationNumber { get; set; }
+
+        //    public int InstitutionID { get; set; }
+        //    public int CourseID { get; set; }
+        //    public int CourseQualificationID { get; set; }
+        //    public int CourseExperienceID { get; set; }
+        //    public int SSC { get; set; }
+        //    public string SSCHallticketNumber { get; set; }
+        //    public int SSCPassedYear { get; set; }
+        //    public string SSCPassedType { get; set; }
+        //    public string StudentName { get; set; }
+        //    public string FatherName { get; set; }
+        //    public string MotherName { get; set; }
+        //    public DateFormat DateofBirth { get; set; }
+        //    public string SSCDateofBirth { get; set; }
+        //    public string Gender { get; set; }
+        //    public int AadharNumber { get; set; }
+        //    public string HouseNumber { get; set; }
+        //    public string Street { get; set; }
+        //    public string Landmark { get; set; }
+        //    public string Village { get; set; }
+        //    public int Pincode { get; set; }
+        //    public string District { get; set; }
+        //    public string AddressState { get; set; }
+        //    public string StudentMobile { get; set; }
+        //    public string StudentEmail { get; set; }
+        //    public bool SSCValidated { get; set; }
+
+        //    public string UserName { get; set; }
+        //    public string StudentPhoto { get; set; }
+        //    public string StudentSign { get; set; }
+        //    public string SSCCertificate { get; set; }
+        //    public string QualificationCertificate { get; set; }
+        //    public string ExperienceCertificate { get; set; }
+        //    public List<filelist> filedata { get; set; }
+
+
+        //}
+        //[HttpPost, ActionName("AddStudentDetails")]
+        //public string AddStudentDetails([FromBody] CertificateReqAtt CertificateReqAtt)
+        //{
+        //    try
+        //    {
+        //        var fileDat = new List<filelist>();
+        //        int size = CertificateReqAtt.filedata.Count;
+        //        var file = string.Empty;
+        //        for (int i = 0; i < size; i++)
+        //        {
+        //            var filename = CertificateReqAtt.ApplicationNumber + "_" + Guid.NewGuid() + ".jpg";
+        //            var path = ConfigurationManager.AppSettings["certFolderPath"];
+        //            bool folderExists = Directory.Exists(path);
+        //            if (!folderExists)
+        //                Directory.CreateDirectory(path);
+        //            string imgPath = Path.Combine(path, filename);
+        //            byte[] imageBytes = Convert.FromBase64String(CertificateReqAtt.filedata[i].file);
+        //            File.WriteAllBytes(imgPath, imageBytes);
+        //            file += filename + ',';
+        //        }
+        //        var dbHandler = new ccicdbHandler();
+        //        var param = new SqlParameter[32];
+        //        param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
+        //        param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
+        //        param[2] = new SqlParameter("@CourseID", CertificateReqAtt.CourseID);
+        //        param[3] = new SqlParameter("@CourseQualificationID", CertificateReqAtt.CourseQualificationID);
+        //        param[4] = new SqlParameter("@CourseExperienceID", CertificateReqAtt.CourseExperienceID);
+        //        param[5] = new SqlParameter("@SSC", CertificateReqAtt.SSC);
+        //        param[6] = new SqlParameter("@SSCHallticketNumber", CertificateReqAtt.SSCHallticketNumber);
+        //        param[7] = new SqlParameter("@SSCPassedYear", CertificateReqAtt.SSCPassedYear);
+        //        param[8] = new SqlParameter("@SSCPassedType", CertificateReqAtt.SSCPassedType);
+        //        param[9] = new SqlParameter("@StudentName", CertificateReqAtt.StudentName);
+        //        param[10] = new SqlParameter("@FatherName", CertificateReqAtt.FatherName);
+        //        param[11] = new SqlParameter("@MotherName", CertificateReqAtt.MotherName);
+        //        param[12] = new SqlParameter("@DateofBirth", CertificateReqAtt.DateofBirth);
+        //        param[13] = new SqlParameter("@SSCDateofBirth", CertificateReqAtt.SSCDateofBirth);
+        //        param[14] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
+        //        param[15] = new SqlParameter("@AadharNumber", CertificateReqAtt.AadharNumber);
+        //        param[16] = new SqlParameter("@HouseNumber", CertificateReqAtt.HouseNumber);
+        //        param[17] = new SqlParameter("@Street", CertificateReqAtt.Street);
+        //        param[18] = new SqlParameter("@Landmark", CertificateReqAtt.Landmark);
+        //        param[19] = new SqlParameter("@Village", CertificateReqAtt.Village);
+        //        param[20] = new SqlParameter("@Pincode", CertificateReqAtt.Pincode);
+        //        param[21] = new SqlParameter("@District", CertificateReqAtt.District);
+        //        param[22] = new SqlParameter("@AddressState", CertificateReqAtt.AddressState);
+        //        param[23] = new SqlParameter("@StudentMobile", CertificateReqAtt.StudentMobile);
+        //        param[24] = new SqlParameter("@StudentEmail", CertificateReqAtt.StudentEmail);
+        //        param[25] = new SqlParameter("@SSCValidated", CertificateReqAtt.SSCValidated);
+        //        param[26] = new SqlParameter("@UserName", CertificateReqAtt.UserName);
+        //        param[27] = new SqlParameter("@StudentPhoto", CertificateReqAtt.StudentPhoto);
+        //        param[28] = new SqlParameter("@StudentSign", CertificateReqAtt.StudentSign);
+        //        param[29] = new SqlParameter("@SSCCertificate", CertificateReqAtt.SSCCertificate);
+        //        param[30] = new SqlParameter("@QualificationCertificate", CertificateReqAtt.QualificationCertificate);
+        //        param[31] = new SqlParameter("@ExperienceCertificate", CertificateReqAtt.ExperienceCertificate);
+
+
+        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Add_StudntDetails", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
 
         [HttpPost, ActionName("GetViewStudentDetails")]
         public string GetViewStudentDetails([FromBody] JsonObject data)

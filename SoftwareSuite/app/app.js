@@ -131,7 +131,7 @@
         if (authData == undefined) {
             //$state.transitionTo("login", null, { notify: true });
             //  $state.go('login');
-            $state.go('index');
+            $state.go('CcicLogin');
             //$state.go('StudentResult');
         };
 

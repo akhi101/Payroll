@@ -1,9 +1,9 @@
 ﻿define(['app'], function (app) {
-    app.controller("EditStdDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("EditStudentDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
-        var tempData4 = $localStorage.TempData4;
+        var tempData1 = $localStorage.TempData1;
         $scope.InstitutionID = authData.InstitutionID;
 
 
@@ -11,7 +11,8 @@
         $ctrl.$onInit = () => {
             //$scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.Mode();
-            $scope.Modify();
+            $scope.coursedetails = true;
+            //$scope.Modify();
             /*$scope.EditStudentDetails();*/
 
         }
@@ -19,7 +20,77 @@
         var data = {};
         $scope.$emit('showLoading', data);
 
-        
+
+
+        $scope.Modify = function () {
+
+            $scope.loading = true;
+            $scope.coursedetails = true;
+            $scope.SSCDetails = true;
+            $scope.radiodisable = true;
+
+            var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
+            editstddetails.then(function (response) {
+                try {
+                    var editRes = JSON.parse(response);
+                }
+                catch (err) { }
+                $scope.coursedetails = true;
+                $scope.SscForm = true;
+                $scope.showEducation = true;
+                $scope.applicationForm = true;
+                $scope.loading = false;
+                $scope.EditData = editRes[0];
+
+                /* $scope.ApplicationNumber = tempData4.ApplicationNumber;*/
+                $scope.CourseName = $scope.EditData.CourseName;
+                $scope.CourseID = $scope.EditData.CourseID;
+                //$scope.CourseID = CourseID;
+                $scope.Qualification = $scope.EditData.Qualification;
+                $scope.Experience = $scope.EditData.Experience;
+
+                $scope.CourseQualificationID = $scope.EditData.CourseQualificationID;
+                $scope.CourseExperienceID = $scope.EditData.CourseExperienceID;
+
+                $scope.SSC = $scope.EditData.SSC;
+                $scope.SSCValidated = $scope.EditData.SSCValidated;
+
+                $scope.SSCHallticketNumber = $scope.EditData.SSCHallticketNumber;
+                $scope.SSCPassedYear = $scope.EditData.SSCPassedYear;
+                $scope.SSCPassedType = $scope.EditData.SSCPassedType;
+
+                $scope.StudentName = $scope.EditData.StudentName;
+                $scope.FatherName = $scope.EditData.FatherName;
+                $scope.MotherName = $scope.EditData.MotherName;
+                $scope.FatherName = $scope.EditData.FatherName;
+                $scope.DateofBirth = $scope.EditData.DateofBirth;
+                $scope.Gender = $scope.EditData.Gender;
+                $scope.AadharNumber = $scope.EditData.AadharNumber;
+                $scope.HouseNumber = $scope.EditData.HouseNumber;
+                $scope.Street = $scope.EditData.Street;
+                $scope.Landmark = $scope.EditData.Landmark;
+                $scope.Village = $scope.EditData.Village;
+                $scope.Pincode = $scope.EditData.Pincode;
+                $scope.District = $scope.EditData.District;
+                $scope.AddressState = $scope.EditData.AddressState;
+                $scope.StudentMobile = $scope.EditData.StudentMobile;
+                $scope.StudentEmail = $scope.EditData.StudentEmail;
+
+                $scope.StudentPhoto = $scope.EditData.StudentPhoto;
+                $scope.StudentSign = $scope.EditData.StudentSign;
+
+                $scope.SSCCertificate = $scope.EditData.SSCCertificate;
+                $scope.QualificationCertificate = $scope.EditData.QualificationCertificate;
+                $scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
+
+                $state.go('CcicDashboard.Academic.EditStuDetails');
+                $scope.$emit('hideLoading', data);
+            }, function (error) {
+
+                var err = JSON.parse(error);
+            });
+
+        }
 
         $scope.Mode = function () {
 
@@ -47,7 +118,7 @@
         }
 
 
-     
+
         //$scope.EditStudentDetails = function () {
         //    $scope.loading = true;
         //    $scope.coursedetails = true;
@@ -204,7 +275,7 @@
             $scope.sscdetails = true;
             $scope.radiodisable = true;
 
-            var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData4.ApplicationNumber, tempData4.StudentID);
+            var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
             editstddetails.then(function (response) {
                 try {
                     var editRes = JSON.parse(response);
@@ -217,7 +288,7 @@
                 $scope.loading = false;
                 $scope.EditData = editRes[0];
 
-                $scope.ApplicationNumber = tempData4.ApplicationNumber;
+                $scope.ApplicationNumber = tempData1.ApplicationNumber;
                 $scope.CourseName = $scope.EditData.CourseName;
                 $scope.CourseID = $scope.EditData.CourseID;
                 //$scope.CourseID = CourseID;
@@ -269,7 +340,7 @@
         }
 
 
-        
+
         $scope.Update = function () {
 
             if ($scope.StudentName == '' || $scope.StudentName == undefined || $scope.StudentName == null) {
@@ -380,7 +451,7 @@
                     $scope.LoadImg = true;
                     $scope.ApplicationNumber = res[0].ApplicationNumber;
                     $scope.StudentId = res[0].StudentID;
-                    $state.go('CcicDashboard.Academic.ViewStdDetails')
+                    $state.go('CcicDashboard.Academic.ViewStudentDetails')
                     //$scope.PreviewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
                     alert(res[0].ResponseDescription);
                     $scope.ShowDetails = true;

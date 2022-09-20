@@ -210,7 +210,7 @@
         //};
 
         this.getSSCDetails = function (object) {
-            var promise = DataAccessService.postData('api/TwshStudentReg/GetSSCDetails', object);
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetSSCDetails', object);
             return promise;
         };
 
