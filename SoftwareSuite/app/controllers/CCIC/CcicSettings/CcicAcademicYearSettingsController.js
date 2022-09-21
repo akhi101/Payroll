@@ -502,7 +502,7 @@
         var getbatches = CcicPreExaminationService.GetBatches();
         getbatches.then(function (response) {
 
-            $scope.GetBatches = response;
+            $scope.GetBatchesData = response;
 
         },
             function (error) {

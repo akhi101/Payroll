@@ -14,6 +14,10 @@ using RestSharp;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Xml;
+using System.Collections.Generic;
+using System.IO;
+using SoftwareSuite.Controllers.ExternalServices;
+using System.Web;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -25,19 +29,19 @@ namespace SoftwareSuite.Controllers.CCIC
             public int AcademicYearId { get; set; }
             public int ExamMonthYearId { get; set; }
             public int CourseId { get; set; }
-            public int StudentType { get; set; }        
+            public int StudentType { get; set; }
             public DateTime StartDate { get; set; }
             public DateTime EndDate { get; set; }
             public DateTime LateFeeDate { get; set; }
             public DateTime TatkalDate { get; set; }
             public DateTime PremiumTatkalDate { get; set; }
             public double Fee { get; set; }
-            public double LateFee { get; set; }            
+            public double LateFee { get; set; }
             public double TatkalFee { get; set; }
             public double PremiumTatkalFee { get; set; }
             public double CertificateFee { get; set; }
-            
-            
+
+
         }
 
         [HttpGet, ActionName("GetCcicAcademicYears")]
@@ -271,7 +275,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetInsRegisterReportCoursesCount")]
-        public string GetInsRegisterReportCoursesCount(int InstitutionID,int AcademicYearID,int Batch)
+        public string GetInsRegisterReportCoursesCount(int InstitutionID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -342,7 +346,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetRegisterCoursesCount")]
-        public string GetRegisterCoursesCount(int InstitutionID,int AcademicYearID, int Batch)
+        public string GetRegisterCoursesCount(int InstitutionID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -370,7 +374,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@InstitutionID", InstitutionID);
                 param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[2] = new SqlParameter("@Batch", Batch);
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_RegisterReportCoursesCount", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -381,7 +385,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetAdminRegisterReportData")]
-        public string GetAdminRegisterReportData(int InstitutionID, int CourseID,int ReportTypeID,int AcademicYearID, int Batch)
+        public string GetAdminRegisterReportData(int InstitutionID, int CourseID, int ReportTypeID, int AcademicYearID, int Batch)
         {
             try
             {
@@ -438,7 +442,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetAYBatchExamMonthYear")]
-        public string GetAYBatchExamMonthYear(int AcademicYearID,int Batch)
+        public string GetAYBatchExamMonthYear(int AcademicYearID, int Batch)
         {
             try
             {
@@ -484,7 +488,7 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("AddExamMonthYear")]
-        public string AddExamMonthYear(int AcademicYearID,int Batch,string ExamMonthYearName,string UserName)
+        public string AddExamMonthYear(int AcademicYearID, int Batch, string ExamMonthYearName, string UserName)
         {
             try
             {
@@ -614,7 +618,7 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("AddAcademicYear")]
-        public string AddAcademicYear(int AcademicStartYear, string AcademicYear, DateTime AcademicYearStartDate, DateTime AcademicYearEndDate,bool CurrentAcademicYear, string UserName)
+        public string AddAcademicYear(int AcademicStartYear, string AcademicYear, DateTime AcademicYearStartDate, DateTime AcademicYearEndDate, bool CurrentAcademicYear, string UserName)
         {
             try
             {
@@ -626,8 +630,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[3] = new SqlParameter("@AcademicYearEndDate", AcademicYearEndDate);
                 param[4] = new SqlParameter("@CurrentAcademicYear", CurrentAcademicYear);
                 param[5] = new SqlParameter("@UserName", UserName);
-               
-               
+
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_AcademicYear", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -641,46 +645,307 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        //[HttpPost, ActionName("AddStudentDetails")]
+        //public string AddStudentDetails([FromBody] JsonObject data)
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        var param = new SqlParameter[32];
+        //        param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
+        //        param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+        //        param[2] = new SqlParameter("@CourseID", data["CourseID"]);
+        //        param[3] = new SqlParameter("@CourseQualificationID", data["CourseQualificationID"]);
+        //        param[4] = new SqlParameter("@CourseExperienceID", data["CourseExperienceID"]);
+        //        param[5] = new SqlParameter("@SSC", data["SSC"]);
+        //        param[6] = new SqlParameter("@SSCHallticketNumber", data["SSCHallticketNumber"]);
+        //        param[7] = new SqlParameter("@SSCPassedYear", data["SSCPassedYear"]);
+        //        param[8] = new SqlParameter("@SSCPassedType", data["SSCPassedType"]);
+        //        param[9] = new SqlParameter("@StudentName", data["StudentName"]);
+        //        param[10] = new SqlParameter("@FatherName", data["FatherName"]);
+        //        param[11] = new SqlParameter("@MotherName", data["MotherName"]);
+        //        param[12] = new SqlParameter("@DateofBirth", data["DateofBirth"]);
+        //        param[13] = new SqlParameter("@SSCDateofBirth", data["SSCDateofBirth"]);
+        //        param[14] = new SqlParameter("@Gender", data["Gender"]);
+        //        param[15] = new SqlParameter("@AadharNumber", data["AadharNumber"]);
+        //        param[16] = new SqlParameter("@HouseNumber", data["HouseNumber"]);
+        //        param[17] = new SqlParameter("@Street", data["Street"]);
+        //        param[18] = new SqlParameter("@Landmark", data["Landmark"]);
+        //        param[19] = new SqlParameter("@Village", data["Village"]);
+        //        param[20] = new SqlParameter("@Pincode", data["Pincode"]);
+        //        param[21] = new SqlParameter("@District", data["District"]);
+        //        param[22] = new SqlParameter("@AddressState", data["AddressState"]);
+        //        param[23] = new SqlParameter("@StudentMobile", data["StudentMobile"]);
+        //        param[24] = new SqlParameter("@StudentEmail", data["StudentEmail"]);
+        //        param[25] = new SqlParameter("@SSCValidated", data["SSCValidated"]);
+        //        param[26] = new SqlParameter("@UserName", data["UserName"]);
+        //        param[27] = new SqlParameter("@StudentPhoto", data["StudentPhoto"]);
+        //        param[28] = new SqlParameter("@StudentSign", data["StudentSign"]);
+        //        param[29] = new SqlParameter("@SSCCertificate", data["SSCCertificate"]);
+        //        param[30] = new SqlParameter("@QualificationCertificate", data["QualificationCertificate"]);
+        //        param[31] = new SqlParameter("@ExperienceCertificate", data["ExperienceCertificate"]);
+
+
+        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Add_StudentDetails", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
+        public class filelist
+        {
+            public int fileindex { get; set; }
+            public string file { get; set; }
+        }
+
+
+        public class CertificateReqAtt
+        {
+            public string ApplicationNumber { get; set; }
+
+            public int InstitutionID { get; set; }
+            public int CourseID { get; set; }
+            public int CourseQualificationID { get; set; }
+            public int CourseExperienceID { get; set; }
+            public int SSC { get; set; }
+            public string SSCHallticketNumber { get; set; }
+            public int SSCPassedYear { get; set; }
+            public string SSCPassedType { get; set; }
+            public string StudentName { get; set; }
+            public string FatherName { get; set; }
+            public string MotherName { get; set; }
+            public string DateofBirth { get; set; }
+            public string SSCDateofBirth { get; set; }
+            public string Gender { get; set; }
+            public string AadharNumber { get; set; }
+            public string HouseNumber { get; set; }
+            public string Street { get; set; }
+            public string Landmark { get; set; }
+            public string Village { get; set; }
+            public int Pincode { get; set; }
+            public string District { get; set; }
+            public string AddressState { get; set; }
+            public string StudentMobile { get; set; }
+            public string StudentEmail { get; set; }
+            public bool SSCValidated { get; set; }
+
+            public string UserName { get; set; }
+            public string StudentPhoto { get; set; }
+            public string StudentSign { get; set; }
+            public string SSCCertificate { get; set; }
+            public string QualificationCertificate { get; set; }
+            public string ExperienceCertificate { get; set; }
+            public List<filelist> filedata { get; set; }
+
+
+        }
+        private string GetWebAppRoot()
+        {
+            var env = ConfigurationManager.AppSettings["SMS_ENV"].ToString();
+            string host = (HttpContext.Current.Request.Url.IsDefaultPort) ?
+               HttpContext.Current.Request.Url.Host :
+               HttpContext.Current.Request.Url.Authority;
+            if (env == "PROD")
+            {
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + "/";
+            }
+            else if (env == "DEV")
+            {
+
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + HttpContext.Current.Request.ApplicationPath;
+            }
+            return host + "/";
+        }
+
+
+        public class UpdateCertificateReqAtt
+        {
+            public string ApplicationNumber { get; set; }
+
+            public int InstitutionID { get; set; }
+            public int CourseID { get; set; }
+            public int CourseQualificationID { get; set; }
+            public int CourseExperienceID { get; set; }
+            public int SSC { get; set; }
+            public string SSCHallticketNumber { get; set; }
+            public int SSCPassedYear { get; set; }
+            public string SSCPassedType { get; set; }
+            public string StudentName { get; set; }
+            public string FatherName { get; set; }
+            public string MotherName { get; set; }
+            public string DateofBirth { get; set; }
+            public string SSCDateofBirth { get; set; }
+            public string Gender { get; set; }
+            public string AadharNumber { get; set; }
+            public string HouseNumber { get; set; }
+            public string Street { get; set; }
+            public string Landmark { get; set; }
+            public string Village { get; set; }
+            public int Pincode { get; set; }
+            public string District { get; set; }
+            public string AddressState { get; set; }
+            public string StudentMobile { get; set; }
+            public string StudentEmail { get; set; }
+            public bool SSCValidated { get; set; }
+
+            public string UserName { get; set; }
+            public string StudentPhoto { get; set; }
+            public string StudentSign { get; set; }
+            public string SSCCertificate { get; set; }
+            public string QualificationCertificate { get; set; }
+            public string ExperienceCertificate { get; set; }
+            public List<filelist> filedata { get; set; }
+
+
+        }
+
         [HttpPost, ActionName("AddStudentDetails")]
-        public string AddStudentDetails([FromBody] JsonObject data)
+        public string AddStudentDetails([FromBody] CertificateReqAtt CertificateReqAtt)
         {
             try
             {
+                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CCICStaticfiles\";
+                var path = string.Empty;
+                string relativePath = string.Empty;
+                var StudentPhotopath = string.Empty;
+                var StudentSignpath = string.Empty;
+                var StudentSscCertpath = string.Empty;
+                var StudentQualCertpath = string.Empty;
+                var StudentExpCertpath = string.Empty;
+                if (CertificateReqAtt.StudentPhoto != "")
+                {
+                    var StdPhoto = "StudentPhoto" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdPhoto);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.StudentPhoto);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentPhotopath = relativePath;
+                }
+                else
+                {
+                    StudentPhotopath = "";
+                }
+
+                if (CertificateReqAtt.StudentSign != "")
+                {
+                    var StdSign = "StudentSign" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdSign);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.StudentSign);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentSignpath = relativePath;
+                }
+                else
+                {
+                    StudentSignpath = "";
+                }
+
+                if (CertificateReqAtt.SSCCertificate != "")
+                {
+                    var StdSscCert = "SSCCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdSscCert);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.SSCCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentSscCertpath = relativePath;
+                }
+                else
+                {
+                    StudentSscCertpath = "";
+                }
+
+
+                if (CertificateReqAtt.QualificationCertificate != "")
+                {
+                    var StdQuaCert = "QualificationCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdQuaCert);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.QualificationCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentQualCertpath = relativePath;
+                }
+                else
+                {
+                    StudentQualCertpath = "";
+                }
+
+
+                if (CertificateReqAtt.ExperienceCertificate != "")
+                {
+                    var StdExpCert = "ExperienceCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdExpCert);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.ExperienceCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentExpCertpath = relativePath;
+                }
+                else
+                {
+                    StudentExpCertpath = "";
+                }
+
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[32];
-                param[0] = new SqlParameter("@ApplicationNumber",data["ApplicationNumber"]);
-                param[1] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
-                param[2] = new SqlParameter("@CourseID", data["CourseID"]);
-                param[3] = new SqlParameter("@CourseQualificationID", data["CourseQualificationID"]);
-                param[4] = new SqlParameter("@CourseExperienceID", data["CourseExperienceID"]);
-                param[5] = new SqlParameter("@SSC", data["SSC"]);
-                param[6] = new SqlParameter("@SSCHallticketNumber", data["SSCHallticketNumber"]);
-                param[7] = new SqlParameter("@SSCPassedYear", data["SSCPassedYear"]);
-                param[8] = new SqlParameter("@SSCPassedType", data["SSCPassedType"]);
-                param[9] = new SqlParameter("@StudentName", data["StudentName"]);
-                param[10] = new SqlParameter("@FatherName", data["FatherName"]);
-                param[11] = new SqlParameter("@MotherName", data["MotherName"]);
-                param[12] = new SqlParameter("@DateofBirth", data["DateofBirth"]);
-                param[13] = new SqlParameter("@SSCDateofBirth", data["SSCDateofBirth"]);
-                param[14] = new SqlParameter("@Gender", data["Gender"]);
-                param[15] = new SqlParameter("@AadharNumber", data["AadharNumber"]);
-                param[16] = new SqlParameter("@HouseNumber", data["HouseNumber"]);
-                param[17] = new SqlParameter("@Street", data["Street"]);
-                param[18] = new SqlParameter("@Landmark", data["Landmark"]);
-                param[19] = new SqlParameter("@Village", data["Village"]);
-                param[20] = new SqlParameter("@Pincode", data["Pincode"]);
-                param[21] = new SqlParameter("@District", data["District"]);
-                param[22] = new SqlParameter("@AddressState", data["AddressState"]);
-                param[23] = new SqlParameter("@StudentMobile", data["StudentMobile"]);
-                param[24] = new SqlParameter("@StudentEmail", data["StudentEmail"]);
-                param[25] = new SqlParameter("@SSCValidated", data["SSCValidated"]);
-                param[26] = new SqlParameter("@UserName", data["UserName"]);
-                param[27] = new SqlParameter("@StudentPhoto", data["StudentPhoto"]);
-                param[28] = new SqlParameter("@StudentSign", data["StudentSign"]);
-                param[29] = new SqlParameter("@SSCCertificate", data["SSCCertificate"]);
-                param[30] = new SqlParameter("@QualificationCertificate", data["QualificationCertificate"]);
-                param[31] = new SqlParameter("@ExperienceCertificate", data["ExperienceCertificate"]);
-                
+                param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
+                param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
+                param[2] = new SqlParameter("@CourseID", CertificateReqAtt.CourseID);
+                param[3] = new SqlParameter("@CourseQualificationID", CertificateReqAtt.CourseQualificationID);
+                param[4] = new SqlParameter("@CourseExperienceID", CertificateReqAtt.CourseExperienceID);
+                param[5] = new SqlParameter("@SSC", CertificateReqAtt.SSC);
+                param[6] = new SqlParameter("@SSCHallticketNumber", CertificateReqAtt.SSCHallticketNumber);
+                param[7] = new SqlParameter("@SSCPassedYear", CertificateReqAtt.SSCPassedYear);
+                param[8] = new SqlParameter("@SSCPassedType", CertificateReqAtt.SSCPassedType);
+                param[9] = new SqlParameter("@StudentName", CertificateReqAtt.StudentName);
+                param[10] = new SqlParameter("@FatherName", CertificateReqAtt.FatherName);
+                param[11] = new SqlParameter("@MotherName", CertificateReqAtt.MotherName);
+                param[12] = new SqlParameter("@DateofBirth", CertificateReqAtt.DateofBirth);
+                param[13] = new SqlParameter("@SSCDateofBirth", CertificateReqAtt.SSCDateofBirth);
+                param[14] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
+                param[15] = new SqlParameter("@AadharNumber", CertificateReqAtt.AadharNumber);
+                param[16] = new SqlParameter("@HouseNumber", CertificateReqAtt.HouseNumber);
+                param[17] = new SqlParameter("@Street", CertificateReqAtt.Street);
+                param[18] = new SqlParameter("@Landmark", CertificateReqAtt.Landmark);
+                param[19] = new SqlParameter("@Village", CertificateReqAtt.Village);
+                param[20] = new SqlParameter("@Pincode", CertificateReqAtt.Pincode);
+                param[21] = new SqlParameter("@District", CertificateReqAtt.District);
+                param[22] = new SqlParameter("@AddressState", CertificateReqAtt.AddressState);
+                param[23] = new SqlParameter("@StudentMobile", CertificateReqAtt.StudentMobile);
+                param[24] = new SqlParameter("@StudentEmail", CertificateReqAtt.StudentEmail);
+                param[25] = new SqlParameter("@SSCValidated", CertificateReqAtt.SSCValidated);
+                param[26] = new SqlParameter("@UserName", CertificateReqAtt.UserName);
+                param[27] = new SqlParameter("@StudentPhoto", StudentPhotopath);
+                param[28] = new SqlParameter("@StudentSign", StudentSignpath);
+                param[29] = new SqlParameter("@SSCCertificate", StudentSscCertpath);
+                param[30] = new SqlParameter("@QualificationCertificate", StudentQualCertpath);
+                param[31] = new SqlParameter("@ExperienceCertificate", StudentExpCertpath);
+
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
                 return JsonConvert.SerializeObject(dt);
@@ -688,11 +953,279 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Add_StudntDetails", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Add_StudentDetails", 0, ex.Message);
                 return ex.Message;
             }
 
         }
+
+
+        [HttpPost, ActionName("UpdateStudentDetails")]
+        public string UpdateStudentDetails([FromBody] UpdateCertificateReqAtt UpdateCertificateReqAtt)
+        {
+            try
+            {
+                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CCICStaticfiles\";
+                var path = string.Empty;
+                string relativePath = string.Empty;
+                var StudentPhotopath = string.Empty;
+                var StudentSignpath = string.Empty;
+                var StudentSscCertpath = string.Empty;
+                var StudentQualCertpath = string.Empty;
+                var StudentExpCertpath = string.Empty;
+                if (UpdateCertificateReqAtt.StudentPhoto != "")
+                {
+                    var StdPhoto = "StudentPhoto" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdPhoto);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.StudentPhoto);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentPhotopath = relativePath;
+                }
+                else
+                {
+                    StudentPhotopath = "";
+                }
+
+                if (UpdateCertificateReqAtt.StudentSign != "")
+                {
+                    var StdSign = "StudentSign" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdSign);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.StudentSign);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentSignpath = relativePath;
+                }
+                else
+                {
+                    StudentSignpath = "";
+                }
+
+                if (UpdateCertificateReqAtt.SSCCertificate != "")
+                {
+                    var StdSscCert = "SSCCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdSscCert);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.SSCCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentSscCertpath = relativePath;
+                }
+                else
+                {
+                    StudentSscCertpath = "";
+                }
+
+
+                if (UpdateCertificateReqAtt.QualificationCertificate != "")
+                {
+                    var StdQuaCert = "QualificationCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdQuaCert);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.QualificationCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentQualCertpath = relativePath;
+                }
+                else
+                {
+                    StudentQualCertpath = "";
+                }
+
+
+                if (UpdateCertificateReqAtt.ExperienceCertificate != "")
+                {
+                    var StdExpCert = "ExperienceCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdExpCert);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.ExperienceCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    StudentExpCertpath = relativePath;
+                }
+                else
+                {
+                    StudentExpCertpath = "";
+                }
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[32];
+                param[0] = new SqlParameter("@ApplicationNumber", UpdateCertificateReqAtt.ApplicationNumber);
+                param[1] = new SqlParameter("@InstitutionID", UpdateCertificateReqAtt.InstitutionID);
+                param[2] = new SqlParameter("@CourseID", UpdateCertificateReqAtt.CourseID);
+                param[3] = new SqlParameter("@CourseQualificationID", UpdateCertificateReqAtt.CourseQualificationID);
+                param[4] = new SqlParameter("@CourseExperienceID", UpdateCertificateReqAtt.CourseExperienceID);
+                param[5] = new SqlParameter("@SSC", UpdateCertificateReqAtt.SSC);
+                param[6] = new SqlParameter("@SSCHallticketNumber", UpdateCertificateReqAtt.SSCHallticketNumber);
+                param[7] = new SqlParameter("@SSCPassedYear", UpdateCertificateReqAtt.SSCPassedYear);
+                param[8] = new SqlParameter("@SSCPassedType", UpdateCertificateReqAtt.SSCPassedType);
+                param[9] = new SqlParameter("@StudentName", UpdateCertificateReqAtt.StudentName);
+                param[10] = new SqlParameter("@FatherName", UpdateCertificateReqAtt.FatherName);
+                param[11] = new SqlParameter("@MotherName", UpdateCertificateReqAtt.MotherName);
+                param[12] = new SqlParameter("@DateofBirth", UpdateCertificateReqAtt.DateofBirth);
+                param[13] = new SqlParameter("@SSCDateofBirth", UpdateCertificateReqAtt.SSCDateofBirth);
+                param[14] = new SqlParameter("@Gender", UpdateCertificateReqAtt.Gender);
+                param[15] = new SqlParameter("@AadharNumber", UpdateCertificateReqAtt.AadharNumber);
+                param[16] = new SqlParameter("@HouseNumber", UpdateCertificateReqAtt.HouseNumber);
+                param[17] = new SqlParameter("@Street", UpdateCertificateReqAtt.Street);
+                param[18] = new SqlParameter("@Landmark", UpdateCertificateReqAtt.Landmark);
+                param[19] = new SqlParameter("@Village", UpdateCertificateReqAtt.Village);
+                param[20] = new SqlParameter("@Pincode", UpdateCertificateReqAtt.Pincode);
+                param[21] = new SqlParameter("@District", UpdateCertificateReqAtt.District);
+                param[22] = new SqlParameter("@AddressState", UpdateCertificateReqAtt.AddressState);
+                param[23] = new SqlParameter("@StudentMobile", UpdateCertificateReqAtt.StudentMobile);
+                param[24] = new SqlParameter("@StudentEmail", UpdateCertificateReqAtt.StudentEmail);
+                param[25] = new SqlParameter("@SSCValidated", UpdateCertificateReqAtt.SSCValidated);
+                param[26] = new SqlParameter("@UserName", UpdateCertificateReqAtt.UserName);
+                param[27] = new SqlParameter("@StudentPhoto", StudentPhotopath);
+                param[28] = new SqlParameter("@StudentSign", StudentSignpath);
+                param[29] = new SqlParameter("@SSCCertificate", StudentSscCertpath);
+                param[30] = new SqlParameter("@QualificationCertificate", StudentQualCertpath);
+                param[31] = new SqlParameter("@ExperienceCertificate", StudentExpCertpath);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_StudentDetails", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+        //public class filelist
+        //{
+        //    public int fileindex { get; set; }
+        //    public string file { get; set; }
+        //}
+
+
+        //public class CertificateReqAtt
+        //{
+        //  public string ApplicationNumber { get; set; }
+
+        //    public int InstitutionID { get; set; }
+        //    public int CourseID { get; set; }
+        //    public int CourseQualificationID { get; set; }
+        //    public int CourseExperienceID { get; set; }
+        //    public int SSC { get; set; }
+        //    public string SSCHallticketNumber { get; set; }
+        //    public int SSCPassedYear { get; set; }
+        //    public string SSCPassedType { get; set; }
+        //    public string StudentName { get; set; }
+        //    public string FatherName { get; set; }
+        //    public string MotherName { get; set; }
+        //    public DateFormat DateofBirth { get; set; }
+        //    public string SSCDateofBirth { get; set; }
+        //    public string Gender { get; set; }
+        //    public int AadharNumber { get; set; }
+        //    public string HouseNumber { get; set; }
+        //    public string Street { get; set; }
+        //    public string Landmark { get; set; }
+        //    public string Village { get; set; }
+        //    public int Pincode { get; set; }
+        //    public string District { get; set; }
+        //    public string AddressState { get; set; }
+        //    public string StudentMobile { get; set; }
+        //    public string StudentEmail { get; set; }
+        //    public bool SSCValidated { get; set; }
+
+        //    public string UserName { get; set; }
+        //    public string StudentPhoto { get; set; }
+        //    public string StudentSign { get; set; }
+        //    public string SSCCertificate { get; set; }
+        //    public string QualificationCertificate { get; set; }
+        //    public string ExperienceCertificate { get; set; }
+        //    public List<filelist> filedata { get; set; }
+
+
+        //}
+        //[HttpPost, ActionName("AddStudentDetails")]
+        //public string AddStudentDetails([FromBody] CertificateReqAtt CertificateReqAtt)
+        //{
+        //    try
+        //    {
+        //        var fileDat = new List<filelist>();
+        //        int size = CertificateReqAtt.filedata.Count;
+        //        var file = string.Empty;
+        //        for (int i = 0; i < size; i++)
+        //        {
+        //            var filename = CertificateReqAtt.ApplicationNumber + "_" + Guid.NewGuid() + ".jpg";
+        //            var path = ConfigurationManager.AppSettings["certFolderPath"];
+        //            bool folderExists = Directory.Exists(path);
+        //            if (!folderExists)
+        //                Directory.CreateDirectory(path);
+        //            string imgPath = Path.Combine(path, filename);
+        //            byte[] imageBytes = Convert.FromBase64String(CertificateReqAtt.filedata[i].file);
+        //            File.WriteAllBytes(imgPath, imageBytes);
+        //            file += filename + ',';
+        //        }
+        //        var dbHandler = new ccicdbHandler();
+        //        var param = new SqlParameter[32];
+        //        param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
+        //        param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
+        //        param[2] = new SqlParameter("@CourseID", CertificateReqAtt.CourseID);
+        //        param[3] = new SqlParameter("@CourseQualificationID", CertificateReqAtt.CourseQualificationID);
+        //        param[4] = new SqlParameter("@CourseExperienceID", CertificateReqAtt.CourseExperienceID);
+        //        param[5] = new SqlParameter("@SSC", CertificateReqAtt.SSC);
+        //        param[6] = new SqlParameter("@SSCHallticketNumber", CertificateReqAtt.SSCHallticketNumber);
+        //        param[7] = new SqlParameter("@SSCPassedYear", CertificateReqAtt.SSCPassedYear);
+        //        param[8] = new SqlParameter("@SSCPassedType", CertificateReqAtt.SSCPassedType);
+        //        param[9] = new SqlParameter("@StudentName", CertificateReqAtt.StudentName);
+        //        param[10] = new SqlParameter("@FatherName", CertificateReqAtt.FatherName);
+        //        param[11] = new SqlParameter("@MotherName", CertificateReqAtt.MotherName);
+        //        param[12] = new SqlParameter("@DateofBirth", CertificateReqAtt.DateofBirth);
+        //        param[13] = new SqlParameter("@SSCDateofBirth", CertificateReqAtt.SSCDateofBirth);
+        //        param[14] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
+        //        param[15] = new SqlParameter("@AadharNumber", CertificateReqAtt.AadharNumber);
+        //        param[16] = new SqlParameter("@HouseNumber", CertificateReqAtt.HouseNumber);
+        //        param[17] = new SqlParameter("@Street", CertificateReqAtt.Street);
+        //        param[18] = new SqlParameter("@Landmark", CertificateReqAtt.Landmark);
+        //        param[19] = new SqlParameter("@Village", CertificateReqAtt.Village);
+        //        param[20] = new SqlParameter("@Pincode", CertificateReqAtt.Pincode);
+        //        param[21] = new SqlParameter("@District", CertificateReqAtt.District);
+        //        param[22] = new SqlParameter("@AddressState", CertificateReqAtt.AddressState);
+        //        param[23] = new SqlParameter("@StudentMobile", CertificateReqAtt.StudentMobile);
+        //        param[24] = new SqlParameter("@StudentEmail", CertificateReqAtt.StudentEmail);
+        //        param[25] = new SqlParameter("@SSCValidated", CertificateReqAtt.SSCValidated);
+        //        param[26] = new SqlParameter("@UserName", CertificateReqAtt.UserName);
+        //        param[27] = new SqlParameter("@StudentPhoto", CertificateReqAtt.StudentPhoto);
+        //        param[28] = new SqlParameter("@StudentSign", CertificateReqAtt.StudentSign);
+        //        param[29] = new SqlParameter("@SSCCertificate", CertificateReqAtt.SSCCertificate);
+        //        param[30] = new SqlParameter("@QualificationCertificate", CertificateReqAtt.QualificationCertificate);
+        //        param[31] = new SqlParameter("@ExperienceCertificate", CertificateReqAtt.ExperienceCertificate);
+
+
+        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Add_StudntDetails", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
 
         [HttpPost, ActionName("GetViewStudentDetails")]
         public string GetViewStudentDetails([FromBody] JsonObject data)
