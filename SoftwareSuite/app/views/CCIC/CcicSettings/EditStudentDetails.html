@@ -238,7 +238,7 @@
     }
 </style>
 
-<div ng-controller="EditStdDetailsController">
+<div ng-controller="EditStudentDetailsController">
 
 
     <div class="sm-spacer"></div>
@@ -278,7 +278,7 @@
                                                     <input type="text" placeholder=CandidateName autocomplete="off" ng-model="Qualification" ng-disabled="coursedetails" class="form-control" required />
                                                 </div>
                                             </div>
-                                            <div class="col-md-4" ng-if="EditData.Experience">
+                                            <div class="col-md-4" ng-if="Experience">
                                                 <div class="form-group required">
                                                     <label>Experience</label>
                                                     <input type="text" placeholder=CandidateName autocomplete="off" ng-model="Experience" ng-disabled="coursedetails" class="form-control" required />
@@ -348,15 +348,15 @@
                                                 </div>
 
                                                 <!--<div class="col-md-4">
-                                        <div class="form-group required">
-                                            <label for="date-picker-example">Examination Pass Type</label>
-                                            <select class="form-control" ng-disabled="SSCDetails" ng-model="EditData.SSCPassedType">
-                                                <option value="">Select Pass Type</option>
-                                                <option value="R">Regular</option>
-                                                <option value="A">Supplmentary</option>
-                                            </select>
-                                        </div>
-                                    </div>-->
+                                                    <div class="form-group required">
+                                                        <label for="date-picker-example">Examination Pass Type</label>
+                                                        <select class="form-control" ng-disabled="SSCDetails" ng-model="EditData.SSCPassedType">
+                                                            <option value="">Select Pass Type</option>
+                                                            <option value="R">Regular</option>
+                                                            <option value="A">Supplmentary</option>
+                                                        </select>
+                                                    </div>
+                                                </div>-->
 
                                             </div>
 
@@ -534,8 +534,9 @@
                                             </span>
                                         </div>
 
+
                                         <div class="row">
-                                            <div class="col-md-4" ng-if="EditData.StudentPhoto">
+                                            <div class="col-md-4" ng-if="StudentPhoto">
                                                 <div class="form-group required custom-img">
                                                     <label>Upload Photo(size less than 300KB) :</label>
 
@@ -544,7 +545,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4" ng-if="EditData.StudentSign">
+                                            <div class="col-md-4" ng-if="StudentSign">
                                                 <div class="form-group required custom-img">
                                                     <label>Upload Signature(size less than 30KB) :</label>
 
@@ -566,7 +567,7 @@
                                         <div class="row">
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.SSCCertificate">
+                                                <div class="form-group required custom-img" ng-if="SSCCertificate">
                                                     <label>Upload Ssc Certificate(size less than 300KB) :</label>
 
                                                     <img ng-src="{{SSCCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
@@ -575,7 +576,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.QualificationCertificate">
+                                                <div class="form-group required custom-img" ng-if="QualificationCertificate">
                                                     <label>Upload {{StudentCertificateType}}(size less than 300KB) :</label>
 
                                                     <img ng-src="{{QualificationCertificate}}" class="img img-responsive" id="stdCertificateTypeImg" />
@@ -584,7 +585,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.ExperienceCertificate">
+                                                <div class="form-group required custom-img" ng-if="ExperienceCertificate">
                                                     <label>Upload Experience Certificate(size less than 300KB) :</label>
 
                                                     <img ng-src="{{ExperienceCertificate}}" class="img img-responsive" id="stdExperienceCertificateImg" />
@@ -595,7 +596,8 @@
 
 
 
-                                        <div class="submit-btn" ng-click="Update(EditData.StudentName)" style="margin-bottom:0px;">
+
+                                        <div class="submit-btn" ng-click="Update(StudentName)" style="margin-bottom:0px;">
                                             <button type="submit">Update</button>
                                         </div>
 

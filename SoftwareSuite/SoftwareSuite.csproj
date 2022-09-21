@@ -587,8 +587,11 @@
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationCoursesController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\EditStdDetailsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\EditStudentDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsVerController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\ViewStudentDetailsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\ViewStuDetailsController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicHallTicketController.js" />
@@ -1920,10 +1923,13 @@
     <Content Include="app\views\CCIC\CcicSettings\CcicVerification.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicVerificationData.html" />
     <Content Include="app\views\CCIC\CcicSettings\EditStdDetails.html" />
+    <Content Include="app\views\CCIC\CcicSettings\EditStudentDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\New.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetails.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsPopup.html" />
     <Content Include="app\views\CCIC\CcicSettings\ViewStdDetailsVer.html" />
+    <Content Include="app\views\CCIC\CcicSettings\ViewStudentDetails.html" />
+    <Content Include="app\views\CCIC\CcicSettings\ViewStuDetails.html" />
     <Content Include="app\views\CCIC\CcicVerificationCourses.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicFeePayment.html" />

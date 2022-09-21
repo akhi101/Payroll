@@ -266,7 +266,7 @@
                                 </div>
                             </div>
                            
-                            <div ng-if="GetCcicUserModules&&UserType.length>0" id="AddCcicModule" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="GetCcicUserModules.length>0" id="AddCcicModule" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">
@@ -398,13 +398,13 @@
                                     <h2>No Data</h2>
                                 </div>
                             </div>                           
-                            <div ng-if="SubModulesTable&&moduleid.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="SubModulesTable.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">
 
                                             <th style="width: 5%;">S.No</th>
-                                            <th class="">Module Name</th>
+                                            <th class="" style="width: 15%;">Module Name</th>
                                             <th class="" style="">Colour</th>
                                             <th class="" style="">SubModule name</th>
                                             <th class="" style="">SubModule Route Name</th>
@@ -535,7 +535,7 @@
                                     <h2>No Data</h2>
                                 </div>
                             </div>
-                            <div ng-if="GetCcicUserSubModules&&userTypeId&&ModuleId.length>0" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="GetCcicUserSubModules.length>0" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">

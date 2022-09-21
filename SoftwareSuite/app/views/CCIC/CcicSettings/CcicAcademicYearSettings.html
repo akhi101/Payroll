@@ -283,7 +283,7 @@
                                         <label class="font-weight-bold"> Batch :</label>
                                         <select class="form-control " ng-model="batch" name="StudentType" required>
                                             <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetBatches" class="">
+                                            <option value="{{data.Batch}}" ng-repeat="data in GetBatchesData" class="">
                                                 {{data.Batch}}
                                             </option>
                                         </select>
@@ -337,10 +337,10 @@
                                 <h2>No Data</h2>
                             </div>
                         </div>
-                        <div ng-if="GetCcicAcademicYearCurrentBatchTable&&academicyear.length>0" class="cl-details">
+                        <div ng-if="GetCcicAcademicYearCurrentBatchTable.length>0" class="cl-details">
                             <h2>AcademicYear Batch</h2>
                         </div>
-                        <div ng-if="GetCcicAcademicYearCurrentBatchTable&&academicyear.length>0" class="table-responsive table-custom-tables-tb scrollbox">
+                        <div ng-if="GetCcicAcademicYearCurrentBatchTable.length>0" class="table-responsive table-custom-tables-tb scrollbox">
                             <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                                 <thead>
                                     <tr class="cb-1">
@@ -491,10 +491,10 @@
                                 <h2>No Data</h2>
                             </div>
                         </div>
-                        <div ng-if="GetCcicAcademicYearBatchesTable&&academicYear.length>0" class="cl-details">
+                        <div ng-if="GetCcicAcademicYearBatchesTable.length>0" class="cl-details">
                             <h2>AcademicYear Batch</h2>
                         </div>
-                        <div ng-if="GetCcicAcademicYearBatchesTable&&academicYear.length>0" class="table-responsive table-custom-tables-tb scrollbox">
+                        <div ng-if="GetCcicAcademicYearBatchesTable.length>0" class="table-responsive table-custom-tables-tb scrollbox">
                             <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                                 <thead>
                                     <tr class="cb-1">
