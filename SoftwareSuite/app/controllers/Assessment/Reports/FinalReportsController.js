@@ -37,7 +37,7 @@
         $scope.years = report.AcademicYearsActiveResponse;
        
      
-        if ($scope.userType == 2 || $scope.userType == 5 || $scope.userType == 1 || $scope.userType == 1000 || $scope.userType == 1005 || $scope.userType == 1002 || $scope.userType == 1007 || $scope.userType == 1009) {
+        if ($scope.userType == 2 || $scope.userType == 5 || $scope.userType == 1 || $scope.userType == 1000 || $scope.userType == 1005 || $scope.userType == 1002 || $scope.userType == 1007 || $scope.userType == 1009 || $scope.userType == 1011 || $scope.userType == 1012) {
             $scope.access1 = true;
         }
       

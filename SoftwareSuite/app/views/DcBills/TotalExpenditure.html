@@ -173,15 +173,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background-color:#fff!important;" ng-repeat="data in FinalList|filter:search">
+                           <tr style="background-color:#fff!important;" ng-repeat="data in FinalList|filter:search">
                                 <td>{{$index+1}}</td>
                                 <td>{{data.ExamCenterCode}} - {{data.ExamCenterName}}</td>
                                 <td class="text-center">{{(data.TotalSessionalAmount == undefined || data.TotalSessionalAmount == null)? '0':data.TotalSessionalAmount }}</td>
 
                                 <td class="text-center">{{(data.TotalPracticalAmount == undefined || data.TotalPracticalAmount == null)? '0':data.TotalPracticalAmount }}</td>
-                                <td class="text-center">{{(data.TotalEventwiseAmount == undefined || data.TotalEventwiseAmount == null)? '0':data.TotalEventwiseAmount }}</td>
-                                <td class="text-center">{{data.TotalEventwiseAmount+data.TotalPracticalAmount+data.TotalSessionalAmount}}</td>
-                                <td class="text-center">{{((data.TotalEventwiseAmount+data.TotalPracticalAmount+data.TotalSessionalAmount)*percent).toFixed(2)}}</td>
+                                <td class="text-center">{{data.TotalEventwiseAmount+data.TotalSeatingCharges}}</td>
+                                <td class="text-center">{{data.TotalEventwiseAmount+data.TotalPracticalAmount+data.TotalSessionalAmount+data.TotalSeatingCharges}}</td>
+                                <td class="text-center">{{((data.TotalEventwiseAmount+data.TotalPracticalAmount+data.TotalSessionalAmount+data.TotalSeatingCharges)*percent).toFixed(2)}}</td>
                                 <td class="text-center">{{data.CollegeBankAccountNo}}</td>
                                 <td class="text-center">{{data.CollegeBankIfscCode}}</td>
                                 <!--<td>

@@ -82,7 +82,7 @@
                 RedirectToListPage();
             }
             function RedirectToListPage() {
-                $state.go('login');
+                $state.go('index.WebsiteLogin');
             }
             $scope.logOut = function () {
              
@@ -105,7 +105,7 @@
                     UserId: 0,
                     userName: ""
                 };
-                $state.go('login')
+                $state.go('index.WebsiteLogin')
             }
         });
     });

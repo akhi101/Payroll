@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.controller("StudentAttendanceController", function ($scope, $http, $localStorage, $state, $window, $stateParams, AppSettings, $uibModal, AcademicService) {
+    app.controller("StudentAttendanceController", function ($scope, $http, $localStorage, $state, $window, $stateParams, AppSettings, $uibModal, PreExaminationService) {
         // $scope.buttontext = "Show Full Attendance";
 
         $scope.ResultFound = false;
@@ -104,7 +104,7 @@ define(['app'], function (app) {
             $scope.days = days
             $scope.LoadImg = true;
             $scope.showbrancwiseattdata = false;
-            var getAttendance = AcademicService.getAttendanceReport($scope.Studentpin);
+            var getAttendance = PreExaminationService.getAttendanceReport($scope.Studentpin);
             getAttendance.then(function (res) {
                 $scope.attCaptcha = "";
                 $scope.createCaptcha();

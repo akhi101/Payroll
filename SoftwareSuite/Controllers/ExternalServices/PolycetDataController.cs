@@ -16,6 +16,13 @@ namespace SoftwareSuite.Controllers.ExternalServices
 {
     public class PolycetDataController  : ApiController
     {
+        //USP_SS_GET_InteriamCertificateDetails
+   
+
+
+      
+
+
         #region Post Methods
         [HttpPost, ActionName("PostStudentData")]
         public HttpResponseMessage PostStudentData(HttpRequestMessage request)

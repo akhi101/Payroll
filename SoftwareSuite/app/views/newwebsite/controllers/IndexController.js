@@ -19,6 +19,15 @@
 
 
 
+        $scope.Images = [ { "img": "Slides/3.jpeg", "active": "active" }
+            , { "img": "Slides/4.jpeg", "active": "" }, { "img": "Slides/5.jpeg", "active": "" }, { "img": "Slides/6.jpeg", "active": "" }
+            , { "img": "Slides/7.jpeg", "active": "" }, { "img": "Slides/8.jpeg", "active": "" }, { "img": "Slides/9.jpeg", "active": "" }
+            , { "img": "Slides/10.jpeg", "active": "" }, { "img": "Slides/11.jpeg", "active": "" }, { "img": "Slides/12.jpeg", "active": "" }
+            , { "img": "Slides/13.jpg", "active": "" }, { "img": "Slides/14.jpg", "active": "" }, { "img": "Slides/15.jpg", "active": "" }
+            , { "img": "Slides/16.jpg", "active": "" }, { "img": "Slides/17.jpg", "active": "" }, { "img": "Slides/18.jpg", "active": "" }
+            , { "img": "Slides/19.jpg", "active": "" }, { "img": "Slides/20.jpg", "active": "" }, { "img": "Slides/21.jpeg", "active": "" }]
+
+
         $scope.GoToCourses = function () {
 
             setTimeout(function () {

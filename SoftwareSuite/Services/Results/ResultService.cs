@@ -195,7 +195,8 @@ namespace SoftwareSuite.Services.Results
                 if (SchemeId ==3|| SchemeId == 4 || SchemeId == 8 || SchemeId == 1) {
                     StrQuery = "exec USP_Results_GET_C16studentData " + ExamMonthYearId + "," + SchemeId + "," + StudentTypeId + ",'" + Pin + "'," + Semid + "," + ExamTypeId + "";
                 }
-                else if(SchemeId == 2){
+                else if(SchemeId == 2|| SchemeId == 10)
+                {
                     StrQuery = "exec USP_Results_GET_ER91studentData "+ ExamMonthYearId + "," + SchemeId + "," + StudentTypeId + ",'" + Pin + "'," + Semid + "," + ExamTypeId + "";
                 }
                 else {

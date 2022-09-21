@@ -275,11 +275,15 @@
                             var resp = JSON.parse(JSON.parse(res));
                         } catch (err) { }
                         if (resp.Status == 200) {
-                            $scope.LoadImg = false;                             
+                           /* alert(resp.ResponseDescription);*/
+                            $scope.LoadImg = false;
                             $scope.ResultFound = true;
                             $scope.seatingpdf = window.location.origin + '/Reports/' + resp.seatingpdf + '.pdf';
                             $scope.seatingexcel = window.location.origin + resp.excelpath;
-
+                        } else if (resp.Status == 400) {
+                            $scope.LoadImg = false;
+                            $scope.ResultFound = false;
+                            alert(resp.ResponseDescription);
                         } else {
                             $scope.LoadImg = false;
                             $scope.ResultFound = false;

@@ -168,21 +168,25 @@
                             <th class="text-center" ng-click='sortColumn("PhoneNumber")' ng-class='sortClass("PhoneNumber")'>Phone <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center" ng-click='sortColumn("AppliedDate")' ng-class='sortClass("AppliedDate")'>Applied Date <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center">Remarks</th>
+                            <th class="text-center">Release Pin</th>
                             <!--<th class="text-center">Approve</th>-->
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr style="background-color:#fff!important;cursor:pointer" ng-click="OpenPopup(x.PIN,x.CertificateType)" ng-repeat="x in ApprovalDetails|orderBy:sortKey:reverse|filter:search">
+                        <tr style="background-color:#fff!important;cursor:pointer"  ng-repeat="x in ApprovalDetails|orderBy:sortKey:reverse|filter:search">
 
-                            <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center">{{x.Scheme}}</td>
-                            <td class="text-center">{{x.CollegeCode}} </td>
-                            <td class="text-center ">{{x.PIN}}</td>
-                            <td class="text-center ">{{x.Name}}</td>
-                            <td class="text-center ">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
-                            <td class="text-center ">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
-                            <td class="text-center ">{{x.Remarks == null ? '-':x.Remarks}}</td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.CertificateType)">{{$index + 1}}</td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.Scheme}}</td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.CollegeCode}} </td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.PIN}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.Name}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.CertificateType)">{{x.Remarks == null ? '-':x.Remarks}}</td>
+                            <td class="text-center ">
+                                <button class="btn btn-danger btn-xs" ng-click="ReleasePin(x.PIN,x.CertificateType,x.Id)"><span>Release PIN</span></button>
+                            </td>
                             <!--<td class="text-center "><button class="btn btn-success btn-xs" ng-click="Approve(x.Scheme)">Send Certificate</button></td>-->
                         </tr>
 

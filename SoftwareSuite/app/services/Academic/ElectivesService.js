@@ -10,8 +10,8 @@
          this.getStudentType = function () {
              return DataAccessService.getDataAll('Assessment/getStudentType');
          },
-         this.GetElectiveSubjects = function (semId, schemeId, branchId, collegeCode) {
-             var paramObject = { "semId": semId, "schemeId": schemeId, "branchId": branchId, "collegeCode": collegeCode };
+             this.GetElectiveSubjects = function (semId, schemeId, branchId, collegeCode, AcademicYearID, SessionID) {
+             var paramObject = { "semId": semId, "schemeId": schemeId, "branchId": branchId, "collegeCode": collegeCode, "AcademicYearID": AcademicYearID, "SessionID": SessionID };
              return DataAccessService.getDataWithPara('Academic/GetElectiveSubjects', paramObject);
          },
          this.GetElectiveSubjectPinList = function (subId, semId, CollegeCode, branchCode) {

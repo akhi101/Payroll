@@ -13,10 +13,10 @@
         $scope.CollegeID = authData.CollegeID;
         $scope.AcademicId = authData.AcademicId;
         if ($scope.AcademicId == null || $scope.AcademicId == undefined || $scope.AcademicId == 0) {
-            $scope.AcademicId = 12
+            $scope.AcademicId = 13
         }
 
-        $scope.timeslotlist = [{ Id: true, val: 'Yes' }, { Id: false, val: 'No' }];
+        $scope.timeslotlist = [{ Id: true, val: '6SEM' }, { Id: false, val: '5SEM' }];
 
 
         $scope.PinsList = [];
@@ -28,7 +28,7 @@
             }
             if ($scope.PinsList.length == '0') {
                 //  console.log(data.internal)
-                var marksdata = $scope.pushData(data.PIN, Is6thSemStudied);
+                var marksdata = $scope.pushData(data.ID,data.PIN, Is6thSemStudied);
                 $scope.PinsList.push(marksdata);
 
 
@@ -37,12 +37,12 @@
                 $scope.PinsList.map((obj) => {
                     if (obj.pin == data.PIN) {
                         obj.Is6thSemStudied = Is6thSemStudied;
-
+                        obj.Id = data.ID;
                         tempId.push(data.PIN);
                     }
                     else if (obj.pin != data.PIN && !tempId.includes(data.PIN)) {
                         //  console.log(data.internal)
-                        var marksdata = $scope.pushData(data.PIN, Is6thSemStudied);
+                        var marksdata = $scope.pushData(data.ID,data.PIN, Is6thSemStudied);
 
                         tempId.push(data.PIN);
                         $scope.PinsList.push(marksdata);
@@ -56,8 +56,9 @@
         }
 
 
-        $scope.pushData = function (pin, Is6thSemStudied) {
+        $scope.pushData = function (Id,pin, Is6thSemStudied) {
             return {
+                Id: Id,
                 pin: pin,
                 Is6thSemStudied: Is6thSemStudied,
             };
@@ -126,6 +127,7 @@
             var setExaminationCenters = AcademicService.SetPinsData($scope.CollegeCode, $scope.BranchId, $scope.AcademicId, $scope.PinsList);
             setExaminationCenters.then(function (response) {
                 if (response[0].ResponseCode == '200') {
+                    $scope.PinsList =[]
                     alert(response[0].ResponseDescription);
                 } else if (response[0].ResponseCode == '400') {
                     alert(response[0].ResponseDescription);

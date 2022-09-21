@@ -253,6 +253,9 @@
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription);
 
+                } else if (response[0].ResponceCode == '400') {
+                    alert(response[0].ResponceDescription);
+
                 } else {
                     alert('Something Went Wrong')
 
@@ -323,7 +326,11 @@
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription);
 
-                } else {
+                }
+             else if (response[0].ResponceCode == '400') {
+                alert(response[0].ResponceDescription);
+
+            } else {
                     alert('Something Went Wrong')
 
                 }

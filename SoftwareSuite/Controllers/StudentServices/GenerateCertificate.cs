@@ -4312,6 +4312,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 text-decoration: underline;
                                 text-decoration-style:dashed; 
                                 font-size: 0.94em;
+margin-bottom :3px;
                             }
                             .footer {
                                position: fixed;                              
@@ -4452,7 +4453,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
                     var tempstudentdata = new List<TrSheetCertificateData>();
 
-                    var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH)
+                    var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH && x.YEAR == branch.YEAR)
                                                     .OrderBy(x => x.BRANCH)
                                                     .OrderBy(x => x.PIN)
                                                     .Distinct()
@@ -4460,12 +4461,29 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
 
                     var groupedItems = SliceArray(studentarrdata, 7);
+                    ////foreach (var Years in branchdata)
+                    ////{
 
-                    foreach (var studentdata in groupedItems)
-                    {
 
-                        #region PageHeader
-                        page = $@"<div class='container-fluid sm-spacer'>                            
+
+                    ////    var tempstudentdata = new List<TrSheetCertificateData>();
+
+                    //    var studentarrdat = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH && x.YEAR == Years.YEAR)
+                    //           .OrderBy(x => x.BRANCH)
+                    //        //.OrderBy(x => x.YEAR)
+                         
+                    //                                    .OrderBy(x => x.PIN)
+                    //                                    //.Distinct()
+                    //                                    .ToArray();
+
+
+                    //    var groupedItems = SliceArray(studentarrdat, 7);
+
+                        foreach (var studentdata in groupedItems)
+                        {
+
+                            #region PageHeader
+                            page = $@"<div class='container-fluid sm-spacer'>                            
                                 <div class='col-md-9 text-center'>STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S. HYDERABAD </div>            
                                 <div class='col-md-3 pull-right'>Page : {pgno}</div>
                                 <div class='col-md-9'>{branch.YEAR} ({branch.SCHEME}) EXAMINATION FOR 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
@@ -4474,9 +4492,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 <div class='col-md-8'>CENTER : {branch.CENTRE}-{branch.INST_NAME}, {branch.INST_ADDRESS}</div>
                                 <div class='col-md-12'>MONTH & YEAR OF EXAM :  {branch.MONTH_YEAR}</div>             
                                 <hr class='myHr' />";
-                        #endregion
-                        #region PageContent
-                        page += $@"<table class='table'>
+                            #endregion
+                            #region PageContent
+                            page += $@"<table class='table'>
                         <thead>
                             <tr>
                                 <th class='text-center'></th>
@@ -4637,12 +4655,12 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             <th class='' colspan='3'>RESULT</th>
                         </tr>
                     </thead>";
-                        page += @"<tbody>";
+                            page += @"<tbody>";
 
-                        for (var i = 0; i < studentdata.Length; i++)
-                        {
-                            tempstudentdata.Add(studentdata[i]);
-                            page += $@"<tr>
+                            for (var i = 0; i < studentdata.Length; i++)
+                            {
+                                tempstudentdata.Add(studentdata[i]);
+                                page += $@"<tr>
                                     <td class='cln' colspan='4'>{tempstudentdata.Count}</td>
                                     <td class='cln' colspan='6'>{studentdata[i].PIN}</td>
                                     <td class='cln' colspan='12'>{studentdata[i].NAME}</td>
@@ -4671,13 +4689,13 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                      <td colspan='22'></td>
                                      <td colspan='18'>RE: {studentdata[i].RE}</td>
                                 </tr>";
-                        }
+                            }
 
-                        page += "</tbody> </table>";
+                            page += "</tbody> </table>";
 
-                        if (tempstudentdata.Count == studentarrdata.Length)
-                        {
-                            page += $@"<div class='row'>
+                            if (tempstudentdata.Count == studentarrdata.Length)
+                            {
+                                page += $@"<div class='row'>
                                 <div class='col-md-4'>{branch.SUB1_CODE}-{branch.SUB1_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB2_CODE}-{branch.SUB2_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB3_CODE}-{branch.SUB3_NAME}</div>
@@ -4691,12 +4709,12 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 <div class='col-md-4'>{branch.SUB11_CODE}-{branch.SUB11_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB12_CODE}-{branch.SUB12_NAME}</div>
                             </div>";
-                            #endregion
-                        }
+                                #endregion
+                            }
 
 
-                        #region PageFooter
-                        page += $@" <div class='sm1-spacer'></div>
+                            #region PageFooter
+                            page += $@" <div class='sm1-spacer'></div>
                             <div class='btm_line footer'>
                             <div class='col-md-1'>E- ENDEXAM </div> 
                             <div class='col-md-1'>S- SESS</div>
@@ -4707,26 +4725,28 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                             <div class='col-md-2'>ASST/SECRETARY.</div>
                             <div class='col-md-2'>CONTROLLER OF EXAMINATION</div>
                         </div></div>";
-                        #endregion
+                            #endregion
 
-                        sbString += page;
-                        sbString += "</body></html>";
-                        var converter = new HtmlToPdf();
-                        converter.Options.ExternalLinksEnabled = true;
-                        converter.Options.DrawBackground = false;
-                        converter.Options.JavaScriptEnabled = false;
-                        converter.Options.WebPageWidth = 1024;
-                        converter.Options.PdfPageSize = PdfPageSize.A4;
-                        converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
-                        var doc = converter.ConvertHtmlString(sbString);
-                        path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
-                        doc.Save(path);
-                        doc.Close();
-                        sbString = html;
-                        pgno++;
-                    }
-                    tempstudentdata.Clear();
+                            sbString += page;
+                            sbString += "</body></html>";
+                            var converter = new HtmlToPdf();
+                            converter.Options.ExternalLinksEnabled = true;
+                            converter.Options.DrawBackground = false;
+                            converter.Options.JavaScriptEnabled = false;
+                            converter.Options.WebPageWidth = 1024;
+                            converter.Options.PdfPageSize = PdfPageSize.A4;
+                            converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+                            var doc = converter.ConvertHtmlString(sbString);
+                            path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
+                            doc.Save(path);
+                            doc.Close();
+                            sbString = html;
+                            pgno++;
+                        }
+                        tempstudentdata.Clear();
+                   // }
                 }
+
             }
             return dir_id;
         }

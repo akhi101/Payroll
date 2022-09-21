@@ -458,9 +458,10 @@
         };
 
         $scope.generateAttendeeId = function (studentId, attendeeId) {
-            var data = {};
-            $scope.$emit('showLoading', data);
+           
             if (attendeeId == 'Generate AttendeeId') {
+                var data = {};
+                $scope.$emit('showLoading', data);
                 StudentRegService.GetStudentRegById(studentId).then(function (data) {
                     $scope.bmaStu = data[0];
                     var g = '';
@@ -528,6 +529,8 @@
                         $scope.GetStudentDetailsForAdmission()
                         alert(error);
                     });
+            }else {
+
             }
 
         };
@@ -601,14 +604,14 @@
         }
 
         $scope.showAadhaarModal = function (studentId, Pin) {
-            if ($scope.SystemUserTypeId == 3 || $scope.SystemUserTypeId == 2) {
-                if ($scope.BranchCode != 'PH') {
-                    if (Pin == null || Pin == '' || Pin == undefined) {
-                        alert("Pin Generation Disabled")
-                        return;
-                    }
-                }
-            }
+            //if ($scope.SystemUserTypeId == 3 || $scope.SystemUserTypeId == 2) {
+            //    if ($scope.BranchCode != 'PH') {
+            //        if (Pin == null || Pin == '' || Pin == undefined) {
+            //            alert("Pin Generation Disabled")
+            //            return;
+            //        }
+            //    }
+            //}
             $scope.aadhaarPhoto = "";
             $scope.aadhaarName = "";
             $scope.aadhaarDob = "";
@@ -663,7 +666,7 @@
 
             var opts = doc.createElement("Opts");
             opts.setAttribute("fCount", "1");
-            opts.setAttribute("fType", "0");
+            opts.setAttribute("fType", "2");
             opts.setAttribute("iCount", "0");
             opts.setAttribute("pCount", "0");
             opts.setAttribute("format", "0");
@@ -692,7 +695,7 @@
                     if (xml.getElementsByTagName("Resp")[0].attributes.errCode.value !== "0") {
                         alert(xml.getElementsByTagName("Resp")[0].attributes.errInfo.value);
                     } else {
-                        $scope.DoAadhaarKyc(data, "04");
+                        $scope.DoAadhaarKyc(data, "25");
                     }
                 },
                 function (err) {
@@ -950,7 +953,7 @@
         $scope.selectedRd = "";
 
         $scope.mantraCapture = function () {
-            var PIDOPTS = '<PidOptions ver=\"1.0\">' + '<Opts fCount=\"1\" fType=\"0\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"20000\" otp=\"\" wadh=\"E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=\" posh=\"\" env=\"' + $scope.env + '\"/>' + '</PidOptions>';
+            var PIDOPTS = '<PidOptions ver=\"1.0\">' + '<Opts fCount=\"1\" fType=\"2\" iCount=\"0\" pCount=\"0\" format=\"0\" pidVer=\"2.0\" timeout=\"20000\" otp=\"\" wadh=\"E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=\" posh=\"\" env=\"' + $scope.env + '\"/>' + '</PidOptions>';
             $.ajax({
                 type: "CAPTURE",
                 async: false,
@@ -966,7 +969,7 @@
                         if (xml.getElementsByTagName("Resp")[0].attributes.errCode.value !== "0") {
                             alert(xml.getElementsByTagName("Resp")[0].attributes.errInfo.value);
                         } else {
-                            $scope.DoAadhaarKyc(data, "04");
+                            $scope.DoAadhaarKyc(data, "25");
                         }
 
                         httpStaus = true;
@@ -984,7 +987,7 @@
         };
 
         $scope.irisCapture = function () {
-            var PIDOPTS = '<PidOptions ver=\"1.0\">' + '<Opts fCount=\"0\" fType=\"\" iCount=\"1\" iType=\"0\" pCount=\"\" pType=\"\" format=\"0\" pidVer=\"2.0\" timeout=\"15000\" otp=\"\" wadh=\"8QSrHOmcQhlyjiSpIgCi7o2ugs78w+4jhckNk1jeIJg=\" posh=\"\" env=\"' + $scope.env + '\"/>' + '</PidOptions>';
+            var PIDOPTS = '<PidOptions ver=\"1.0\">' + '<Opts fCount=\"0\" fType=\"2\" iCount=\"1\" iType=\"0\" pCount=\"\" pType=\"\" format=\"0\" pidVer=\"2.0\" timeout=\"15000\" otp=\"\" wadh=\"8QSrHOmcQhlyjiSpIgCi7o2ugs78w+4jhckNk1jeIJg=\" posh=\"\" env=\"' + $scope.env + '\"/>' + '</PidOptions>';
             $.ajax({
                 type: "CAPTURE",
                 async: false,

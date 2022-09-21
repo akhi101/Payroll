@@ -120,8 +120,15 @@
 
 
         $scope.Changecollege = function (newcollege) {
-
-            $scope.newcollegecode = newcollege.CollegeCode;
+            var clgCode = newcollege.CollegeCode
+            if (clgCode.length === 2) {
+                $scope.newcollegecode = '0' + clgCode
+            } else if (clgCode.length === 1) {
+                $scope.newcollegecode = '00' + clgCode
+            } else {
+                $scope.newcollegecode = clgCode
+            }
+          
             $scope.newcollegename = newcollege.CollegeName;
             $scope.GetTransferCollegeDetails();
         }

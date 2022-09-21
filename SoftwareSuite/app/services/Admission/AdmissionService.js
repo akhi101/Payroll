@@ -70,10 +70,15 @@
             var promise = DataAccessService.getDataWithPara('Admission/GetStudentCategoryPinList', paramObject);
             return promise;
         }
-
         this.getReleaseAadharByPin = function (pin) {
             var paramObject = { "pin": pin };
             var promise = DataAccessService.getDataWithPara('Admission/GetReleaseAadharBypin', paramObject);
+            return promise;
+        }
+
+        this.GetReleaseAttendeeIdBypin = function (pin) {
+            var paramObject = { "pin": pin };
+            var promise = DataAccessService.getDataWithPara('Admission/GetReleaseAttendeeIdBypin', paramObject);
             return promise;
         }
 

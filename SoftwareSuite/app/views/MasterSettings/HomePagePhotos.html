@@ -1,0 +1,54 @@
+﻿<div ng-controller="HomePagePhotosController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Upload Slide</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/MasterSettings">Master Settings</a></li>
+                    <li><a href="#!/Dashboard/MasterSettings/Notification">Upload Slide</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <a href="#!/Dashboard/MasterSettings" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+        </div>
+
+        <div class="col-md-12 ">
+            <div class="alert alert-info">
+                <div class="studWishinputs">
+                    <div class="row userRow">
+                        <div class="col-md-2 font_bold">
+                            Upload Slide
+                        </div>
+                        <div class="col-md-6">
+                            <input class="inputCls" id="ApplicationLetter" type="file" placeholder="" onchange="angular.element(this).scope().UploadApplication()" accept="image/*" ng-model="upldfile1" />
+                        </div>
+                    </div>
+                    <div class="row userRow">
+                        <div class="col-md-2 font_bold">
+                            View Slide
+                        </div>
+                        <div class="col-md-6">
+                            <img ng-src="{{ApplicationLetter1}}" style="border: 2px solid #ddd;" height="220" width="500" id="ViewApplicationLetter" />
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class="gr-btn">
+                                <button type="button" style="margin-bottom:10px;" class="btn btn-primary gr-button" ng-click="UploadSignature()">Upload Slide</button>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

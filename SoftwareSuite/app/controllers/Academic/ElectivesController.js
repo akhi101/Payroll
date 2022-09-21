@@ -42,7 +42,7 @@
                 $scope.years = response.Table[0];
                 $scope.AcademicYearsActiveResponse = $scope.years;
                 $localStorage.Academic.AcademicYearsActiveResponse = $scope.years;
-
+                $scope.AcademicId = $localStorage.Academic.AcademicYearsActiveResponse.AcademicID
             },
             function (error) {
                 alert("error");
@@ -92,14 +92,14 @@
             loadActiveSemister.then(function (response) {
                 if (response.Table.length > 0) {
                     $scope.sems = response.Table;
-                    $scope.sems = [{ "sem": "1SEM", "semester": "1SEM(C18)", "semid": 1, "current_schemeid": 5 },
-                        { "sem": "2SEM", "semester": "2SEM(C18)", "semid": 2, "current_schemeid": 5 },
-                    { "sem": "3SEM", "semester": "3SEM(C18)", "semid": 3, "current_schemeid": 5 },
-                        { "sem": "4SEM", "semester": "4SEM(C18)", "semid": 4, "current_schemeid": 5 },
-                    { "sem": "5SEM", "semester": "5SEM(C18)", "semid": 5, "current_schemeid": 5 },
-                    { "sem": "7SEM", "semester": "7SEM(C16S)", "semid": 7, "current_schemeid": 4 },
-                    { "sem": "2YR", "semester": "2YR(ER91)", "semid": 8, "current_schemeid": 2 },
-                    { "sem": "1YR", "semester": "1YR(ER91)", "semid": 9, "current_schemeid": 2 }];
+                    //$scope.sems = [{ "sem": "1SEM", "semester": "1SEM(C18)", "semid": 1, "current_schemeid": 5 },
+                    //    { "sem": "2SEM", "semester": "2SEM(C18)", "semid": 2, "current_schemeid": 5 },
+                    //{ "sem": "3SEM", "semester": "3SEM(C18)", "semid": 3, "current_schemeid": 5 },
+                    //    { "sem": "4SEM", "semester": "4SEM(C18)", "semid": 4, "current_schemeid": 5 },
+                    //{ "sem": "5SEM", "semester": "5SEM(C18)", "semid": 5, "current_schemeid": 5 },
+                    //{ "sem": "7SEM", "semester": "7SEM(C16S)", "semid": 7, "current_schemeid": 4 },
+                    //{ "sem": "2YR", "semester": "2YR(ER91)", "semid": 8, "current_schemeid": 2 },
+                    //{ "sem": "1YR", "semester": "1YR(ER91)", "semid": 9, "current_schemeid": 2 }];
                   //  $scope.selectedsem = response.Table[0];
                     $localStorage.Academic.selectedsem = $scope.selectedsem;
                  //   $scope.loadsubjects($scope.selectedsem);
@@ -112,21 +112,23 @@
                 alert("error no data");
             });
 
+            $scope.sessioninfo = [{ session: "SESSION 1", val: 1 }, { session: "SESSION 2", val: 2 }]
 
 
             //loading ElectiveSubject list
-            $scope.loadsubjects = function (selectedsem) {
-
+            $scope.loadsubjects = function (selectedsem, selSession) {
+                $scope.selSession = selSession
                 $scope.Electivesfound = false;
                 $scope.LoadImgForSubject = true;
-                var SubjectList = ElectivesService.GetElectiveSubjects(selectedsem.semid, selectedsem.current_schemeid, $scope.BranchId, $scope.College_Code);
+                console.log(selectedsem.semid, selectedsem.current_schemeid, $scope.BranchId, $scope.College_Code, $scope.AcademicId, selSession)
+                var SubjectList = ElectivesService.GetElectiveSubjects(selectedsem.semid, selectedsem.current_schemeid, $scope.BranchId, $scope.College_Code, $scope.AcademicId,selSession);
                 SubjectList.then(function (response) {
                     $scope.valid = true;
-                    if (response.length > 0) {
+                    if (response.Table[0].ResponseCode == '200') {
                         $scope.Electivesfound = true;
                         $scope.LoadImgForSubject = false;
-                        $scope.getSemSubjectsResponse = response;
-                        for (let i = 0 ; i < $scope.getSemSubjectsResponse.length; i++) {
+                        $scope.getSemSubjectsResponse = response.Table1;
+                        for (let i = 0; i < $scope.getSemSubjectsResponse.length; i++) {
                             if ($scope.getSemSubjectsResponse[i].active == null) {
                                 $scope.getSemSubjectsResponse[i].active = false;
                             }
@@ -142,7 +144,12 @@
                             //$scope.finalList
 
                         }
-                    } else {
+                    } else if (response.Table[0].ResponseCode == '400') {
+                        $scope.getSemSubjectsResponse = [];
+                        $scope.Electivesfound = false;
+                        $scope.LoadImgForSubject = false;
+                        alert(response.Table[0].ResponseDescription);
+                    }else {
                         $scope.getSemSubjectsResponse = [];
                         $scope.Electivesfound = false;
                         $scope.LoadImgForSubject = false;
@@ -218,12 +225,15 @@
                 });
             }
             $scope.savedata = function () {
-
+               
                 for (let i = 0 ; i < $scope.finalList.length ; i++) {
                     $scope.finalList[i].id = i + 1;
                     $scope.finalList[i].collegeCode = $scope.College_Code;
+                    $scope.finalList[i].AcademicYearID = $scope.AcademicId;
+                    $scope.finalList[i].SessionID = $scope.selSession;
 
-                }              
+                }
+                console.log($scope.finalList)
                 var PostFinaldata = ElectivesService.PostFinaldata($scope.finalList);
                 PostFinaldata.then(function (response) {
                     alert("Updated Successfully");
