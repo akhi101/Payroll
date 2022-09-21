@@ -500,6 +500,13 @@
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
 
+            let CourseExp = ($scope.Experience == null || $scope.Experience == undefined || $scope.Experience == '') ? null : parseInt($scope.Experience);
+            let SscCer = ($scope.SSCCertificate == null || $scope.SSCCertificate == undefined || $scope.SSCCertificate == '') ? '' : $scope.SSCCertificate;
+            let StdCerType = ($scope.QualificationCertificate == null || $scope.QualificationCertificate == undefined || $scope.QualificationCertificate == '') ? '' : $scope.QualificationCertificate;
+            let StdExpCer = ($scope.ExperienceCertificate == null || $scope.ExperienceCertificate == undefined || $scope.ExperienceCertificate == '') ? '' : $scope.ExperienceCertificate;
+            let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
+            let MName = ($scope.MotherName == null || $scope.MotherName == undefined || $scope.MotherName == '') ? '' : $scope.MotherName;
+            var updatestddetails = CcicPreExaminationService.AddStudentDetails(appNum, authData.InstitutionID, parseInt($scope.CourseID), $scope.CourseQualificationID, CourseExp, $scope.SSC, sscHallticket, passedoutYear, sscType, $scope.StudentName, $scope.FatherName, MName, $scope.DateofBirth, '', $scope.Gender, parseInt($scope.AadharNumber), $scope.HouseNumber, $scope.Street, $scope.Landmark, $scope.Village, $scope.Pincode, $scope.District, $scope.AddressState, $scope.StudentMobile, $scope.StudentEmail, $scope.SSCValidated, $scope.UserName, $scope.StudentPhoto, $scope.StudentSign, SscCer, StdCerType, StdExpCer);
             updatestddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
