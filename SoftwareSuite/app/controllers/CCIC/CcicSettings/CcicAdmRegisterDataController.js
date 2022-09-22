@@ -157,7 +157,7 @@
 
             };
 
-            $state.go('CcicDashboard.Academic.ViewStdDetails');
+            $state.go('CcicDashboard.Academic.ViewStuDetails');
 
 
         }

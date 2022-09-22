@@ -215,49 +215,76 @@
                 $scope.showEducation = true;
                 $scope.applicationForm = true;
                 $scope.loading = false;
-                $scope.EditData = editRes[0];
+                //$scope.EditData = editRes[0];
+                var EditData = editRes[0];
 
                 $scope.ApplicationNumber = tempData4.ApplicationNumber;
-                $scope.CourseName = $scope.EditData.CourseName;
-                $scope.CourseID = $scope.EditData.CourseID;
+                $scope.CourseName = EditData.CourseName;
+                $scope.CourseID = EditData.CourseID;
                 //$scope.CourseID = CourseID;
-                $scope.Qualification = $scope.EditData.Qualification;
-                $scope.Experience = $scope.EditData.Experience;
+                $scope.Qualification = EditData.Qualification;
+                $scope.Experience = EditData.Experience;
 
-                $scope.CourseQualificationID = $scope.EditData.CourseQualificationID;
-                $scope.CourseExperienceID = $scope.EditData.CourseExperienceID;
+                $scope.CourseQualificationID = EditData.CourseQualificationID;
+                $scope.CourseExperienceID = EditData.CourseExperienceID;
 
-                $scope.SSC = $scope.EditData.SSC;
-                $scope.SSCValidated = $scope.EditData.SSCValidated;
+                $scope.SSC = EditData.SSC;
+                $scope.SSCValidated = EditData.SSCValidated;
 
-                $scope.SSCHallticketNumber = $scope.EditData.SSCHallticketNumber;
-                $scope.SSCPassedYear = $scope.EditData.SSCPassedYear;
-                $scope.SSCPassedType = $scope.EditData.SSCPassedType;
+                $scope.SSCHallticketNumber = EditData.SSCHallticketNumber;
+                $scope.SSCPassedYear = EditData.SSCPassedYear;
+                $scope.SSCPassedType = EditData.SSCPassedType;
 
-                $scope.StudentName = $scope.EditData.StudentName;
-                $scope.FatherName = $scope.EditData.FatherName;
-                $scope.MotherName = $scope.EditData.MotherName;
-                $scope.FatherName = $scope.EditData.FatherName;
-                $scope.DateofBirth = $scope.EditData.DateofBirth;
-                $scope.Gender = $scope.EditData.Gender;
-                $scope.AadharNumber = $scope.EditData.AadharNumber;
-                $scope.HouseNumber = $scope.EditData.HouseNumber;
-                $scope.Street = $scope.EditData.Street;
-                $scope.Landmark = $scope.EditData.Landmark;
-                $scope.Village = $scope.EditData.Village;
-                $scope.Pincode = $scope.EditData.Pincode;
-                $scope.District = $scope.EditData.District;
-                $scope.AddressState = $scope.EditData.AddressState;
-                $scope.StudentMobile = $scope.EditData.StudentMobile;
-                $scope.StudentEmail = $scope.EditData.StudentEmail;
+                $scope.StudentName = EditData.StudentName;
+                $scope.FatherName = EditData.FatherName;
+                $scope.MotherName = EditData.MotherName;
+                $scope.FatherName = EditData.FatherName;
+                $scope.DateofBirth = EditData.DateofBirth;
+                $scope.Gender = EditData.Gender;
+                $scope.AadharNumber = EditData.AadharNumber;
+                $scope.HouseNumber = EditData.HouseNumber;
+                $scope.Street = EditData.Street;
+                $scope.Landmark = EditData.Landmark;
+                $scope.Village = EditData.Village;
+                $scope.Pincode = EditData.Pincode;
+                $scope.District = EditData.District;
+                $scope.AddressState = EditData.AddressState;
+                $scope.StudentMobile = EditData.StudentMobile;
+                $scope.StudentEmail = EditData.StudentEmail;
 
-                $scope.StudentPhoto = $scope.EditData.StudentPhoto;
-                $scope.StudentSign = $scope.EditData.StudentSign;
+                //$scope.StudentPhoto = EditData.StudentPhoto;
+                //$scope.StudentSign = EditData.StudentSign;
 
-                $scope.SSCCertificate = $scope.EditData.SSCCertificate;
-                $scope.QualificationCertificate = $scope.EditData.QualificationCertificate;
-                $scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
+                //$scope.SSCCertificate = EditData.SSCCertificate;
+                //$scope.QualificationCertificate = EditData.QualificationCertificate;
+                //$scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
 
+                $scope.StudentPhoto = EditData.StudentPhoto;
+                //$scope.StudentPhotoConvert = EditData.StudentPhoto;
+                $scope.toDataURL(EditData.StudentPhoto, function (res) {
+                    $scope.StudentPhotoConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                })
+                $scope.StudentSign = EditData.StudentSign;
+                //$scope.StudentSignConvert = EditData.StudentSign;
+                $scope.toDataURL(EditData.StudentSign, function (res) {
+                    $scope.StudentSignConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                })
+
+                $scope.SSCCertificate = EditData.SSCCertificate;
+                //$scope.SscCertificateConvert = EditData.SSCCertificate;
+                $scope.toDataURL(EditData.SSCCertificate, function (res) {
+                    $scope.SscCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                })
+                $scope.QualificationCertificate = EditData.QualificationCertificate;
+                //$scope.QualificationCertificateConvert = EditData.QualificationCertificate;
+                $scope.toDataURL(EditData.QualificationCertificate, function (res) {
+                    $scope.QualificationCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                })
+                $scope.ExperienceCertificate = EditData.ExperienceCertificate;
+                //$scope.ExperienceCertificateConvert = EditData.ExperienceCertificate;
+                $scope.toDataURL(EditData.ExperienceCertificate, function (res) {
+                    $scope.ExperienceCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                })
 
 
                 $scope.$emit('hideLoading', data);
@@ -479,6 +506,20 @@
                 alert("file size should be less then 300kb. ");
                 return;
             }
+        }
+
+        $scope.toDataURL = function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
         }
 
 

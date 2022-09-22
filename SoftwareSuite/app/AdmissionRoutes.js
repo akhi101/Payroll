@@ -285,11 +285,11 @@
                 dependencies: ['controllers/CCIC/CcicSettings/EditStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            //'CcicDashboard.Academic.ViewStuDetails': {
-            //    url: "/ViewStuDetails",
-            //    templateUrl: 'app/views/CCIC/CcicSettings/ViewStuDetails.html',
-            //    dependencies: ['controllers/CCIC/CcicSettings/ViewStuDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            //},
+            'CcicDashboard.Academic.ViewStuDetails': {
+                url: "/ViewStuDetails",
+                templateUrl: 'app/views/CCIC/CcicSettings/ViewStuDetails.html',
+                dependencies: ['controllers/CCIC/CcicSettings/ViewStuDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
 
             'CcicDashboard.Academic.ViewStudentDetails': {
                 url: "/ViewStudentDetails",
