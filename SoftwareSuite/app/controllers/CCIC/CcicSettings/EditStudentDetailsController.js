@@ -1,9 +1,9 @@
 ﻿define(['app'], function (app) {
-    app.controller("EditStdDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("EditStudentDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
-        var tempData4 = $localStorage.TempData4;
+        var tempData1 = $localStorage.TempData1;
         $scope.InstitutionID = authData.InstitutionID;
 
 
@@ -11,6 +11,7 @@
         $ctrl.$onInit = () => {
             //$scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.Mode();
+            $scope.coursedetails = true;
             $scope.Modify();
             /*$scope.EditStudentDetails();*/
 
@@ -19,7 +20,77 @@
         var data = {};
         $scope.$emit('showLoading', data);
 
-        
+
+
+        //$scope.Modify = function () {
+
+        //    $scope.loading = true;
+        //    $scope.coursedetails = true;
+        //    $scope.SSCDetails = true;
+        //    $scope.radiodisable = true;
+
+        //    var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
+        //    editstddetails.then(function (response) {
+        //        try {
+        //            var editRes = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        $scope.coursedetails = true;
+        //        $scope.SscForm = true;
+        //        $scope.showEducation = true;
+        //        $scope.applicationForm = true;
+        //        $scope.loading = false;
+        //        $scope.EditData = editRes[0];
+
+        //        /* $scope.ApplicationNumber = tempData4.ApplicationNumber;*/
+        //        $scope.CourseName = $scope.EditData.CourseName;
+        //        $scope.CourseID = $scope.EditData.CourseID;
+        //        //$scope.CourseID = CourseID;
+        //        $scope.Qualification = $scope.EditData.Qualification;
+        //        $scope.Experience = $scope.EditData.Experience;
+
+        //        $scope.CourseQualificationID = $scope.EditData.CourseQualificationID;
+        //        $scope.CourseExperienceID = $scope.EditData.CourseExperienceID;
+
+        //        $scope.SSC = $scope.EditData.SSC;
+        //        $scope.SSCValidated = $scope.EditData.SSCValidated;
+
+        //        $scope.SSCHallticketNumber = $scope.EditData.SSCHallticketNumber;
+        //        $scope.SSCPassedYear = $scope.EditData.SSCPassedYear;
+        //        $scope.SSCPassedType = $scope.EditData.SSCPassedType;
+
+        //        $scope.StudentName = $scope.EditData.StudentName;
+        //        $scope.FatherName = $scope.EditData.FatherName;
+        //        $scope.MotherName = $scope.EditData.MotherName;
+        //        $scope.FatherName = $scope.EditData.FatherName;
+        //        $scope.DateofBirth = $scope.EditData.DateofBirth;
+        //        $scope.Gender = $scope.EditData.Gender;
+        //        $scope.AadharNumber = $scope.EditData.AadharNumber;
+        //        $scope.HouseNumber = $scope.EditData.HouseNumber;
+        //        $scope.Street = $scope.EditData.Street;
+        //        $scope.Landmark = $scope.EditData.Landmark;
+        //        $scope.Village = $scope.EditData.Village;
+        //        $scope.Pincode = $scope.EditData.Pincode;
+        //        $scope.District = $scope.EditData.District;
+        //        $scope.AddressState = $scope.EditData.AddressState;
+        //        $scope.StudentMobile = $scope.EditData.StudentMobile;
+        //        $scope.StudentEmail = $scope.EditData.StudentEmail;
+
+        //        $scope.StudentPhoto = $scope.EditData.StudentPhoto;
+        //        $scope.StudentSign = $scope.EditData.StudentSign;
+
+        //        $scope.SSCCertificate = $scope.EditData.SSCCertificate;
+        //        $scope.QualificationCertificate = $scope.EditData.QualificationCertificate;
+        //        $scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
+
+        //        $state.go('CcicDashboard.Academic.EditStuDetails');
+        //        $scope.$emit('hideLoading', data);
+        //    }, function (error) {
+
+        //        var err = JSON.parse(error);
+        //    });
+
+        //}
 
         $scope.Mode = function () {
 
@@ -47,7 +118,7 @@
         }
 
 
-     
+
         //$scope.EditStudentDetails = function () {
         //    $scope.loading = true;
         //    $scope.coursedetails = true;
@@ -126,7 +197,7 @@
 
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    $state.go('CcicDashboard.Academic.EnrollmentReport');
+                    $state.go('CcicDashboard.Academic.Enrollment');
                     $scope.coursedetails = true;
                     $scope.Course = null;
                     $scope.Qualification = null;
@@ -204,7 +275,7 @@
             $scope.sscdetails = true;
             $scope.radiodisable = true;
 
-            var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData4.ApplicationNumber, tempData4.StudentID);
+            var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
             editstddetails.then(function (response) {
                 try {
                     var editRes = JSON.parse(response);
@@ -215,10 +286,14 @@
                 $scope.showEducation = true;
                 $scope.applicationForm = true;
                 $scope.loading = false;
-                //$scope.EditData = editRes[0];
+                /*$scope.EditData = editRes[0];*/
                 var EditData = editRes[0];
 
-                $scope.ApplicationNumber = tempData4.ApplicationNumber;
+
+
+
+
+                $scope.ApplicationNumber = tempData1.ApplicationNumber;
                 $scope.CourseName = EditData.CourseName;
                 $scope.CourseID = EditData.CourseID;
                 //$scope.CourseID = CourseID;
@@ -252,13 +327,6 @@
                 $scope.StudentMobile = EditData.StudentMobile;
                 $scope.StudentEmail = EditData.StudentEmail;
 
-                //$scope.StudentPhoto = EditData.StudentPhoto;
-                //$scope.StudentSign = EditData.StudentSign;
-
-                //$scope.SSCCertificate = EditData.SSCCertificate;
-                //$scope.QualificationCertificate = EditData.QualificationCertificate;
-                //$scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
-
                 $scope.StudentPhoto = EditData.StudentPhoto;
                 //$scope.StudentPhotoConvert = EditData.StudentPhoto;
                 $scope.toDataURL(EditData.StudentPhoto, function (res) {
@@ -269,8 +337,6 @@
                 $scope.toDataURL(EditData.StudentSign, function (res) {
                     $scope.StudentSignConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
                 })
-
-
 
                 $scope.SSCCertificate = EditData.SSCCertificate;
                 //$scope.SscCertificateConvert = EditData.SSCCertificate;
@@ -305,6 +371,7 @@
                 })
 
 
+
                 $scope.$emit('hideLoading', data);
             }, function (error) {
 
@@ -314,7 +381,7 @@
         }
 
 
-        
+
         $scope.Update = function () {
 
             if ($scope.StudentName == '' || $scope.StudentName == undefined || $scope.StudentName == null) {
@@ -344,14 +411,13 @@
                 return;
             }
 
-
-            if ($scope.HouseNumber == '' || $scope.HouseNumber == undefined || $scope.HouseNumber == null) {
-                alert('Please Select houseNo')
+            if ($scope.AadharNumber == '' || $scope.AadharNumber == undefined || $scope.AadharNumber == null) {
+                alert('Please Select AadharNumber')
                 return;
             }
 
-            if ($scope.AadharNumber == '' || $scope.AadharNumber == undefined || $scope.AadharNumber == null) {
-                alert('Please Select AadharNumber')
+            if ($scope.HouseNumber == '' || $scope.HouseNumber == undefined || $scope.HouseNumber == null) {
+                alert('Please Select houseNo')
                 return;
             }
 
@@ -360,20 +426,16 @@
                 return;
             }
 
+            if ($scope.Landmark == '' || $scope.Landmark == undefined || $scope.Landmark == null) {
+                alert('Please Select Landmark')
+                return;
+            }
+
             if ($scope.Village == '' || $scope.Village == undefined || $scope.Village == null) {
                 alert('Please Select village')
                 return;
             }
 
-            if ($scope.Landmark == '' || $scope.Landmark == undefined || $scope.Landmark == null) {
-                alert('Please Select LandMark')
-                return;
-            }
-
-            if ($scope.StudentMobile == '' || $scope.StudentMobile == undefined || $scope.StudentMobile == null) {
-                alert('Please Select Mobile Number')
-                return;
-            }
 
             if ($scope.Pincode == '' || $scope.Pincode == undefined || $scope.Pincode == null) {
                 alert('Please Select Pincode')
@@ -399,6 +461,12 @@
                 alert('Please Select Email')
                 return;
             }
+
+
+
+
+       
+
 
             //if ($scope.StudentPhotoConvert == '' || $scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) {
             //    alert('Please Select StudentPhoto')
@@ -428,7 +496,7 @@
 
             $scope.LoadImg = true;
 
-            
+
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
 
             var paramObj = {
@@ -466,7 +534,7 @@
                 "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
                 "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
             };
-            var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);            
+            var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -478,7 +546,7 @@
                     $scope.LoadImg = true;
                     $scope.ApplicationNumber = res[0].ApplicationNumber;
                     $scope.StudentID = res[0].StudentID;
-                    $state.go('CcicDashboard.Academic.ViewStdDetails')
+                    $state.go('CcicDashboard.Academic.ViewStudentDetails')
                     //$scope.PreviewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
                     alert(res[0].ResponseDescription);
                     $scope.ShowDetails = true;
@@ -561,7 +629,7 @@
             }
         }
 
-        $scope.toDataURL = function (url, callback) {
+        $scope.toDataURL=function (url, callback) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
@@ -574,7 +642,6 @@
             xhr.responseType = 'blob';
             xhr.send();
         }
-
 
         $scope.uploadStudentSign = function () {
             var input = document.getElementById("stdSignFile");

@@ -236,7 +236,7 @@
             'CcicDashboard.Settings.RecentNews': {
                 url: "/RecentNews",
                 templateUrl: 'app/views/CCIC/CcicRecentNews.html',
-                dependencies: ['controllers/CCIC/CcicRecentNewsController', 'directives/saDate']
+                dependencies: ['controllers/CCIC/CcicRecentNewsController', 'directives/saDate', 'services/CCIC/AdminServices/CcicAdminService', 'services/CCIC/PreExamination/CcicPreExaminationService' ]
             },
 
 
@@ -279,16 +279,30 @@
                 dependencies: ['controllers/CCIC/CcicSettings/ViewStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.Academic.EditStdDetails': {
+                url: "/EditStdDetails",
+                templateUrl: 'app/views/CCIC/CcicSettings/EditStdDetails.html',
+                dependencies: ['controllers/CCIC/CcicSettings/EditStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.Academic.ViewStuDetails': {
                 url: "/ViewStuDetails",
                 templateUrl: 'app/views/CCIC/CcicSettings/ViewStuDetails.html',
                 dependencies: ['controllers/CCIC/CcicSettings/ViewStuDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.Academic.EditStdDetails': {
-                url: "/EditStdDetails",
-                templateUrl: 'app/views/CCIC/CcicSettings/EditStdDetails.html',
-                dependencies: ['controllers/CCIC/CcicSettings/EditStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.Academic.ViewStudentDetails': {
+                url: "/ViewStudentDetails",
+                templateUrl: 'app/views/CCIC/CcicSettings/ViewStudentDetails.html',
+                dependencies: ['controllers/CCIC/CcicSettings/ViewStudentDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+           
+
+            'CcicDashboard.Academic.EditStudentDetails': {
+                url: "/EditStudentDetails",
+                templateUrl: 'app/views/CCIC/CcicSettings/EditStudentDetails.html',
+                dependencies: ['controllers/CCIC/CcicSettings/EditStudentDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
             'CcicDashboard.Academic.ViewStdDetailsVerification': {

@@ -25,6 +25,74 @@
     button > span.active {
         color: #ffffff !important;
     }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+
+    .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
+        border: 1px solid #ddd !important;
+        color: #337ab7;
+        font-size: 14px !important;
+        cursor: default !important;
+        font-family: 'Open Sans';
+    }
+
+    .base-row {
+        background-color: #fefefe;
+        border-radius: 4px;
+        margin-top: 0px;
+        margin-bottom: 60px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 17px -8px #888888;
+        font-family: 'Open Sans';
+    }
+
+    .table-custom-tables-tb .table-bordered > thead > tr > th {
+        border: 1px solid #ddd !important;
+        color: #788598;
+        font-size: 14px !important;
+        font-family: 'Open Sans';
+    }
+
+    .navbar_section {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: -20px;
+    }
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open-Sans';
+    }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .breadcrumb-header {
+        background-color: #d8d8d8;
+        padding: 8px 0px;
+        margin-bottom: 20px;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
+    .col-md-12 {
+        width: 100%;
+        font-family: 'Open Sans';
+    }
+
+    .btn:not(.btn-link):not(.btn-circle) {
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        /* -webkit-border-radius: 2px; */
+        /* border-radius: 0px !important; */
+        font-size: 14px;
+    }
     
 </style>
 
@@ -34,7 +102,7 @@
             <section class="content-header">
                 <h5>Module Settings </h5>
                 <ol class="breadcrumb">
-                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
+                    <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li><a href="#!/CcicDashboard/Settings">Ccic Settings</a></li>
                     <li><a href="#!/CcicDashboard/Settings/CcicModulesSetting">Ccic Modules Settings</a></li>
                 </ol>
@@ -266,7 +334,7 @@
                                 </div>
                             </div>
                            
-                            <div ng-if="GetCcicUserModules&&UserType.length>0" id="AddCcicModule" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="GetCcicUserModules.length>0" id="AddCcicModule" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">
@@ -398,13 +466,13 @@
                                     <h2>No Data</h2>
                                 </div>
                             </div>                           
-                            <div ng-if="SubModulesTable&&moduleid.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="SubModulesTable.length>0" id="preExamReports" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">
 
                                             <th style="width: 5%;">S.No</th>
-                                            <th class="">Module Name</th>
+                                            <th class="" style="width: 15%;">Module Name</th>
                                             <th class="" style="">Colour</th>
                                             <th class="" style="">SubModule name</th>
                                             <th class="" style="">SubModule Route Name</th>
@@ -535,7 +603,7 @@
                                     <h2>No Data</h2>
                                 </div>
                             </div>
-                            <div ng-if="GetCcicUserSubModules&&userTypeId&&ModuleId.length>0" class="table-responsive table-custom-tables-tb ">
+                            <div ng-if="GetCcicUserSubModules.length>0" class="table-responsive table-custom-tables-tb ">
                                 <table class="table table-bordered  table-striped table-rounded">
                                     <thead>
                                         <tr class="cb-1">

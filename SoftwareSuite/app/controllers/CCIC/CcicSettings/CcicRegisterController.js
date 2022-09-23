@@ -11,12 +11,14 @@
             $scope.AdminRegisterInsTable = false;
             $scope.RegisterCoursesTable = false;
             $scope.DropDownTable = true;
+           
 
         }
 
-        var data = [];
-        $scope.$emit('showLoading', data);
+        //var data = [];
+        //$scope.$emit('showLoading', data);
 
+        $scope.loading = false;
         $scope.getAdminRegisterReportCount = function (academicYear, batch) {
             if ($scope.UserTypeID == 1) {
                 $scope.GetAdmDetails(academicYear, batch);
@@ -30,7 +32,7 @@
         GetCcicAcademicYears.then(function (response) {
             $scope.loading = false;
             $scope.GetCcicAcademicYears = response.Table;
-            $scope.$emit('hideLoading', data);
+            //$scope.$emit('hideLoading', data);
 
         },
             function (error) {
@@ -67,11 +69,16 @@
                 if (res.length >= 0) {
                     $scope.loading = false;
                     $scope.AdmRegisterReportInsCountTable = res;
-                    $scope.$emit('hideLoading', data);
+                    $scope.NoData = false;
+                //    alert('Please scroll down!')
+                //    $scope.$emit('hideLoading', data);
                 } else {
                     $scope.loading = false;
                     $scope.AdmRegisterReportInsCountTable = [];
-                    $scope.$emit('hideLoading', data);
+                    $scope.NoData = true;
+
+
+                    //$scope.$emit('hideLoading', data);
 
                 }
             },
@@ -112,12 +119,14 @@
                 if (res.length >= 0) {
                     $scope.loading = false;
                     $scope.RegisterCoursesCountTable = res;
-                    $scope.$emit('hideLoading', data);
+                    $scope.NoData = false;
+                    //$scope.$emit('hideLoading', data);
 
                 } else {
                     $scope.loading = false;
                     $scope.RegisterCoursesCountTable = [];
-                    $scope.$emit('hideLoading', data);
+                    $scope.NoData = true;
+                //    $scope.$emit('hideLoading', data);
                 }
             },
                 function (error) {
