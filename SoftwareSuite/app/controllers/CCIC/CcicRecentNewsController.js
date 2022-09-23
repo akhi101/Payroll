@@ -1,8 +1,8 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicRecentNewsController", function ($scope, $uibModal, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService) {
+    app.controller("CcicRecentNewsController", function ($scope, $uibModal, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService,CcicPreExaminationService) {
         const $ctrl = this
         $ctrl.$onInit = () => {
-           
+            $scope.GetAllRecentNewsData();
             $scope.getuserRecentNews();
         }
         //var data = [];
@@ -70,9 +70,9 @@
 
             var GetRecentNews = CcicAdminService.GetRecentNews();
             GetRecentNews.then(function (response) {
-                if (response.Table.length) {
+                if (response.Table.length>0) {
                     $scope.loading = false;
-                    $scope.GetRecentNews = response.Table;
+                    $scope.RecentNewsTable = response.Table;
                     //$scope.result = true;
                     $scope.NoData = false;
                     //$scope.$emit('hideLoading', data);
@@ -221,23 +221,23 @@
                 keyboard: false
             });
 
-            var GetAllRecentNews = CcicAdminService.GetAllRecentNews();
-            GetAllRecentNews.then(function (response) {
-                if (response.Table.length) {
-                    $scope.GetAllRecentNews = response.Table;
+            //var GetAllRecentNews = CcicAdminService.GetAllRecentNews();
+            //GetAllRecentNews.then(function (response) {
+            //    if (response.Table.length) {
+            //        $scope.GetAllRecentNews = response.Table;
                
-                } else {
-                    $scope.loading = false;
-                    $scope.NoData = true;
-                    alert("No Data Found");
+            //    } else {
+            //        $scope.loading = false;
+            //        $scope.NoData = true;
+            //        alert("No Data Found");
 
-                }
-            },
-                function (error) {
+            //    }
+            //},
+            //    function (error) {
 
-                    alert("error while loading Data");
-                    console.log(error);
-                });
+            //        alert("error while loading Data");
+            //        console.log(error);
+            //    });
             $scope.closeModal = function () {
                 $scope.modalInstance.close();
             };
@@ -283,58 +283,137 @@
 
 
 
-        $scope.modify = function (ind) {
+        //$scope.modify = function (ind) {
 
 
 
-            $scope.viewField = true;
-            $scope.modifyField = true;
+        //    $scope.viewField = true;
+        //    $scope.modifyField = true;
 
+        //    var ele1 = document.getElementsByClassName("enabletable" + ind);
+        //    for (var j = 0; j < ele1.length; j++) {
+        //        ele1[j].style['pointer-events'] = "auto";
+        //        ele1[j].style.border = "1px solid #ddd";
+        //        ele1[j].style['-webkit-appearance'] = "auto";
+        //        ele1[j].style['-moz-appearance'] = "auto";
+        //    }
+        //    $scope['edit' + ind] = false;
+
+        //};
+
+
+        //$scope.update = function (ind, RecentNewsID, RecentNewsText, FromDate, ToDate) {
+
+
+        //    $scope.loading = true;
+        //    $scope.viewField = false;
+        //    $scope.modifyField = false;
+        //    $scope['edit' + ind] = true;
+
+        //    var ele2 = document.getElementsByClassName("enabletable" + ind);
+        //    for (var j = 0; j < ele2.length; j++) {
+        //        ele2[j].style['pointer-events'] = "none";
+        //        ele2[j].style.border = "0";
+        //        ele2[j].style['-webkit-appearance'] = "none";
+        //        ele2[j].style['-moz-appearance'] = "none";
+        //    }
+
+
+        //    var update = CcicAdminService.CcicRecentNewsUpdate(RecentNewsID, RecentNewsText.toString(), FromDate.toString(), ToDate.toString(), $scope.UserName);
+        //    update.then(function (response) {
+        //        $scope.loading = false;
+        //        alert("RecentNews Updated Successfully")
+        //        $scope.getuserRecentNews();
+        //        $scope.$emit('hideLoading', data);
+
+        //    },
+        //        function (error) {
+        //            $scope.loading = false;
+        //            alert("error while loading Data");
+        //            console.log(error);
+        //            $scope.$emit('hideLoading', data);
+
+        //        });
+        //}
+
+        $scope.GetAllRecentNewsData = function () {
+            var getacayrs = CcicAdminService.GetAllRecentNews()
+            getacayrs.then(function (response) {
+                $scope.GetAllRecentNews = response.Table;
+
+                for (let i = 0; i < $scope.GetAllRecentNews.length; i++) {
+                    if ($scope.GetAllRecentNews[i].GetAllRecentNews == true) {
+                        $scope.finalList.push($scope.GetAllRecentNews[i]);
+                    }
+                }
+
+                var ele = document.getElementsByClassName("tableinpt");
+                for (var j = 1; j < response.Table.length + 10000; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+        }
+
+
+        $scope.ChangeStatus = function (data, ind) {
+           
             var ele1 = document.getElementsByClassName("enabletable" + ind);
             for (var j = 0; j < ele1.length; j++) {
                 ele1[j].style['pointer-events'] = "auto";
                 ele1[j].style.border = "1px solid #ddd";
-                ele1[j].style['-webkit-appearance'] = "auto";
-                ele1[j].style['-moz-appearance'] = "auto";
             }
+          
+
             $scope['edit' + ind] = false;
 
-        };
+        }
 
 
-        $scope.update = function (ind, RecentNewsID, RecentNewsText, FromDate, ToDate) {
+        $scope.UpdationStatus = function (dat, ind) {
 
 
-            $scope.loading = true;
-            $scope.viewField = false;
-            $scope.modifyField = false;
             $scope['edit' + ind] = true;
 
             var ele2 = document.getElementsByClassName("enabletable" + ind);
             for (var j = 0; j < ele2.length; j++) {
                 ele2[j].style['pointer-events'] = "none";
                 ele2[j].style.border = "0";
-                ele2[j].style['-webkit-appearance'] = "none";
-                ele2[j].style['-moz-appearance'] = "none";
             }
+            var recentnewstext = dat.RecentNewsText == undefined || dat.RecentNewsText == null || dat.RecentNewsText == "" ? " " : dat.RecentNewsText
+            var recentnewsid = dat.RecentNewsID == undefined || dat.RecentNewsID == null || dat.RecentNewsID == "" ? " " : dat.RecentNewsID;
+            var srtdate = dat.FromDate == undefined || dat.FromDate == null || dat.FromDate == "" ? " " : moment(dat.FromDate).format("YYYY-MM-DD");
+            var enddate = dat.ToDate == undefined || dat.ToDate == null || dat.ToDate == "" ? " " : moment(dat.ToDate).format("YYYY-MM-DD");
+            $scope.loading = true;
+            var updaterecentnews = CcicAdminService.CcicRecentNewsUpdate(recentnewsid, recentnewstext, srtdate, enddate, $scope.UserName);
+            updaterecentnews.then(function (response) {
 
-
-            var update = CcicAdminService.CcicRecentNewsUpdate(RecentNewsID, RecentNewsText.toString(), FromDate.toString(), ToDate.toString(), $scope.UserName);
-            update.then(function (response) {
+                try {
+                    var response = JSON.parse(response);
+                }
+                catch (err) { }
                 $scope.loading = false;
                 alert("RecentNews Updated Successfully")
                 $scope.getuserRecentNews();
-                $scope.$emit('hideLoading', data);
+                //$scope.$emit('hideLoading', data);
 
             },
                 function (error) {
                     $scope.loading = false;
                     alert("error while loading Data");
                     console.log(error);
-                    $scope.$emit('hideLoading', data);
+                    //$scope.$emit('hideLoading', data);
 
-                });
+              });
+
         }
+
+
 
 
     })

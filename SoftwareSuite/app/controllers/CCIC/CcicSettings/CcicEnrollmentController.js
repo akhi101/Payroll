@@ -12,10 +12,77 @@
             $scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.SscForm = false;
 
-          
+
+        }
+
+        $scope.StuName = function () {
+
+            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.CNAME)){
+                return true;
+            }
+            else {
+                alert("Invalid Studentname")
+                return (false)
+            }
+        }
+
+        $scope.FatName = function () {
+
+            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.FNAME)) {
+                return true;
+            }
+            else {
+                alert("Invalid Fathername")
+                return (false)
+            }
+        }
+
+        $scope.MotName = function () {
+
+            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.MNAME)) {
+                return true;
+            }
+            else {
+                alert("Invalid Mothername")
+                return (false)
+            }
+        }
+        $scope.father_name = /^[a-zA-Z5-9]+$/;
+        $scope.ph_numbr = /^\+?\d{10}$/;
+        $scope.resendMobileOTP = false;
+
+
+        $scope.ValidateEmail = function () {
+            if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)sendmail*$/.test($scope.email)) {
+                return (true)
+            }
+            alert("You have entered an invalid email address!")
+            return (false)
+        }
+
+        $scope.ValidateMobileNumber = function () {
+           
+            if (/^[6-9]\d{9}$/gi.test($scope.mobileNO)) {
+                return (true)
+            }
+
+            else if ($scope.mobileNO == null || $scope.mobileNO == undefined) {
+                alert("Please Enter Mobile Number");
+                return (false)
+            }
+            else if ($scope.mobileNO.length != '10') {
+                alert('Enter valid Mobile number');
+                return (false)
+            }
+            else {
+                alert('Enter valid Mobile number');
+                return (false)
+            }
+
         }
 
         $scope.coursedetails = true;
+
 
 
         $scope.Mode = function () {
@@ -63,9 +130,6 @@
             $scope.SSCDetails = true;
             $scope.sscForm = true;
             isSSCValidiated = false;
-
-        }
-
 
         }
 
@@ -214,7 +278,7 @@
             $scope.StudentPhoto = '';
             $scope.StudentSign = '';
             $scope.StudentSscCertificate = '';
-            $scope.StudentCertificateType = '';
+            $scope.stdCertificateType = '';
             $scope.isExperienced = '';
 
             $scope.continue = false;
@@ -324,7 +388,7 @@
             $localStorage.TempData1 = {
                 ApplicationNumber: ApplicationNumber,
                 StudentId: StudentId
-                
+
 
 
             };
@@ -386,15 +450,54 @@
                 return;
             }
 
+            if ($scope.pincode == '' || $scope.pincode == undefined || $scope.pincode == null) {
+                alert('Please Select Pincode')
+                return;
+            }
+
+            if ($scope.district == '' || $scope.district == undefined || $scope.district == null) {
+                alert('Please Select District')
+                return;
+            }
 
 
-            //if ($scope.stdPhoto == '' || $scope.stdPhoto == undefined || $scope.stdPhoto == null) {
-            //    alert('Please Select StudentPhoto')
+            if ($scope.state == '' || $scope.state == undefined || $scope.state == null) {
+                alert('Please Select State')
+                return;
+            }
+
+
+            if ($scope.email == '' || $scope.email == undefined || $scope.email == null) {
+                alert('Please Select Email')
+                return;
+            }
+
+
+
+            if ($scope.StudentPhoto == '' || $scope.StudentPhoto == undefined || $scope.StudentPhoto == null) {
+                alert('Please Select StudentPhoto')
+                return;
+            }
+
+
+            if ($scope.StudentSign == '' || $scope.StudentSign == undefined || $scope.StudentSign == null) {
+                alert('Please Select StudentSign')
+                return;
+            }
+
+
+            if ($scope.stdCertificateType == '' || $scope.stdCertificateType == undefined || $scope.stdCertificateType == null) {
+                alert('Please Select Qualification Certificate')
+                return;
+            }
+
+            //if ($scope.StudentSscCertificate == '' || $scope.StudentSscCertificate == undefined || $scope.StudentSscCertificate == null) {
+            //    alert('Please Select SSC Certificate')
             //    return;
             //}
 
 
-            console.log($scope.stdPhoto);
+            /*console.log($scope.stdPhoto);*/
             isSSC = $scope.mode == 1 ? 1 : 0;
             $scope.LoadImg = true;
             $scope.continue = false;
@@ -412,12 +515,48 @@
             let sscType = ($scope.sscType == null || $scope.sscType == undefined || $scope.sscType == '') ? '' : $scope.sscType;
 
             let CourseExp = ($scope.Experience == null || $scope.Experience == undefined || $scope.Experience == '') ? null : parseInt($scope.Experience);
-            let SscCer = ($scope.stdSscCertificate == null || $scope.stdSscCertificate == undefined || $scope.stdSscCertificate == '') ? '' : $scope.stdSscCertificate;
-            let StdCerType = ($scope.stdCertificateType == null || $scope.stdCertificateType == undefined || $scope.stdCertificateType == '') ? '' : $scope.stdCertificateType;
-            let StdExpCer = ($scope.stdExperienceCertificate == null || $scope.stdExperienceCertificate == undefined || $scope.stdExperienceCertificate == '') ? '' : $scope.stdExperienceCertificate;
+            //let SscCer = ($scope.stdSscCertificate == null || $scope.stdSscCertificate == undefined || $scope.stdSscCertificate == '') ? '' : $scope.stdSscCertificate;
+            //let StdCerType = ($scope.stdCertificateType == null || $scope.stdCertificateType == undefined || $scope.stdCertificateType == '') ? '' : $scope.stdCertificateType;
+            //let StdExpCer = ($scope.stdExperienceCertificate == null || $scope.stdExperienceCertificate == undefined || $scope.stdExperienceCertificate == '') ? '' : $scope.stdExperienceCertificate;
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
             let MName = ($scope.MNAME == null || $scope.MNAME == undefined || $scope.MNAME == '') ? '' : $scope.MNAME;
-            var addstddetails = CcicPreExaminationService.AddStudentDetails(appNum, authData.InstitutionID, parseInt($scope.Course), $scope.CourseQualifications[0].CourseQualificationsID, CourseExp, isSSC, sscHallticket, passedoutYear, sscType, $scope.CNAME, $scope.FNAME, MName, $scope.DOB_DATE, '', $scope.SEX, parseInt($scope.Aadhar), $scope.houseNo, $scope.street, $scope.landmark, $scope.village, $scope.pincode, $scope.district, $scope.state, $scope.mobileNO, $scope.email, isSSCValidiated, $scope.UserName, $scope.stdPhoto, $scope.stdSign, SscCer, StdCerType, StdExpCer);
+            let Aadhar = ($scope.Aadhar == null || $scope.Aadhar == undefined || $scope.Aadhar == '') ? '' : $scope.Aadhar;
+            var paramObj = {
+                "ApplicationNumber": appNum,
+                "InstitutionID": authData.InstitutionID,
+                "CourseID": parseInt($scope.Course),
+                "CourseQualificationID": $scope.CourseQualifications[0].CourseQualificationsID,
+                "CourseExperienceID": CourseExp,
+                "SSC": isSSC,
+                "SSCHallticketNumber": sscHallticket,
+                "SSCPassedYear": passedoutYear,
+                "SSCPassedType": sscType,
+                "StudentName": $scope.CNAME,
+                "FatherName": $scope.FNAME,
+                "MotherName": MName,
+                //"DateofBirth": moment($scope.DOB_DATE).format("DD-MM-YYYY"),
+                "DateofBirth": $scope.DOB_DATE,
+                "SSCDateofBirth": "",
+                "Gender": $scope.SEX,
+                "AadharNumber": Aadhar,
+                "HouseNumber": $scope.houseNo,
+                "Street": $scope.street,
+                "Landmark": $scope.landmark,
+                "Village": $scope.village,
+                "Pincode": $scope.pincode,
+                "District": $scope.district,
+                "AddressState": $scope.state,
+                "StudentMobile": $scope.mobileNO,
+                "StudentEmail": $scope.email,
+                "SSCValidated": isSSCValidiated,
+                "UserName": $scope.UserName,
+                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) ? '' : $scope.StudentPhotoConvert,
+                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) ? '' : $scope.StudentSignConvert,
+                "SSCCertificate": ($scope.StudentSscCertificateConvert == undefined || $scope.StudentSscCertificateConvert == null) ? '' : $scope.StudentSscCertificateConvert,
+                "QualificationCertificate": ($scope.stdCertificateTypeConvert == undefined || $scope.stdCertificateTypeConvert == null) ? '' : $scope.stdCertificateTypeConvert,
+                "ExperienceCertificate": ($scope.isExperiencedConvert == undefined || $scope.isExperiencedConvert == null) ? '' : $scope.isExperiencedConvert
+            };
+            var addstddetails = CcicPreExaminationService.AddStudentDetails(paramObj);
             addstddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -430,7 +569,7 @@
                     $scope.ApplicationNumber = res[0].ApplicationNumber;
                     $scope.StudentId = res[0].StudentID;
                     $scope.ViewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
-                   /* $state.go('CcicDashboard.Academic.ViewStudentDetails')*/
+                    /* $state.go('CcicDashboard.Academic.ViewStudentDetails')*/
                     //$scope.PreviewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
                     alert(res[0].ResponseDescription);
                 }
@@ -438,7 +577,7 @@
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.LoadImg = false;
-                    $state.go('CcicDashboard.Academic.Enrollment');
+                    $state.go('CcicDashboard.Academic.ViewStudentDetails');
                 }
 
                 else {
@@ -464,7 +603,7 @@
 
 
         $scope.ViewStudentDetails = function (ApplicationNumber, StudentId) {
-            $localStorage.TempData1 =  {
+            $localStorage.TempData1 = {
                 ApplicationNumber: ApplicationNumber,
                 StudentId: StudentId
 
@@ -491,7 +630,8 @@
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.stdPhoto = base64Image;
+                            $scope.StudentPhoto = base64Image;
+                            $scope.StudentPhotoConvert = $scope.StudentPhoto.replace(/^data:image\/[a-z]+;base64,/, "");
                         });
                     }
                     reader.onerror = function (e) {
@@ -752,4 +892,3 @@
 
     })
 })
-

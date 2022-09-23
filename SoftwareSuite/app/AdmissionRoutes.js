@@ -236,7 +236,7 @@
             'CcicDashboard.Settings.RecentNews': {
                 url: "/RecentNews",
                 templateUrl: 'app/views/CCIC/CcicRecentNews.html',
-                dependencies: ['controllers/CCIC/CcicRecentNewsController', 'directives/saDate']
+                dependencies: ['controllers/CCIC/CcicRecentNewsController', 'directives/saDate', 'services/CCIC/AdminServices/CcicAdminService', 'services/CCIC/PreExamination/CcicPreExaminationService' ]
             },
 
 

@@ -16,7 +16,7 @@
         $scope.$emit('showLoading', data);
 
         $scope.Close = function () {
-            $state.go('CcicDashboard.Academic')
+            $state.go('CcicDashboard.Academic.EnrollmentReport')
         }
         $scope.loading = true;
         var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID);

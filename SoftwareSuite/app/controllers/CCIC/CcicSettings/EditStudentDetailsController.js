@@ -197,7 +197,7 @@
 
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    $state.go('CcicDashboard.Academic.EnrollmentReport');
+                    $state.go('CcicDashboard.Academic.Enrollment');
                     $scope.coursedetails = true;
                     $scope.Course = null;
                     $scope.Qualification = null;
@@ -298,7 +298,7 @@
                 $scope.CourseID = EditData.CourseID;
                 //$scope.CourseID = CourseID;
                 $scope.Qualification = EditData.Qualification;
-                $scope.isExperienced = EditData.Experience;
+                $scope.Experience = EditData.Experience;
 
                 $scope.CourseQualificationID = EditData.CourseQualificationID;
                 $scope.CourseExperienceID = EditData.CourseExperienceID;
@@ -341,17 +341,33 @@
                 $scope.SSCCertificate = EditData.SSCCertificate;
                 //$scope.SscCertificateConvert = EditData.SSCCertificate;
                 $scope.toDataURL(EditData.SSCCertificate, function (res) {
-                    $scope.SscCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    if (EditData.SSCCertificate == "") {
+                        $scope.SscCertificateConvert = "";
+                    }
+                    else {
+                        $scope.SscCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    }
                 })
                 $scope.QualificationCertificate = EditData.QualificationCertificate;
                 //$scope.QualificationCertificateConvert = EditData.QualificationCertificate;
                 $scope.toDataURL(EditData.QualificationCertificate, function (res) {
-                    $scope.QualificationCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    if (EditData.QualificationCertificate == "") {
+                        $scope.QualificationCertificateConvert = "";
+                    }
+                    else {
+                        $scope.QualificationCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+
+                    }
                 })
                 $scope.ExperienceCertificate = EditData.ExperienceCertificate;
                 //$scope.ExperienceCertificateConvert = EditData.ExperienceCertificate;
                 $scope.toDataURL(EditData.ExperienceCertificate, function (res) {
-                    $scope.ExperienceCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    if (EditData.ExperienceCertificate == "") {
+                        $scope.ExperienceCertificateConvert = "";
+                    }
+                    else {
+                        $scope.ExperienceCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    }
                 })
 
 
@@ -385,13 +401,18 @@
             }
 
 
-            //if ($scope.DateofBirth == '' || $scope.DateofBirth == undefined || $scope.DateofBirth == null) {
-            //    alert('Please Select CandidateDOB')
-            //    return;
-            //}
+            if ($scope.DateofBirth == '' || $scope.DateofBirth == undefined || $scope.DateofBirth == null) {
+                alert('Please Select CandidateDOB')
+                return;
+            }
 
             if ($scope.Gender == '' || $scope.Gender == undefined || $scope.Gender == null) {
                 alert('Please Select Gender')
+                return;
+            }
+
+            if ($scope.AadharNumber == '' || $scope.AadharNumber == undefined || $scope.AadharNumber == null) {
+                alert('Please Select AadharNumber')
                 return;
             }
 
@@ -405,8 +426,29 @@
                 return;
             }
 
+            if ($scope.Landmark == '' || $scope.Landmark == undefined || $scope.Landmark == null) {
+                alert('Please Select Landmark')
+                return;
+            }
+
             if ($scope.Village == '' || $scope.Village == undefined || $scope.Village == null) {
                 alert('Please Select village')
+                return;
+            }
+
+
+            if ($scope.Pincode == '' || $scope.Pincode == undefined || $scope.Pincode == null) {
+                alert('Please Select Pincode')
+                return;
+            }
+
+            if ($scope.District == '' || $scope.District == undefined || $scope.District == null) {
+                alert('Please Select District')
+                return;
+            }
+
+            if ($scope.AddressState == '' || $scope.AddressState == undefined || $scope.AddressState == null) {
+                alert('Please Select State')
                 return;
             }
 
@@ -415,53 +457,47 @@
                 return;
             }
 
+            if ($scope.StudentEmail == '' || $scope.StudentEmail == undefined || $scope.StudentEmail == null) {
+                alert('Please Select Email')
+                return;
+            }
 
 
-            //if ($scope.StudentPhoto == '' || $scope.StudentPhoto == undefined || $scope.StudentPhoto == null) {
+
+
+       
+
+
+            //if ($scope.StudentPhotoConvert == '' || $scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) {
             //    alert('Please Select StudentPhoto')
             //    return;
             //}
 
-            //if ($scope.StudentSign == '' || $scope.StudentSign == undefined || $scope.StudentSign == null) {
-            //    alert('Please Select StudentPhoto')
+            //if ($scope.StudentSignConvert == '' || $scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) {
+            //    alert('Please Select StudentSign')
             //    return;
             //}
 
-            //if ($scope.SSCCertificate == '' || $scope.SSCCertificate == undefined || $scope.SSCCertificate == null) {
-            //    alert('Please Select StudentPhoto')
+            //if ($scope.SscCertificateConvert == '' || $scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) {
+            //    alert('Please Select StudentSscCertificate')
             //    return;
             //}
 
-            if ($scope.StudentPhotoConvert == '' || $scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) {
-                alert('Please Select StudentPhoto')
-                return;
-            }
+            //if ($scope.QualificationCertificateConvert == '' || $scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) {
+            //    alert('Please Select QualificationCertificate')
+            //    return;
+            //}
 
-            if ($scope.StudentSignConvert == '' || $scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) {
-                alert('Please Select StudentSign')
-                return;
-            }
-
-            if ($scope.SscCertificateConvert == '' || $scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) {
-                alert('Please Select SscCertificate')
-                return;
-            }
-
-            if ($scope.QualificationCertificateConvert == '' || $scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) {
-                alert('Please Select QualificationCertificate')
-                return;
-            }
-
-            if ($scope.ExperienceCertificateConvert == '' || $scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) {
-                alert('Please Select ExperienceCertificate')
-                return;
-            }
+            //if ($scope.ExperienceCertificateConvert == '' || $scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) {
+            //    alert('Please Select ExperienceCertificate')
+            //    return;
+            //}
 
 
             $scope.LoadImg = true;
 
+
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
-            //let MName = ($scope.MNAME == null || $scope.MNAME == undefined || $scope.MNAME == '') ? '' : $scope.MNAME;
 
             var paramObj = {
                 "ApplicationNumber": appNum,
@@ -493,20 +529,12 @@
                 "SSCValidated": $scope.SSCValidated,
                 "UserName": $scope.UserName,
                 "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) ? $scope.StudentPhotoConvert : $scope.StudentPhotoConvert,
-                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) ? $scope.StudentPhotoConvert : $scope.StudentSignConvert,
-                "SSCCertificate": ($scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) ? $scope.StudentPhotoConvert : $scope.SscCertificateConvert,
-                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.StudentPhotoConvert : $scope.QualificationCertificateConvert,
-                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.StudentPhotoConvert : $scope.ExperienceCertificateConvert,
+                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) ? $scope.StudentSignConvert : $scope.StudentSignConvert,
+                "SSCCertificate": ($scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) ? $scope.SscCertificateConvert : $scope.SscCertificateConvert,
+                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
+                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
-
-            let CourseExp = ($scope.Experience == null || $scope.Experience == undefined || $scope.Experience == '') ? null : parseInt($scope.Experience);
-            let SscCer = ($scope.SSCCertificate == null || $scope.SSCCertificate == undefined || $scope.SSCCertificate == '') ? '' : $scope.SSCCertificate;
-            let StdCerType = ($scope.QualificationCertificate == null || $scope.QualificationCertificate == undefined || $scope.QualificationCertificate == '') ? '' : $scope.QualificationCertificate;
-            let StdExpCer = ($scope.ExperienceCertificate == null || $scope.ExperienceCertificate == undefined || $scope.ExperienceCertificate == '') ? '' : $scope.ExperienceCertificate;
-            let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
-            let MName = ($scope.MotherName == null || $scope.MotherName == undefined || $scope.MotherName == '') ? '' : $scope.MotherName;
-            var updatestddetails = CcicPreExaminationService.AddStudentDetails(appNum, authData.InstitutionID, parseInt($scope.CourseID), $scope.CourseQualificationID, CourseExp, $scope.SSC, sscHallticket, passedoutYear, sscType, $scope.StudentName, $scope.FatherName, MName, $scope.DateofBirth, '', $scope.Gender, parseInt($scope.AadharNumber), $scope.HouseNumber, $scope.Street, $scope.Landmark, $scope.Village, $scope.Pincode, $scope.District, $scope.AddressState, $scope.StudentMobile, $scope.StudentEmail, $scope.SSCValidated, $scope.UserName, $scope.StudentPhoto, $scope.StudentSign, SscCer, StdCerType, StdExpCer);
             updatestddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -517,7 +545,7 @@
 
                     $scope.LoadImg = true;
                     $scope.ApplicationNumber = res[0].ApplicationNumber;
-                    $scope.StudentId = res[0].StudentID;
+                    $scope.StudentID = res[0].StudentID;
                     $state.go('CcicDashboard.Academic.ViewStudentDetails')
                     //$scope.PreviewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
                     alert(res[0].ResponseDescription);

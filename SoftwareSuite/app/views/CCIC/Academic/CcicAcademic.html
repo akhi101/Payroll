@@ -1,11 +1,23 @@
 ﻿<style>
-    div#year {
-        width: -webkit-fill-available !important;
-    }
+    
 
     span {
         color: white !important;
     }
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open-Sans';
+    }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+   
 </style>
 <html>
 <head>
@@ -49,12 +61,12 @@
                                             </a>
                                         </li>
 
-                                        <li ng-show="CollegeID!=0">
+                                        <!--<li ng-show="CollegeID!=0">
                                             <a style="font-size:small" href="#" class="main_header_main_menu" ng-click="CcicChangePassword()">
                                                 <i class="fa fa-sign-out fa-fw"></i> Change
                                                 Password <span><b></b></span>
                                             </a>
-                                        </li>
+                                        </li>-->
 
                                         <li>
                                             <a href="#" class="main_header_main_menu" ng-click="logOut()">
