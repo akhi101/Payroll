@@ -99,6 +99,10 @@
                 $scope.passYrLbl = 'Passedout Year';
                 $scope.sscHtPhl = 'Hallticket No';
                 //$scope.sscGetLbl = 'Get Details';
+                $scope.sscdetails = true;
+
+
+
 
             } else {
                 $scope.sscHtLbl = 'SSC or Equivalent RollNo';
@@ -272,7 +276,7 @@
 
             $scope.loading = true;
             $scope.coursedetails = true;
-            $scope.sscdetails = true;
+            //$scope.sscdetails = true;
             $scope.radiodisable = true;
 
             var editstddetails = CcicPreExaminationService.GetStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);

@@ -843,18 +843,39 @@
                         isSSCValidiated = true;
 
 
-                        $scope.CNAME = resdata[0].CNAME;
+                        $scope.CNAME = resdata.Name;
                         $scope.CandidateNamefound = $scope.CNAME != "" ? true : false;
-                        $scope.FNAME = resdata[0].FNAME;
+                        $scope.FNAME = resdata.FatherName;
                         $scope.FatherNameFound = $scope.FNAME != "" ? true : false;
-                        $scope.MNAME = resdata[0].MNAME;
+                        $scope.MNAME = resdata.MotherName;
                         $scope.MotherNamefound = $scope.MNAME != "" ? true : false;
 
-                        $scope.SEX = resdata[0].SEX == "B" || resdata[0].SEX == "M" ? "M" : resdata[0].SEX == "G" || resdata[0].SEX == "F" ? "F" : "";
+                        $scope.SEX = resdata.Sex == "B" || resdata.Sex == "M" ? "M" : resdata.Sex == "G" || resdata.Sex == "F" ? "F" : "";
                         $scope.Genderfound = $scope.SEX != "" ? true : false;
                         let date1 = resdata.DateOfBirth;
                         let ch = date1.split('');
                         var datelength = ch.length;
+                        //    var tempdate = "";                             
+                        //    var regex = "^[0-9]{1,6}$";
+                        //    if (datelength<=6) {                      
+                        //        if (parseInt(ch[4] + ch[5]) <= 99 && parseInt(ch[4] + ch[5]) > 80) {
+                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/19" + ch[4] + ch[5];
+                        //        } else {
+                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/20" + ch[4] + ch[5];
+                        //        }
+                        //    }
+                        //    else if (datelength <= 8 && datelength >= 6){                               
+                        //        tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/" + ch[4] + ch[5] + ch[6] + ch[7];                               
+                        //}          
+
+                        //    else {
+                        //        tempdate = resdata.DateOfBirth;                        
+
+                        //    }                           
+                        //    $scope.DOB_DATE = tempdate;
+                        //    $scope.DOB_DATEChange = tempdate;
+                        //    $scope.CandidateNameDOBfound = $scope.CandidateNameDOB != "" ? true : false;
+
                         $scope.sscForm = false;
                         $scope.cancel = false;
 

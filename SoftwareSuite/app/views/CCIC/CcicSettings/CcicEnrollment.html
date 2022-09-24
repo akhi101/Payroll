@@ -448,7 +448,7 @@
                                                 <div class="form-group required">
                                                     <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                        <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOB_DATE" is-open="showFlag1" required />
+                                                        <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOB_DATE" ng-disabled="CandidateNameDOBfound" is-open="showFlag1" required />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
                                                         </span>
