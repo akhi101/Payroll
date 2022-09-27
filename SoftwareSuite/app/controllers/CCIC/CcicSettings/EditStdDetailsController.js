@@ -30,11 +30,26 @@
                 //$scope.sscGetLbl = 'Get Details';
                 $scope.sscdetails = true;
 
-            } else {
+            }
+
+            else if ($scope.SSC == 1 && resdata.length>0)
+            {
+                $scope.sscHtLbl = 'SSC Hallticket Number';
+                $scope.passYrLbl = 'Passedout Year';
+                $scope.sscHtPhl = 'Hallticket No';
+                $scope.sscdetails = false;
+
+
+            }
+            else if ($scope.SSC == 2) {
                 $scope.sscHtLbl = 'SSC or Equivalent RollNo';
                 $scope.passYrLbl = 'Pass Year';
                 $scope.sscHtPhl = 'SSC/Equivalent HallTicket no';
                 //    $scope.sscGetLbl = 'Next';
+                //$scope.sscdetails = false;
+                //$scope.sscdetbutton = true;
+
+
             }
 
             $scope.cancel = true;
@@ -47,6 +62,188 @@
 
         }
 
+
+        $scope.Cancel = function () {
+            //$scope.radiodisable = false;
+            $scope.SSCDetails = false;
+            $scope.radiodisable = false;
+            $scope.SscForm = false;
+            //$scope.mode = null;
+            $scope.sscHallticket = '';
+            $scope.passedoutYear = '';
+            $scope.sscType = '';
+
+
+
+            $scope.CNAME = '';
+            $scope.FNAME = '';
+            $scope.MNAME = '';
+            $scope.DOB_DATE = '';
+            $scope.SEX = '';
+            $scope.Aadhar = '';
+            $scope.houseNo = '';
+            $scope.street = '';
+            $scope.landmark = '';
+            $scope.village = '';
+            $scope.pincode = '';
+            $scope.district = '';
+            $scope.state = '';
+            $scope.mobileNO = '';
+            $scope.email = '';
+
+            $scope.SscForm = true;
+            $scope.applicationForm = false;
+            $scope.continue = true;
+            $scope.SSCDetails = false;
+
+
+
+
+
+
+        }
+
+
+        $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
+            if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
+                alert("SSC HallTicket number can't be Empty");
+                return;
+            }
+            if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
+                alert("SSC passedout year can't be Empty");
+                return;
+            }
+
+            if (sscType == '' || sscType == null || sscType == undefined) {
+                alert("Stream can't be Empty");
+                return;
+            }
+
+
+
+            $scope.hallticket = true;
+            $scope.year = true;
+            $scope.Ssc = true;
+            $scope.Add = true;
+            $scope.SSCDetails = true;
+            $scope.Save = true;
+            $scope.radiodisable = true;
+            $scope.cancel = false;
+
+
+            //$scope.Tenth_HNo = Tenth_HNo;
+            //$scope.Tenth_Year = Tenth_Year;
+            //$scope.Stream = Stream;
+            var reqData = {
+                RollNo: sscHallticket,
+                Year: passedoutYear,
+                Stream: sscType
+            };
+
+            var sscdetails = CcicPreExaminationService.getSSCDetails(reqData);
+            sscdetails.then(function (res) {
+                if (res) {
+
+                    let resdata = JSON.parse(res)
+                    if (resdata.Status == 200) {
+                        $scope.applicationForm = true;
+
+                        $scope.LoadImg = false;
+                        isSSCValidiated = true;
+
+
+                        $scope.CNAME = resdata.Name;
+                        $scope.CandidateNamefound = $scope.CNAME != "" ? true : false;
+                        $scope.FNAME = resdata.FatherName;
+                        $scope.FatherNameFound = $scope.FNAME != "" ? true : false;
+                        $scope.MNAME = resdata.MotherName;
+                        $scope.MotherNamefound = $scope.MNAME != "" ? true : false;
+
+                        $scope.SEX = resdata.Sex == "B" || resdata.Sex == "M" ? "M" : resdata.Sex == "G" || resdata.Sex == "F" ? "F" : "";
+                        $scope.Genderfound = $scope.SEX != "" ? true : false;
+                        let date1 = resdata.DateOfBirth;
+                        let ch = date1.split('');
+                        var datelength = ch.length;
+                        //    var tempdate = "";                             
+                        //    var regex = "^[0-9]{1,6}$";
+                        //    if (datelength<=6) {                      
+                        //        if (parseInt(ch[4] + ch[5]) <= 99 && parseInt(ch[4] + ch[5]) > 80) {
+                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/19" + ch[4] + ch[5];
+                        //        } else {
+                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/20" + ch[4] + ch[5];
+                        //        }
+                        //    }
+                        //    else if (datelength <= 8 && datelength >= 6){                               
+                        //        tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/" + ch[4] + ch[5] + ch[6] + ch[7];                               
+                        //}          
+
+                        //    else {
+                        //        tempdate = resdata.DateOfBirth;                        
+
+                        //    }                           
+                        //    $scope.DOB_DATE = tempdate;
+                        //    $scope.DOB_DATEChange = tempdate;
+                        //    $scope.CandidateNameDOBfound = $scope.CandidateNameDOB != "" ? true : false;
+
+                        $scope.sscForm = false;
+                        $scope.cancel = false;
+
+                    } else {
+                        alert("Details not found, Continue to fillApplication");
+                        $scope.applicationForm = true;
+                        $scope.sscForm = false;
+                        isSSCValidiated = false;
+                        $scope.cancel = false;
+
+
+                    }
+
+                } else {
+                    alert("Details not found, Continue to fillApplication");
+                    $scope.applicationForm = true;
+                    $scope.sscForm = false;
+                    isSSCValidiated = false;
+                    $scope.cancel = false;
+
+
+                }
+
+
+            }, function (err) {
+                alert("Details not found, Continue to fillApplication");
+                $scope.applicationForm = true;
+                $scope.sscForm = false;
+                isSSCValidiated = false;
+            })
+
+
+        }
+
+
+        $scope.Next = function (sscHallticket, passedoutYear, sscType) {
+            if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
+                alert("SSC HallTicket number can't be Empty");
+                return;
+            }
+            if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
+                alert("SSC passedout year can't be Empty");
+                return;
+            }
+
+            if (sscType == '' || sscType == null || sscType == undefined) {
+                alert("Stream can't be Empty");
+                return;
+            }
+            alert("Continue to fillApplication");
+            $scope.cancel = false;
+            $scope.radiodisable = true;
+            $scope.Add = true;
+            $scope.applicationForm = true;
+            $scope.SSCDetails = false;
+            $scope.sscForm = true;
+            isSSCValidiated = false;
+
+        }
 
      
         //$scope.EditStudentDetails = function () {
@@ -726,99 +923,6 @@
             }
         }
 
-        $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
-            if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
-                alert("SSC HallTicket number can't be Empty");
-                return;
-            }
-            if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
-                alert("SSC passedout year can't be Empty");
-                return;
-            }
-
-            if (sscType == '' || sscType == null || sscType == undefined) {
-                alert("Stream can't be Empty");
-                return;
-            }
-
-
-
-            $scope.hallticket = true;
-            $scope.year = true;
-            $scope.Ssc = true;
-            $scope.Add = true;
-            $scope.SSCDetails = true;
-            $scope.Save = true;
-            $scope.radiodisable = true;
-            $scope.cancel = false;
-
-
-            //$scope.Tenth_HNo = Tenth_HNo;
-            //$scope.Tenth_Year = Tenth_Year;
-            //$scope.Stream = Stream;
-            var reqData = {
-                RollNo: sscHallticket,
-                Year: passedoutYear,
-                Stream: sscType
-            };
-
-            var sscdetails = CcicPreExaminationService.getSSCDetails(reqData);
-            sscdetails.then(function (res) {
-                if (res) {
-
-                    let resdata = JSON.parse(res)
-                    if (resdata.Status == 200) {
-                        $scope.applicationForm = true;
-
-                        $scope.LoadImg = false;
-                        isSSCValidiated = true;
-
-
-                        $scope.CNAME = resdata[0].CNAME;
-                        $scope.CandidateNamefound = $scope.CNAME != "" ? true : false;
-                        $scope.FNAME = resdata[0].FNAME;
-                        $scope.FatherNameFound = $scope.FNAME != "" ? true : false;
-                        $scope.MNAME = resdata[0].MNAME;
-                        $scope.MotherNamefound = $scope.MNAME != "" ? true : false;
-
-                        $scope.SEX = resdata[0].SEX == "B" || resdata[0].SEX == "M" ? "M" : resdata[0].SEX == "G" || resdata[0].SEX == "F" ? "F" : "";
-                        $scope.Genderfound = $scope.SEX != "" ? true : false;
-                        let date1 = resdata.DateOfBirth;
-                        let ch = date1.split('');
-                        var datelength = ch.length;
-                        $scope.sscForm = false;
-                        $scope.cancel = false;
-
-                    } else {
-                        alert("Details not found, Continue to fillApplication");
-                        $scope.applicationForm = true;
-                        $scope.sscForm = false;
-                        isSSCValidiated = false;
-                        $scope.cancel = false;
-
-
-                    }
-
-                } else {
-                    alert("Details not found, Continue to fillApplication");
-                    $scope.applicationForm = true;
-                    $scope.sscForm = false;
-                    isSSCValidiated = false;
-                    $scope.cancel = false;
-
-
-                }
-
-
-            }, function (err) {
-                alert("Details not found, Continue to fillApplication");
-                $scope.applicationForm = true;
-                $scope.sscForm = false;
-                isSSCValidiated = false;
-            })
-
-
-        }
 
 
     })

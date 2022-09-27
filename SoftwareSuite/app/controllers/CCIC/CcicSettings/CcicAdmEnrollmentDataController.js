@@ -9,7 +9,7 @@
         $ctrl.$onInit = () => {
 
             $scope.ShowStudentDetails = false;
-            $scope.DataTable = true;
+            //$scope.DataTable = true;
             $scope.Clear = false;
         }
         var data = {};

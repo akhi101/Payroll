@@ -45,10 +45,13 @@
         margin-bottom: -20px;
     }
 
+
+  
     a.backA, a.backA:focus {
         color: #fff !important;
         text-decoration: none !important;
-        font-family: 'Open-Sans';
+        font-family:'Open Sans';
+        font-size:14px;
     }
 
     a {
@@ -136,7 +139,7 @@
     </script>
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
-        <div class="container">
+        <div class="container" style="font-family: 'Open Sans'; width: 1198px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
             <section class="content-header">
                 <h5>Recent News</h5>
                 <ol class="breadcrumb">
@@ -148,14 +151,13 @@
         </div>
         <!-- breadcrumb Close -->
     </div>
-    <div class="container">
+    <div class="container" style="font-family: 'Open Sans';width: 1195px; padding-right: 0px; margin-right: 80px;">
 
         <div class="col-md-12">
             <button class="btn bck_btn"><a href="#!/CcicDashboard/Settings" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
 
 
-        <div id="exTab2" class="container">
 
 
 
@@ -174,33 +176,33 @@
                             <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-        <div class="form-group">
-            <label>User Name</label>
-            <div class="multiselect">
-                <div class="selectBox" ng-click="showCheckboxes()">
-                    <select class="form-control ">
-                        <option ng-blur="closeCheckbox()">Select an option</option>
-                    </select>
-                    <div class="overSelect"></div>
-                </div>
-                <div id="checkboxes" style="max-height: 12em; overflow-y: scroll;">
-                    <label class="contain">
-                        <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" /><span class="checkmark"></span>Select All
-                    </label>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <div class="multiselect">
+                                <div class="selectBox" ng-click="showCheckboxes()">
+                                    <select class="form-control ">
+                                        <option ng-blur="closeCheckbox()">Select an option</option>
+                                    </select>
+                                    <div class="overSelect"></div>
+                                </div>
+                                <div id="checkboxes" style="max-height: 12em; overflow-y: scroll;">
+                                    <label class="contain">
+                                        <input type="checkbox" ng-click="toggleAll()" ng-model="isAllSelected" /><span class="checkmark"></span>Select All
+                                    </label>
 
-                    <label class="contain" ng-repeat="data in UserTypes">
-                        <input type="checkbox" ng-model="data.selected" ng-change="optionToggled(data.selected)"><span class="checkmark"></span>{{data.UserType}}
-                    </label>
+                                    <label class="contain" ng-repeat="data in UserTypes">
+                                        <input type="checkbox" ng-model="data.selected" ng-change="optionToggled(data.selected)"><span class="checkmark"></span>{{data.UserType}}
+                                    </label>
 
-                </div>
-            </div>
-        </div>
-    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Start Date(dd/mm/yyyy):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="Please Enter Startdate" autocomplete="off" name="StartDate" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="StartDate" is-open="showFlag1" required />
+                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="Please Enter StartDate" autocomplete="off" name="StartDate" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="StartDate" is-open="showFlag1" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -211,7 +213,7 @@
                                         <div class="form-group required">
                                             <label for="date-picker-example">End Date(dd/mm/yyyy):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker2" placeholder="Please Enter Enddate" autocomplete="off" name="EndDate" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="EndDate" is-open="showFlag2" required />
+                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker2" placeholder="Please Enter EndDate" autocomplete="off" name="EndDate" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="EndDate" is-open="showFlag2" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -221,9 +223,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <div class="form-group">
+                                        <div class="form-group required">
                                             <label>RecentNews Message</label>
-                                            <textarea rows="5" style="resize:none" ng-model="RecentNews" class="form-control"></textarea>
+                                            <textarea rows="5" style="resize:none" ng-model="RecentNews" class="form-control" required></textarea>
                                         </div>
                                     </div>
 
@@ -240,13 +242,21 @@
                         </div>
                     </div>
 
+
+                    <div class="col-md-2 pull-right mtp-50">
+
+                        <div class="submit-btn" style="margin-bottom:0px;margin-top:-15px">
+                            <button type="submit" ng-model="GetRecentNews" ng-click="getAllRecentNews()">AllRecentNews</button>
+
+                        </div>
+                    </div>
+                    <div class="sm-spacer"></div>
                     <div class="col-md-12" ng-if="loading">
                         <!--<div class="sm-spacer"></div>-->
                         <div style="width:100%;text-align:center;">
                             <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
                         </div>
                     </div>
-
                     <div class="col-md-12" ng-if="NoData">
                         <div class="col-md-12 no-results">
                             <img src="../../contents/img/Folder-Icon.svg" />
@@ -311,7 +321,7 @@
 
 
             </div>
-        </div>
+        
 
 
 

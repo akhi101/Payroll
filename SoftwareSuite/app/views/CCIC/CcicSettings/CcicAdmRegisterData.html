@@ -129,7 +129,8 @@
         a.backA, a.backA:focus {
             color: #fff !important;
             text-decoration: none !important;
-            font-family: 'Open-Sans';
+            font-family: 'Open Sans';
+            font-size: 14px;
         }
 
         a {
@@ -185,6 +186,14 @@
             margin-top: 0px;
             margin-bottom: 5px;
         }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 6px 6px;
+            line-height: 1.42857143;
+            vertical-align: middle;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+        }
     
     </style>
 </head>
@@ -200,7 +209,7 @@
 
         <div class="breadcrumb-header">
             <!-- breadcrumb Open -->
-            <div class="container">
+            <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
                 <section class="content-header">
                     <h5>Register Report Data View</h5>
                     <ol class="breadcrumb">
@@ -213,11 +222,9 @@
             <!-- breadcrumb Close -->
         </div>
 
-        <div class="container">
+        <div class="container" style="font-family: 'Open Sans'; width: 1198px; margin-right: 80px;">
 
-            <div class="col-md-12">
                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Register/CcicAdmRegisterReportCourses" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-            </div>
             <div class="col-md-12">
                 <div class="row base-row">
                     <div class="col-md-12">
@@ -278,208 +285,10 @@
 
 
 
-            <!--<div class="col-md-12  mtp-50">
-                <div style="width:100%;text-align:center;" ng-show="LoadImg">
-                    <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
-                    <p>please wait while data is loading...</p>
-                </div>
-            </div>-->
 
 
         </div>
-        <div class="container">
-
-        
-
-            <!--<div class="col-md-12" style="margin-bottom:100px" ng-show="ShowDetails">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="offer-custom-style">
-                                <h2>Application Details</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="body">
-                        <div class="custom-forms">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <div class="row">
-                                        <div class="col-md-12 ">
-                                            <div class="col-md-3"><label>Course  </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
-
-                                        </div>
-
-                                        <div class="col-md-12 ">
-                                            <div class="col-md-3"><label>Qualification  </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
-
-                                        </div>
-
-                                        <div class="col-md-12" ng-if="PreviewData.Experience">
-                                            <div class="col-md-3"><label>Experience  </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3"> <label>SSCHallTicket </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
-
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-3"> <label>SSCPassedYear </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
-
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-3"> <label>SSCType </label></div>
-                                            <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-3 text-center">
-                                    <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                                </div>
-
-                                <div class="col-md-3 text-center">
-                                    <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
-                                </div>
-
-                            </div>
-                            <hr />
-                            <div class="row " style="padding: 0px 15px;">
-
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>CandidateName </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>FatherName </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
-
-                                </div>
-
-                                <div class="col-md-6" ng-if="PreviewData.MotherName">
-                                    <div class="col-md-5"> <label>MotherName </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>DateofBirth </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>Gender </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>Aadhar Number </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
-
-                                </div>
-
-
-
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>HouseNo </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>Street </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
-
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"> <label>Landmark </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
-
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>Village</label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>Pincode</label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>District </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>State</label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>Mobile Number</label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-5"><label>Email</label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
-                                </div>
-
-
-                            </div>
-                            <hr />
-                            <div class="row " style="padding: 0px 15px;">
-
-                                <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                                </div>
-
-                                <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                                </div>
-
-                                <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                                </div>
-
-                            </div>
-
-
-                            <div class="col-md-2 pull-right">
-
-                                <div class="cancel-btn" style="margin-bottom:0px;">
-                                    <button type="button" ng-click="Close()">Close</button>
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>-->
-        </div>
+       
 
     </div>
 

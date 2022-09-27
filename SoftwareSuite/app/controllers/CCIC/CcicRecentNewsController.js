@@ -46,20 +46,20 @@
 
 
 
-        var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
-        GetCcicUserTypes.then(function (response) {
-            if (response.Table.length > 0) {
-                $scope.UserTypes = response.Table;
+        //var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
+        //GetCcicUserTypes.then(function (response) {
+        //    if (response.Table.length > 0) {
+        //        $scope.UserTypes = response.Table;
 
-            } else {
-                $scope.StudentType = [];
-                alert("No Data Found");
-            }
-        },
-            function (error) {
-                alert("error while loading Data");
-                console.log(error);
-            });
+        //    } else {
+        //        $scope.StudentType = [];
+        //        alert("No Data Found");
+        //    }
+        //},
+        //    function (error) {
+        //        alert("error while loading Data");
+        //        console.log(error);
+        //    });
 
 
 
@@ -95,72 +95,84 @@
                 });
         }
 
-        var expanded = false;
+        //var expanded = false;
 
-        $scope.showCheckboxes = function () {
-            var checkboxes = document.getElementById("checkboxes");
-            if (!expanded) {
-                checkboxes.style.display = "block";
-                expanded = true;
-            } else {
-                checkboxes.style.display = "none";
-                expanded = false;
-            }
-        }
+        //$scope.showCheckboxes = function () {
+        //    var checkboxes = document.getElementById("checkboxes");
+        //    if (!expanded) {
+        //        checkboxes.style.display = "block";
+        //        expanded = true;
+        //    } else {
+        //        checkboxes.style.display = "none";
+        //        expanded = false;
+        //    }
+        //}
 
-        $scope.closeCheckbox = function () {
-            var checkboxes = document.getElementById("checkboxes");
-            if (!expanded) {
-                checkboxes.style.display = "block";
-                expanded = true;
-            } else {
-                checkboxes.style.display = "none";
-                expanded = false;
-            }
-        }
+        //$scope.closeCheckbox = function () {
+        //    var checkboxes = document.getElementById("checkboxes");
+        //    if (!expanded) {
+        //        checkboxes.style.display = "block";
+        //        expanded = true;
+        //    } else {
+        //        checkboxes.style.display = "none";
+        //        expanded = false;
+        //    }
+        //}
 
-        $scope.toggleAll = function () {
-            var toggleStatus = $scope.isAllSelected;
-            angular.forEach($scope.UserTypes, function (itm) { itm.selected = toggleStatus; });
-            $scope.arr = [];
-            angular.forEach($scope.UserTypes, function (value, key) {
-                if (value.selected === true) {
-                    /*console.log(value);*/
-                    $scope.arr.push({ "UserTypeID": value.UserTypeID })
-                }
+        //$scope.toggleAll = function () {
+        //    var toggleStatus = $scope.isAllSelected;
+        //    angular.forEach($scope.UserTypes, function (itm) { itm.selected = toggleStatus; });
+        //    $scope.arr = [];
+        //    angular.forEach($scope.UserTypes, function (value, key) {
+        //        if (value.selected === true) {
+        //            /*console.log(value);*/
+        //            $scope.arr.push({ "UserTypeID": value.UserTypeID })
+        //        }
 
-            });
-            //console.log($scope.arr)
-            //console.log($scope.userTypes)
-        }
+        //    });
+        //    //console.log($scope.arr)
+        //    //console.log($scope.userTypes)
+        //}
 
-        $scope.optionToggled = function (mid1list) {
-            $scope.isAllSelected = $scope.UserTypes.every(function (itm) { return itm.selected; })
-            $scope.arr = [];
-            angular.forEach($scope.UserTypes, function (value, key) {
-                if (value.selected === true) {
-                    //console.log(value);
-                    $scope.arr.push({ "UserTypeID": value.UserTypeID })
-                }
-            });
-            //console.log($scope.arr)
-            //console.log($scope.UserTypes)
+        //$scope.optionToggled = function (mid1list) {
+        //    $scope.isAllSelected = $scope.UserTypes.every(function (itm) { return itm.selected; })
+        //    $scope.arr = [];
+        //    angular.forEach($scope.UserTypes, function (value, key) {
+        //        if (value.selected === true) {
+        //            //console.log(value);
+        //            $scope.arr.push({ "UserTypeID": value.UserTypeID })
+        //        }
+        //    });
+        //    //console.log($scope.arr)
+        //    //console.log($scope.UserTypes)
 
-        }
+        //}
 
-        var tempId = [];
-        $scope.addData = function (UserTypeID) {
-            return {
-                UserTypeID: UserTypeID,
+        //var tempId = [];
+        //$scope.addData = function (UserTypeID) {
+        //    return {
+        //        UserTypeID: UserTypeID,
 
-            };
-        }
+        //    };
+        //}
 
 
 
 
 
         $scope.AddRecentNews = function () {
+            if ($scope.StartDate == null || $scope.StartDate == undefined || $scope.StartDate == "") {
+                alert('Please select StartDate');
+                return;
+            }
+            if ($scope.EndDate == null || $scope.EndDate == undefined || $scope.EndDate == "") {
+                alert('Please select EndDate');
+                return;
+            }
+            if ($scope.RecentNews == null || $scope.RecentNews == undefined || $scope.RecentNews == "") {
+                alert('Please enter RecentNews');
+                return;
+            }
             $scope.loading = true;
             var startDate = moment($scope.StartDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var date = new Date($scope.EndDate.toString());
@@ -198,6 +210,7 @@
                 $scope.loading = false;
                 alert("RecentNews Saved Successfully");
                 $scope.getuserRecentNews();
+                $scope.clearDefaults();
             },
                 function (error) {
                     $scope.loading = false;
@@ -208,6 +221,12 @@
 
         }
 
+
+        $scope.clearDefaults = function () {
+            $scope.StartDate = '';
+            $scope.EndDate = '';
+            $scope.RecentNews = '';
+        }
 
 
         $scope.getAllRecentNews = function () {
@@ -339,11 +358,11 @@
         $scope.GetAllRecentNewsData = function () {
             var getacayrs = CcicAdminService.GetAllRecentNews()
             getacayrs.then(function (response) {
-                $scope.GetAllRecentNews = response.Table;
+                $scope.GetAllRecentNewsTable = response.Table;
 
-                for (let i = 0; i < $scope.GetAllRecentNews.length; i++) {
-                    if ($scope.GetAllRecentNews[i].GetAllRecentNews == true) {
-                        $scope.finalList.push($scope.GetAllRecentNews[i]);
+                for (let i = 0; i < $scope.GetAllRecentNewsTable.length; i++) {
+                    if ($scope.GetAllRecentNewsTable[i].GetAllRecentNewsTable == true) {
+                        $scope.finalList.push($scope.GetAllRecentNewsTable[i]);
                     }
                 }
 
@@ -400,6 +419,7 @@
                 $scope.loading = false;
                 alert("RecentNews Updated Successfully")
                 $scope.getuserRecentNews();
+                $scope.clearDefaults();
                 //$scope.$emit('hideLoading', data);
 
             },

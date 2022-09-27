@@ -91,6 +91,15 @@
             text-decoration: none;
             font-family: 'Open Sans';
         }
+        element.style {
+            padding: 12px 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family:'Open Sans';
+            font-size:14px;
+        }
     </style>
 </head>
 <body>
@@ -124,8 +133,7 @@
                                             </div>
                                             <!--<div id="captcha"> {{newCapchaCode}}
                                             </div>-->
-                                            <input type="text" placeholder="Enter Captcha" autocomplete="off" ng-keypress="keyLogin($event)" style="padding: 12px 20px;display: inline-block; border: 1px solid #ccc; border-radius: 4px;
-    box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="CcicLogin.Captcha" />
+                                            <input type="text" placeholder="Enter Captcha" autocomplete="off" ng-keypress="keyLogin($event)" style="font-family: 'Open Sans';font-weight:500; font-size: 14px; padding: 12px 20px; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="CcicLogin.Captcha" />
                                         </label>
 
                                         <div id='recaptcha' class="g-recaptcha"

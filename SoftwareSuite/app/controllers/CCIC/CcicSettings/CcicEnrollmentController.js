@@ -92,7 +92,7 @@
                 $scope.passYrLbl = 'Passedout Year';
                 $scope.sscHtPhl = 'Hallticket No';
 
-            } else {
+            } else if ($scope.mode == 2) {
                 $scope.sscHtLbl = ' SSC or Equivalent RollNo';
                 $scope.passYrLbl = 'Pass Year';
                 $scope.sscHtPhl = 'SSC/Equivalent HallTicket no';
@@ -127,7 +127,7 @@
             $scope.radiodisable = true;
             $scope.Add = true;
             $scope.applicationForm = true;
-            $scope.SSCDetails = true;
+            $scope.SSCDetails = false;
             $scope.sscForm = true;
             isSSCValidiated = false;
 
@@ -291,14 +291,15 @@
         }
 
         $scope.Cancel = function () {
-            $scope.radiodisable = false;
+            //$scope.radiodisable = false;
             $scope.SSCDetails = false;
-
-
-            $scope.mode = null;
+            $scope.radiodisable = false;
+            $scope.SscForm = false;
+            //$scope.mode = null;
             $scope.sscHallticket = '';
             $scope.passedoutYear = '';
             $scope.sscType = '';
+
 
 
             $scope.CNAME = '';
