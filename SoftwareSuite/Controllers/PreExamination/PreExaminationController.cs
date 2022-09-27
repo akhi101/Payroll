@@ -5691,6 +5691,66 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("GenerateC18MemosDataByPin")]
+        public string GenerateC18MemosDataByPin(int ExamMonthYearId, int MinCredits, string Day, string Month, string Year, string PIN)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[1] = new SqlParameter("@MinCredits", MinCredits);
+                param[2] = new SqlParameter("@Day", Day);
+                param[3] = new SqlParameter("@Month", Month);
+                param[4] = new SqlParameter("@Year", Year);
+                param[5] = new SqlParameter("@PIN", PIN);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_GenerateC18ConsolidatedMemo_ByPIN", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+
+                    //var Date = DateTime.Now.ToString("dd-MM-yyyy_hh:mm:ss");
+                    var filename = "C18_Consolidated_Memo_ByPin_" + PIN + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SET_GenerateC18ConsolidatedMemo", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
 
         [HttpPost, ActionName("InterimSetApproveStatus")]
         public string InterimSetApproveStatus([FromBody] JsonObject request)
