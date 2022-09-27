@@ -207,7 +207,7 @@
             'CcicForgetPassword': {
                 url: "/CcicForgetPassword",
                 templateUrl: 'app/views/CCIC/CcicForgetPassword.html',
-                dependencies: ['controllers/CCIC/CcicForgetPasswordController', 'services/CCIC/CcicForgetPasswordService']
+                dependencies: ['controllers/CCIC/CcicForgetPasswordController', 'services/CCIC/CcicForgetPasswordService', 'services/CCIC/CcicSystemUserService']
             },
 
             'CcicDashboard.Settings': {

@@ -201,22 +201,24 @@
         font-size: inherit;
         line-height: inherit;
     }
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
 </style>
 
 <div ng-controller="CcicEnrollmentController">
 
 
-    <div class="sm-spacer"></div>
 
-    <div class="container" style="margin-bottom:100px">
+    <div class="container" style="margin-bottom:100px;font-family: 'Open Sans'; width: 1211px; padding-left:29px; margin-right: 80px">
 
-        <div class="col-md-12">
-            <button class="btn bck_btn" style="margin-top:10px;margin-bottom:10px"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-        </div>
+            <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
         <div class="tab-content ">
             <div class="row">
-                <div class="col-md-12">
                     <div class="col-md-12  mtp-50">
                         <div class="card" ng-show="coursedetails">
                             <form name="coursedetail">
@@ -312,7 +314,7 @@
                         </div>
 
                     </div>
-                </div>
+                
                 <div class="col-md-12  mtp-50">
                     <div style="width:100%;text-align:center;" ng-show="LoadImg">
                         <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
@@ -353,13 +355,13 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
                                                         <label>{{sscHtLbl}}</label>
-                                                        <input type="text" ng-model="sscHallticket" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="15" minlength="10" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
+                                                        <input type="text" ng-model="sscHallticket" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
                                                         <label>{{passYrLbl}}</label>
-                                                        <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4" minlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
+                                                        <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4"  placeholder="YYYY eg.(1990)" class="form-control" />
                                                     </div>
                                                 </div>
 
@@ -368,8 +370,8 @@
                                                         <label for="date-picker-example">Examination Pass Type</label>
                                                         <select class="form-control" ng-disabled="SSCDetails" ng-model="sscType">
                                                             <option value="">Select Pass Type</option>
-                                                            <option value="R">Regular</option>
-                                                            <option value="A">Supplmentary</option>
+                                                            <option value="Regular">Regular</option>
+                                                            <option value="Supplementary">Supplmentary</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -522,7 +524,7 @@
 
 
                                             <div class="col-md-4 ">
-                                                <div class="form-group">
+                                                <div class="form-group" required>
                                                     <label>Pincode</label>
                                                     <input type="text" placeholder="Pin code" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6" minlength="6" autocomplete="off" class="form-control" ng-model="pincode" required />
                                                 </div>

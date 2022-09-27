@@ -311,21 +311,44 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
-                                                        <label>Examination Pass Type</label>
-                                                        <input type="text" ng-model="SSCPassedType" ng-disabled="sscdetails" maxlength="20" class="form-control" />
+                                                        <label for="date-picker-example">Examination Pass Type</label>
+                                                        <select class="form-control" ng-disabled="sscdetails" ng-model="SSCPassedType">
+                                                            <option value="">Select Pass Type</option>
+                                                            <option value="Regular">Regular</option>
+                                                            <option value="Supplementary">Supplmentary</option>
+                                                        </select>
                                                     </div>
                                                 </div>
 
-                                                <!--<div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label for="date-picker-example">Examination Pass Type</label>
-                                                        <select class="form-control" ng-disabled="SSCDetails" ng-model="EditData.SSCPassedType">
-                                                            <option value="">Select Pass Type</option>
-                                                            <option value="R">Regular</option>
-                                                            <option value="A">Supplmentary</option>
-                                                        </select>
+                                                <div class="col-md-1 pull-right mtp-50">
+                                                    <div class="cancel-btn" style="margin-bottom:0px;">
+                                                        <button type="button" ng-model="CANcel" ng-disabled="Cancel2" ng-click="Cancel()">Cancel</button>
                                                     </div>
-                                                </div>-->
+                                                </div>
+                                                <div class="col-md-2 pull-right mtp-50">
+                                                    <div class="submit-btn " style="margin:0px;" ng-if="sscdetbutton">
+                                                        <button type="submit" ng-disabled="SSCDetails" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
+                                                    </div>
+                                                    <div class="submit-btn " style="margin:0px;" ng-if="nextbutton">
+                                                        <button type="submit" ng-disabled="SSCDetails" ng-click="Next(sscHallticket, passedoutYear, sscType)">Next</button>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-1 pull-right mtp-50">
+
+                                                </div>
+
+                                                <!--<div class="col-md-4">
+        <div class="form-group required">
+            <label for="date-picker-example">Examination Pass Type</label>
+            <select class="form-control" ng-disabled="SSCDetails" ng-model="EditData.SSCPassedType">
+                <option value="">Select Pass Type</option>
+                <option value="R">Regular</option>
+                <option value="A">Supplmentary</option>
+            </select>
+        </div>
+    </div>-->
 
                                             </div>
 
@@ -344,7 +367,7 @@
                 </div>
 
                 <form name="StudentDetails">
-                    <div class="custom-forms" ng-show="applicationForm">
+                    <div class="custom-forms" ng-if="applicationForm">
                         <div class="col-md-12  mtp-50">
                             <div class="card">
                                 <div class="row">
