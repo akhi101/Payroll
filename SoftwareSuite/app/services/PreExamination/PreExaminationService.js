@@ -20,7 +20,24 @@
         this.GetCategory = function () {
             return DataAccessService.getDataAll('Admission/GetCategory');
         };
-        
+
+        this.GenerateC18MemosDataByPin = function (ExamMonthYearId, MinCredits, Day, Month, Year, PIN) {
+            var paramObject = {
+                "ExamMonthYearId": ExamMonthYearId, "MinCredits": MinCredits, "Day": Day, "Month": Month, "Year": Year, "PIN": PIN
+            };
+            return DataAccessService.getDataWithPara('api/PreExamination/GenerateC18MemosDataByPin', paramObject);
+        };
+
+        this.ThreeBacklogODCByPin = function (fromdate, todate, PIN) {
+            var paramObj = {
+                "fromdate": fromdate,
+                "todate": todate,
+                "PIN": PIN
+            }
+            var promise = DataAccessService.postData('PreExaminationReport/ThreeBacklogODCByPin', paramObj);
+            return promise;
+        };
+
         this.GetPolycetAcademicYear = function () {
             return DataAccessService.getDataAll('Admission/GetPolycetAcademicYear');
         };

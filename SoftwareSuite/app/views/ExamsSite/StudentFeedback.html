@@ -22,9 +22,10 @@
 
             .rating > label:before {
                 margin: 2px;
-                font-size: 14px;
+                font-size: 12px;
                 font-family: FontAwesome;
                 content: "\f005";
+                content: "\2605";
                 display: inline-block;
             }
 
@@ -212,7 +213,7 @@
                         <table width="100%">
                             <tbody>
                             <td width="20%">
-                                <label style="float:left!important;margin-top:15px;"><b>Excellent :</b></label>
+                                <label style="float:left!important;margin-top:12px;"><b>Excellent :</b></label>
                                 <div class="rating">
                                     <input type="radio" id="star5" name="ratings" checked="checked" disabled />
                                     <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
@@ -227,7 +228,7 @@
                                 </div>
                             </td>
                             <td width="20%">
-                                <label style="float:left!important;margin-top:15px;"><b>Very Good :</b></label>
+                                <label style="float:left!important;margin-top:12px;"><b>Very Good :</b></label>
                                 <div class="rating">
                                     <input type="radio" id="star5" name="ratingss" disabled />
                                     <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
@@ -242,7 +243,7 @@
                                 </div>
                             </td>
                             <td width="20%">
-                                <label style="float:left!important;margin-top:15px;"><b>Good :</b></label>
+                                <label style="float:left!important;margin-top:12px;"><b>Good :</b></label>
                                 <div class="rating">
                                     <input type="radio" id="star5" name="ratingsss" disabled />
                                     <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
@@ -257,7 +258,7 @@
                                 </div>
                             </td>
                             <td width="20%">
-                                <label style="float:left!important;margin-top:15px;"><b> Poor :</b></label>
+                                <label style="float:left!important;margin-top:12px;"><b> Poor :</b></label>
                                 <div class="rating">
                                     <input type="radio" id="star5" name="ratingssss" disabled />
                                     <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
@@ -272,7 +273,7 @@
                                 </div>
                             </td>
                             <td width="20%">
-                                <label style="float:left!important;margin-top:15px;"><b>Very Poor :</b></label>
+                                <label style="float:left!important;margin-top:12px;"><b>Very Poor :</b></label>
                                 <div class="rating">
                                     <input type="radio" id="star5" name="rating" disabled />
                                     <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
@@ -316,6 +317,7 @@
                         <th class="myPad text-center" width="3%" class="text-center">S.No.</th>
                         <th class="myPad " align="top" width="16%">Description</th>
                         <th class="myPad text-center" ng-repeat="data in SubjectList" width="auto">
+                            SubjectCode
                             {{data.Subject_Code}}
                         </th>
                     </tr>

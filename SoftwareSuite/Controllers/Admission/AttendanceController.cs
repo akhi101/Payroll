@@ -498,6 +498,7 @@ namespace SoftwareSuite.Controllers.Admission
 
         #endregion
 
+
         [HttpGet, ActionName("UpdateWorkingDays")]
         public void UpdateWorkingDays()
         {
@@ -507,12 +508,28 @@ namespace SoftwareSuite.Controllers.Admission
                 AbasWorkingDays d = new AbasWorkingDays();
                 var clientUrl = ConfigurationManager.AppSettings["BMA_API_ROOT"];
                 var client = new RestClient(clientUrl);
-
-                //-----------getting all departments working days--------------
-                var semstartdatealldep = ConfigurationManager.AppSettings["All_Dep_startDate"];
+                //-----------getting Sem 1 working days--------------
+                var sem1startdate = ConfigurationManager.AppSettings["Sem_1_startDate"];
                 var deptflag = 0;
                 string apistring = string.Empty;
                 string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
+                apistring = string.Format(apiparams, sem1startdate, deptflag);
+                var req3 = new RestRequest(apistring, Method.POST);
+                req3.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                var data3 = client.Post<AbasWorkingDays>(req3).Data;
+                var db3 = new dbHandler();
+                var param3 = new SqlParameter[3];
+                param3[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
+                param3[0].Value = JsonConvert.SerializeObject(data3.orglist);
+                param3[1] = new SqlParameter("@deptType", deptflag);
+                param3[2] = new SqlParameter("@startdate", sem1startdate);
+                db3.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param3);
+
+                //-----------getting all departments working days--------------
+                var semstartdatealldep = ConfigurationManager.AppSettings["All_Dep_startDate"];
+                deptflag = 0;
+                apistring = string.Empty;
+                apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
                 apistring = string.Format(apiparams, semstartdatealldep, deptflag);
                 var req = new RestRequest(apistring, Method.POST);
                 req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
@@ -572,6 +589,7 @@ namespace SoftwareSuite.Controllers.Admission
                 dbHandler.SaveErorr("usp_SaveAbasWorkingDays", 0, ex.Message);
             }
         }
+
 
         [HttpGet, ActionName("ProcessAttendanceDisplay")]
         public void ProcessAttendanceDisplay()
