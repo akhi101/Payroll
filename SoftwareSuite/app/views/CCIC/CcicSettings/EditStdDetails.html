@@ -311,7 +311,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
                                                         <label for="date-picker-example">Examination Pass Type</label>
-                                                        <select class="form-control" ng-disabled="sscdetails" ng-model="sscType">
+                                                        <select class="form-control" ng-disabled="sscdetails" ng-model="SSCPassedType">
                                                             <option value="">Select Pass Type</option>
                                                             <option value="Regular">Regular</option>
                                                             <option value="Supplementary">Supplmentary</option>
@@ -319,7 +319,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-1 pull-right mtp-50">
+                                                <!--<div class="col-md-1 pull-right mtp-50">
                                                     <div class="cancel-btn" style="margin-bottom:0px;">
                                                         <button type="button" ng-model="CANcel" ng-disabled="Cancel2" ng-click="Cancel()">Cancel</button>
                                                     </div>
@@ -336,7 +336,7 @@
 
                                                 <div class="col-md-1 pull-right mtp-50">
 
-                                                </div>
+                                                </div>-->
 
                                                 <!--<div class="col-md-4">
         <div class="form-group required">
@@ -526,10 +526,11 @@
                                                 </span>
                                             </div>
 
+                                            <div class="sm-spacer"></div>
                                             <div class="row">
                                                 <div class="col-md-4" ng-if="StudentPhoto">
-                                                    <div class="form-group required custom-img">
-                                                        <label>Upload Photo(size less than 300KB) :</label>
+                                                    <div class="form-group custom-img required">
+                                                        <label>Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
 
                                                         <img ng-src="{{StudentPhoto}}" class="zoom" id="stdPhotoImg" />
                                                         <input type="file" required id="stdPhotoFile" ng-model="StudentPhoto" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file">
@@ -538,7 +539,7 @@
 
                                                 <div class="col-md-4" ng-if="StudentSign">
                                                     <div class="form-group required custom-img">
-                                                        <label>Upload Signature(size less than 30KB) :</label>
+                                                        <label>Upload Signature(size should be greater than 3KB and less than 30KB) :</label>
 
                                                         <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="zoom" id="stdSignImg" />
                                                         <input type="file" required id="stdSignFile" ng-model="StudentSign" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
@@ -559,7 +560,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group required custom-img" ng-if="SSCCertificate">
-                                                        <label>Upload Ssc Certificate(size less than 300KB) :</label>
+                                                        <label>Upload Ssc Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
                                                         <img ng-src="{{SSCCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
                                                         <input type="file" required id="stdSscCertificateFile" ng-model="SSCCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
@@ -568,7 +569,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group required custom-img" ng-if="QualificationCertificate">
-                                                        <label>Upload {{Qualification}} Certificate(size less than 300KB) :</label>
+                                                        <label>Upload {{Qualification}} Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
                                                         <img ng-src="{{QualificationCertificate}}" class="img img-responsive" id="stdCertificateTypeImg" />
                                                         <input type="file" required id="stdCertificateTypeFile" ng-model="QualificationCertificate" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
@@ -577,7 +578,7 @@
 
                                                 <div class="col-md-4">
                                                     <div class="form-group required custom-img" ng-if="ExperienceCertificate">
-                                                        <label>Upload Experience Certificate(size less than 300KB) :</label>
+                                                        <label>Upload Experience Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
                                                         <img ng-src="{{ExperienceCertificate}}" class="img img-responsive" id="stdExperienceCertificateImg" />
                                                         <input type="file" required id="stdExperienceCertificateFile" ng-model="ExperienceCertificate" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">

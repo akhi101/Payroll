@@ -523,8 +523,8 @@
 
 
 
-                                            <div class="col-md-4 ">
-                                                <div class="form-group" required>
+                                            <div class="col-md-4">
+                                                <div class="form-group  required">
                                                     <label>Pincode</label>
                                                     <input type="text" placeholder="Pin code" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="6" minlength="6" autocomplete="off" class="form-control" ng-model="pincode" required />
                                                 </div>
@@ -558,7 +558,7 @@
                                             <div class="col-md-4 ">
                                                 <div class="form-group ">
                                                     <label>Email</label>
-                                                    <input type="text" placeholder="Email Address" ng-blur="ValidateEmail()" maxlength="70" autocomplete="off" class="form-control" ng-model="email" />
+                                                    <input type="text" placeholder="Email Address"  maxlength="70" autocomplete="off" class="form-control" ng-model="email" />
                                                 </div>
                                             </div>
                                         </div>
@@ -574,7 +574,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group required custom-img">
-                                                    <label class="font-weight-bold">Upload Photo(size less than 300KB) :</label>
+                                                    <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
                                                     <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" />
                                                     <input type="file" id="stdPhotoFile" ng-model="StudentPhoto" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required>
                                                 </div>
@@ -602,7 +602,7 @@
 
                                             <div class="col-md-4" ng-if="StudentSscCertificate">
                                                 <div class="form-group required custom-img">
-                                                    <label>Upload Ssc Certificate(size less than 300KB) :</label>
+                                                    <label>Upload Ssc Certificate(size should be greater than 5KB and less than 50K) :</label>
 
                                                     <img ng-src="{{StudentSscCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
                                                     <input type="file" required id="stdSscCertificateFile" ng-model="StudentSscCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
@@ -611,7 +611,7 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group required custom-img" ng-if="StudentCertificateType">
-                                                    <label>Upload {{StudentCertificateType}}(size less than 300KB) :</label>
+                                                    <label>Upload {{StudentCertificateType}}(size should be greater than 5KB and less than 50K) :</label>
 
                                                     <img ng-src="{{stdCertificateType}}" class="img img-responsive" id="stdCertificateTypeImg" />
                                                     <input type="file" required id="stdCertificateTypeFile" ng-model="stdCertificateType" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
@@ -620,7 +620,7 @@
 
                                             <div class="col-md-4" ng-if="GetCcicCourseExperienceInfo.length>0">
                                                 <div class="form-group required custom-img">
-                                                    <label>Upload Experience Certificate(size less than 300KB) :</label>
+                                                    <label>Upload Experience Certificate(size should be greater than 5KB and less than 50K) :</label>
 
                                                     <img ng-src="{{isExperienced}}" class="img img-responsive" id="stdExperienceCertificateImg" />
                                                     <input type="file" required id="stdExperienceCertificateFile" ng-model="isExperienced" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
