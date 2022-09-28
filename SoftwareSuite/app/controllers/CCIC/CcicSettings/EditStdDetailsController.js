@@ -12,6 +12,7 @@
             //$scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.Mode();
             $scope.Modify();
+         
             /*$scope.EditStudentDetails();*/
 
         }
@@ -23,107 +24,101 @@
 
         $scope.Mode = function () {
 
+          
             if ($scope.SSC == 1) {
+                //$scope.getsscDetails();
                 $scope.sscHtLbl = 'SSC Hallticket Number';
                 $scope.passYrLbl = 'Passedout Year';
                 $scope.sscHtPhl = 'Hallticket No';
                 //$scope.sscGetLbl = 'Get Details';
                 $scope.sscdetails = true;
 
-            }
-
-            else if ($scope.SSC == 1 && resdata.length>0)
-            {
-                $scope.sscHtLbl = 'SSC Hallticket Number';
-                $scope.passYrLbl = 'Passedout Year';
-                $scope.sscHtPhl = 'Hallticket No';
-                $scope.sscdetails = false;
-
+                $scope.Found = true;
+                $scope.CandidateNamefound = true;
 
             }
-            else if ($scope.SSC == 2) {
+
+            else  {
+                $scope.Found = false;
                 $scope.sscHtLbl = 'SSC or Equivalent RollNo';
                 $scope.passYrLbl = 'Pass Year';
                 $scope.sscHtPhl = 'SSC/Equivalent HallTicket no';
                 //    $scope.sscGetLbl = 'Next';
-                //$scope.sscdetails = false;
-                //$scope.sscdetbutton = true;
+                $scope.sscdetails = true;
 
 
             }
 
-            $scope.cancel = true;
-            $scope.SscForm = true;
-            $scope.applicationForm = false;
+            $scope.StudentName = false;
 
-            $scope.sscHallticket = null;
-            $scope.passedoutYear = null;
-            $scope.sscType = null;
+          
+          
+            
 
         }
 
 
-        $scope.Cancel = function () {
-            //$scope.radiodisable = false;
-            $scope.SSCDetails = false;
-            $scope.radiodisable = false;
-            $scope.SscForm = false;
-            //$scope.mode = null;
-            $scope.sscHallticket = '';
-            $scope.passedoutYear = '';
-            $scope.sscType = '';
+        //$scope.Cancel = function () {
+        //    //$scope.radiodisable = false;
+        //    $scope.SSCDetails = false;
+        //    $scope.radiodisable = false;
+        //    $scope.SscForm = false;
+        //    //$scope.mode = null;
+        //    $scope.sscHallticket = '';
+        //    $scope.passedoutYear = '';
+        //    $scope.sscType = '';
 
 
 
-            $scope.CNAME = '';
-            $scope.FNAME = '';
-            $scope.MNAME = '';
-            $scope.DOB_DATE = '';
-            $scope.SEX = '';
-            $scope.Aadhar = '';
-            $scope.houseNo = '';
-            $scope.street = '';
-            $scope.landmark = '';
-            $scope.village = '';
-            $scope.pincode = '';
-            $scope.district = '';
-            $scope.state = '';
-            $scope.mobileNO = '';
-            $scope.email = '';
+        //    $scope.CNAME = '';
+        //    $scope.FNAME = '';
+        //    $scope.MNAME = '';
+        //    $scope.DOB_DATE = '';
+        //    $scope.SEX = '';
+        //    $scope.Aadhar = '';
+        //    $scope.houseNo = '';
+        //    $scope.street = '';
+        //    $scope.landmark = '';
+        //    $scope.village = '';
+        //    $scope.pincode = '';
+        //    $scope.district = '';
+        //    $scope.state = '';
+        //    $scope.mobileNO = '';
+        //    $scope.email = '';
 
-            $scope.SscForm = true;
-            $scope.applicationForm = false;
-            $scope.continue = true;
-            $scope.SSCDetails = false;
-
-
+        //    $scope.SscForm = true;
+        //    $scope.applicationForm = false;
+        //    $scope.continue = true;
+        //    $scope.SSCDetails = false;
 
 
 
 
-        }
 
 
-        $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
-            if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
+        //}
+
+
+        $scope.getsscDetails = function (SSCHallticketNumber, SSCPassedYear, SSCPassedType) {
+            if (SSCHallticketNumber == '' || SSCHallticketNumber == null || SSCHallticketNumber == undefined) {
                 alert("SSC HallTicket number can't be Empty");
                 return;
             }
-            if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
+            if (SSCPassedYear == '' || SSCPassedYear == null || SSCPassedYear == undefined) {
                 alert("SSC passedout year can't be Empty");
                 return;
             }
 
-            if (sscType == '' || sscType == null || sscType == undefined) {
+            if (SSCPassedType == '' || SSCPassedType == null || SSCPassedType == undefined) {
                 alert("Stream can't be Empty");
                 return;
             }
 
 
 
-            $scope.hallticket = true;
-            $scope.year = true;
-            $scope.Ssc = true;
+            //$scope.hallticket = true;
+            //$scope.year = true;
+            //$scope.Ssc = true;
             $scope.Add = true;
             $scope.SSCDetails = true;
             $scope.Save = true;
@@ -135,9 +130,9 @@
             //$scope.Tenth_Year = Tenth_Year;
             //$scope.Stream = Stream;
             var reqData = {
-                RollNo: sscHallticket,
-                Year: passedoutYear,
-                Stream: sscType
+                RollNo: SSCHallticketNumber,
+                Year: SSCPassedYear,
+                Stream: SSCPassedType
             };
 
             var sscdetails = CcicPreExaminationService.getSSCDetails(reqData);
@@ -220,30 +215,30 @@
         }
 
 
-        $scope.Next = function (sscHallticket, passedoutYear, sscType) {
-            if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
-                alert("SSC HallTicket number can't be Empty");
-                return;
-            }
-            if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
-                alert("SSC passedout year can't be Empty");
-                return;
-            }
+        //$scope.Next = function (sscHallticket, passedoutYear, sscType) {
+        //    if (sscHallticket == '' || sscHallticket == null || sscHallticket == undefined) {
+        //        alert("SSC HallTicket number can't be Empty");
+        //        return;
+        //    }
+        //    if (passedoutYear == '' || passedoutYear == null || passedoutYear == undefined) {
+        //        alert("SSC passedout year can't be Empty");
+        //        return;
+        //    }
 
-            if (sscType == '' || sscType == null || sscType == undefined) {
-                alert("Stream can't be Empty");
-                return;
-            }
-            alert("Continue to fillApplication");
-            $scope.cancel = false;
-            $scope.radiodisable = true;
-            $scope.Add = true;
-            $scope.applicationForm = true;
-            $scope.SSCDetails = false;
-            $scope.sscForm = true;
-            isSSCValidiated = false;
+        //    if (sscType == '' || sscType == null || sscType == undefined) {
+        //        alert("Stream can't be Empty");
+        //        return;
+        //    }
+        //    alert("Continue to fillApplication");
+        //    $scope.cancel = false;
+        //    $scope.radiodisable = true;
+        //    $scope.Add = true;
+        //    $scope.applicationForm = true;
+        //    $scope.SSCDetails = false;
+        //    $scope.sscForm = true;
+        //    isSSCValidiated = false;
 
-        }
+        //}
 
      
         //$scope.EditStudentDetails = function () {
@@ -432,6 +427,21 @@
                 $scope.SSCHallticketNumber = EditData.SSCHallticketNumber;
                 $scope.SSCPassedYear = EditData.SSCPassedYear;
                 $scope.SSCPassedType = EditData.SSCPassedType;
+                $scope.SSCValidated = EditData.SSCValidated;
+                if ($scope.SSCValidated == 1) {
+                    $scope.CandidateNamefound = true;
+                    $scope.FatherNameFound = true;
+                    $scope.MotherNamefound = true;
+                    $scope.Genderfound = true;
+                }
+                else {
+
+                    $scope.CandidateNamefound = false;
+                    $scope.FatherNameFound = false;
+                    $scope.MotherNamefound = false;
+                    $scope.Genderfound = false;
+
+                }
 
                 $scope.StudentName = EditData.StudentName;
                 $scope.FatherName = EditData.FatherName;
@@ -729,15 +739,20 @@
         $scope.uploadStudentPhoto = function () {
             var input = document.getElementById("stdPhotoFile");
             var fileSize = input.files[0].size;
-            if (fileSize <= 300000) {
+
+            if (fileSize <= 50000 && fileSize >= 5000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
                     reader.onload = function (e) {
                         $('#stdPhotoImg').attr('src', e.target.result);
+
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
@@ -746,18 +761,31 @@
                             var base64Image = canvas.toDataURL("image/png");
                             $scope.StudentPhoto = base64Image;
                             $scope.StudentPhotoConvert = $scope.StudentPhoto.replace(/^data:image\/[a-z]+;base64,/, "");
+
                         });
+
+
                     }
                     reader.onerror = function (e) {
                         console.error("File could not be read! Code " + e.target.error.code);
                     };
+
                 }
-            }
-            else {
-                alert("file size should be less then 300kb. ");
+            } else if (fileSize <= 5000) {
+                alert("file size should not be less than 5KB");
+                $('#stdPhotoFile').val('');
+                return;
+            } else if (fileSize >= 50000) {
+                alert("file size should not be greater than 50KB");
+                $('#stdPhotoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 5KB and 50KB");
+                $('#stdPhotoFile').val('');
                 return;
             }
         }
+
 
         $scope.toDataURL = function (url, callback) {
             var xhr = new XMLHttpRequest();
@@ -777,15 +805,20 @@
         $scope.uploadStudentSign = function () {
             var input = document.getElementById("stdSignFile");
             var fileSize = input.files[0].size;
-            if (fileSize <= 30000) {
+
+            if (fileSize <= 30000 && fileSize >= 3000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
                     reader.onload = function (e) {
                         $('#stdSignImg').attr('src', e.target.result);
+
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
@@ -796,43 +829,58 @@
                             $scope.StudentSignConvert = $scope.StudentSign.replace(/^data:image\/[a-z]+;base64,/, "");
 
                         });
+
+
                     }
                     reader.onerror = function (e) {
                         console.error("File could not be read! Code " + e.target.error.code);
                     };
+
                 }
-            }
-            else {
-                alert("file size should be less then 300kb. ");
+            } else if (fileSize <= 5000) {
+                alert("file size should not be less than 3KB");
+                $('#stdSignFile').val('');
+                return;
+            } else if (fileSize >= 50000) {
+                alert("file size should not be greater than 30KB");
+                $('#stdSignFile').val('');
+                return;
+            } else {
+                alert("file size should be between 3KB and 30KB");
+                $('#stdSignFile').val('');
                 return;
             }
         }
-
 
 
         $scope.uploadStudentSscCertificate = function () {
             var input = document.getElementById("stdSscCertificateFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 300000) {
+            if (fileSize <= 2000000 && fileSize >= 10000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
                     reader.onload = function (e) {
                         $('#stdSscCertificateImg').attr('src', e.target.result);
+
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.SscCertificate = base64Image;
-                            $scope.SscCertificateConvert = $scope.SscCertificate.replace(/^data:image\/[a-z]+;base64,/, "");
+                            $scope.SSCCertificate = base64Image;
+                            $scope.SSCCertificateConvert = $scope.SSCCertificate.replace(/^data:image\/[a-z]+;base64,/, "");
 
                         });
+
 
                     }
                     reader.onerror = function (e) {
@@ -840,17 +888,28 @@
                     };
 
                 }
-            }
-            else {
-                alert("file size should be less then 300kb. ");
+            } else if (fileSize <= 10000) {
+                alert("file size should not be less than 100KB");
+                $('#stdSscCertificateFile').val('');
+                return;
+            } else if (fileSize >= 2000000) {
+                alert("file size should not be greater than 2MB");
+                $('#stdSscCertificateFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 2MB");
+                $('#stdSscCertificateFile').val('');
                 return;
             }
         }
 
+      
+
         $scope.uploadStudentCertificateType = function () {
             var input = document.getElementById("stdCertificateTypeFile");
             var fileSize = input.files[0].size;
-            if (fileSize <= 300000) {
+
+            if (fileSize <= 2000000 && fileSize >= 10000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -860,7 +919,9 @@
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
 
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
@@ -872,15 +933,24 @@
 
                         });
 
+
                     }
                     reader.onerror = function (e) {
                         console.error("File could not be read! Code " + e.target.error.code);
                     };
 
                 }
-            }
-            else {
-                alert("file size should be less then 300kb. ");
+            } else if (fileSize <= 10000) {
+                alert("file size should not be less than 100KB");
+                $('#stdCertificateTypeFile').val('');
+                return;
+            } else if (fileSize >= 2000000) {
+                alert("file size should not be greater than 2MB");
+                $('#stdCertificateTypeFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 2MB");
+                $('#stdCertificateTypeFile').val('');
                 return;
             }
         }
@@ -888,7 +958,8 @@
         $scope.uploadStudentExperienceCertificate = function () {
             var input = document.getElementById("stdExperienceCertificateFile");
             var fileSize = input.files[0].size;
-            if (fileSize <= 300000) {
+
+            if (fileSize <= 2000000 && fileSize >= 10000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -898,17 +969,20 @@
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
 
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
-                            var base64Image = canvas.toDataURL("image/jpg");
+                            var base64Image = canvas.toDataURL("image/png");
                             $scope.ExperienceCertificate = base64Image;
                             $scope.ExperienceCertificateConvert = $scope.ExperienceCertificate.replace(/^data:image\/[a-z]+;base64,/, "");
 
                         });
+
 
                     }
                     reader.onerror = function (e) {
@@ -916,12 +990,21 @@
                     };
 
                 }
-            }
-            else {
-                alert("file size should be less then 300kb. ");
+            } else if (fileSize <= 10000) {
+                alert("file size should not be less than 100KB");
+                $('#stdExperienceCertificateFile').val('');
+                return;
+            } else if (fileSize >= 2000000) {
+                alert("file size should not be greater than 2MB");
+                $('#stdExperienceCertificateFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 2MB");
+                $('#stdExperienceCertificateFile').val('');
                 return;
             }
         }
+
 
 
 
