@@ -83,7 +83,7 @@
                     //$scope.result = false;
                     $scope.NoData = true;
                     alert("No Data Found");
-                    $scope.$emit('hideLoading', data);
+                    //$scope.$emit('hideLoading', data);
 
                 }
             },
@@ -419,6 +419,7 @@
                 $scope.loading = false;
                 alert("RecentNews Updated Successfully")
                 $scope.getuserRecentNews();
+                $scope.GetAllRecentNewsData();
                 $scope.clearDefaults();
                 //$scope.$emit('hideLoading', data);
 

@@ -47,6 +47,7 @@
                     $scope.loading = false;
                     $scope.AdminEnrollmentReportInsCountTable = [];
                     $scope.$emit('hideLoading', data);
+                    $scope.NoData = true;
                 }
             },
                 function (error) {
@@ -82,6 +83,8 @@
                     $scope.loading = false
                     $scope.EnrollmentReportCoursesTable = [];
                     $scope.$emit('hideLoading', data);
+                    $scope.NoData = true;
+
 
                 }
             },
