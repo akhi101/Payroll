@@ -82,7 +82,7 @@
         max-width: 100%;
         margin-bottom: 5px;
         font-weight: 500;
-        font-size: 12px !important;
+        font-size: 15px !important;
     }
 
     data {
@@ -90,7 +90,7 @@
         max-width: 100%;
         margin-bottom: 5px;
         font-weight: 200;
-        font-size: 12px !important;
+        font-size: 14px !important;
     }
 
 
@@ -130,7 +130,7 @@
 
     .custom-forms label {
         color: #222;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: normal;
         margin: 10px 0px 10px 0px;
         font-weight: 600;
@@ -141,7 +141,7 @@
         font-size: 16px;
         font-weight: normal;
         margin: 10px 0px 10px 0px;
-        font-weight: 200;
+        font-weight: 500;
     }
 
     .col-md-4 {
@@ -196,13 +196,6 @@
         border-radius: 2px;
     }
 
-    label {
-        display: inline-block;
-        max-width: 100%;
-        margin-bottom: 5px;
-        font-weight: 500;
-        font-size: 14px !important;
-    }
 
     .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
@@ -295,7 +288,7 @@
         margin-top: 0px;
         margin-bottom: 5px;
     }
-    
+   
 </style>
 
 <!DOCTYPE html>
@@ -362,6 +355,14 @@
             font-weight: 600;
             text-decoration: none;
         }
+
+        a.backA, a.backA:focus {
+            color: #fff !important;
+            text-decoration: none !important;
+            font-family: 'Open Sans';
+            font-size: 14px;
+        }
+       
     </style>
 </head>
 
@@ -376,7 +377,7 @@
 
         <div class="breadcrumb-header">
             <!-- breadcrumb Open -->
-            <div class="container">
+            <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
                 <section class="content-header">
                     <h5>Verification Report Data View</h5>
                     <ol class="breadcrumb">
@@ -389,88 +390,16 @@
             <!-- breadcrumb Close -->
         </div>
 
-        <div class="container">
+        <div class="container" style="font-family: 'Open Sans'; width: 1196px">
 
-            <div class="col-md-12" ng-if="ShowStudentDetails">
                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-            </div>
-            <div class="col-md-12" ng-show="DataTable">
-                <div class="row base-row">
-                    <div class="col-md-12">
-                        <!--<div class="pull-right" ng-if="StudentDetailsFound">
-                            <a class="ExportToExcel1 pointer"
-                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
-                                <i class="fa fa-file-excel-o"></i>
-                                Export to Excel
-                            </a>
-                        </div>-->
-                        <div class="col-lg-12">
-                            <form class="form-inline" ng-if="VerificationReportDataTable.length>0">
-                                <div class="form-group">
-                                    <label>Search</label>
-                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
-                                </div>
-                            </form>
-                            <label class="notifylabel" ng-if="VerificationReportDataTable.length>0" for="sel1" style="color: red;"> Double click on row to Update Student</label>
-                            <!--<div style="width:100%;text-align:center;">
-                                <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                            </div>-->
-
-                            <div ng-if="VerificationReportDataTable.length<=0">
-                                <h3 style="border-left-width:450px;border-right-width:450px">No Data</h3>
-                            </div>
-                            <div class="scrollbox" id="tblParent" ng-if="VerificationReportDataTable.length>0">
-                                <table id="studentRegTable" class="table table-hover table-fixed table-bordered studentadmission-table table-responsive scrollbox-content">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 5%">S No.</th>
-                                            <th style="width: 10%" ng-click="sort('PIN')">PIN<i class="fa fa-fw fa-sort"></i></th>
-                                            <th style="width: 10%" ng-click="sort('ApplicationNumber')">Application Number <i class="fa fa-fw fa-sort"></i></th>
-                                            <th style="width: 15%" ng-click="sort('Name')">Student Name <i class="fa fa-fw fa-sort"></i></th>
-                                            <th style="width: 5%" ng-click="sort('Submitted')">Submitted <i class="fa fa-fw fa-sort"></i></th>
-                                            <th style="width: 10%">Application Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="x in VerificationReportDataTable|orderBy:sortKey:reverse|filter:search">
-                                            <td>{{$index+1}}</td>
-                                            <td>{{x.ApplicationNumber}}</td>
-                                            <td>{{x.PIN}}</td>
-                                            <td>{{x.StudentName}}</td>
-                                            <td>{{x.Submitted?'Yes':'No'}}</td>
-                                            <td ng-dblclick="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
-                                                <a class="{{x.ApplicationStatus=='Pending'?'notVerify':'Verify'}}">{{x.ApplicationStatus}}</a>
-                                            </td>
-                                            <!--<td ng-show="SystemUserTypeId ==1||SystemUserTypeId==1014">
-                                                <b class="clrRed" ng-click="GeneratePin(x.StudentId)" title="Click to Generate Pin" ng-show="x.Pin==''||x.Pin==null">Generate Pin</b>
-                                                <b class="ClrGreen" ng-show="x.Pin!=''&&x.Pin!=null">Pin Generated</b>
-                                            </td>-->
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--<div class="col-md-12  mtp-50">
-
-                <div style="width:100%;text-align:center;">
-                    <img src="../../../contents/img/loading2.gif" ng-show="loading" width="100" style="width:64px;height:64px" />
-                </div>
-            </div>-->
-
 
         </div>
 
 
         <div class="col-md-12">
 
-            <div class="col-md-5" ng-show="ShowStudentDetails" id="stddetails" style="margin-bottom:100px">
+            <div class="col-md-5" id="stddetails" style="margin-bottom: 100px; padding-left: 34px; margin-left: 12px;">
                 <div class="">
                     <div class="cl-details">
                         <h2>StudentDetails</h2>
@@ -483,28 +412,31 @@
                             <div class="col-md-8">
                                 <div class="row padRow">
                                     <div class="col-md-3"><label>Course</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.CourseName}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.CourseName}}</data></div>
                                 </div>
                                 <div class="row padRow">
                                     <div class="col-md-3"><label>Qualification</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.Qualification}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.Qualification}}</data></div>
                                 </div>
                                 <div class="row padRow" ng-if="PreviewData.Experience">
                                     <div class="col-md-3"><label>Experience</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.Experience}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.Experience}}</data></div>
                                 </div>
+
+                                <hr style="border-color: #454545 ">
+
 
                                 <div class="row padRow">
                                     <div class="col-md-3"><label>SscHallTicket</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.SSCHallticketNumber}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.SSCHallticketNumber}}</data></div>
                                 </div>
                                 <div class="row padRow">
                                     <div class="col-md-3"><label>SscPassedYear</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.SSCPassedYear}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.SSCPassedYear}}</data></div>
                                 </div>
                                 <div class="row padRow">
                                     <div class="col-md-3"><label>SscType</label></div>
-                                    <div class="col-md-6"><data>: {{PreviewData.SSCPassedType}}</data></div>
+                                    <div class="col-md-6" style="padding-left:61px"><data>: {{PreviewData.SSCPassedType}}</data></div>
                                 </div>
 
                             </div>
@@ -517,6 +449,8 @@
                                 <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="30" width="130" />
                             </div>
                         </div>
+                        <hr style="border-color: #454545 ">
+
                         <div class="">
                             <div class="row padRow">
                                 <div class="col-md-3"><label>CandidateName</label></div>
@@ -542,43 +476,43 @@
                                 <div class="col-md-9"><data>: {{PreviewData.Gender}}</data></div>
                             </div>
                             <div class="row padRow">
-                                <div class="col-md-3"><label>Aadhar Number</label></div>
+                                <div class="col-md-3"><label>Aadhar No</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.AadharNumber}}</data></div>
                             </div>
 
 
                             <!--<div class="row padRow">
-                                <div class="col-md-3"><label>HouseNo</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.HouseNumber}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>Street</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.Street}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>Landmark</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.Landmark}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>Village</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.Village}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>Street</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.Street}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>Pincode</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.Pincode}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>District</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.District}}</data></div>
-                            </div>
-                            <div class="row padRow">
-                                <div class="col-md-3"><label>State</label></div>
-                                <div class="col-md-9"><data>: {{PreviewData.AddressState}}</data></div>
-                            </div>-->
+            <div class="col-md-3"><label>HouseNo</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.HouseNumber}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>Street</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.Street}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>Landmark</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.Landmark}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>Village</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.Village}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>Street</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.Street}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>Pincode</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.Pincode}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>District</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.District}}</data></div>
+        </div>
+        <div class="row padRow">
+            <div class="col-md-3"><label>State</label></div>
+            <div class="col-md-9"><data>: {{PreviewData.AddressState}}</data></div>
+        </div>-->
                             <div class="row padRow">
                                 <div class="col-md-3"><label>MobileNo</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.StudentMobile}}</data></div>
@@ -592,15 +526,13 @@
                         </div>
 
 
-                        <div class="row padRow">
+                        <div class="row padRow" style="margin-left:-30px">
                             <div class="col-md-2  pull-right">
                                 <button class="btn btn-danger btn-css" ng-click="Reject()">
                                     Reject
                                 </button>
                             </div>
-
                             <div class="col-md-2 pull-right">
-
                                 <button class="btn  btn-warning btn-css" ng-click="Revise()">
                                     Revise
                                 </button>
@@ -616,13 +548,7 @@
 
             </div>
 
-
-
-
-
-
-
-            <div class="col-md-7" id="certdetails" style="margin-bottom: 100px;" ng-show="ShowStudentDetails">
+            <div class="col-md-7" id="certdetails" style="margin-bottom: 100px; width: auto;">
                 <div class="">
                     <div class="cl-details">
                         <h2>Certificates</h2>

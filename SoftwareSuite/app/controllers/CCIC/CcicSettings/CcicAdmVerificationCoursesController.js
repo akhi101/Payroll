@@ -13,24 +13,29 @@
 
 
         }
-        var data = {};
+
+        var data = [];
         $scope.$emit('showLoading', data);
 
 
+        $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
-        var verifyreportCount = CcicPreExaminationService.GetInstitutionVerificationReportCount(InstitutionID);
-        verifyreportCount.then(function (response) {
+        var verreportCount = CcicPreExaminationService.GetInsVerificationReportCoursesCount(InstitutionID);
+        verreportCount.then(function (response) {
             try {
                 var res = JSON.parse(response);
             }
             catch (err) { }
-            $scope.VerificationReportCountTable = [];
+            $scope.VerificationReportCoursesTable = [];
             if (res.length >= 0) {
-                $scope.VerificationReportCountTable = res;
+                $scope.loading = false;
+                $scope.VerificationReportCoursesTable = res;
                 $scope.$emit('hideLoading', data);
             } else {
-                $scope.VerificationReportCountTable = [];
+                $scope.loading = false;
+                $scope.VerificationReportCoursesTable = [];
+                $scope.$emit('hideLoading', data);
             }
         },
             function (error) {
@@ -65,16 +70,16 @@
 
 
 
-        $scope.ShowDetails = function (CourseID, ReportTypeID) {
+        $scope.ShowDetails = function (InstitutionID, CourseID, ReportTypeID) {
 
             $localStorage.TempData2 = {
-
+                InstitutionID: InstitutionID,
                 CourseID: CourseID,
                 ReportTypeID: ReportTypeID,
 
             };
 
-            $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            $state.go('CcicDashboard.Academic.CcicAdmVerificationData');
 
 
         }

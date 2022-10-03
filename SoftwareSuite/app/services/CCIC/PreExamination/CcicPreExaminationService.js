@@ -96,11 +96,11 @@
             return promise;
         };
 
-        this.GetInstitutionVerificationReportCount = function (InstitutionID) {
+        this.GetInsVerificationReportCoursesCount = function (InstitutionID) {
             var paramObj = {
                 "InstitutionID": InstitutionID
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutionVerificationReportCount', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInsVerificationReportCoursesCount', paramObj);
             return promise;
         };
 
@@ -124,8 +124,8 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportInsCount');
         };
 
-        this.GetAdminVerificationReportCount = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportCount');
+        this.GetAdminVerificationReportInsCount = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportInsCount');
         };
 
         this.GetAdminRegisterReportCount = function (AcademicYearID, Batch) {
@@ -317,6 +317,14 @@
                 "ApplicationNumber": ApplicationNumber, "StudentID": StudentID
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/SubmitStdDetails', paramObj);
+            return promise;
+        }
+
+        this.SetApplicationApprovalStatus = function (StudentId, UpdatedBy, ApplicationStatus) {
+            var paramObj = {
+                "StudentId": StudentId, "UpdatedBy": UpdatedBy, "ApplicationStatus": ApplicationStatus
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/SetApplicationApprovalStatus', paramObj);
             return promise;
         }
 

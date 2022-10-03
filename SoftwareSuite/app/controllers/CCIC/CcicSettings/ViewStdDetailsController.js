@@ -5,7 +5,7 @@
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
         var tempData3 = $localStorage.TempData3;
-        
+        $scope.ReportTypeID = tempData3.ReportTypeID;
         $scope.isSubmitted = tempData3.isSubmitted;
         const $ctrl = this;
         $ctrl.$onInit = () => {

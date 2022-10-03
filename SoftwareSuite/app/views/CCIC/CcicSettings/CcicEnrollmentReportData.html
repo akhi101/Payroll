@@ -245,6 +245,12 @@
             font-weight: 600;
             text-decoration: none;
         }
+
+        .VerifyRevise {
+            color: orange;
+            font-weight: 600;
+            text-decoration: none;
+        }
         a.backA, a.backA:focus {
             color: #fff !important;
             text-decoration: none !important;
@@ -335,8 +341,8 @@
                                             <td>{{x.PIN}}</td>
                                             <td>{{x.StudentName}}</td>
                                             <td>{{x.Submitted?'Yes':'No'}}</td>
-                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID,x.Submitted)">
-                                                <a class="{{x.ApplicationStatus=='Pending'?'notVerify':'Verify'}}">{{x.ApplicationStatus}}</a>
+                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID,x.Submitted,x.Revised)">
+                                                <a class="{{x.ApplicationStatus=='Revised' ? 'VerifyRevise' : (x.ApplicationStatus=='Pending'?'notVerify':'Verify')}}">{{x.ApplicationStatus}}</a>
                                             </td>
 
                                         </tr>

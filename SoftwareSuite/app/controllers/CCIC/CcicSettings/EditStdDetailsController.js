@@ -12,7 +12,7 @@
             //$scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.Mode();
             $scope.Modify();
-         
+
             /*$scope.EditStudentDetails();*/
 
         }
@@ -20,11 +20,11 @@
         var data = {};
         $scope.$emit('showLoading', data);
 
-        
+
 
         $scope.Mode = function () {
 
-          
+
             if ($scope.SSC == 1) {
                 //$scope.getsscDetails();
                 $scope.sscHtLbl = 'SSC Hallticket Number';
@@ -38,7 +38,7 @@
 
             }
 
-            else  {
+            else {
                 $scope.Found = false;
                 $scope.sscHtLbl = 'SSC or Equivalent RollNo';
                 $scope.passYrLbl = 'Pass Year';
@@ -51,9 +51,9 @@
 
             $scope.StudentName = false;
 
-          
-          
-            
+
+
+
 
         }
 
@@ -240,7 +240,7 @@
 
         //}
 
-     
+
         //$scope.EditStudentDetails = function () {
         //    $scope.loading = true;
         //    $scope.coursedetails = true;
@@ -522,7 +522,7 @@
         }
 
 
-        
+
         $scope.Update = function () {
 
             if ($scope.StudentName == '' || $scope.StudentName == undefined || $scope.StudentName == null) {
@@ -636,7 +636,7 @@
 
             $scope.LoadImg = true;
 
-            
+
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
 
             var paramObj = {
@@ -674,7 +674,7 @@
                 "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
                 "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
             };
-            var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);            
+            var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -903,7 +903,7 @@
             }
         }
 
-      
+
 
         $scope.uploadStudentCertificateType = function () {
             var input = document.getElementById("stdCertificateTypeFile");

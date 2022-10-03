@@ -293,8 +293,8 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetInstitutionVerificationReportCount")]
-        public string GetInstitutionVerificationReportCount(int InstitutionID)
+        [HttpGet, ActionName("GetInsVerificationReportCoursesCount")]
+        public string GetInsVerificationReportCoursesCount(int InstitutionID)
         {
             try
             {
@@ -302,7 +302,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@InstitutionID", InstitutionID);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportCoursesCount", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_VerificationReportCoursesCount", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -405,19 +405,19 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetAdminVerificationReportCount")]
-        public HttpResponseMessage GetAdminVerificationReportCount()
+        [HttpGet, ActionName("GetAdminVerificationReportInsCount")]
+        public HttpResponseMessage GetAdminVerificationReportInsCount()
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec SP_Get_Admin_EnrollmentReportInsCount";
+                StrQuery = "exec SP_Get_VerificationReportInsCount";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_Admin_EnrollmentReportInsCount", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_VerificationReportInsCount", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -1276,6 +1276,31 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpPost, ActionName("SetApplicationApprovalStatus")]
+        public string SetApplicationApprovalStatus([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@StudentID", data["StudentId"]);
+                param[1] = new SqlParameter("@UpdatedBy", data["UpdatedBy"]);
+                param[2] = new SqlParameter("@ApplicationStatus", data["ApplicationStatus"]);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_ApplicationApprovalStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_ApplicationApprovalStatus", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
 
         [HttpPost, ActionName("GetInstitutionEnrollmentReportData")]
         public string GetInstitutionEnrollmentReportData([FromBody] JsonObject data)
@@ -1341,13 +1366,13 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
 
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Ins_EnrollmentReportData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_VerificationReportData", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Ins_EnrollmentReportData", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_VerificationReportData", 0, ex.Message);
                 return ex.Message;
             }
 
