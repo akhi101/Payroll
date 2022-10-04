@@ -3,8 +3,10 @@
 
         var authData = $localStorage.authorizationData;
         var tempData3 = $localStorage.TempData3;
+        var tempData2 = $localStorage.TempData2;
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
+        var tmp = $localStorage.TempData;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
@@ -154,8 +156,8 @@
                     } else {
                         $scope.loading = false;
                         alert('Application Approval Status Updated');
-                        $state.go('CcicDashboard.Academic.EnrollmentReport.CcicAdmEnrollReportCourses.CcicAdmEnrollmentReportData');
-                        $scope.ViewStudentDetails();
+                        $scope.GetInstitutionVerReportData();
+                        //$scope.ViewStudentDetails();
 
                     }
 
@@ -166,7 +168,33 @@
                     })
 
             }
+            $scope.GetInstitutionVerReportData = function () {
+                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tmp.InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
+                verificationreportData.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    }
+                    catch (err) { }
+                    $scope.VerificationReportDataTable = [];
+                    if (res.length >= 0) {
+                        $scope.loading = false;
+                        $state.go('CcicDashboard.Academic.CcicAdmVerificationData');
+                        $scope.VerificationReportDataTable = res;
+                        $scope.$emit('hideLoading', data);
 
+
+                    } else {
+                        $scope.loading = false;
+                        $scope.VerificationReportDataTable = [];
+                        $scope.$emit('hideLoading', data);
+
+                    }
+                },
+                    function (error) {
+                        //   alert("error while loading Notification");
+                        var err = JSON.parse(error);
+                    });
+            }
 
             $scope.Rejected = function () {
 

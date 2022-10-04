@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <section class="content">
-                        <div class="container" style="font-family: 'Open Sans'; width: 1182px; padding-right: 0px; margin-right: 80px;">
+                        <div class="container containercontent">
 
                             <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
@@ -171,7 +171,7 @@
                                                     <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                                 </div>
                                             </form>
-                                            <label class="notifylabel" ng-if="VerificationReportCoursesTable.length>0" for="sel1" style="color: red;"> click on link to get student details</label>
+                                            <label class="notifylabel" ng-if="VerificationReportCoursesTable.length>0" for="sel1" style="color: red;"> Click on Link to Get Student Details</label>
 
 
                                             <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
@@ -194,12 +194,12 @@
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,1)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,2)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,3)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
+                                                            <td><b><a >{{Data.Enrolled}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Submitted}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Approved}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,5)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,6)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Revised}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Rejected}}</a></b></td>
                                                         </tr>
 
                                                     </tbody>

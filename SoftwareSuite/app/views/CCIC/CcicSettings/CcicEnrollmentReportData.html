@@ -292,12 +292,12 @@
             <!-- breadcrumb Close -->
         </div>
 
-        <div class="container" style="margin-bottom:100px;font-family: 'Open Sans'; width: 1211px; padding-left:29px; margin-right: 80px">
+        <div class="container containercontent">
 
                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
             <div class="col-md-12" ng-show="DataTable">
-                <div class="row base-row">
+                <div class="row base-row containercontent">
                     <div class="col-md-12">
                         <!--<div class="pull-right" ng-if="StudentDetailsFound">
                         <a class="ExportToExcel1 pointer"
@@ -341,7 +341,7 @@
                                             <td>{{x.PIN}}</td>
                                             <td>{{x.StudentName}}</td>
                                             <td>{{x.Submitted?'Yes':'No'}}</td>
-                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID,x.Submitted,x.Revised)">
+                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID,x.Submitted,x.ApplicationStatus)">
                                                 <a class="{{x.ApplicationStatus=='Revised' ? 'VerifyRevise' : (x.ApplicationStatus=='Pending'?'notVerify':'Verify')}}">{{x.ApplicationStatus}}</a>
                                             </td>
 

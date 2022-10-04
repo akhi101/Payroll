@@ -191,18 +191,18 @@
             <!-- breadcrumb Close -->
         </div>
 
-        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; margin-right: 80px;">
+        <div class="container containercontent">
 
       
 
-        <div class="col-md-12" ng-if="((!isSubmitted&&ReportTypeID==4&&UserTypeID==2) || (isSubmitted&&UserTypeID==2))">
+        <div class="col-md-12 containercontent" ng-if="(!isSubmitted&&UserTypeID==2) || (isSubmitted&&UserTypeID==2&&(ApplicationStatus=='Submitted' || ApplicationStatus=='Revised'))">
             <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport/CcicEnrollmentReportData" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
 
 
     </div>
-        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; margin-right: 80px;">
-            <div class="col-md-12 mtp-50" style="padding-bottom:50px" ng-if="PreviewData">
+        <div class="container containercontent">
+            <div class="col-md-12 mtp-50 containercontent" style="padding-bottom:50px" ng-if="PreviewData">
                 <fieldset class="group-border" style="border-color:black">
                     <div class="row">
                         <div class="col-md-12">
@@ -388,27 +388,27 @@
                 <div class="col-md-8">
 
                 </div>
-                <div ng-if="((isSubmitted&&UserTypeID==2&&ReportTypeID==4)|| UserTypeID==1)">
-                    <div class="col-md-1 pull-right mtp-50" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px">
+                <div ng-if="((isSubmitted&&UserTypeID==2&&(ApplicationStatus=='Submitted' || ApplicationStatus=='Approved' || ApplicationStatus=='Pending'))|| UserTypeID==1)">
+                    <div class="col-md-1 pull-right mtp-50 containercontent" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px">
 
                         <div class="cancel-btn" style="margin-bottom:0px;">
                             <button type="button" ng-click="Close()">Close</button>
                         </div>
                     </div>
                 </div>
-                <div ng-if="((!isSubmitted&&UserTypeID==2) || (isSubmitted&&UserTypeID==2))">
+                <div ng-if="(!isSubmitted&&UserTypeID==2) || (isSubmitted&&UserTypeID==2&&(ApplicationStatus=='Submitted' || ApplicationStatus=='Revised'))">
                     <div class="col-md-8">
 
                     </div>
-
-                    <div class="col-md-1 pull-right mtp-50" >
+                     
+                    <div class="col-md-1 pull-right mtp-50 containercontent" >
 
                         <div class="cancel-btn" style="margin-bottom:0px;">
                             <button type="button" ng-click="Modify()">Edit</button>
                         </div>
 
                     </div>
-                    <div class="col-md-2 pull-right mtp-50">
+                    <div class="col-md-2 pull-right mtp-50 containercontent">
                         <div class="submit-btn" style="margin-bottom:0px;">
                             <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails()">Submit</button>
                         </div>

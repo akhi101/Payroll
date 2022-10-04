@@ -89,9 +89,9 @@
         <div class="spacer"></div>
 
         <ui-view>
-            <div class="container" style="font-family: 'Open Sans';width: 1242px; padding-right: 0px; margin-right: 65px;">
+            <div class="container containercontent">
 
-                <section class="content">
+                <section class="content  containercontent">
                         <div class="col-lg-3 col-xs-6" ng-repeat="item in AcademicModules track by $index">
                             <!--ui-sref=".{{item.ModuleRouteName}}"-->
                             <a href="#" class="grow" ng-click="OpenSubModule(item)">

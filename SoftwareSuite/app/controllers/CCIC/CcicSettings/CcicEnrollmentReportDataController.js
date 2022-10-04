@@ -118,12 +118,13 @@
 
         //}
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, isSubmitted) {
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, isSubmitted, ApplicationStatus) {
 
             $localStorage.TempData3 = {
                 ApplicationNumber: ApplicationNumber,
                 StudentID: StudentID,
                 isSubmitted: isSubmitted,
+                ApplicationStatus: ApplicationStatus
                
 
             };
