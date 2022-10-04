@@ -64,6 +64,20 @@
         font-weight: 700;
         font-family: 'Open Sans';
     }
+
+    .container .dashboardContent .containercontent {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .containercontent {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 </style>
 <div ng-controller="CcicDashboardController">
     <ui-view>
@@ -126,7 +140,7 @@
 
             </marquee>-->
             <section class="content">
-                <div class="container dashboardContent">
+                <div class="container dashboardContent containercontent">
                     <div class="col-md-12">
                         <div class="overlayCss" ng-click="off()">
                             <div class="textCss"><img src="../../contents/img/loading2.gif" width="64" /></div>

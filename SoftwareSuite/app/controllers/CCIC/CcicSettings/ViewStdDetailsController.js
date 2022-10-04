@@ -5,8 +5,10 @@
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
         var tempData3 = $localStorage.TempData3;
-        $scope.ReportTypeID = tempData3.ReportTypeID;
+        //var tempData2 = $localStorage.TempData2;
+        //$scope.ReportTypeID = tempData2.ReportTypeID;
         $scope.isSubmitted = tempData3.isSubmitted;
+        $scope.ApplicationStatus = tempData3.ApplicationStatus;
         const $ctrl = this;
         $ctrl.$onInit = () => {
 

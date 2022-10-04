@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <section class="content">
-                        <div class="container" style="font-family: 'Open Sans'; width: 1182px; padding-right: 0px; margin-right: 80px;">
+                        <div class="container containercontent">
 
                                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
                             
@@ -167,13 +167,13 @@
                                     <div class="col-md-12">
                                         <div id="EnrollmentReportTable">
 
-                                            <form class="form-inline" ng-if="EnrollmentReportCoursesTable.length>0">
+                                            <form class="form-inline containercontent" ng-if="EnrollmentReportCoursesTable.length>0">
                                                 <div class="form-group">
                                                     <label>Search</label>
                                                     <input type="text" ng-model="search" class="form-control" placeholder="Search">
                                                 </div>
                                             </form>
-                                            <label class="notifylabel" ng-if="EnrollmentReportCoursesTable.length>0" for="sel1" style="color: red;"> click on link to get student details</label>
+                                            <label class="notifylabel" ng-if="EnrollmentReportCoursesTable.length>0" for="sel1" style="color: red;"> Click on Link to get Student Details</label>
 
 
                                             <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
