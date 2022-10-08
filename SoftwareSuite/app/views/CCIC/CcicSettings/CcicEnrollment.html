@@ -225,110 +225,135 @@
 
 <div ng-controller="CcicEnrollmentController">
 
+    <script type="text/javascript">
+        // When the document is ready
+        $(document).ready(function () {
 
+            $('#example1').datepicker({
+                minViewMode: 'years',
+                autoclose: true,
+                format: 'yyyy'
+            });
+            $('#example2').datepicker({
+                minViewMode: 1,
+                autoclose: true,
+                format: 'mm-yyyy'
+            });
+            $('.tabledate').datepicker({
+                //minViewMode: 1,
+                autoclose: true,
+                format: 'dd-mm-yyyy'
+            });
+            //$('#example4').datepicker({
+            //    //minViewMode: 1,
+            //    autoclose: true,
+            //    //format: 'dd-mm-yyyy'
+            //});
+        });
+    </script>
 
-    <div class="container containercontent">
+    <div class="container containercontent" style="padding-bottom:50px">
 
-            <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
         <div class="tab-content ">
             <div class="row">
-                    <div class="col-md-12  mtp-50">
-                        <div class="card" ng-show="coursedetails">
-                            <form name="coursedetail">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="offer-custom-style">
-                                            <h2>Select Course You Want To Appear</h2>
-                                        </div>
+                <div class="col-md-12  mtp-50">
+                    <div class="card" ng-show="coursedetails">
+                        <form name="coursedetail">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="offer-custom-style">
+                                        <h2>Select Course You Want To Appear</h2>
                                     </div>
                                 </div>
-                                <div class="body">
-                                    <div class="custom-forms">
+                            </div>
+                            <div class="body">
+                                <div class="custom-forms">
 
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group required">
-                                                    <label>Course</label>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label>Course</label>
 
-                                                    <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Course" name="Course" required ng-disabled="continue"
-                                                            ng-options="x.CourseID as x.CourseName for x in GetCcicCoursesByInstitution"
-                                                            ng-change="GetCcicCourseQualifications(Course)">
-                                                        <option value="" selected="selected">Select Course</option>
-                                                    </select>
-
-
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group required">
-                                                    <label>Qualification</label>
+                                                <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Course" name="Course" required ng-disabled="continue"
+                                                        ng-options="x.CourseID as x.CourseName for x in GetCcicCoursesByInstitution"
+                                                        ng-change="GetCcicCourseQualifications(Course)">
+                                                    <option value="" selected="selected">Select Course</option>
+                                                </select>
 
 
-                                                    <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Qualification" name="Qualification" required ng-disabled="continue"
-                                                            ng-options="x as x.Qualification for x in GetCcicCourseQualificationInfo"
-                                                            ng-change="GetCcicCourseExperience(Qualification)">
-                                                        <option value="" selected="selected">Select Qualification</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4" ng-show="GetCcicCourseExperienceInfo.length>0">
-                                                <div class="form-group required">
-                                                    <label>Experience</label>
-
-
-
-                                                    <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Experience" name="Experience" required ng-disabled="continue"
-                                                            ng-options="x.CourseExperienceID as x.Experience for x in GetCcicCourseExperienceInfo"
-                                                            ng-change="selExperience(Experience)">
-                                                        <option value="" selected="selected">Select Experience</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12" ng-model="ExperienceDescription" ng-repeat="data in GetCcicCourseExperienceInfo">
-                                                <label>Description: {{data.ExperienceDescription}}</label>
-                                            </div>
-
-
-                                            <div class="col-md-8">
 
                                             </div>
+                                        </div>
 
-                                            <div class="col-md-1 pull-right mtp-50">
-                                                <div class="cancel-btn" style="margin-bottom:0px;">
-                                                    <button type="button" ng-model="REset" ng-disabled="reset" ng-click="Reset()">Reset</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 pull-right mtp-50">
+                                        <div class="col-md-4">
+                                            <div class="form-group required">
+                                                <label>Qualification</label>
 
-                                                <div class="submit-btn" style="margin-bottom:0px;">
-                                                    <button type="submit" ng-model="CONtinue" ng-disabled="continue" ng-click="Continue()">Continue</button>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1 pull-right mtp-50">
+                                                <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Qualification" name="Qualification" required ng-disabled="continue"
+                                                        ng-options="x as x.Qualification for x in GetCcicCourseQualificationInfo"
+                                                        ng-change="GetCcicCourseExperience(Qualification)">
+                                                    <option value="" selected="selected">Select Qualification</option>
+                                                </select>
 
                                             </div>
+                                        </div>
+
+                                        <div class="col-md-4" ng-show="GetCcicCourseExperienceInfo.length>0">
+                                            <div class="form-group required">
+                                                <label>Experience</label>
 
 
+
+                                                <select class="form-control input-sm" style="height:34px!important" id="stdShift" ng-model="Experience" name="Experience" required ng-disabled="continue"
+                                                        ng-options="x.CourseExperienceID as x.Experience for x in GetCcicCourseExperienceInfo"
+                                                        ng-change="selExperience(Experience)">
+                                                    <option value="" selected="selected">Select Experience</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" ng-model="ExperienceDescription" ng-repeat="data in GetCcicCourseExperienceInfo">
+                                            <label>Description: {{data.ExperienceDescription}}</label>
+                                        </div>
+
+
+                                        <div class="col-md-8">
+
+                                        </div>
+
+                                        <div class="col-md-1 pull-right mtp-50">
+                                            <div class="cancel-btn" style="margin-bottom:0px;">
+                                                <button type="button" ng-model="REset" ng-disabled="reset" ng-click="Reset()">Reset</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 pull-right mtp-50">
+
+                                            <div class="submit-btn" style="margin-bottom:0px;">
+                                                <button type="submit" ng-model="CONtinue" ng-disabled="continue" ng-click="Continue()">Continue</button>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 pull-right mtp-50">
 
                                         </div>
 
 
 
                                     </div>
-                                </div>
-                            </form>
-                        </div>
 
+
+
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                
+
+                </div>
+
                 <div class="col-md-12  mtp-50">
                     <div style="width:100%;text-align:center;" ng-show="LoadImg">
                         <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
@@ -375,7 +400,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
                                                         <label>{{passYrLbl}}</label>
-                                                        <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4"  placeholder="YYYY eg.(1990)" class="form-control" />
+                                                        <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
                                                     </div>
                                                 </div>
 
@@ -489,7 +514,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Aadhar Number</label>
-                                                    <input type="text" placeholder="AadharNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="Aadhar" required>
+                                                    <input type="text" placeholder="AadharNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="Aadhar" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -572,7 +597,7 @@
                                             <div class="col-md-4 ">
                                                 <div class="form-group ">
                                                     <label>Email</label>
-                                                    <input type="text" placeholder="Email Address"  maxlength="70" autocomplete="off" class="form-control" ng-model="email" />
+                                                    <input type="text" placeholder="Email Address" maxlength="70" autocomplete="off" class="form-control" ng-model="email" />
                                                 </div>
                                             </div>
                                         </div>
@@ -614,9 +639,9 @@
                                         </div>
                                         <div class="row">
 
-                                            <div class="col-md-4" ng-if="StudentSscCertificate">
+                                            <div class="col-md-4" ng-if="SSCCertificate">
                                                 <div class="form-group required custom-img">
-                                                    <label>Upload Ssc Certificate(size should be greater than 5KB and less than 50K) :</label>
+                                                    <label>Upload Ssc Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
                                                     <img ng-src="{{StudentSscCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
                                                     <input type="file" required id="stdSscCertificateFile" ng-model="StudentSscCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
@@ -625,7 +650,7 @@
 
                                             <div class="col-md-4">
                                                 <div class="form-group required custom-img" ng-if="StudentCertificateType">
-                                                    <label>Upload {{StudentCertificateType}}(size should be greater than 5KB and less than 50K) :</label>
+                                                    <label>Upload {{StudentCertificateType}}(size should be greater than 100KB and less than 2MB) :</label>
 
                                                     <img ng-src="{{stdCertificateType}}" class="img img-responsive" id="stdCertificateTypeImg" />
                                                     <input type="file" required id="stdCertificateTypeFile" ng-model="stdCertificateType" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
@@ -634,7 +659,7 @@
 
                                             <div class="col-md-4" ng-if="GetCcicCourseExperienceInfo.length>0">
                                                 <div class="form-group required custom-img">
-                                                    <label>Upload Experience Certificate(size should be greater than 5KB and less than 50K) :</label>
+                                                    <label>Upload Experience Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
                                                     <img ng-src="{{isExperienced}}" class="img img-responsive" id="stdExperienceCertificateImg" />
                                                     <input type="file" required id="stdExperienceCertificateFile" ng-model="isExperienced" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
@@ -682,7 +707,7 @@
 
     </div>
 
-    </div>
+</div>
 
 
 

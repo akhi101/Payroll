@@ -558,10 +558,10 @@
                 return;
             }
 
-            if ($scope.AadharNumber == '' || $scope.AadharNumber == undefined || $scope.AadharNumber == null) {
-                alert('Please Select AadharNumber')
-                return;
-            }
+            //if ($scope.AadharNumber == '' || $scope.AadharNumber == undefined || $scope.AadharNumber == null) {
+            //    alert('Please Select AadharNumber')
+            //    return;
+            //}
 
             if ($scope.Street == '' || $scope.Street == undefined || $scope.Street == null) {
                 alert('Please Select street')
@@ -603,10 +603,10 @@
                 return;
             }
 
-            if ($scope.StudentEmail == '' || $scope.StudentEmail == undefined || $scope.StudentEmail == null) {
-                alert('Please Select Email')
-                return;
-            }
+            //if ($scope.StudentEmail == '' || $scope.StudentEmail == undefined || $scope.StudentEmail == null) {
+            //    alert('Please Select Email')
+            //    return;
+            //}
 
             //if ($scope.StudentPhotoConvert == '' || $scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) {
             //    alert('Please Select StudentPhoto')
@@ -653,7 +653,8 @@
                 "FatherName": $scope.FatherName,
                 "MotherName": $scope.MotherName,
                 //"DateofBirth": moment($scope.DateOfBirth).format("DD-MM-YYYY"),
-                "DateofBirth": $scope.DateofBirth,
+                //"DateofBirth": $scope.DateofBirth,
+                "DateofBirth": moment($scope.DateofBirth).format("YYYY-MM-DD"),
                 "SSCDateofBirth": "",
                 "Gender": $scope.Gender,
                 "AadharNumber": parseInt($scope.AadharNumber),
@@ -857,7 +858,7 @@
             var input = document.getElementById("stdSscCertificateFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -888,7 +889,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdSscCertificateFile').val('');
                 return;
@@ -909,7 +910,7 @@
             var input = document.getElementById("stdCertificateTypeFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -940,7 +941,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdCertificateTypeFile').val('');
                 return;
@@ -959,7 +960,7 @@
             var input = document.getElementById("stdExperienceCertificateFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -990,7 +991,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdExperienceCertificateFile').val('');
                 return;

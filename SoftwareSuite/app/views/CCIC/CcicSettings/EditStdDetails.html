@@ -214,9 +214,35 @@
 
 <div ng-controller="EditStdDetailsController">
 
+    <script type="text/javascript">
+        // When the document is ready
+        $(document).ready(function () {
+
+            $('#example1').datepicker({
+                minViewMode: 'years',
+                autoclose: true,
+                format: 'yyyy'
+            });
+            $('#example2').datepicker({
+                minViewMode: 1,
+                autoclose: true,
+                format: 'mm-yyyy'
+            });
+            $('.tabledate').datepicker({
+                //minViewMode: 1,
+                autoclose: true,
+                format: 'dd-mm-yyyy'
+            });
+            //$('#example4').datepicker({
+            //    //minViewMode: 1,
+            //    autoclose: true,
+            //    //format: 'dd-mm-yyyy'
+            //});
+        });
+    </script>
     <div class="container containercontent">
 
-            <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
         <div class="tab-content">
             <div class="row">
@@ -337,17 +363,16 @@
                                                 <div class="col-md-1 pull-right mtp-50">
 
                                                 </div>-->
-
                                                 <!--<div class="col-md-4">
-        <div class="form-group required">
-            <label for="date-picker-example">Examination Pass Type</label>
-            <select class="form-control" ng-disabled="SSCDetails" ng-model="SSCPassedType">
-                <option value="">Select Pass Type</option>
-                <option value="R">Regular</option>
-                <option value="A">Supplmentary</option>
-            </select>
-        </div>
-    </div>-->
+                                                    <div class="form-group required">
+                                                        <label for="date-picker-example">Examination Pass Type</label>
+                                                        <select class="form-control" ng-disabled="SSCDetails" ng-model="SSCPassedType">
+                                                            <option value="">Select Pass Type</option>
+                                                            <option value="R">Regular</option>
+                                                            <option value="A">Supplmentary</option>
+                                                        </select>
+                                                    </div>
+                                                </div>-->
 
                                             </div>
 
@@ -363,474 +388,474 @@
                         </div>
 
                     </div>
-                    </div>
+                </div>
 
-                    <form name="StudentDetails">
-                        <div class="custom-forms" style="margin-bottom:100px" ng-show="applicationForm">
-                            <div class="col-md-12  mtp-50">
+                <form name="StudentDetails">
+                    <div class="custom-forms" style="margin-bottom:100px" ng-show="applicationForm">
+                        <div class="col-md-12  mtp-50">
 
-                                <div class="card">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="offer-custom-style">
-                                                <h2>Candidate Details</h2>
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="offer-custom-style">
+                                            <h2>Candidate Details</h2>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="body">
+                                    <div class="custom-forms">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Candidate Name</label>
+                                                    <input type="text" placeholder=CandidateName autocomplete="off" ng-model="StudentName" ng-disabled="CandidateNamefound" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Father Name</label>
+                                                    <input type="text" ng-model="FatherName" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Mother Name</label>
+                                                    <input type="text" ng-model="MotherName" placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
+                                                    <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                        <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DateofBirth" is-open="showFlag1" required />
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Gender</label>
+                                                    <select class="form-control" name="applicationForm.SEX" ng-model="Gender" ng-disabled="Genderfound" required>
+                                                        <option value="">Select Gender</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Aadhar Number</label>
+                                                    <input type="text" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="AadharNumber" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="sm-spacer"></div>
+                                        <div style="width: 100%; height: 20px;  border-bottom: 1px solid black; text-align: center">
+                                            <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
+                                                Address
+                                            </span>
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>House/Flat/Door No</label>
+                                                    <input type="text" placeholder="House No/Flat No/D.no" ng-model="HouseNumber" autocomplete="off" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Street/Locality</label>
+                                                    <input type="text" placeholder="Street/Locality" class="form-control" autocomplete="off" ng-model="Street" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Landmark</label>
+                                                    <input type="text" placeholder="Landmark" class="form-control" autocomplete="off" ng-model="Landmark" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>Village/Town/City</label>
+                                                    <input type="text" placeholder="Village/Town/City" class="form-control" autocomplete="off" ng-model="Village" required />
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-4 ">
+                                                <div class="form-group">
+                                                    <label>Pincode</label>
+                                                    <input type="number" placeholder="Pin code" autocomplete="off" class="form-control" ng-model="Pincode" required />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>District</label>
+                                                    <input type="text" placeholder="District" class="form-control" autocomplete="off" ng-model="District" required />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>State</label>
+                                                    <input type="text" placeholder="State" class="form-control" autocomplete="off" ng-model="AddressState" required />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-4 ">
+                                                <div class="form-group required">
+                                                    <label>Mobile No</label>
+                                                    <input type="text" placeholder="Mobile No" autocomplete="off" class="form-control" minlength="10" maxlength="10" ng-model="StudentMobile" required />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 ">
+                                                <div class="form-group ">
+                                                    <label>Email</label>
+                                                    <input type="text" placeholder="Email Address" autocomplete="off" class="form-control" ng-model="StudentEmail" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="sm-spacer"></div>
+                                        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                                            <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
+                                                Photo & Signature
+                                            </span>
+                                        </div>
+
+                                        <div class="sm-spacer"></div>
+                                        <div class="row">
+                                            <div class="col-md-4" ng-if="StudentPhoto">
+                                                <div class="form-group custom-img required">
+                                                    <label>Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
+
+                                                    <img ng-src="{{StudentPhoto}}" class="zoom" id="stdPhotoImg" />
+                                                    <input type="file" required id="stdPhotoFile" ng-model="StudentPhoto" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4" ng-if="StudentSign">
+                                                <div class="form-group required custom-img">
+                                                    <label>Upload Signature(size should be greater than 3KB and less than 30KB) :</label>
+
+                                                    <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="zoom" id="stdSignImg" />
+                                                    <input type="file" required id="stdSignFile" ng-model="StudentSign" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
+                                                </div>
                                             </div>
 
 
                                         </div>
-                                    </div>
-                                    <div class="body">
-                                        <div class="custom-forms">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Candidate Name</label>
-                                                        <input type="text" placeholder=CandidateName autocomplete="off" ng-model="StudentName" ng-disabled="CandidateNamefound" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Father Name</label>
-                                                        <input type="text" ng-model="FatherName" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Mother Name</label>
-                                                        <input type="text" ng-model="MotherName" placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
-                                                        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                            <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DateofBirth" is-open="showFlag1" required />
-                                                            <span class="input-group-btn">
-                                                                <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
-                                                            </span>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Gender</label>
-                                                        <select class="form-control" name="applicationForm.SEX" ng-model="Gender" ng-disabled="Genderfound" required>
-                                                            <option value="">Select Gender</option>
-                                                            <option value="M">Male</option>
-                                                            <option value="F">Female</option>
-                                                        </select>
-
-                                                    </div>
-                                                </div>
 
 
+                                        <div class="sm-spacer"></div>
+                                        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                                            <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
+                                                Upload Certificate
+                                            </span>
+                                        </div>
+                                        <div class="row">
 
+                                            <div class="col-md-4">
+                                                <div class="form-group required custom-img" ng-if="SSCCertificate">
+                                                    <label>Upload Ssc Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Aadhar Number</label>
-                                                        <input type="text" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="AadharNumber" required>
-                                                    </div>
+                                                    <img ng-src="{{SSCCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
+                                                    <input type="file" required id="stdSscCertificateFile" ng-model="SSCCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-4">
+                                                <div class="form-group required custom-img" ng-if="QualificationCertificate">
+                                                    <label>Upload {{Qualification}} Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
-                                            <div class="sm-spacer"></div>
-                                            <div style="width: 100%; height: 20px;  border-bottom: 1px solid black; text-align: center">
-                                                <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
-                                                    Address
-                                                </span>
-                                            </div>
-
-
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>House/Flat/Door No</label>
-                                                        <input type="text" placeholder="House No/Flat No/D.no" ng-model="HouseNumber" autocomplete="off" class="form-control" required />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Street/Locality</label>
-                                                        <input type="text" placeholder="Street/Locality" class="form-control" autocomplete="off" ng-model="Street" required />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Landmark</label>
-                                                        <input type="text" placeholder="Landmark" class="form-control" autocomplete="off" ng-model="Landmark" required />
-                                                    </div>
+                                                    <img ng-src="{{QualificationCertificate}}" class="img img-responsive" id="stdCertificateTypeImg" />
+                                                    <input type="file" required id="stdCertificateTypeFile" ng-model="QualificationCertificate" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>Village/Town/City</label>
-                                                        <input type="text" placeholder="Village/Town/City" class="form-control" autocomplete="off" ng-model="Village" required />
-                                                    </div>
-                                                </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required custom-img" ng-if="ExperienceCertificate">
+                                                    <label>Upload Experience Certificate(size should be greater than 100KB and less than 2MB) :</label>
 
-
-
-
-                                                <div class="col-md-4 ">
-                                                    <div class="form-group">
-                                                        <label>Pincode</label>
-                                                        <input type="number" placeholder="Pin code" autocomplete="off" class="form-control" ng-model="Pincode" required />
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>District</label>
-                                                        <input type="text" placeholder="District" class="form-control" autocomplete="off" ng-model="District" required />
-                                                    </div>
+                                                    <img ng-src="{{ExperienceCertificate}}" class="img img-responsive" id="stdExperienceCertificateImg" />
+                                                    <input type="file" required id="stdExperienceCertificateFile" ng-model="ExperienceCertificate" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>State</label>
-                                                        <input type="text" placeholder="State" class="form-control" autocomplete="off" ng-model="AddressState" required />
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-4 ">
-                                                    <div class="form-group required">
-                                                        <label>Mobile No</label>
-                                                        <input type="text" placeholder="Mobile No" autocomplete="off" class="form-control" minlength="10" maxlength="10" ng-model="StudentMobile" required />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4 ">
-                                                    <div class="form-group ">
-                                                        <label>Email</label>
-                                                        <input type="text" placeholder="Email Address" autocomplete="off" class="form-control" ng-model="StudentEmail" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="sm-spacer"></div>
-                                            <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
-                                                <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
-                                                    Photo & Signature
-                                                </span>
-                                            </div>
-
-                                            <div class="sm-spacer"></div>
-                                            <div class="row">
-                                                <div class="col-md-4" ng-if="StudentPhoto">
-                                                    <div class="form-group custom-img required">
-                                                        <label>Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
-
-                                                        <img ng-src="{{StudentPhoto}}" class="zoom" id="stdPhotoImg" />
-                                                        <input type="file" required id="stdPhotoFile" ng-model="StudentPhoto" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4" ng-if="StudentSign">
-                                                    <div class="form-group required custom-img">
-                                                        <label>Upload Signature(size should be greater than 3KB and less than 30KB) :</label>
-
-                                                        <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="zoom" id="stdSignImg" />
-                                                        <input type="file" required id="stdSignFile" ng-model="StudentSign" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-
-                                            <div class="sm-spacer"></div>
-                                            <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
-                                                <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
-                                                    Upload Certificate
-                                                </span>
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group required custom-img" ng-if="SSCCertificate">
-                                                        <label>Upload Ssc Certificate(size should be greater than 100KB and less than 2MB) :</label>
-
-                                                        <img ng-src="{{SSCCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
-                                                        <input type="file" required id="stdSscCertificateFile" ng-model="SSCCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group required custom-img" ng-if="QualificationCertificate">
-                                                        <label>Upload {{Qualification}} Certificate(size should be greater than 100KB and less than 2MB) :</label>
-
-                                                        <img ng-src="{{QualificationCertificate}}" class="img img-responsive" id="stdCertificateTypeImg" />
-                                                        <input type="file" required id="stdCertificateTypeFile" ng-model="QualificationCertificate" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group required custom-img" ng-if="ExperienceCertificate">
-                                                        <label>Upload Experience Certificate(size should be greater than 100KB and less than 2MB) :</label>
-
-                                                        <img ng-src="{{ExperienceCertificate}}" class="img img-responsive" id="stdExperienceCertificateImg" />
-                                                        <input type="file" required id="stdExperienceCertificateFile" ng-model="ExperienceCertificate" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="submit-btn" ng-click="Update(StudentName)" style="margin-bottom:0px;">
-                                                <button type="submit">Update</button>
-                                            </div>
-
-
-
-
                                         </div>
 
+
+
+                                        <div class="submit-btn" ng-click="Update(StudentName)" style="margin-bottom:0px;">
+                                            <button type="submit">Update</button>
+                                        </div>
+
+
+
+
                                     </div>
+
                                 </div>
-                                </div>
-
-
-
                             </div>
-</form>
-                    <div class="col-md-12  mtp-50">
-                        <div style="width:100%;text-align:center;" ng-show="LoadImg">
-                            <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
-                            <p>please wait while data is loading...</p>
                         </div>
+
+
+
                     </div>
-                    <!--<div class="col-md-12 mtp-50" ng-show="ShowDetails">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="offer-custom-style">
-                            <h2>Application Details</h2>
-                        </div>
+                </form>
+                <div class="col-md-12  mtp-50">
+                    <div style="width:100%;text-align:center;" ng-show="LoadImg">
+                        <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
+                        <p>please wait while data is loading...</p>
                     </div>
                 </div>
-                <div class="body">
-                    <div class="custom-forms">
+                <!--<div class="col-md-12 mtp-50" ng-show="ShowDetails">
+                    <div class="card">
                         <div class="row">
-                            <div class="col-md-9">
-                                <div class="">
-                                    <div class="col-md-12 ">
-                                        <div class="col-md-3"><label>Course  </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
+                            <div class="col-md-12">
+                                <div class="offer-custom-style">
+                                    <h2>Application Details</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="custom-forms">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="">
+                                            <div class="col-md-12 ">
+                                                <div class="col-md-3"><label>Course  </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
 
+                                            </div>
+
+                                            <div class="col-md-12 ">
+                                                <div class="col-md-3"><label>Qualification  </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
+
+                                            </div>
+
+                                            <div class="col-md-12" ng-if="PreviewData.Experience">
+                                                <div class="col-md-3"><label>Experience  </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCHallticket </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCPassedYear </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="col-md-3"> <label>SSCType </label></div>
+                                                <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                     </div>
 
-                                    <div class="col-md-12 ">
-                                        <div class="col-md-3"><label>Qualification  </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12" ng-if="PreviewData.Experience">
-                                        <div class="col-md-3"><label>Experience  </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCHallticket </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCPassedYear </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
-
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="col-md-3"> <label>SSCType </label></div>
-                                        <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
-
+                                    <div class="col-md-3 text-center">
+                                        <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
                                     </div>
 
                                 </div>
-                            </div>
-                            <div class="col-md-3 text-center">
-                                <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
+                                <hr />
 
-                            <div class="col-md-3 text-center">
-                                <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
-                            </div>
-
-                        </div>
-                        <hr />
-
-                        <div class="row " style="padding: 0px 15px;">
+                                <div class="row " style="padding: 0px 15px;">
 
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>CandidateName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>CandidateName </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>FatherName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>FatherName </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6" ng-if="PreviewData.MotherName">
-                                <div class="col-md-5"> <label>MotherName </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
+                                    <div class="col-md-6" ng-if="PreviewData.MotherName">
+                                        <div class="col-md-5"> <label>MotherName </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>DateofBirth </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>DateofBirth </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Gender </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>Gender </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Aadhar Number </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>Aadhar Number </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
 
-                            </div>
+                                    </div>
 
 
 
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>HouseNo </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>HouseNo </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Street </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>Street </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
 
-                            </div>
+                                    </div>
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"> <label>Landmark </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"> <label>Landmark </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
 
-                            </div>
-
-
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Village</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Pincode</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>District </label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>State</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
-                            </div>
+                                    </div>
 
 
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Mobile Number</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-5"><label>Email</label></div>
-                                <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
-                            </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>Village</label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>Pincode</label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>District </label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>State</label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>Mobile Number</label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-5"><label>Email</label></div>
+                                        <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
+                                    </div>
 
 
 
 
 
-                        </div>
-
-
-                        <hr />
-                        <div class="row " style="padding: 0px 15px;">
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                                <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
-                            </div>
-
-                            <div class="spacer"></div>
-                            <div class="col-md-8">
-
-                            </div>
-
-                            <div class="col-md-1 pull-right mtp-50">
-
-                                <div class="cancel-btn" style="margin-bottom:0px;">
-                                    <button type="button" ng-click="Modify(ApplicationNumber,StudentId)">Edit</button>
                                 </div>
 
-                            </div>
-                            <div class="col-md-2 pull-right mtp-50">
-                                <div class="submit-btn" style="margin-bottom:0px;">
-                                    <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+
+                                <hr />
+                                <div class="row " style="padding: 0px 15px;">
+
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
+                                        <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    </div>
+
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
+                                        <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    </div>
+
+                                    <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
+                                        <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    </div>
+
+                                    <div class="spacer"></div>
+                                    <div class="col-md-8">
+
+                                    </div>
+
+                                    <div class="col-md-1 pull-right mtp-50">
+
+                                        <div class="cancel-btn" style="margin-bottom:0px;">
+                                            <button type="button" ng-click="Modify(ApplicationNumber,StudentId)">Edit</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2 pull-right mtp-50">
+                                        <div class="submit-btn" style="margin-bottom:0px;">
+                                            <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1 pull-right mtp-50">
+
+                                    </div>
+
+
                                 </div>
+
+
+
                             </div>
-
-                            <div class="col-md-1 pull-right mtp-50">
-
-                            </div>
-
-
                         </div>
-
-
-
                     </div>
-                </div>
-            </div>
 
 
 
-        </div>-->
-
-
-
-                </div>
-
+                </div>-->
 
 
 
             </div>
 
-    </div>
+
+
+
+        </div>
 
     </div>
+
+</div>
 
 
 
