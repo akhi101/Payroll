@@ -536,10 +536,11 @@
                 "FatherName": $scope.FNAME,
                 "MotherName": MName,
                 //"DateofBirth": moment($scope.DOB_DATE).format("DD-MM-YYYY"),
-                "DateofBirth": $scope.DOB_DATE,
+                //"DateofBirth": $scope.DOB_DATE,
+                "DateofBirth": moment($scope.DOB_DATE).format("YYYY-MM-DD"),
                 "SSCDateofBirth": "",
                 "Gender": $scope.SEX,
-                "AadharNumber": Aadhar,
+                "AadharNumber": parseInt(Aadhar),
                 "HouseNumber": $scope.houseNo,
                 "Street": $scope.street,
                 "Landmark": $scope.landmark,
@@ -734,7 +735,7 @@
             var input = document.getElementById("stdSscCertificateFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -765,7 +766,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdSscCertificateFile').val('');
                 return;
@@ -786,7 +787,7 @@
             var input = document.getElementById("stdCertificateTypeFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -817,7 +818,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdCertificateTypeFile').val('');
                 return;
@@ -836,7 +837,7 @@
             var input = document.getElementById("stdExperienceCertificateFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 2000000 && fileSize >= 10000) {
+            if (fileSize <= 2000000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -867,7 +868,7 @@
                     };
 
                 }
-            } else if (fileSize <= 10000) {
+            } else if (fileSize <= 100000) {
                 alert("file size should not be less than 100KB");
                 $('#stdExperienceCertificateFile').val('');
                 return;

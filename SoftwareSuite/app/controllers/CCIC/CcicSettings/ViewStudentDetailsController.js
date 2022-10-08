@@ -41,7 +41,7 @@
             if (res.length >= 0) {
                 $scope.loading = false;
                 $scope.PreviewData = res[0];
-                $scope.DateofBirth = $scope.PreviewData.DateofBirth;
+                //$scope.DateofBirth = $scope.PreviewData.DateofBirth;
 
                 $scope.$emit('hideLoading', data);
 

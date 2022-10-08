@@ -162,6 +162,33 @@
 
 <body>
     <div ng-controller="ViewStudentDetailsController">
+        <script type="text/javascript">
+        // When the document is ready
+        $(document).ready(function () {
+
+            $('#example1').datepicker({
+                minViewMode: 'years',
+                autoclose: true,
+                format: 'yyyy'
+            });
+            $('#example2').datepicker({
+                minViewMode: 1,
+                autoclose: true,
+                format: 'mm-yyyy'
+            });
+            $('.tabledate').datepicker({
+                //minViewMode: 1,
+                autoclose: true,
+                format: 'dd-mm-yyyy'
+            });
+            //$('#example4').datepicker({
+            //    //minViewMode: 1,
+            //    autoclose: true,
+            //    //format: 'dd-mm-yyyy'
+            //});
+        });
+        </script>
+
         <!-- New Style Start-->
         <div class="clearfix"></div>
         <div class="clearfix"></div>
@@ -281,7 +308,7 @@
 
                                 <div class="col-md-6">
                                     <div class="col-md-5"> <label>DateofBirth </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth | date: "dd-MM-yyyy"}}</div>
 
                                 </div>
 
@@ -291,7 +318,7 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" ng-if="PreviewData.AadharNumber">
                                     <div class="col-md-5"> <label>Aadhar Number </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
 
@@ -400,7 +427,7 @@
                 </div>
 
 
-                
+
             </div>
         </div>
 

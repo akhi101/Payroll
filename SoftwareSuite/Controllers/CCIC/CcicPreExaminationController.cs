@@ -719,7 +719,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentName { get; set; }
             public string FatherName { get; set; }
             public string MotherName { get; set; }
-            public string DateofBirth { get; set; }
+            public DateTime DateofBirth { get; set; }
             public string SSCDateofBirth { get; set; }
             public string Gender { get; set; }
             public string AadharNumber { get; set; }
@@ -780,7 +780,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentName { get; set; }
             public string FatherName { get; set; }
             public string MotherName { get; set; }
-            public string DateofBirth { get; set; }
+            public DateTime DateofBirth { get; set; }
             public string SSCDateofBirth { get; set; }
             public string Gender { get; set; }
             public string AadharNumber { get; set; }
