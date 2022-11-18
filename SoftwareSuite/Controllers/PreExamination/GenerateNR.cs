@@ -316,12 +316,14 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 if (File.Exists(ppbDir + $"{bc.BarcodeUID}.pdf"))
                 {
-                    File.Copy((ppbDir + $"{bc.BarcodeUID}.pdf"), (dir + $"\\{(pn++).ToString().PadLeft(3, '0')}.pdf"));
+                    File.Delete((ppbDir + $"{bc.BarcodeUID}.pdf"));
+                    //    File.Copy((ppbDir + $"{bc.BarcodeUID}.pdf"), (dir + $"\\{(pn++).ToString().PadLeft(3, '0')}.pdf"));
+                    //}
+                    //else
+                    //{
                 }
-                else
-                {
-                    #region PageHeader
-                    var page = $@"<br /><br /><div class='col-sm-9 col-md-9 col-lg-9'>
+                #region PageHeader
+                var page = $@"<br /><br /><div class='col-sm-9 col-md-9 col-lg-9'>
                                 <h4 class='text-center head_print'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING, TELANGANA</b></h5>
                                 <h6 class='text-center'><b>EXAMINATION {bc.ExamYear} </b></h6>
                                 <h6 class='text-center'><b>PHOTO ATTENDENCE SHEET</b></h6>
@@ -432,7 +434,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                     sbString = html;
                     File.Copy(dir + $"\\{(pn++).ToString().PadLeft(3, '0')}.pdf", (ppbDir + $"{bc.BarcodeUID}.pdf"), true);
-                }
+               
             }
             return dir_id;
         }

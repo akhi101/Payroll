@@ -32,6 +32,26 @@ namespace SoftwareSuite.Controllers.Admission
 
         #region insert/update/delete
 
+        private string GetWebAppRoot()
+        {
+            var env = ConfigurationManager.AppSettings["SMS_ENV"].ToString();
+            string host = (HttpContext.Current.Request.Url.IsDefaultPort) ?
+               HttpContext.Current.Request.Url.Host :
+               HttpContext.Current.Request.Url.Authority;
+            if (env == "PROD")
+            {
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + "/";
+            }
+            else if (env == "DEV")
+            {
+
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + HttpContext.Current.Request.ApplicationPath;
+            }
+            return host + "/";
+        }
+
         [HttpPost]
         public HttpResponseMessage PostStudentReg([FromBody]PolytechStudent StudentReg)
         {
@@ -39,6 +59,20 @@ namespace SoftwareSuite.Controllers.Admission
             {
                 StudentRegBLL StudentRegBLL = new StudentRegBLL();
                 var ds = StudentRegBLL.PostStudentReg(StudentReg);
+                
+                var path = ConfigurationManager.AppSettings["StudentPhotosFolder"];
+                string relativePath = string.Empty;
+                var file = string.Empty;
+                var filename = StudentReg.PIN + ".jpg";
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                string imgPath = Path.Combine(path, filename);
+                byte[] imageBytes = Convert.FromBase64String(StudentReg.profilephoto1);
+                File.WriteAllBytes(imgPath, imageBytes);
+                relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                //WESCertificate = relativePath;
+                file += relativePath + ',';
                 return Request.CreateResponse(HttpStatusCode.OK, ds);
             }
             else

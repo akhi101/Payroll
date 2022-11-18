@@ -397,6 +397,9 @@ namespace SoftwareSuite.Models.Admission
         public string StudentContact { get; set; }
 
         public string profilephoto { get; set; }
+
+        public string profilephoto1 { get; set; }
+
         public bool IsPhotoUploaded { get; set; }
 
         [MaxLength(20)]

@@ -6,7 +6,7 @@
         $scope.ExamMonthYear = '';
 
         /// recaptcha
-       
+      
         $scope.createCaptcha = function () {
             $scope.newCapchaCode = "";
             document.getElementById('captcha').innerHTML = "";
@@ -367,7 +367,7 @@
                     }
                 }
                 else {
-                    alert("No Hallticket founded");
+                    alert("No Hallticket found");
                 }
                 //else {
                 //    alert("No data Pesent");

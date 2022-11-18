@@ -128,7 +128,7 @@
             if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
                 physicalpath = "C:/SB-TET/Publish";
             } else {
-                physicalpath = "D:/svn/Ashok/SB_TET Git/softwaresuite/SoftwareSuite";                  //"C:/SBTET/dev";
+                physicalpath = "D:/CCic_backup/SoftwareSuite/SoftwareSuite/Reports";                  //"C:/SBTET/dev";
             }
 
             var emailattch = [];
