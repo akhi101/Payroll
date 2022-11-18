@@ -198,7 +198,7 @@
 
         <div class="breadcrumb-header">
             <!-- breadcrumb Open -->
-            <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
+            <div class="container containercontent">
                 <section class="content-header">
                     <h5>Enrollement Report Data View</h5>
                     <ol class="breadcrumb">
@@ -211,18 +211,18 @@
             <!-- breadcrumb Close -->
         </div>
 
-        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; margin-right: 80px;">
+        <div class="container containercontent">
 
 
 
-            <div class="col-md-12">
+            <div class="col-md-12 containercontent">
                 <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/EnrollmentReport/CcicAdmEnrollReportCourses" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
 
 
         </div>
-        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; margin-right: 80px;">
-            <div class="col-md-12 mtp-50" style="padding-bottom:50px" ng-if="PreviewData">
+        <div class="container containercontent">
+            <div class="col-md-12 mtp-50 containercontent" ng-if="PreviewData">
                 <fieldset class="group-border" style="border-color:black">
                     <div class="row">
                         <div class="col-md-12">
@@ -300,7 +300,7 @@
 
                                 </div>
 
-                                <div class="col-md-6" ng-if="PreviewData.MotherName">
+                                <div class="col-md-6">
                                     <div class="col-md-5"> <label>MotherName </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
 
@@ -318,7 +318,7 @@
 
                                 </div>
 
-                                <div class="col-md-6" ng-if="PreviewData.AadharNumber">
+                                <div class="col-md-6">
                                     <div class="col-md-5"> <label>Aadhar Number </label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
 
