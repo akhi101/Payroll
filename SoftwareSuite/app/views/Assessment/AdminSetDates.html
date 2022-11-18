@@ -99,7 +99,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="col-md-3" >
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="font-weight-bold">Exam Month year:</label>
                                 <div class="">
@@ -229,7 +229,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="btn btn-detail" ng-click="submitData()">
+                            <button type="submit" class="btn btn-detail" ng-disabled="BtnDisable" ng-click="submitData()">
                                 Set Dates
                             </button>
                         </div>
@@ -237,7 +237,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-12" ng-show="MarksEntryData.length>0">
+        <div class="col-md-12" ng-show="MarksEntryData">
             <div class="cl-details">
                 <h4>Marks Entry Dates</h4>
             </div>
@@ -273,6 +273,14 @@
             </div>
             <div class="sm-spacer"></div>
         </div>
+        <div class="col-md-12">
+
+            <h4 class="text-center" ng-show="LoadImg"><b>Generating Assessment Data Please wait for 5 minutes......</b></h4>
+            <div style="width: 100%; text-align: center;">
+                <img src="../../../contents/img/loading.gif" ng-show="LoadImg" width="100" />
+            </div>
+        </div>
     </div>
+    <div class="sm-spacer"></div>
 </div>
 

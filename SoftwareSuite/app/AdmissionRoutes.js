@@ -645,9 +645,12 @@
             },
             'index.DiplomaHallticket': {
                 url: "/DiplomaHallticket",
+                //templateUrl: 'app/views/newwebsite/CommingSoon.html',
+                //dependencies: ['views/newwebsite/controllers/CommingSoonController']
                 templateUrl: 'app/views/Examssite/DiplomaHallticket.html',
                 dependencies: ['controllers/ExamsSite/DiplomaHallticketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
+           
 
             'index.TypingAndShorthandResults': {
                 url: "/TypingAndShorthandResults",
@@ -2113,6 +2116,13 @@
                 templateUrl: 'app/views/PreExamination/Hallticket.html',
                 dependencies: ['controllers/PreExamination/HallticketController', 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
+
+            'Dashboard.PreExamination.DiplomaHallticket': {
+                url: "/DiplomaHallticket",
+                templateUrl: 'app/views/Examssite/DiplomaHallticket.html',
+                dependencies: ['controllers/ExamsSite/DiplomaHallticketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
 
             'Dashboard.PreExamination.BacklogHallticket': {
                 url: "/BacklogHallticket",

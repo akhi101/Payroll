@@ -22,6 +22,9 @@
             margin: 30px auto;
         }
     }
+    .cert_btn {
+        width: 125px;
+    }
     /*input[type=checkbox] {
         display: block;
         width: 25px;
@@ -86,7 +89,7 @@
                             <th class="text-center" ng-click='sortColumn("Name")' ng-class='sortClass("Name")'>Name <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center" ng-click='sortColumn("PhoneNumber")' ng-class='sortClass("PhoneNumber")'>Phone <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center" ng-click='sortColumn("AppliedDate")' ng-class='sortClass("AppliedDate")'>Applied Date <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
-                            <th class="text-center">Bonafide Preview</th>
+                            <th class="text-center">Certificate Preview</th>
                             <th class="text-center">Status</th>
                         </tr>
                     </thead>
@@ -94,14 +97,14 @@
                     <tbody>
                         <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="x in ApprovalDetails |orderBy:sortKey:reverse|filter:search">
                             <td style="text-align: center"><input type="checkbox" ng-model="x.isChecked" ng-checked="x.isChecked" ng-change="selectEntity(x)"></td>
-                            <td class="text-center" ng-click="OpenPopup(x.PIN)">{{$index + 1}}</td>
-                            <td class="text-center" ng-click="OpenPopup(x.PIN)">{{x.Scheme}}</td>
-                            <td class="text-center" ng-click="OpenPopup(x.PIN)">{{x.CollegeCode}} </td>
-                            <td class="text-center " ng-click="OpenPopup(x.PIN)">{{x.PIN}}</td>
-                            <td class="text-center " ng-click="OpenPopup(x.PIN)">{{x.Name}}</td>
-                            <td class="text-center " ng-click="OpenPopup(x.PIN)">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
-                            <td class="text-center " ng-click="OpenPopup(x.PIN)">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
-                            <td class="text-center ">  <button class="btn btn-default btn-xs" ng-click="openDetails(6,x.PIN)"><span>certificate Preview</span></button></td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.Id)">{{$index + 1}}</td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.Id)">{{x.Scheme}}</td>
+                            <td class="text-center" ng-click="OpenPopup(x.PIN,x.Id)">{{x.CollegeCode}} </td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.Id)">{{x.PIN}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.Id)">{{x.Name}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.Id)">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
+                            <td class="text-center " ng-click="OpenPopup(x.PIN,x.Id)">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
+                            <td class="text-center ">  <button class="btn btn-default btn-xs cert_btn" ng-click="openDetails(6,x.PIN,x.Id)"><span>{{x.ServiceType}}</span></button></td>
                             <td class="text-center ">
                                 <span ng-show="UserTypeId == 1006">
                                     <button class="btn btn-danger btn-xs" ng-show="x.Clg_AdminVerified ==0"><span>Pending</span></button>
@@ -158,7 +161,7 @@
                             <td class="text-center ">{{x.Name}}</td>
                             <td class="text-center ">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
                             <td class="text-center ">{{x.ApprovedDate  == null? '-':x.ApprovedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
-                            <td class="text-center "><a ng-href={{x.CertificatePath}} target="_blank">{{x.CertificatePath == null ? '-':"Document"}}</a></td>
+                            <td class="text-center "><a ng-href={{x.CertificatePath}} target="_blank">{{x.CertificatePath == null ? '-': x.ServiceType}}</a></td>
                             <td class="text-center " ng-show="UserTypeId==2">
                                 <span>
                                     <button class="btn btn-warning btn-xs" ng-click=" ResetCertificateStatus(x.PIN,x.CertificatePath)"><span>Reset</span></button>
@@ -166,10 +169,10 @@
                             </td>
                             <td class="text-center ">
                                 <span>
-                                    <button class="btn btn-info btn-xs" ng-show="!x.IsSmsSent" ng-disabled="smsbtndisable{{$index}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Send SMS</span></button>
+                                    <button class="btn btn-info btn-xs" ng-show="!x.IsSmsSent" ng-disabled="smsbtndisable{{$index}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.Id,x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Send SMS</span></button>
                                 </span>
                                 <span>
-                                    <button class="btn btn-success btn-xs" ng-show="x.IsSmsSent" ng-disabled="smsbtndisable{{$index + 1}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Resend SMS</span></button>
+                                    <button class="btn btn-success btn-xs" ng-show="x.IsSmsSent" ng-disabled="smsbtndisable{{$index + 1}}" ng-class="{'disabled': smsbtndisable{{$index}}}" ng-click="sensSMS(x.Id,x.PIN,x.CertificatePath,x.PhoneNumber,$index)"><span>Resend SMS</span></button>
                                 </span>
                             </td>
                         </tr>

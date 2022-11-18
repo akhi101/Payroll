@@ -404,13 +404,22 @@
                         });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
+
                             canvas.width = this.width;
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
-
+                            var base64Image1 = canvas.toDataURL("image/png").replace(/^data:image\/[a-z]+;base64,/, "");
                             var base64Image = canvas.toDataURL("image/png");
+                            //$scope.userPhoto1 = base64Image1;
+                            //$scope.userPhoto = base64Image;
+                            //canvas.width = this.width;
+                            //canvas.height = this.height;
+                            //context.drawImage(this, 0, 0);
 
+                            //var base64Image = canvas.toDataURL("image/png");
                             $scope.StudentReg.profilephoto = base64Image;
+                            $scope.StudentReg.profilephoto1 = base64Image1;
+
 
                         });
 

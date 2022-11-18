@@ -854,7 +854,7 @@
             $scope.ResendMail = true
 
             var obj = {
-                "From": 'sbtet-helpdesk@telangana.gov.in',
+                "From": 'sonali.akarapu05@gmail.com',
                 "To": $scope.OrganizationEmail,
                 "Subject": 'Genuineness Check Verification',
                 "Message": 'Hii',
