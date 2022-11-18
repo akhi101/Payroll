@@ -67,26 +67,28 @@ define(['app'], function (app) {
                
                 if (response.Table[0].StatusCode == 200 ) {
                     if (response.Table2.length > 0) {
-                        $scope.StudentData = [];
-                        $scope.SubjectList = [];
-                        $scope.FeedBackDescriptions = [];
-                        $scope.hideinput = true;
-                        $scope.dataTable = true;
-                        $scope.loading = false;
-                        $scope.StudentData = response.Table1[0];
-                        $scope.SubjectList = response.Table2;
-                        $scope.FeedBackDescriptions = response.Table3;
+                        if ($scope.userOtp === response.Table[0].OTP) {
+                            $scope.StudentData = [];
+                            $scope.SubjectList = [];
+                            $scope.FeedBackDescriptions = [];
+                            $scope.hideinput = true;
+                            $scope.dataTable = true;
+                            $scope.loading = false;
+                            $scope.StudentData = response.Table1[0];
+                            $scope.SubjectList = response.Table2;
+                            $scope.FeedBackDescriptions = response.Table3;
+                        } else {
+                            alert("OTP Mismatch")
+                        }
                     } else {
-
-                        alert("Not Eligible To give the Feedback");
+                        alert("Faculty Data Not Found");
                         $scope.StudentData = [];
                         $scope.SubjectList = [];
                         $scope.FeedBackDescriptions = [];
                         $scope.hideinput = false;
                         $scope.dataTable = false;
                         $scope.loading = false;
-                    }                   
-
+                    }
                 } else {
                     alert(response.Table[0].StatusDescription);
                     $scope.StudentData = [];

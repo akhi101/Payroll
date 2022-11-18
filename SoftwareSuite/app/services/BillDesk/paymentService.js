@@ -13,6 +13,12 @@
         //    return DataAccessService.getDataWithParaCustomUrl('https://sbtet.telangana.gov.in/API/Payment/FindchalanaNo', paramObject);
         //}
 
+        this.getSomeValue = function (url, challanaNo) {
+            var paramObject = { "url": url, "challanaNo": challanaNo };
+            console.log(paramObject)
+            return DataAccessService.getDataWithPara('api/BillDesk/getSomeValue', paramObject);
+        },
+
         this.billDeskS2SResponse = function (chalanaNo) {
             var paramObject = { "chalanaNo": chalanaNo };
             return DataAccessService.getDataWithParaCustomUrl('Payment/FindchalanaNo', paramObject);

@@ -22,7 +22,7 @@
 
             .rating > label:before {
                 margin: 2px;
-                font-size: 12px;
+                font-size: 14px;
                 font-family: FontAwesome;
                 content: "\f005";
                 content: "\2605";
@@ -207,86 +207,154 @@
             </table>
             <!--<p align="center">For getting filled in through student</p>-->
             <!-- <div class="sm-spacer"></div> -->
-            <div class="col-md-12" ng-show="dataTable">
+            <div class="" ng-show="dataTable">
                 <div class="card">
                     <div style="pointer-events:none">
-                        <table width="100%">
+                        <table>
                             <tbody>
-                            <td width="20%">
-                                <label style="float:left!important;margin-top:12px;"><b>Excellent :</b></label>
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="ratings" checked="checked" disabled />
-                                    <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
-                                    <input type="radio" id="star4" name="ratings" disabled />
-                                    <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star3" name="ratings" disabled />
-                                    <label class="star" for="star3" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star2" name="ratings" disabled />
-                                    <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
-                                    <input type="radio" id="star1" name="ratings" disabled />
-                                    <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
-                                </div>
-                            </td>
-                            <td width="20%">
-                                <label style="float:left!important;margin-top:12px;"><b>Very Good :</b></label>
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="ratingss" disabled />
-                                    <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
-                                    <input type="radio" id="star4" name="ratingss" checked="checked" disabled />
-                                    <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star3" name="ratingss" disabled />
-                                    <label class="star" for="star3" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star2" name="ratingss" disabled />
-                                    <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
-                                    <input type="radio" id="star1" name="ratingss" disabled />
-                                    <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
-                                </div>
-                            </td>
-                            <td width="20%">
-                                <label style="float:left!important;margin-top:12px;"><b>Good :</b></label>
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="ratingsss" disabled />
-                                    <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
-                                    <input type="radio" id="star4" name="ratingsss" disabled />
-                                    <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star3" name="ratingsss" checked="checked" disabled />
-                                    <label class="star" for="star3" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star2" name="ratingsss" disabled />
-                                    <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
-                                    <input type="radio" id="star1" name="ratingsss" disabled />
-                                    <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
-                                </div>
-                            </td>
-                            <td width="20%">
-                                <label style="float:left!important;margin-top:12px;"><b> Poor :</b></label>
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="ratingssss" disabled />
-                                    <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
-                                    <input type="radio" id="star4" name="ratingssss" disabled />
-                                    <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star3" name="ratingssss" disabled />
-                                    <label class="star" for="star3" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star2" name="ratingssss" checked="checked" disabled />
-                                    <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
-                                    <input type="radio" id="star1" name="ratingssss" disabled />
-                                    <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
-                                </div>
-                            </td>
-                            <td width="20%">
-                                <label style="float:left!important;margin-top:12px;"><b>Very Poor :</b></label>
-                                <div class="rating">
-                                    <input type="radio" id="star5" name="rating" disabled />
-                                    <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
-                                    <input type="radio" id="star4" name="rating" disabled />
-                                    <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star3" name="rating" disabled />
-                                    <label class="star" for="star3" title="Good" aria-hidden="true"></label>
-                                    <input type="radio" id="star2" name="rating" disabled />
-                                    <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
-                                    <input type="radio" id="star1" name="rating" checked="checked" disabled />
-                                    <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
-                                </div>
-                            </td>
+                                <tr>
+                                    <th width="20%">
+                                        <label style="float:left!important;margin-top:12px;font-size:16px"><b style="font-size: 16px!important">Excellent </b></label>
+                                    </th>
+                                    <th width="20%">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="ratings" checked="checked" disabled />
+                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                            <input type="radio" id="star4" name="ratings" disabled />
+                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star3" name="ratings" disabled />
+                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star2" name="ratings" disabled />
+                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                            <input type="radio" id="star1" name="ratings" disabled />
+                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="20%">
+                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important">Very Good </b></label>
+                                    </td>
+                                    <th width="20%">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="ratingss" disabled />
+                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                            <input type="radio" id="star4" name="ratingss" checked="checked" disabled />
+                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star3" name="ratingss" disabled />
+                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star2" name="ratingss" disabled />
+                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                            <input type="radio" id="star1" name="ratingss" disabled />
+                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="20%">
+                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important">Good </b></label>
+                                    </td>
+                                    <th width="20%">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="ratingsss" disabled />
+                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                            <input type="radio" id="star4" name="ratingsss" disabled />
+                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star3" name="ratingsss" checked="checked" disabled />
+                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star2" name="ratingsss" disabled />
+                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                            <input type="radio" id="star1" name="ratingsss" disabled />
+                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="20%">
+                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important">Poor </b></label>
+                                    </td>
+                                    <th width="20%">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="ratingssss" disabled />
+                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                            <input type="radio" id="star4" name="ratingssss" disabled />
+                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star3" name="ratingssss" disabled />
+                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star2" name="ratingssss" checked="checked" disabled />
+                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                            <input type="radio" id="star1" name="ratingssss" disabled />
+                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="20%">
+                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important">Very Poor </b></label>
+                                    </td>
+                                    <th width="20%">
+                                        <div class="rating">
+                                            <input type="radio" id="star5" name="rating" disabled />
+                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                            <input type="radio" id="star4" name="rating" disabled />
+                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                            <input type="radio" id="star3" name="rating" disabled />
+                                            <label class="star" for="star3" title="Good"></label>
+                                            <input type="radio" id="star2" name="rating" disabled />
+                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                            <input type="radio" id="star1" name="rating" checked="checked" disabled />
+                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                                <!--</th>
+                                <th width="20%">
+                                                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important">Good :</b></label>
+                                                                        <div class="rating">
+                                                                            <input type="radio" id="star5" name="ratingsss" disabled />
+                                                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star4" name="ratingsss" disabled />
+                                                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star3" name="ratingsss" checked="checked" disabled />
+                                                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star2" name="ratingsss" disabled />
+                                                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star1" name="ratingsss" disabled />
+                                                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                                                        </div>
+                                                                    </th>
+                                                                    <th width="20%">
+
+                                                                        <div class="rating">
+                                                                            <input type="radio" id="star5" name="ratingssss" disabled />
+                                                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star4" name="ratingssss" disabled />
+                                                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star3" name="ratingssss" disabled />
+                                                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star2" name="ratingssss" checked="checked" disabled />
+                                                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star1" name="ratingssss" disabled />
+                                                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                                                        </div>
+                                                                    </th>
+                                                                    <th width="20%">
+                                                                        <label style="float:left!important;margin-top:12px;"><b style="font-size: 16px!important"> Poor :</b></label>
+                                                                        <div class="rating">
+                                                                            <input type="radio" id="star5" name="rating" disabled />
+                                                                            <label class="star" for="star5" title="Excellent" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star4" name="rating" disabled />
+                                                                            <label class="star" for="star4" title="Very Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star3" name="rating" disabled />
+                                                                            <label class="star" for="star3" title="Good" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star2" name="rating" disabled />
+                                                                            <label class="star" for="star2" title="Poor" aria-hidden="true"></label>
+                                                                            <input type="radio" id="star1" name="rating" checked="checked" disabled />
+                                                                            <label class="star" for="star1" title="Very Poor" aria-hidden="true"></label>
+                                                                        </div>
+                                                                    </th>-->
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -316,7 +384,7 @@
                     <tr>
                         <th class="myPad text-center" width="3%" class="text-center">S.No.</th>
                         <th class="myPad " align="top" width="16%">Description</th>
-                        <th class="myPad text-center" ng-repeat="data in SubjectList" width="auto">
+                        <th class="myPad text-center" style="font-size:16px!important" ng-repeat="data in SubjectList" width="auto">
                             SubjectCode
                             {{data.Subject_Code}}
                         </th>

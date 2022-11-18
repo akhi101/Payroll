@@ -7,10 +7,10 @@
 
             try {
                 var res = JSON.parse(resp);
-         
+
             } catch (err) { }
-     
-     
+
+
             //console.log(response)
             $scope.CertificateTypes = resp.Table;
             var data = {
@@ -76,7 +76,7 @@
             $scope.ChallanData = false;
         }
 
-        $scope.ChangeData = function(){
+        $scope.ChangeData = function () {
             $scope.paymentResponseFound = false;
             $scope.ChallanData = false;
         }
@@ -85,7 +85,7 @@
             $scope.paymentResponseFound = false;
             $scope.ChallanData = false;
             if ($scope.Student.id == null || $scope.Student.id == '' || $scope.Student.id == undefined) {
-                $scope.Student.id= 1
+                $scope.Student.id = 1
             }
             var loadHallticket = PreExaminationService.GetExamMonthYearForHallticketandFeepayment(1, $scope.Student.id);
             loadHallticket.then(function (response) {
@@ -103,8 +103,8 @@
                 });
         }
 
-        $scope.ExamTypes = [{ "Id":"1","ExamType": "Examination" },
-            { "Id": "2", "ExamType": "Student Services" }]
+        $scope.ExamTypes = [{ "Id": "1", "ExamType": "Examination" },
+        { "Id": "2", "ExamType": "Student Services" }]
 
         $scope.GetChallanNumbers = function () {
             $scope.LoadImg = true;
@@ -153,101 +153,111 @@
                 //console.log(resp)
                 //var res = JSON.parse(resp)
                 //console.log(res)
-                    var pins = "";
-                    if (res.Table.length > 0) {
-                        
-                            $scope.LoadImg = false;
-                            for (let i = 0; i < res.Table1.length; i++) {
-                                pins += res.Table1[i].pin + ",";
-                            }
-                    } else {
-                     
+                var pins = "";
+                if (res.Table.length > 0) {
+
+                    $scope.LoadImg = false;
+                    for (let i = 0; i < res.Table1.length; i++) {
+                        pins += res.Table1[i].pin + ",";
+                    }
+                } else {
+
+                    $scope.LoadImg = false;
+                    $scope.LoadpaymentImg = false;
+                    $scope.success = false;
+                    $scope.paymentResponseFound = true;
+                    $scope.Status = "No Data Found with given Challan Number";
+                    return;
+                }
+
+                if (res.Table1.length > 0) {
+                    $scope.LoadImg = false;
+                    for (let i = 0; i < res.Table1.length; i++) {
+                        pins += res.Table1[i].pin + ",";
+                    }
+                }
+
+                pins = pins.substring(0, pins.length - 1);
+                $scope.pins = pins;
+                if (res.Table.length > 0) {
+                    $scope.LoadImg = false;
+                    $scope.Paymentmode = res.Table[0].addtninfo6;
+                    if (res.Table[0].addtninfo4 != 'NA') {
+                        $scope.Sem = res.Table[0].addtninfo4;
+                    }
+                    if (res.Table[0].addtninfo7 != 'NA' || res.Table[0].addtninfo7 != null || res.Table[0].addtninfo7 != undefined || res.Table[0].addtninfo7 != '') {
+                        $scope.ExamMonthYearr = res.Table[0].addtninfo7;
+                    }
+                    $scope.date = res.Table[0].txndate;
+                    $scope.transactionno = res.Table[0].bankrefno;
+                    $scope.subscriberid = res.Table[0].subscriberid;
+                    $scope.amount = (res.Table[0].txnamt * 1).toString();
+                    $scope.LoadpaymentImg = false;
+                    $scope.Detailsfound = true;
+                    $scope.paymentResponseFound = true;
+                    $scope.Status = res.Table[0].errordesc;
+                    var desc = res.Table[0].errordesc;
+                    if (res.Table[0].authstatus == '0300') {
                         $scope.LoadImg = false;
-                        $scope.LoadpaymentImg = false;
+                        $scope.success = true;
+                        $scope.pins = pins;
+                        $scope.Status = "Success Transaction";
+                        //sending sms using challan number to SendSms controller
+                        PaymentService.callSms($scope.refno);
+                        //$scope.cancel();
+                        return;
+                    } else if (res.Table[0].authstatus == '0999') {
+                        $scope.LoadImg = false;
                         $scope.success = false;
-                        $scope.paymentResponseFound = true;
-                        $scope.Status = "No Data Found with given Challan Number";
+                        $scope.pins = pins;
+                        $scope.Status = res.Table[0].Status;
+                        //sending sms using challan number to SendSms controller
+                        //PaymentService.callSms($scope.refno);
+                        //$scope.cancel();
+                        return;
+                    }
+                    else {
+                        $scope.LoadImg = false;
+                        $scope.Status = "Transaction Failed";
+                        if (desc.includes('-')) {
+                            for (var i = 0; i < desc.length; i++)
+                                if (desc.charAt(i) == '-') {
+                                    specialchar = i;
+                                    break;
+                                }
+                            desc = desc.substring(specialchar + 1, desc.length);
+                        }
+
+                        $scope.Status = desc;
+                        $scope.LoadpaymentImg = false;
+                        $scope.pins = pins;
+                        $scope.success = false;
+                        //$scope.cancel();
                         return;
                     }
 
-                        if (res.Table1.length > 0) {
-                        $scope.LoadImg = false;
-                        for (let i = 0; i < res.Table1.length; i++) {
-                            pins += res.Table1[i].pin + ",";
-                        }
-                    }
-
-                    pins = pins.substring(0, pins.length - 1);
-                    $scope.pins = pins;
-                    if (res.Table.length > 0) {
-                        $scope.LoadImg = false;
-                        $scope.Paymentmode = res.Table[0].addtninfo6;
-                        if (res.Table[0].addtninfo4 != 'NA') {
-                            $scope.Sem = res.Table[0].addtninfo4;
-                        }
-                        if (res.Table[0].addtninfo7 != 'NA' || res.Table[0].addtninfo7 != null || res.Table[0].addtninfo7 != undefined || res.Table[0].addtninfo7 != '') {
-                            $scope.ExamMonthYearr = res.Table[0].addtninfo7;
-                        }
-                        $scope.date = res.Table[0].txndate;
-                        $scope.transactionno = res.Table[0].bankrefno;
-                        $scope.subscriberid = res.Table[0].subscriberid;
-                        $scope.amount = (res.Table[0].txnamt * 1).toString();
-                        $scope.LoadpaymentImg = false;
-                        $scope.Detailsfound = true;
-                        $scope.paymentResponseFound = true;
-                        $scope.Status = res.Table[0].errordesc;
-                        var desc = res.Table[0].errordesc;
-                        if (res.Table[0].authstatus == '0300') {
-                            $scope.LoadImg = false;
-                            $scope.success = true;
-                            $scope.pins = pins;
-                            $scope.Status = "Success Transaction";
-                            //sending sms using challan number to SendSms controller
-                            PaymentService.callSms($scope.refno);
-                            //$scope.cancel();
-                            return;
-                        } else {
-                            $scope.LoadImg = false;
-                            $scope.Status = "Transaction Failed";
-                            if (desc.includes('-')) {
-                                for (var i = 0; i < desc.length; i++)
-                                    if (desc.charAt(i) == '-') {
-                                        specialchar = i;
-                                        break;
-                                    }
-                                desc = desc.substring(specialchar + 1, desc.length);
-                            }
-
-                            $scope.Status = desc;
-                            $scope.LoadpaymentImg = false;
-                            $scope.pins = pins;
-                            $scope.success = false;
-                            //$scope.cancel();
-                            return;
-                        }
-
-                    } else {
-                        $scope.LoadImg = false;
-                        $scope.LoadpaymentImg = false;
-                        $scope.success = false;
-                        $scope.paymentResponseFound = true;
-                        $scope.Status = "If amount is deducted from your bank it is will be refunded with in 7 working days. PLEASE PAY THE FEE AGAIN TO GENERATE HT WITH IN DUE DATES";
-                        //$scope.cancel();
-
-                    }
-                }, function (error) {
+                } else {
                     $scope.LoadImg = false;
                     $scope.LoadpaymentImg = false;
                     $scope.success = false;
                     $scope.paymentResponseFound = true;
                     $scope.Status = "If amount is deducted from your bank it is will be refunded with in 7 working days. PLEASE PAY THE FEE AGAIN TO GENERATE HT WITH IN DUE DATES";
                     //$scope.cancel();
-                });
+
+                }
+            }, function (error) {
+                $scope.LoadImg = false;
+                $scope.LoadpaymentImg = false;
+                $scope.success = false;
+                $scope.paymentResponseFound = true;
+                $scope.Status = "If amount is deducted from your bank it is will be refunded with in 7 working days. PLEASE PAY THE FEE AGAIN TO GENERATE HT WITH IN DUE DATES";
+                //$scope.cancel();
+            });
 
 
 
 
-            }
+        }
 
 
         $scope.GetFeeReciept = function () {
@@ -313,7 +323,17 @@
                         //PaymentService.callSms($scope.refno);
                         //$scope.cancel();
                         return;
-                    } else {
+                    } else if (res.Table[0].authstatus == '0999') {
+                        $scope.LoadImg = false;
+                        $scope.success = false;
+                        $scope.pins = pins;
+                        $scope.Status = res.Table[0].Status;
+                        //sending sms using challan number to SendSms controller
+                        //PaymentService.callSms($scope.refno);
+                        //$scope.cancel();
+                        return;
+                    }
+                    else {
                         $scope.LoadImg = false;
                         $scope.Status = "Transaction Failed";
                         if (desc.includes('-')) {

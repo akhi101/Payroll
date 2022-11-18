@@ -41,7 +41,7 @@
                 };
             }
             let shiftid = $scope.Selectedshift;
-            var SetMappingList = AcademicService.SetMappingList($scope.College_Code, $scope.BranchId, shiftid, JSON.stringify(data))
+            var SetMappingList = AcademicService.SetMappingList($scope.College_Code, $scope.Branch_Id, shiftid, JSON.stringify(data))
             SetMappingList.then(function (response) {
 
                 $scope.EnableEdit = false;
@@ -162,6 +162,7 @@
                 }
                 $scope.getStudentsData()
                 $scope.subjects = response.Table;
+                $scope.Branch_Id = response.Table[0].BranchId;
             },
                 function (error) {
                     alert("error while loading semesters");

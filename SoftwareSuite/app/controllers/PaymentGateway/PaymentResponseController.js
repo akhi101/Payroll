@@ -55,10 +55,19 @@
                             if (res.Table[0].authstatus == '0300') {
                                 $scope.success = true;
                                 $scope.pins = pins;
-                                $scope.Status = "Success Transaction";
+                                $scope.Status = res.Table[0].errordesc;
                                 //sending sms using challan number to SendSms controller
                                 PaymentService.callSms($scope.refno);
                                 $scope.cancel();
+                                return;
+                            } else if (res.Table[0].authstatus == '0999') {
+                                $scope.LoadImg = false;
+                                $scope.success = false;
+                                $scope.pins = pins;
+                                $scope.Status = res.Table[0].errordesc;
+                                //sending sms using challan number to SendSms controller
+                                //PaymentService.callSms($scope.refno);
+                                //$scope.cancel();
                                 return;
                             } else {
                                 $scope.Status = "Transaction Failed";

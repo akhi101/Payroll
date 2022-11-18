@@ -71,6 +71,11 @@ define(['app'], function (app) {
         $scope.selectEntity = function (data) {
             $scope.allItemsSelectedthing = false;
             if (data != null) {
+                if (data.IsFeedbackSubmitted === 0) {
+                    data.isChecked = false
+                    alert("Please Submit Feedback to Pay Fee")
+                    return
+                }
                 if (!PaymentStudentList.includes(data.Pin)) {
                     dataPay = {};
                     dataPay.Pin = data.Pin;
@@ -128,47 +133,57 @@ define(['app'], function (app) {
                 PaymentStudentList = [];
             }
             else if ($scope.isAllchecked == false) {
-                $scope.isAllchecked = true;
-                for (var i = 0; i < $scope.ExamPayment.length; i++) {
-                    $scope.ExamPayment[i].isChecked = true;
-                }
-                PaymentStudentList = [];
-                PaymentStudent = [];
-                for (var i = 0; i < $scope.ExamPayment.length; i++) {
-                    dataPay = {};
 
-                    dataPay.Pin = $scope.ExamPayment[i].Pin;
-                    dataPay.Amount = $scope.ExamPayment[i].Total;
-                    dataPay.StudentContact = $scope.ExamPayment[i].StudentContact;
-                    for (var j = 0; j < $scope.ActiveSemesters.length; j++) {
-                        if ($scope.ActiveSemesters[j].semid == $scope.current_schemeid) {
-                            dataPay.Semester = $scope.ActiveSemesters[j].semester;
-                            Semester = $scope.ActiveSemesters[j].semester;
-                            break;
+                for (var i = 0; i < $scope.ExamPayment.length; i++) {
+                    if ($scope.ExamPayment[i].IsFeedbackSubmitted === 1) {
+                        dataPay = {};
+
+                        dataPay.Pin = $scope.ExamPayment[i].Pin;
+                        dataPay.Amount = $scope.ExamPayment[i].Total;
+                        dataPay.StudentContact = $scope.ExamPayment[i].StudentContact;
+                        for (var j = 0; j < $scope.ActiveSemesters.length; j++) {
+                            if ($scope.ActiveSemesters[j].semid == $scope.current_schemeid) {
+                                dataPay.Semester = $scope.ActiveSemesters[j].semester;
+                                Semester = $scope.ActiveSemesters[j].semester;
+                                break;
+                            }
                         }
+                        dataPay.UserName = authData.userName;
+                        dataPay.StudentTypeId = $scope.Student.id;
+                        dataPay.Name = $scope.ExamPayment[i].Name;
+                        dataPay.ExamFee = $scope.ExamPayment[i].ExamFee;
+
+                        if ($scope.ExamPayment[i].Condonation !== undefined)
+                            dataPay.Condonation = $scope.ExamPayment[i].Condonation;
+                        else
+                            dataPay.Condonation = "";
+                        dataPay.Penality = $scope.ExamPayment[i].Penality;
+                        dataPay.Tatkal = $scope.ExamPayment[i].Tatkal;
+                        dataPay.CertificateFee = $scope.ExamPayment[i].CertificateFee;
+                        PaymentStudent.push(dataPay);
+                        PaymentStudentList.push($scope.ExamPayment[i].Pin);
+
+                        $scope.ExamPayment[i].isChecked = true;
+                        $scope.isAllchecked = true;
+                    } else if ($scope.ExamPayment[i].IsFeedbackSubmitted === 0) {
+                        $scope.ExamPayment[i].isChecked = false;
+                        //alert("Please Submit All Students Feedback to Pay Fee")
+                        //return;
                     }
-                    dataPay.UserName = authData.userName;
-                    dataPay.StudentTypeId = $scope.Student.id;
-                    dataPay.Name = $scope.ExamPayment[i].Name;
-                    dataPay.ExamFee = $scope.ExamPayment[i].ExamFee;
 
-                    if ($scope.ExamPayment[i].Condonation !== undefined)
-                        dataPay.Condonation = $scope.ExamPayment[i].Condonation;
-                    else
-                        dataPay.Condonation = "";
-                    dataPay.Penality = $scope.ExamPayment[i].Penality;
-                    dataPay.Tatkal = $scope.ExamPayment[i].Tatkal;
-                    dataPay.CertificateFee = $scope.ExamPayment[i].CertificateFee;
-                    PaymentStudent.push(dataPay);
-                    PaymentStudentList.push($scope.ExamPayment[i].Pin);
                 }
-            }
 
 
-            $scope.PaymentStudentList = PaymentStudentList;
+                //for (var i = 0; i < $scope.ExamPayment.length; i++) {
 
-        };
+                //}
 
+
+                $scope.PaymentStudentList = PaymentStudentList;
+
+            };
+
+        }
         var LoadExamTypeBysem = PreExaminationService.getStudentType();
         LoadExamTypeBysem.then(function (response) {
             if (response.Table.length > 0) {
