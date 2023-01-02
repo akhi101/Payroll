@@ -302,7 +302,7 @@
                     var resultdata = StudentResultService.GetC16ConsolidatedResult($scope.Pin);
                 } else if ($scope.scheme.schemeid == 4) {
                     var resultdata = StudentResultService.GetC16SConsolidatedResult($scope.Pin);
-                } else if ($scope.scheme.schemeid == 2) {
+                } else if ($scope.scheme.schemeid == 2 || $scope.scheme.schemeid == 10) {
                     var resultdata = StudentResultService.GetER91ConsolidatedResult($scope.Pin);
                 } else if ($scope.scheme.schemeid == 6) {
                     var resultdata = StudentResultService.GetC05ConsolidatedResult($scope.Pin);

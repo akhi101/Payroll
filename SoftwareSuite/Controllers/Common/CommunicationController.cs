@@ -368,7 +368,7 @@ namespace SoftwareSuite.Controllers.Common
             try
             {
                 var message = new MimeMessage();
-                
+
                 //message.From.Add(new MailboxAddress("Your Name", "username@gmail.com"));
                 //message.To.Add(new MailboxAddress("Recipient's Name", "recipient@yahoo.com"));
                 //message.Subject = "This is a test message";
@@ -381,15 +381,15 @@ namespace SoftwareSuite.Controllers.Common
                 //    FileName = Path.GetFileName(path)
                 //};
 
-             
+
 
 
                 //builder.Attachments.Add(@"C:\path\to\attachment");
 
                 //message.Body = builder.ToMessageBody();
-                //MailMessage message = new MailMessage();
+                //MailMessage message = new MailMessage();smtp.mail.gov.in
                 SmtpClient smtp = new SmtpClient();
-                smtp.Connect("smtp.mail.gov.in", 465, SecureSocketOptions.Auto);
+                smtp.Connect("relay.emailgov.in", 465, SecureSocketOptions.Auto);
                 smtp.Timeout = 200000;
 
                 //for (int i = 0; i < size; i++){                

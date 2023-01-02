@@ -30,7 +30,8 @@ namespace SoftwareSuite.Controllers.StudentServices
         public string StoreSignedCertificate()
         {
             try {
-                var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\SignedCert\";
+             //   var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\SignedCert\";
+              var dir = "sbtet.telangana.gov.in/" + @"Reports\SignedCert\";
                 var deldir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
                 CreateIfMissing(dir);
                 var data = Request.Content.ReadAsStringAsync().Result;
