@@ -2832,6 +2832,17 @@
         }
             },
 
+            this.getHallticket1 = function (Pin, DateOfBirth, StudentTypeId, EMYR) {
+                if (StudentTypeId == 1) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "EMYR": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetRegularHallticket1', paramObject);
+                    return promise;
+                } else if (StudentTypeId == 2) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "Exammonthyearid": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket', paramObject);
+                    return promise;
+                }
+            },
 
             this.getAdminCollegePreExamReports = function (UserId, CollegeCode,ExamMonthYearId, Semester,StudentTypeId) {
                 var paramObj = { "UserId": UserId, "CollegeCode": CollegeCode, "ExamMonthYearId": ExamMonthYearId, "Semester": Semester, "StudentTypeId": StudentTypeId };

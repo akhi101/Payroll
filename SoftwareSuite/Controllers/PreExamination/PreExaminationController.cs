@@ -10385,6 +10385,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("GetRegularHallticket1")]
+        public string GetRegularHallticket1(string Pin, string DateOfBirth, int StudentTypeId, int EMYR)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@EMYR", EMYR);
+                var dt = new DataSet();
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin_TEST", param);//USP_SFP_GET_HallTicketDetailsByPin  USP_SFP_GET_HallTicketDetailsByPin_TEST
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GET_HallTicketDetailsByPin_TEST", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("GetBacklogHallticket")]
         public string GetBacklogHallticket(string Pin, string DateOfBirth, int StudentTypeId,string Exammonthyearid)
         {
@@ -13188,7 +13211,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[5] = new SqlParameter("@ExamTypeId", ExamTypeId);               
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_Get_SeatingplanReportCounts", param);
-                if (ds?.Tables[0].Rows.Count > 0) {
+                if (ds.Tables[0].Rows.Count > 0) {
                     var filename =  "SeatingPlanAbtract" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];

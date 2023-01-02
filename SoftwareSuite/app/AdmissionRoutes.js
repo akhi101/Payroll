@@ -2119,8 +2119,8 @@
 
             'Dashboard.PreExamination.DiplomaHallticket': {
                 url: "/DiplomaHallticket",
-                templateUrl: 'app/views/Examssite/DiplomaHallticket.html',
-                dependencies: ['controllers/ExamsSite/DiplomaHallticketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+                templateUrl: 'app/views/PreExamination/DiplomaHallticket.html',
+                dependencies: ['controllers/PreExamination/DiplomaHallticketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
 
@@ -2698,7 +2698,7 @@
 
 
             'Dashboard.PaymentResponse': {
-                url: "/PaymentResponse/:data",
+                url: "/PaymentResponse",
                 templateUrl: 'app/views/PaymentResponse.html',
                 dependencies: ['controllers/PaymentGateway/PaymentResponseController', 'services/BillDesk/paymentService']
 

@@ -603,10 +603,10 @@
                 $scope.btndisable = true;
                 var ApproveStatus = 1;
                 if ($scope.UserTypeId == '2') {
-                    if (angular.isUndefined($scope.UserCertificates) || $scope.UserCertificates[0].SerialNumber == null) {
-                        alert('Link the Digital signature to sign the documents');
-                        return;
-                    }
+                    //if (angular.isUndefined($scope.UserCertificates) || $scope.UserCertificates[0].SerialNumber == null) {
+                    //    alert('Link the Digital signature to sign the documents');
+                    //    return;
+                    //}
                     $scope.buttonlabel = "Signing in process ...";
                     var GetInterimCertificateTobeSignedlocation = PreExaminationService.GetBonafideCertificateTobeSignedlocation(PaymentStudent)
                     GetInterimCertificateTobeSignedlocation.then(function (response) {
