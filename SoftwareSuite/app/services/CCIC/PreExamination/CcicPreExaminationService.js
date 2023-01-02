@@ -96,11 +96,11 @@
             return promise;
         };
 
-        this.GetInstitutionVerificationReportCount = function (InstitutionID) {
+        this.GetInsVerificationReportCoursesCount = function (InstitutionID) {
             var paramObj = {
                 "InstitutionID": InstitutionID
             };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutionVerificationReportCount', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInsVerificationReportCoursesCount', paramObj);
             return promise;
         };
 
@@ -124,8 +124,8 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportInsCount');
         };
 
-        this.GetAdminVerificationReportCount = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportCount');
+        this.GetAdminVerificationReportInsCount = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportInsCount');
         };
 
         this.GetAdminRegisterReportCount = function (AcademicYearID, Batch) {
@@ -210,7 +210,7 @@
         //};
 
         this.getSSCDetails = function (object) {
-            var promise = DataAccessService.postData('api/TwshStudentReg/GetSSCDetails', object);
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetSSCDetails', object);
             return promise;
         };
 
@@ -278,13 +278,23 @@
             return promise;
         };
 
-        this.AddStudentDetails = function (ApplicationNumber, InstitutionID, CourseID, CourseQualificationID, CourseExperienceID, SSC, SSCHallticketNumber, SSCPassedYear, SSCPassedType, StudentName, FatherName, MotherName, DateofBirth, SSCDateofBirth, Gender, AadharNumber, HouseNumber, Street, Landmark, Village, Pincode, District, AddressState, StudentMobile, StudentEmail,SSCValidated,UserName,StudentPhoto,StudentSign,SSCCertificate,QualificationCertificate, ExperienceCertificate) {
-            var paramObj = {
-                "ApplicationNumber": ApplicationNumber, "InstitutionID": InstitutionID, "CourseID": CourseID, "CourseQualificationID": CourseQualificationID, "CourseExperienceID": CourseExperienceID, "SSC": SSC, "SSCHallticketNumber": SSCHallticketNumber, "SSCPassedYear": SSCPassedYear, "SSCPassedType": SSCPassedType, "StudentName": StudentName, "FatherName": FatherName, "MotherName": MotherName, "DateofBirth": DateofBirth, "SSCDateofBirth": SSCDateofBirth, "Gender": Gender, "AadharNumber": AadharNumber, "HouseNumber": HouseNumber, "Street": Street, "Landmark": Landmark, "Village": Village, "Pincode": Pincode, "District": District, "AddressState": AddressState, "StudentMobile": StudentMobile, "StudentEmail": StudentEmail, "SSCValidated": SSCValidated, "UserName": UserName, "StudentPhoto": StudentPhoto, "StudentSign": StudentSign, "SSCCertificate": SSCCertificate, "QualificationCertificate": QualificationCertificate, "ExperienceCertificate": ExperienceCertificate
-            };
-            var promise = DataAccessService.postData('api/CcicPreExamination/AddStudentDetails', paramObj);
-            return promise;
-        }
+        //this.AddStudentDetails = function (ApplicationNumber, InstitutionID, CourseID, CourseQualificationID, CourseExperienceID, SSC, SSCHallticketNumber, SSCPassedYear, SSCPassedType, StudentName, FatherName, MotherName, DateofBirth, SSCDateofBirth, Gender, AadharNumber, HouseNumber, Street, Landmark, Village, Pincode, District, AddressState, StudentMobile, StudentEmail,SSCValidated,UserName,StudentPhoto,StudentSign,SSCCertificate,QualificationCertificate, ExperienceCertificate) {
+        //    var paramObj = {
+        //        "ApplicationNumber": ApplicationNumber, "InstitutionID": InstitutionID, "CourseID": CourseID, "CourseQualificationID": CourseQualificationID, "CourseExperienceID": CourseExperienceID, "SSC": SSC, "SSCHallticketNumber": SSCHallticketNumber, "SSCPassedYear": SSCPassedYear, "SSCPassedType": SSCPassedType, "StudentName": StudentName, "FatherName": FatherName, "MotherName": MotherName, "DateofBirth": DateofBirth, "SSCDateofBirth": SSCDateofBirth, "Gender": Gender, "AadharNumber": AadharNumber, "HouseNumber": HouseNumber, "Street": Street, "Landmark": Landmark, "Village": Village, "Pincode": Pincode, "District": District, "AddressState": AddressState, "StudentMobile": StudentMobile, "StudentEmail": StudentEmail, "SSCValidated": SSCValidated, "UserName": UserName, "StudentPhoto": StudentPhoto, "StudentSign": StudentSign, "SSCCertificate": SSCCertificate, "QualificationCertificate": QualificationCertificate, "ExperienceCertificate": ExperienceCertificate
+        //    };
+        //    var promise = DataAccessService.postData('api/CcicPreExamination/AddStudentDetails', paramObj);
+        //    return promise;
+        //}
+
+        this.AddStudentDetails = function (paramObject) {
+            console.log(paramObject)
+            return DataAccessService.postData('api/CcicPreExamination/AddStudentDetails', paramObject);
+        };
+
+        this.UpdateStudentDetails = function (paramObject) {
+            console.log(paramObject)
+            return DataAccessService.postData('api/CcicPreExamination/UpdateStudentDetails', paramObject);
+        };
 
         this.GetViewStudentDetails = function (ApplicationNumber, StudentID ) {
             var paramObj = {
@@ -307,6 +317,14 @@
                 "ApplicationNumber": ApplicationNumber, "StudentID": StudentID
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/SubmitStdDetails', paramObj);
+            return promise;
+        }
+
+        this.SetApplicationApprovalStatus = function (StudentId, UpdatedBy, ApplicationStatus) {
+            var paramObj = {
+                "StudentId": StudentId, "UpdatedBy": UpdatedBy, "ApplicationStatus": ApplicationStatus
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/SetApplicationApprovalStatus', paramObj);
             return promise;
         }
 

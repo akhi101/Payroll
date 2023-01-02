@@ -168,7 +168,7 @@
                         <select class="form-control" ng-model="examTypeId" name="exam" ng-change="changedExamType()">
                             <option value="0" selected>Select an Exam</option>
                             <option ng-repeat="exam in Exams" value="{{exam.id}}">
-                                {{exam.exam}}
+                                {{exam.examname}}
                             </option>
                             <!--ng-options="Student.type for Student in StudentType">-->
                         </select>

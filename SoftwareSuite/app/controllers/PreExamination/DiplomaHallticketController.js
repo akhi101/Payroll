@@ -197,7 +197,7 @@
             }
 
             $scope.dob = '123';
-            var getHallticket = PreExaminationService.getHallticket($scope.pinNumber, $scope.dob, $scope.Student.id, $scope.ExamMonthYear);
+            var getHallticket = PreExaminationService.getHallticket1($scope.pinNumber, $scope.dob, $scope.Student.id, $scope.ExamMonthYear);
             getHallticket.then(function (resp) {
                 $scope.hallCaptcha = "";
                 $scope.createCaptcha();

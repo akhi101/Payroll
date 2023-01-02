@@ -3199,8 +3199,16 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "SC" + BonafideData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
-            doc.Save(path);
+            var path = string.Empty;
+            if (BonafideData[0].ServiceType == 91)
+            {
+                 path = dir + "SC" + BonafideData[0].Pin +DateTime.Now.ToString("HHmmss")+".pdf";
+            }
+            else if (BonafideData[0].ServiceType == 92)
+            {
+                 path = dir + "BC" + BonafideData[0].Pin +DateTime.Now.ToString("HHmmss")+".pdf";
+            }
+                doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;

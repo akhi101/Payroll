@@ -12,6 +12,8 @@
         $scope.DetainedDetailsFound = false;
         $scope.isBackLog = false;
         $scope.ispromotional = false;
+        $scope.ChallanDisable = false;
+        $scope.loader = false;
         $scope.PaymentStudent = [];
 
 
@@ -439,6 +441,7 @@
 
                 }
             }
+            console.log($scope.FinalExamFee)
             $scope.FinalTotalFee = $scope.FinalExamFee + $scope.FinalLateFee + $scope.FinalTatkalFee + $scope.FinalPremiumTatkalFee;
         }
 
@@ -892,11 +895,13 @@
 
             var location = window.location.origin;
 
-            PreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount, "studentType", "json");
+           // PreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount, "studentType", "json");
             // $localStorage.assessment.redirecturl = 'Dashboard.AssessmentDashboard.Assessment.TheorySubjectList';
             //localhost:65321/Payment/BulkBillResponse
             //'sbtet.telangana.gov.in/API/Payment/BulkBillResponse'
-            var proceedfinePayment = PaymentService.getHashValue(location + "/Payment/BulkBillResponse", marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount);
+            PreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount, 0, "json");
+            var proceedfinePayment = PaymentService.getSomeValue(location + "/Payment/BulkBillResponse", $scope.challan);
+            //var proceedfinePayment = PaymentService.getHashValue(location + "/Payment/BulkBillResponse", marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount);
             proceedfinePayment.then(function (resp) {
                 if (resp != "" && resp != undefined) {
                     // var req = "https://uat.billdesk.com/pgidsk/PGIMerchantPayment?msg="
@@ -930,10 +935,12 @@
 
         $scope.isStudentContact = true;
         $scope.payNow = function () {
-
-
+            $scope.ChallanDisable = true;
+            $scope.loader = true;
             if ($scope.Student === undefined) {
                 alert("Select Student Type");
+                $scope.ChallanDisable = false;
+                $scope.loader = false;
             }
             else if ($scope.Student !== undefined) {
 
@@ -960,7 +967,8 @@
                     var getChallanDetails = PreExaminationService.getChanllanForExamFee(JSON.stringify(PaymentStudent).toString(), $scope.ExamMonthYear);
                     getChallanDetails.then(function (Usersdata) {
                         $scope.userJsonData = JSON.parse(Usersdata);
-
+                        $scope.ChallanDisable = false;
+                        $scope.loader = false;
                         if ($scope.Student.id == 1) {
                             if ($scope.userJsonData.Table.length > 0) {
                                 if ($scope.userJsonData.Table1[0].ChalanaNumber !== undefined || $scope.userJsonData.Table[0].ChalanaNumber !== undefined) {
@@ -1013,6 +1021,8 @@
                                             size: 'xlg',
                                             scope: $scope,
                                             windowClass: 'modal-fit-att',
+                                            //backdrop: 'static',
+                                            //keyboard: false
                                         });
                                     }
                                     else {
@@ -1087,9 +1097,12 @@
                             }
                         }
                         else {
+
                             alert("Some thing Went Wrong");
                         }
                     }, function (err) {
+                        $scope.ChallanDisable = false;
+                        $scope.loader = false;
                         $scope.isShowResults = false;
                         console.log(err);
                     });
@@ -1098,6 +1111,8 @@
                     var getChallanData = PreExaminationService.getChallanData($scope.Student.id, $scope.Studentpin, $scope.ExamMonthYear);
                     getChallanData.then(function (res) {
                         //   console.log(res)
+                        $scope.ChallanDisable = false;
+                        $scope.loader = false;
                         if (res.Table[0].ResponceCode == '200') {
                             $scope.StudentVerData = res.Table1
                             $scope.challan = res.Table1[0].ChalanaNumber;
@@ -1111,9 +1126,13 @@
                                 windowClass: 'modal-fit-att',
                             });
                         } else if (res.Table[0].ResponceCode == '400') {
+                            $scope.ChallanDisable = false;
+                            $scope.loader = false;
                             alert(res.Table[0].ResponceDescription);
                         }
                         else {
+                            $scope.ChallanDisable = false;
+                            $scope.loader = false;
                             $scope.DetailsFound = false;
                             //  $scope.DetainedDetailsFoundWithData = res.Table[0].ResponceDescription
                             alert("Error while loading Data");
@@ -1122,7 +1141,8 @@
 
                     },
                         function (error) {
-
+                            $scope.ChallanDisable = false;
+                            $scope.loader = false;
                             $scope.DetailsFound = false;
                             alert("Error while loading Data");
                             console.log(error);

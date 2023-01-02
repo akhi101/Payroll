@@ -2,13 +2,15 @@
     app.controller("ViewStdDetailsVerController", function ($scope, $uibModal, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
+        var tempData3 = $localStorage.TempData3;
         var tempData2 = $localStorage.TempData2;
-        var tmp = $localStorage.TempData;
         $scope.UserName = authData.UserName;
+        $scope.UserTypeID = authData.UserTypeID;
+        var tmp = $localStorage.TempData;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
+            $scope.ViewStudentDetails();
             //$scope.GetVerificationReportData();
             $scope.ShowStudentDetails = false;
             $scope.DataTable = true;
@@ -24,30 +26,7 @@
 
 
         $scope.loading = true;
-        var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
-        var verifyreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
-        verifyreportData.then(function (response) {
-            try {
-                var res = JSON.parse(response);
-            }
-            catch (err) { }
-
-            $scope.VerificationReportDataTable = [];
-            if (res.length >= 0) {
-                $scope.loading = false;
-                $scope.VerificationReportDataTable = res;
-                $scope.$emit('hideLoading', data);
-
-            } else {
-                $scope.loading = false;
-                $scope.VerificationReportDataTable = [];
-                $scope.$emit('hideLoading', data);
-            }
-        },
-            function (error) {
-                //   alert("error while loading Notification");
-                var err = JSON.parse(error);
-            });
+       
 
 
 
@@ -60,10 +39,10 @@
         }
 
 
-        $scope.ViewStudentDetails = function (AppNo, StdId) {
+        $scope.ViewStudentDetails = function () {
             //$scope.loading = true;
             $scope.DataTable = false;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(AppNo, StdId);
+            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID);
             ViewStudentDetail.then(function (response) {
 
                 try {
@@ -137,6 +116,109 @@
                 $scope.closeModal3 = function () {
                     $scope.modalInstance3.close();
                 };
+            }
+
+
+            $scope.Approved = function () {
+
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID,  'Approved');
+                setapprovestatus.then(function (response) {
+                    $scope.loading = false;
+                    if (response[0].ResponseCode == '500') {
+                        alert(response[0].ResponseDescription);
+                        $scope.ViewStudentDetails();
+                        
+                    } else {
+                        $scope.loading = false;
+                        alert('Application Approval Status Updated');
+                        $state.go('CcicDashboard.Academic.EnrollmentReport.CcicAdmEnrollReportCourses.CcicAdmEnrollmentReportData');
+                        $scope.ViewStudentDetails();
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
+
+            }
+
+            $scope.Revised = function () {
+
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Revised');
+                setapprovestatus.then(function (response) {
+                    $scope.loading = false;
+                    if (response[0].ResponseCode == '500') {
+                        alert(response[0].ResponseDescription);
+                        $scope.ViewStudentDetails();
+
+                    } else {
+                        $scope.loading = false;
+                        alert('Application Approval Status Updated');
+                        $scope.GetInstitutionVerReportData();
+                        //$scope.ViewStudentDetails();
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
+
+            }
+            $scope.GetInstitutionVerReportData = function () {
+                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tmp.InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
+                verificationreportData.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    }
+                    catch (err) { }
+                    $scope.VerificationReportDataTable = [];
+                    if (res.length >= 0) {
+                        $scope.loading = false;
+                        $state.go('CcicDashboard.Academic.CcicAdmVerificationData');
+                        $scope.VerificationReportDataTable = res;
+                        $scope.$emit('hideLoading', data);
+
+
+                    } else {
+                        $scope.loading = false;
+                        $scope.VerificationReportDataTable = [];
+                        $scope.$emit('hideLoading', data);
+
+                    }
+                },
+                    function (error) {
+                        //   alert("error while loading Notification");
+                        var err = JSON.parse(error);
+                    });
+            }
+
+            $scope.Rejected = function () {
+
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Rejected');
+                setapprovestatus.then(function (response) {
+                    $scope.loading = false;
+                    if (response[0].ResponseCode == '500') {
+                        alert(response[0].ResponseDescription);
+                        $scope.ViewStudentDetails();
+
+                    } else {
+                        $scope.loading = false;
+                        alert('Application Approval Status Updated');
+                        $state.go('CcicDashboard.Academic.EnrollmentReport.CcicAdmEnrollReportCourses.CcicAdmEnrollmentReportData');
+                        $scope.ViewStudentDetails();
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
+
             }
 
 

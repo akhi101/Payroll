@@ -9,11 +9,105 @@
         text-decoration: none;
     }
 
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 14px !important;
+    }
+
     .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
         color: #337ab7;
         font-size: 14px !important;
         cursor: default !important;
+        font-family: 'Open Sans';
+    }
+
+    .base-row {
+        background-color: #fefefe;
+        border-radius: 4px;
+        margin-top: 0px;
+        margin-bottom: 60px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 17px -8px #888888;
+        font-family: 'Open Sans';
+    }
+
+    .table-custom-tables-tb .table-bordered > thead > tr > th {
+        border: 1px solid #ddd !important;
+        color: #788598;
+        font-size: 14px !important;
+        font-family: 'Open Sans';
+    }
+
+    .navbar_section {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: -20px;
+    }
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .breadcrumb-header {
+        background-color: #d8d8d8;
+        padding: 8px 0px;
+        margin-bottom: 20px;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
+
+    .col-md-12 {
+        width: 100%;
+        font-family: 'Open Sans';
+    }
+
+    .btn:not(.btn-link):not(.btn-circle) {
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        /* -webkit-border-radius: 2px; */
+        /* border-radius: 0px !important; */
+        font-size: 14px;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #555;
+        cursor: default;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+        font-family: 'Open Sans';
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        font-family: 'Open Sans';
+    }
+
+    .cl-details h2 {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Open Sans';
+        background: #5ca0d3;
+        padding: 6px 9px;
+        font-weight: 600;
+        margin-top: 0px;
+        margin-bottom: 5px;
     }
 </style>
 <html lang="en">
@@ -50,7 +144,7 @@
                 <ui-view>
                     <div class="breadcrumb-header">
                         <!-- breadcrumb Open -->
-                        <div class="container">
+                        <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
                             <section class="content-header">
                                 <h5>Verification Report View </h5>
                                 <ol class="breadcrumb">
@@ -61,26 +155,27 @@
                         </div>
                     </div>
                     <section class="content">
-                        <div class="container ">
+                        <div class="container containercontent">
 
-
-
-                            
+                            <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
                             <div class="col-md-12">
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
                                         <div id="VerificationReportTable">
-                                            <div class="cl-details">
-                                                <h2>Verification Report</h2>
-                                            </div>
-                                            <!--<div style="width:100%;text-align:center;">
-                        <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                    </div>-->
 
-                                            <div class="table-responsive table-custom-tables-tb" id="EnrollmentDetails">
-                                                <table class="table table-bordered table-hover table-rounded">
+                                            <form class="form-inline" ng-if="VerificationReportCoursesTable.length>0">
+                                                <div class="form-group">
+                                                    <label>Search</label>
+                                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                                                </div>
+                                            </form>
+                                            <label class="notifylabel" ng-if="VerificationReportCoursesTable.length>0" for="sel1" style="color: red;"> Click on Link to Get Student Details</label>
+
+
+                                            <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
+                                                <table class="table table-bordered  table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
                                                             <th>CourseCode</th>
@@ -95,16 +190,16 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in VerificationReportCountTable">
+                                                        <tr ng-repeat="Data in VerificationReportCoursesTable|orderBy:sortKey:reverse|filter:search">
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,1)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,2)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,3)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,5)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.CourseID,6)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                                            <td><b><a >{{Data.Enrolled}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Submitted}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Approved}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Revised}}</a></b></td>
+                                                            <td><b><a class="">{{Data.Rejected}}</a></b></td>
                                                         </tr>
 
                                                     </tbody>
@@ -118,7 +213,7 @@
                                 </div>
                             </div>
 
-                           
+
                         </div>
                     </section>
                 </ui-view>

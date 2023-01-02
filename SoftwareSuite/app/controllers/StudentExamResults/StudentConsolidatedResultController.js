@@ -295,14 +295,14 @@
 
 
                 });
-            } else if ($scope.scheme.schemeid == 1 || $scope.scheme.schemeid == 3 || $scope.scheme.schemeid == 4 || $scope.scheme.schemeid == 2 || $scope.scheme.schemeid == 6 || $scope.scheme.schemeid == 7) {
+            } else if ($scope.scheme.schemeid == 1 || $scope.scheme.schemeid == 3 || $scope.scheme.schemeid == 4 || $scope.scheme.schemeid == 2 || $scope.scheme.schemeid == 10 || $scope.scheme.schemeid == 6 || $scope.scheme.schemeid == 7) {
                 if ($scope.scheme.schemeid == 1) {
                     var resultdata = StudentResultService.GetC14ConsolidatedResult($scope.Pin);
                 } else if ($scope.scheme.schemeid == 3) {
                     var resultdata = StudentResultService.GetC16ConsolidatedResult($scope.Pin);
                 } else if ($scope.scheme.schemeid == 4) {
                     var resultdata = StudentResultService.GetC16SConsolidatedResult($scope.Pin);
-                } else if ($scope.scheme.schemeid == 2) {
+                } else if ($scope.scheme.schemeid == 2 || $scope.scheme.schemeid == 10) {
                     var resultdata = StudentResultService.GetER91ConsolidatedResult($scope.Pin);
                 } else if ($scope.scheme.schemeid == 6) {
                     var resultdata = StudentResultService.GetC05ConsolidatedResult($scope.Pin);

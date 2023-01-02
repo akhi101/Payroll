@@ -1,27 +1,25 @@
 ﻿define(['app'], function (app) {
-    app.controller("ViewStdDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("ViewStudentDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
-        var tempData3 = $localStorage.TempData3;
-        //var tempData2 = $localStorage.TempData2;
-        //$scope.ReportTypeID = tempData2.ReportTypeID;
-        $scope.isSubmitted = tempData3.isSubmitted;
-        $scope.ApplicationStatus = tempData3.ApplicationStatus;
+        var tempData1 = $localStorage.TempData1;
+    
+
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
+           /* $scope.Modify();*/
         }
 
         var data = {};
         $scope.$emit('showLoading', data);
 
         $scope.Close = function () {
-            $state.go('CcicDashboard.Academic.EnrollmentReport')
+            $state.go('CcicDashboard.Academic')
         }
         $scope.loading = true;
-        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID);
+        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
         ViewStudentDetail.then(function (response) {
 
             try {
@@ -29,10 +27,22 @@
             }
             catch (err) { }
 
+
+            //if (res[0].Submitted == 'Yes') {
+            //    $scope.Edit = true;
+            //    $scope.Submit = true;
+
+            //}
+            //else {
+            //    $scope.Clear = true;
+            //}
+
             $scope.PreviewData = [];
             if (res.length >= 0) {
                 $scope.loading = false;
                 $scope.PreviewData = res[0];
+                //$scope.DateofBirth = $scope.PreviewData.DateofBirth;
+
                 $scope.$emit('hideLoading', data);
 
             } else {
@@ -48,25 +58,22 @@
             });
 
 
-       
-        $scope.Modify = function (ApplicationNumber, StudentID) {
-            var ApplicationNumber = tempData3.ApplicationNumber;
-            var StudentID = tempData3.StudentID;
-            $localStorage.TempData4 = {
+
+  
+
+        $scope.Modify = function (ApplicationNumber, StudentId) {
+            var ApplicationNumber = tempData1.ApplicationNumber;
+            var StudentId = tempData1.StudentId;
+            $localStorage = {
                 ApplicationNumber: ApplicationNumber,
-                StudentID: StudentID
-                
-
-
-            };
-
-            $state.go('CcicDashboard.Academic.EditStdDetails');
+                    StudentId: StudentId
+            }
+            $state.go('CcicDashboard.Academic.EditStudentDetails');
         }
 
 
-
         $scope.SubmitStdDetails = function () {
-            var submitstddetails = CcicPreExaminationService.SubmitStdDetails(tempData3.ApplicationNumber, tempData3.StudentID);
+            var submitstddetails = CcicPreExaminationService.SubmitStdDetails(tempData1.ApplicationNumber, tempData1.StudentId);
             submitstddetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -75,8 +82,8 @@
 
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    $state.go('CcicDashboard.Academic.EnrollmentReport');
-   
+                    $state.go('CcicDashboard.Academic.Enrollment');
+
                 }
 
                 else if (res[0].ResponseCode == '400') {

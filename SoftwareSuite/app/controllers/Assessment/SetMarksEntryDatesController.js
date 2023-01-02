@@ -222,6 +222,9 @@
 
         // submit Marks Entry dates Form
         $scope.submitData = function () {
+            $scope.BtnDisable = true;
+            $scope.LoadImg = true;
+            $scope.MarksEntryData = false;
             //   if ($scope.SetDatesForm.$valid) {
             if ($scope.StudentId == 1 || $scope.StudentId == 2) {
 
@@ -283,8 +286,14 @@
             var PostMarkEntryDates = MarksEntryService.PostMarksEntryDates(Examid, semid, Academicid, UserName, fromdate, todate, finedate, ipaddress, fineamount, studenttypeid, schemeId, $scope.ExamMonthYear);
             PostMarkEntryDates.then(function (response) {
                 alert("Marks Entry Dates are set successfully");
+                $scope.BtnDisable = false;
+                $scope.LoadImg = false;
+                $scope.MarksEntryData = true;
                 $scope.GetMarksEntryDatesList();
             }, function (error) {
+                $scope.BtnDisable = false;
+                $scope.LoadImg = false;
+                $scope.MarksEntryData = true;
                 let err = JSON.parse(error);
                 console.log(err.Message);
             });

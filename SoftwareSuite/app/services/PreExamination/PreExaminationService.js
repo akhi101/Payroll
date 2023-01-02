@@ -20,7 +20,30 @@
         this.GetCategory = function () {
             return DataAccessService.getDataAll('Admission/GetCategory');
         };
-        
+
+        this.GenerateC18MemosDataByPin = function (ExamMonthYearId, MinCredits, Day, Month, Year, PIN) {
+            var paramObject = {
+                "ExamMonthYearId": ExamMonthYearId, "MinCredits": MinCredits, "Day": Day, "Month": Month, "Year": Year, "PIN": PIN
+            };
+            return DataAccessService.getDataWithPara('api/PreExamination/GenerateC18MemosDataByPin', paramObject);
+        };
+
+        this.RequestLog = function (marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, challan, amount, schemeId, json) {
+            var paramObject = { "marchantid": marchantid, "subMarchantid": subMarchantid, "addInfo1": addInfo1, "addInfo3": addInfo3, "addInfo4": addInfo4, "addInfo5": addInfo5, "addInfo6": addInfo6, "addInfo7": addInfo7, "challan": challan, "amount": amount, "schemeId": schemeId, "json": json };
+
+            return DataAccessService.postData('api/PreExamination/RequestLog', paramObject);
+        },
+
+        this.ThreeBacklogODCByPin = function (fromdate, todate, PIN) {
+            var paramObj = {
+                "fromdate": fromdate,
+                "todate": todate,
+                "PIN": PIN
+            }
+            var promise = DataAccessService.postData('PreExaminationReport/ThreeBacklogODCByPin', paramObj);
+            return promise;
+        };
+
         this.GetPolycetAcademicYear = function () {
             return DataAccessService.getDataAll('Admission/GetPolycetAcademicYear');
         };
@@ -315,8 +338,8 @@
 
 
 
-        this.UpdateSmsStatus = function (CertificateTypeId, Pin) {
-            var paramObject = { "CertificateTypeId": CertificateTypeId, "Pin": Pin };
+        this.UpdateSmsStatus = function (CertificateTypeId, Pin,Id) {
+            var paramObject = { "CertificateTypeId": CertificateTypeId, "Pin": Pin ,"Id":Id};
             var promise = DataAccessService.getDataWithPara('api/PreExamination/UpdateSmsStatus', paramObject);
             return promise;
         }
@@ -599,8 +622,8 @@
 
 
 
-        this.getBonafideData = function (pin) {
-            var param = { "pin": pin }
+        this.getBonafideData = function (pin,Id) {
+            var param = { "pin": pin, "Id": Id }
             return DataAccessService.getDataWithPara('api/PreExamination/getBonafideData', param);
         };
 
@@ -2090,11 +2113,11 @@
         }
 
 
-        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType, ServiceType) {
+        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType, ServiceType,Id) {
 
             var paramObj = {
                 "Pin": Pin, "Name": Name, "FatherName": FatherName, "Branchcode": Branchcode, "AcademicYear": AcademicYear,
-                "Conduct": Conduct, "userType": userType, "ServiceType": ServiceType
+                "Conduct": Conduct, "userType": userType, "ServiceType": ServiceType,"Id":Id
             }
 
             var promise = DataAccessService.postData('api/PreExamination/BonafideSetVerifyStatus', paramObj);
@@ -2384,9 +2407,9 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getTcDetailsByPin', paramObj);
             return promise;
         };
-        this.getBonafiedDetailsByPin = function (pin) {
+        this.getBonafiedDetailsByPin = function (pin, ServiceType) {
             var paramObj = {
-                "pin": pin
+                "pin": pin, "ServiceType": ServiceType
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getBonafiedDetailsByPin', paramObj);
             return promise;
@@ -2400,9 +2423,9 @@
             return promise;
         };
 
-        this.getBonafiedRequestedDetailsByPin = function (pin) {
+        this.getBonafiedRequestedDetailsByPin = function (pin,Id) {
             var paramObj = {
-                "pin": pin
+                "pin": pin, "Id": Id
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getBonafiedRequestedDetailsByPin', paramObj);
             return promise;
@@ -2809,6 +2832,17 @@
         }
             },
 
+            this.getHallticket1 = function (Pin, DateOfBirth, StudentTypeId, EMYR) {
+                if (StudentTypeId == 1) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "EMYR": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetRegularHallticket1', paramObject);
+                    return promise;
+                } else if (StudentTypeId == 2) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "Exammonthyearid": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket', paramObject);
+                    return promise;
+                }
+            },
 
             this.getAdminCollegePreExamReports = function (UserId, CollegeCode,ExamMonthYearId, Semester,StudentTypeId) {
                 var paramObj = { "UserId": UserId, "CollegeCode": CollegeCode, "ExamMonthYearId": ExamMonthYearId, "Semester": Semester, "StudentTypeId": StudentTypeId };

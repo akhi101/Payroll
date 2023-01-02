@@ -977,6 +977,8 @@
                     }
                 }
                 else if ($scope.Certificate == 9) {
+                  
+
                     var res = $scope.PinNumber.substring(0, 2);
                     var tempval = angular.uppercase($scope.PinNumber)
                     var exis = (tempval.includes("CCA") || tempval.includes("CCC") || tempval.includes("CCCM") || tempval.includes("CCEC")
@@ -1004,7 +1006,12 @@
                         $scope.NoDataFound = false;
                         $scope.NoData = false;
                     } else {
-                        var getData = PreExaminationService.getBonafiedDetailsByPin($scope.PinNumber)
+
+                        if ($scope.BonafideType == null || $scope.BonafideType == "" || $scope.BonafideType == undefined) {
+                            alert("Select Certificate Type.");
+                            return;
+                        }
+                        var getData = PreExaminationService.getBonafiedDetailsByPin($scope.PinNumber, $scope.BonafideType)
                     }
                 }
 
@@ -1324,7 +1331,7 @@
 
                 } else if ($scope.Certificate == 9) {
                     if ($scope.ReasonForBonafied == undefined || $scope.ReasonForBonafied == null || $scope.ReasonForBonafied == '') {
-                        alert('Please Enter the purpose, for bonafied certificate.');
+                        alert('Please Enter the purpose, for Bonafied/Study certificate.');
                         return;
                     }
                     if ($scope.BonafideType == undefined || $scope.BonafideType == null || $scope.BonafideType == '') {

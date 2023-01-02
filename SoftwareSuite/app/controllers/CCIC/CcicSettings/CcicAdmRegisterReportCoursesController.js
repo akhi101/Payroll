@@ -49,7 +49,7 @@
 
         $scope.ShowDetails = function (InstitutionID,CourseID, ReportTypeID,academicYear,batch) {
 
-            $localStorage.TempData3 = {
+            $localStorage.TempData2 = {
                 InstitutionID: InstitutionID,
                 CourseID: CourseID,
                 ReportTypeID: ReportTypeID,

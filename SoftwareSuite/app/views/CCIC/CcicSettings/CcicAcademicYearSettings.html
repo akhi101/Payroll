@@ -38,6 +38,111 @@
     .table-striped > tbody > tr:nth-of-type(odd) {
         background-color: #f9f9f9 !important;
     }
+
+    .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
+        border: 1px solid #ddd !important;
+        color: #337ab7;
+        font-size: 14px !important;
+        cursor: default !important;
+        font-family: 'Open Sans';
+    }
+
+    .base-row {
+        background-color: #fefefe;
+        border-radius: 4px;
+        margin-top: 0px;
+        margin-bottom: 60px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 17px -8px #888888;
+        font-family: 'Open Sans';
+    }
+
+    .table-custom-tables-tb .table-bordered > thead > tr > th {
+        border: 1px solid #ddd !important;
+        color: #788598;
+        font-size: 14px !important;
+        font-family: 'Open Sans';
+    }
+
+    .navbar_section {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: -20px;
+    }
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .breadcrumb-header {
+        background-color: #d8d8d8;
+        padding: 8px 0px;
+        margin-bottom: 20px;
+        font-family: 'Open Sans';
+        font-size: 14px;
+    }
+    .col-md-12 {
+        width: 100%;
+        font-family: 'Open Sans';
+    }
+
+    .btn:not(.btn-link):not(.btn-circle) {
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        /* -webkit-border-radius: 2px; */
+        /* border-radius: 0px !important; */
+        font-size: 14px;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #555;
+        cursor: default;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+        font-family: 'Open Sans';
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        font-family: 'Open Sans';
+    }
+    .cl-details h2 {
+        color: #ffffff;
+        font-size: 14px;
+        font-family: 'Open Sans';
+        background: #5ca0d3;
+        padding: 6px 9px;
+        font-weight: 600;
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 14px !important;
+    }
+
+    .col-md-12 {
+        width: 100%;
+        font-family: 'Open Sans';
+    }
+    
 </style>
 
 <div ng-controller="CcicAcademicYearSettingsController">
@@ -69,7 +174,7 @@
     </script>
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
-        <div class="container">
+        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; padding-left: 29px; margin-right: 80px;">
             <section class="content-header">
                 <h5>Academic Year Setting</h5>
                 <ol class="breadcrumb">
@@ -81,15 +186,14 @@
         </div>
         <!-- breadcrumb Close -->
     </div>
-    <div class="container">
+    <div class="container containercontent">
 
-        <div class="col-md-12">
+        <div class="col-md-12 containercontent">
             <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
 
 
-        <div id="exTab2" class="container">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs containercontent">
                 <li class="active">
                     <a href="#1" data-toggle="tab" ng-click="Add_AcademicYear()">Add AcademicYear</a>
                 </li>
@@ -104,16 +208,16 @@
             </ul>
 
 
-            <div class="tab-content ">
+            <div class="tab-content">
 
 
                 <div class="tab-pane active" id="1">
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="cl-details">
                             <h2> Add AcademicYear</h2>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="alert alert-info">
                             <div class="studWishinputs">
                                 <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
@@ -154,7 +258,7 @@
                         </div>
 
 
-                     
+
                         <div class="col-md-12" ng-if="loading">
                             <div class="sm-spacer"></div>
                             <div style="width:100%;text-align:center;">
@@ -169,9 +273,9 @@
                             </div>
                         </div>
                         <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="GetCcicAcademicYears.length>0">
-                            <div class="cl-details" ng-if="GetCcicAcademicYears.length>0">
-                                <h2>Academic Years</h2>
-                            </div>
+                            <!--<div class="cl-details" ng-if="GetCcicAcademicYears.length>0">
+                            <h2>Academic Years</h2>
+                        </div>-->
                             <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                                 <thead>
                                     <tr class="cb-1">
@@ -231,11 +335,11 @@
 
 
                         <!--<div class="col-md-12">
-        <div ng-if="Noreports" class="no-results">
-            <img src="../../contents/img/Folder-Icon.svg" />
-            <h2>No Result Found</h2>
-        </div>
-    </div>-->
+                        <div ng-if="Noreports" class="no-results">
+                            <img src="../../contents/img/Folder-Icon.svg" />
+                            <h2>No Result Found</h2>
+                        </div>
+                    </div>-->
 
 
                     </div>
@@ -245,13 +349,13 @@
 
 
                 <div class="tab-pane" id="2">
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="cl-details">
                             <h2>Add Current Batch </h2>
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="base-row" style="padding:15px!important;">
                             <div class="row">
                                 <div class="col-md-3">
@@ -266,24 +370,24 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-md-3">
-                <div class="form-group">
+                                <div class="form-group">
 
-                    <label class="font-weight-bold"> Course Duration :</label>
-                    <select class="form-control " ng-model="CourseDuration" name="StudentType" ng-change="getCcicCourseDurationBatches(CourseDuration)" required>
-                        <option value="" selected="selected">Select Duration</option>
-                        <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurations" class="">
-                            {{data.CourseDuration}}
-                        </option>
-                    </select>
-                </div>
-            </div>-->
+                                    <label class="font-weight-bold"> Course Duration :</label>
+                                    <select class="form-control " ng-model="CourseDuration" name="StudentType" ng-change="getCcicCourseDurationBatches(CourseDuration)" required>
+                                        <option value="" selected="selected">Select Duration</option>
+                                        <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurations" class="">
+                                            {{data.CourseDuration}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>-->
                                 <div class="col-md-3">
                                     <div class="form-group">
 
                                         <label class="font-weight-bold"> Batch :</label>
                                         <select class="form-control " ng-model="batch" name="StudentType" required>
                                             <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetBatches" class="">
+                                            <option value="{{data.Batch}}" ng-repeat="data in GetBatchesData" class="">
                                                 {{data.Batch}}
                                             </option>
                                         </select>
@@ -292,20 +396,20 @@
 
 
                                 <!--<div class="col-md-3 form-group">
-                <label class="font-weight-bold"> Batch:</label>
-                <select class="form-control" ng-model="batch" name="BatchType" required>
-                    <option value="" selected="selected">Select Batch</option>
-                    <option value=1>1</option>
-                    <option value=2>2</option>
+                                <label class="font-weight-bold"> Batch:</label>
+                                <select class="form-control" ng-model="batch" name="BatchType" required>
+                                    <option value="" selected="selected">Select Batch</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
 
-                </select>
-            </div>-->
+                                </select>
+                            </div>-->
                                 <!--<div class="col-md-3 form-group">
-                <label class="font-weight-bold">Start Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchStartDate" placeholder="Select Start Date">
-            </div>
-            <div class="col-md-3 form-group">
-                <label class="font-weight-bold">End Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchEndDate" placeholder="Select End Date">
-            </div>-->
+                                <label class="font-weight-bold">Start Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchStartDate" placeholder="Select Start Date">
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label class="font-weight-bold">End Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchEndDate" placeholder="Select End Date">
+                            </div>-->
 
                                 <div class="col-md-3 form-group">
                                     <label class="font-weight-bold"> Current Batch:</label>
@@ -337,10 +441,10 @@
                                 <h2>No Data</h2>
                             </div>
                         </div>
-                        <div ng-if="GetCcicAcademicYearCurrentBatchTable&&academicyear.length>0" class="cl-details">
+                        <div ng-if="GetCcicAcademicYearCurrentBatchTable.length>0" class="cl-details">
                             <h2>AcademicYear Batch</h2>
                         </div>
-                        <div ng-if="GetCcicAcademicYearCurrentBatchTable&&academicyear.length>0" class="table-responsive table-custom-tables-tb scrollbox">
+                        <div ng-if="GetCcicAcademicYearCurrentBatchTable.length>0" class="table-responsive table-custom-tables-tb scrollbox">
                             <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                                 <thead>
                                     <tr class="cb-1">
@@ -389,13 +493,13 @@
 
 
                 <div class="tab-pane" id="3">
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="cl-details">
                             <h2>Add CourseDuration Batches  </h2>
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 containercontent">
                         <div class="base-row" style="padding:15px!important;">
                             <div class="row">
                                 <div class="col-md-2">
@@ -424,14 +528,14 @@
                                 </div>
 
                                 <!--<div class="col-md-3 form-group">
-                <label class="font-weight-bold"> Batch:</label>
-                <select class="form-control " name="BatchType" required>
-                    <option value="" selected="selected">Select</option>
-                    <option value=1>1</option>
-                    <option value=1>2</option>
+                                <label class="font-weight-bold"> Batch:</label>
+                                <select class="form-control " name="BatchType" required>
+                                    <option value="" selected="selected">Select</option>
+                                    <option value=1>1</option>
+                                    <option value=1>2</option>
 
-                </select>
-            </div>-->
+                                </select>
+                            </div>-->
                                 <div class="col-md-2">
                                     <div class="form-group">
 
@@ -445,17 +549,17 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-md-3">
-                <div class="form-group">
+                                <div class="form-group">
 
-                    <label class="font-weight-bold"> Batch :</label>
-                    <select class="form-control " ng-model="Batch" name="StudentType" required>
-                        <option value="" selected="selected">Select Batch</option>
-                        <option value="{{data.Batch}}" ng-repeat="data in GetCcicCourseDurationBatchesTable" class="">
-                            {{data.Batch}}
-                        </option>
-                    </select>
-                </div>
-            </div>-->
+                                    <label class="font-weight-bold"> Batch :</label>
+                                    <select class="form-control " ng-model="Batch" name="StudentType" required>
+                                        <option value="" selected="selected">Select Batch</option>
+                                        <option value="{{data.Batch}}" ng-repeat="data in GetCcicCourseDurationBatchesTable" class="">
+                                            {{data.Batch}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>-->
                                 <div class="col-md-2 form-group">
                                     <label class="font-weight-bold">Start Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchStartDate" placeholder="Select Start Date">
                                 </div>
@@ -463,14 +567,14 @@
                                     <label class="font-weight-bold">End Date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="AYBatchEndDate" placeholder="Select End Date">
                                 </div>
                                 <!--<div class="col-md-3 form-group">
-                <label class="font-weight-bold"> Current Batch:</label>
-                <select class="form-control " name="BatchType" required>
-                    <option value="" selected="selected">Select</option>
-                    <option value=1>Yes</option>
-                    <option value=0>No</option>
+                                <label class="font-weight-bold"> Current Batch:</label>
+                                <select class="form-control " name="BatchType" required>
+                                    <option value="" selected="selected">Select</option>
+                                    <option value=1>Yes</option>
+                                    <option value=0>No</option>
 
-                </select>
-            </div>-->
+                                </select>
+                            </div>-->
 
                                 <div class="col-md-2 pull-left">
                                     <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="AddAYCourseDurationBatches()">
@@ -491,10 +595,10 @@
                                 <h2>No Data</h2>
                             </div>
                         </div>
-                        <div ng-if="GetCcicAcademicYearBatchesTable&&academicYear.length>0" class="cl-details">
+                        <div ng-if="GetCcicAcademicYearBatchesTable.length>0" class="cl-details">
                             <h2>AcademicYear Batch</h2>
                         </div>
-                        <div ng-if="GetCcicAcademicYearBatchesTable&&academicYear.length>0" class="table-responsive table-custom-tables-tb scrollbox">
+                        <div ng-if="GetCcicAcademicYearBatchesTable.length>0" class="table-responsive table-custom-tables-tb scrollbox">
                             <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                                 <thead>
                                     <tr class="cb-1">
@@ -515,21 +619,21 @@
                                         <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.CourseDuration" /></td>
                                         <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.Batch" /></td>
                                         <!--<td class="text-center pointer" style="padding: 3px;">
-                        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" />
-                            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
-                            </span>
-                        </p>
-                    </td>
-                    <td class="text-center pointer" style="padding: 3px;">
-                        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="End Date" autocomplete="off" name="EndDate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchEndDate" />
-                            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                <button type="button" class="btn btn-primary"> <i class="fa fa-calendar"></i></button>
-                            </span>
-                        </p>
-                    </td>-->
+                                        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" />
+                                            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                                                <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td class="text-center pointer" style="padding: 3px;">
+                                        <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                            <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="End Date" autocomplete="off" name="EndDate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchEndDate" />
+                                            <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                                                <button type="button" class="btn btn-primary"> <i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </td>-->
                                         <td class="text-center pointer" style="padding: 3px;">
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
                                                 <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Start Date" autocomplete="off" name="Startdate" datetime-picker="dd-MM-yyyy" id="setToDate " ng-model="data.AYBatchStartDate" is-open="showFlag2" />
@@ -574,7 +678,7 @@
                 </div>
 
             </div>
-        </div>
+        
 
 
 

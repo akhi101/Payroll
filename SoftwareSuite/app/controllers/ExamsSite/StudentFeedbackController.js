@@ -98,18 +98,22 @@ define(['app'], function (app) {
                     var response = JSON.parse(response);
                 } catch (err) { }
 
-
                 if (response.Table[0].StatusCode == 200) {
+                   
                     if (response.Table2.length > 0) {
-                        $scope.StudentData = [];
-                        $scope.SubjectList = [];
-                        $scope.FeedBackDescriptions = [];
-                        $scope.hideinput = true;
-                        $scope.dataTable = true;
-                        $scope.loading = false;
-                        $scope.StudentData = response.Table1[0];
-                        $scope.SubjectList = response.Table2;
-                        $scope.FeedBackDescriptions = response.Table3;
+                        if ($scope.userOtp === response.Table[0].OTP) {
+                            $scope.StudentData = [];
+                            $scope.SubjectList = [];
+                            $scope.FeedBackDescriptions = [];
+                            $scope.hideinput = true;
+                            $scope.dataTable = true;
+                            $scope.loading = false;
+                            $scope.StudentData = response.Table1[0];
+                            $scope.SubjectList = response.Table2;
+                            $scope.FeedBackDescriptions = response.Table3;
+                        } else {
+                             alert("OTP Mismatch")
+                        }
                     } else {
                         alert("Faculty Data Not Found");
                         $scope.StudentData = [];

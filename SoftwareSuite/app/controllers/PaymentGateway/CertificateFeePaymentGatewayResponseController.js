@@ -51,7 +51,7 @@
                             if (res.Table[0].authstatus == '0300') {
                                 $scope.success = true;
                                 $scope.pins = res.Table[0].addtninfo1;
-                                $scope.Status = "Success Transaction";
+                                $scope.Status = res.Table[0].errordesc;
 
                                 $scope.BacklogData = [];
                                 if (res.Table[0].addtninfo5 == '8') {
@@ -76,7 +76,17 @@
                                         });
 
 
-                                    } else {
+                                    } else if (res.Table[0].authstatus == '0999') {
+                                        $scope.LoadImg = false;
+                                        $scope.success = false;
+                                        $scope.pins = pins;
+                                        $scope.Status = res.Table[0].errordesc;
+                                        //sending sms using challan number to SendSms controller
+                                        //PaymentService.callSms($scope.refno);
+                                        //$scope.cancel();
+                                        return;
+                                    }
+                                    else {
                                         $scope.NoDataFound = false;
                                         var GetPinData = PreExaminationService.GetPinDetails($scope.pins);
                                         GetPinData.then(function (res) {

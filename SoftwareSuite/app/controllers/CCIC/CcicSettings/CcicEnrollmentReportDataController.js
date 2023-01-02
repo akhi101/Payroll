@@ -5,7 +5,7 @@
         var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
         $scope.UserName = authData.UserName;
-       
+        $scope.ReportTypeID = tempData2.ReportTypeID;
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
@@ -118,12 +118,13 @@
 
         //}
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID,isSubmitted) {
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, isSubmitted, ApplicationStatus) {
 
             $localStorage.TempData3 = {
                 ApplicationNumber: ApplicationNumber,
                 StudentID: StudentID,
-                isSubmitted: isSubmitted
+                isSubmitted: isSubmitted,
+                ApplicationStatus: ApplicationStatus
                
 
             };

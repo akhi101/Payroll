@@ -126,6 +126,48 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpPost, ActionName("ThreeBacklogODCByPin")]
+        public string ThreeBacklogODCByPin(string fromdate, string todate, string PIN)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "USP_GET_3BacklogODCReports_ByPIN ";
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@fromdate", fromdate);
+                param[1] = new SqlParameter("@todate", todate);
+                param[2] = new SqlParameter("@PIN", PIN);
+                //param[2] = new SqlParameter("@day", day);
+                //param[3] = new SqlParameter("@month", month);
+                //param[4] = new SqlParameter("@year", year);
+                //param[5] = new SqlParameter("@ExamYearMonth", ExamYearMonth);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    var filename = "ThreeBacklogODCByPin-" + PIN + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPathTR"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(30000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPathTR"] + filename);
+                    timer.Start();
+                    return "/TR/" + filename;
+                }
+                else
+                {
+                    return "No Data Found";
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_3BacklogODCReports", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
+            }
+            return "";
+        }
+
 
         [HttpPost, ActionName("GetFromExalReports")]
         public string GetFromExalReports([FromBody] HttpPostedFileBase file)

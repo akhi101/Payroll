@@ -3,8 +3,10 @@
 
 
         $scope.pin = $localStorage.certData.pin;
+        $scope.Id = $localStorage.certData.Id;
+      
         $scope.today = new Date();
-        var ApproveList = PreExaminationService.getBonafideData($scope.pin);
+        var ApproveList = PreExaminationService.getBonafideData($scope.pin, $scope.Id);
         ApproveList.then(function (response) {
             var response = JSON.parse(response)
             console.log(response);

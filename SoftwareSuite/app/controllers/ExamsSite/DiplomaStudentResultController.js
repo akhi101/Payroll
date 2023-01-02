@@ -361,7 +361,7 @@
 
 
                 }
-                else if ($scope.scheme.schemeid == '3' || $scope.scheme.schemeid == '4' || $scope.scheme.schemeid == '2') {// for c16, ER91  regular result 
+                else if ($scope.scheme.schemeid == '3' || $scope.scheme.schemeid == '4' || $scope.scheme.schemeid == '2' || $scope.scheme.schemeid == '10') {// for c16, ER91  regular result
                     if ($scope.SelStudentType.id == 1) {
                         if ($scope.scheme.schemeid == '2') {
 

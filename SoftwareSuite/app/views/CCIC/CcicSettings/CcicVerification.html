@@ -15,6 +15,33 @@
         color: #337ab7;
         font-size: 14px !important;
         cursor: default !important;
+        font-family: 'Open Sans';
+    }
+
+    .base-row {
+        background-color: #fefefe;
+        border-radius: 4px;
+        margin-top: 0px;
+        margin-bottom: 60px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 17px -8px #888888;
+        font-family: 'Open Sans';
+    }
+
+    .table-custom-tables-tb .table-bordered > thead > tr > th {
+        border: 1px solid #ddd !important;
+        color: #788598;
+        font-size: 14px !important;
+        font-family: 'Open Sans';
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 14px !important;
     }
 </style>
 <html lang="en">
@@ -40,18 +67,46 @@
             height: 550px !important;
             overflow: scroll !important;
         }
+
+        .navbar_section {
+            margin-right: 0px;
+            margin-left: 0px;
+            margin-bottom: -20px;
+        }
+
+        a.backA, a.backA:focus {
+            color: #fff !important;
+            text-decoration: none !important;
+            font-family: 'Open Sans';
+            font-size: 14px;
+            padding-right: 0px;
+            margin-right: 80px;
+        }
+
+        a {
+            color: #337ab7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .breadcrumb-header {
+            background-color: #d8d8d8;
+            padding: 8px 0px;
+            margin-bottom: 20px;
+            font-family: 'Open Sans';
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div ng-controller="CcicVerificationController">
 
-        <div class="clearfix"></div>
         <div>
             <div class="">
                 <ui-view>
                     <div class="breadcrumb-header">
                         <!-- breadcrumb Open -->
-                        <div class="container">
+                        <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
                             <section class="content-header">
                                 <h5>Verification Report View </h5>
                                 <ol class="breadcrumb">
@@ -62,24 +117,16 @@
                         </div>
                     </div>
                     <section class="content">
-                        <div class="container ">
+                        <div class="container" style="font-family: 'Open Sans'; width: 1182px; padding-right: 0px; margin-right: 80px;">
 
-
-
-                            <div class="col-md-12" ng-show="VerificationReportTable">
+                            <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+                            <div class="col-md-12" ng-show="VerificationReportCoursesTable">
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
                                         <div id="VerificationReportTable">
-                                            <div class="cl-details">
-                                                <h2>Verification Report</h2>
-                                            </div>
-                                            <!--<div style="width:100%;text-align:center;">
-                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                                            </div>-->
-
                                             <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
-                                                <table class="table table-bordered table-hover table-rounded">
+                                                <table class="table table-bordered table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
                                                             <th>CourseCode</th>
@@ -94,11 +141,11 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in VerificationReportCountTable">
+                                                        <tr ng-repeat="Data in VerificationReportCoursesTable">
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a class="Verify">{{Data.Enrolled}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,1)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,2)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,3)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
                                                             <td><b><a class="Verify" ng-click="showDetails(Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
@@ -122,14 +169,13 @@
 
                                     <div class="col-md-12">
                                         <div id="AdminVerificationReportTable">
-                                            <div class="cl-details">
-                                                <h2>Verification Report</h2>
-                                            </div>
-                                            <!--<div style="width:100%;text-align:center;">
-                                                <img src="../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                                            </div>-->
-                                            <br>
-                                            <label class="notifylabel" ng-if="AdminVerificationReportCountTable.length>0" for="sel1" style="color: red;top:33px"> Double click on row to Update Student</label>
+                                            <form class="form-inline">
+                                                <div class="form-group">
+                                                    <label>Search</label>
+                                                    <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                                                </div>
+                                            </form>
+                                            <label class="notifylabel" for="sel1" style="color: red;">Double Click on Row to get Courses Count Details</label>
 
                                             <div class="table-responsive table-custom-tables-tb" id="VerificationDetails">
                                                 <table class="table table-bordered table-hover table-rounded">
@@ -148,7 +194,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="Data in AdminVerificationReportCountTable" ng-dblclick="showAdminVerificationCount(Data.InstitutionID)">
+                                                        <tr ng-repeat="Data in AdminVerificationReportInsCountTable" ng-dblclick="showAdminVerificationInsCount(Data.InstitutionID)|orderBy:sortKey:reverse|filter:search">
 
                                                             <td>{{Data.InstitutionCode}}</td>
                                                             <td>{{Data.InstitutionName}}</td>

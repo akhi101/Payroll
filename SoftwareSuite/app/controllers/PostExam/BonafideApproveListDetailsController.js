@@ -58,8 +58,10 @@
                     if ($scope.ApprovalDetails[i].isChecked) {
                         dataPay = {};
                         dataPay.PIN = $scope.ApprovalDetails[i].PIN
+                        dataPay.Id = $scope.ApprovalDetails[i].Id
                         PaymentStudent.push(dataPay);
                         PaymentStudentList.push($scope.ApprovalDetails[i].PIN);
+                        PaymentStudentList.push($scope.ApprovalDetails[i].Id);
                     }
                 }
 
@@ -143,7 +145,7 @@
         }
 
 
-        $scope.sensSMS = function (PIN, Path, mobile, ind) {
+        $scope.sensSMS = function (Id,PIN, Path, mobile, ind) {
             if (mobile == null || angular.isUndefined(mobile) || mobile == "") {
                 alert("Mobile No not Found");
                 return;
@@ -157,7 +159,7 @@
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {
-                    var UpdateSmsStatus = PreExaminationService.UpdateSmsStatus(9, PIN);
+                    var UpdateSmsStatus = PreExaminationService.UpdateSmsStatus(9, PIN,Id);
                     UpdateSmsStatus.then(function (response) {
                         try { var response = JSON.parse(response) } catch (err) { }
                         if (response[0].ResponceCode == "200") {
@@ -435,11 +437,12 @@
                 });
         }
 
-        $scope.openDetails = function (CertificateType, Pin) {
+        $scope.openDetails = function (CertificateType, Pin,Id) {
 
             $localStorage.certData = {
                 Certificate: CertificateType,
-                pin: Pin
+                pin: Pin,
+                Id: Id
             }
 
             $state.go('Dashboard.PreExamination.StudyCertificate');
@@ -468,8 +471,8 @@
             $scope.StudentDetails.AcademicYear = yr;
         }
 
-        $scope.OpenPopup = function (pin, Certificate) {
-            var ApproveList = PreExaminationService.getBonafiedRequestedDetailsByPin(pin);
+        $scope.OpenPopup = function (pin, Id) {
+            var ApproveList = PreExaminationService.getBonafiedRequestedDetailsByPin(pin,Id);
             ApproveList.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response.Table[0].ResponceCode == '200') {
@@ -548,19 +551,23 @@
                     }
             $scope.allItemsSelectedthing = false;
             if (data != null) {
-                if (!PaymentStudentList.includes(data.PIN)) {
+                if (!PaymentStudentList.includes(data.Id)) {
                     dataPay = {};
                     dataPay.PIN = data.PIN
                     dataPay.isChecked = data.isChecked
+                    dataPay.Id = data.Id
                     PaymentStudent.push(dataPay);
                     PaymentStudentList.push(data.PIN);
+                    PaymentStudentList.push(data.Id);
                     PaymentStudentList.push(data.isChecked)
                 }
-                else if (PaymentStudentList.includes(data.PIN)) {
+                else if (PaymentStudentList.includes(data.Id)) {
                     PaymentStudentList.remByVal(data.PIN);
                     PaymentStudentList.remByVal(data.isChecked);
-                    PaymentStudent.remElementByVal(data.PIN);
+                    PaymentStudentList.remByVal(data.Id);
 
+                    PaymentStudent.remElementByVal(data.PIN);
+                    PaymentStudent.remElementByVal(data.Id);
                     PaymentStudent.remElementByVal(data.isChecked);
                     if (PaymentStudentList.length == 0) {
                         $scope.allItemsSelectedthing = false;
@@ -581,7 +588,7 @@
 
         Array.prototype.remElementByVal = function (val) {
             for (var i = 0; i < this.length; i++) {
-                if (this[i].PIN === val) {
+                if (this[i].Id === val) {
                     this.splice(i, 1);
                     break;
                 }
@@ -596,10 +603,10 @@
                 $scope.btndisable = true;
                 var ApproveStatus = 1;
                 if ($scope.UserTypeId == '2') {
-                    if (angular.isUndefined($scope.UserCertificates) || $scope.UserCertificates[0].SerialNumber == null) {
-                        alert('Link the Digital signature to sign the documents');
-                        return;
-                    }
+                    //if (angular.isUndefined($scope.UserCertificates) || $scope.UserCertificates[0].SerialNumber == null) {
+                    //    alert('Link the Digital signature to sign the documents');
+                    //    return;
+                    //}
                     $scope.buttonlabel = "Signing in process ...";
                     var GetInterimCertificateTobeSignedlocation = PreExaminationService.GetBonafideCertificateTobeSignedlocation(PaymentStudent)
                     GetInterimCertificateTobeSignedlocation.then(function (response) {
@@ -614,6 +621,7 @@
                         if (response.length > 0) {
                             for (var i = 0; i < response.length; i++) {
                                 var obj = {
+                                    "Id": response[i].Id,
                                     "Pin": response[i].Pin,
                                     "CertificateServiceId": 9,
                                     "PdfLocation": response[i].PdfUrl,
@@ -634,7 +642,12 @@
                                     var signedpins = [];
                                     response.forEach(function (item, index) {
                                         if (item.status == "SUCCESS") {
-                                            signedpins.push({ "PIN": item.Pin });
+                                            for (var i = 0; i < paramObject.length; i++) {
+                                                if (item.Pin === paramObject[i].Pin) {
+                                                    signedpins.push({ "PIN": item.Pin, "Id": paramObject[i].Id });
+                                                }
+                                            }
+                                          
                                         }
                                     });
                                     if (signedpins.length <= 0) {
@@ -680,7 +693,7 @@
                     for (var i = 0; i < PaymentStudent.length; i++) {
                         dataPay = {};
                         dataPay.PIN = PaymentStudent[i].PIN;
-
+                        dataPay.Id = PaymentStudent[i].Id;
                         array.push(dataPay);
                         //array.push($scope.PaymentStudent[i].PIN);
                     }
@@ -812,7 +825,7 @@
 
             var stuconduct = $scope.StudentDetails.conduct == null || $scope.StudentDetails.conduct == undefined ? ' ' : $scope.StudentDetails.conduct
             var ApproveStatus = 1
-            var Approve = PreExaminationService.BonafideSetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.ServiceType);
+            var Approve = PreExaminationService.BonafideSetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.ServiceType, $scope.StudentDetails.Id);
 
             Approve.then(function (response) {
 
@@ -824,9 +837,13 @@
                         $scope.closeModal()
 
                         $scope.GetApprovalDetails()
+                        $scope.StartYear = "";
+                        $scope.EndYear = "";
 
                     } else if (response.Table[0].ResponseCode == '400') {
                         alert(response.Table[0].ResponseDescription)
+                        $scope.StartYear = "";
+                        $scope.EndYear = "";
                         $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
                         $scope.closeModal()
                     }
@@ -834,9 +851,13 @@
                         //$scope.$emit('hideLoading', data);
                         $scope.Data = false;
                         $scope.Nodata = true;
+                        $scope.StartYear = "";
+                        $scope.EndYear = "";
                     }
                 } else {
                     alert("data not updated, something went wrong");
+                    $scope.StartYear = "";
+                    $scope.EndYear = "";
                     $scope.closeModal()
                 }
                 //alert("Success")
@@ -844,7 +865,8 @@
             },
                 function (error) {
                     //$scope.$emit('hideLoading', data);
-
+                    $scope.StartYear = "";
+                    $scope.EndYear = "";
                     $scope.Data = false;
                     $scope.Nodata = true;
                     alert("error while loading data");

@@ -8,11 +8,21 @@ define(['app'], function (app) {
         $scope.selectedEmy = "";
         $scope.StudentTypeId = "";
         $scope.examTypeId = "0";
-        $scope.Exams = [
-            { id: 1, exam: "Mid 1" },
-            { id: 2, exam: "Mid 2" },
-            { id: 5, exam: "Semester" }
-        ];
+        //$scope.Exams = [
+        //    { id: 1, exam: "Mid 1" },
+        //    { id: 2, exam: "Mid 2" },
+        //    { id: 5, exam: "Semester" }
+        //];
+        
+        PreExaminationService.getExamTypesForExamCenters().then(function (res) {
+            var response = JSON.parse(res)
+            $scope.Exams = response.Table;
+        },
+            function (error) {
+                alert("error while loading Exam Month Years");
+                console.log(error);
+            });
+
 
         PreExaminationService.GetExamMonthYears().then(function (res) {
             $scope.ExamMonthYears = res.Table;

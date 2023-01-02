@@ -1,11 +1,23 @@
 ﻿<style>
-    div#year {
-        width: -webkit-fill-available !important;
-    }
+    
 
     span {
         color: white !important;
     }
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open-Sans';
+    }
+
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+   
 </style>
 <html>
 <head>
@@ -49,12 +61,12 @@
                                             </a>
                                         </li>
 
-                                        <li ng-show="CollegeID!=0">
+                                        <!--<li ng-show="CollegeID!=0">
                                             <a style="font-size:small" href="#" class="main_header_main_menu" ng-click="CcicChangePassword()">
                                                 <i class="fa fa-sign-out fa-fw"></i> Change
                                                 Password <span><b></b></span>
                                             </a>
-                                        </li>
+                                        </li>-->
 
                                         <li>
                                             <a href="#" class="main_header_main_menu" ng-click="logOut()">
@@ -77,10 +89,9 @@
         <div class="spacer"></div>
 
         <ui-view>
-            <div class="container">
+            <div class="container containercontent">
 
-                <section class="content">
-                    <div class="row widgets-container">
+                <section class="content  containercontent">
                         <div class="col-lg-3 col-xs-6" ng-repeat="item in AcademicModules track by $index">
                             <!--ui-sref=".{{item.ModuleRouteName}}"-->
                             <a href="#" class="grow" ng-click="OpenSubModule(item)">
@@ -129,7 +140,7 @@
                                 </div>
                         </div>
                         </a>
-                    </div>
+                   
 
             </div>
 

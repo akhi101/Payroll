@@ -3838,13 +3838,14 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafiedDetailsByPin")]
-        public string getBonafiedDetailsByPin(string pin)
+        public string getBonafiedDetailsByPin(string pin,int ServiceType)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@pin", pin);
+                param[1] = new SqlParameter("@ServiceType", ServiceType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_BonafiedCertificateDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -3855,15 +3856,15 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafiedRequestedDetailsByPin")]
-        public string getBonafiedRequestedDetailsByPin(string pin)
+        public string getBonafiedRequestedDetailsByPin(string pin,int Id)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@pin", pin);
-
+                param[1] = new SqlParameter("@Id", Id);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_FeePaidBonafiedCertificateDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -4021,15 +4022,15 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafideData")]
-        public string getBonafideData(string pin)
+        public string getBonafideData(string pin,int Id)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@pin", pin);
-
+                param[1] = new SqlParameter("@Id", Id);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_BonafideCertificateDetailsForOfficials", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -4192,12 +4193,19 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
-                string Msg = "PIN : {0}, Your application request for {1} Certificate is Approved, click here {2} .Secretary, SBTET TS.";
+                //System.Uri address = new System.Uri("http://tinyurl.com/api-create.php?url=" + CertificatePath);
+                //System.Net.WebClient client1 = new System.Net.WebClient();
+                //string tinyUrl = client1.DownloadString(address);
+                //Console.WriteLine(tinyUrl);
+
+                string Msg = "PIN:{0},Your application request for {1} Certificate is Approved, click here "+ CertificatePath + " Secretary, SBTET TS.";
+                //string Msg = "PIN: {0}, Your application request for {1} Certificate is Approved, click here {2} .Secretary, SBTET TS.";
+                //string Msg = "PIN:{0}, Your application request for {1} Certificate is Approved, click here {2} .Secretary, SBTET TS.";
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
                 var Message = string.Format(Msg, pin, CertificateName.ToString(), CertificatePath.ToString());
                 if (mobile.ToString() != null || mobile.ToString() != string.Empty)
                 {
-                    string urlParameters = "?mobile=" + mobile.ToString() + "&message=" + Message + "&templateid=1007161889718167644";
+                    string urlParameters = "?mobile=" + mobile.ToString() + "&message=" + Message + "&templateid=1007166805964582364"; //old id1007161889718167644 1007166738055110295
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -5352,21 +5360,21 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Tc_ApproveStatus", param);
-                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
-                {
-                    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
-                    {
-                        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
-                        {
-                            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Transfer");
-                            if (status.ToString() == "SUCCESS")
-                            {
-                                UpdateSmsStatus(6, dt.Tables[1].Rows[i]["Pin"].ToString());
-                            }
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
+                //{
+                //    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    {
+                //        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //        {
+                //            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Transfer");
+                //            if (status.ToString() == "SUCCESS")
+                //            {
+                //                UpdateSmsStatus(6, dt.Tables[1].Rows[i]["Pin"].ToString());
+                //            }
 
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
                 return JsonConvert.SerializeObject(dt);
 
 
@@ -5397,21 +5405,21 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Bonafide_ApproveStatus", param);               
-                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
-                {
-                    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
-                    {
-                        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
-                        {
-                            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Study/Bonafide");
-                            if (status.ToString() == "SUCCESS")
-                            {
-                                UpdateSmsStatus(9, dt.Tables[1].Rows[i]["Pin"].ToString());
-                            }
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
+                //{
+                //    //for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    //{
+                //    //    if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //    //    {
+                //    //        //var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Study/Bonafide");
+                //    //        //if (status.ToString() == "SUCCESS")
+                //    //        //{
+                //    //        //    UpdateSmsStatus(9, dt.Tables[1].Rows[i]["Pin"].ToString());
+                //    //        //}
 
-                        }
-                    }
-                }
+                //    //    }
+                //    //}
+                //}
 
                 return JsonConvert.SerializeObject(dt);
 
@@ -5535,7 +5543,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@Pin", request["Pin"]);
                 param[1] = new SqlParameter("@Name", request["Name"]);
                 param[2] = new SqlParameter("@FatherName", request["FatherName"]);
@@ -5544,6 +5552,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[5] = new SqlParameter("@Conduct", request["Conduct"]);
                 param[6] = new SqlParameter("@userType", request["userType"]);
                 param[7] = new SqlParameter("@ServiceType", request["ServiceType"]);
+                param[8] = new SqlParameter("@Id", request["Id"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SBP_set_Bonafide_admin_approvestatus", param);
 
                 return JsonConvert.SerializeObject(dt);
@@ -5690,6 +5699,66 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
+
+        [HttpGet, ActionName("GenerateC18MemosDataByPin")]
+        public string GenerateC18MemosDataByPin(int ExamMonthYearId, int MinCredits, string Day, string Month, string Year, string PIN)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[1] = new SqlParameter("@MinCredits", MinCredits);
+                param[2] = new SqlParameter("@Day", Day);
+                param[3] = new SqlParameter("@Month", Month);
+                param[4] = new SqlParameter("@Year", Year);
+                param[5] = new SqlParameter("@PIN", PIN);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_GenerateC18ConsolidatedMemo_ByPIN", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+
+                    //var Date = DateTime.Now.ToString("dd-MM-yyyy_hh:mm:ss");
+                    var filename = "C18_Consolidated_Memo_ByPin_" + PIN + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SET_GenerateC18ConsolidatedMemo", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
 
 
         [HttpPost, ActionName("InterimSetApproveStatus")]
@@ -10305,13 +10374,36 @@ namespace SoftwareSuite.Controllers.PreExamination
                     param[2] = new SqlParameter("@StudentTypeId", StudentTypeId); 
                     param[3] = new SqlParameter("@EMYR", EMYR);
                     var dt = new DataSet();
-                    dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin", param);
-                    return JsonConvert.SerializeObject(dt);
+                    dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin", param);//USP_SFP_GET_HallTicketDetailsByPin  USP_SFP_GET_HallTicketDetailsByPin_TEST
+                return JsonConvert.SerializeObject(dt);
                
             }
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_SFP_GET_HallTicketDetailsByPin", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetRegularHallticket1")]
+        public string GetRegularHallticket1(string Pin, string DateOfBirth, int StudentTypeId, int EMYR)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@EMYR", EMYR);
+                var dt = new DataSet();
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin_TEST", param);//USP_SFP_GET_HallTicketDetailsByPin  USP_SFP_GET_HallTicketDetailsByPin_TEST
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GET_HallTicketDetailsByPin_TEST", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -10603,6 +10695,55 @@ namespace SoftwareSuite.Controllers.PreExamination
         //    }
 
         //}
+        //[HttpGet, ActionName("GenerateOtpForMobileNoUpdate")]
+        //public string GenerateOtpForMobileNoUpdate(string Pin, string Phone)
+        //{
+        //    string otpMsg = "PIN:{0}, Your application request for {0} Certificate is Approved, click here{0} .Secretary, SBTET TS.";
+        //    //   string otpMsg = "OTP for updating mobile no {0}, valid for 10 min. Secretary, SBTET TS.";
+        //    DataSet dt = new DataSet();
+        //    string Message = string.Empty;
+        //    string resp = string.Empty;
+        //    try
+        //    {
+        //        var dbHandler = new dbHandler();
+        //        var param = new SqlParameter[2];
+        //        param[0] = new SqlParameter("@Pin", Pin);
+        //        param[1] = new SqlParameter("@PhoneNumber", Phone);
+        //        dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_MobileUpdate", param);
+
+        //        if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
+        //        {
+        //            return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
+        //        }
+        //        Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"]);
+        //        string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+        //        if (Phone != null || Phone != string.Empty)
+        //        {
+        //            string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007166738055110295";
+        //            HttpClient client = new HttpClient();
+        //            client.BaseAddress = new Uri(url);
+        //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+        //            resp = "OTP sent to the mobile number :" + Phone.ToString().Substring(0, 2) + "xxxxx" + Phone.ToString().Substring(7);
+        //            return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
+
+        //        }
+        //        else
+        //        {
+        //            resp = "Mobile number not valid";
+        //            return "{\"status\":\"400\",\"description\" : \"" + resp + "\"}";
+
+
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("usp_SOS_GET_OTP_MobileUpdate", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+        //}
 
         [HttpGet, ActionName("GenerateOtpForMobileNoUpdate")]
         public string GenerateOtpForMobileNoUpdate(string Pin, string Phone)
@@ -10802,6 +10943,38 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("ADM_SFP_GET_StudentDetailsByPin", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("FeeRequestLog")]
+        public string FeeRequestLog(string marchantid, string subMarchantid, string addInfo1, string addInfo3, string addInfo4, string addInfo5, string addInfo6, string addInfo7, string challan, string amount, int schemeId = 0, string json = null)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[12];
+                param[0] = new SqlParameter("@marchantid", marchantid);
+                param[1] = new SqlParameter("@subMarchantid", subMarchantid);
+                param[2] = new SqlParameter("@addInfo1", addInfo1);
+                param[3] = new SqlParameter("@addInfo3", addInfo3);
+                param[4] = new SqlParameter("@addInfo4", addInfo4);
+                param[5] = new SqlParameter("@addInfo5", addInfo5);
+                param[6] = new SqlParameter("@addInfo6", addInfo6);
+                param[7] = new SqlParameter("@addInfo7", addInfo7);
+                param[8] = new SqlParameter("@challan", challan);
+                param[9] = new SqlParameter("@amount", amount);
+                param[10] = new SqlParameter("@schemeId", schemeId);
+                param[11] = new SqlParameter("@json", json);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SFP_SET_RequestLog", param);
+                //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return JsonConvert.SerializeObject(dt); ;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_SET_RequestLog", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -11439,6 +11612,20 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
+                //string tinyUrl = "https://sbtet.telangana.gov.in/Reports/SignedCert/a8d4b9f7-ce57-4872-9524-45bc14af02d1.pdf";
+                //string api = "https://sbtet.telangana.gov.in";
+               
+                //    var request = WebRequest.Create(api + tinyUrl);
+                //    var res = request.GetResponse();
+                //    using (var reader = new StreamReader(res.GetResponseStream()))
+                //    {
+                //        tinyUrl = reader.ReadToEnd();
+                //    }
+                
+
+                //System.Uri address = new System.Uri("http://tinyurl.com/api-create.php?url=" + "https://sbtet.telangana.gov.in/Reports/SignedCert/a8d4b9f7-ce57-4872-9524-45bc14af02d1.pdf");
+                //System.Net.WebClient client1 = new System.Net.WebClient();
+                //string tinyUrl1 = client1.DownloadString(address);
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
                 StrQuery = "exec USP_GET_WebSiteVisiterCount";
@@ -12545,14 +12732,15 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("UpdateSmsStatus")]
-        public string UpdateSmsStatus(int CertificateTypeId, string Pin)
+        public string UpdateSmsStatus(int CertificateTypeId, string Pin,int Id=0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@CertificateTypeId", CertificateTypeId);
                 param[1] = new SqlParameter("@Pin", Pin);
+                param[2] = new SqlParameter("@Id", Id);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_UpdateSmsStatus", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -13023,7 +13211,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[5] = new SqlParameter("@ExamTypeId", ExamTypeId);               
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_Get_SeatingplanReportCounts", param);
-                if (ds?.Tables[0].Rows.Count > 0) {
+                if (ds.Tables[0].Rows.Count > 0) {
                     var filename =  "SeatingPlanAbtract" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];

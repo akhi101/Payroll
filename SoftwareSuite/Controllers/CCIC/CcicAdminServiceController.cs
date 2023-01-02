@@ -57,12 +57,12 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 var dbHandler = new ccicdbHandler();
                 string StrQuery = "";
-                StrQuery = "exec SP_Temp_Get_AllRecentNews";
+                StrQuery = "exec SP_Get_AllRecentNews";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Temp_Get_AllRecentNews", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_AllRecentNews", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.Gone, ex);
             }
 

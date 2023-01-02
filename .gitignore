@@ -360,3 +360,4 @@ healthchecksdb
 /SoftwareSuite/app.zip
 /SoftwareSuite/SoftwareSuite/Reports/cert
 *.7z
+/SoftwareSuite/CCICStaticfiles

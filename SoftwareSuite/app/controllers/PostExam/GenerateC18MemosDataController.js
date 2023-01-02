@@ -81,5 +81,50 @@
                 });
         }
 
+        $scope.Submit1 = function () {
+            $scope.loading = true;
+            $scope.Data = false;
+            $scope.Noresult = false;
+            $scope.Error1 = false;
+
+            var loadData2 = PreExaminationService.GenerateC18MemosDataByPin($scope.ExamMonthYear, $scope.GradePoints, $scope.Day, $scope.Month, $scope.Year, $scope.Pin)
+            loadData2.then(function (res) {
+                var response = JSON.parse(res)
+                if (response[0].ResponceCode == '200') {
+                    $scope.loading = false;
+                    var msg = response[0].ResponceDescription;
+                    alert(msg)
+                    var location = response[0].file;
+                    window.location.href = location;
+                    console.log(location)
+                    $scope.Noresult = false;
+                } else if (response[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    $scope.Data = false;
+                    $scope.Noresult = false;
+                    $scope.Error1 = true;
+                    $scope.ErrMsg1 = response[0].ResponceDescription;
+                    alert($scope.ErrMsg1)
+                } else {
+                    $scope.loading = false;
+                    $scope.Data = false
+                    alert("No Data Found");
+                    $scope.Noresult = true;
+                    $scope.Error1 = false;
+
+                }
+            },
+                function (error) {
+                    $scope.loading = false;
+                    $scope.Data = false;
+                    $scope.Noresult = true;
+                    $scope.Error = false;
+                    alert("error while loading data");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
+
     })
 })
