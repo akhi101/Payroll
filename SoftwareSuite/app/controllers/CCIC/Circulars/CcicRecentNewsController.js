@@ -1,9 +1,10 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicRecentNewsController", function ($scope, $uibModal, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService) {
+    app.controller("CcicRecentNewsController", function ($scope, $uibModal, CcicPreExaminationService, $http, $localStorage, $state, $stateParams, $interval, AppSettings, CcicAdminService) {
         const $ctrl = this
         $ctrl.$onInit = () => {
 
             $scope.getuserRecentNews();
+            $scope.GetCurrentRecentNewsData();
         }
         //var data = [];
         //$scope.$emit('showLoading', data);
@@ -208,42 +209,66 @@
 
         }
 
+        //$scope.GetCurrentRecentNewsData = function () {
+        //    var getacayrs = CcicAdminService.GetCcicRecentNews()
+        //    getacayrs.then(function (response) {
+        //        $scope.GetCcicRecentNews = response.Table;
+
+        //        for (let i = 0; i < $scope.GetCcicRecentNews.length; i++) {
+        //            if ($scope.GetCcicRecentNews[i].GetCcicRecentNews == true) {
+        //                $scope.finalList.push($scope.GetCcicRecentNews[i]);
+        //            }
+        //        }
+
+        //        var ele = document.getElementsByClassName("tableinpt");
+        //        for (var j = 1; j < response.Table.length + 10000; j++) {
+        //            $scope['edit' + j] = true;
+        //        }
+        //    },
+        //        function (error) {
+        //            alert("data is not loaded");
+        //            var err = JSON.parse(error);
+        //            console.log(err.Message);
+        //        });
+
+        //}
 
 
-        $scope.getAllRecentNews = function () {
 
-            $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/CCIC/CcicAllRecentNewsPopup.html",
-                size: 'lg',
-                scope: $scope,
-                windowClass: 'modal-fit',
-                backdrop: 'static',
-                keyboard: false
-            });
+        //$scope.getAllRecentNews = function () {
 
-            var GetAllRecentNews = CcicAdminService.GetAllRecentNews();
-            GetAllRecentNews.then(function (response) {
-                if (response.Table.length) {
-                    $scope.GetAllRecentNews = response.Table;
+        //    $scope.modalInstance = $uibModal.open({
+        //        templateUrl: "/app/views/CCIC/CcicAllRecentNewsPopup.html",
+        //        size: 'lg',
+        //        scope: $scope,
+        //        windowClass: 'modal-fit',
+        //        backdrop: 'static',
+        //        keyboard: false
+        //    });
 
-                } else {
-                    $scope.loading = false;
-                    $scope.NoData = true;
-                    alert("No Data Found");
+        //    var GetAllRecentNews = CcicAdminService.GetAllRecentNews();
+        //    GetAllRecentNews.then(function (response) {
+        //        if (response.Table.length) {
+        //            $scope.GetAllRecentNews = response.Table;
 
-                }
-            },
-                function (error) {
+        //        } else {
+        //            $scope.loading = false;
+        //            $scope.NoData = true;
+        //            alert("No Data Found");
 
-                    alert("error while loading Data");
-                    console.log(error);
-                });
-            $scope.closeModal = function () {
-                $scope.modalInstance.close();
-            };
+        //        }
+        //    },
+        //        function (error) {
+
+        //            alert("error while loading Data");
+        //            console.log(error);
+        //        });
+        //    $scope.closeModal = function () {
+        //        $scope.modalInstance.close();
+        //    };
 
 
-        }
+        //}
 
 
         //    $scope.RecentNewsInactive = function (RecentNewsID) {
