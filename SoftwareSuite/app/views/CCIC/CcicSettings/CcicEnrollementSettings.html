@@ -259,8 +259,8 @@
                                 <label class="font-weight-bold"> Course Duration :</label>
                                 <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
                                     <option value="" selected="selected">Select Duration</option>
-                                    <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
-                                        {{data.CourseDuration}}
+                                    <option value="{{data.CourseDurationName}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
+                                        {{data.CourseDurationID}}
                                     </option>
                                 </select>
                             </div>
