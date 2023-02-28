@@ -15,6 +15,8 @@
 
         }
 
+        $scope.loading = false;
+
         $scope.StuName = function () {
 
             if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.CNAME)){
@@ -264,6 +266,12 @@
             $scope.MNAME = '';
             $scope.DOB_DATE = '';
             $scope.SEX = '';
+
+            $scope.CandidateNamefound = false;
+            $scope.FatherNameFound = false;
+            $scope.MotherNamefound = false;
+            $scope.Genderfound = false;
+
             $scope.Aadhar = '';
             $scope.houseNo = '';
             $scope.street = '';
@@ -307,6 +315,11 @@
             $scope.MNAME = '';
             $scope.DOB_DATE = '';
             $scope.SEX = '';
+
+            $scope.CandidateNamefound =  false;
+            $scope.FatherNameFound =  false;
+            $scope.MotherNamefound =  false;
+            $scope.Genderfound =  false;
             $scope.Aadhar = '';
             $scope.houseNo = '';
             $scope.street = '';
@@ -899,7 +912,7 @@
                 return;
             }
 
-
+            $scope.loading = true;
 
             $scope.hallticket = true;
             $scope.year = true;
@@ -927,7 +940,7 @@
                     let resdata = JSON.parse(res)
                     if (resdata.Status == 200) {
                         $scope.applicationForm = true;
-
+                        $scope.loading = false;
                         $scope.LoadImg = false;
                         isSSCValidiated = true;
 
@@ -969,6 +982,7 @@
                         $scope.cancel = false;
 
                     } else {
+                        $scope.loading = false;
                         alert("Details not found, Continue to fillApplication");
                         $scope.applicationForm = true;
                         $scope.sscForm = false;
@@ -979,6 +993,7 @@
                     }
 
                 } else {
+                    $scope.loading = false;
                     alert("Details not found, Continue to fillApplication");
                     $scope.applicationForm = true;
                     $scope.sscForm = false;
@@ -990,6 +1005,7 @@
 
 
             }, function (err) {
+                $scope.loading = false;
                 alert("Details not found, Continue to fillApplication");
                 $scope.applicationForm = true;
                 $scope.sscForm = false;

@@ -600,6 +600,12 @@
                 dependencies: ['views/newwebsite/controllers/IndexController', 'services/PreExamination/PreExaminationService', 'services/AdminServices/AdminService']
             },
 
+            'index.GetDeCryptPaSSPage': {
+                url: "/GetDeCryptPaSSPage",
+                templateUrl: 'app/views/GetDeCryptPaSSPage.html',
+                dependencies: ['controllers/GetDeCryptPaSSPageController', 'services/SystemAdministration/SystemUserService', 'services/ForgetPasswordService']
+            },
+
 
             'index.WebsiteLogin': {
                 url: "/WebsiteLogin",

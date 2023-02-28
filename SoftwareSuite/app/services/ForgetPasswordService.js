@@ -15,5 +15,11 @@
             var promise = DataAccessService.getDataWithPara('api/SystemUser/SendCredentialsAsSMS', paramObject);
             return promise;
         }
+
+        this.GetForgotPassword = function (reqdata) {
+            var paramObject = reqdata;
+            var promise = DataAccessService.postData('api/SystemUser/GetForgotPassword', paramObject);
+            return promise;
+        }
     });
 });

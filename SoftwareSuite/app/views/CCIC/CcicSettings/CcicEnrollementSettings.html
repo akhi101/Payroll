@@ -185,7 +185,7 @@
     </script>
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
-        <div class="container" style="font-family: 'Open Sans'; width: 1215px; padding-right: 0px; padding-left:29px; margin-right: 80px;">
+        <div class="container containercontent">
             <section class="content-header">
                 <h5>Enrollement Dates Setting</h5>
                 <ol class="breadcrumb">
@@ -259,8 +259,8 @@
                                 <label class="font-weight-bold"> Course Duration :</label>
                                 <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
                                     <option value="" selected="selected">Select Duration</option>
-                                    <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
-                                        {{data.CourseDuration}}
+                                    <option value="{{data.CourseDurationName}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
+                                        {{data.CourseDurationID}}
                                     </option>
                                 </select>
                             </div>

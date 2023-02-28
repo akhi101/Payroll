@@ -9,6 +9,7 @@
         $ctrl.$onInit = () => {
             $scope.GetCurrentAcademicYearData();
             $scope.GetExamMonthYearData();
+            $scope.getRegularExams();
 
         }
 
@@ -60,24 +61,24 @@
                     alert("data is not loaded");
                     var err = JSON.parse(error);
                 });
-         
 
 
+        }
 
+        $scope.getRegularExams= function () {
+            var regularexams = CcicPreExaminationService.getRegularExamCourseDurations();
+            regularexams.then(function (response) {
 
-            var GetCurrentBatchData = CcicPreExaminationService.GetCurrentBatch(AcademicYearID);
-            GetCurrentBatchData.then(function (response) {
+                //try {
+                //    var res = JSON.parse(response);
+                //}
+                //catch (err) { }
 
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-
-                if (res.Table.length > 0) {
-                    $scope.GetCurrentBatch = res.Table;
+                if (response.length > 0) {
+                    $scope.RegularExamData = response;
                 }
                 else {
-                    $scope.GetCurrentBatch = [];
+                    $scope.RegularExamData = [];
                 }
 
 
@@ -100,8 +101,8 @@
                 alert("Select Academic Year");
                 return;
             }
-            if ($scope.BaTch == null || $scope.BaTch == undefined || $scope.BaTch == "") {
-                alert("Select Batch");
+            if ($scope.RegularExam == null || $scope.RegularExam == undefined || $scope.RegularExam == "") {
+                alert("Select Regular Exam");
                 return;
             }
             if ($scope.ExamMonthYear == null || $scope.ExamMonthYear == undefined || $scope.ExamMonthYear == "") {
@@ -109,8 +110,14 @@
                 return;
             }
 
+            var paramObj = {
+                "AcademicYearID": $scope.AcademicYear,
+                "RegularExamCourseDurationID": $scope.RegularExam,
+                "ExamMonthYearName": $scope.ExamMonthYear,
+                "UserName": $scope.UserName,
 
-            var addexammonthyear = CcicPreExaminationService.AddExamMonthYear($scope.AcademicYear, $scope.BaTch, $scope.ExamMonthYear, $scope.UserName);
+            }
+            var addexammonthyear = CcicPreExaminationService.AddExamMonthYear(paramObj);
             addexammonthyear.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -232,7 +239,7 @@
             $scope.clearDefaults = function () {
 
                 $scope.AcademicYear = null;
-                $scope.BaTch = null;
+                $scope.RegularExam = null;
                 $scope.ExamMonthYear = null;
 
             }

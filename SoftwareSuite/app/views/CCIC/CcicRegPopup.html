@@ -316,7 +316,7 @@
                                 </div>
                             </div>
 
-                            <div class="row userRow">
+
                                 <div class="col-md-6">
                                     <input type="text" autocomplete="off" class="form-control" maxlength="10" placeholder="Enter MobileNumber" name="MobileNumber" ng-model="MobileNumber" />
                                 </div>
@@ -328,14 +328,17 @@
                                         click here
                                     </button>
                                 </div>
-                                <div class="col-md-2" ng-show="resendMobileOTP">
-                                    <a ng-click="SendSms(StudentName,MobileNumber)" class="pull-right">Resend OTP</a>
+
+                                <div class="col-md-1" ng-show="ResendOtp">
+                                    <button class="btn btn-success btn-xs" ng-click="SendSms(StudentName,MobileNumber)">Resend OTP</button>
                                 </div>
+
                                 <div class="col-md-2">
                                     <button class="btn btn-success btn-xs" ng-show="!OtpSent" ng-click="VerifyMobileOtp(StudentName,MobileNumber,MobileOTP)" style="margin-left:40px;">Verify</button>
                                     <div class="cls_verified" ng-show="OtpVerified"><i class="fa fa-check" aria-hidden="true"></i> Verified</div>
                                 </div>
-                            </div>
+
+
 
                             <div class="row userRow">
                                 <div class="col-md-10">

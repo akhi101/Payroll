@@ -17,6 +17,7 @@ namespace SoftwareSuite.BLL
         public String ResponceDescription;
         public String Password;
         public String userType;
+        public String UserPassword;
     }
     public class SystemUserBLL
     {
@@ -194,6 +195,52 @@ namespace SoftwareSuite.BLL
             {
                 throw ex;
             }
+        }
+
+
+
+
+        public SystemRes GetForgotPassword(string UserName)
+        {
+            try
+            {
+                SystemUserService SystemUserService = new SystemUserService();
+                dbHandler dbHandler = new dbHandler();
+                DataTable tblUsersList = new DataTable();
+                tblUsersList = SystemUserService.GetForgotPassword(dbHandler,  UserName);
+                // return JsonConvert.SerializeObject(tblUsersList);  
+                string status = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                if (status == "200")
+                {
+                    SystemRes res = new SystemRes();
+                    res.Password = Convert.ToString(tblUsersList.Rows[0]["Password"]);
+                    res.ResponceCode = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                    res.ResponceDescription = Convert.ToString(tblUsersList.Rows[0]["ResponceDescription"]);
+                    return res;
+                }
+                else
+                {
+                    SystemRes res = new SystemRes();
+                    res.Password = Convert.ToString(tblUsersList.Rows[0]["Password"]);
+                    res.ResponceCode = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                    res.ResponceDescription = Convert.ToString(tblUsersList.Rows[0]["ResponceDescription"]);
+                    return res;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public class systemRes
+        {
+            public String ResponceCode;
+            public String ResponceDescription;
+            public String UserPassword;
+
         }
         public SystemRes GetChangePassword(Int32 UserId, string OldPassword, string NewPassword)
         {

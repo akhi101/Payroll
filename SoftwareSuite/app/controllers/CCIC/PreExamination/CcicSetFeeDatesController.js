@@ -362,11 +362,59 @@
         }
 
         $scope.submit = function () {
+            if ($scope.AcademicYear == null || $scope.AcademicYear == "" || $scope.AcademicYear == undefined) {
+                alert("Please Select Academic Year");
+                return;
+            }
+            if ($scope.monthyear == null || $scope.monthyear == "" || $scope.monthyear == undefined) {
+                alert("Please Select Exam Month Year");
+                return;
+            }
+            if ($scope.StartDate == null || $scope.StartDate == "" || $scope.StartDate == undefined) {
+                alert("Please Select Start Date");
+                return;
+            }
+            if ($scope.EndDate == null || $scope.EndDate == "" || $scope.EndDate == undefined) {
+                alert("Please Select End Date");
+                return;
+            }
+            if ($scope.FineDate == null || $scope.FineDate == "" || $scope.FineDate == undefined) {
+                alert("Please Select Fine Date");
+                return;
+            }
+            if ($scope.TatkalDate == null || $scope.TatkalDate == "" || $scope.TatkalDate == undefined) {
+                alert("Please Select Tatkal End Date");
+                return;
+            }
+            if ($scope.PremiumTatkalDate == null || $scope.PremiumTatkalDate == "" || $scope.PremiumTatkalDate == undefined) {
+                alert("Please Select Premium Tatkal End Date");
+                return;
+            }
+            if ($scope.feeAmount == null || $scope.feeAmount == "" || $scope.feeAmount == undefined) {
+                alert("Please Enter Examination Fee");
+                return;
+            }
+            if ($scope.lateFee == null || $scope.lateFee == "" || $scope.lateFee == undefined) {
+                alert("Please Enter Late Fee");
+                return;
+            }
+            if ($scope.tatkalFee == null || $scope.tatkalFee == "" || $scope.tatkalFee == undefined) {
+                alert("Please Enter Tatkal Fee");
+                return;
+            }
+            if ($scope.PremiumTatkalFee == null || $scope.PremiumTatkalFee == "" || $scope.PremiumTatkalFee == undefined) {
+                alert("Please Enter Premium Tatkal Fee");
+                return;
+            }
+            if ($scope.certificateFee == null || $scope.certificateFee == "" || $scope.certificateFee == undefined) {
+                alert("Please Enter Certificate Fee");
+                return;
+            }
             $scope.loading = true;
             var AcademicYrId = $scope.AcademicYear;
             var CurrentMonthYear = $scope.monthyear;
-            var CourseName = $scope.Course;
-            var StudentType = $scope.stdtype;
+            //var CourseName = $scope.Course;
+            //var StudentType = $scope.stdtype;
             var StartDate = moment($scope.StartDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var EndDate = moment($scope.EndDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
             var FineDate = moment($scope.FineDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");

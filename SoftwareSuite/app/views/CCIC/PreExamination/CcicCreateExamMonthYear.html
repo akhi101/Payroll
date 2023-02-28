@@ -122,11 +122,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
 
-                                    <label class="font-weight-bold"> Batch :</label>
-                                    <select class="form-control " ng-model="BaTch" name="BatchType" required>
-                                        <option value="" selected="selected">Select Batch</option>
-                                        <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                            {{data.Batch}}
+                                    <label class="font-weight-bold"> Regular Exam :</label>
+                                    <select class="form-control " ng-model="RegularExam" name="RegExamType" required>
+                                        <option value="" selected="selected">Select Regular Exam</option>
+                                        <option value="{{data.RegularExamCourseDurationID}}" ng-repeat="data in RegularExamData" class="">
+                                            {{data.RegularExamCourseDurationName}}
                                         </option>
                                     </select>
                                 </div>
@@ -161,7 +161,7 @@
                                 <tr class="cb-1">
                                     <th style="width:5%" class="text-center">S.No</th>
                                     <th width="15%" class="text-center">Academic Year</th>
-                                    <th width="15%" class="text-center">Batch</th>
+                                    <th width="15%" class="text-center">Regular Exam CourseDuration</th>
                                     <th width="15%" class="text-center">Exam Month Year</th>
                                     <th width="15%" class="text-center">Sequence Number</th>
                                     <!--<th width="15%" class="text-center">Status</th>-->
@@ -172,9 +172,9 @@
                                 <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in GetExamMonthYearTable">
                                     <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                     <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.AcademicYear" /></td>
-                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.Batch" /></td>
-                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.ExamMonthYearName" /></td>
-                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt tabledate enabletable{{$index + 1}}" type="text" ng-model="data.ExamMonthYearSequence" /></td>
+                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.RegularExamCourseDurationName" /></td>
+                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ExamMonthYearName" /></td>
+                                    <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable" type="text" ng-model="data.ExamMonthYearSequence" /></td>
 
                                     <!--<td class="text-center">
                 <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="data.Active == true" ng-click="SetExamMonthYearStatus(data.ExamMonthYearID,false)">Active</button>

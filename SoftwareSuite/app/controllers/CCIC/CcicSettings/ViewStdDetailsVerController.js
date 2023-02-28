@@ -131,8 +131,7 @@
                     } else {
                         $scope.loading = false;
                         alert('Application Approval Status Updated');
-                        $state.go('CcicDashboard.Academic.EnrollmentReport.CcicAdmEnrollReportCourses.CcicAdmEnrollmentReportData');
-                        $scope.ViewStudentDetails();
+                        $scope.GetInstitutionVerReportData();
 
                     }
 
@@ -169,7 +168,7 @@
 
             }
             $scope.GetInstitutionVerReportData = function () {
-                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tmp.InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
+                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tmp.InstitutionID, tempData2.CourseID, 5);
                 verificationreportData.then(function (response) {
                     try {
                         var res = JSON.parse(response);
@@ -178,7 +177,7 @@
                     $scope.VerificationReportDataTable = [];
                     if (res.length >= 0) {
                         $scope.loading = false;
-                        $state.go('CcicDashboard.Academic.CcicAdmVerificationData');
+                        $state.go('CcicDashboard.Academic.CcicAdmVerificationCourses');
                         $scope.VerificationReportDataTable = res;
                         $scope.$emit('hideLoading', data);
 
@@ -208,8 +207,7 @@
                     } else {
                         $scope.loading = false;
                         alert('Application Approval Status Updated');
-                        $state.go('CcicDashboard.Academic.EnrollmentReport.CcicAdmEnrollReportCourses.CcicAdmEnrollmentReportData');
-                        $scope.ViewStudentDetails();
+                        $scope.GetInstitutionVerReportData();
 
                     }
 
