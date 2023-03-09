@@ -1,6 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("TranscriptApprovalDetailsController", function ($scope, $http, $localStorage, $state, $stateParams, DigitalSignatureService, AppSettings, $uibModal, $timeout, PreExaminationService) {
         $scope.btndisable = false;
+        $scope.EmailLoading = false;
         $scope.buttonlabel = "Approve";
         $scope.MyCheck = false;
         var authData = $localStorage.authorizationData;
@@ -133,14 +134,26 @@
 
             var emailattch = [];
             for (var p = 0; p < $scope.attachments.length; p++) {
+                var count = p + 1;
                 var obj1 = {
-                    "attachName": "Transcript_DOC" + [p],
-                    "attachpath": physicalpath + $scope.attachments[p].CertificatePath.replace(/https?:\/\/[^\/]+/i, "")
+                    "attachName": "Transcript_" + count,
+                    "attachpath": $scope.attachments[p].CertificatePath
+                    // "attachpath": physicalpath + $scope.attachments[p].CertificatePath.replace(/https?:\/\/[^\/]+/i, "")
                 }
                 emailattch.push(obj1);
             }
             var toemail = mails.split(',');
             var emailarr = $scope.splitArrayIntoChunksOfLen(emailattch, 12)
+            var html = "<div>" + message + "<div><div>Please find the transcripts attached.<div>";
+            for (var p = 0; p < emailattch.length; p++) {
+                html = html + "<div><a href=" + emailattch[p].attachpath + " download>" + emailattch[p].attachName + "</a></div>";
+            }
+            //html = html + "<div><label for='to'>To</label><input id='to' type='text'></div>";
+            //html = html + "<div><label for='from'>From</label><input id='from' type='text' value='" + email + "'></div>";
+            //html = html + "<div><label for='subject'>Subject</label><input id='subject' type='text' disabled='disabled' value='" + subject + "'></div>";
+            //html = html + "<div><label for='body'>Body</label><input id='body' type='text' disabled='disabled' value='" + body + "'></div>";
+            //html = html + "<div><input type='submit' value='Send'><input type='button' value='Cancel' onClick='javascript:$.fancybox.close();'></div>";
+            //html = html + "</form></div>";
             for (var q = 0; q < emailarr.length; q++) {
 
                 for (var k = 0; k < toemail.length; k++) {
@@ -149,30 +162,45 @@
                         "From": $scope.from,
                         "To": toemail[k],
                         "cc": $scope.CCEmails,
+                       
                         "Subject": Subject,
-                        "Message": message,
+                        "Message": html,
                         "attachmentdata": emailarr[q]
                     }
                     paramObject.push(obj)
                 }
             }
-                var sendmail = PreExaminationService.sendmail(paramObject)
-                sendmail.then(function (response) {
-                    var mailed_app = response;
-                    if (response[0] == "success") {
-                        alert("mail sent successfully.");
-                        $scope.closeModal();
-                        var setmailstatis = PreExaminationService.SetTranscriptEmailStatus($scope.mailapplicatioNo);
-                        setmailstatis.then(function (response) {
-                            $scope.GetApprovalDetails();
-                        }, function () { });
-                    } else {
-                        alert("Mail sending failed");
-                    }
+            $scope.btndisable = true;
+            $scope.EmailLoading = true;
+            //  console.log(paramObject)
+            var sendmail = PreExaminationService.SendRelayMail(paramObject)
+            sendmail.then(function (response) {
+                var mailed_app = response;
+                if (response[0] == "success") {
+                    alert("mail sent successfully.");
+                    $scope.btndisable = false;
+                    $scope.EmailLoading = false;
+                    $scope.closeModal();
+                    var setmailstatis = PreExaminationService.SetTranscriptEmailStatus($scope.mailapplicatioNo);
+                    setmailstatis.then(function (response) {
+                        $scope.btndisable = false;
+                        $scope.EmailLoading = false;
+                        $scope.GetApprovalDetails();
+                    }, function () {
+                        $scope.btndisable = false;
+                        $scope.EmailLoading = false;
+                    });
+                } else {
+                    $scope.btndisable = false;
+                    $scope.EmailLoading = false;
+                    alert("Mail sending failed");
+                }
 
-                }, function (err) {
-                });
-           
+            }, function (err) {
+                $scope.btndisable = false;
+                $scope.EmailLoading = false;
+            });
+            // $scope.btndisable = false;
         }
 
         $scope.GetmailDetails = function (ApplicationNo, Pin) {

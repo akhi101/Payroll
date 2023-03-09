@@ -334,6 +334,7 @@
     <Compile Include="Controllers\Common\Html2PDFGenerator.cs" />
     <Compile Include="Controllers\DigitalSignatureController.cs" />
     <Compile Include="Controllers\Diploma\DiplomaController.cs" />
+    <Compile Include="Controllers\Email.cs" />
     <Compile Include="Controllers\ExternalServices\AffliationInfoController.cs" />
     <Compile Include="Controllers\ExternalServices\BranchInfoController.cs" />
     <Compile Include="Controllers\ExternalServices\ExamTimetableController.cs" />
@@ -446,6 +447,7 @@
     <Content Include="app\controllers\AboutCollegeController.js" />
     <Content Include="app\controllers\Academic\AcademicController.js" />
     <Content Include="app\controllers\Academic\AlphaSelectionController.js" />
+    <Content Include="app\controllers\Academic\AttendanceReportController.js" />
     <Content Include="app\controllers\Academic\ElectivesController.js" />
     <Content Include="app\controllers\Academic\ElectivesPinListController.js" />
     <Content Include="app\controllers\Academic\FacultySubjectMappingController.js" />
@@ -844,6 +846,7 @@
     <Content Include="app\controllers\ExamsSite\FeePaymentController.js" />
     <Content Include="app\controllers\ExamsSite\GenuinenessCheckFormController.js" />
     <Content Include="app\controllers\ExamsSite\HallticketController.js" />
+    <Content Include="app\controllers\ExamsSite\MersidiseCertificateController.js" />
     <Content Include="app\controllers\ExamsSite\PreExamTimetableController.js" />
     <Content Include="app\controllers\ExamsSite\StudentAttendanceController.js" />
     <Content Include="app\controllers\ExamsSite\StudentConsolidatedResultController.js" />
@@ -1767,6 +1770,7 @@
     <Content Include="app\services\TWSH\TwshStudentRegService.js" />
     <Content Include="app\views\Academic\Academic.html" />
     <Content Include="app\views\Academic\AlphaSelection.html" />
+    <Content Include="app\views\Academic\AttendanceReport.html" />
     <Content Include="app\views\Academic\Electives.html" />
     <Content Include="app\views\Academic\ElectivesPinList.html" />
     <Content Include="app\views\Academic\FacultySubjectMapping.html" />
@@ -2243,6 +2247,7 @@
     <Content Include="app\views\ExamsSite\FeePayment.html" />
     <Content Include="app\views\ExamsSite\GenuinenessCheckForm.html" />
     <Content Include="app\views\ExamsSite\Hallticket.html" />
+    <Content Include="app\views\ExamsSite\MersidiseCertificate.html" />
     <Content Include="app\views\ExamsSite\PreExamTimetable.html" />
     <Content Include="app\views\ExamsSite\StudentAttendance.html" />
     <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />

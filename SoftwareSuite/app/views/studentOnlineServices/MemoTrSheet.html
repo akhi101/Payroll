@@ -193,7 +193,18 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-md-3 form-group">
+                            <label for="sel1">
+                                Semester :
+                            </label>
+                            <select class="form-control" ng-model="Semester" name="Semester" required>
+                                <option value="" selected>Select Semester</option>
+                                <option ng-repeat="data in ActiveSemesters" value="{{data.semid}}">
+                                    {{data.sem}}
+                                </option>
+                                <!--ng-options="Student.type for Student in StudentType">-->
+                            </select>
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <button class="btn btn-sm btn-primary gr-button btn_top pull-left" ng-click="DownloadMemoTrSheets()">

@@ -313,6 +313,7 @@
                                                     <li ng-click="OpenModule('index.StudentFeedback')"><a class="MobileSidebar" id="index.StudentFeedback" ui-sref="index.StudentFeedback">Submit Feedback</a></li>
                                                     <li ng-click="OpenModule('index.Timetable')"><a class="MobileSidebar" id="index.Timetable" ui-sref="index.Timetable">Time Table</a></li>
                                                     <li ng-click="OpenModule('index.DiplomaFeePayment')"><a class="MobileSidebar" id="index.DiplomaFeePayment" ui-sref="index.DiplomaFeePayment">Exam Fee Payment</a></li>
+                                                    <li ng-click="OpenModule('index.MercyFee')"><a class="MobileSidebar" id="index.MercyFee" ui-sref="index.MercyFee">Special Mercy Exam Fee Payment</a></li>
                                                     <li ng-click="OpenModule('index.DiplomaHallticket')"><a class="MobileSidebar" id="index.DiplomaHallticket" ui-sref="index.DiplomaHallticket">Hall Ticket download</a></li>
                                                     <li ng-click="OpenModule('index.DiplomaStudentResult')"><a class="MobileSidebar" id="index.DiplomaStudentResult" ui-sref="index.DiplomaStudentResult">Results</a></li>
                                                     <li ng-click="OpenModule('index.StudentConsolidatedResult')"><a class="MobileSidebar" id="index.StudentConsolidatedResult" ui-sref="index.StudentConsolidatedResult">Consolidated Result</a></li>
@@ -344,18 +345,18 @@
                                                 <ul class="megamenu-list list-col-4">
                                                     <li class="megamenu-list-title"><a target="_blank" class="megamenu-bg">CCIC</a></li>
 
-                                                    <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Admission</a></li>
+                                                    <!--<li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Admission</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Syllabus</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Time Table</a></li>
-                                                    <li ng-click="OpenModule('index.FeePayment')"><a class="MobileSidebar" id="index.FeePayment" ui-sref="index.FeePayment">Fee Payment</a></li>
+                                                    <li ng-click="OpenModule('index.FeePayment')"><a class="MobileSidebar" id="index.FeePayment" ui-sref="index.FeePayment">Fee Payment</a></li>-->
                                                     <li><a target="_blank" href="https://sbtet.telangana.gov.in/CCIC/Search/StudentResults">CCIC Results</a></li>
                                                     <li><a target="_blank" href="https://osdes.sbtet.telangana.gov.in/pcrv/">Photo Copy & Revaluation</a></li>
-                                                    <li ng-click="OpenModule('index.HallTicketDownload')"><a class="MobileSidebar" id="index.HallTicketDownload" ui-sref="index.HallTicketDownload">Hall Ticket Download</a></li>
+                                                    <!--<li ng-click="OpenModule('index.HallTicketDownload')"><a class="MobileSidebar" id="index.HallTicketDownload" ui-sref="index.HallTicketDownload">Hall Ticket Download</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Consolidated Result</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Results</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Name Correction</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Duplicate Marks Memo</a></li>
-                                                    <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Duplicate Certificate</a></li>
+                                                    <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Duplicate Certificate</a></li>-->
 
 
 
@@ -434,7 +435,6 @@
                                                 <ul class="megamenu-list list-col-3">
                                                     <li class="megamenu-list-title"><a class="megamenu-bg">CCIC</a></li>
                                                     <li><a class="MobileSidebar" target="_blank" href="https://www.affln.sbtet.telangana.gov.in/ccic/CourseSummary.htm">CCIC Portal</a></li>
-                                                    <li><a class="MobileSidebar" target="_blank" href="http://localhost:50421/index.html#!/CcicInstiTable">Affliated Institutions</a></li>
 
                                                 </ul>
 
@@ -459,7 +459,6 @@
                                                 <ul class="megamenu-list list-col-3">
                                                     <li class="megamenu-list-title"><a class="megamenu-bg">CCIC</a></li>
                                                     <li><a class="MobileSidebar" target="_blank" href="https://www.affln.sbtet.telangana.gov.in/ccic/CourseSummary.htm">CCIC</a></li>
-                                                    <li><a class="MobileSidebar" target="_blank" href="http://localhost:50421/index.html#!/CcicCoursesCards">CCIC Courses</a></li>
 
                                                 </ul>
 
@@ -641,7 +640,7 @@
 
                                                 <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
                                                     <div class="carousel-inner">
-                                                        <div class="item " ng-class="{'active':data.active}" ng-repeat="data in Images">
+                                                        <div class="item " ng-class="{'active':$index==0}" ng-repeat="data in HomeSlides">
                                                             <div class="mask flex-center">
                                                                 <div class="container">
                                                                     <div class="row align-items-center">
@@ -663,7 +662,7 @@
                                                                         </ul>-->
                                                                         <div class="col-md-12 col-12 order-md-2 order-1">
                                                                             <div class="banner-img">
-                                                                                <img id="open-popup-1" href="{{data.img}}" src="{{data.img}}" class="mx-auto w-90" alt="slide">
+                                                                                <img id="open-popup-1" href="{{data.PhotoPath}}" src="{{data.PhotoPath}}" class="mx-auto w-90" alt="slide">
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -175,6 +175,21 @@
             });
 
 
+        var getSlides = PreExaminationService.GetHomePageSlidesActive();
+        getSlides.then(function (response) {
+
+
+            $scope.HomeSlides = response.Table;
+          //  $scope.websiteCounts();
+        },
+            function (error) {
+
+                alert("error while loading Slides");
+                //alert("error while loading Notification");
+
+                var err = JSON.parse(error);
+            });
+
 
         var StudentCounts = PreExaminationService.GetStudentServicesCounts();
         StudentCounts.then(function (response) {

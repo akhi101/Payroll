@@ -651,7 +651,8 @@
                 if (data[0].ResponceCode == '200') {
                     $scope.Result = true;
                     var location = data[0].file;
-                    window.location.href = location;
+                    window.open(location,'_blank')
+                   // window.location.href = location;
                     $scope.reload = false;
                 } else
                     if (data[0].ResponceCode == '400') {
