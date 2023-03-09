@@ -30,8 +30,8 @@ namespace SoftwareSuite.Controllers.StudentServices
         public string StoreSignedCertificate()
         {
             try {
-             //   var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\SignedCert\";
-              var dir = "sbtet.telangana.gov.in/" + @"Reports\SignedCert\";
+               var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\SignedCert\";
+             // var dir = "sbtet.telangana.gov.in/" + @"Reports\SignedCert\";
                 var deldir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
                 CreateIfMissing(dir);
                 var data = Request.Content.ReadAsStringAsync().Result;
@@ -42,7 +42,8 @@ namespace SoftwareSuite.Controllers.StudentServices
                 int certificatetype = Convert.ToInt16(obj["CertificateServiceId"]);
                 string ApplicationNo = "" + obj["ApplicationNo"];
                 Byte[] bytes = Convert.FromBase64String(file);
-                var path = dir + $"{Guid.NewGuid().ToString()}.pdf";
+                var filename = Path.GetFileName(filelocation);
+                var path = dir + filename;
                 File.WriteAllBytes(path, bytes);
                 string signedrelativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
 
@@ -57,7 +58,7 @@ namespace SoftwareSuite.Controllers.StudentServices
                 string[] arrRes = content.Split('/');
                 int index = content.LastIndexOf("/");
                 string filepath = content.Substring(index + 1);
-                var filedelpath = deldir + Pin +'_'+ filepath;
+                var filedelpath = deldir + Pin + '_' + filepath;
                 if (File.Exists(filedelpath)) { 
                     File.Delete(filedelpath);
                 }
@@ -343,18 +344,18 @@ namespace SoftwareSuite.Controllers.StudentServices
         //    }
         //}
 
-        [HttpGet, ActionName("GetTrSheets")]
-        public string GetTrSheets(string Scheme, int ExamMonthYearId,string Date,string CollegeCodesList)
+        [HttpPost, ActionName("GetTrSheetsData")]
+        public string GetTrSheetsData([FromBody] JsonObject request)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@Scheme", Scheme);
-                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
-                param[2] = new SqlParameter("@Date", Date);
-                param[3] = new SqlParameter("@CollegeCodesList", CollegeCodesList);
-                
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@Scheme", request["Scheme"]);
+                param[1] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
+                param[2] = new SqlParameter("@Date", request["Date"]);
+                param[3] = new SqlParameter("@CollegeCodesList", request["CollegeCodesList"]);
+                param[4] = new SqlParameter("@Semid", request["Semid"]);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TRData", param);
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var TrSheetData = DataTableHelper.ConvertDataTable<TrSheetCertificateData>(ds?.Tables[1]);

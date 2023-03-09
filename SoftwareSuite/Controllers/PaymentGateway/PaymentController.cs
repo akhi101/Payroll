@@ -490,7 +490,7 @@ namespace CoreExamin.Controllers
                     para[0] = new SqlParameter("@FullResponse", _paymentResp);
                     para[1] = new SqlParameter("@ResponceType", 2);
                     db1.ReturnDataWithStoredProcedureTable("Usp_SFP_SET_S2SLog", para);
-                    return "Added in DB";
+                    return "Data Not Matched";
                 }
             }
             catch (Exception ex)

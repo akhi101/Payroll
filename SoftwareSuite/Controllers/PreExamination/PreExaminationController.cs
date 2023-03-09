@@ -962,7 +962,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(600000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1854,6 +1854,69 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+
+        [HttpGet, ActionName("GetAttendanceReportData")]
+        public string GetAttendanceReportData(int AcademicYearID, int Semid)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Semid", Semid);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AttendanceReportData", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var filename = "Attendance_Report" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_AttendanceReportData", 0, ex.Message);
+
+                p1.file = "";
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
+            }
+
+        }
+
+
+
         [HttpGet, ActionName("GetPolycetExamCentersExcel")]
         public string GetPolycetExamCentersExcel(string AcademicYear)
         {
@@ -2325,6 +2388,42 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+        [HttpGet, ActionName("GetHomePageSlides")]
+        public HttpResponseMessage GetHomePageSlides()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec usp_get_HomePageSlides";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("usp_get_HomePageSlides", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetHomePageSlidesActive")]
+        public HttpResponseMessage GetHomePageSlidesActive()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec usp_get_HomePageSlides_Active";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("usp_get_HomePageSlides_Active", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetExamTypeByMonthYear")]
         public string GetExamTypeByMonthYear(int ExamMonthYearId)
         {
@@ -2346,8 +2445,30 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        
-               [HttpGet, ActionName("GetSchemeByPin")]
+      
+            [HttpGet, ActionName("SetHomePageSlidesStatus")]
+            public string SetHomePageSlidesStatus(int Id,int status)
+            {
+                try
+                {
+                    var dbHandler = new dbHandler();
+                    var param = new SqlParameter[2];
+                    param[0] = new SqlParameter("@Id", Id);
+                    param[1] = new SqlParameter("@status", status);
+                    var dt = dbHandler.ReturnDataWithStoredProcedureTable("usp_set_HomePageSlidesStatus", param);
+                    return JsonConvert.SerializeObject(dt);
+                }
+                catch (Exception ex)
+                {
+
+                    dbHandler.SaveErorr("usp_set_HomePageSlidesStatus", 0, ex.Message);
+                    return ex.Message;
+                }
+
+            }
+
+
+            [HttpGet, ActionName("GetSchemeByPin")]
         public string GetSchemeByPin(string pin)
         {
             try
@@ -4670,6 +4791,25 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Pin", Pin);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_CertificateFeepaidStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("getMersyFeeStatus")]
+        public string getMersyFeeStatus(string Pin)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_MercyFeepaidStatus", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -7255,6 +7395,27 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("MersidyFeePaymentChallanNumber")]
+        public HttpResponseMessage MersidyFeePaymentChallanNumber(string pin, int CertificateType)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@pin", pin);
+                param[1] = new SqlParameter("@CertificateType", CertificateType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_CertificateFeePaymentChallanNumber", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_GET_CertificateFeePaymentChallanNumber", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("BackLogDetailsForNc")]
         public HttpResponseMessage BackLogDetailsForNc(string pin)
         {
@@ -7456,14 +7617,74 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[21] = new SqlParameter("@backlogCount", CertificateReqAtt.backlogCount);
                 param[22] = new SqlParameter("@backlogsubjson", CertificateReqAtt.backlogsubjson);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_OldStudentData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_MercyStudentData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_SET_OldStudentData", 0, ex.Message);
+                dbHandler.SaveErorr("SP_SET_MercyStudentData", 0, ex.Message);//SP_SET_OldStudentData
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+
+        }
+
+        [HttpPost, ActionName("AddMersyData")]
+        public HttpResponseMessage AddMersyData([FromBody] CertificateReqAtt CertificateReqAtt)
+        {
+            try
+            {
+                var fileDat = new List<filelist>();
+                int size = CertificateReqAtt.filedata.Count;
+                var file = string.Empty;
+                for (int i = 0; i < size; i++)
+                {
+                    var filename = CertificateReqAtt.PIN + "_" + Guid.NewGuid() + ".jpg";
+                    var path = ConfigurationManager.AppSettings["certFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    string imgPath = Path.Combine(path, filename);
+                    byte[] imageBytes = Convert.FromBase64String(CertificateReqAtt.filedata[i].file);
+                    File.WriteAllBytes(imgPath, imageBytes);
+                    file += filename + ',';
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[24];
+                param[0] = new SqlParameter("@PIN", CertificateReqAtt.PIN);
+                param[1] = new SqlParameter("@first_Name", CertificateReqAtt.first_Name);
+                param[2] = new SqlParameter("@last_Name", CertificateReqAtt.last_Name);
+                param[3] = new SqlParameter("@Father_Name", CertificateReqAtt.Father_Name);
+                param[4] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
+                param[5] = new SqlParameter("@Mobile", CertificateReqAtt.Mobile);
+                param[6] = new SqlParameter("@Email", CertificateReqAtt.Email);
+                param[7] = new SqlParameter("@CollegeName", CertificateReqAtt.CollegeName);
+                param[8] = new SqlParameter("@CourseName", CertificateReqAtt.CourseName);
+                param[9] = new SqlParameter("@CollegeCode", CertificateReqAtt.CollegeCode);
+                param[10] = new SqlParameter("@CourseType", CertificateReqAtt.CourseType);
+                param[11] = new SqlParameter("@Scheme", CertificateReqAtt.Scheme);
+                param[12] = new SqlParameter("@Purpose", CertificateReqAtt.Purpose);
+                param[13] = new SqlParameter("@AddressProof", CertificateReqAtt.AddressProof);
+                param[14] = new SqlParameter("@IdNumber", CertificateReqAtt.IdNumber);
+                param[15] = new SqlParameter("@Village", CertificateReqAtt.Village);
+                param[16] = new SqlParameter("@Town", CertificateReqAtt.Town);
+                param[17] = new SqlParameter("@Mandal", CertificateReqAtt.Mandal);
+                param[18] = new SqlParameter("@District", CertificateReqAtt.District);
+                param[19] = new SqlParameter("@States", CertificateReqAtt.States);
+                param[20] = new SqlParameter("@files", file);
+                param[21] = new SqlParameter("@Photo", CertificateReqAtt.Photo);
+                param[22] = new SqlParameter("@backlogCount", CertificateReqAtt.backlogCount);
+                param[23] = new SqlParameter("@backlogsubjson", CertificateReqAtt.backlogsubjson);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_MercyStudentData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_SET_MercyStudentData", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
 
@@ -7901,6 +8122,8 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         public class CertificateReqAtt
         {
+            
+            public string CourseType { get; set; }
             public string PIN { get; set; }
             public string first_Name { get; set; }
             public string last_Name { get; set; }

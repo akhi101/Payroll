@@ -307,7 +307,7 @@ namespace SoftwareSuite.Controllers.Common
         }
 
         [HttpGet, ActionName("Set_GenuinenessEmailLog")]
-        public HttpResponseMessage Set_GenuinenessEmailLog(string Pin, string Email, string OTP)
+        public string Set_GenuinenessEmailLog(string Pin, string Email, string OTP)
         {
             try
             {
@@ -317,13 +317,13 @@ namespace SoftwareSuite.Controllers.Common
                 param[1] = new SqlParameter("@Email", Email);
                 param[2] = new SqlParameter("@OTP", OTP);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GenuineEmailLog", param);
+                return JsonConvert.SerializeObject(dt);
 
-                return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_SFP_GenuineEmailLog", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.NotFound, ex.Message);
+                return ex.Message;
             }
         }
 

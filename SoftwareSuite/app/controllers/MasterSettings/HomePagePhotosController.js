@@ -1,5 +1,9 @@
 ﻿define(['app'], function (app) {
-    app.controller("HomePagePhotosController", function ($scope, $http, $localStorage, $state, AppSettings, AdminService, SystemUserService, MasterSettingsService) {
+    app.controller("HomePagePhotosController", function ($scope, $http, $localStorage, $state, AppSettings, AdminService, PreExaminationService , MasterSettingsService) {
+        const $ctrl = this;
+        $ctrl.$onInit = () => {
+            $scope.GetAllSlides()
+        }
 
 
         $scope.UploadSignature = function () {
@@ -10,10 +14,13 @@
             var Sign = MasterSettingsService.UploadHomePageSlides($scope.FileName,$scope.ApplicationLetter);
             Sign.then(function (res) {
                 var response = JSON.parse(res)
-                if (response[0].ResponceCode == '200') {
-                    alert(response[0].ResponceDescription)
+               
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
                 } else {
-                    alert("Something Went Wrong");
+                    alert("Something Went Wrong")
                 }
             },
                 function (error) {
@@ -76,6 +83,44 @@
             //}
         }
 
+        $scope.GetAllSlides = function () {
+        var getSlides = PreExaminationService.GetHomePageSlides();
+        getSlides.then(function (response) {
 
+
+            $scope.HomeSlides = response.Table;
+            //  $scope.websiteCounts();
+        },
+            function (error) {
+
+                alert("error while loading Slides");
+                //alert("error while loading Notification");
+
+                var err = JSON.parse(error);
+            });
+        }
+
+        $scope.ChangeStatus = function (Id,Status) {
+            var getSlides = PreExaminationService.SetHomePageSlidesStatus(Id, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response[0].ResponseCode == '200') {
+                    alert(response[0].ResponseDescription)
+                    $scope.GetAllSlides()
+                } else if (response[0].ResponseCode == '400') {
+                    alert(response[0].ResponseDescription)
+                    $scope.GetAllSlides()
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
+
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
     })
 })

@@ -37,6 +37,16 @@
          
 
         }
+
+        $scope.ClearData = function () {
+            $scope.ExamMonthYear = "";
+            $scope.GradePoints = "";
+            $scope.Day = "";
+            $scope.Month = "";
+            $scope.Year = "";
+            $scope.Pin = "";
+        }
+
         $scope.Submit = function () {
             $scope.loading = true;
             $scope.Data = false;

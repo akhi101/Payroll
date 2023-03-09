@@ -587,7 +587,7 @@ padding :6px
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "GC" + InterimData[0].Pin + "_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "GC" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") +".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -919,7 +919,7 @@ padding :6px
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "GC" + InterimData[0].Pin + "_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "GC" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") +".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -1473,7 +1473,7 @@ in
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "INTRM" + InterimData[0].Pin + "_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "INTRM" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") +".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -1809,7 +1809,7 @@ padding :6px
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "TWSH" + TwshData[0].RegNo + "_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "TWSH" + TwshData[0].RegNo + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2197,7 +2197,7 @@ color: #130404;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "16001-m-001" + "_" + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "16001-m-001" + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2659,7 +2659,7 @@ height:20px;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "TC" + TCData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "TC" + TCData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2928,7 +2928,7 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "MC" + MigrationData[0].Pin + $"{Guid.NewGuid().ToString()}.pdf";
+            var path = dir + "MC" + MigrationData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -4463,7 +4463,7 @@ margin-bottom :3px;
 
                     var studentarrdata = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH && x.YEAR == branch.YEAR)
                                                     .OrderBy(x => x.BRANCH)
-                                                    .OrderBy(x => x.PIN)
+                                                    .OrderBy(x => x.YEAR)
                                                     .Distinct()
                                                     .ToArray();
 

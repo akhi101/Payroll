@@ -9,6 +9,14 @@
             return DataAccessService.getDataAll('api/PreExamination/GetAllBranches');
         };
 
+        this.GetHomePageSlides = function () {
+            return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlides');
+        };
+
+        this.GetHomePageSlidesActive = function () {
+            return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlidesActive');
+        };
+
         this.getActiveExamTypes = function () {
             return DataAccessService.getDataAll('api/PreExamination/getActiveExamTypes');
         };
@@ -121,6 +129,13 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetAmbedkarResultsReport', paramObject);
         };
 
+        this.GetAttendanceReportData = function (AcademicYearID, Semid) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID, "Semid": Semid
+            };
+            return DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceReportData', paramObject);
+        };
+
         this.GetAsssessmentConsolidatedReport = function (AcademicyearId,collegecode,branchId,schemeid,semid,ExamType) {
             var paramObject = {
                 "AcademicyearId": AcademicyearId, "collegecode": collegecode, "branchId": branchId, "schemeid": schemeid, "semid": semid,"ExamType": ExamType
@@ -225,6 +240,15 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetFactultyMappingExcel', paramObject);
         };
 
+        
+        this.SetHomePageSlidesStatus = function (Id, Status) {
+            var paramObject = {
+                "Id": Id, "Status": Status
+
+            };
+
+            return DataAccessService.getDataWithPara('api/PreExamination/SetHomePageSlidesStatus', paramObject);
+        };
 
         this.ResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, academicyearid, UserName) {
             var paramObject = {
@@ -784,15 +808,15 @@
             return DataAccessService.getDataWithPara('api/PreExamination/getMarksMemoDataSemwiseByPin', param);
         };
 
-        this.sendmail = function (paramobj) {
+        this.SendRelayMail = function (paramobj) {
             // var param = { "From": From, "To": To, "Subject": Subject, "Message": Message, "attachmentdata": attachmentdata}
-            return DataAccessService.postData('api/Communication/SendEmails', paramobj);
+            return DataAccessService.postData('api/Email/SendRelayMail', paramobj);
         };
 
 
         this.SendOTP = function (paramobj) {
             // var param = { "From": From, "To": To, "Subject": Subject, "Message": Message, "attachmentdata": attachmentdata}
-            return DataAccessService.postData('api/Communication/SendOTP', paramobj);
+            return DataAccessService.postData('api/Email/SendGenuinenessOTP', paramobj);
         };
 
         this.SendEmail = function (paramobj) {
@@ -1967,13 +1991,13 @@
             }
 
             
-            this.GetTrSheets = function (Scheme, ExamMonthYearId, Date, CollegeCodesList) {
+        this.GetTrSheets = function (Scheme, ExamMonthYearId, Date, CollegeCodesList, Semid) {
                 var paramObj = {
-                    "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList
-
+                    "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList, "Semid": Semid
                 }
-            return DataAccessService.getDataWithPara('api/StudentCertificate/GetTrSheets', paramObj);
-            },
+            return DataAccessService.postData('api/StudentCertificate/GetTrSheetsData', paramObj);
+        },
+
             this.GetOdcTrSheets = function (ExamMonthYearId, CollegeCodesList) {
                 var paramObj = {
                     "ExamMonthYearId": ExamMonthYearId, "CollegeCodesList": CollegeCodesList
@@ -2002,6 +2026,14 @@
                 "pin": pin
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getFeePaymentStatus', paramObj);
+            return promise;
+        };
+
+        this.getMersyFeeStatus = function (pin) {
+            var paramObj = {
+                "pin": pin
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getMersyFeeStatus', paramObj);
             return promise;
         };
 
@@ -2463,6 +2495,15 @@
             return promise;
         };
 
+        this.MersidyFeePaymentChallanNumber = function (PIN, CertificateType) {
+            var paramObj = {
+                "PIN": PIN, "CertificateType": CertificateType
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/MersidyFeePaymentChallanNumber', paramObj);
+            return promise;
+        };
+
+        
         this.getStudentApprovalList = function () {
             return DataAccessService.getDataWithPara('api/PreExamination/GetStudentApprovalList');
         };
@@ -2511,8 +2552,15 @@
 
 
         this.AddOldStudentData = function (paramObject) {
-            return DataAccessService.postData('api/PreExamination/AddOldStudentData', paramObject);
+            var promise = DataAccessService.postData('api/PreExamination/AddOldStudentData', paramObject);
+            return promise;
         };
+
+        this.AddMersyData = function (paramObject) {
+            var promise = DataAccessService.postData('api/PreExamination/AddMersyData', paramObject);
+            return promise;
+        };
+        
 
 
         this.UpdateOldStudentData = function (paramObject) {

@@ -51,5 +51,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default pull-left" ng-click="closeModal()">Cancel</button>
-    <button type="button" class="btn btn-primary pull-Right" ng-disabled="btndisable" ng-click="!btndisable && sendmail(Subject,message,TOUniversityEmails)">Send Mail</button>
+    <button type="button" class="btn btn-primary pull-Right" ng-disabled="btndisable"  ng-show="!EmailLoading"  ng-click="!btndisable && sendmail(Subject,message,TOUniversityEmails)">Send Mail</button>
+    <button type="button" class="btn btn-success pull-Right" ng-show="EmailLoading" >Sending...</button>
 </div>

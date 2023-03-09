@@ -256,54 +256,54 @@
         <div class="row">
 
             <!--<div class="col-md-12  mtp-50" ng-if="instructions">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="offer-custom-style">
-                            <h2>Instructions</h2>
-                        </div>
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="offer-custom-style">
+                        <h2>Instructions</h2>
                     </div>
                 </div>
+            </div>
 
-                <div class="body">
-                    <div class="custom-forms">
-                        <p>
-                            <i class="fa fa-arrow-right"> </i> TYPE WRITING Candidates applying for any grade in any language as privately for the first time he or she shall appear through the recognized typewriting institution only.
-                        </p>
+            <div class="body">
+                <div class="custom-forms">
+                    <p>
+                        <i class="fa fa-arrow-right"> </i> TYPE WRITING Candidates applying for any grade in any language as privately for the first time he or she shall appear through the recognized typewriting institution only.
+                    </p>
 
-                        <p><i class="fa fa-arrow-right"> </i> SHORTHAND Candidates can apply for any grade directly or privately</p>
-                        <p>
-                            <i class="fa fa-arrow-right"> </i> Candidates whose qualifying examination data is NOT available online, they have
-                            to upload the attested copy in the website and has to show the original eligibility
-                            Certificates to the Principal of the examination centre before last date of the fee
-                            payment, <b>
-                                failing which the candidate will not be allowed to write the
-                                examination
-                            </b>.
-                        </p>
-                        <p><i class="fa fa-arrow-right"> </i> <b>Note :</b> Please read the instructions before You procced to fill application.</p>
-                        <div class="clearfix"></div>
+                    <p><i class="fa fa-arrow-right"> </i> SHORTHAND Candidates can apply for any grade directly or privately</p>
+                    <p>
+                        <i class="fa fa-arrow-right"> </i> Candidates whose qualifying examination data is NOT available online, they have
+                        to upload the attested copy in the website and has to show the original eligibility
+                        Certificates to the Principal of the examination centre before last date of the fee
+                        payment, <b>
+                            failing which the candidate will not be allowed to write the
+                            examination
+                        </b>.
+                    </p>
+                    <p><i class="fa fa-arrow-right"> </i> <b>Note :</b> Please read the instructions before You procced to fill application.</p>
+                    <div class="clearfix"></div>
 
-                        <div class="custom-check-boxes terms-label">
-                        <label class="customcheck">
-                            I have read the above instructions, proceed to Fill Application.
-                            <input type="checkbox" id="check">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                        <div class="row">
-                            <div class="col-md-12 pull-right mtp-50">
-                                <div class="submit-btn" style="margin-bottom:0px;">
-                                    <button class="btn btn-info" ng-click="fillApplication()">
-                                        Fill Application
-                                    </button>
-                                </div>
+                    <div class="custom-check-boxes terms-label">
+                    <label class="customcheck">
+                        I have read the above instructions, proceed to Fill Application.
+                        <input type="checkbox" id="check">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12 pull-right mtp-50">
+                            <div class="submit-btn" style="margin-bottom:0px;">
+                                <button class="btn btn-info" ng-click="fillApplication()">
+                                    Fill Application
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
+    </div>-->
 
             <div class="col-md-12  mtp-50" ng-show="courseDetails">
                 <div class="card">
@@ -327,27 +327,27 @@
                                                 <option value="" selected>Select Course</option>
                                             </select>
                                             <!--<select class="form-control" id="course" ng-model="course" ng-init="loadCourse()" ng-change="LoadLanguage(course)" required>
-                                            <option value="" selected>Select Course</option>
-                                            <option ng-repeat="course in courseinfo" value="{{course}}">
-                                                {{course.CourseName}}
-                                            </option>
-                                        </select>-->
+                                        <option value="" selected>Select Course</option>
+                                        <option ng-repeat="course in courseinfo" value="{{course}}">
+                                            {{course.CourseName}}
+                                        </option>
+                                    </select>-->
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
-                                            <label>Language</label>
+                                            <label>Language </label>
                                             <select class="form-control" id="language" ng-model="sellanguage" ng-change="LoadGrades(SelectedCourseId,sellanguage) " required
                                                     ng-options="language.LanguageName for language in languageinfo track by language.Id">
                                                 <option value="" selected>Select Language</option>
                                             </select>
 
                                             <!--<select class="form-control" id="language" ng-model="language" ng-change="LoadGrades(course,language) " required>
-                                            <option value="" selected>Select Language</option>
-                                            <option ng-repeat="language in languageinfo" value="{{language}}">
-                                                {{language.LanguageName}}
-                                            </option>
-                                        </select>-->
+                                        <option value="" selected>Select Language</option>
+                                        <option ng-repeat="language in languageinfo" value="{{language}}">
+                                            {{language.LanguageName}}
+                                        </option>
+                                    </select>-->
                                         </div>
                                     </div>
 
@@ -360,18 +360,18 @@
                                                 <option value="" selected>Select Grade</option>
                                             </select>
                                             <!--<select class="form-control" id="language" ng-model="grade" required>
-                                            <option value="" selected>Select Grade</option>
-                                            <option ng-repeat="grade in LoadGradeinfo" value="{{grade}}">
-                                                {{grade.GradeName}}
-                                            </option>
-                                        </select>-->
+                                        <option value="" selected>Select Grade</option>
+                                        <option ng-repeat="grade in LoadGradeinfo" value="{{grade}}">
+                                            {{grade.GradeName}}
+                                        </option>
+                                    </select>-->
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4 pull-left mtp-50">
-                                    <div class="back-btn" style="margin-bottom:0px;">
-                                        <button type="button" ng-click="backtoInstructions()">Back</button>
-                                    </div>
-                                </div>-->
+                                <div class="back-btn" style="margin-bottom:0px;">
+                                    <button type="button" ng-click="backtoInstructions()">Back</button>
+                                </div>
+                            </div>-->
                                     <div class="col-md-12 pull-right mtp-50">
                                         <div class="submit-btn" style="margin-bottom:0px;">
                                             <button type="submit">Submit</button>
@@ -404,10 +404,9 @@
                                     <div class="col-md-4">
                                         <label>Mode of Examination :</label>
                                     </div>
-                                    /d
                                     <div class="col-md-8 pull-left">
                                         <div class="rdo-grp">
-                                            <input id="rdo1" type="radio" name="radio" ng-value=1 ng-model="mode" ng-click="clickmodeRadio(mode)" />
+                                            <input id="rdo1" type="radio" ng-disabled="sellanguage.Id!=1" name="radio" ng-value=1 ng-model="mode" ng-click="clickmodeRadio(mode)" />
                                             <label for="rdo1"><span></span><span>Computer Based Test (CBT)</span></label>
                                             <input id="rdo2" type="radio" name="radio" ng-value=2 ng-model="mode" ng-click="clickmodeRadio(mode)" />
                                             <label for="rdo2"><span></span><span>Type Machine Based Test (TMBT)</span></label>
@@ -426,22 +425,21 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-md-7">
-                                <label>Did you appear for <b>{{Grade}}</b> in any of the last sessions ?</label>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="rdo-grp">
-                                    <input id="rdo1" type="radio" name="radio" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn,grade)" />
-                                    <label for="rdo1"><span></span><span>Yes</span></label>
-                                    <input id="rdo2" type="radio" name="radio" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn,grade)" />
-                                    <label for="rdo2"><span></span><span>No</span></label>
+                            <label>Did you appear for <b>{{Grade}}</b> in any of the last sessions ?</label>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="rdo-grp">
+                                <input id="rdo1" type="radio" name="radio" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn,grade)" />
+                                <label for="rdo1"><span></span><span>Yes</span></label>
+                                <input id="rdo2" type="radio" name="radio" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn,grade)" />
+                                <label for="rdo2"><span></span><span>No</span></label>
 
-                                </div>
-                            </div>-->
+                            </div>
+                        </div>-->
 
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

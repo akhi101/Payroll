@@ -155,10 +155,10 @@
                 $scope.ExamModeName = 'Computer Based Test (CBT)';
             }
             else if ($scope.selectedlanguage.Id != 1 && $scope.selectedcourse.Id == 1) {
-                $scope.tmpmode = '';
+                $scope.tmpmode = 2;
                 $scope.showmodeofexam = true;
                 $scope.ExamAppearDetails = false;
-                $scope.mode = null;
+                $scope.mode = 2;
 
             } else {
                 $scope.mode = 2;
@@ -625,6 +625,9 @@
             $scope.LoadGradeinfo = [];
             // course = JSON.parse(course);
             // language = JSON.parse(language);
+            if (languageId.Id != 1) {
+                mode = 2
+            }
             if (!angular.isUndefined(courseId) && !angular.isUndefined(languageId)) {
                 var coursedetail = TwshStudentRegService.getGrades(courseId.Id, languageId.Id);
                 coursedetail.then(function (req) {
