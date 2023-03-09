@@ -2577,6 +2577,7 @@
     <Content Include="app\views\PaymentGateway\PaymentResponse.html" />
     <Content Include="app\views\paymentPopup.html" />
     <Content Include="app\views\PaymentResponse.html" />
+    <Content Include="app\views\Popups\SetFeeDatesPopup.html" />
     <Content Include="app\views\PostExam.html" />
     <Content Include="app\views\PostExam\AmbedkarResultsReport.html" />
     <Content Include="app\views\PostExam\BacklogSubjects.html" />

@@ -182,22 +182,7 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetStudentFeeDates")]
-        public HttpResponseMessage GetStudentFeeDates()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_FeePaymentDates";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Get_FeePaymentDates", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+
 
         [HttpGet, ActionName("GetStudentType")]
         public HttpResponseMessage GetStudentType()
@@ -1886,35 +1871,6 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpPost, ActionName("SetStudentFeePayments")]
-        public string SetStudentFeePayments([FromBody] PaymentDetails request)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[14];
-                param[0] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
-                param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
-                param[2] = new SqlParameter("@CourseId", request.CourseId);
-                param[3] = new SqlParameter("@StudentType", request.StudentType);
-                param[4] = new SqlParameter("@StartDate", request.StartDate);
-                param[5] = new SqlParameter("@EndDate", request.EndDate);
-                param[6] = new SqlParameter("@LateFeeDate", request.LateFeeDate);
-                param[7] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[8] = new SqlParameter("@PremiumTatkalDate", request.PremiumTatkalDate);
-                param[9] = new SqlParameter("@Fee", request.Fee);
-                param[10] = new SqlParameter("@LateFee", request.LateFee);
-                param[11] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[12] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[13] = new SqlParameter("@CertificateFee", request.CertificateFee);               
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_FeePaymentDates", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
 
         public class NRData
         {
@@ -1973,6 +1929,84 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpPost, ActionName("GetFeePaymentDates")]
+        public string GetFeePaymentDates([FromBody] FeePaymentDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[2] = new SqlParameter("@FeePaymentDateID", data.FeePaymentDateID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_FeePaymentDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        public class FeePaymentDatesInfo
+        {
+            public int DataType { get; set; }
+            public int FeePaymentDateID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime LastDatewithoutFine { get; set; }
+            public DateTime LastDatewithFine { get; set; }
+            public DateTime TatkalEndDate { get; set; }
+            public DateTime PremiumTatkalEndDate { get; set; }
+            public int ExaminationFee { get; set; }
+            public int LateFee { get; set; }
+            public int TatkalFee { get; set; }
+            public int PremiumTatkalFee { get; set; }
+            public int CertificateFee { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+        }
+
+
+
+        [HttpPost, ActionName("AddorUpdateFeePaymentDates")]
+        public string AddorUpdateFeePaymentDates([FromBody] FeePaymentDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[16];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FeePaymentDateID", data.FeePaymentDateID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@StartDate", data.StartDate);
+                param[5] = new SqlParameter("@LastDatewithoutFine", data.LastDatewithoutFine);
+                param[6] = new SqlParameter("@LastDatewithFine", data.LastDatewithFine);
+                param[7] = new SqlParameter("@TatkalEndDate", data.TatkalEndDate);
+                param[8] = new SqlParameter("@PremiumTatkalEndDate", data.PremiumTatkalEndDate);
+                param[9] = new SqlParameter("@ExaminationFee", data.ExaminationFee);
+                param[10] = new SqlParameter("@LateFee", data.LateFee);
+                param[11] = new SqlParameter("@TatkalFee", data.TatkalFee);
+                param[12] = new SqlParameter("@PremiumTatkalFee", data.PremiumTatkalFee);
+                param[13] = new SqlParameter("@CertificateFee", data.CertificateFee);
+                param[14] = new SqlParameter("@Active", data.Active);
+                param[15] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_FeePaymentDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
     }
 
 }
