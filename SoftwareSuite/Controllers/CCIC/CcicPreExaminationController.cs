@@ -78,14 +78,48 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("GetCourseDurations")]
+        public HttpResponseMessage GetCourseDurations()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_CourseDurations";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_CourseDurations", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetRegularExamCourseDurations")]
+        public HttpResponseMessage GetRegularExamCourseDurations()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_RegularExamCourseDurations";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_RegularExamCourseDurations", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetCcicCourseDurations")]
-        public string GetCcicCourseDurations(int Batch)
+        public string GetCcicCourseDurations(int BatchID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@Batch", Batch);
+                param[0] = new SqlParameter("@BatchID", BatchID);
 
                 var dt = dbHandler.ReturnDataSet("SP_Get_BatchCourseDurations", param);
                 return JsonConvert.SerializeObject(dt);
@@ -219,13 +253,13 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetCcicCourseDurationBatches")]
-        public string GetCcicCourseDurationBatches(string CourseDuration)
+        public string GetCcicCourseDurationBatches(int CourseDurationID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@CourseDuration", CourseDuration);
+                param[0] = new SqlParameter("@CourseDurationID", CourseDurationID);
 
                 var dt = dbHandler.ReturnDataSet("SP_Get_CourseDurationBatches", param);
                 return JsonConvert.SerializeObject(dt);
@@ -484,26 +518,32 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-
-
-
-        [HttpGet, ActionName("AddExamMonthYear")]
-        public string AddExamMonthYear(int AcademicYearID, int Batch, string ExamMonthYearName, string UserName)
+        public class ExamMonthYearInfo
         {
+            public int AcademicYearID { get; set; }
+            public int RegularExamCourseDurationID { get; set; }
+            public string ExamMonthYearName { get; set; }
+            public string UserName { get; set; }
+        }
+
+        [HttpPost, ActionName("AddExamMonthYear")]
+        public string AddExamMonthYear([FromBody] ExamMonthYearInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
             try
             {
-                var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
-                param[1] = new SqlParameter("@Batch", Batch);
-                param[2] = new SqlParameter("@ExamMonthYearName", ExamMonthYearName);
-                param[3] = new SqlParameter("@UserName", UserName);
-
+                param[0] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[1] = new SqlParameter("@RegularExamCourseDurationID", data.RegularExamCourseDurationID);
+                param[2] = new SqlParameter("@ExamMonthYearName", data.ExamMonthYearName);
+                param[3] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_ExamMonthYear", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
+
+                dbHandler.SaveErorr("SP_Add_ExamMonthYear", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -1875,5 +1915,64 @@ namespace SoftwareSuite.Controllers.CCIC
                 return ex.Message;
             }
         }
+
+        public class NRData
+        {
+            public int StudentTypeID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public int CourseDurationID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int BatchID { get; set; }
+            public string UserName { get; set; }
+
+        }
+
+        [HttpPost, ActionName("AddNRDataforFeePayment")]
+        public string AddNRDataforFeePayment([FromBody] NRData data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@StudentTypeID", data.StudentTypeID);
+                param[1] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[2] = new SqlParameter("@CourseDurationID", data.CourseDurationID);
+                param[3] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[4] = new SqlParameter("@BatchID", data.BatchID);
+                param[5] = new SqlParameter("@UserName", data.UserName);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_FeePaymentNRData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_FeePaymentNRData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetFeePaymentNRData")]
+        public string GetFeePaymentNRData(int ExamMonthYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_FeePaymentNRData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
     }
+
 }

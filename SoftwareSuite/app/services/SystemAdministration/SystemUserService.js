@@ -98,6 +98,11 @@
             var promise = DataAccessService.getDataAll('api/SystemUser/GetEKey');
             return promise;
         }
+
+        this.GetSessionEKey = function () {
+            var promise = DataAccessService.getDataAll('api/SystemUser/GetSessionEKey');
+            return promise;
+        }
         this.GetStudentData = function (PIN) {
             var paramObject = { "PIN": PIN };
             var promise = DataAccessService.getDataWithPara('Admission/GetStudentData', paramObject);
@@ -105,6 +110,12 @@
         }
         this.GetCertificate = function () {
             var promise = DataAccessService.getDataWithPara('Admission/GetCertificate');
+            return promise;
+        }
+
+        this.GetForgotPassword = function (reqdata) {
+            var paramObject = reqdata;
+            var promise = DataAccessService.postData('api/SystemUser/GetForgotPassword', paramObject);
             return promise;
         }
 

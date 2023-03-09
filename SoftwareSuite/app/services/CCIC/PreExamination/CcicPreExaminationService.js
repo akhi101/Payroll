@@ -9,6 +9,14 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentType');
         };
 
+        this.GetCourseDurations = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCourseDurations');
+        };
+
+        this.getRegularExamCourseDurations = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetRegularExamCourseDurations');
+        };
+
         this.GetCcicAcademicYears = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicAcademicYears');
         };
@@ -54,12 +62,9 @@
             return promise;
         };
 
-        this.AddExamMonthYear = function (AcademicYearID,Batch, ExamMonthYearName,UserName) {
-            var paramObj = {
-                "AcademicYearID": AcademicYearID, "Batch": Batch, "ExamMonthYearName": ExamMonthYearName, "UserName": UserName
-            };
-            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/AddExamMonthYear', paramObj);
-            return promise;
+        this.AddExamMonthYear = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddExamMonthYear', paramObject);
         };
 
 
@@ -238,17 +243,17 @@
        
 
 
-        this.GetCcicCourseDurationBatches = function (CourseDuration) {
+        this.GetCcicCourseDurationBatches = function (CourseDurationID) {
             var paramObj = {
-                "CourseDuration": CourseDuration
+                "CourseDurationID": CourseDurationID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCourseDurationBatches', paramObj);
             return promise;
         };
 
-        this.GetCcicCourseDurations = function (Batch) {
+        this.GetCcicCourseDurations = function (BatchID) {
             var paramObj = {
-                "Batch": Batch
+                "BatchID": BatchID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCourseDurations', paramObj);
             return promise;
@@ -438,6 +443,19 @@
             };
 
             var promise = DataAccessService.postData('api/CcicPreExamination/SetStudentFeePayments', paramObject);
+            return promise;
+        };
+
+        this.AddNRDataforFeePayment = function (paramObject) {
+            console.log(paramObject)
+            return DataAccessService.postData('api/CcicPreExamination/AddNRDataforFeePayment', paramObject);
+        };
+
+        this.GetFeePaymentNRData = function (ExamMonthYearID) {
+            var paramObj = {
+                "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentNRData', paramObj);
             return promise;
         };
     });

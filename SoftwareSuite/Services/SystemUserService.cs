@@ -213,6 +213,24 @@ namespace SoftwareSuite.Services
             }
         }
 
+        public DataTable GetForgotPassword(dbHandler dbHandler, string UserName)
+        {
+            try
+            {
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserName", UserName);
+                var res = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Password", param);
+                return res;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                throw ex;
+            }
+        }
+
         public DataTable GetChangePassword(dbHandler dbHandler, Int32 UserId, string OldPassword, string NewPassword)
         {
             DataTable dt = new DataTable();

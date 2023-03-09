@@ -58,56 +58,56 @@
         });
 
         //----------------------Course Multi Select Start--------------------------------//
-        //var courseexpand = false;
-        //$scope.showcourseCheckboxes = function () {
-        //    var checkboxes = document.getElementById("checkboxescourse");
-        //    if (!courseexpand) {
-        //        checkboxes.style.display = "block";
-        //        checkboxes.style.position = "absolute";
-        //        checkboxes.style.width = "92%";
-        //        checkboxes.style.backgroundColor = "white";
-        //        checkboxes.style['z-index'] = 99;
-        //        courseexpand = true;
-        //    } else {
-        //        checkboxes.style.display = "none";
-        //        courseexpand = false;
-        //    }
-        //}
+        var courseexpand = false;
+        $scope.showcourseCheckboxes = function () {
+            var checkboxes = document.getElementById("checkboxescourse");
+            if (!courseexpand) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                checkboxes.style['z-index'] = 99;
+                courseexpand = true;
+            } else {
+                checkboxes.style.display = "none";
+                courseexpand = false;
+            }
+        }
 
-        //$scope.closecourseCheckbox = function () {
-        //    var checkboxes = document.getElementById("checkboxescourse");
-        //    if (!courseexpand) {
-        //        checkboxes.style.display = "block";
-        //        checkboxes.style.position = "absolute";
-        //        checkboxes.style.width = "92%";
-        //        checkboxes.style.backgroundColor = "white";
-        //        courseexpand = true;
-        //    } else {
-        //        checkboxes.style.display = "none";
-        //        courseexpand = false;
-        //    }
-        //}
+        $scope.closecourseCheckbox = function () {
+            var checkboxes = document.getElementById("checkboxescourse");
+            if (!courseexpand) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                courseexpand = true;
+            } else {
+                checkboxes.style.display = "none";
+                courseexpand = false;
+            }
+        }
 
-        //$scope.toggleAllcourse = function () {
-        //    var toggleStatus = $scope.isAllSelectedcourses;
-        //    angular.forEach($scope.CoursesData, function (itm) { itm.selected = toggleStatus; });
-        //    $scope.coursearr = [];
-        //    angular.forEach($scope.CoursesData, function (value, key) {
-        //        if (value.selected === true) {
-        //            $scope.coursearr.push({ "CourseID": value.CourseID })
-        //        }
-        //    });
-        //}
+        $scope.toggleAllcourse = function () {
+            var toggleStatus = $scope.isAllSelectedcourses;
+            angular.forEach($scope.CoursesData, function (itm) { itm.selected = toggleStatus; });
+            $scope.coursearr = [];
+            angular.forEach($scope.CoursesData, function (value, key) {
+                if (value.selected === true) {
+                    $scope.coursearr.push({ "CourseID": value.CourseID })
+                }
+            });
+        }
 
-        //$scope.optionToggledcourse = function () {
-        //    $scope.isAllSelectedcourses = $scope.CoursesData.every(function (itm) { return itm.selected; })
-        //    $scope.coursearr = [];
-        //    angular.forEach($scope.CoursesData, function (value, key) {
-        //        if (value.selected === true) {
-        //            $scope.coursearr.push({ "CourseID": value.CourseID })
-        //        }
-        //    });
-        //}
+        $scope.optionToggledcourse = function () {
+            $scope.isAllSelectedcourses = $scope.CoursesData.every(function (itm) { return itm.selected; })
+            $scope.coursearr = [];
+            angular.forEach($scope.CoursesData, function (value, key) {
+                if (value.selected === true) {
+                    $scope.coursearr.push({ "CourseID": value.CourseID })
+                }
+            });
+        }
 
         //----------------------Course Multi Select End--------------------------------//
 

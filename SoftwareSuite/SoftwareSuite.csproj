@@ -859,6 +859,7 @@
     <Content Include="app\controllers\ExamTypeController.js" />
     <Content Include="app\controllers\ForgetPasswordController.js" />
     <Content Include="app\controllers\ForgetPasswordSavedController.js" />
+    <Content Include="app\controllers\GetDeCryptPaSSPageController.js" />
     <Content Include="app\controllers\GovtColEnrollController.js" />
     <Content Include="app\controllers\GovtColEnrollExistController.js" />
     <Content Include="app\controllers\GovtColEnrollListController.js" />
@@ -2265,6 +2266,7 @@
     <Content Include="app\views\ForgetPasswordSaved.html" />
     <Content Include="app\views\GenuinenessEmailPopup.html" />
     <Content Include="app\views\GenuineRejectPopup.html" />
+    <Content Include="app\views\GetDeCryptPaSSPage.html" />
     <Content Include="app\views\GovtColEnroll.html" />
     <Content Include="app\views\GovtColEnrollExist.html" />
     <Content Include="app\views\GovtColEnrollList.html" />

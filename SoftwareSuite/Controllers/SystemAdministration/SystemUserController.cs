@@ -36,6 +36,19 @@ namespace SoftwareSuite.Controllers.SystemAdministration
             return builder.ToString().ToLower();
         }
 
+        public string GetSessionEkey()
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < 30; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            return builder.ToString().ToLower();
+        }
+
         #region GetMethod
         public class SystemUserencypass
         {
@@ -196,6 +209,41 @@ namespace SoftwareSuite.Controllers.SystemAdministration
                     retMsg = "{\"status\":\"400\",\"statusdesc\": \"" + ex.Message + "\"}";
                     return Request.CreateResponse(HttpStatusCode.OK, retMsg);
 
+                }
+            }
+            else
+            {
+                retMsg = "{\"status\":\"" + ForgetRes.ResponceCode + "\",\"statusdesc\": \"" + ForgetRes.ResponceDescription + "\"}";
+                return Request.CreateResponse(HttpStatusCode.OK, retMsg);
+
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetForgotPassword()
+        {
+
+            var data = await Request.Content.ReadAsStringAsync();
+            var res = data.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+            var crypt = new HbCrypt(res[1]);
+            string UserName = crypt.AesDecrypt(res[0]);
+            SystemUserBLL SystemUserBLL = new SystemUserBLL();
+            SystemRes ForgetRes = new SystemRes();
+            var passcrypt = new HbCrypt();
+            ForgetRes = SystemUserBLL.GetForgotPassword(UserName.Replace("'", "''"));
+            string retMsg = string.Empty;             
+            if (ForgetRes.ResponceCode == "200")
+            {
+                try
+                {
+                    string decryptpassword = passcrypt.Decrypt(ForgetRes.Password);
+                    return Request.CreateResponse(HttpStatusCode.OK, decryptpassword);
+                }
+                catch (Exception ex)
+                {
+                    retMsg = "{\"status\":\"400\",\"statusdesc\": \"" + ex.Message + "\"}";
+                    return Request.CreateResponse(HttpStatusCode.OK, retMsg);
                 }
             }
             else

@@ -126,6 +126,7 @@
         font-size: 14px;
         font-family: 'Open Sans';
     }
+
     .cancel-btn button {
         background: #e51313;
         padding: 5px 20px;
@@ -142,7 +143,7 @@
         font-weight: 600;
         color: #fff;
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 13px;
         text-align: center;
         position: absolute;
         top: -39px;
@@ -156,11 +157,11 @@
 
     .custom-forms label {
         color: #222;
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: normal;
         margin: 10px 0px 10px 0px;
         font-weight: 600;
-        font-family:'Open Sans';
+        font-family: 'Open Sans';
     }
 
     .custom-forms .form-control {
@@ -180,7 +181,7 @@
     }
 
     .new {
-         color: black  !important; 
+        color: black !important;
     }
 
     span {
@@ -201,6 +202,7 @@
         font-size: inherit;
         line-height: inherit;
     }
+
     a.backA, a.backA:focus {
         color: #fff !important;
         text-decoration: none !important;
@@ -215,11 +217,30 @@
         padding-left: 0px;
         padding-right: 0px;
     }
+
     .containercontent {
         margin-right: auto;
         margin-left: auto;
         padding-left: 0px;
         padding-right: 0px;
+    }
+
+    .content-header > .breadcrumbnew {
+        float: right;
+        background: transparent;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 12px;
+        padding: 7px 5px;
+        position: absolute;
+        top: -9px;
+        right: 10px;
+        border-radius: 2px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        right: 0px;
     }
 </style>
 
@@ -252,7 +273,7 @@
         });
     </script>
 
-    <div class="container containercontent" style="padding-bottom:50px">
+    <div class="container containercontent" style="padding-bottom:100px">
 
         <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
@@ -433,6 +454,9 @@
                                                 <div class="col-md-1 pull-right mtp-50">
 
                                                 </div>
+
+
+
                                             </div>
 
                                         </div>
@@ -440,7 +464,12 @@
                                     </form>
 
 
-
+                                    <div class="col-md-12" ng-if="loading">
+                                        <!--<div class="sm-spacer" style="height:20px"></div>-->
+                                        <div style="width:100%;text-align:center;">
+                                            <img src="../../../contents/img/loading2.gif" ng-if="loading" width="50" />
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -448,7 +477,7 @@
 
                     </div>
                 </div>
-
+                
                 <form name="StudentDetails">
                     <div class="custom-forms" ng-show="applicationForm">
                         <div class="col-md-12  mtp-50">
@@ -520,7 +549,7 @@
                                         </div>
 
 
-                                        <div class="sm-spacer"></div>
+                                        <div class="sm-spacer" style="height:20px"></div>
                                         <div style="width: 100%; height: 20px;  border-bottom: 1px solid black; text-align: center" ng-model="ADDRESS">
                                             <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
                                                 Address
@@ -528,6 +557,7 @@
                                         </div>
 
 
+                                        <div class="sm-spacer" style="height:20px"></div>
 
                                         <div class="row">
                                             <div class="col-md-4">
@@ -601,17 +631,15 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="sm-spacer"></div>
+                                        <div class="sm-spacer" style="height:20px"></div>
                                         <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
                                             <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
                                                 Photo & Signature
                                             </span>
                                         </div>
-
-
+                                        <div class="sm-spacer" style="height:20px"></div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
                                                     <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" />
@@ -619,7 +647,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Signature(size less than 30KB) :</label>
                                                     <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="img img-responsive" id="stdSignImg" />
@@ -631,35 +659,37 @@
                                         </div>
 
 
-                                        <div class="sm-spacer"></div>
+                                        <div class="sm-spacer" style="height:20px"></div>
                                         <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
                                             <span class="new" style="font-size: 25px; background-color: #F3F5F6; padding: 0 10px;">
                                                 Upload Certificate
                                             </span>
                                         </div>
+                                        <label class="notifylabel" for="sel1" style="color: red;margin-top:820px"> Document size should be Less than 100KB and Greater than 2MB</label>
+                                        <div class="sm-spacer" style="height:20px"></div>
                                         <div class="row">
 
-                                            <div class="col-md-4" ng-if="SSCCertificate">
-                                                <div class="form-group required custom-img">
-                                                    <label>Upload Ssc Certificate(size should be greater than 100KB and less than 2MB) :</label>
+                                            <div class="col-md-3">
+                                                <div class="form-group required custom-img" ng-if="StudentCertificateType!='SSC/10th Class or Its Equivalent'">
+                                                    <label>Upload Ssc Certificate</label>
 
                                                     <img ng-src="{{StudentSscCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
                                                     <input type="file" required id="stdSscCertificateFile" ng-model="StudentSscCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <div class="form-group required custom-img" ng-if="StudentCertificateType">
-                                                    <label>Upload {{StudentCertificateType}}(size should be greater than 100KB and less than 2MB) :</label>
+                                                    <label>Upload {{StudentCertificateType}} Certificate</label>
 
                                                     <img ng-src="{{stdCertificateType}}" class="img img-responsive" id="stdCertificateTypeImg" />
                                                     <input type="file" required id="stdCertificateTypeFile" ng-model="stdCertificateType" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4" ng-if="GetCcicCourseExperienceInfo.length>0">
+                                            <div class="col-md-3" ng-if="GetCcicCourseExperienceInfo.length>0">
                                                 <div class="form-group required custom-img">
-                                                    <label>Upload Experience Certificate(size should be greater than 100KB and less than 2MB) :</label>
+                                                    <label>Upload Experience Certificate</label>
 
                                                     <img ng-src="{{isExperienced}}" class="img img-responsive" id="stdExperienceCertificateImg" />
                                                     <input type="file" required id="stdExperienceCertificateFile" ng-model="isExperienced" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
@@ -679,8 +709,8 @@
 
 
                                         <!--<div class="submit-btn" ng-click="UpdateStdDetails(ApplicationNumber,StudentId)" ng-show="Update" style="margin-bottom:0px;">
-                                            <button type="submit">Update</button>
-                                        </div>-->
+        <button type="submit">Update</button>
+    </div>-->
 
                                     </div>
 

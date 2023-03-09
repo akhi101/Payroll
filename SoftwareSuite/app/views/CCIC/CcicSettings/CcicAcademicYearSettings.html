@@ -174,7 +174,7 @@
     </script>
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
-        <div class="container" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px; padding-left: 29px; margin-right: 80px;">
+        <div class="container containercontent">
             <section class="content-header">
                 <h5>Academic Year Setting</h5>
                 <ol class="breadcrumb">
@@ -387,8 +387,8 @@
                                         <label class="font-weight-bold"> Batch :</label>
                                         <select class="form-control " ng-model="batch" name="StudentType" required>
                                             <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetBatchesData" class="">
-                                                {{data.Batch}}
+                                            <option value="{{data.BatchNumber}}" ng-repeat="data in GetBatchesData" class="">
+                                                {{data.BatchID}}
                                             </option>
                                         </select>
                                     </div>
@@ -542,8 +542,8 @@
                                         <label class="font-weight-bold"> Course Duration :</label>
                                         <select class="form-control " ng-model="courseduration" name="CourseDurationType" required>
                                             <option value="" selected="selected">Select Duration</option>
-                                            <option value="{{data.CourseDuration}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
-                                                {{data.CourseDuration}}
+                                            <option value="{{data.CourseDurationID}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
+                                                {{data.CourseDurationName}}
                                             </option>
                                         </select>
                                     </div>
