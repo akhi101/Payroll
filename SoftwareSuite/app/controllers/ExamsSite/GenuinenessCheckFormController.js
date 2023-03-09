@@ -854,11 +854,12 @@
             $scope.ResendMail = true
 
             var obj = {
-                "From": 'sonali.akarapu05@gmail.com',
+                "From": 'sbtet-helpdesk@telangana.gov.in',
                 "To": $scope.OrganizationEmail,
-                "Subject": 'Genuineness Check Verification',
-                "Message": 'Hii',
-                "attachmentdata": 'Hii',
+                "cc": "b.akhil101@gmail.com",
+                "Subject": "Genuineness OTP Verification",
+                "Message": "Hii",
+                //"attachmentdata": Attachment,
                 "Pin": $scope.PinNumber
             }
 

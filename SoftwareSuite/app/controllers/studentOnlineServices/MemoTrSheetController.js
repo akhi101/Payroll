@@ -103,9 +103,19 @@
             alert("error while loading data");
         });
 
+        var LoadBacklogSemesters = PreExaminationService.getAllSemester();
+        LoadBacklogSemesters.then(function (response) {
+            $scope.ActiveSemesters = response.Table;
+        },
+            function (error) {
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
+
+
         $scope.DownloadMemoTrSheets = function () {
             $scope.NrGenerating = true;
-            var CertificateFeePaymentReports = PreExaminationService.GetTrSheets($scope.Scheme, $scope.ExamMonth, $scope.date, JSON.stringify($scope.CollegeTypesArray));
+            var CertificateFeePaymentReports = PreExaminationService.GetTrSheets($scope.Scheme, $scope.ExamMonth, $scope.date, JSON.stringify($scope.CollegeTypesArray), $scope.Semester);
             CertificateFeePaymentReports.then(function (res) {
                 $scope.NrGenerating = false;
                 if (res.length > 0) {                   

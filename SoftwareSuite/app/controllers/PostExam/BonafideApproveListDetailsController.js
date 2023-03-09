@@ -2,6 +2,9 @@
     app.controller("BonafideApproveListDetailsController", function ($scope, $http, $localStorage, $state, DigitalSignatureService, $stateParams, AppSettings, $uibModal, $timeout, PreExaminationService) {
         $scope.btndisable = false;
         $scope.MyCheck = false;
+
+
+  
         var authData = $localStorage.authorizationData;
         $scope.UserTypeId = authData.SystemUserTypeId;
         $scope.sscVerified = false;
@@ -154,8 +157,14 @@
                 alert("Certificate not found");
                 return;
             }
+
+            //url = Path.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+            url = Path.replace('www.', '');    // for https use url..split("://")[0];
+            url = url.replace('https://', '');
+
+
             $scope['smsbtndisable' + ind] = true;
-            var sensSMS = PreExaminationService.sendcertSMS(PIN, Path, mobile, "Study/Bonafide");
+            var sensSMS = PreExaminationService.sendcertSMS(PIN, url, mobile, "Study/Bonafide");
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {

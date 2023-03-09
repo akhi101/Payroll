@@ -843,6 +843,12 @@
                 dependencies: ['controllers/ExamsSite/StudentOnlineRequestController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
+            'index.MercyFee': {
+                url: "/MercyFee",
+                templateUrl: 'app/views/ExamsSite/MersidiseCertificate.html',
+                dependencies: ['controllers/ExamsSite/MersidiseCertificateController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
             'index.TwoYearsCertificateRequest': {
                 url: "/TwoYearsCertificateRequest",
                 templateUrl: 'app/views/PostExam/TwoYearsCertificateRequest.html',
@@ -2539,6 +2545,13 @@
                 templateUrl: 'app/views/FeedbackReport.html',
                 dependencies: ['controllers/Academic/Reports/FeedbackReportController', 'services/PreExamination/PreExaminationService', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/Academic/AcademicService']
             },
+
+            'Dashboard.Academic.AttendanceReport': {
+                url: "/AttendanceReport",
+                templateUrl: 'app/views/Academic/AttendanceReport.html',
+                dependencies: ['controllers/Academic/AttendanceReportController', 'services/PreExamination/PreExaminationService', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/Academic/AcademicService']
+            },
+            
 
             'Dashboard.Academic.PromotionalList': {
                 url: "/PromotionalList",
