@@ -281,7 +281,7 @@
             <div class="row">
                 <div class="col-md-12  mtp-50">
                     <div class="card" ng-show="coursedetails">
-                        <form name="coursedetail">
+                        <form name="coursedetail" novalidate>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="offer-custom-style">
@@ -351,10 +351,10 @@
                                                 <button type="button" ng-model="REset" ng-disabled="reset" ng-click="Reset()">Reset</button>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 pull-right mtp-50">
+                                        <div class="col-md-2 pull-right mtp-50" ng-show="continuebutton">
 
                                             <div class="submit-btn" style="margin-bottom:0px;">
-                                                <button type="submit" ng-model="CONtinue" ng-disabled="continue" ng-click="Continue()">Continue</button>
+                                                <button type="submit" ng-model="CONtinue" ng-click="Continue()">Continue</button>
 
                                             </div>
                                         </div>
@@ -411,7 +411,6 @@
 
                                     <form name="SSC">
                                         <div class="custom-forms" ng-show="SscForm">
-                                            <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group required">
                                                         <label>{{sscHtLbl}}</label>
@@ -443,10 +442,10 @@
                                                 </div>
                                                 <div class="col-md-2 pull-right mtp-50">
                                                     <div class="submit-btn " style="margin:0px;" ng-if="mode==1">
-                                                        <button type="submit" ng-disabled="SSCDetails" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
+                                                        <button type="submit"  ng-show="getsscbutton"  ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
                                                     </div>
                                                     <div class="submit-btn " style="margin:0px;" ng-if="mode==2">
-                                                        <button type="submit" ng-disabled="SSCDetails" ng-click="Next(sscHallticket, passedoutYear, sscType)">Next</button>
+                                                        <button type="submit" ng-show="nextbutton"  ng-click="Next(sscHallticket, passedoutYear, sscType)">Next</button>
                                                     </div>
                                                 </div>
 
@@ -457,7 +456,6 @@
 
 
 
-                                            </div>
 
                                         </div>
 
@@ -478,7 +476,7 @@
                     </div>
                 </div>
                 
-                <form name="StudentDetails">
+                <form name="StudentDetails" novalidate>
                     <div class="custom-forms" ng-show="applicationForm">
                         <div class="col-md-12  mtp-50">
                             <div class="card">
@@ -497,19 +495,23 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Candidate Name</label>
-                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()" oninput="this.value.replace(/[^a-zA-Z]/g);" maxlength="100" autocomplete="off" ng-model="CNAME" ng-disabled="CandidateNamefound" class="form-control" required />
+                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()" 
+                                                           onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
+                                                           maxlength="50" autocomplete="off" ng-model="CNAME" ng-disabled="CandidateNamefound" class="form-control" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Father Name</label>
-                                                    <input type="text" ng-model="FNAME" ng-blur="FatName()" maxlength="100" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
+                                                    <input type="text" ng-model="FNAME" ng-blur="FatName()"
+                                                           onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="50" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Mother Name</label>
-                                                    <input type="text" ng-model="MNAME" ng-blur="MotName()" maxlength="100" placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
+                                                    <input type="text" ng-model="MNAME" ng-blur="MotName()" maxlength="50"
+                                                           onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -518,7 +520,7 @@
                                                 <div class="form-group required">
                                                     <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                        <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOB_DATE" ng-disabled="CandidateNameDOBfound" is-open="showFlag1" required />
+                                                        <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.DateOfBirth" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOB_DATE" disabled ng-change="checkDate(DOB_DATE)" is-open="showFlag1" required />
                                                         <span class="input-group-btn">
                                                             <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
                                                         </span>
@@ -569,7 +571,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Street/Locality</label>
-                                                    <input type="text" placeholder="Street/Locality" maxlength="100" class="form-control" autocomplete="off" ng-model="street" required />
+                                                    <input type="text" placeholder="Street/Locality" maxlength="50" class="form-control" autocomplete="off" ng-model="street" required />
                                                 </div>
                                             </div>
 
@@ -643,7 +645,7 @@
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
                                                     <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" />
-                                                    <input type="file" id="stdPhotoFile" ng-model="StudentPhoto" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required>
+                                                    <input type="file" id="stdPhotoFile" ng-model="StudentPhoto" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required>
                                                 </div>
                                             </div>
 
@@ -651,7 +653,7 @@
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Signature(size less than 30KB) :</label>
                                                     <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="img img-responsive" id="stdSignImg" />
-                                                    <input type="file" required id="stdSignFile" ng-model="StudentSign" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
+                                                    <input type="file" required id="stdSignFile" ng-model="StudentSign" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
                                                 </div>
                                             </div>
 
@@ -674,7 +676,7 @@
                                                     <label>Upload Ssc Certificate</label>
 
                                                     <img ng-src="{{StudentSscCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
-                                                    <input type="file" required id="stdSscCertificateFile" ng-model="StudentSscCertificate" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
+                                                    <input type="file" required id="stdSscCertificateFile" ng-model="StudentSscCertificate" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentSscCertificate()" class="upld-file">
                                                 </div>
                                             </div>
 
@@ -683,7 +685,7 @@
                                                     <label>Upload {{StudentCertificateType}} Certificate</label>
 
                                                     <img ng-src="{{stdCertificateType}}" class="img img-responsive" id="stdCertificateTypeImg" />
-                                                    <input type="file" required id="stdCertificateTypeFile" ng-model="stdCertificateType" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
+                                                    <input type="file" required id="stdCertificateTypeFile" ng-model="stdCertificateType" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentCertificateType()" class="upld-file">
                                                 </div>
                                             </div>
 
@@ -692,7 +694,7 @@
                                                     <label>Upload Experience Certificate</label>
 
                                                     <img ng-src="{{isExperienced}}" class="img img-responsive" id="stdExperienceCertificateImg" />
-                                                    <input type="file" required id="stdExperienceCertificateFile" ng-model="isExperienced" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
+                                                    <input type="file" required id="stdExperienceCertificateFile" accept="image/png, image/gif, image/jpeg" ng-model="isExperienced" onchange="angular.element(this).scope().uploadStudentExperienceCertificate()" class="upld-file">
                                                 </div>
                                             </div>
                                         </div>

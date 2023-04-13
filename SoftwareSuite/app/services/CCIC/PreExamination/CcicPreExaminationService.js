@@ -9,6 +9,10 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentType');
         };
 
+        this.GetFeePaymentType = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentType');
+        };
+
         this.GetCourseDurations = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCourseDurations');
         };
@@ -32,6 +36,10 @@
 
         this.GetAffiliatedInstitutions = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAffiliatedInstitutions');
+        };
+
+        this.GetApplicationNumber = function () {
+            return DataAccessService.postData('api/CcicPreExamination/GetApplicationNumber');
         };
 
 
@@ -229,17 +237,20 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate');
         };
 
-      
-      
-      
+        this.VerifyFeePaymentDate = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyFeePaymentDate', paramObj);
+            return promise;
+        };
+          
 
         this.GetCcicCurrentAcademicYear = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCurrentAcademicYear');
         };
 
-       
-
-
+      
         this.GetCcicCourseDurationBatches = function (CourseDurationID) {
             var paramObj = {
                 "CourseDurationID": CourseDurationID
@@ -463,6 +474,13 @@
         this.UpdateFeePaymentDates = function (paramObject) {
             return DataAccessService.postData('api/CcicPreExamination/AddorUpdateFeePaymentDates', paramObject);
         };
+
+        this.getPayExamFee = function (InstitutionID,AcademicYearID, ExamMonthYearID, FeePaymentTypeID,UserName) {
+            var paramObject = {
+                "InstitutionID": InstitutionID, "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID, "FeePaymentTypeID": FeePaymentTypeID, "UserName": UserName
+            };
+            return DataAccessService.postData('api/CcicPreExamination/getPayExamFee', paramObject);
+        }
 
 
     });

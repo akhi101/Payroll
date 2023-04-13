@@ -11,47 +11,62 @@
 
             $scope.GetCcicCoursesByInstitution(authData.InstitutionID);
             $scope.SscForm = false;
+            $scope.continuebutton = true;
 
 
         }
 
         $scope.loading = false;
 
-        $scope.StuName = function () {
+        //$scope.StuName = function () {
 
-            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.CNAME)){
-                return true;
-            }
-            else {
-                alert("Invalid Studentname")
-                return (false)
-            }
-        }
+        //    if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.CNAME)){
+        //        return true;
+        //    }
+        //    else {
+        //        alert("Invalid Studentname")
+        //        return (false)
+        //    }
+        //}
 
-        $scope.FatName = function () {
+        //$scope.FatName = function () {
 
-            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.FNAME)) {
-                return true;
-            }
-            else {
-                alert("Invalid Fathername")
-                return (false)
-            }
-        }
+        //    if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.FNAME)) {
+        //        return true;
+        //    }
+        //    else {
+        //        alert("Invalid Fathername")
+        //        return (false)
+        //    }
+        //}
 
-        $scope.MotName = function () {
+        //$scope.MotName = function () {
 
-            if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.MNAME)) {
-                return true;
-            }
-            else {
-                alert("Invalid Mothername")
-                return (false)
-            }
-        }
-        $scope.father_name = /^[a-zA-Z5-9]+$/;
+        //    if (/^(\s)*[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])*))*(\s)*$/.test($scope.MNAME)) {
+        //        return true;
+        //    }
+        //    else {
+        //        alert("Invalid Mothername")
+        //        return (false)
+        //    }
+        //}
+        //$scope.father_name = /^[a-zA-Z5-9]+$/;
         $scope.ph_numbr = /^\+?\d{10}$/;
         $scope.resendMobileOTP = false;
+
+        $scope.checkDate = function (DOB_DATE) {
+            var currentDate = new Date();
+                var birthdate = new Date(DOB_DATE);
+                if (birthdate > currentDate) {
+                    alert('Selected Date Should not be Future!')
+                    $scope.DOB_DATE = null;
+                    return;
+                } else {
+                    $scope.DOB_DATE = DOB_DATE;
+                }
+            
+
+        };
 
 
         $scope.ValidateEmail = function () {
@@ -90,11 +105,13 @@
         $scope.Mode = function () {
 
             if ($scope.mode == 1) {
+                $scope.getsscbutton = true;
                 $scope.sscHtLbl = 'SSC Hallticket Number';
                 $scope.passYrLbl = 'Passedout Year';
                 $scope.sscHtPhl = 'Hallticket No';
 
             } else if ($scope.mode == 2) {
+                $scope.nextbutton = true;
                 $scope.sscHtLbl = ' SSC or Equivalent RollNo';
                 $scope.passYrLbl = 'Pass Year';
                 $scope.sscHtPhl = 'SSC/Equivalent HallTicket no';
@@ -125,6 +142,7 @@
                 return;
             }
             alert("Continue to fillApplication");
+            $scope.nextbutton = false;
             $scope.cancel = false;
             $scope.radiodisable = true;
             $scope.Add = true;
@@ -244,7 +262,7 @@
 
 
         $scope.Reset = function () {
-
+            $scope.continuebutton = true;
             $scope.reset = false;
             $scope.Course = null;
             $scope.Qualification = null;
@@ -299,6 +317,8 @@
         }
 
         $scope.Cancel = function () {
+            $scope.nextbutton = true;
+            $scope.getsscbutton = true;
             //$scope.radiodisable = false;
             $scope.SSCDetails = false;
             $scope.radiodisable = false;
@@ -390,6 +410,7 @@
                 alert('Please Select Experience')
                 return;
             }
+            $scope.continuebutton = false;
             $scope.continue = true;
             alert('Please Scroll down to fill Details')
             $scope.showEducation = true;
@@ -412,11 +433,7 @@
 
         }
 
-
         $scope.SaveNext = function () {
-            $scope.Change = false;
-            $scope.Add = true;
-
             if ($scope.CNAME == '' || $scope.CNAME == undefined || $scope.CNAME == null) {
                 alert('Please Select CandidateName')
                 return;
@@ -504,6 +521,34 @@
                 alert('Please Select Qualification Certificate')
                 return;
             }
+            var getappnumber = CcicPreExaminationService.GetApplicationNumber();
+            getappnumber.then(function (resp) {
+                try {
+                    var res = JSON.parse(resp);
+                }
+                catch (err) { }
+
+                if (res.length > 0) {
+                    $scope.ApplicationData = res[0];
+                    $scope.ApplicationNumber = $scope.ApplicationData.ApplicationNumber
+                    $scope.AddDetails();
+                }
+                else {
+                    $scope.ApplicationData = [];
+                }
+
+            },
+                function (error) {
+                    //alert("data is not loaded");
+                    //    var err = JSON.parse(error);
+                });
+        }
+
+        $scope.AddDetails = function () {
+            $scope.Change = false;
+            $scope.Add = true;
+
+           
 
             //if ($scope.StudentSscCertificate == '' || $scope.StudentSscCertificate == undefined || $scope.StudentSscCertificate == null) {
             //    alert('Please Select SSC Certificate')
@@ -939,6 +984,7 @@
 
                     let resdata = JSON.parse(res)
                     if (resdata.Status == 200) {
+                        $scope.getsscbutton = false;
                         $scope.applicationForm = true;
                         $scope.loading = false;
                         $scope.LoadImg = false;
@@ -982,6 +1028,7 @@
                         $scope.cancel = false;
 
                     } else {
+                        $scope.getsscbutton = false;
                         $scope.loading = false;
                         alert("Details not found, Continue to fillApplication");
                         $scope.applicationForm = true;
@@ -993,6 +1040,7 @@
                     }
 
                 } else {
+                    $scope.getsscbutton = false;
                     $scope.loading = false;
                     alert("Details not found, Continue to fillApplication");
                     $scope.applicationForm = true;
@@ -1005,6 +1053,7 @@
 
 
             }, function (err) {
+                $scope.getsscbutton = false;
                 $scope.loading = false;
                 alert("Details not found, Continue to fillApplication");
                 $scope.applicationForm = true;
