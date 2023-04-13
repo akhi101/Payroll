@@ -182,22 +182,7 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetStudentFeeDates")]
-        public HttpResponseMessage GetStudentFeeDates()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_FeePaymentDates";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Get_FeePaymentDates", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+
 
         [HttpGet, ActionName("GetStudentType")]
         public HttpResponseMessage GetStudentType()
@@ -212,6 +197,57 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("SP_Get_StudentType", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetFeePaymentType")]
+        public HttpResponseMessage GetFeePaymentType()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_FeePaymentTypes";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_FeePaymentTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        public class FeePaymentDataInfo
+        {
+            public int InstitutionID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public int FeePaymentTypeID { get; set; }
+            public string UserName { get; set; }
+        }
+
+        [HttpPost, ActionName("getPayExamFee")]
+        public HttpResponseMessage getPayExamFee([FromBody] FeePaymentDataInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@InstitutionID", data.InstitutionID);
+                param[1] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[3] = new SqlParameter("@FeePaymentTypeID", data.FeePaymentTypeID);
+                param[4] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_PinListForFeePayment", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_PinListForFeePayment", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -602,6 +638,24 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("VerifyFeePaymentDate")]
+        public string VerifyFeePaymentDate(int AcademicYearID,int ExamMonthYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Verify_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("GetCcicCoursesByInstitution")]
         public string GetCcicCoursesByInstitution(int InstitutionID)
         {
@@ -851,7 +905,22 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             try
             {
-                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CCICStaticfiles\";
+                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CcicPhotos\";
+                var photo_url = dir + "Photo" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdPhoto = "Photo_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var sign_url = dir + "Sign" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdSign = "Sign_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var ssccert_url = dir + "SSCCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdSscCert = "SSCCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var qualcert_url = dir + "QualificationCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdQualCert = "QualificationCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var expcert_url = dir + "ExperienceCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdExpCert = "ExperienceCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -859,9 +928,11 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+
+
                 if (CertificateReqAtt.StudentPhoto != "")
                 {
-                    var StdPhoto = "StudentPhoto" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdPhoto = "Photo_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -870,16 +941,16 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.StudentPhoto);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentPhotopath = relativePath;
+                    photo_url = relativePath;
                 }
                 else
                 {
-                    StudentPhotopath = "";
+                    photo_url = "";
                 }
 
                 if (CertificateReqAtt.StudentSign != "")
                 {
-                    var StdSign = "StudentSign" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdSign = "Sign_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -888,16 +959,16 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.StudentSign);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentSignpath = relativePath;
+                    sign_url = relativePath;
                 }
                 else
                 {
-                    StudentSignpath = "";
+                    sign_url = "";
                 }
 
                 if (CertificateReqAtt.SSCCertificate != "")
                 {
-                    var StdSscCert = "SSCCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdSscCert = "SSCCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -906,36 +977,36 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.SSCCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentSscCertpath = relativePath;
+                    ssccert_url = relativePath;
                 }
                 else
                 {
-                    StudentSscCertpath = "";
+                    ssccert_url = "";
                 }
 
 
                 if (CertificateReqAtt.QualificationCertificate != "")
                 {
-                    var StdQuaCert = "QualificationCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdQualCert = "QualificationCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
                         Directory.CreateDirectory(dir);
-                    string imgPath = Path.Combine(path, StdQuaCert);
+                    string imgPath = Path.Combine(path, StdQualCert);
                     byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.QualificationCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentQualCertpath = relativePath;
+                    qualcert_url = relativePath;
                 }
                 else
                 {
-                    StudentQualCertpath = "";
+                    qualcert_url = "";
                 }
 
 
                 if (CertificateReqAtt.ExperienceCertificate != "")
                 {
-                    var StdExpCert = "ExperienceCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdExpCert = "ExperienceCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -944,11 +1015,11 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.ExperienceCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentExpCertpath = relativePath;
+                    expcert_url = relativePath;
                 }
                 else
                 {
-                    StudentExpCertpath = "";
+                    expcert_url = "";
                 }
 
                 var dbHandler = new ccicdbHandler();
@@ -980,11 +1051,11 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[24] = new SqlParameter("@StudentEmail", CertificateReqAtt.StudentEmail);
                 param[25] = new SqlParameter("@SSCValidated", CertificateReqAtt.SSCValidated);
                 param[26] = new SqlParameter("@UserName", CertificateReqAtt.UserName);
-                param[27] = new SqlParameter("@StudentPhoto", StudentPhotopath);
-                param[28] = new SqlParameter("@StudentSign", StudentSignpath);
-                param[29] = new SqlParameter("@SSCCertificate", StudentSscCertpath);
-                param[30] = new SqlParameter("@QualificationCertificate", StudentQualCertpath);
-                param[31] = new SqlParameter("@ExperienceCertificate", StudentExpCertpath);
+                param[27] = new SqlParameter("@StudentPhoto", photo_url);
+                param[28] = new SqlParameter("@StudentSign", sign_url);
+                param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
+                param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
+                param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -1005,7 +1076,22 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             try
             {
-                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CCICStaticfiles\";
+                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CcicPhotos\";
+                var photo_url = dir + "Photo" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var sign_url = dir + "Sign" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdSign = "Sign_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var ssccert_url = dir + "SSCCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdSscCert = "SSCCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var qualcert_url = dir + "QualificationCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdQualCert = "QualificationCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+
+                var expcert_url = dir + "ExperienceCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -1013,9 +1099,11 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+
+
                 if (UpdateCertificateReqAtt.StudentPhoto != "")
                 {
-                    var StdPhoto = "StudentPhoto" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -1024,16 +1112,16 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.StudentPhoto);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentPhotopath = relativePath;
+                    photo_url = relativePath;
                 }
                 else
                 {
-                    StudentPhotopath = "";
+                    photo_url = "";
                 }
 
                 if (UpdateCertificateReqAtt.StudentSign != "")
                 {
-                    var StdSign = "StudentSign" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdSign = "Sign_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -1042,16 +1130,16 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.StudentSign);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentSignpath = relativePath;
+                    sign_url = relativePath;
                 }
                 else
                 {
-                    StudentSignpath = "";
+                    sign_url = "";
                 }
 
                 if (UpdateCertificateReqAtt.SSCCertificate != "")
                 {
-                    var StdSscCert = "SSCCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdSscCert = "SSCCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -1060,36 +1148,36 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.SSCCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentSscCertpath = relativePath;
+                    ssccert_url = relativePath;
                 }
                 else
                 {
-                    StudentSscCertpath = "";
+                    ssccert_url = "";
                 }
 
 
                 if (UpdateCertificateReqAtt.QualificationCertificate != "")
                 {
-                    var StdQuaCert = "QualificationCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdQualCert = "QualificationCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
                         Directory.CreateDirectory(dir);
-                    string imgPath = Path.Combine(path, StdQuaCert);
+                    string imgPath = Path.Combine(path, StdQualCert);
                     byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.QualificationCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentQualCertpath = relativePath;
+                    qualcert_url = relativePath;
                 }
                 else
                 {
-                    StudentQualCertpath = "";
+                    qualcert_url = "";
                 }
 
 
                 if (UpdateCertificateReqAtt.ExperienceCertificate != "")
                 {
-                    var StdExpCert = "ExperienceCertificate" + "_" + $"{Guid.NewGuid().ToString()}.jpg";
+                    StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
                     bool foldrExists = Directory.Exists(dir);
                     if (!foldrExists)
@@ -1098,11 +1186,11 @@ namespace SoftwareSuite.Controllers.CCIC
                     byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.ExperienceCertificate);
                     File.WriteAllBytes(imgPath, Bytes);
                     relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                    StudentExpCertpath = relativePath;
+                    expcert_url = relativePath;
                 }
                 else
                 {
-                    StudentExpCertpath = "";
+                    expcert_url = "";
                 }
 
                 var dbHandler = new ccicdbHandler();
@@ -1134,11 +1222,11 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[24] = new SqlParameter("@StudentEmail", UpdateCertificateReqAtt.StudentEmail);
                 param[25] = new SqlParameter("@SSCValidated", UpdateCertificateReqAtt.SSCValidated);
                 param[26] = new SqlParameter("@UserName", UpdateCertificateReqAtt.UserName);
-                param[27] = new SqlParameter("@StudentPhoto", StudentPhotopath);
-                param[28] = new SqlParameter("@StudentSign", StudentSignpath);
-                param[29] = new SqlParameter("@SSCCertificate", StudentSscCertpath);
-                param[30] = new SqlParameter("@QualificationCertificate", StudentQualCertpath);
-                param[31] = new SqlParameter("@ExperienceCertificate", StudentExpCertpath);
+                param[27] = new SqlParameter("@StudentPhoto", photo_url);
+                param[28] = new SqlParameter("@StudentSign", sign_url);
+                param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
+                param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
+                param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -1266,6 +1354,25 @@ namespace SoftwareSuite.Controllers.CCIC
         //    }
 
         //}
+
+        [HttpPost, ActionName("GetApplicationNumber")]
+        public string GetApplicationNumber()
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_ApplicationNumber";
+                var res = dbHandler.ReturnDataSet(StrQuery);
+                return JsonConvert.SerializeObject(res);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ApplicationNumber", 0, ex.Message);
+                throw ex;
+            }
+        }
 
         [HttpPost, ActionName("GetViewStudentDetails")]
         public string GetViewStudentDetails([FromBody] JsonObject data)
@@ -1886,35 +1993,6 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpPost, ActionName("SetStudentFeePayments")]
-        public string SetStudentFeePayments([FromBody] PaymentDetails request)
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[14];
-                param[0] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
-                param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
-                param[2] = new SqlParameter("@CourseId", request.CourseId);
-                param[3] = new SqlParameter("@StudentType", request.StudentType);
-                param[4] = new SqlParameter("@StartDate", request.StartDate);
-                param[5] = new SqlParameter("@EndDate", request.EndDate);
-                param[6] = new SqlParameter("@LateFeeDate", request.LateFeeDate);
-                param[7] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[8] = new SqlParameter("@PremiumTatkalDate", request.PremiumTatkalDate);
-                param[9] = new SqlParameter("@Fee", request.Fee);
-                param[10] = new SqlParameter("@LateFee", request.LateFee);
-                param[11] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[12] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[13] = new SqlParameter("@CertificateFee", request.CertificateFee);               
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_FeePaymentDates", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
 
         public class NRData
         {
@@ -1973,6 +2051,84 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpPost, ActionName("GetFeePaymentDates")]
+        public string GetFeePaymentDates([FromBody] FeePaymentDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[2] = new SqlParameter("@FeePaymentDateID", data.FeePaymentDateID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_FeePaymentDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        public class FeePaymentDatesInfo
+        {
+            public int DataType { get; set; }
+            public int FeePaymentDateID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime LastDatewithoutFine { get; set; }
+            public DateTime LastDatewithFine { get; set; }
+            public DateTime TatkalEndDate { get; set; }
+            public DateTime PremiumTatkalEndDate { get; set; }
+            public int ExaminationFee { get; set; }
+            public int LateFee { get; set; }
+            public int TatkalFee { get; set; }
+            public int PremiumTatkalFee { get; set; }
+            public int CertificateFee { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+        }
+
+
+
+        [HttpPost, ActionName("AddorUpdateFeePaymentDates")]
+        public string AddorUpdateFeePaymentDates([FromBody] FeePaymentDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[16];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FeePaymentDateID", data.FeePaymentDateID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@StartDate", data.StartDate);
+                param[5] = new SqlParameter("@LastDatewithoutFine", data.LastDatewithoutFine);
+                param[6] = new SqlParameter("@LastDatewithFine", data.LastDatewithFine);
+                param[7] = new SqlParameter("@TatkalEndDate", data.TatkalEndDate);
+                param[8] = new SqlParameter("@PremiumTatkalEndDate", data.PremiumTatkalEndDate);
+                param[9] = new SqlParameter("@ExaminationFee", data.ExaminationFee);
+                param[10] = new SqlParameter("@LateFee", data.LateFee);
+                param[11] = new SqlParameter("@TatkalFee", data.TatkalFee);
+                param[12] = new SqlParameter("@PremiumTatkalFee", data.PremiumTatkalFee);
+                param[13] = new SqlParameter("@CertificateFee", data.CertificateFee);
+                param[14] = new SqlParameter("@Active", data.Active);
+                param[15] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_FeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_FeePaymentDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
     }
 
 }

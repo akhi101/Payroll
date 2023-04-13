@@ -1948,6 +1948,7 @@
     <Content Include="app\views\Assessment\TheoryMarksEntrySubjectList.html" />
     <Content Include="app\views\BoardReportList.html" />
     <Content Include="app\views\BranchWise.html" />
+    <Content Include="app\views\CcicTotalExamPaymentPopup.html" />
     <Content Include="app\views\CCIC\Academic\CcicAcademic.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessment.html" />
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntryReports.html" />
@@ -2582,6 +2583,7 @@
     <Content Include="app\views\PaymentGateway\PaymentResponse.html" />
     <Content Include="app\views\paymentPopup.html" />
     <Content Include="app\views\PaymentResponse.html" />
+    <Content Include="app\views\Popups\SetFeeDatesPopup.html" />
     <Content Include="app\views\PostExam.html" />
     <Content Include="app\views\PostExam\AmbedkarResultsReport.html" />
     <Content Include="app\views\PostExam\BacklogSubjects.html" />

@@ -7617,7 +7617,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[21] = new SqlParameter("@backlogCount", CertificateReqAtt.backlogCount);
                 param[22] = new SqlParameter("@backlogsubjson", CertificateReqAtt.backlogsubjson);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_MercyStudentData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_OldStudentData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }

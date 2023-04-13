@@ -1,29 +1,37 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicSetFeeDatesController", function ($scope, CcicPreExaminationService) {
-
+    app.controller("CcicSetFeeDatesController", function ($scope, $localStorage, $uibModal, CcicPreExaminationService) {
+        var authData = $localStorage.authorizationData;
+        if (authData == undefined) {
+            $state.go('index.OfficialsLogin')
+        }
+        $scope.UserName = authData.UserName;
+        var UserTypeID = parseInt(authData.UserTypeID);
+        $scope.SessionID = $localStorage.SessionID;
+        $scope.UserID = authData.UserID;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.getFeeSetdate();
+            $scope.getCcicCurrentAcademicYear();
             $scope.endDisable = true;
             $scope.fineDisable = true;
             $scope.tatkalDisable = true;
             $scope.premiumtatkalDisable = true;
         }
         var data = {};
-        $scope.$emit('showLoading', data);
-        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
-        getCcicCurrentAcademicYear.then(function (response) {
 
-            $scope.GetCcicCurrentAcademicYear = response;
+        $scope.getCcicCurrentAcademicYear = function () {
+            var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+            getCcicCurrentAcademicYear.then(function (response) {
 
-        },
-            function (error) {
-                alert("error while loading CurrentAcademicYear");
-                var err = JSON.parse(error);
+                $scope.GetCcicCurrentAcademicYear = response;
 
-            });
+            },
+                function (error) {
+                    alert("error while loading CurrentAcademicYear");
+                    var err = JSON.parse(error);
 
+                });
+        }
 
         //var getaffcourses = CcicPreExaminationService.GetAffiliatedCourses();
         //getaffcourses.then(function (response) {
@@ -40,23 +48,23 @@
         //        console.log(error);
         //    });
 
-        var getaffcourses = CcicPreExaminationService.GetAffiliatedCourses();
-        getaffcourses.then(function (res) {
-            //var res = JSON.parse(res);
-            $scope.CoursesData = res;
-            $scope.isAllSelectedcourses = false;
-            var toggleStatus = $scope.isAllSelectedcourses;
-            angular.forEach($scope.CoursesData, function (itm) { itm.selected = toggleStatus; });
-            $scope.coursearr = [];
-            angular.forEach($scope.CoursesData, function (value, key) {
-                if (value.selected === true) {
-                    $scope.coursearr.push({ "CourseID": value.CourseID })
-                }
-            });
-        }, function (err) {
-            $scope.LoadImg = false;
-            alert("Error while loading");
-        });
+        //var getaffcourses = CcicPreExaminationService.GetAffiliatedCourses();
+        //getaffcourses.then(function (res) {
+        //    //var res = JSON.parse(res);
+        //    $scope.CoursesData = res;
+        //    $scope.isAllSelectedcourses = false;
+        //    var toggleStatus = $scope.isAllSelectedcourses;
+        //    angular.forEach($scope.CoursesData, function (itm) { itm.selected = toggleStatus; });
+        //    $scope.coursearr = [];
+        //    angular.forEach($scope.CoursesData, function (value, key) {
+        //        if (value.selected === true) {
+        //            $scope.coursearr.push({ "CourseID": value.CourseID })
+        //        }
+        //    });
+        //}, function (err) {
+        //    $scope.LoadImg = false;
+        //    alert("Error while loading");
+        //});
 
         $scope.SetStartDate = function () {
 
@@ -293,6 +301,8 @@
         $scope.ChangeAcaYr = function (AcademicYearID) {
             $scope.AcademicYearID = AcademicYearID;
             $scope.GetExamMonthYearData(AcademicYearID);
+            $scope.getFeeSetdate(AcademicYearID);
+
 
         }
         $scope.GetExamMonthYearData = function (AcademicYearID) {
@@ -326,18 +336,23 @@
 
         }
 
-        $scope.getFeeSetdate = function () {
+        $scope.getFeeSetdate = function (AcademicYearID) {
             $scope.loading = true;
             $scope.Noresult = false;
             $scope.result = false;
-
-            var getFeeDates = CcicPreExaminationService.GetStudentFeeDates();
+            var DataType = 1;
+            var FeePaymentDateID=0 //(Optional)
+            var getFeeDates = CcicPreExaminationService.GetFeePaymentDates(DataType, AcademicYearID, FeePaymentDateID);
             getFeeDates.then(function (response) {
-                if (response.length>0){
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (res.length>0){
                     $scope.loading = false;
                     $scope.Noresult = false;
                     $scope.result = true;
-                    $scope.FeeDates = response;
+                    $scope.FeeDates = res;
                     coursearr = response;
                     $scope.$emit('hideLoading', data);
 
@@ -361,7 +376,7 @@
 
         }
 
-        $scope.submit = function () {
+        $scope.Submit = function () {
             if ($scope.AcademicYear == null || $scope.AcademicYear == "" || $scope.AcademicYear == undefined) {
                 alert("Please Select Academic Year");
                 return;
@@ -375,11 +390,11 @@
                 return;
             }
             if ($scope.EndDate == null || $scope.EndDate == "" || $scope.EndDate == undefined) {
-                alert("Please Select End Date");
+                alert("Please Select Last Date without Fine");
                 return;
             }
             if ($scope.FineDate == null || $scope.FineDate == "" || $scope.FineDate == undefined) {
-                alert("Please Select Fine Date");
+                alert("Please Select Last Date with Fine");
                 return;
             }
             if ($scope.TatkalDate == null || $scope.TatkalDate == "" || $scope.TatkalDate == undefined) {
@@ -390,15 +405,15 @@
                 alert("Please Select Premium Tatkal End Date");
                 return;
             }
-            if ($scope.feeAmount == null || $scope.feeAmount == "" || $scope.feeAmount == undefined) {
+            if ($scope.ExaminationFee == null || $scope.ExaminationFee == "" || $scope.ExaminationFee == undefined) {
                 alert("Please Enter Examination Fee");
                 return;
             }
-            if ($scope.lateFee == null || $scope.lateFee == "" || $scope.lateFee == undefined) {
+            if ($scope.LateFee == null || $scope.LateFee == "" || $scope.LateFee == undefined) {
                 alert("Please Enter Late Fee");
                 return;
             }
-            if ($scope.tatkalFee == null || $scope.tatkalFee == "" || $scope.tatkalFee == undefined) {
+            if ($scope.TatkalFee == null || $scope.TatkalFee == "" || $scope.TatkalFee == undefined) {
                 alert("Please Enter Tatkal Fee");
                 return;
             }
@@ -406,47 +421,46 @@
                 alert("Please Enter Premium Tatkal Fee");
                 return;
             }
-            if ($scope.certificateFee == null || $scope.certificateFee == "" || $scope.certificateFee == undefined) {
+            if ($scope.CertificateFee == null || $scope.CertificateFee == "" || $scope.CertificateFee == undefined) {
                 alert("Please Enter Certificate Fee");
                 return;
             }
             $scope.loading = true;
-            var AcademicYrId = $scope.AcademicYear;
-            var CurrentMonthYear = $scope.monthyear;
-            //var CourseName = $scope.Course;
-            //var StudentType = $scope.stdtype;
-            var StartDate = moment($scope.StartDate).format("YYYY-MM-DD HH:mm:ss.SSS");
-            var EndDate = moment($scope.EndDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
-            var FineDate = moment($scope.FineDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
-            var TatkalDate = moment($scope.TatkalDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
-            var PremiumTatkalDate = moment($scope.PremiumTatkalDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
-            var Fee = $scope.feeAmount;
-            var LateFee = $scope.lateFee;
-            var TatkalFee = $scope.tatkalFee;
-            var PremiumTatkalFee = $scope.PremiumTatkalFee;
-            var CertificateFee = $scope.certificateFee;
 
+            var ParamObj = {
+                "DataType": 1,
+                "FeePaymentDateID": 0,
+                "AcademicYearID" : $scope.AcademicYear,
+                "ExamMonthYearID": $scope.monthyear,
+                "StartDate" : moment($scope.StartDate).format("YYYY-MM-DD"),
+                "LastDatewithoutFine" : moment($scope.EndDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "LastDatewithFine" : moment($scope.FineDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "TatkalEndDate" : moment($scope.TatkalDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "PremiumTatkalEndDate" : moment($scope.PremiumTatkalDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "ExaminationFee" : $scope.ExaminationFee,
+                "LateFee" : $scope.LateFee,
+                "TatkalFee" : $scope.TatkalFee,
+                "PremiumTatkalFee" : $scope.PremiumTatkalFee,
+                "CertificateFee": $scope.CertificateFee,
+                "Active": 0,
+                "UserName": authData.UserName
 
-            var setFeePaymentDates = CcicPreExaminationService.PostFeePaymentDates(parseInt(AcademicYrId), parseInt(CurrentMonthYear), CourseName, StudentType, StartDate, EndDate, FineDate, TatkalDate, PremiumTatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee)
+            }
+            var setFeePaymentDates = CcicPreExaminationService.AddFeePaymentDates(ParamObj)
             setFeePaymentDates.then(function (response) {
-                if (response.ResponseCode == '400') {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (res[0].StatusCode == '200') {
                     $scope.loading = false;
-                  
-                    alert(response.ResponseDescription);
-                    
-                    $scope.getFeeSetdate();
+                    alert(res[0].StatusDescription);
                     $scope.$emit('hideLoading', data);
-                    
-                } else {
+                    $scope.getFeeSetdate();
+                } else if (res[0].StatusCode == '400') {
                     $scope.loading = false;
-            
-                    alert('Data Inserted Successfully.');
-                    var coursearr = [];
-                    coursearr = response;
-                    $scope.getFeeSetdate();
+                    alert(res[0].StatusDescription);
                     $scope.$emit('hideLoading', data);
-                    
-
                 }
 
             },
@@ -456,7 +470,98 @@
                 })
 
 
+        }
+
+
+        $scope.Edit = function (FeePaymentDateID) {
+            var DataType = 2;
+            var AcademicYearID=0 //(Optional)
+            var editfeepaymentdates = CcicPreExaminationService.EditFeePaymentDates(DataType,AcademicYearID,FeePaymentDateID);
+            editfeepaymentdates.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (res.length > 0) {
+                    $scope.EditData = res;
+                }
+                else {
+                    $scope.EditData = [];
+                }
+
+
+            },
+                function (error) {
+                    //alert("data is not loaded");
+                    //    var err = JSON.parse(error);
+                });
+
+
+
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/Popups/SetFeeDatesPopup.html",
+                size: 'xlg',
+                scope: $scope,
+                backdrop: 'static',
+                //windowClass: 'modal-fit-att',
+            });
+
+        }
+
+        $scope.closeModal = function () {
+            $scope.modalInstance.close();
+        }
+
+
+        $scope.updateFeePaymentDates = function (data) {
+            $scope.loading = true;
+
+            var ParamObj = {
+                "DataType": 2,
+                "FeePaymentDateID": data[0].FeePaymentDateID,
+                "AcademicYearID": data[0].AcademicYearID,
+                "ExamMonthYearID": data[0].ExamMonthYearID,
+                "StartDate": moment(data[0].StartDate).format("YYYY-MM-DD"),
+                "LastDatewithoutFine": moment(data[0].LastDatewithoutFine).subtract(1, "days").format("YYYY-MM-DD"),
+                "LastDatewithFine": moment(data[0].LastDatewithFine).subtract(1, "days").format("YYYY-MM-DD"),
+                "TatkalEndDate": moment(data[0].TatkalEndDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "PremiumTatkalEndDate": moment(data[0].PremiumTatkalEndDate).subtract(1, "days").format("YYYY-MM-DD"),
+                "ExaminationFee": data[0].ExaminationFee,
+                "LateFee": data[0].LateFee,
+                "TatkalFee": data[0].TatkalFee,
+                "PremiumTatkalFee": data[0].PremiumTatkalFee,
+                "CertificateFee": data[0].CertificateFee,
+                "Active": data[0].Active,
+                "UserName": authData.UserName
+
             }
+            var updatefeepaymentdates = CcicPreExaminationService.UpdateFeePaymentDates(ParamObj)
+            updatefeepaymentdates.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (res[0].StatusCode == '200') {
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription);
+                    $scope.modalInstance.close();
+                    $scope.$emit('hideLoading', data);
+                    $scope.getFeeSetdate($scope.AcademicYearID);
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+
+
+        }
+
+
+
+
+
     })
 })
 
