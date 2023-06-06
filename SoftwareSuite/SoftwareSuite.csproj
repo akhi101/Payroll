@@ -1117,6 +1117,7 @@
     <Content Include="app\controllers\PreExamination\GenerateTimeTableController.js" />
     <Content Include="app\controllers\PreExamination\HallticketController.js" />
     <Content Include="app\controllers\PreExamination\HodCondonationController.js" />
+    <Content Include="app\controllers\PreExamination\MercyListController.js" />
     <Content Include="app\controllers\PreExamination\MobileAppHallticketController.js" />
     <Content Include="app\controllers\PreExamination\PrinterNrDownloadController.js" />
     <Content Include="app\controllers\PreExamination\NrExcelReportController.js" />
@@ -2689,6 +2690,7 @@
     <Content Include="app\views\PreExamination\GenerateTimeTable.html" />
     <Content Include="app\views\PreExamination\Hallticket.html" />
     <Content Include="app\views\PreExamination\HodCondonation.html" />
+    <Content Include="app\views\PreExamination\MercyList.html" />
     <Content Include="app\views\PreExamination\MobileAppHallticket.html" />
     <Content Include="app\views\PreExamination\PrinterNrDownload.html" />
     <Content Include="app\views\PreExamination\NrExcelReport.html" />

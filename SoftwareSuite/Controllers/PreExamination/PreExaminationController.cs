@@ -13671,6 +13671,23 @@ namespace SoftwareSuite.Controllers.PreExamination
           
         }
 
+        [HttpGet, ActionName("GetMercyList")]
+        public HttpResponseMessage GetMercyList()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SPB_GET_MercyFeePaidPinList";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SPB_GET_MercyFeePaidPinList", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
     }
 
 }
