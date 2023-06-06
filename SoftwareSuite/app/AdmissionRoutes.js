@@ -2223,6 +2223,13 @@
             },
 
 
+            'Dashboard.PreExamination.MercyList': {
+                url: "/MercyList",
+                templateUrl: 'app/views/PreExamination/MercyList.html',
+                dependencies: ['controllers/PreExamination/MercyListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
+
             'Dashboard.PostExam.NameCorrectionApproveList': {
                 url: "/NameCorrectionApproveList",
                 templateUrl: 'app/views/PostExam/NameCorrectionApproveList.html',
