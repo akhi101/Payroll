@@ -489,10 +489,10 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicAmountController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.PreExamination.ExamFeePayment': {
-                url: "/ExamFeePayment",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeepayment.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeepaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.PreExamination.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService']
             },
 
             'CcicDashboard.PreExamination.HallTicketDownload': {
@@ -2220,6 +2220,13 @@
                 url: "/StudentOnlineRequest",
                 templateUrl: 'app/views/StudentOnlineServices/StudentOnlineRequest.html',
                 dependencies: ['controllers/StudentOnlineServices/StudentOnlineRequestController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
+
+            'Dashboard.PreExamination.MercyList': {
+                url: "/MercyList",
+                templateUrl: 'app/views/PreExamination/MercyList.html',
+                dependencies: ['controllers/PreExamination/MercyListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
 

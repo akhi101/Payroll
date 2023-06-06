@@ -15,7 +15,7 @@
         else {
             $scope.UserName = authData.UserName;
             $scope.UserTypeID = authData.UserTypeID;
-
+            $scope.InstitutionID = authData.InstitutionID;
           
         
             var GetCcicRecentNews = CcicAdminService.GetCcicRecentNews();

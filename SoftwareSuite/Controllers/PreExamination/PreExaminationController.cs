@@ -7617,7 +7617,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[21] = new SqlParameter("@backlogCount", CertificateReqAtt.backlogCount);
                 param[22] = new SqlParameter("@backlogsubjson", CertificateReqAtt.backlogsubjson);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_MercyStudentData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_OldStudentData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }
@@ -13674,6 +13674,23 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return "ERROR: " + ex.Message;
             }
           
+        }
+
+        [HttpGet, ActionName("GetMercyList")]
+        public HttpResponseMessage GetMercyList()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SPB_GET_MercyFeePaidPinList";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SPB_GET_MercyFeePaidPinList", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
     }

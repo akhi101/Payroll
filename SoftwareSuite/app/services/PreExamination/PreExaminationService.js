@@ -3188,5 +3188,9 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetSubjectMasterDetails', paramObject);
         };
 
+        this.GetMercyList = function () {
+            return DataAccessService.getDataAll('api/PreExamination/GetMercyList');
+        };
+
     });
 });
