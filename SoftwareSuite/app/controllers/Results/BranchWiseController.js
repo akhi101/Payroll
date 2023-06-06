@@ -852,7 +852,7 @@
         $scope.DownloadExcelResult = function (tableId) {
             // alert(AppSettings.ExportToExcelUrl);
             //alert("Excel : "+tableId);
-            var exportHref = Excel.tableToExcel(tableId, 'StudentResult');
+            var exportHref = Excel.tableToExcel(tableId, 'idtoDivPrintAdmin');
             $timeout(function () { location.href = exportHref; }, 100);
         }
         $scope.PrintDashBoard = function () {

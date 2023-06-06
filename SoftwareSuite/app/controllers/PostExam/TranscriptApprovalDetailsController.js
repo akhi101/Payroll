@@ -611,6 +611,31 @@
             return this;
         }
 
+        $scope.RelesePin = function (Pin, CertificateTypeId, Id) {
+            var ApproveList = PreExaminationService.ReleaseStudentServicesPin(Pin,CertificateTypeId,Id);
+            ApproveList.then(function (response) {
+               // var response = JSON.parse(response)
+             //   $scope.closeModal();
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponceDescription)
+
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponceDescription)
+
+                }
+                $scope.GetApprovalDetails();
+
+            },
+                function (error) {
+                    //$scope.$emit('hideLoading', data);
+
+                    $scope.Data = false;
+                    $scope.Nodata = true;
+                    alert("error while loading data");
+                });
+        }
+        
+
         $scope.Verify = function (applicationNo) {
             var ApproveList = PreExaminationService.SetTranscriptVerificationStatus(applicationNo, $scope.UserTypeId);
             ApproveList.then(function (response) {

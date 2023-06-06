@@ -158,7 +158,8 @@
                 return;
             }
             $scope['smsbtndisable' + ind] = true;
-            var sensSMS = PreExaminationService.sendcertSMS(PIN, Path, mobile, "migration");
+            var resultpath = Path.replace(/(^\w+:|^)\/\//, '');
+            var sensSMS = PreExaminationService.sendcertSMS(PIN, resultpath, mobile, "migration");
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {

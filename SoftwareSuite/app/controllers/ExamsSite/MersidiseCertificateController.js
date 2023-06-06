@@ -2,8 +2,9 @@
     app.controller("MersidiseCertificateController", function ($scope, $http, $localStorage, $window, $state, $stateParams, AppSettings, $uibModal, $timeout, PaymentService, PreExaminationService) {
         $scope.DeleteDisable = true;
         const $ctrl = this;
-
+       
         $ctrl.$onInit = () => {
+         
             //$scope.FourthCard = true;
             $scope.firstCard = true;
             $scope.SecondCard = false;
@@ -26,6 +27,9 @@
         $scope.Schemes = [
             { "Name": "C-90" }, { "Name": "C-96" }, { "Name": "C-00" }, { "Name": "C-05" }, { "Name": "C-08" }, { "Name": "C-09" }, { "Name": "ER-91" }]
         /// recaptcha
+
+       // alert("Mercy Fee Dates Closed")
+     //   $state.go('index');
 
         $scope.createCaptcha = function () {
             $scope.newCapchaCode = "";
