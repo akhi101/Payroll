@@ -1,11 +1,11 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshViewApplicationController", function ($scope, $http, $timeout, $localStorage, $state, $stateParams, AppSettings, TwshStudentRegService) {
+    app.controller("TwshViewApplicationController", function ($scope, $filter, $http, $timeout, $localStorage, $state, $stateParams, AppSettings, TwshStudentRegService) {
         var authData = $localStorage.Twsh;
         //$scope.userId = authData.UserId;
         $scope.yesBtn = 'Application';
         $scope.AppValue = true;
         $scope.editStudentData = false;
-        $scope.UserId = $localStorage.Twsh == undefined || $localStorage.Twsh == "" ? -1 : $localStorage.Twsh.UserId; //---- for private candidate  UserId = -1
+        //$scope.UserId = $localStorage.Twsh == undefined || $localStorage.Twsh == "" ? -1 : $localStorage.Twsh.UserId; //---- for private candidate  UserId = -1
 
         //$scope.LoadExamCenters = function () {
         //    var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.DistrictId, $scope.CourseId, $scope.GradeId);
@@ -81,7 +81,6 @@
 
 
         $scope.getDetails = function () {
-            $scope.editStudentData = false;
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined && !$scope.CandidateNameDOBfound && !(reg == $scope.CandidateNameDOBfound)) {
                 var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
@@ -92,7 +91,6 @@
             }
             var GetApplicationData = TwshStudentRegService.getApplicationData($scope.ApplicationNo, $scope.CandidateNameDOBchange);
             GetApplicationData.then(function (response) {
-                $scope.editStudentData = false;
 
                 if (response.length > 0) {
                     $scope.getData = true;
@@ -103,8 +101,9 @@
                     $scope.CourseShortName = ApplicationDetails[0].CourseShortName;
                     $scope.ExaminationCenterName = ApplicationDetails[0].ExaminationCenterName;
                     $scope.ExamDate = ApplicationDetails[0].ExamDate;
+                    $scope.UserId = ApplicationDetails[0].userid == null ? '-1' : ApplicationDetails[0].userid;;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
-                    $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                    //$scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
                     $scope.Name = ApplicationDetails[0].StudentName;
                     $scope.VillageTown = ApplicationDetails[0].VillageTown;
                     $scope.FatherName = ApplicationDetails[0].FatherName;
@@ -181,7 +180,8 @@
                     $scope.Gender = ApplicationDetails[0].Gender;
                     $scope.ApplicationNumber = ApplicationDetails[0].ApplicationNumber;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
-                    $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                    // $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                    $scope.UserId = ApplicationDetails[0].userid == null ? '-1' : ApplicationDetails[0].userid;
                     $scope.IsBlind = ApplicationDetails[0].IsBlind;
                     $scope.EmailId = ApplicationDetails[0].EmailId;
                     $scope.HnoStreet = ApplicationDetails[0].HnoStreet;
@@ -225,7 +225,10 @@
         $scope.editData = function () {
             var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
             GetDetailsByMobileDetails.then(function (response) {
+                console.log(response)
+                console.log(response.Table[0].ResponseCode)
                 if (response.Table[0].ResponseCode == '200') {
+                    //alert()
                     $scope.userPhotos = "";
                     $scope.getData = false;
                     $scope.editStudentData = true;
@@ -279,22 +282,43 @@
         }
         $scope.UpdateData = function () {
             if ($scope.tmpmode == 1) {
-                if (arr.length < 5) {
-                    alert("choose all exam dates");
-                    return;
-                }
+                //if (arr.length < 5) {
+                //    alert("choose all exam dates");
+                //    return;
+                //}     
 
+                //$scope.finalArray = arr.map(function (obj) {
+
+                //    return obj.date;
+                //});
 
                 $scope.finalArray = arr.map(function (obj) {
-                    return obj.date;
+
+                    //var datechange = moment(obj.date).format("DD/MM/YYYY HH:mm:ss");
+                    //    var d = datechange.slice(0, 10).split('/');
+                    //    if (d[2].length === 4) {
+                    //        obj.date = d[0] + "/" + d[1] + "/" + d[2];
+                    //    }
+
+                    var myDate = new Date();
+                    myDate = $filter('date')(obj.date, "dd-MM-yyyy");
+
+                    return myDate;
                 });
 
                 $scope.ExamDate = JSON.stringify($scope.finalArray).replace("/", "-");
+                //console.log('$scope.finalArray=', $scope.finalArray);
+                //console.log('$scope.ExamDate=', $scope.ExamDate);
             }
 
             if ($scope.IsFeePaid == 0 && $scope.tmpmode == 2) {
                 $scope.ExamDate = $scope.ExamDateselected.ExamDate;
             }
+
+            //console.log('ApplicatioNo = ', $scope.ApplicatioNo, 'userPhotos = ', $scope.userPhotos, 'stdSscCert = ',$scope.stdSscCert,
+            //    'StdinterCert = ', $scope.StdinterCert, 'SelectedDistrictId = ', $scope.SelectedDistrictId.Id, 'HnoStreet = ', $scope.HnoStreet, 'VillageTown = ', $scope.VillageTown, 'EmailId = ', $scope.EmailId, 'ExamDate = ',$scope.ExamDate,
+            //    'Name = ', $scope.Name, 'FatherName = ', $scope.FatherName, 'MotherName = ', $scope.MotherName, 'Gender = ', $scope.Gender, 'CandidateNameDOB1 = ', $scope.CandidateNameDOB1, 'IsBlind = ', $scope.IsBlind, 'GradeId = ', $scope.GradeId, 'exambatch = ', $scope.exambatch, 'ExamCenterId = ', $scope.ExamCenterId,
+            //    'StudentPhoneNumber = ',$scope.StudentPhoneNumber);
 
             var UpdateData = TwshStudentRegService.updatStudentDetails($scope.ApplicatioNo, $scope.userPhotos, $scope.stdSscCert,
                 $scope.StdinterCert, $scope.SelectedDistrictId.Id, $scope.HnoStreet, $scope.VillageTown, $scope.EmailId, $scope.ExamDate,
@@ -319,6 +343,7 @@
         var arr = [];
         var finalarr = [];
         var finalarr1 = [];
+
         $scope.dates = function (date, option) {
             if (date != null && finalarr.includes(date) && !angular.isUndefined(date)) {
                 alert("This day is already taken, Please choose another day");
@@ -345,7 +370,6 @@
                 finalarr = [];
                 finalarr = arr.map(value => value.date);
             }
-
         }
 
         $scope.offlineExamDates = [];

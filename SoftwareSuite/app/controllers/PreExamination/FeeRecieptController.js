@@ -210,7 +210,11 @@
                         $scope.LoadImg = false;
                         $scope.success = false;
                         $scope.pins = pins;
-                        $scope.Status = res.Table[0].Status;
+                        if (res.Table[0].Status) {
+                            $scope.Status = res.Table[0].Status;
+                        } else {
+                            $scope.Status = res.Table[0].errordesc;
+                        }
                         //sending sms using challan number to SendSms controller
                         //PaymentService.callSms($scope.refno);
                         //$scope.cancel();
@@ -327,7 +331,11 @@
                         $scope.LoadImg = false;
                         $scope.success = false;
                         $scope.pins = pins;
-                        $scope.Status = res.Table[0].Status;
+                        if (res.Table[0].Status) {
+                            $scope.Status = res.Table[0].Status;
+                        } else {
+                            $scope.Status = res.Table[0].errordesc;
+                        }
                         //sending sms using challan number to SendSms controller
                         //PaymentService.callSms($scope.refno);
                         //$scope.cancel();

@@ -12277,7 +12277,12 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-      
+        public class NotificationData
+        {
+            public string json { get; set; }
+            public string UserName { get; set; }
+
+        }
 
         [HttpPost, ActionName("UploadResultFileJson")]
         public string UploadResultFileJson([FromBody] JsonObject json)

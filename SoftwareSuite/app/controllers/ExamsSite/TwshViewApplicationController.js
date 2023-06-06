@@ -5,7 +5,7 @@
         $scope.yesBtn = 'Application';
         $scope.AppValue = true;
         $scope.editStudentData = false;
-        $scope.UserId = $localStorage.Twsh == undefined || $localStorage.Twsh == "" ? -1 : $localStorage.Twsh.UserId; //---- for private candidate  UserId = -1
+        //$scope.UserId = $localStorage.Twsh == undefined || $localStorage.Twsh == "" ? -1 : $localStorage.Twsh.UserId; //---- for private candidate  UserId = -1
 
         //$scope.LoadExamCenters = function () {
         //    var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.DistrictId, $scope.CourseId, $scope.GradeId);
@@ -101,8 +101,9 @@
                     $scope.CourseShortName = ApplicationDetails[0].CourseShortName;
                     $scope.ExaminationCenterName = ApplicationDetails[0].ExaminationCenterName;
                     $scope.ExamDate = ApplicationDetails[0].ExamDate;
+                    $scope.UserId = ApplicationDetails[0].userid == null ? '-1' : ApplicationDetails[0].userid;;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
-                    $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                    //$scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
                     $scope.Name = ApplicationDetails[0].StudentName;
                     $scope.VillageTown = ApplicationDetails[0].VillageTown;
                     $scope.FatherName = ApplicationDetails[0].FatherName;
@@ -179,7 +180,8 @@
                     $scope.Gender = ApplicationDetails[0].Gender;
                     $scope.ApplicationNumber = ApplicationDetails[0].ApplicationNumber;
                     $scope.GradeName = ApplicationDetails[0].GradeName;
-                    $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                   // $scope.UserId = ApplicationDetails[0].InstitutionId == null ? '-1' : ApplicationDetails[0].InstitutionId;
+                    $scope.UserId = ApplicationDetails[0].userid == null ? '-1' : ApplicationDetails[0].userid;
                     $scope.IsBlind = ApplicationDetails[0].IsBlind;
                     $scope.EmailId = ApplicationDetails[0].EmailId;
                     $scope.HnoStreet = ApplicationDetails[0].HnoStreet;

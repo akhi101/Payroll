@@ -148,12 +148,13 @@
                             <th class="text-center" ng-click='sortColumn("Name")' ng-class='sortClass("Name")'>Name <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center" ng-click='sortColumn("PhoneNumber")' ng-class='sortClass("PhoneNumber")'>Phone <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
                             <th class="text-center" ng-click='sortColumn("AppliedDate")' ng-class='sortClass("AppliedDate")'>Applied Date <i class="fa fa-fw fa-sort" ng-if="arrows"></i></th>
+                         <!--   <th class="text-center"  ng-show="UserTypeId == 1009">Release PIN</th>-->
                             <th class="text-center" ng-show="UserTypeId==1009">Mail Status</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr style="background-color:#fff!important;cursor:pointer"  ng-repeat="x in ApprovalDetails|orderBy:sortKey:reverse|filter:search">
+                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="x in ApprovalDetails|orderBy:sortKey:reverse|filter:search">
                             <!--ng-click="OpenData(x.PIN,x.CertificateType)">-->
 
                             <td class="text-center" ng-click="OpenPopup(x.PIN,x.ApplicationNo,x.CertificateType)">{{$index + 1}}</td>
@@ -163,14 +164,17 @@
                             <td class="text-center " ng-click="OpenPopup(x.PIN,x.ApplicationNo,x.CertificateType)">{{x.Name}}</td>
                             <td class="text-center " ng-click="OpenPopup(x.PIN,x.ApplicationNo,x.CertificateType)">{{x.PhoneNumber == null ? '-':x.PhoneNumber}}</td>
                             <td class="text-center " ng-click="OpenPopup(x.PIN,x.ApplicationNo,x.CertificateType)">{{x.AppliedDate|date:"dd-MMM-yyyy hh:mm:ss a"}}</td>
+                            <!--<td class="text-center " ng-show="UserTypeId == 1009">
+                                <button class="btn btn-danger btn-xs" ng-click="RelesePin(x.PIN,3,x.Id)"><span>Reset</span></button>
+                            </td>-->
                             <td class="text-center " ng-show="UserTypeId == 1009">
                                 <span>
                                     <button class="btn btn-danger btn-xs" ng-click="GetmailDetails(x.ApplicationNo,x.PIN)" ng-show="x.Emailsent ==0"><span>Send mail</span></button>
-                                     <button class="btn btn-success btn-xs" ng-click="GetmailDetails(x.ApplicationNo,x.PIN)" ng-show="x.Emailsent ==1">
-                                    <span>Sent</span>
-                                </button> 
+                                    <button class="btn btn-success btn-xs" ng-click="GetmailDetails(x.ApplicationNo,x.PIN)" ng-show="x.Emailsent ==1">
+                                        <span>Sent</span>
+                                    </button>
                                 </span>
-                            </td>                           
+                            </td>
                         </tr>
 
                     </tbody>

@@ -856,7 +856,7 @@
             var obj = {
                 "From": 'sbtet-helpdesk@telangana.gov.in',
                 "To": $scope.OrganizationEmail,
-                "cc": "b.akhil101@gmail.com",
+                "cc": "sbtet-helpdesk@telangana.gov.in",
                 "Subject": "Genuineness OTP Verification",
                 "Message": "Hii",
                 //"attachmentdata": Attachment,

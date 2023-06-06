@@ -2938,7 +2938,7 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
         public string GetBonafideCertificate(DataSet BonafideDat)
         {
             List<BonafideData> BonafideData = BonafideDat.Tables[1].DataTableToList<BonafideData>().ToList(); ;
-            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
+            var dir =  AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
             CreateIfMissing(dir);
             string html = @"<html>"
                    + "<head>"
@@ -3247,7 +3247,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                       .container-fluid {
                                     font-size: 14px ;
                                     margin: 10px!important;
-                                    font-family: monospace!important;
+                                    font-family: sans-serif!important;
                                 }
                                 .table > thead > tr {
                                     padding: 2px;
@@ -4270,7 +4270,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                                 padding: 6px 6px !important;
                                 margin: 10px!important;
                                 min-height: 100% !important;
-                                font-family: monospace!important;
+                                font-family: sans-serif!important;
                             }
 
                             .table > tbody > tr > td {
@@ -4385,7 +4385,7 @@ margin-bottom :3px;
                                 .container-fluid {
                                     font-size: 9px ;
                                     margin: 10px!important;
-                                    font-family: monospace!important;
+                                    font-family: sans-serif!important;
                                 }
                                 .table > thead > tr {
                                     padding: 2px;
@@ -4787,7 +4787,7 @@ margin-bottom :3px;
         //                        padding: 6px 6px !important;
         //                        margin: 10px!important;
         //                        min-height: 100% !important;
-        //                        font-family: monospace!important;
+        //                        font-family: sans-serif!important;
         //                    }
 
         //                    .table > tbody > tr > td {
@@ -4901,7 +4901,7 @@ margin-bottom :3px;
         //                        .container-fluid {
         //                            font-size: 9px ;
         //                            margin: 10px!important;
-        //                            font-family: monospace!important;
+        //                            font-family: sans-serif!important;
         //                        }
         //                        .table > thead > tr {
         //                            padding: 2px;
