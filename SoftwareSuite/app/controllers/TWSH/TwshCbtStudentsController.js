@@ -111,19 +111,19 @@ define(['app'], function (app) {
       
 
         $scope.getExamStartToken = function (ApplicationNumber) {
-            alert("This Service will be Resumed soon")
-            //var getExamStartToken = TwshStudentRegService.getExamStartToken(ApplicationNumber);
-            //getExamStartToken.then(function (response) {
-            //    if (response != "ERROR") {
-            //        var location = window.location.origin;
-            //        window.location.href = "https://sbtet.telangana.gov.in/TwshCbt/Sso/StartExam?token=" + response;
-            //        // if (location == "https://sbtet.telangana.gov.in" || location == "http://sbtet.telangana.gov.in") {
-            //        //     window.location.href = "https://sbtet.telangana.gov.in/TwshCbt/Sso/StartExam?token=" + response;
-            //        // } else {
-            //        //     window.location.href = "http://localhost:55563/TwshCbt/Sso/StartExam?token=" + response;
-            //        // }
-            //    }
-            //});
+          //  alert("This Service will be Resumed soon")
+            var getExamStartToken = TwshStudentRegService.getExamStartToken(ApplicationNumber);
+            getExamStartToken.then(function (response) {
+                if (response != "ERROR") {
+                    var location = window.location.origin;
+                    window.location.href = "https://sbtet.telangana.gov.in/TwshCbt/Sso/StartExam?token=" + response;
+                    // if (location == "https://sbtet.telangana.gov.in" || location == "http://sbtet.telangana.gov.in") {
+                    //     window.location.href = "https://sbtet.telangana.gov.in/TwshCbt/Sso/StartExam?token=" + response;
+                    // } else {
+                    //     window.location.href = "http://localhost:55563/TwshCbt/Sso/StartExam?token=" + response;
+                    // }
+                }
+            });
         }
     });
 });
