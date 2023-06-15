@@ -7513,6 +7513,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        
+             [HttpGet, ActionName("getMercyData")]
+        public HttpResponseMessage getMercyData(int Id,int DataType)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Id", Id);
+                param[1] = new SqlParameter("@DataType", DataType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_GET_MercyFeePaidPinPhotoFiles", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SPB_GET_MercyFeePaidPinPhotoFiles", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetExamMonthYearAcademicYear")]
         public HttpResponseMessage GetExamMonthYearAcademicYear(int Academicyearid)
         {

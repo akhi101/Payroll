@@ -176,6 +176,18 @@
                 dependencies: ['controllers/CCIC/ExamsSite/CcicFeePaymentController', 'services/PreExamination/PreExaminationService', 'services/Assessment/MarksEntryService', 'services/BillDesk/paymentService', 'directives/saTable']
             },
 
+            'index.IVCRegistration': {
+                url: "/IVCRegistration",
+                templateUrl: 'app/views/IVC/IVCRegistration.html',
+                dependencies: ['controllers/IVC/IVCRegistrationController']
+            },
+
+            'index.IVCLogin': {
+                url: "/IVCLogin",
+                templateUrl: 'app/views/IVC/IVCLogin.html',
+                dependencies: ['controllers/IVC/IVCLoginController']
+            },
+
             'index.HallTicketDownload': {
                 url: "/HallTicketDownload",
                 templateUrl: 'app/views/CCIC/ExamsSite/CcicHallTicket.html',

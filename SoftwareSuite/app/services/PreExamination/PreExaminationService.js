@@ -296,6 +296,15 @@
             return DataAccessService.getDataWithPara('api/PreExamination/RVRCResultsDeployTables', paramObject);
         };
 
+        
+        this.getMercyData = function (Id, DataType) {
+            var paramObject = {
+                "Id": Id, "DataType": DataType
+            };
+
+            return DataAccessService.getDataWithPara('api/PreExamination/getMercyData', paramObject);
+        };
+
 
         this.GenerateWantings = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId) {
             var paramObject = {
