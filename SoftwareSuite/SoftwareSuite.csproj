@@ -866,6 +866,7 @@
     <Content Include="app\controllers\IVC\IVCApplicationController.js" />
     <Content Include="app\controllers\IVC\IVCLoginController.js" />
     <Content Include="app\controllers\IVC\IVCRegistrationController.js" />
+    <Content Include="app\controllers\IVC\StudentDashboardController.js" />
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\MastersController.js" />
     <Content Include="app\controllers\MasterSettings\AcademicYearSettingsController.js" />
@@ -2278,6 +2279,7 @@
     <Content Include="app\views\IVC\IVCApplication.html" />
     <Content Include="app\views\IVC\IVCLogin.html" />
     <Content Include="app\views\IVC\IVCRegistration.html" />
+    <Content Include="app\views\IVC\StudentDashboard.html" />
     <Content Include="app\views\Login.html" />
     <Content Include="app\views\LoginOrg.html" />
     <Content Include="app\views\Masters.html" />

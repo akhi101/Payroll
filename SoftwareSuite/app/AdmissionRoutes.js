@@ -2274,6 +2274,12 @@
                 dependencies: ['controllers/PostExam/NameCorrectionApproveListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
+            'Dashboard.StudentServices.StudentDashboard': {
+                url: "/StudentDashboard",
+                templateUrl: 'app/views/IVC/StudentDashboard.html',
+                dependencies: ['controllers/IVC/StudentDashboardController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            },
+
 
             'Dashboard.PostExam.MarksMemo': {
                 url: "/MarksMemo",
