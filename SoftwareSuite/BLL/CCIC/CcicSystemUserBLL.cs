@@ -26,14 +26,14 @@ namespace SoftwareSuite.BLL
                 var ds = JsonConvert.SerializeObject(tblUsersList);
                 List<CcicSystemUser> User = tblUsersList.Tables[1].DataTableToList<CcicSystemUser>();
                 List<CcicUserAuth> Userstat = tblUsersList.Tables[0].DataTableToList<CcicUserAuth>();
-                CcicSystemUserAuth SystemUserAuthData = new CcicSystemUserAuth()
+                CcicSystemUserAuth CcicSystemUserAuth = new CcicSystemUserAuth()
                 {
                     CcicSystemUser = User,
                     CcicUserAuth = Userstat,
                 };
 
                 //  branchWiseReportDataList.Add(branchWiseReportData);
-                return SystemUserAuthData;
+                return CcicSystemUserAuth;
 
                 //  return User;
             }

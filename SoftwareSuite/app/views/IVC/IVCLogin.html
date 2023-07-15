@@ -26,7 +26,20 @@
         float: right;
         margin-top: 10px;
     }
- 
+
+    .refresh_captcha {
+        margin-top: 24px;
+        border: 3px solid #ddd;
+        border-style: groove;
+        width:136px;
+        margin-left:-5px;
+        padding-left:14px;
+    }
+
+    .refresh_img {
+        height: 27px;
+        margin-top: 27px;
+    }
    
 </style>
 <div ng-controller="IVCLoginController">
@@ -78,13 +91,13 @@
                                     <label>Captcha</label>
                                     <input class="form-control" maxlength="5" placeholder="Captcha" type="text" ng-model="CaptchaText">
                                 </div>
-                                <!--<div class="col-md-4" style="padding:0px;">
+                                <div class="col-md-4" style="padding:0px;">
                                     <label></label>
                                     <img class="refresh_captcha" data-ng-src="data:image/png;base64,{{CaptchaImage}}" width="150" height="33" />
                                 </div>
                                 <div class="col-md-2">
                                     <a class="pull-right" title="Click to Refresh Captcha" ng-click="GetCaptchaData()"><img class="refresh_img" src="/assets/img/reload.png" /> </a>
-                                </div>-->
+                                </div>
 
                                 <div class="col-md-12">
 

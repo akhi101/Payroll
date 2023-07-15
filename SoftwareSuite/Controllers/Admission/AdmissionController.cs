@@ -844,6 +844,50 @@ namespace SoftwareSuite.Controllers.Admission
 
         }
 
+        [HttpGet, ActionName("GetAadharUpdationDetails")]
+        public string GetAadharUpdationDetails(string PolycetHTNO)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@PolycetHTNO", PolycetHTNO);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_AadharUpdtionDetails", param);
+
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AadharUpdtionDetails", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("SetAadharUpdationDetails")]
+        public string SetAadharUpdationDetails(string PolycetHTNO,int StudentId,string AadharNo)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@PolycetHTNO", PolycetHTNO);
+                param[1] = new SqlParameter("@StudentId", StudentId);
+                param[2] = new SqlParameter("@AadharNo", AadharNo);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Set_AadharUpdtionDetails", param);
+
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Set_AadharUpdtionDetails", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+
+
+
         //master Controller
 
         //set Academi

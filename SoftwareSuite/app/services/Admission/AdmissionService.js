@@ -130,5 +130,18 @@
             var promise = DataAccessService.postData('Admission/SaveReadmisssiondata', paramObject);
             return promise;
         }
+
+        this.GetAadharUpdationDetails = function (PolycetHTNO) {
+            var paramObject = { "PolycetHTNO": PolycetHTNO };
+            var promise = DataAccessService.getDataWithPara('Admission/GetAadharUpdationDetails', paramObject);
+            return promise;
+        }
+
+        this.SetAadharUpdationDetails = function (PolycetHTNO, StudentId, AadharNo) {
+            var paramObject = {
+                "PolycetHTNO": PolycetHTNO, "StudentId": StudentId, "AadharNo": AadharNo
+            };
+            return DataAccessService.getDataWithPara('Admission/SetAadharUpdationDetails', paramObject);
+        };
     });
 });

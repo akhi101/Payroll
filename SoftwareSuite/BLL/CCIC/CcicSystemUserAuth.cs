@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using SoftwareSuite.Models.CCIC;
 
-
 namespace SoftwareSuite.BLL.CCIC
 {
     public class CcicSystemUserAuth
