@@ -311,6 +311,8 @@
     <Compile Include="BLL\CCIC\CcicSystemUserAuth.cs" />
     <Compile Include="BLL\CCIC\CcicSystemUserBLL.cs" />
     <Compile Include="BLL\Helper.cs" />
+    <Compile Include="BLL\IVC\IVCSystemUserAuth.cs" />
+    <Compile Include="BLL\IVC\IVCSystemUserBLL.cs" />
     <Compile Include="BLL\ResultBLL.cs" />
     <Compile Include="BLL\StudentRegBLL.cs" />
     <Compile Include="BLL\SystemUserBLL.cs" />
@@ -345,6 +347,10 @@
     <Compile Include="Controllers\ExternalServices\StudentNRdataController.cs" />
     <Compile Include="Controllers\ExternalServices\TsEpassController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IVC\AdminService\IVCAdminServiceController.cs" />
+    <Compile Include="Controllers\IVC\PreExamination\IVCPreExaminationController.cs" />
+    <Compile Include="Controllers\IVC\RegistrationService\IVCRegistrationController.cs" />
+    <Compile Include="Controllers\IVC\SystemAdministration\IVCSystemUserController.cs" />
     <Compile Include="Controllers\MasterSetting\MasterPageController.cs" />
     <Compile Include="Controllers\PaymentGateway\BillDeskController.cs" />
     <Compile Include="Controllers\PaymentGateway\PaymentController.cs" />
@@ -386,10 +392,14 @@
     <Compile Include="Models\Certificate\CertificateData.cs" />
     <Compile Include="Models\CommanMethods.cs" />
     <Compile Include="Models\Database\DataTableHelper.cs" />
+    <Compile Include="Models\Database\ivcdbHandler.cs" />
     <Compile Include="Models\Database\Twshdbhandler.cs" />
     <Compile Include="Models\DCBills\ExamExpenditureCharges.cs" />
     <Compile Include="Models\ExcelHelper.cs" />
     <Compile Include="Models\HbException.cs" />
+    <Compile Include="Models\IVC\IVCAuthToken.cs" />
+    <Compile Include="Models\IVC\IVCCrypt.cs" />
+    <Compile Include="Models\IVC\IVCSystemUser.cs" />
     <Compile Include="Models\LogUtility.cs" />
     <Compile Include="Models\PreExamination\SeatingPlanData.cs" />
     <Compile Include="Models\Results\BranchSubjectGradeInfo.cs" />
@@ -401,9 +411,11 @@
     <Compile Include="Models\Security\BCEngine.cs" />
     <Compile Include="Models\Security\Decryption.cs" />
     <Compile Include="Models\Security\Encryption.cs" />
+    <Compile Include="Models\Security\IVCSystemUserAuth.cs" />
     <Compile Include="Models\Security\SHA1.cs" />
     <Compile Include="Models\Security\SystemUser.cs" />
     <Compile Include="Models\Security\TwalletCrypt.cs" />
+    <Compile Include="Models\SendSmsInfo.cs" />
     <Compile Include="Models\SystemModules.cs" />
     <Compile Include="Models\SystemResponse.cs" />
     <Compile Include="Models\TWSH\AuaKuaHelper.cs" />
@@ -411,6 +423,7 @@
     <Compile Include="Models\TWSH\KycRes.cs" />
     <Compile Include="Models\TWSH\StringUtilities.cs" />
     <Compile Include="Models\TWSH\TwshModels.cs" />
+    <Compile Include="Models\VerifySmsInfo.cs" />
     <Compile Include="PdfConvert.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -435,6 +448,7 @@
     <Compile Include="Services\Admission\AttendanceService.cs" />
     <Compile Include="Services\CcicSystemUserService.cs" />
     <Compile Include="Services\ExternalPortalService.cs" />
+    <Compile Include="Services\IVC\IVCSystemUserService.cs" />
     <Compile Include="Services\Results\ResultService.cs" />
     <Compile Include="Services\SchedulerService.cs" />
     <Compile Include="Services\SmsService.cs" />
@@ -1588,6 +1602,10 @@
     <Content Include="app\services\ExamType\ExamTypeService.js" />
     <Content Include="app\services\ForgetPasswordService.js" />
     <Content Include="app\services\GovtColEnrollService.js" />
+    <Content Include="app\services\IVC\AdminService\IVCAdminService.js" />
+    <Content Include="app\services\IVC\IVCRegistrationService.js" />
+    <Content Include="app\services\IVC\PreExamination\IVCPreExaminationService.js" />
+    <Content Include="app\services\IVC\SystemAdministration\IVCSystemUserService.js" />
     <Content Include="app\services\MasterSettings\MasterPageService.js" />
     <Content Include="app\services\MasterSettings\MasterSettingsService.js" />
     <Content Include="app\services\Masters\AcademicScheduleService.js" />
@@ -2279,6 +2297,7 @@
     <Content Include="app\views\IVC\IVCApplication.html" />
     <Content Include="app\views\IVC\IVCLogin.html" />
     <Content Include="app\views\IVC\IVCRegistration.html" />
+    <Content Include="app\views\IVC\Popups\StudentApplicationSubmitPopup.html" />
     <Content Include="app\views\IVC\StudentDashboard.html" />
     <Content Include="app\views\Login.html" />
     <Content Include="app\views\LoginOrg.html" />
@@ -3165,6 +3184,7 @@
     <Content Include="assets\img\next.png" />
     <Content Include="assets\img\preloader.gif" />
     <Content Include="assets\img\previous.png" />
+    <Content Include="assets\img\reload.png" />
     <Content Include="assets\img\Secretary.jpg" />
     <Content Include="assets\jquery.lightbox.css" />
     <Content Include="assets\jquery.lightbox.js" />

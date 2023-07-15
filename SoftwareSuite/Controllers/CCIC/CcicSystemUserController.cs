@@ -16,10 +16,10 @@ using SoftwareSuite.Models.Database;
 using SoftwareSuite.BLL;
 using System.Net.Http.Headers;
 using SoftwareSuite.BLL.CCIC;
-using static SoftwareSuite.BLL.CcicSystemUserBLL;
 using SoftwareSuite.Models.CCIC;
 using RestSharp;
 using SoftwareSuite.Models.Security;
+using static SoftwareSuite.BLL.CcicSystemUserBLL;
 
 namespace SoftwareSuite.Controllers.CCIC
 {

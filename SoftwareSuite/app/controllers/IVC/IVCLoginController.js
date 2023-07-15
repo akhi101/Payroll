@@ -1,141 +1,48 @@
 ﻿define(['app'], function (app) {
-    app.controller("IVCLoginController", function ($scope, $crypto,  AppSettings, $http, $localStorage, $state) {
+    app.controller("IVCLoginController", function ($scope, $crypto, AppSettings, $http, $localStorage, $state, IVCSystemUserService, IVCAdminService, IVCRegistrationService) {
 
         const $ctrl = this;
 
         $ctrl.$onInit = () => {
 
-            $scope.getcurrentpolycetyear();
-        }
-
-        $scope.SessionCaptcha = sessionStorage.getItem('SessionCaptcha')
-        //alert($scope.SessionCaptcha)
-
-        var captcha = AdminService.GetCaptchaString($scope.SessionCaptcha);
-        captcha.then(function (response) {
-            try {
-                var res = JSON.parse(response);
-                $scope.GetCatcha = res[0].Text;
-                $scope.CaptchaImage = res[0].Image;
-
-            } catch (err) {
-                $scope.GetCatcha = ''
-            }
-        }, function (error) {
-            $scope.GetCatcha = ''
-            alert('Unable to load Captcha')
-        });
-
-        //$scope.GetCaptchaData = function () {
-        //    var captcha = AdminService.GetCaptchaString($scope.SessionCaptcha);
-        //    captcha.then(function (response) {
-        //        try {
-        //            var res = JSON.parse(response);
-        //            $scope.GetCatcha = res[0].Text;
-        //            $scope.CaptchaImage = res[0].Image;
-
-        //        } catch (err) {
-        //            $scope.GetCatcha = ''
-        //        }
-        //    }, function (error) {
-        //        $scope.GetCatcha = ''
-        //        alert('Unable to load Captcha')
-        //    });
-        //}
-
-
-
-        //$scope.ValidateCaptcha = function () {
-        //    var captcha = AdminService.ValidateCaptcha($scope.SessionCaptcha, $scope.CaptchaText);
-        //    captcha.then(function (res) {
-        //        var response = JSON.parse(res)
-        //        if (response[0].ResponceCode == '200') {
-        //            alert(response[0].ResponceDescription)
-        //            $scope.CaptchaText = "";
-        //            $scope.GetCatcha = response[0].Captcha
-        //            var captcha = JSON.parse(response[0].Captcha)
-        //            $scope.CaptchaImage = captcha[0].Image;
-        //        } else {
-        //            alert(response[0].ResponceDescription)
-        //            $scope.CaptchaText = "";
-        //            $scope.GetCatcha = response[0].Captcha
-        //            var captcha = JSON.parse(response[0].Captcha)
-        //            $scope.CaptchaImage = captcha[0].Image;
-        //        }
-
-        //    }, function (error) {
-        //        $scope.GetCatcha = ''
-        //        alert('Unable to load Captcha')
-        //    });
-        //}
-
-
-        $scope.getcurrentpolycetyear = function () {
-            var getcurrpolycetyear = AdminService.GetCurrentPolycetYear();
-            getcurrpolycetyear.then(function (response) {
+            var captcha = IVCAdminService.GetCaptchaString10();
+            captcha.then(function (res) {
                 try {
-                    var res = JSON.parse(response);
+                    $scope.newcapt = res;
+                    $scope.GetCaptchaData($scope.newcapt)
+                    sessionStorage.clear();
+                    alert(newcapt);
+                    sessionStorage.setItem('SessionCaptcha', newcapt);
+                    $scope.sessionid = res;
+                } catch (err) {
+                    $scope.GetCatcha = ''
                 }
-                catch (err) { }
-
-                $scope.PolycetYearID = res.Table[0].PolycetYearID;
-                $scope.CurrentPolycetYearData = res.Table;
-                //$scope.getfeeamount($scope.PolycetYearID);
-
-            },
-                function (error) {
-                    alert("error while loading PolycetYear");
-                    //var err = JSON.parse(error);
-
-                });
-
-
-        }
-
-        sessionStorage.loggedIn = "no";
-        $scope.Login = {
-            UserName: "",
-            UserPassword: ""
-        }
-
-        $scope.UserNamemessage = "";
-        $scope.UserPasswordmessage = "";
-        $scope.message = "";
-
-        var eKey = SystemUserService.GetEKey();
-        eKey.then(function (res) {
-            $scope.LoginEKey = res;
-            sessionStorage.Ekey = res;
-
-        });
-
-        var sessioneKey = SystemUserService.GetSessionEKey();
-        sessioneKey.then(function (res) {
-            $scope.LoginSessionEKey = res;
-            sessionStorage.SessionEkey = res;
-
-        });
-
-        $scope.SessionCaptcha = sessionStorage.getItem('SessionCaptcha')
-
-
-        var captcha = AdminService.GetCaptchaString($scope.SessionCaptcha);
-        captcha.then(function (response) {
-            try {
-                var res = JSON.parse(response);
-                $scope.GetCatcha = res[0].Text;
-                $scope.CaptchaImage = res[0].Image;
-
-            } catch (err) {
+            }, function (error) {
                 $scope.GetCatcha = ''
-            }
-        }, function (error) {
-            $scope.GetCatcha = ''
-            alert('Unable to load Captcha')
-        });
+                alert('Unable to load Captcha')
+            });
+
+            var eKey = IVCSystemUserService.GetEKey();
+            eKey.then(function (res) {
+                $scope.RegistrationEKey = res;
+                sessionStorage.Ekey = res;
+
+            });
+            var sessioneKey = IVCSystemUserService.GetSessionEKey();
+            sessioneKey.then(function (res) {
+                $scope.LoginSessionEKey = res;
+                sessionStorage.SessionEkey = res;
+                $scope.GetCaptchaData($scope.SessionCaptcha)
+
+            });
+
+            $scope.SessionCaptcha = sessionStorage.getItem('SessionCaptcha')
+
+
+        }
 
         $scope.GetCaptchaData = function () {
-            var captcha = AdminService.GetCaptchaString($scope.SessionCaptcha);
+            var captcha = IVCAdminService.GetCaptchaString($scope.newcapt);
             captcha.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -152,6 +59,9 @@
         }
 
 
+
+
+      
 
         $scope.ValidateCaptcha = function () {
            
@@ -173,7 +83,7 @@
                 $scope.loginbutton = false;
                 return;
                 };
-            var captcha = AdminService.ValidateCaptcha($scope.SessionCaptcha, $scope.CaptchaText);
+            var captcha = IVCAdminService.ValidateCaptcha($scope.newcapt, $scope.CaptchaText);
             captcha.then(function (res) {
                 var response = JSON.parse(res)
                 if (response[0].ResponceCode == '200') {
@@ -246,41 +156,41 @@
                 if ($scope.Password !== null && $scope.UserName !== null) {
                     var Type = "student";
                     var data = $crypto.encrypt($crypto.encrypt($scope.Password, 'HBSBP9214EDU00TS'), $scope.LoginEKey) + "$$@@$$" + $crypto.encrypt($scope.UserName, $scope.LoginEKey) + "$$@@$$" + $scope.LoginEKey + "$$@@$$" + $scope.LoginSessionEKey + "$$@@$$" + Type;
-                    $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {
+                    $http.post(AppSettings.WebApiUrl + 'api/IVCSystemUser/GetIVCUserLogin', data, {}).then(function (response) {
 
                         //$scope.LoadImg = true;
                         var UserRights = [];
                         sessionStorage.loggedIn = "yes";
                         $localStorage.authToken = response.data.token + "$$@@$$" + $scope.LoginEKey;
-                        var status = response.data.data.UserAuth[0].ResponceCode;
+                        var status = response.data.data.IVCUserAuth[0].ResponceCode;
                         if (status != "200") {
-                            alert(response.data.data.UserAuth[0].RespoceDescription);
+                            alert(response.data.data.IVCUserAuth[0].RespoceDescription);
                            
                             return;
                         } else {
                             $scope.loginbutton = true;
                             $localStorage.SessionID = $scope.LoginSessionEKey;
-                            if (response.data.data.SystemUser[0].UserTypeID == 0) {
+                            if (response.data.data.IVCSystemUser[0].UserTypeID == 0) {
                                 //try {
                                     $localStorage.authorizationData = {
-                                        token: $localStorage.authToken,
+                                        token: $localStorage.IVCauthToken,
                                         SessionID: $scope.LoginSessionEkey,
                                        // UserName: $scope.Login.UserName.toUpperCase(),
                                         //CourseID: response.data.CourseID,
                                         //InstitutionID: response.data.InstitutionID,
                                         //InstitutionCode: response.data.InstitutionCode,
                                         //InstitutionName: response.data.InstitutionName,
-                                        UserTypeID: response.data.data.SystemUser[0].UserTypeID,
-                                        UserID: response.data.data.SystemUser[0].UserID,
+                                        UserTypeID: response.data.data.IVCSystemUser[0].UserTypeID,
+                                        UserID: response.data.data.IVCSystemUser[0].UserID,
 
 
                                     };
                                 //} catch (err) {
 
                                 //}
-                              //  $state.go('StudentDashboard');
+                                $state.go('StudentDashboard');
                             } else {
-                                response.data = response.data.data.SystemUser[0];
+                                response.data = response.data.data.IVCSystemUser[0];
 
                                // try {
                                     $localStorage.authorizationData = {
@@ -292,7 +202,7 @@
                                         //InstitutionID: response.data.InstitutionID,
                                         //InstitutionCode: response.data.InstitutionCode,
                                         //InstitutionName: response.data.InstitutionName,
-                                        UserTypeID: response.data.data.SystemUser[0].UserTypeID,
+                                        UserTypeID: response.data.data.IVCSystemUser[0].UserTypeID,
                                        
 
 
@@ -301,7 +211,7 @@
                                 //} catch (err) {
 
                                 //}
-                              //  $state.go('StudentDashboard');
+                                $state.go('StudentDashboard');
                             }
                             }
                             

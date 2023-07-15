@@ -97,5 +97,50 @@
             });
         }
 
+        $scope.getAadharUpdationDetails = function () {
+            var getdetails = AdmissionService.GetAadharUpdationDetails($scope.PolycetHtNumber);
+            getdetails.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (response.Table.length > 0) {
+                    $scope.StudentData = response.Table;
+                    $scope.StudentID = response.Table[0].StudentId;
+                } else {
+                    $scope.StudentData = [];
+                    alert("No Data Found");
+                }
+            },
+                function (error) {
+                    alert("error while loading Data");
+                    console.log(error);
+                });
+        }
+
+        $scope.updateaadharnumber = function () {
+            var getdetails = AdmissionService.SetAadharUpdationDetails($scope.PolycetHtNumber, $scope.StudentID, $scope.CorreectedAadhaarNumber);
+            getdetails.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (response.Table[0].ResponceCode == '200') {
+                    alert(response.Table[0].ResponceDescription);
+                    $scope.getAadharUpdationDetails($scope.PolycetHtNumber);
+                } else {
+                    alert('Not Updated / Error while Updating Data')
+                    $scope.getAadharUpdationDetails($scope.PolycetHtNumber);
+
+                }
+            },
+                function (error) {
+                    alert("error while loading Data");
+                    console.log(error);
+                });
+        }
+
+        
+
     })
 })
