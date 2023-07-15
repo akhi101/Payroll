@@ -19,6 +19,8 @@ namespace SoftwareSuite.Controllers.ExternalServices
 {
     public class StaffData
     {
+        public string AcademicYearId { get; set; }
+        public string AcademicYear { get; set; }
         public string StaffName { get; set; }
         public string Designation { get; set; }
         public string StaffId { get; set; }

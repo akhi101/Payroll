@@ -8,6 +8,45 @@
         left: 0;
         right: 0;
     }
+
+    .loader {
+        border: 4px solid #5cb85c;
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 4s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .box.box-primary {
+        padding-right: 5px;
+    }
+    .box.box-default {
+        border: 1px solid #ddd;
+        margin-top: 10px;
+    }
+
 </style>
 <div class="modal-header aadhar-modal-header">
     <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
@@ -22,7 +61,7 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <label class="control-label" for="aadhar">Aadhar Number</label>
-                                <input type="text" class="form-control" autocomplete="off" id="aadharNumber" ng-model="aadhaarVerStu.AadharNo" placeholder="Enter Aadhaar Number">
+                                <input type="text" class="form-control" autocomplete="off" id="aadharNumber" ng-disabled="AadhaarData" ng-model="aadhaarVerStu.AadharNo" placeholder="Enter Aadhaar Number">
                             </div>
                         </div>
                         <div class="col-lg-5">
@@ -123,7 +162,10 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-disabled="disableApprove" ng-click="approveAadhaar()">Approve</button>
+    <button type="button" class="btn btn-primary" ng-disabled="disableApprove || Loading" ng-click="approveAadhaar()">
+        <span ng-show="!Loading">Approve</span>            
+            <span ng-show="Loading"><div class="loader"> </div></span>
+</button>
     <button type="button" class="btn btn-default" ng-click="closeModal()">Cancel</button>
 </div>
 
