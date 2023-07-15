@@ -179,13 +179,19 @@
             'index.IVCRegistration': {
                 url: "/IVCRegistration",
                 templateUrl: 'app/views/IVC/IVCRegistration.html',
-                dependencies: ['controllers/IVC/IVCRegistrationController']
+                dependencies: ['controllers/IVC/IVCRegistrationController', 'services/IVC/AdminService/IVCAdminService', 'services/IVC/SystemAdministration/IVCSystemUserService', 'services/IVC/IVCRegistrationService']
             },
 
             'index.IVCLogin': {
                 url: "/IVCLogin",
                 templateUrl: 'app/views/IVC/IVCLogin.html',
-                dependencies: ['controllers/IVC/IVCLoginController']
+                dependencies: ['controllers/IVC/IVCLoginController', 'services/IVC/AdminService/IVCAdminService', 'services/IVC/SystemAdministration/IVCSystemUserService', 'services/IVC/IVCRegistrationService']
+            },
+
+            'StudentDashboard': {
+                url: "/StudentDashboard",
+                templateUrl: 'app/views/IVC/StudentDashboard.html',
+                dependencies: ['controllers/IVC/StudentDashboardController', 'services/IVC/PreExamination/IVCPreExaminationService', 'services/BillDesk/paymentService', 'services/IVC/AdminService/IVCAdminService', 'services/IVC/IVCRegistrationService']
             },
 
             'index.HallTicketDownload': {
@@ -2274,11 +2280,7 @@
                 dependencies: ['controllers/PostExam/NameCorrectionApproveListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-            'Dashboard.StudentServices.StudentDashboard': {
-                url: "/StudentDashboard",
-                templateUrl: 'app/views/IVC/StudentDashboard.html',
-                dependencies: ['controllers/IVC/StudentDashboardController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
-            },
+
 
 
             'Dashboard.PostExam.MarksMemo': {

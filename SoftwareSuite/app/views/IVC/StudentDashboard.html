@@ -1038,190 +1038,40 @@
                                 <div class="panel with-nav-tabs panel-primary">
                                     <div class="panel-heading">
                                         <ul class="nav nav-tabs">
-                                            <li class="Fee {{class0}}"><a ng-show="feetab" ng-class="{'test': FeePaymentStatus == '1','clr_danger': FeePaymentStatus == '0'}" ng-click="BackTab(0)">Fee Payment</a></li>
                                             <li class="personal {{class1}}" ng-show="personaltab"><a ng-class="{'test': PersonalStatus == '1','clr_danger': PersonalStatus == '0'}" ng-click="BackTab(1)">Personal Details</a></li>
-                                            <!-- <li><a href="#Personal" data-toggle="tab">Personal Details</a></li>-->
                                             <li class="Communication {{class2}}" ng-show="communicationtab"><a ng-class="{'test': CommunicationStatus == '1','clr_danger': CommunicationStatus == '0'}" ng-click="BackTab(2)">Communication Details</a></li>
                                             <li class="Category {{class3}}" ng-show="categorytab"><a ng-class="{'test': CategoryStatus == '1','clr_danger': CategoryStatus == '0'}" ng-click="BackTab(3)">Category </a></li>
                                             <li class="Special {{class4}}" ng-show="specialcategorytab"><a ng-class="{'test': SpecialCategoryStatus == '1','clr_danger': SpecialCategoryStatus == '0'}" ng-click="BackTab(4)">Special Category </a></li>
-                                            <!--<li class="ExamCenter {{class5}}"><a ng-click="BackTab(5)">Exam Center Details</a></li>-->
-                                            <li class="Study {{class6}}" ng-show="studydetailstab"><a ng-class="{'test': StudyStatus == '1','clr_danger': StudyStatus == '0'}" ng-click="BackTab(6)">Study Details</a></li>
-                                            <li class="Photo {{class7}}" ng-show="photosigntab"><a ng-class="{'test': PhotoStatus == '1','clr_danger': PhotoStatus == '0'}" ng-click="BackTab(7)">Photo & Sign</a></li>
-                                            <li class="Preview {{class8}}"><a ng-show="previewtab" ng-class="{'test': PreviewStatus == '1','clr_danger': PreviewStatus == '0'}" ng-click="BackTab(8)">Preview</a></li>
+                                            <li class="Study {{class5}}" ng-show="studydetailstab"><a ng-class="{'test': StudyStatus == '1','clr_danger': StudyStatus == '0'}" ng-click="BackTab(5)">Study Details</a></li>
+                                            <li class="Preview {{class6}}"><a ng-show="previewtab" ng-class="{'test': PreviewStatus == '1','clr_danger': PreviewStatus == '0'}" ng-click="BackTab(6)">Preview</a></li>
+                                            <li class="Fee {{class7}}"><a ng-show="feetab" ng-class="{'test': FeePaymentStatus == '1','clr_danger': FeePaymentStatus == '0'}" ng-click="BackTab(0)">Fee Payment</a></li>
                                             <li class="Hallticket {{class9}}"><a ng-show="halltickettab" ng-class="{'test': HtStatus == '1','clr_danger': HtStatus == '0'}" ng-click="BackTab(9)">Hallticket </a></li>
                                             <!--<li class="ViewOmr {{class10}}"><a ng-show="ViewOmr" ng-class="{'test': HtStatus == '1' && ,'clr_danger': HtStatus == '0'}" ng-click="BackTab(10)">View OMR </a></li>
-                                        <li class="ViewResults {{class11}}"><a ng-show="ViewResults" ng-class="{'test': HtStatus == '1','clr_danger': HtStatus == '0'}" ng-click="BackTab(11)">Results </a></li>-->
+    <li class="ViewResults {{class11}}"><a ng-show="ViewResults" ng-class="{'test': HtStatus == '1','clr_danger': HtStatus == '0'}" ng-click="BackTab(11)">Results </a></li>-->
                                             <!--  <li><a href="#StudyDetails" data-toggle="tab">Study Details</a></li>-->
                                             <!--<li class="dropdown">
-                                            <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="#tab4primary" data-toggle="tab">Primary 4</a></li>
-                                                <li><a href="#tab5primary" data-toggle="tab">Primary 5</a></li>
-                                            </ul>
-                                        </li>-->
+        <a href="#" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#tab4primary" data-toggle="tab">Primary 4</a></li>
+            <li><a href="#tab5primary" data-toggle="tab">Primary 5</a></li>
+        </ul>
+    </li>-->
                                         </ul>
                                     </div>
                                     <div class="panel-body">
                                         <div class="tab-content">
-                                            <div class="tab-pane fade in {{class0}}" id="Fee">
-                                                <fieldset>
-                                                    <legend>Fee Payment</legend>
-                                                    <!--<div class="col-md-12">
-                                                     <div class="notifylabel pull-right" for="sel1" style="color: red;margin-bottom:10px;font-size:16px">
-                                                         Note : Please verify your caste details to avail fee consession.
-                                                     </div>
-                                                </div>-->
-                                                    <!--<div class="card1" style="height:185px;" ng-show="FeeCasteCard">
-                                                    <div class="col-md-2">
 
-                                                        <div class="form-group">
-                                                            <label>Category</label>
-                                                            <input class="form-control" ng-model="RegistrationFeeCasteName" disabled type="text">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-3">
-                                                        <div class="">
-                                                            <div class="form-group">
-                                                                <label>Aadhar Number </label>
-                                                                <input class="form-control" ng-disabled="FeeAadharFound" ng-model="RegistrationFeeAadhar" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhar Number" type="text">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="">
-                                                            <div class="form-group">
-                                                                <label>Caste Certificate Number</label>
-                                                                <input class="form-control" ng-model="RegistrationFeeCasteNumber" ng-disabled="FeeCasteCertNumberFound" placeholder="Caste Certificate Number" type="text">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="cls_verified verify_margin" style="color: #5cb85c; font-weight: bold;" ng-show="RegistrationFeeCasteVerified"><i class="fa fa-check" style="display: inline-block; font-size: inherit; font: normal normal normal 14px/1 FontAwesome;" aria-hidden="true"></i> Verified</div>
-                                                    <div class="cls_verified verify_margin" style="color: #FF0000; font-weight: bold;" ng-show="FeeCasteNotVerified"><i class="fa fa-close" style="display: inline-block; font-size: inherit; font: normal normal normal 14px/1 FontAwesome;" aria-hidden="true"></i> Not Verified</div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" ng-show="FeeCasteCancelButton">
-                                                            <button type="submit" ng-click="CancelFeeCasteDetails()" class="btn sub_btn  btn-danger btn_margin">
-                                                                Cancel
-                                                            </button>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group" ng-show="VerifyFeeCasteButton">
-                                                            <button type="submit" ng-click="GetFeeCasteDetails()" class="btn sub_btn btn-success pull-right btn_margin">
-                                                                <span ng-show="!loader1">Verify Details</span>
-                                                                <span ng-show="loader1"><div class="loader"> </div></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12" ng-show="SubmitFeeCasteButton">
-                                                        <button class="btn btn-success pull-right" ng-click="UpdateFeeCasteDetails()">Save & Next</button>
-                                                    </div>
-                                                </div>-->
-
-
-                                                    <h5 class="Rec_dis">Payment Reciept</h5>
-                                                    <div class="col-md-6  col-md-offset-3" id="table-print" style="padding-top:10px">
-                                                        <table class="table table-bordered  table-striped table-rounded">
-
-                                                            <tr ng-show="StudentData.RegistrationNumber">
-                                                                <td width="50%">Registration Number</td>
-                                                                <td width="50%">{{StudentData.RegistrationNumber}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.StudentName">
-                                                                <td width="50%">Student Name</td>
-                                                                <td width="50%">{{StudentData.StudentName}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.Aadhaar">
-                                                                <td width="50%">Aadhar Number</td>
-                                                                <td width="50%">{{StudentData.Aadhaar}}</td>
-                                                            </tr>
-
-                                                            <tr ng-show="StudentData.CasteCategoryName">
-                                                                <td width="50%">Category</td>
-                                                                <td width="50%">{{StudentData.CasteCategoryName}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.RegistrationMobile">
-                                                                <td width="50%">Registration Mobile</td>
-                                                                <td width="50%">{{StudentData.RegistrationMobile}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.ApplicationFee">
-                                                                <td width="50%">Application Fee</td>
-                                                                <td width="50%"> RS. {{StudentData.ApplicationFee}}</td>
-                                                            </tr>
-                                                            <tr ng-show="CasteCategoryID  == 7 || CasteCategoryID==8">
-                                                                <td width="50%">Caste Verified</td>
-                                                                <td width="50%"> {{StudentData.CasteVerified ?  "Yes":"No"}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                            <tr ng-show="StudentData.RegistrationEmail">
-                                                                <td width="50%">Registration Email</td>
-                                                                <td width="50%">{{StudentData.RegistrationEmail}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.ChallanNumber">
-                                                                <td width="50%">Challan Number</td>
-                                                                <td width="50%">{{StudentData.ChallanNumber}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.bankrefno">
-                                                                <td width="50%">Bank Reference Number</td>
-                                                                <td width="50%">{{StudentData.bankrefno}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.errordesc">
-                                                                <td width="50%">Transaction Status</td>
-                                                                <td width="50%">{{StudentData.errordesc}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.txnamt">
-                                                                <td width="50%">Transaction Amount</td>
-                                                                <td width="50%">{{StudentData.txnamt}}</td>
-                                                            </tr>
-                                                            <tr ng-show="StudentData.txndate">
-                                                                <td width="50%">Transaction Date</td>
-                                                                <td width="50%">{{StudentData.txndate}}</td>
-                                                            </tr>
-                                                            <!-- [{"ChallanNumber":"PCT223000011","bankrefno":"234636176030","errordesc":"Transaction successful","RegistrationNumber":"232000004","txnamt":"00000002.00","txndate":"12-12-2022 12:09:51"}]-->
-                                                            <!--<tr>
-                                                            <td width="50%">Registration Amount</td>
-                                                            <td width="50%"> RS {{StudentData.RegistrationAmount}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td width="50%">Registration Number</td>
-                                                            <td width="50%">{{StudentData.RegistrationNumber}}</td>
-                                                        </tr>-->
-
-                                                        </table>
-                                                        <div class="col-md-12">
-                                                            <button class="btn btn-success pull-right" ng-show="FeePaymentStatus==0" ng-click="PayFee()" ng-disabled="PayFeeDisable">
-                                                                <span ng-show="!FeeLoader">Pay Fee</span>
-                                                                <span ng-show="FeeLoader"><div class="loader"> </div></span>
-                                                            </button>
-                                                            <button class="btn btn-success pull-right" ng-show="FeePaymentStatus==1" ng-click="printReceipt()">Print</button>
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </fieldset>
-                                                <div class="col-md-12 ">
-                                                    <!--    <button class="btn btn-primary " ng-click="BackTab(1)">Back</button>-->
-                                                    <button class="btn btn-success pull-right" ng-show="nextbutton" ng-click="NextTab(0)">Next</button>
-                                                </div>
-
-                                            </div>
                                             <div class="tab-pane fade in {{class1}}" id="SSC">
                                                 <fieldset>
                                                     <legend>Qualified Exam Details</legend>
 
                                                     <div class="col-md-3">
                                                         <label>
-                                                            Qualified Exam
+                                                            SSC / 10th
                                                         </label>
                                                         <select class="form-control" id="QualifiedExam" ng-model="qualifiedExamID" ng-change="getQualifiedExam(data.qualifiedExamID)"
-                                                                ng-disabled="SELECTEDQUALIFIEDEXAM" ng-options="data.QualifiedExamID as data.QualifiedExamName for data in QualifiedExamsData">
-                                                            <option value="" selected>Select  Qualified Exam</option>
+                                                                ng-disabled="SELECTEDQUALIFIEDEXAM" ng-options="data.SSCBoardID as data.SSCBoardName for data in QualifiedExamsData">
+                                                            <option value="" selected>Select SSC / 10th</option>
                                                         </select>
                                                     </div>
 
@@ -1239,9 +1089,9 @@
                                                             Tenth Passed / Appearing Year
                                                         </label>
                                                         <!--<select class="form-control" id="PassedOutYear" ng-model="passedoutYear"
-                ng-disabled="ENTEREDYEAR" ng-options="data.TenthYear for data in TenthYearData">
-            <option value="" selected>Select  Tenth Passed</option>
-        </select>-->
+                        ng-disabled="ENTEREDYEAR" ng-options="data.TenthYear for data in TenthYearData">
+                    <option value="" selected>Select  Tenth Passed</option>
+                </select>-->
                                                         <select class="form-control " ng-model="passedoutYear" name="" ng-disabled="ENTEREDYEAR">
                                                             <option value="" selected="selected">Select Tenth Passed</option>
                                                             <option value="{{data.TenthYear}}" ng-repeat="data in TenthYearData" class="">
@@ -1250,13 +1100,13 @@
                                                         </select>
                                                     </div>
                                                     <!--<div class="col-md-3">
-        <div class="">
-            <div class="form-group">
-                <label> Tenth Passed / Appearing Year </label>
-                <input class="form-control" ng-disabled="ENTEREDYEAR" ng-model="passedoutYear" placeholder="YYYY eg.(2022)" type="text" maxlength="4" minlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-            </div>
-        </div>
-    </div>-->
+                <div class="">
+                    <div class="form-group">
+                        <label> Tenth Passed / Appearing Year </label>
+                        <input class="form-control" ng-disabled="ENTEREDYEAR" ng-model="passedoutYear" placeholder="YYYY eg.(2022)" type="text" maxlength="4" minlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                    </div>
+                </div>
+            </div>-->
                                                     <div class="col-md-3">
                                                         <div class="">
                                                             <div class="form-group">
@@ -1269,13 +1119,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group required custom-img">
-                                                            <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
-                                                            <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" style="width:150px;height:150px" />
-                                                            <input type="file" ng-disabled="StudentPhoto1" id="stdPhotoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required style="padding-top:10px">
-                                                        </div>
-                                                    </div>
+                          
                                                     <div class="col-md-10" ng-show="qualifiedExamID==1">
                                                         <div class="form-group">
                                                             <button type="submit" ng-disabled="GETSSCDETAILSBUTTON" ng-click="getSSCDetails(sscHallticket,passedoutYear,sscType)" class="btn pull-right sub_btn btn-success btn_margin">
@@ -1290,12 +1134,12 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12" ng-show="ssclabel">
+                                                    <!--<div class="col-md-12" ng-show="ssclabel">
                                                         <div class="notifylabel pull-right" for="sel1" style="color: red;margin-bottom:10px;font-size:16px">
                                                             Note : Latest batch students are requested to enter HT no after your board issues
                                                             the same and download POLYCET hall ticket.
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                 </fieldset>
                                                 <div class="col-md-12" ng-show="loading">
                                                     <div class="sm-spacer"></div>
@@ -1342,21 +1186,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <!--<div class="col-md-4" ng-if="SSCDateOfBirthNotFound  || qualifiedExamID!=1">
-        <div class='input-group date'>
-            <label for="datetimepicker" class="font-weight-bold">Date of Birth : </label>
-            <input type='date' class="form-control" id='datetimepicker' ng-disabled="CandidateNameDOBfound"  ng-model="DOB_DATE"  name="dateofbirth" required />
-        </div>
-    </div>-->
-                                                    <!--<div class="col-md-4">
-        <div class="">
-            <div class="form-group">
-                <label>Date of Birth (dd/mm/yyyy) </label>
-                <input class="form-control" ng-model="DOB_DATE" ng-disabled="CandidateNameDOBfound" maxlength="50" placeholder="DD/MM/YYYY" type="text">
-            </div>
-        </div>
-    </div>-->
                                                     <div class="col-md-4">
                                                         <div class="">
                                                             <div class="form-group">
@@ -1369,9 +1198,23 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="">
+                                                            <div class="form-group">
+                                                                <label>Gender</label>
+                                                                <select class="form-control" name="applicationForm.Gender" ng-model="Gender" ng-disabled="Genderfound" required>
+                                                                    <option value="">Select Gender</option>
+                                                                    <option value="M">Male</option>
+                                                                    <option value="F">Female</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-md-4">
                                                         <div class="form-group required custom-img">
-                                                            <label class="font-weight-bold">SSC Memo(size should be greater than 5KB and less than 50KB) :</label>
+                                                            <label class="font-weight-bold">Upload Photo(size should  less than 50KB) :</label>
                                                             <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" style="width:150px;height:150px" />
                                                             <input type="file" ng-disabled="StudentPhoto1" id="stdPhotoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required style="padding-top:10px">
                                                         </div>
@@ -1385,6 +1228,24 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="col-md-4" ng-if="qualifiedExamID==2 || qualifiedExamID==3 || qualifiedExamID==4 || qualifiedExamID==5 ||
+                                                         qualifiedExamID==6 || qualifiedExamID==7 || qualifiedExamID==8 || qualifiedExamID==9 || qualifiedExamID==10">
+                                                        <div class="form-group required custom-img">
+                                                            <label class="font-weight-bold">Upload SSC Memo / 10th(size should  less than 50KB) :</label>
+                                                            <img ng-src="{{SSCMemo}}" class="img img-responsive" id="stdMemoImg" style="width:150px;height:150px" />
+                                                            <input type="file" ng-disabled="SSCMemo1" id="stdMemoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadSSCMemo()" class="upld-file" required style="padding-top:10px">
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="col-md-12">
+
+        <p>
+            <span> <input type="checkbox" ng-model="checkbox" ng-disabled="CheckBox" /></span>
+            I declare that fulfill the eligibility criteria laid down for appearing at POLYCET-2023 and shall submit all the original documents in proof at the time of admission into polytechnic for the academic year 2023-2024. I also certify that i am not suffering from any of the following defects (a) MENTALLY RETARDED (0) BLINDNESS (c) DEAF & DUMB (6) CHRONIC HEART LUNG KIDNEY LIVER DISEASES (6) MUSCULAR DYSTROPHY
+
+
+        </p>
+        <p>  The information furnished above is true to the best of my knowledge and belief. In case any false information is furnished by me. shall be made ineligible for admission and I will have no right or claim.</p>
+    </div>-->
                                                 </fieldset>
                                                 <div class="col-md-12 " ng-show="SSCBUTTONCLICK">
                                                     <!--    <button class="btn btn-primary " ng-click="BackTab(1)">Back</button>-->
@@ -1393,21 +1254,7 @@
                                                         <span ng-show="loader1"><div class="loader"> </div></span>
                                                     </button>
                                                 </div>
-                                                <!--<div class="row">
-                                                <div class="col-md-11">
-                                                    <div class="">
-                                                        <button type="submit" class="btn  btn-primary btn_top_margin  pull-right" ng-click="Back()">Back <span class="fa  heading_icon btn_icons"></span></button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="">
-                                                        <button type="submit" class="btn  btn-success btn_top_margin  pull-right" ng-click="Next()">Next<span class="fa  heading_icon btn_icons"></span></button>
-                                                    </div>
-                                                </div>
-                                            </div>-->
-                                                <!--<div class="col-md-12 ">
-                                                <button class="btn btn-success pull-right">Next</button>
-                                            </div>-->
+
                                             </div>
 
                                             <div class="tab-pane fade in {{class2}}" id="Communication">
@@ -1645,7 +1492,7 @@
                                                         </select>
                                                     </div>
 
-                                                   
+
 
                                                     <div class="col-md-4 form-group">
                                                         <label class="font-weight-bold">Physically Handicapped</label>
@@ -1689,7 +1536,7 @@
 
                                                     </div>
 
-                                                  
+
                                                 </fieldset>
                                                 <div class="col-md-12 ">
                                                     <button class="btn btn-primary " ng-click="BackTab(3)">Back</button>
@@ -1700,107 +1547,140 @@
                                                 </div>
                                             </div>
 
-                                            <div class="tab-pane fade in {{class6}}" id="Study">
+                                            <div class="tab-pane fade in {{class5}}" id="Study">
                                                 <fieldset>
                                                     <legend>Study Details</legend>
                                                     <div class="col-md-4">
 
                                                         <div class="form-group">
-                                                            <label>Intermediate Vocational Course in</label>
-                                                            <select class="form-control" ng-model="Vocat"
-                                                                    ng-options="data.Value for data.Value in GetVocat" ng-change="ChangeCaste(CasteCategory)">
-                                                                <option value="" selected>Select Caste Category</option>
+                                                            <label>IVC passed Year</label>
+                                                            <select class="form-control" ng-model="IVCYear"
+                                                                    ng-options="data.TenthYear as data.TenthYear for data in TenthYearData" ng-change="getIVCCourses(data.IVCYear)">
+                                                                <option value="" selected>Select IVC passed Year</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
 
                                                         <div class="form-group">
-                                                            <label>Applied for Lateral Entry into</label>
-                                                            <select class="form-control" ng-model="CasteCategory"
-                                                                    ng-options="data.Value as data.Value for data in GetCourses" ng-change="ChangeCaste(CasteCategory)">
-                                                                <option value="" selected>Select </option>
+                                                            <label>Intermediate Vocational Course</label>
+                                                            <select class="form-control" ng-model="IVCCourseID"
+                                                                    ng-options="data.IVCCourseID as data.IVCCourseName for data in IVCCoursesData" ng-change="getLEPCourses1(data.IVCCourseID)">
+                                                                <option value="" selected>Select IVC Course</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
 
                                                         <div class="form-group">
-                                                            <label>IVC passed Year?</label>
-                                                            <input class="form-control" placeholder="IVC passed Year?" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" type="text" ng-model="StudentName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-
-                                                        <div class="form-group">
-                                                            <label>Whether passed in Single Attempt?</label>
-                                                            <select class="form-control" ng-model="Vocat"
-                                                                    ng-options="data.Value for data.Value for data in Values" ng-change="ChangeCaste(CasteCategory)">
-                                                                <option value="" selected>Select </option>
+                                                            <label>Whether passed in Single Attempt</label>
+                                                            <select class="form-control " ng-model="PassedAttempt" name="Type">
+                                                                <option value="">Select Yes / No</option>
+                                                                <option value="true">Yes</option>
+                                                                <option value="false" selected>No</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+
+                                                    <div class="col-md-12" ng-show="LEPCoursesData1.length==1">
 
                                                         <div class="form-group">
-                                                            <label>Applied for lateral Entry</label>
-                                                            <select class="form-control" ng-model="Vcpass"
-                                                                    ng-options="data.Value for data.Value for data in passlst" ng-change="ChangeCaste(CasteCategory)">
-                                                                <option value="" selected>Select </option>
+                                                            <label>Applied for Lateral Entry</label>
+                                                            <select class="form-control" ng-model="LEPCourseID1"
+                                                                    ng-options="data.LEPCourseID as data.LEPCourseName for data in LEPCoursesData1">
+                                                                <option value="" selected>Select LEP</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6" ng-show="LEPCoursesData1.length>1">
 
                                                         <div class="form-group">
-                                                            <label> Aggregate Mars Obtained in inter 1 Year</label>
-                                                            <input class="form-control" placeholder="Aggregate Mars Obtained in inter 1 Year" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" type="text" ng-model="StudentName">
+                                                            <label>Applied for Lateral Entry Preference 1</label>
+                                                            <select class="form-control" ng-model="LEPCourseID1"
+                                                                    ng-options="data.LEPCourseID as data.LEPCourseName for data in LEPCoursesData1" ng-change="getLEPCourses2(data.LEPCourseID1)">
+                                                                <option value="" selected>Select LEP Preference 1</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" ng-show="LEPCoursesData1.length>1">
+
+                                                        <div class="form-group">
+                                                            <label>Applied for Lateral Entry Preference 2</label>
+                                                            <select class="form-control" ng-model="LEPCourseID2"
+                                                                    ng-options="data.LEPCourseID as data.LEPCourseName for data in LEPCoursesData2">
+                                                                <option value="" selected>Select LEP Preference 2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-3">
+
+                                                        <div class="form-group">
+                                                            <label>Marks Obtained in inter 1st Year</label>
+                                                            <input class="form-control" placeholder="Aggregate Marks Obtained in inter 1st Year" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" ng-model="OneYearMarks">
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 
                                                         <div class="form-group">
-                                                            <label> Aggregate Mars Obtained in inter 2 Year</label>
-                                                            <input class="form-control" placeholder="Aggregate Mars Obtained in inter 2 Year" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" type="text" ng-model="StudentName">
+                                                            <label>Marks Obtained in inter 2nd Year</label>
+                                                            <input class="form-control" placeholder=" Aggregate Marks Obtained in inter 2nd Year" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" ng-model="TwoYearMarks">
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 
                                                         <div class="form-group">
-                                                            <label> Aggregate Mars Obtained in inter 1 Year English</label>
-                                                            <input class="form-control" placeholder="Aggregate Mars Obtained in inter 1 Year English" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" type="text" ng-model="StudentName">
+                                                            <label>Marks Obtained in inter 1st Year English</label>
+                                                            <input class="form-control" placeholder="Marks Obtained in inter 1st Year English" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" ng-model="OneYearEngMarks">
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
 
                                                         <div class="form-group">
-                                                            <label> Aggregate Mars Obtained in inter 2 Year English</label>
-                                                            <input class="form-control" placeholder="Aggregate Mars Obtained in inter 2 Year English" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" type="text" ng-model="StudentName">
+                                                            <label>Marks Obtained in inter 2nd Year English</label>
+                                                            <input class="form-control" placeholder="Marks Obtained in inter 2nd Year English" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="3" type="text" ng-model="TwoYearEngMarks">
                                                         </div>
 
                                                     </div>
-                                                    
+
                                                     <div class="col-md-4">
 
                                                         <div class="form-group">
                                                             <label>Marks secured in Bridge course</label>
-                                                            <input class="form-control" placeholder="Caste Certificate Number" maxlength="50" ng-disabled="CASTENUM" type="text" ng-model="CasteNum">
+                                                            <input class="form-control" placeholder="Marks Secured in Bridge Course" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" type="text" ng-model="BridgeCourseMarks">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
 
                                                         <div class="form-group">
-                                                            <label>Whether passed in the bridge course?</label>
-                                                            <select class="form-control" ng-model="Vocat"
-                                                                    ng-options="data.Value for data.Value for data in Values" ng-change="ChangeCaste(CasteCategory)">
-                                                                <option value="" selected>Select </option>
+                                                            <label>Whether passed in the bridge course</label>
+                                                            <select class="form-control " ng-model="BridgePassed" name="Type">
+                                                                <option value="">Select Yes / No</option>
+                                                                <option value="true">Yes</option>
+                                                                <option value="false" selected>No</option>
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group required custom-img">
+                                                            <label class="font-weight-bold">Upload IVC Memo(size should  less than 50KB) :</label>
+                                                            <img ng-src="{{IVCMemo}}" class="img img-responsive" id="ivcMemoImg" style="width:150px;height:150px" />
+                                                            <input type="file" ng-disabled="IVCMemo1" id="ivcMemoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadIVCMemo()" class="upld-file" required style="padding-top:10px">
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="col-md-6">
+                                                        <div class="form-group required custom-img">
+                                                            <label class="font-weight-bold">Upload Bridge Course Memo(size should  less than 50KB) :</label>
+                                                            <img ng-src="{{BridgeCourseMemo}}" class="img img-responsive" id="bcMemoImg" style="width:150px;height:150px" />
+                                                            <input type="file" ng-disabled="BridgeCourseMemo1" id="bcMemoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadBridgeCourseMemo()" class="upld-file" required style="padding-top:10px">
+                                                        </div>
+                                                    </div>
 
                                                 </fieldset>
                                                 <div class="col-md-12 ">
@@ -1811,46 +1691,8 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade in {{class7}}" id="Photo">
-                                                <fieldset>
-                                                    <legend>Photo & Signature</legend>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group required custom-img">
-                                                            <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
-                                                            <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" style="width:150px;height:150px" />
-                                                            <input type="file" ng-disabled="StudentPhoto1" id="stdPhotoFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required style="padding-top:10px">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group required custom-img">
-                                                            <label class="font-weight-bold">Upload Signature(size less than 30KB) :</label>
-                                                            <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="img img-responsive" id="stdSignImg" />
-                                                            <input type="file" ng-disabled="StudentSign1" id="stdSignFile" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file" required style="padding-top:10px">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-
-                                                        <p>
-                                                            <span> <input type="checkbox" ng-model="checkbox" ng-disabled="CheckBox" /></span>
-                                                            I declare that fulfill the eligibility criteria laid down for appearing at POLYCET-2023 and shall submit all the original documents in proof at the time of admission into polytechnic for the academic year 2023-2024. I also certify that i am not suffering from any of the following defects (a) MENTALLY RETARDED (0) BLINDNESS (c) DEAF & DUMB (6) CHRONIC HEART LUNG KIDNEY LIVER DISEASES (6) MUSCULAR DYSTROPHY
-
-
-                                                        </p>
-                                                        <p>  The information furnished above is true to the best of my knowledge and belief. In case any false information is furnished by me. shall be made ineligible for admission and I will have no right or claim.</p>
-                                                    </div>
-
-                                                </fieldset>
-
-                                                <div class="col-md-1">
-                                                    <button type="submit" class="btn  btn-success pull-left " ng-click="NextTab('PhotoSignatureDetails')" ng-disabled="tabsbutton">
-                                                        <span ng-show="!loader7">Save & Preview</span>
-                                                        <span ng-show="loader7"><div class="loader"> </div></span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade in {{class8}}" id="Preview">
+                                            
+                                            <div class="tab-pane fade in {{class6}}" id="Preview">
                                                 <div class="preview_header">
                                                     <div class="col-md-2 logo">
                                                         <div class="logo-image" style="padding:6px!important;">
@@ -1875,7 +1717,7 @@
                                                         <div class="col-md-6   pre-text">: {{RegistrationNumber}}</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="col-md-6 textBold"><div class="label_preview">Qualified Exam</div></div>
+                                                        <div class="col-md-6 textBold"><div class="label_preview">SSC / 10th Exam</div></div>
 
                                                         <div class="col-md-6  pre-text">: {{qualifiedExamName}}</div>
                                                     </div>
@@ -1891,7 +1733,7 @@
                                                         <div class="col-md-6  pre-text">: {{passedoutYear}}</div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="col-md-6 textBold"><div class="label_preview">Qualified Exam Stream  </div></div>
+                                                        <div class="col-md-6 textBold"><div class="label_preview"> Examination Stream  </div></div>
 
                                                         <div class="col-md-6  pre-text">: <span ng-show="sscType=='R'">Regular</span><span ng-show="sscType=='S'">Supplementary</span></div>
                                                     </div>
@@ -2041,11 +1883,11 @@
 
                                                         <div class="col-md-6  pre-text">: {{MinorityName}}</div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <div class="col-md-6 textBold"><div class="label_preview">Assistance in Urdu  </div></div>
+                                                    <!--<div class="col-md-6">
+        <div class="col-md-6 textBold"><div class="label_preview">Assistance in Urdu  </div></div>
 
-                                                        <div class="col-md-6  pre-text">: <span ng-show="PreviewAssistance_Urdu == true">Yes</span><span ng-show="PreviewAssistance_Urdu == false">No</span></div>
-                                                    </div>
+        <div class="col-md-6  pre-text">: <span ng-show="PreviewAssistance_Urdu == true">Yes</span><span ng-show="PreviewAssistance_Urdu == false">No</span></div>
+    </div>-->
                                                     <div class="col-md-6">
                                                         <div class="col-md-6 textBold"><div class="label_preview">Physically Handicapped  </div></div>
 
@@ -2068,27 +1910,61 @@
 
                                                         <div class="col-md-6  pre-text">: <span ng-show="PreviewCAP == true">Yes</span><span ng-show="PreviewCAP == false">No</span></div>
                                                     </div>
+                                                    <!--<div class="col-md-6">
+        <div class="col-md-6 textBold"><div class="label_preview">PM Cares  </div></div>
+
+        <div class="col-md-6  pre-text">: <span ng-show="PreviewPMCares == true">Yes</span><span ng-show="PreviewPMCares == false">No</span></div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-6 textBold"><div class="label_preview">Appear for Biology  </div></div>
+
+        <div class="col-md-6  pre-text">: <span ng-show="PreviewAppearforBiology == true">Yes</span><span ng-show="PreviewAppearforBiology == false">No</span></div>
+    </div>-->
                                                     <div class="col-md-6">
-                                                        <div class="col-md-6 textBold"><div class="label_preview">PM Cares  </div></div>
+                                                        <div class="col-md-6 textBold"><div class="label_preview">IVC Passed Year</div></div>
 
-                                                        <div class="col-md-6  pre-text">: <span ng-show="PreviewPMCares == true">Yes</span><span ng-show="PreviewPMCares == false">No</span></div>
+                                                        <div class="col-md-6  pre-text">: {{PreviewIVCYear}}</div>
                                                     </div>
+
                                                     <div class="col-md-6">
-                                                        <div class="col-md-6 textBold"><div class="label_preview">Appear for Biology  </div></div>
+                                                        <div class="col-md-6 textBold"><div class="label_preview">Intermediate Vocational Course</div></div>
 
-                                                        <div class="col-md-6  pre-text">: <span ng-show="PreviewAppearforBiology == true">Yes</span><span ng-show="PreviewAppearforBiology == false">No</span></div>
+                                                        <div class="col-md-6  pre-text">: {{PreviewIVCCourseName}}</div>
                                                     </div>
 
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-6 textBold"><div class="label_preview">Passed in Single Attempt </div></div>
 
+                                                        <div class="col-md-6  pre-text">: <span ng-show="PreviewPassedAttempt == true">Yes</span><span ng-show="PreviewPassedAttempt == false">No</span></div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-6 textBold"><div class="label_preview">ALE Preference 1</div></div>
+
+                                                        <div class="col-md-6  pre-text">: {{PreviewLEPCourseName1}}</div>
+                                                    </div>
+
+                                                    <div class="col-md-6" ng-show="PreviewLEPCourseName2">
+                                                        <div class="col-md-6 textBold"><div class="label_preview">ALE Preference 2</div></div>
+
+                                                        <div class="col-md-6  pre-text">: {{PreviewLEPCourseName2}}</div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-6 textBold"><div class="label_preview">Passed in Bridge Course</div></div>
+
+                                                        <div class="col-md-6  pre-text">: <span ng-show="PreviewBridgePassed == true">Yes</span><span ng-show="PreviewBridgePassed == false">No</span></div>
+                                                    </div>
                                                     <div id="preExamReports" class="table-responsive table-custom-tables-tb col-md-12" ng-if="array.length>0">
                                                         <table class="table table-bordered  table-striped table-rounded">
                                                             <thead>
                                                                 <tr>
                                                                     <th>S.No</th>
-                                                                    <th>Class</th>
-                                                                    <th> Year</th>
-                                                                    <th>District</th>
-                                                                    <th>Place</th>
+                                                                    <th>Aggregate 1st Year Marks</th>
+                                                                    <th>Aggregate 2nd Year Marks</th>
+                                                                    <th>1st Year English Marks</th>
+                                                                    <th>2nd Year English Marks</th>
+                                                                    <th>Bridge Course Marks</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -2096,15 +1972,11 @@
                                                                     <td>
                                                                         {{$index+1}}
                                                                     </td>
-                                                                    <td> {{data.Class}} </td>
-                                                                    <td>{{data.Year}}</td>
-
-                                                                    <td>{{GetDistrictName($index+1)}}</td>
-
-
-                                                                    <td>{{data.Place}}</td>
-
-
+                                                                    <td> {{data.One}} </td>
+                                                                    <td>{{data.Two}}</td>
+                                                                    <td>{{data.Three}}</td>
+                                                                    <td>{{data.Four}}</td>
+                                                                    <td>{{data.Five}}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -2116,6 +1988,9 @@
 
                                                         <img ng-src="{{StudentPhoto}}" style="border: 2px solid #ddd;" class="photo_preview" accept="image/jpeg,image/jpg" />
                                                         <img ng-src="{{StudentSign}}" style="border: 2px solid #ddd;" class="sign_preview" accept="image/jpeg,image/jpg" />
+                                                        <img ng-src="{{SSCMemo}}" style="border: 2px solid #ddd;" class="photo_preview" accept="image/jpeg,image/jpg" />
+                                                        <img ng-src="{{IVCMemo}}" style="border: 2px solid #ddd;" class="photo_preview" accept="image/jpeg,image/jpg" />
+                                                        <img ng-src="{{BridgeCourseMemo}}" style="border: 2px solid #ddd;" class="photo_preview" accept="image/jpeg,image/jpg" />
                                                     </div>
 
 
@@ -2149,6 +2024,86 @@
                                                             Application once Submitted cannot edit
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="tab-pane fade in {{class7}}" id="Fee">
+                                                <fieldset>
+                                                    <legend>Fee Payment</legend>
+                                                    <h5 class="Rec_dis">Payment Reciept</h5>
+                                                    <div class="col-md-6  col-md-offset-3" id="table-print" style="padding-top:10px">
+                                                        <table class="table table-bordered  table-striped table-rounded">
+
+                                                            <tr ng-show="StudentData.RegistrationNumber">
+                                                                <td width="50%">Registration Number</td>
+                                                                <td width="50%">{{StudentData.RegistrationNumber}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.StudentName">
+                                                                <td width="50%">Student Name</td>
+                                                                <td width="50%">{{StudentData.StudentName}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.Aadhaar">
+                                                                <td width="50%">Aadhar Number</td>
+                                                                <td width="50%">{{StudentData.Aadhaar}}</td>
+                                                            </tr>
+
+                                                            <tr ng-show="StudentData.CasteCategoryName">
+                                                                <td width="50%">Category</td>
+                                                                <td width="50%">{{StudentData.CasteCategoryName}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.RegistrationMobile">
+                                                                <td width="50%">Registration Mobile</td>
+                                                                <td width="50%">{{StudentData.RegistrationMobile}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.ApplicationFee">
+                                                                <td width="50%">Application Fee</td>
+                                                                <td width="50%"> RS. {{StudentData.ApplicationFee}}</td>
+                                                            </tr>
+                                                            <tr ng-show="CasteCategoryID  == 7 || CasteCategoryID==8">
+                                                                <td width="50%">Caste Verified</td>
+                                                                <td width="50%"> {{StudentData.CasteVerified ?  "Yes":"No"}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <tr ng-show="StudentData.RegistrationEmail">
+                                                                <td width="50%">Registration Email</td>
+                                                                <td width="50%">{{StudentData.RegistrationEmail}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.ChallanNumber">
+                                                                <td width="50%">Challan Number</td>
+                                                                <td width="50%">{{StudentData.ChallanNumber}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.bankrefno">
+                                                                <td width="50%">Bank Reference Number</td>
+                                                                <td width="50%">{{StudentData.bankrefno}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.errordesc">
+                                                                <td width="50%">Transaction Status</td>
+                                                                <td width="50%">{{StudentData.errordesc}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.txnamt">
+                                                                <td width="50%">Transaction Amount</td>
+                                                                <td width="50%">{{StudentData.txnamt}}</td>
+                                                            </tr>
+                                                            <tr ng-show="StudentData.txndate">
+                                                                <td width="50%">Transaction Date</td>
+                                                                <td width="50%">{{StudentData.txndate}}</td>
+                                                            </tr>
+                                                        </table>
+                                                        <div class="col-md-12">
+                                                            <button class="btn btn-success pull-right" ng-show="FeePaymentStatus==0" ng-click="PayFee()" ng-disabled="PayFeeDisable">
+                                                                <span ng-show="!FeeLoader">Pay Fee</span>
+                                                                <span ng-show="FeeLoader"><div class="loader"> </div></span>
+                                                            </button>
+                                                            <button class="btn btn-success pull-right" ng-show="FeePaymentStatus==1" ng-click="printReceipt()">Print</button>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </fieldset>
+                                                <div class="col-md-12 ">
+                                                    <!--    <button class="btn btn-primary " ng-click="BackTab(1)">Back</button>-->
+                                                    <button class="btn btn-success pull-right" ng-show="nextbutton" ng-click="NextTab(0)">Next</button>
                                                 </div>
 
                                             </div>
@@ -2364,11 +2319,11 @@
                                                                 </label>
 
                                                                 <!--<select class="form-control " ng-model="Preference1District" name="" ng-change="ChangeDistricts1(Preference1District)">
-                                                                <option value="" selected="selected">Select District</option>
-                                                                <option value="{{data}}" ng-repeat="data in Preference1DistrictsData" class="">
-                                                                    {{data.DistrictName}}
-                                                                </option>
-                                                            </select>-->
+                            <option value="" selected="selected">Select District</option>
+                            <option value="{{data}}" ng-repeat="data in Preference1DistrictsData" class="">
+                                {{data.DistrictName}}
+                            </option>
+                        </select>-->
                                                                 <select class="form-control" id="dist" ng-model="Preference1District" ng-change="ChangeDistricts1(Preference1District)"
                                                                         ng-options="data as data.DistrictName for data in Preference1DistrictsData">
                                                                     <option value="" selected>Select District</option>
@@ -2381,11 +2336,11 @@
                                                                         <label>Mandal</label>
 
                                                                         <!--<select class="form-control " ng-model="Preference1Mandal" name="" ng-change="ChangeMandals1(Preference1Mandal,1)">
-                                                                        <option value="" selected="selected">Select Mandal</option>
-                                                                        <option value="{{data.MandalID}}" ng-repeat="data in Preference1MandalsData" class="">
-                                                                            {{data.MandalName}}
-                                                                        </option>
-                                                                    </select>-->
+                                    <option value="" selected="selected">Select Mandal</option>
+                                    <option value="{{data.MandalID}}" ng-repeat="data in Preference1MandalsData" class="">
+                                        {{data.MandalName}}
+                                    </option>
+                                </select>-->
                                                                         <select class="form-control" id="mandal" ng-model="Preference1Mandal" ng-change="ChangeMandals1(Preference1Mandal,1)"
                                                                                 ng-options="data as data.MandalName for data in Preference1MandalsData">
                                                                             <option value="" selected>Select Mandal</option>
@@ -2402,11 +2357,11 @@
                                                                 </label>
 
                                                                 <!--<select class="form-control " ng-model="Preference2District" name="" ng-change="ChangeDistricts2()">
-                                                                <option value="" selected="selected">Select District</option>
-                                                                <option value="{{data.DistrictID}}" ng-repeat="data in Preference2DistrictsData" class="">
-                                                                    {{data.DistrictName}}
-                                                                </option>
-                                                            </select>-->
+                            <option value="" selected="selected">Select District</option>
+                            <option value="{{data.DistrictID}}" ng-repeat="data in Preference2DistrictsData" class="">
+                                {{data.DistrictName}}
+                            </option>
+                        </select>-->
                                                                 <select class="form-control" id="dist" ng-model="Preference2District" ng-change="ChangeDistricts2(Preference2District)"
                                                                         ng-options="data as data.DistrictName for data in Preference2DistrictsData">
                                                                     <option value="" selected>Select District</option>
@@ -2418,12 +2373,12 @@
                                                                         <label>Mandal</label>
 
                                                                         <!--<select class="form-control " ng-model="Preference2Mandal" name="" ng-change="ChangeMandals2(Preference2Mandal,2)">
-                                                                        <option value="" selected="selected">Select Mandal</option>
-                                                                        <option value="{{data.MandalID}}" ng-repeat="data in Preference2MandalsData">
-                                                                            {{data.MandalName}}
+                                    <option value="" selected="selected">Select Mandal</option>
+                                    <option value="{{data.MandalID}}" ng-repeat="data in Preference2MandalsData">
+                                        {{data.MandalName}}
 
-                                                                        </option>
-                                                                    </select>-->
+                                    </option>
+                                </select>-->
 
                                                                         <select class="form-control" id="mandal" ng-model="Preference2Mandal" ng-change="ChangeMandals2(Preference2Mandal,2)"
                                                                                 ng-options="data as data.MandalName for data in Preference2MandalsData">
@@ -2441,11 +2396,11 @@
                                                                 </label>
 
                                                                 <!--<select class="form-control " ng-model="Preference3District" name="" ng-change="ChangeDistricts3(Preference3District)">
-                                                                <option value="" selected="selected">Select District</option>
-                                                                <option value="{{data.DistrictID}}" ng-repeat="data in Preference3DistrictsData" class="">
-                                                                    {{data.DistrictName}}
-                                                                </option>
-                                                            </select>-->
+                            <option value="" selected="selected">Select District</option>
+                            <option value="{{data.DistrictID}}" ng-repeat="data in Preference3DistrictsData" class="">
+                                {{data.DistrictName}}
+                            </option>
+                        </select>-->
 
                                                                 <select class="form-control" id="dist" ng-model="Preference3District" ng-change="ChangeDistricts3(Preference3District)"
                                                                         ng-options="data as data.DistrictName for data in Preference3DistrictsData">
@@ -2458,12 +2413,12 @@
                                                                         <label>Mandal</label>
 
                                                                         <!--<select class="form-control " ng-model="Preference3Mandal" name="" ng-change="ChangeMandals3(Preference3Mandal,3)">
-                                                                        <option value="" selected="selected">Select Mandal</option>
-                                                                        <option value="{{data.MandalID}}" ng-repeat="data in Preference3MandalsData">
-                                                                            {{data.MandalName}}
+                                    <option value="" selected="selected">Select Mandal</option>
+                                    <option value="{{data.MandalID}}" ng-repeat="data in Preference3MandalsData">
+                                        {{data.MandalName}}
 
-                                                                        </option>
-                                                                    </select>-->
+                                    </option>
+                                </select>-->
 
                                                                         <select class="form-control" id="Mandal" ng-model="Preference3Mandal"
                                                                                 ng-options="data as data.MandalName for data in Preference3MandalsData" ng-change="ChangeMandals3(Preference3Mandal,3)">
@@ -2493,109 +2448,109 @@
 
                                             </div>
                                             <!--<div class="tab-pane fade in {{class10}}" id="ViewOMR">
-                                            <div class="col-md-12" style="overflow-y: scroll; height: 850px;width:1092px" ng-show="omr">
+        <div class="col-md-12" style="overflow-y: scroll; height: 850px;width:1092px" ng-show="omr">
 
-                                                <div class="item">
-                                                    <img style="padding-top:30px" src="../../contents/img/2000005.JPG" />
-                                                </div>
+            <div class="item">
+                <img style="padding-top:30px" src="../../contents/img/2000005.JPG" />
+            </div>
 
-                                            </div>
+        </div>
 
-                                        </div>
-                                        <div class="tab-pane fade in {{class11}}" id="ViewResults">
-                                            <div class="" ng-show="Results">
-                                                <div class="card1">
-                                                    <div class="row head_txt">
-                                                        <div class="col-md-2 logo">
-                                                            <div class="logo-image" style="padding: 6px !important;">
-                                                                <img src="/contents/img/sbtet-logo.svg" class="img-responsive logoImg pull-left" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-8 title">
-                                                            <h3 class="text-center hall_head" style="font-size: 16px !important;"><b>STATE BOARD OF TECHNICAL EDUCATION & TRAINING TELANGANA, HYDERABAD</b></h3>
-                                                            <h4 class="text-center " style="margin:0px;">
-                                                                <b>POLYCET - 2022</b>
-                                                            </h4>
-                                                            <h5 class="text-center"><b>(Polycet Common Entrance Test For Admission into Polytechnics)</b></h5>
-                                                        </div>
-                                                        <div class="col-md-2 logo">
-                                                            <div class="logo-image lg_right" style="padding: 6px !important;">
-                                                                <img src="/contents/img/telangana-logo-png.png" class="img-responsive logoImg pull-right" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <hr class="myHr" />
-                                                    <div class="col-md-2"></div>
-                                                    <div class="col-md-8">
-                                                        <h5 class="text-center"><b>RANK CARD</b></h5>
-                                                    </div>
-                                                    <div class="col-md-2"></div>
+    </div>
+    <div class="tab-pane fade in {{class11}}" id="ViewResults">
+        <div class="" ng-show="Results">
+            <div class="card1">
+                <div class="row head_txt">
+                    <div class="col-md-2 logo">
+                        <div class="logo-image" style="padding: 6px !important;">
+                            <img src="/contents/img/sbtet-logo.svg" class="img-responsive logoImg pull-left" />
+                        </div>
+                    </div>
+                    <div class="col-md-8 title">
+                        <h3 class="text-center hall_head" style="font-size: 16px !important;"><b>STATE BOARD OF TECHNICAL EDUCATION & TRAINING TELANGANA, HYDERABAD</b></h3>
+                        <h4 class="text-center " style="margin:0px;">
+                            <b>POLYCET - 2022</b>
+                        </h4>
+                        <h5 class="text-center"><b>(Polycet Common Entrance Test For Admission into Polytechnics)</b></h5>
+                    </div>
+                    <div class="col-md-2 logo">
+                        <div class="logo-image lg_right" style="padding: 6px !important;">
+                            <img src="/contents/img/telangana-logo-png.png" class="img-responsive logoImg pull-right" />
+                        </div>
+                    </div>
+                </div>
+                <hr class="myHr" />
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5 class="text-center"><b>RANK CARD</b></h5>
+                </div>
+                <div class="col-md-2"></div>
 
 
-                                                    <div1 class='marginData'>
-                                                        <div class='row1'>
-                                                            <div class='col-md-6'>
-                                                                <div>TS POLYCET Hall Ticket No: <b>4005001</b></div>
-                                                                <div>Name: <b>PULI AASRITHA</b></div>
-                                                                <div>Father's Name: <b>PULI THEERTHA RAMAKRISHNA</b></div>
-                                                                <div>Date of Examination: <b>30/06/2022 (Thursday)</b></div>
-                                                            </div>
-                                                            <div class='col-md-6'>
-                                                                <div>MPC Stream State Rank: <b>27172</b></div>
-                                                                <div>MBIPC Stream State Rank: <b>Not Qualified</b></div>
-                                                                <div>
-                                                                    <table class=' table1 table-bordered  table1-striped table-rounded'>
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th class='text-center clr_blue' colspan='4'>Marks Secured</th>
+                <div1 class='marginData'>
+                    <div class='row1'>
+                        <div class='col-md-6'>
+                            <div>TS POLYCET Hall Ticket No: <b>4005001</b></div>
+                            <div>Name: <b>PULI AASRITHA</b></div>
+                            <div>Father's Name: <b>PULI THEERTHA RAMAKRISHNA</b></div>
+                            <div>Date of Examination: <b>30/06/2022 (Thursday)</b></div>
+                        </div>
+                        <div class='col-md-6'>
+                            <div>MPC Stream State Rank: <b>27172</b></div>
+                            <div>MBIPC Stream State Rank: <b>Not Qualified</b></div>
+                            <div>
+                                <table class=' table1 table-bordered  table1-striped table-rounded'>
+                                    <thead>
+                                        <tr>
+                                            <th class='text-center clr_blue' colspan='4'>Marks Secured</th>
 
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th class='text-center'><b>Maths</b></th>
-                                                                                <th class='text-center'><b>Physics</b></th>
-                                                                                <th class='text-center '><b>Chemistry</b></th>
-                                                                                <th class='text-center cln'><b>Biology</b>  </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td class='text-center'><b>{{29}}</b></td>
-                                                                                <td class='text-center'><b>{{13}}</b></td>
-                                                                                <td class='text-center'><b>{{8}}</b></td>
-                                                                                <td class='text-center cln'><b>{{0}}</b>  </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        </tr>
+                                        <tr>
+                                            <th class='text-center'><b>Maths</b></th>
+                                            <th class='text-center'><b>Physics</b></th>
+                                            <th class='text-center '><b>Chemistry</b></th>
+                                            <th class='text-center cln'><b>Biology</b>  </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class='text-center'><b>{{29}}</b></td>
+                                            <td class='text-center'><b>{{13}}</b></td>
+                                            <td class='text-center'><b>{{8}}</b></td>
+                                            <td class='text-center cln'><b>{{0}}</b>  </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
-                                                    </div1>
-                                                    <div class="sm-spacer"></div>
-                                                    <div class="sm-spacer"></div>
-                                                    <div class="row">
-                                                        <div class="col-md-8"></div>
-                                                        <div class="col-md-4">
-                                                            <img src="/contents/img/cesign.png" class="sign1" style="height:40px; width:180px;left:382px !important">
+                </div1>
+                <div class="sm-spacer"></div>
+                <div class="sm-spacer"></div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <img src="/contents/img/cesign.png" class="sign1" style="height:40px; width:180px;left:382px !important">
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-8"></div>
-                                                        <div class="col-md-4">
-                                                            <b class="">Controller Of Examination</b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <b class="">Controller Of Examination</b>
 
-                                                        </div>
-                                                    </div>
-                                                </div>
+                    </div>
+                </div>
+            </div>
 
-                                                <div class="col-md-12" ng-show="HallticketGenerated=='1'">
-                                                    <button class="btn sub_btn  btn-success pull-right" ng-show="printbutton" style="margin: 20px !important;" ng-click="PrintHallticket()">
-                                                        Print
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>-->
+            <div class="col-md-12" ng-show="HallticketGenerated=='1'">
+                <button class="btn sub_btn  btn-success pull-right" ng-show="printbutton" style="margin: 20px !important;" ng-click="PrintHallticket()">
+                    Print
+                </button>
+            </div>
+        </div>
+    </div>-->
 
                                         </div>
                                     </div>
