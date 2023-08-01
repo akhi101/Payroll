@@ -257,7 +257,7 @@
             var getAdmissionsubmod = CcicPreExaminationService.getPayExamFee($scope.InstitutionID, $scope.AcademicYearID, $scope.ExamMonthYearID, $scope.FeePaymentTypeID, $scope.UserName);
             getAdmissionsubmod.then(function (Usersdata) {
 
-                if (Usersdata.length > 0) {
+                if (Usersdata.length > 0 && Usersdata[0].StatusCode == 200) {
                     $scope.isShowResults = true;
                     $scope.dataBackLog = false;
 
@@ -268,9 +268,9 @@
                     $scope.ExamPayment = Usersdata;
                 }
                 else {
-                    $scope.isShowResults = false;
+                    $scope.NoData = true;
                     $scope.AcademicModules = [];
-                    alert("No Data Found");
+                    //alert("No Data Found");
                 }
 
             }, function (err) {

@@ -5,6 +5,12 @@
             var promise = DataAccessService.getDataWithPara('api/AdminService/getUserTypes');
             return promise;
         }
+
+        this.GetUsers = function () {
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetUsers');
+            return promise;
+        }
+
         this.GetActiveBranches = function () {
             var promise = DataAccessService.getDataWithPara('api/AdminService/getActiveBranches');
             return promise;
@@ -52,6 +58,12 @@
 
         this.getUserType = function () {
             var promise = DataAccessService.getDataWithPara('api/AdminService/getUserType');
+            return promise;
+        }
+
+        this.AddUserPasswords = function (UserName,UserPassword) {
+            var paramObj = { "UserName": UserName, "UserPassword": UserPassword };
+            var promise = DataAccessService.getDataWithPara('api/AdminService/AddUserPasswords', paramObj);
             return promise;
         }
 

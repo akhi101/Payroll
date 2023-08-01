@@ -99,6 +99,12 @@
                     </div>
                 </div>
                 <div class="sm-spacer"></div>
+                <div class="col-md-12" ng-if="NoData">
+                    <div class="col-md-12 no-results">
+                        <img src="../../contents/img/Folder-Icon.svg" />
+                        <h2>No Data</h2>
+                    </div>
+                </div>
                 <div class="col-md-12" ng-if="isShowResults">
                     <div id="attendanceReport" class="table-responsive table-custom-tables-tb col-md-12">
                         <table class="table table-bordered  table-striped table-rounded">
@@ -119,7 +125,7 @@
                                     <td style="text-align: center"><input type="checkbox" ng-model="x.isChecked" ng-checked="x.isChecked" ng-change="selectEntity(x)"></td>
                                     <td class="text-left">{{$index + 1}}</td>
                                     <td class="text-left" style="width: 15%">{{x.PIN}}</td>
-                                    <td class="text-left">{{x.StudentName}}</td>                                   
+                                    <td class="text-left">{{x.StudentName}}</td>
                                     <td class="text-left">{{x.StudentMobile}}</td>
                                     <td class="text-left">{{x.FeePaymentTypeName}}</td>
                                     <td class="text-left">{{x.ExaminationFee}}</td>
