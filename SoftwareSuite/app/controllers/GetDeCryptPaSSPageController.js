@@ -1,8 +1,8 @@
 ﻿define(['app'], function (app) {
-    app.controller("GetDeCryptPaSSPageController", function ($scope, SystemUserService, ForgetPasswordService, $crypto, $scope, $crypto) {
+    app.controller("GetDeCryptPaSSPageController", function ($scope, AdminService,SystemUserService, ForgetPasswordService, $crypto, $scope, $crypto) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
+            $scope.getUsers();
         }
 
         var sessioneKey = SystemUserService.GetSessionEKey();
@@ -14,9 +14,40 @@
         $scope.UserTypeID = 1;
 
 
+
+        $scope.getUsers = function () {
+            var getusers = AdminService.GetUsers();
+            getusers.then(function (response) {
+                //try {
+                //    var Res = JSON.parse(response);
+                //}
+                //catch (err) { }
+                if (response.Table.length > 0) {
+                    $scope.UsersData = response.Table;
+                    var range = [];
+                    for (var i = 0; i < $scope.UsersData.length; i++) {
+                        var UserNames = $scope.UsersData[i].UserName;
+                        range.push(UserNames);
+                    }
+                    $scope.range = range;
+                    console.log(range)
+                    //$scope.Submit($scope.range);
+
+                }
+                else {
+
+                    $scope.UsersData = [];
+
+                }
+
+            },
+                function (error) {
+
+                });
+        }
         $scope.Submit = function () {
 
-            var reqdata = $crypto.encrypt($scope.UserName, $scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
+            var reqdata = $crypto.encrypt($scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
             var getPromise = ForgetPasswordService.GetForgotPassword(reqdata);
             getPromise.then(function (data) {
 
@@ -24,12 +55,40 @@
                 alert($scope.Password);
                 $scope.UserName = null;
 
-
-
             });
         }
 
 
+        $scope.SetPasswords = function () {
+            var setpassword = AdminService.AddUserPasswords($scope.UserName,$scope.UserPassword);
+            setpassword.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) {
+                }
+                if (res.Table[0].ResponseCode == '200') {
+                    //alert(res.Table[0].ResponseDescription);
+
+
+
+                } else if (res.Table[0].ResponseCode == '400') {
+                    //alert(res.Table[0].ResponseDescription);
+                }
+
+                else {
+                    alert("Not Added")
+
+
+                }
+            },
+
+                function (error) {
+                    $scope.Loading = false;
+                    var err = JSON.parse(error);
+                })
+
+        }
 
 
     })

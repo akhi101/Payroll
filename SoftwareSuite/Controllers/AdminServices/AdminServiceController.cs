@@ -106,6 +106,45 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
         }
 
+        [HttpGet, ActionName("GetUsers")]
+        public HttpResponseMessage GetUsers()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec ADM_GET_All_Users";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ADM_GET_All_Users", 0, ex.Message);
+                throw ex;
+            }
+        }
+
+        [HttpGet, ActionName("AddUserPasswords")]
+        public string AddUserPasswords(string UserName,string Password)
+        {
+            var dbHandler = new dbHandler();
+
+            try
+            {
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@UserName", UserName);
+                param[1] = new SqlParameter("@Password", Password);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Set_UserPasswords", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_UserPasswords", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("getNotifications")]
         public HttpResponseMessage getNotifications()
         {
