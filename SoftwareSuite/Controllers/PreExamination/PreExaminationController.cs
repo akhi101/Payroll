@@ -3385,7 +3385,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
-                StrQuery = "exec USP_GET_6thSemStudiedReports";
+                StrQuery = "exec USP_GET_6thSemStudiedReports;";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
             }
             catch (Exception ex)
@@ -4319,7 +4319,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //string tinyUrl = client1.DownloadString(address);
                 //Console.WriteLine(tinyUrl);
 
-                string Msg = "PIN:{0},Your application request for {1} Certificate is Approved, click here "+ CertificatePath + " Secretary, SBTET TS.";
+                string Msg = "PIN:{0},Your application request for {1} Certificate is Approved, click here {2} Secretary, SBTET TS.";
                 //string Msg = "PIN: {0}, Your application request for {1} Certificate is Approved, click here {2} .Secretary, SBTET TS.";
                 //string Msg = "PIN:{0}, Your application request for {1} Certificate is Approved, click here {2} .Secretary, SBTET TS.";
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
@@ -4331,7 +4331,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-                    return "SUCCESS";
+                    return "SUCCESS";     
                 }
                 else
                 {

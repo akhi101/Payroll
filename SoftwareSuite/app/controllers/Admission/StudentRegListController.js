@@ -3,6 +3,11 @@
         var data = {};
         $scope.Loading = false;
         $scope.$emit('showLoading', data);
+
+        // var reply ="<?xml version=\"1.0\"?>\n<PidData><Resp errCode=\"0\" errInfo=\"SUCCESS\" fCount=\"0\" fType=\"0\" iCount=\"1\" iType=\"0\" pCount=\"0\" pType=\"0\" nmPoints=\"000\" qScore=\"100\"/><DeviceInfo dpId=\"INTEGRA.IMSPL\" rdsId=\"IMS.WIN.004\" rdsVer=\"1.0.1\" dc=\"cbd481c5-1744-4704-9aa4-18938131ff4f\" mi=\"IMS.MK2120UL.W\" mc=\"MIIERzCCAy+gAwIBAgIGAYlo1aZNMA0GCSqGSIb3DQEBCwUAMHkxHTAbBgNVBAMTFEJIQVNLQVIgSllPVEkgUEhVS0FOMRIwEAYDVQQIEwlLQVJOQVRBS0ExDzANBgNVBAsTBklNRkFTVDEmMCQGA1UEChMdSW50ZWdyYSBNaWNybyBTeXN0ZW1zIFB2dCBMdGQxCzAJBgNVBAYTAklOMB4XDTIzMDcxODExNDkzOFoXDTIzMDgxNTExNDkzOFowbzESMBAGA1UEBxMJQmFuZ2Fsb3JlMQ4wDAYDVQQKEwVJTVNQTDESMBAGA1UECxMJUkRTZXJ2aWNlMSgwJgYDVQQDEx9JbnRlZ3JhIE1pY3JvIFN5c3RlbXMgUHZ0LiBMdGQuMQswCQYDVQQGEwJJTjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL/k1e6t//jgMcYE64TV9fuHBrDSduJ5bxzxEHzHIsRyVOWQKsN+pfDNnn/Ldp7BbCtRv3gbpJQrg6+/RYI5Hym/SfC6DZKlyxFztGb/Isdh4Http8gASEcc7ol3/JpK9hQlzg2KoIlKD/+WIcVO7BIjyN/hVRX0hq+ui5Ty18ValXnemhr3DtADsVbHvx2yO04jSiR1Wj046x6u7j6C8yj3D5xHlbkZeaVGfklIyXXhpzarRBP5bY5SuRmdepyxXVSbXCAV+N8XehO0mDjgqadfHuZVZZtHEpr4+H6xwCM4lod0J6LTV0nFFCzCCNwoVnj4/10Y8VURL34jbNaqAu8CAwEAAaOB3jCB2zCBuQYDVR0jBIGxMIGugBSjehwdlAqtKouupP/HTIfZlE+hpqGBj6SBjDCBiTELMAkGA1UEBhMCSU4xEjAQBgNVBAgTCUtBUk5BVEFLQTESMBAGA1UEBxMJQmFuZ2Fsb3JlMQ4wDAYDVQQKEwVVSURBSTEmMCQGA1UEAxMdVUlEQUlfUkVHSVNURVJFRF9ERVZJQ0VTXzIwMzAxGjAYBgNVBAsTEVRFQ0hOT0xPR1lfQ0VOVEVSggQBMa6SMB0GA1UdDgQWBBQi+kHxweWFthEFq4TJU39cJHCf+DANBgkqhkiG9w0BAQsFAAOCAQEA2eP00exXKFCvyAtAeM6NwlBpbyIIzmeKhAf5rSBMPXj/eXjV7SB5GmrncyzEfE65EoWMCYI3PxptBxN3fsYGEYdI9jeNpyymz/8TAbucuA6pjCUMEXhg3CKo141VepL4p/gxBxbpq7JKPZKAKFM3+zKNpZJ0y6l8FwQTSgYnzSS7CYtt9kL4Q5sosF4EIu5yc6POF0w1k+1YI2h25wSgh/PbdOOWkvAlL2H5o7x5HmaS4fltdyGEz0JgkHnKGvxyDg7c48tKDuQtmkgPOcEsPzX16OW3z1wI8Xbk9MtlR8dvr/DSsktFL/kFITgNK5e0LGueN5XOzQwBpVPrKhPCsQ==\"/><Skey ci=\"20250923\">YOe61YzyOT15AMFt6XABEnzptTJHuViDqSOj9SP+bTsA3KpptRTEjl98Ng0JDt0ShDkR+D/ue/pnrVub+mqd7Jdl8z5kiU1otqsdykknRTm6SJWI18dHGxkFaROjt1oRQz+WabiZ0SozEWf+21nehzqrPTZX/Mc8ELdUYDYzWam4/MG7HvloQ3yhODs/ZRMnNI1NuLNSesSiOJkNDIghAy//ub9vVleCidmDjf1572EdW6DgsHSa5QfTz7a0PuCd73Nx4BtY6HgC/DGx/pELm5fmaaskIHLEGmYhhWB0i8Lk/Kaw0PzCaD6wWPuH5lA9JZ+Kelzvi8/TifOiWYn2Jg==</Skey><Hmac>Dlebh/Skcrsq4vmJY6GhOh0nvbIgQ86Iuj+erc+B7DFhcaqb8BCVlKruseMrGhL3</Hmac><Data type=\"X\">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</Data></PidData>\n"
+        // response=reply.substring(reply.indexOf("?>") + 2).trim();
+        // console.log(response);
+        //   console.log(XmlString)
         var authData = $localStorage.authorizationData;
         // console.log(authData)
         AppSettings.College_Code = authData.College_Code;
@@ -459,7 +464,7 @@
         };
 
         $scope.generateAttendeeId = function (studentId, attendeeId) {
-           
+
             if (attendeeId == 'Generate AttendeeId') {
                 var data = {};
                 $scope.$emit('showLoading', data);
@@ -532,7 +537,7 @@
                         $scope.GetStudentDetailsForAdmission()
                         alert(error);
                     });
-            }else {
+            } else {
 
             }
 
@@ -660,6 +665,9 @@
             } else if ($scope.selectedRd === "IRIS") {
                 $scope.irisCapture();
             }
+            else if ($scope.selectedRd === "RDS") {
+                $scope.Capture();
+            }
         };
 
         var location = window.location.origin;
@@ -713,6 +721,49 @@
                 }
             );
         }
+        var PortNumber = 11100;
+        var port = 11100;
+        $scope.RDS_Discover = function () {
+            var PortNumber = 11100;
+            var port = 11100;
+            var url = "http://127.0.0.1:" + PortNumber;
+            var xhr = new XMLHttpRequest();
+            xhr.open('RDSERVICE', url, true);
+            xhr.setRequestHeader("Content-Type", "text/plain");
+
+            xhr.onload = function () {
+                var status = xhr.status;
+                if (status == 200) {
+                    console.log("RD Service Found " + port);
+                    console.log(xhr.response);
+                }
+                else if (PortNumber < 11121) {
+                    PortNumber++;
+                    $scope.RDS_Discover();
+                }
+            };
+
+            xhr.onerror = function () {
+                if (PortNumber < 11121) {
+                    PortNumber++;
+                    $scope.RDS_Discover();
+                }
+                else {
+                    console.log(xhr.response);
+                }
+            };
+            xhr.ontimeout = function () {
+                if (PortNumber < 11121) {
+                    PortNumber++;
+                    $scope.RDS_Discover();
+                }
+                else {
+                    alert("ONTIMEOUT");
+                }
+            };
+            xhr.send();
+        }
+
 
         $scope.discoverIrisService = function () {
             var url = "";
@@ -996,6 +1047,152 @@
             });
         };
 
+        $scope.DeviceInfo = function () {
+            var url = "http://127.0.0.1:" + PortNumber + "/rd/info";
+            var deviceInfoDC = null;
+            var xhr = new XMLHttpRequest();
+            xhr.open('DEVICEINFO', url, true);
+            xhr.onload = function () {
+                var status = xhr.status;
+                if (status == 200) {
+                    if (xhr.responseText != undefined && xhr.responseText != "") {
+                        if (window.DOMParser) {
+                            parser = new DOMParser();
+                            xmlDoc = parser.parseFromString(xhr.responseText, "text/xml");
+                        }
+                        else // Internet Explorer
+                        {
+                            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                            xmlDoc.async = false;
+                            xmlDoc.loadXML(xhr.responseText);
+                        }
+                        for (var i = 0; i < xmlDoc.getElementsByTagName("DeviceInfo")[0].attributes.length; i++) {
+                            if (xmlDoc.getElementsByTagName("DeviceInfo")[0].attributes[i].name == "dc") {
+                                deviceInfoDC = xmlDoc.getElementsByTagName("DeviceInfo")[0].attributes[i].value;
+                                alert(xmlDoc.getElementsByTagName("DeviceInfo")[0].attributes[i].value);
+                            }
+                        }
+                    }
+                } else {
+                }
+            };
+            xhr.onloadend = function () {
+                alert("onloadend");
+                console.log(xhr.response);
+            };
+            xhr.onresponse = function () {
+                alert("On Response")
+                console.log(xhr.response);
+            };
+            xhr.onerror = function () {
+                alert("ONERROR");
+                console.log(xhr.response);
+            };
+            xhr.ontimeout = function () {
+                alert("ONTIMEOUT");
+                console.log(xhr.response);
+            };
+            xhr.abort = function () {
+                alert("ONABORT");
+                console.log(xhr.response);
+            };
+            xhr.oncompleted = function () {
+                alert("ONcompleted");
+                console.log(xhr.response);
+            };
+            xhr.send();
+        }
+
+        $scope.Capture = function () {
+            var url = "http://127.0.0.1:" + PortNumber + "/rd/capture";
+            // var PIDOPTS = "<PidOptions ver=\"1.0\"><Opts fCount=\"\" fType=\"\" "
+            // + "iCount=\"" + "1" + "\" iType=\"0\" "
+            // //    + "pCount=\"" + "0" + "\" " + (("1".equals(0)) ? "pType=\"0\" " : "pType=\"\" ")
+            // + "format=\"0\" pidVer=\"2.0\" "
+            // + "timeout=\"" + "15000" + "\" otp=\"\" wadh=\"E0jzJ/P8UopUHAieZn8CKqS4WPMi5ZSYXgfnlfkWjrc=\" posh=\"" + "UNKNOWN" + "\" env=\"" + "P" + "\"/>"
+            // //	            + "<Demo>"
+            // //	            + "</Demo>"
+            // + "<CustOpts> "
+            // + "</CustOpts>"
+            // + "</PidOptions>";
+            //    var PIDOPTS = "<PidOptions ver=\"1.0\"><Opts fCount=\"1\" fType=\"0\"" 
+            //        +  " iCount=\"" + "1" + "\" iType=\"0\" "
+            //        //    + "pCount=\"" + "0" + "\" " + (("1".equals(0)) ? "pType=\"0\" " : "pType=\"\" ")
+            //        + "format=\"0\" pidVer=\"2.0\" "
+            //        + "timeout=\"" + "15000" + "\" otp=\"\" wadh=\"8QSrHOmcQhlyjiSpIgCi7o2ugs78w+4jhckNk1jeIJg=\" posh=\"" + "UNKNOWN" + "\" env=\"" + "P" + "\"/>"
+            //        //	            + "<Demo>"
+            //        //	            + "</Demo>"
+            //        + "<CustOpts> "
+            //        + "</CustOpts>"
+            //        + "</PidOptions>";    
+
+            var environment = "P";
+            var icount = "1";
+            var PIDOPTS = "<PidOptions ver=\"1.0\"><Opts fCount=\"\" fType=\"\" "
+                + "iCount=\"" + icount + "\" iType=\"0\" "
+                //  + "pCount=\"" + pCount + "\" " + (("1".equals(pCount)) ? "pType=\"0\" " : "pType=\"\" ")
+                + "format=\"0\" pidVer=\"2.0\" "
+                + "timeout=\"" + 15000 + "\" otp=\"\" wadh=\"8QSrHOmcQhlyjiSpIgCi7o2ugs78w+4jhckNk1jeIJg=\" posh=\"" + "\" env=\"" + environment + "\"/>"
+                //	            + "<Demo>"
+                //	            + "</Demo>"
+                + "<CustOpts> "
+                + "</CustOpts>"
+                + "</PidOptions>";
+            var xhr = new XMLHttpRequest();
+            xhr.open('CAPTURE', url, true);
+            xhr.onload = function (data) {
+
+                reply = data.target.response;
+                console.log("Server Reply: " + reply);
+                // var status = xhr.status;
+                //  xmlstr = reply.xml ? reply.xml : (new XMLSerializer()).serializeToString(reply);
+                respons = reply.substring(reply.indexOf("?>") + 2).trim();
+                console.log(respons);
+                var datas = (new DOMParser()).parseFromString(reply, "text/xml");
+                console.log(datas)
+                if (datas.getElementsByTagName("Resp")[0].attributes.errCode.value !== "0") {
+                    alert(datas.getElementsByTagName("Resp")[0].attributes.errInfo.value);
+                } else {
+
+                    $scope.DoAadhaarKyc(respons, "06");
+                }
+                //if (status == 200) {
+                //    alert(xhr.responseText);
+                //    console.log(xhr.response);
+                //} else {
+                //    $scope.DoAadhaarKyc(data, "25");
+                //}
+
+            };
+            xhr.onloadend = function () {
+                alert("onloadend");
+                console.log(xhr.response);
+            };
+            xhr.onresponse = function () {
+                alert("On Response")
+                console.log(xhr.response);
+            };
+            xhr.onerror = function () {
+                alert("ONERROR");
+                console.log(xhr.response);
+            };
+            xhr.ontimeout = function () {
+                alert("ONTIMEOUT");
+                console.log(xhr.response);
+            };
+            xhr.abort = function () {
+                alert("ONABORT");
+                console.log(xhr.response);
+            };
+            xhr.oncompleted = function () {
+                alert("ONcompleted");
+                console.log(xhr.response);
+            };
+            xhr.send(PIDOPTS);
+        }
+
+
+
         $scope.irisCapture = function () {
             var PIDOPTS = '<PidOptions ver=\"1.0\">' + '<Opts fCount=\"0\" fType=\"2\" iCount=\"1\" iType=\"0\" pCount=\"\" pType=\"\" format=\"0\" pidVer=\"2.0\" timeout=\"15000\" otp=\"\" wadh=\"8QSrHOmcQhlyjiSpIgCi7o2ugs78w+4jhckNk1jeIJg=\" posh=\"\" env=\"' + $scope.env + '\"/>' + '</PidOptions>';
             $.ajax({
@@ -1052,6 +1249,8 @@
                     break;
                 case "IRIS":
                     $scope.discoverIrisService();
+                case "RDS":
+                    $scope.RDS_Discover()
                     break;
             }
         }
@@ -1141,19 +1340,19 @@
 
                     if (data.length > 0) {
                         let aadhaarVerStudPin = data[0].PIN == null || data[0].PIN == '' || data[0].PIN == 'undefined' ? $scope.PIN : data[0].PIN;
-                       // $scope.Loading = false;
+                        // $scope.Loading = false;
                         $scope.getattedIdbyPin(aadhaarVerStudPin);
-                       // alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);
+                        // alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);
                         $scope.attendeId = $scope.getattedIdbyPin(aadhaarVerStudPin);
                         if (data[0].PINSTATUS == 1 && ($scope.attendeId == null || $scope.attendeId == 'undefined')) {
                             alert("Student PIN: " + data[0].PIN + ", Status: " + data[0].RESULT);
-                         //   $scope.Loading = false;
+                            //   $scope.Loading = false;
                             $scope.aadhaarVerStu.PIN = data[0].PIN;
                             $scope.registerBmaAttendee();
 
                             $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                         } else if (ret && $scope.PIN != null && (attendeeId === null || attendeeId == 'undefined')) {
-                        //    $scope.Loading = false;
+                            //    $scope.Loading = false;
                             $scope.registerBmaAttendee();
                             $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                         } else if (ret && $scope.PIN != null && $scope.attendeId != null) {
@@ -1222,13 +1421,13 @@
                         //    if (data.respcode == "200") {
                         alert("SMS sent to the registered mobile number");
                         $scope.Loading = false;
-                                $scope.GetStudentDetailsForAdmission()
+                        $scope.GetStudentDetailsForAdmission()
                         //    }
                         //}, function (err) {
                         //    alert("error");
                         //    $scope.GetStudentDetailsForAdmission()
                         //});
-                      //  $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
+                        //  $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                         //$state.go('Dashboard');
                         $scope.modalInstance.close();
                     } else if (attendee.respcode == "409") {

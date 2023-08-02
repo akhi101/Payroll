@@ -11,10 +11,10 @@
         $scope.BranchCode = authData.BranchCode;
         $scope.BranchId = authData.BranchId;
         $scope.CollegeID = authData.CollegeID;
-        $scope.AcademicId = authData.AcademicId;
-        if ($scope.AcademicId == null || $scope.AcademicId == undefined || $scope.AcademicId == 0) {
-            $scope.AcademicId = 13
-        }
+      //  $scope.AcademicId = authData.AcademicId;
+        //if ($scope.AcademicId == null || $scope.AcademicId == undefined || $scope.AcademicId == 0) {
+        //    $scope.AcademicId = 13
+        //}
 
         $scope.timeslotlist = [{ Id: true, val: '6SEM' }, { Id: false, val: '5SEM' }];
 
@@ -69,30 +69,38 @@
         AcademicYears.then(function (data, status, headers, config, error) {
             //console.log(data)
             $scope.AcademicYears = data.Table;
+           
+            for (let i = 0; i < $scope.AcademicYears.length; i++) {
+                if ($scope.AcademicYears[i].IsCurrentAcademicYear == '1') {
+                    $scope.AcademicId = $scope.AcademicYears[i].AcademicID
+                }
+                
+            }
+            $scope.ChangeSData()
         }, function (error) {
 
             console.log(error);
         });
-        $scope.LoadImg = true;
-        var getSixthSemStudents = AcademicService.GetSixthSemStudentsData($scope.CollegeCode, $scope.BranchId, $scope.AcademicId);
-        getSixthSemStudents.then(function (data) {
-            if (data.length > 0) {
-                $scope.Semdata = data;
-                $scope.LoadImg = false;
-                $scope.Result = true;
-                $scope.Noresult = false;
-            } else {
-                $scope.LoadImg = false;
-                $scope.Result = false;
-                $scope.Noresult = true;
-            }
+        //$scope.LoadImg = true;
+        //var getSixthSemStudents = AcademicService.GetSixthSemStudentsData($scope.CollegeCode, $scope.BranchId, $scope.AcademicId);
+        //getSixthSemStudents.then(function (data) {
+        //    if (data.length > 0) {
+        //        $scope.Semdata = data;
+        //        $scope.LoadImg = false;
+        //        $scope.Result = true;
+        //        $scope.Noresult = false;
+        //    } else {
+        //        $scope.LoadImg = false;
+        //        $scope.Result = false;
+        //        $scope.Noresult = true;
+        //    }
 
-        }, function (error) {
-            $scope.LoadImg = false;
-            //alert(error);
-            $scope.Result = false;
-            $scope.Noresult = true;
-        });
+        //}, function (error) {
+        //    $scope.LoadImg = false;
+        //    //alert(error);
+        //    $scope.Result = false;
+        //    $scope.Noresult = true;
+        //});
 
         $scope.ChangeSData = function () {
             $scope.LoadImg = true;

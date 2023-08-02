@@ -830,7 +830,8 @@
 
         this.SendEmail = function (paramobj) {
             // var param = { "From": From, "To": To, "Subject": Subject, "Message": Message, "attachmentdata": attachmentdata}
-            return DataAccessService.postData('api/Communication/SendMails', paramobj);
+            //return DataAccessService.postData('api/Communication/SendMails', paramobj);
+            return DataAccessService.postData('api/Email/SendRelayMail', paramobj);
         };
         this.GetTranscriptCertificate = function (Applicationjson) {
             var param = { "Applicationjson": Applicationjson }

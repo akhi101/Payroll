@@ -82,8 +82,9 @@ namespace SoftwareSuite.Controllers
                 message.To.Add(new MailAddress(request.To));
                 message.From = new MailAddress(mailusername);
                 message.To.Add(new MailAddress(request.To));
+                if (message.CC.Count > 0) {
                 message.CC.Add(new MailAddress(request.cc));
-
+                }
                 //var builder = new BodyBuilder { HtmlBody = request.Message };
                 //int size = request.attachmentdata.Count;
                 //for (int i = 0; i < size; i++)
