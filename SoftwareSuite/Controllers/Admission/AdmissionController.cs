@@ -596,7 +596,12 @@ namespace SoftwareSuite.Controllers.Admission
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@pin", Pin);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_RELEASE_ADHAR_ATTENDEE_BY_PIN", param);
-
+                if(dt.Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var attendeeid =dt.Rows[0]["attendeeid"].ToString();
+                    DeleteBmaAttendee(attendeeid, "Aadhaar Issue");
+                }
+                
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -605,6 +610,42 @@ namespace SoftwareSuite.Controllers.Admission
                 return ex.Message;
             }
         }
+
+        public class DeactAttendeeId
+        {
+            public string attendeeid { get; set; }
+            public string remarks { get; set; }
+        }
+
+        [HttpGet]
+        public async Task<string> DeleteBmaAttendee(string attendeeid, string remarks)
+        {
+            var apikey = ConfigurationManager.AppSettings["BMA_API_Key"].ToString();
+            var url = ConfigurationManager.AppSettings["BMA_API_Delete"].ToString();
+            var Deactivatejsonreq = new DeactAttendeeId();
+            Deactivatejsonreq.attendeeid = attendeeid;
+            Deactivatejsonreq.remarks = remarks;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    client.DefaultRequestHeaders.Add("apikey", apikey);
+                    var resMsg = await client.PostAsJsonAsync(url, Deactivatejsonreq);
+                    var content = await resMsg.Content.ReadAsStringAsync();
+                    return content;
+
+                }
+                catch (HttpRequestException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                  //  dbHandler.SaveErorr("usp_TransferAttendeeId", 0, ex.Message);
+                    return ex.Message;
+
+                }
+            }
+
+        }
+
 
 
         [HttpGet, ActionName("GetReleaseAttendeeIdBypin")]
@@ -616,7 +657,11 @@ namespace SoftwareSuite.Controllers.Admission
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@pin", Pin);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_RELEASE_ATTENDEEID_BY_PIN", param);
-
+                if (dt.Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var attendeeid = dt.Rows[0]["attendeeid"].ToString();
+                    DeleteBmaAttendee(attendeeid, "AttendeeId Issue");
+                }
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -1077,10 +1122,12 @@ namespace SoftwareSuite.Controllers.Admission
                     if (XmlDeviceInfoNode.Attributes["srno"] == null)
                     {
                         XmlNodeList Xmladditionalinfo = PIDResponseXML.GetElementsByTagName("additional_info");
-                        XmlNodeList Params = Xmladditionalinfo[0].ChildNodes;
-                        if (Params.Count > 1)
-                        {
-                            SrnoValue = Params[0].Attributes["value"].Value;
+                        if (Xmladditionalinfo.Count > 0) {
+                            XmlNodeList Params = Xmladditionalinfo[0].ChildNodes;
+                            if (Params.Count > 1)
+                            {
+                                SrnoValue = Params[0].Attributes["value"].Value;
+                            }
                         }
                         srno = SrnoValue;
                     }

@@ -421,7 +421,7 @@
             var location = window.location.origin;
             var physicalpath = "";
                 if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
-                physicalpath = "C:/SB-TET/Publish";
+               // physicalpath = "C:/SB-TET/Publish";
             } else {
                 physicalpath = "D:/softwaresuite/SoftwareSuite";                  //"C:/SBTET/dev";
             }
@@ -429,6 +429,10 @@
             } else {
                 var emailattch = 'Attachment';
             }
+            var html = "<div>" + message + "<div><div>Please find the attached document.<div>";
+          
+            html = html + "<div><a href=" + Attachment + " download>" + "Genuineness_Verification_Report.pdf" + "</a></div>";
+           
             //var emailattch = [];
             //for (var p = 0; p < $scope.attachments.length; p++) {
             //    var obj1 = {
@@ -447,7 +451,7 @@
                     "From": $scope.from,
                     "To": toemail[k],
                     "Subject": Subject,
-                    "Message": message,
+                    "Message": html,
                     "attachmentdata": emailattch
                 }
                 paramObject.push(obj)
