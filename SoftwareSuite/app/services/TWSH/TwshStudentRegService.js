@@ -794,5 +794,38 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetExamStartToken', paramObj);
             return promise;
         };
+
+        this.GetTwshNRDates = function () {
+            var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetTwshNRDates');
+            return promise;
+        };
+
+        this.AddNRDates = function (DataType, ExamMonthYearId, NRDatesID, NRStartDate, NREndDate,Active,UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExamMonthYearId": ExamMonthYearId,
+                "NRDatesID": NRDatesID,
+                "NRStartDate": NRStartDate,
+                "NREndDate": NREndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/TwshStudentReg/AddorUpdateNRDates', paramObj);
+            return promise;
+        }
+
+        this.UpdateTwshNRDates = function (DataType, ExamMonthYearId, NRDatesID, NRStartDate, NREndDate,Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExamMonthYearId": ExamMonthYearId,
+                "NRDatesID": NRDatesID,
+                "NRStartDate": NRStartDate,
+                "NREndDate": NREndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/TwshStudentReg/AddorUpdateNRDates', paramObj);
+            return promise;
+        }
     });
 });
