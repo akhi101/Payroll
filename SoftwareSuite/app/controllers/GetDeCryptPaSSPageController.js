@@ -47,7 +47,7 @@
         }
         $scope.Submit = function () {
 
-            var reqdata = $crypto.encrypt($scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
+            var reqdata = $crypto.encrypt($scope.UserName,$scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
             var getPromise = ForgetPasswordService.GetForgotPassword(reqdata);
             getPromise.then(function (data) {
 

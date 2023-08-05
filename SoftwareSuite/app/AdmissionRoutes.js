@@ -3024,6 +3024,12 @@
                 dependencies: ['controllers/TWSH/TwshExamDatesController', 'services/TWSH/TwshStudentRegService']
             },
 
+            'Dashboard.TypeWriting.TwshNRDownloadDates': {
+                url: "/TwshNRDownloadDates",
+                templateUrl: 'app/views/TWSH/TwshNRDownloadDates.html',
+                dependencies: ['controllers/TWSH/TwshNRDownloadDatesController', 'services/TWSH/TwshStudentRegService']
+            },
+
             'Dashboard.TypeWriting.ApplyCertificate': {
                 url: "/ApplyCertificate",
                 templateUrl: 'app/views/TWSH/ApplyCertificate.html',
