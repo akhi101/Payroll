@@ -27,7 +27,13 @@
     } else if ($scope.UserTypeId == 1002) {
         $scope.CollegeCode = 'DS_PostExam'
         ccode = 'Admin'
-    } else {
+        } else if ($scope.UserTypeId == 1011) {
+            $scope.CollegeCode = 'AS_Preexam'
+            ccode = 'Admin'
+        } else if ($scope.UserTypeId == 1012) {
+            $scope.CollegeCode = 'DS_Preexam'
+            ccode = 'Admin'
+        } else {
             $scope.CollegeCode = authData.College_Code
             ccode = authData.College_Code
             $scope.CollegeCode = ccode;

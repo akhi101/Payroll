@@ -3744,6 +3744,48 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("getSubjectWiseElectiveMappedReportExcel")]
+        public string getSubjectWiseElectiveMappedReportExcel(int UserTypeId, String CollegeCode = null, String BranchCode = null)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@UserTypeId", UserTypeId);
+                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[2] = new SqlParameter("@BranchCode", BranchCode);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ElectiveMappingSubjectWiseReport", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+
+                    var filename = "ElectiveMappedReportSubjectWise" + "_" + Guid.NewGuid() + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    DataSet excelds = new DataSet();
+                    excelds.Tables.Add(ds.Tables[1].Copy());
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(excelds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    return "/Downloads/" + filename;
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(ds);
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+
+            }
+
+        }
+
+
         [HttpGet, ActionName("getElectiveMappingSubjectReport")]
         public string getElectiveMappingSubjectReport(int UserTypeId, String CollegeCode = null, String BranchCode = null)
         {

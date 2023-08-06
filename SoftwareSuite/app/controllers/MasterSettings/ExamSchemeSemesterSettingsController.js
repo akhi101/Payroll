@@ -240,11 +240,11 @@
            
             var srtdate = data.StartDate == undefined || data.StartDate == null || data.StartDate == "" ? " " : moment(data.StartDate).format("YYYY-MM-DD");
             var enddate = data.EndDate == undefined || data.EndDate == null || data.EndDate == "" ? " " : moment(data.EndDate).format("YYYY-MM-DD");
-                  
+            var ReAdmissionEndDate = data.ReAdmissionEndDate == undefined || data.ReAdmissionEndDate == null || data.ReAdmissionEndDate == "" ? " " : moment(data.ReAdmissionEndDate).format("YYYY-MM-DD");
             var json = {
                 "Id": data.Id, "AcademicYearId": parseInt(data.AcademicYearId), "SessionId": parseInt(data.SessionId), "SchemeId": data.SchemeId, "SemId": data.SemId,
 
-                "StartDate": srtdate, "EndDate": enddate, "NofDays": parseInt(data.NofDays), "ReAdmissionEndDate": data.ReAdmissionEndDate
+                "StartDate": srtdate, "EndDate": enddate, "NofDays": parseInt(data.NofDays), "ReAdmissionEndDate": ReAdmissionEndDate
             }
 
             var SetTimeTableSessionSchemeSemesters = PreExaminationService.SetTimeTableSessionSchemeSemesters(datatypeid, json)
@@ -315,7 +315,7 @@
                 for (var i = 0; i < $scope.semarr.length; i++) {
                   var obj =   {
                       "Id": 0, "AcademicYearId": parseInt($scope.selAcademicYear), "SessionId": parseInt($scope.selSession), "SchemeId": parseInt($scope.selscheme), "SemId": $scope.semarr[i].semid,
-                      "StartDate": moment($scope.StartDate).format("YYYY-MM-DD"), "EndDate": moment($scope.EndDate).format("YYYY-MM-DD"), "NofDays": parseInt($scope.WorkingDay), "ReAdmissionEndDate": moment($scope.ReAdmissionEndDate).format("YYYY-MM-DD")
+                      "StartDate": moment($scope.StartDate).format("YYYY-MM-DD"), "EndDate": moment($scope.EndDate).format("YYYY-MM-DD"), "NofDays": parseInt($scope.WorkingDay), "ReAdmissionEndDate": moment($scope.ReAdmissionEndDate).subtract(1, "days").format("YYYY-MM-DD")
                   }
                     temparr.push(obj);
                 }
