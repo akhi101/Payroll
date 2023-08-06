@@ -2,7 +2,7 @@
     app.controller("GetDeCryptPaSSPageController", function ($scope, AdminService,SystemUserService, ForgetPasswordService, $crypto, $scope, $crypto) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.getUsers();
+           // $scope.getUsers();
         }
 
         var sessioneKey = SystemUserService.GetSessionEKey();
@@ -24,10 +24,12 @@
                 //catch (err) { }
                 if (response.Table.length > 0) {
                     $scope.UsersData = response.Table;
-                    var range = [];
+                   
                     for (var i = 0; i < $scope.UsersData.length; i++) {
-                        var UserNames = $scope.UsersData[i].UserName;
-                        range.push(UserNames);
+                        $scope.UserNames = $scope.UsersData[i].UserName;
+                       // var UserNames = $scope.UsersData[i].UserName;
+                        $scope.Submit()
+                      
                     }
                     $scope.range = range;
                     console.log(range)
@@ -45,15 +47,22 @@
 
                 });
         }
+        var range = [];
         $scope.Submit = function () {
+
+            var obj = {}
+            obj.UserName = $scope.UserNames
 
             var reqdata = $crypto.encrypt($scope.UserName,$scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
             var getPromise = ForgetPasswordService.GetForgotPassword(reqdata);
             getPromise.then(function (data) {
-
                 $scope.Password = data;
                 alert($scope.Password);
-                $scope.UserName = null;
+                
+                obj.Password = $scope.Password
+                range.push(obj);
+                console.log(range)
+                $scope.UserNames = null;
 
             });
         }

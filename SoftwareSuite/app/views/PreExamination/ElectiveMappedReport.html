@@ -14,7 +14,10 @@
     color: #ffffff!important;
     background-color: #1976d2!important;
     font-size: 12px !important;
-}  
+}
+    a#ExportToExcel1 {
+        margin-left: 20px;
+    }
 </style>
 <div ng-controller="ElectiveMappedReportController">
     <div class="breadcrumb-header">
@@ -40,18 +43,25 @@
         <div class="col-md-12 " ng-show="Data">
             <div class="pull-right">
                 <a class="ExportToExcel1 pointer"
+                   id="ExportToExcel1" ng-click="DownloadSubjectWiseElectiveMappedReportExcel()">
+                    <i class="fa fa-file-excel-o"></i>
+                    Subjectwise Elective Mapping Report Excel Download
+                </a>
+            </div>
+            <div class="pull-right">
+                <a class="ExportToExcel1 pointer"
                    id="ExportToExcel1" ng-click="DownloadtoExcel()">
                     <i class="fa fa-file-excel-o"></i>
                     Elective Mapping Report Excel Download
                 </a>
             </div>
             <!--<div>
-                <a class="ExportToExcel1 pointer"
-                   id="ExportToExcel1" ng-click="GetTanatlizationReport()">
-                    <i class="fa fa-file-excel-o"></i>
-                    Tantalization Excel Download
-                </a>
-            </div>-->
+        <a class="ExportToExcel1 pointer"
+           id="ExportToExcel1" ng-click="GetTanatlizationReport()">
+            <i class="fa fa-file-excel-o"></i>
+            Tantalization Excel Download
+        </a>
+    </div>-->
         </div>
         <!--<div class="col-md-12" ng-show="subjectList.length>0">
             <p class="pull-right clr_red">First 10 rows will be shown below</p>

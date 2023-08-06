@@ -330,6 +330,11 @@
             return DataAccessService.getDataWithPara('api/PreExamination/getElectiveMappedReportExcel', paramObject);
         };
 
+        this.getSubjectWiseElectiveMappedReportExcel = function (UserTypeId, CollegeCode, BranchCode) {
+            var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };
+            return DataAccessService.getDataWithPara('api/PreExamination/getSubjectWiseElectiveMappedReportExcel', paramObject);
+        };
+
         this.getElectiveMappingSubjectReport = function (UserTypeId, CollegeCode, BranchCode) {
             var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };
 

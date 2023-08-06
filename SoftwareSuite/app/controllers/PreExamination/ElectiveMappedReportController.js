@@ -76,7 +76,32 @@
                 $scope.LoadImg = false;
             });
         }
-      
+
+        $scope.DownloadSubjectWiseElectiveMappedReportExcel = function () {
+            var loadData1 = PreExaminationService.getSubjectWiseElectiveMappedReportExcel(1, '', '')
+            loadData1.then(function (data) {
+                //var data = JSON.parse(response)
+                if (data.length > 4) {
+                    $scope.Result = true;
+                    var location = data;
+                    window.location.href = location;
+
+                } else {
+                    alert("Subject Master not Found");
+                }
+
+                //$scope.ResultNotFound = false;
+                //$scope.ResultFound = false;
+                $scope.LoadImg = false;
+
+
+            }, function (error) {
+                $scope.gentmetbl = false;
+                $scope.ResultNotFound = true;
+                $scope.Result = false;
+                $scope.LoadImg = false;
+            });
+        }
     })
 
     app.factory('Excel', function ($window) {
