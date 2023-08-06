@@ -29,6 +29,8 @@ using SoftwareSuite.Models;
 using static SoftwareSuite.Controllers.TWSH.GenerateTwshOdc;
 using static SoftwareSuite.Controllers.TWSH.GenerateTwshPrinterNr;
 using static SoftwareSuite.Controllers.TWSH.GenerateTwshNR;
+using DocumentFormat.OpenXml.Wordprocessing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SoftwareSuite.Controllers.TWSH
 {
@@ -187,6 +189,24 @@ namespace SoftwareSuite.Controllers.TWSH
             {
 
                 dbHandler.SaveErorr("TWSH_GET_FeeDates", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetTwshNRDates")]
+        public HttpResponseMessage GetTwshNRDates()
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_GET_TWSH_NRDates";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_GET_TWSH_NRDates", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
@@ -3212,7 +3232,7 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var db = new Twshdbandler();
-                var param = new SqlParameter[29];
+                var param = new SqlParameter[30];
                 param[0] = new SqlParameter("@UserId", ReqData.UserId);
                 param[1] = new SqlParameter("@StudentName", ReqData.StudentName);
                 param[2] = new SqlParameter("@FatherName", ReqData.FatherName);
@@ -3239,9 +3259,10 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[23] = new SqlParameter("@LowerGradeHallTicket", ReqData.LowerGradeHallTicket);
                 param[24] = new SqlParameter("@File1", ReqData.File1);
                 param[25] = new SqlParameter("@File2", ReqData.File2);
-                param[26] = new SqlParameter("@Photo", ReqData.Photo);
-                param[27] = new SqlParameter("@ExamMode", ReqData.mode);
-                param[28] = new SqlParameter("@Aadhaar", ReqData.Aadhaar);
+                param[26] = new SqlParameter("@File3", ReqData.File3);
+                param[27] = new SqlParameter("@Photo", ReqData.Photo);
+                param[28] = new SqlParameter("@ExamMode", ReqData.mode);
+                param[29] = new SqlParameter("@Aadhaar", ReqData.Aadhaar);
                 var dt = db.ReturnDataWithStoredProcedureTable("SP_SET_StudentApplicationDetails", param);
                 var appno = dt.Rows[0]["ApplicationNumber"];
                 var Status = dt.Rows[0]["ResponceCode"];
@@ -3545,6 +3566,63 @@ namespace SoftwareSuite.Controllers.TWSH
 
         }
 
+        [HttpPost, ActionName("AddorUpdateNRDates")]
+        public string AddorUpdateNRDates([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@DataType", json["DataType"]);
+                param[1] = new SqlParameter("@ExamMonthYearId", json["ExamMonthYearId"]);
+                param[2] = new SqlParameter("@NRDatesID", json["NRDatesID"]);
+                param[3] = new SqlParameter("@NRStartDate", json["NRStartDate"]);
+                param[4] = new SqlParameter("@NREndDate", json["NREndDate"]);
+                param[5] = new SqlParameter("@Active", json["Active"]);
+                param[6] = new SqlParameter("@UserName", json["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_ADD_UPDATE_TWSH_NRDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_ADD_UPDATE_TWSH_NRDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        //[HttpGet, ActionName("AddorUpdateNRDates")]
+        //public string AddorUpdateNRDates(int DataType, int ExamMonthYearId, int NRDatesID, DateTime NRStartDate, DateTime NREndDate, bool Active, string UserName)
+        //{
+        //    var dbHandler = new Twshdbandler();
+
+        //    try
+        //    {
+        //        var param = new SqlParameter[7];
+        //        param[0] = new SqlParameter("@DataType", DataType);
+        //        param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+        //        param[2] = new SqlParameter("@NRDatesID", NRDatesID);
+        //        param[3] = new SqlParameter("@NRStartDate", NRStartDate);
+        //        param[4] = new SqlParameter("@NREndDate", NREndDate);
+        //        param[5] = new SqlParameter("@Active", Active);
+        //        param[6] = new SqlParameter("@UserName", UserName);
+
+
+        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_ADD_UPDATE_TWSH_NRDates", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        //dbHandler.SaveErorr("SP_ADD_UPDATE_TWSH_NRDates", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
+
+
+
         private class ArrayList
         {
             public ArrayList()
@@ -3565,4 +3643,6 @@ namespace SoftwareSuite.Controllers.TWSH
         public string ExamDate { get; set; }
         public string GradeCode { get; set; }
     }
+
+
 }

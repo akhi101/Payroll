@@ -67,6 +67,7 @@ namespace SoftwareSuite.Models.TWSH
         public string LowerGradeHallTicket { get; set; }
         public string File1 { get; set; }
         public string File2 { get; set; }
+        public string File3 { get; set; }
 
         public string Photo { get; set; }
 

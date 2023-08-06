@@ -49,8 +49,10 @@
         }
         var range = [];
         $scope.Submit = function () {
+
             var obj = {}
             obj.UserName = $scope.UserNames
+
             var reqdata = $crypto.encrypt($scope.UserName,$scope.LoginSessionEKey) + "$$@@$$" + $scope.LoginSessionEKey;
             var getPromise = ForgetPasswordService.GetForgotPassword(reqdata);
             getPromise.then(function (data) {

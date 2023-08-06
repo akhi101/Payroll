@@ -1429,6 +1429,7 @@
     <Content Include="app\controllers\TWSH\TwshHomeController.js" />
     <Content Include="app\controllers\TWSH\TwshLoginController.js" />
     <Content Include="app\controllers\TWSH\TwshNewCertificateController.js" />
+    <Content Include="app\controllers\TWSH\TwshNRDownloadDatesController.js" />
     <Content Include="app\controllers\TWSH\TwshOdcDownloadController.js" />
     <Content Include="app\controllers\TWSH\TwshPaymentResponseController.js" />
     <Content Include="app\controllers\TWSH\TwshPhotoAttendanceSheetController.js" />
@@ -3075,6 +3076,7 @@
     <Content Include="app\views\TWSH\TwshForgotPassword.html" />
     <Content Include="app\views\TWSH\TwshHome.html" />
     <Content Include="app\views\TWSH\TwshLogin.html" />
+    <Content Include="app\views\TWSH\TwshNRDownloadDates.html" />
     <Content Include="app\views\TWSH\TwshOdcDownload.html" />
     <Content Include="app\views\TWSH\TwshPaymentResponse.html" />
     <Content Include="app\views\TWSH\TwshPhotoNR.html" />

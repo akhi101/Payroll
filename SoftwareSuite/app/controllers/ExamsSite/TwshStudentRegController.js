@@ -918,6 +918,8 @@
                 return;
             }
         }
+
+        
         var tempId = [];
         var arr = [];
         var finalarr = [];
@@ -1067,7 +1069,42 @@
             }
         }
 
+        $scope.uploadMedicalCert = function () {
+            var input = document.getElementById("stdMedicalCertFile");
+            var fileSize = input.files[0].size;
+            console.log(fileSize);
+            if (fileSize <= 300000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#stdMedicalCert').attr('src', e.target.result);
 
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.stdMedicalCert = base64Image;
+                        });
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            }
+            else {
+                alert("file size should be less then 300kb. ");
+                return;
+            }
+        }
 
         $scope.submitApplication = function () {
 
@@ -1099,6 +1136,7 @@
                 "LowerGradeHallTicket": $scope.qualifiedexamhall == null || $scope.qualifiedexamhall == undefined ? "" : $scope.qualifiedexamhall,
                 "File1": $scope.stdSscCert == null || $scope.stdSscCert == undefined ? "" : $scope.stdSscCert,
                 "File2": $scope.qualifiedexamCert == null || $scope.qualifiedexamCert == undefined ? "" : $scope.qualifiedexamCert,
+                "File3": $scope.stdMedicalCert == null || $scope.stdMedicalCert == undefined ? "" : $scope.stdMedicalCert,
                 "Photo": $scope.userPhoto == null || $scope.userPhoto == undefined ? "" : $scope.userPhoto,
                 "mode": $scope.mode == null || $scope.mode == undefined ? "" : $scope.mode,
             }
