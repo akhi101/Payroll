@@ -563,6 +563,56 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
+        public string UpdateMarksEntryDatesforAdmin([FromBody] updatemarksentry ReqData)
+        {
+            var dbHandler = new dbHandler();
+            try
+            {     
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@id", ReqData.id);
+                param[1] = new SqlParameter("@fromdate", ReqData.fromdate);
+                param[2] = new SqlParameter("@todate", ReqData.todate);
+                param[3] = new SqlParameter("@finedate", ReqData.finedate);
+                param[4] = new SqlParameter("@fine_ammount", ReqData.fine_ammount);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_UPDATE_EXAM_DATES", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_UPDATE_EXAM_DATES", 0, ex.Message);
+                return ex.Message;
+
+            }
+
+        }
+
+        [HttpGet, ActionName("SetDatesMarksEntryreqdata")]
+        public string SetDatesMarksEntryreqdata(int AcademicYearID, DateTime AcademicYearStartDate, DateTime AcademicYearEndDate, bool CurrentAcademicYear, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@AcademicYearStartDate", AcademicYearStartDate);
+                param[2] = new SqlParameter("@AcademicYearEndDate", AcademicYearEndDate);
+                param[3] = new SqlParameter("@CurrentAcademicYear", CurrentAcademicYear);
+                param[4] = new SqlParameter("@UserName", UserName);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_AcademicYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_AcademicYear", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
         [HttpPost, ActionName("updateStudentDetails")]
         public string updateStudentDetails([FromBody]studentDetails request)
         {

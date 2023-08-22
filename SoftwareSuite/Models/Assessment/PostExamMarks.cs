@@ -8,6 +8,12 @@ namespace SoftwareSuite.Models.Assessment
 
     public class SetDatesMarksEntryreqdata
     {
+
+        public int id { get; set; }
+        public string fromdate { get; set; }
+        public string todate { get; set; }
+        public string finedate { get; set; }
+        public int fine_ammount { get; set; }
         public int semid { get; set; }
         public int examId { get; set; }
         public int AcademicYearId { get; set; }
@@ -42,6 +48,18 @@ namespace SoftwareSuite.Models.Assessment
         public string marks { get; set; }
         public string IndustryName { get; set; } = string.Empty;
     }
+
+    public class updatemarksentry
+    {
+        public int id { get; set; }
+        public string fromdate { get; set; }
+        public string todate { get; set; }
+        public string finedate { get; set; }
+        public int fine_ammount { get; set; }
+
+
+    }
+    
 
     public class backmarklist
     {

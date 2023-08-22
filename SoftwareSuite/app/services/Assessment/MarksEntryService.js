@@ -19,6 +19,18 @@
             var promise = DataAccessService.postData('Assessment/PostMarksEntryDates', paramObject);
             return promise;
         },
+
+            this.UpdateMarksEntryDatesforAdmin = function (id, fromdate, todate, finedate, fine_ammount) {
+                var paramObject = {
+                    "id": id,        
+                    "fromdate": fromdate,
+                    "todate": todate,
+                    "finedate": finedate,
+                    "fine_ammount": fine_ammount,
+            };
+            var promise = DataAccessService.postData('Assessment/UpdateMarksEntryDatesforAdmin', paramObject);
+                return promise;
+            },
             this.GetExamType = function (SchemeId) {
                 var paramObject = { "schemeid": SchemeId };
                 var promise = DataAccessService.getDataWithPara('Assessment/getExamTypes', paramObject);

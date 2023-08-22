@@ -827,5 +827,36 @@
             var promise = DataAccessService.postData('api/TwshStudentReg/AddorUpdateNRDates', paramObj);
             return promise;
         }
+
+        this.GetTwshStudentDetails = function (HallticketNumber) {
+            var paramObject = { "HallticketNumber": HallticketNumber };
+            return DataAccessService.getDataWithPara('api/TwshStudentReg/GetTwshStudentDetails', paramObject);
+        };
+
+        this.GetExaminationCentres = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.postData('api/TwshStudentReg/GetExaminationCentres', paramObj);
+            return promise;
+        };
+
+        this.UpdateNewCentre = function (HallTicketNumber,ExamcenterID) {
+            var paramObj = {
+                "HallTicketNumber": HallTicketNumber,
+                "ExamcenterID": ExamcenterID
+            }
+            var promise = DataAccessService.postData('api/TwshStudentReg/UpdateNewCentre', paramObj);
+            return promise;
+        };
+
+        this.UpdateNewBatch = function (HallTicketNumber, Batch) {
+            var paramObj = {
+                "HallTicketNumber": HallTicketNumber,
+                "Batch": Batch
+            }
+            var promise = DataAccessService.postData('api/TwshStudentReg/UpdateNewBatch', paramObj);
+            return promise;
+        };
     });
 });

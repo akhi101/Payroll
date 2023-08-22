@@ -245,7 +245,7 @@ namespace SoftwareSuite.Controllers.Admission
         }
 
         
-             [HttpGet, ActionName("GetPolycetExamCenters")]
+        [HttpGet, ActionName("GetPolycetExamCenters")]
         public string GetPolycetExamCenters(string AcademicYear)
         {
             try

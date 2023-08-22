@@ -431,5 +431,10 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
         }
+
+        internal void SaveErorr(string v1, int v2, string message)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
