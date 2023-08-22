@@ -3,6 +3,18 @@
 
         const $ctrl = this;
 
+        $scope.finalList = [];
+
+        $scope.disabletable = function () {
+            var ele = document.getElementsByClassName("tableinpt");
+            //ele.style.width = "100%";
+            //ele.style['box-shadow'] = "none";
+            //ele.style['pointer-events'] = "none";
+            //ele.style.cursor = "pointer";
+
+
+        }
+
         $scope.LoadStudentType = function () {
             //  $scope.ExamName = examName;
             var LoadExamTypeBy = MarksEntryService.getStudentType();
@@ -92,6 +104,8 @@
 
         }
 
+
+
         $scope.GetMarksEntryDatesList = function () {
             if ($scope.years.AcademicID !== null && $scope.years.AcademicID !== 'undefined') {
                 let academicId = $scope.years.AcademicID;
@@ -99,8 +113,19 @@
                 getMarksEntryList.then(function (response) {
                     if (response.length > 0) {
                         $scope.MarksEntryData = response;
+                        for (let i = 0; i < $scope.MarksEntryData.length; i++) {
+                            if ($scope.MarksEntryData[i].type == 'Regular' || $scope.MarksEntryData[i].type == 'Backlog') {
+                                $scope.finalList.push($scope.MarksEntryData[i]);
+                            }
+                        }
+
+                        //  var ele = document.getElementsByClassName("tableinpt");
+                        for (var j = 1; j < response.length + 1; j++) {
+                            $scope['edit' + j] = true;
+                        }
                     }
                 },
+
                     function (error) {
                         alert("error while Getting Mark Entry Dates");
                         var err = JSON.parse(error);
@@ -115,10 +140,69 @@
 
         }
 
+        $scope.EditDates = function (data, ind) {
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+        }
 
 
+        $scope.UpdateDates = function (dat, ind) {
+            $scope['edit' + ind] = true;
+
+            var ele2 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele2.length; j++) {
+                ele2[j].style['pointer-events'] = "none";
+                ele2[j].style.border = "0";
+            }
+
+            //if (dat.fromdate == null || dat.StartDate == undefined || dat.StartDate == "") {
+            //    alert("Select Start Date");
+            //    return;
+            //}
+            //if (dat.EndDate == null || dat.EndDate == undefined || dat.EndDate == "") {
+            //    alert("Select End Date");
+            //    return;
+            //}
+            //if (dat.FineDate == null || dat.FineDate == undefined || dat.FineDate == "") {
+            //    alert("Select Fine Date");
+            //    return;
+            //}
+           
+
+            var srtdate = dat.fromdate == undefined || dat.fromdate == null || dat.fromdate == "" ? " " : dat.fromdate;
+            var enddate = dat.todate == undefined || dat.todate == null || dat.todate == "" ? " " : dat.todate;
+            var finedate = dat.finedate == undefined || dat.finedate == null || dat.finedate == "" ? " " : dat.finedate;
+            var updatedate = MarksEntryService.UpdateMarksEntryDatesforAdmin(dat.id, srtdate, enddate, finedate, dat.fine_ammount)
+            updatedate.then(function (response) {
+                //var res = JSON.parse(response)
+                if (response.Table[0].ResponceCode == '200') {
+                    alert(response.Table[0].ResponceDescription)
+                    $scope.GetData();
+                } else {
+                    alert('Something Went Wrong')
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
 
 
+                });
+
+        }
+        Array.prototype.remByVal = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].ElectiveSet === val) {
+                    this.splice(i, 1);
+                    break;
+                }
+            }
+            return this;
+        }
 
         $scope.getSchemes = function () {
 

@@ -3592,35 +3592,102 @@ namespace SoftwareSuite.Controllers.TWSH
 
         }
 
-        //[HttpGet, ActionName("AddorUpdateNRDates")]
-        //public string AddorUpdateNRDates(int DataType, int ExamMonthYearId, int NRDatesID, DateTime NRStartDate, DateTime NREndDate, bool Active, string UserName)
-        //{
-        //    var dbHandler = new Twshdbandler();
+        [HttpGet, ActionName("GetTwshStudentDetails")]
+        public string GetTwshStudentDetails(string HallticketNumber)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@HallticketNumber", HallticketNumber);
 
-        //    try
-        //    {
-        //        var param = new SqlParameter[7];
-        //        param[0] = new SqlParameter("@DataType", DataType);
-        //        param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
-        //        param[2] = new SqlParameter("@NRDatesID", NRDatesID);
-        //        param[3] = new SqlParameter("@NRStartDate", NRStartDate);
-        //        param[4] = new SqlParameter("@NREndDate", NREndDate);
-        //        param[5] = new SqlParameter("@Active", Active);
-        //        param[6] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ApplicationStudentDetailsForUpdation", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
 
-        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_ADD_UPDATE_TWSH_NRDates", param);
-        //        return JsonConvert.SerializeObject(dt);
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public class ExamCentresInfo
+        {
+            public int DataType { get;set;}
+            public int ExamCenterID { get; set; }
+            public string HallTicketNumber { get; set; }
 
-        //        //dbHandler.SaveErorr("SP_ADD_UPDATE_TWSH_NRDates", 0, ex.Message);
-        //        return ex.Message;
-        //    }
+            public int Batch { get; set; }
+        }
 
-        //}
+        [HttpPost, ActionName("GetExaminationCentres")]
+        public HttpResponseMessage GetExaminationCentres([FromBody] ExamCentresInfo data)
+        {
+            var dbHandler = new Twshdbandler();
 
+            try
+            {
+
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_ExaminationCentres", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ExaminationCentres", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateNewCentre")]
+        public HttpResponseMessage UpdateNewCentre([FromBody] ExamCentresInfo data)
+        {
+            var dbHandler = new Twshdbandler();
+
+            try
+            {
+
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@HallTicketNumber", data.HallTicketNumber);
+                param[1] = new SqlParameter("@ExamCenterID", data.ExamCenterID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExaminationCentre", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_ExaminationCentre", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpPost, ActionName("UpdateNewBatch")]
+        public HttpResponseMessage UpdateNewBatch([FromBody] ExamCentresInfo data)
+        {
+            var dbHandler = new Twshdbandler();
+
+            try
+            {
+
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@HallTicketNumber", data.HallTicketNumber);
+                param[1] = new SqlParameter("@Batch", data.Batch);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExamBatch", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_ExamBatch", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
 
 
         private class ArrayList

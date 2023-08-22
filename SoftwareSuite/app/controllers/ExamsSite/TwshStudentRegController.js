@@ -98,7 +98,18 @@
         //        $scope.instructions = true;
         //    },
 
+        $scope.Blind = function (IsBlind) { 
+            if (IsBlind == 0) {
+                $('#stdMedicalCertFile').val(null);
 
+                $scope.stdMedicalCert = '';
+                $scope.stdMedicalCert = null;
+                $scope.IsBlind = IsBlind;
+            }
+            else if(IsBlind == 1) {
+                $scope.IsBlind = IsBlind;
+            }
+        }
         $scope.submitCourse = function (courseId, languageId, gradeId) {
             $scope.tmpmode = '';
 
@@ -514,6 +525,18 @@
                 $scope.exambatchList = [];
             })
         }
+
+        $scope.checkDate = function (CandidateNameDOB) {
+            var currentDate = new Date();
+            var birthdate = new Date(CandidateNameDOB);
+                if (birthdate > currentDate) {
+                    alert('Selected Date Should not be Future!')
+                    $scope.CandidateNameDOB = '';
+                    return;
+                } else {
+                    $scope.CandidateNameDOB = CandidateNameDOB;
+                }
+            }
         $scope.submitData = function () {
             if ((angular.isUndefined($scope.exambatch) || $scope.exambatch == "") && $scope.tmpmode == 2) {
                 alert('Please choose examination batch');
@@ -523,6 +546,12 @@
                 alert("Please choose Isblind field.");
                 return;
             }
+
+            if (($scope.stdMedicalCert == undefined || $scope.stdMedicalCert == "" || $scope.stdMedicalCert == null) && $scope.IsBlind == 1) {
+                alert("Please Upload Medical Certificate");
+                return;
+            }
+
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined) {
                 var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
@@ -1107,6 +1136,7 @@
         }
 
         $scope.submitApplication = function () {
+
 
             var req = {
                 "UserId": $scope.UserId == null || $scope.UserId == undefined ? "" : $scope.UserId,

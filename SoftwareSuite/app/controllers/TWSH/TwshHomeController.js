@@ -196,137 +196,137 @@
         $scope.loginToken = "";
         $scope.loginEKey = "";
 
-        $scope.login = function () {
-            delete $localStorage.authorizationData;
+        //$scope.login = function () {
+        //    delete $localStorage.authorizationData;
 
-            //  $scope.message = "Invalid Username And Password";           
-            // if ($scope.login.Captcha == undefined || $scope.login.Captcha == "") {
-            //     $scope.login.Captcha = "";
-            //     alert("Enter Captcha");
-            //     return;
-            // };
+        //    //  $scope.message = "Invalid Username And Password";           
+        //    // if ($scope.login.Captcha == undefined || $scope.login.Captcha == "") {
+        //    //     $scope.login.Captcha = "";
+        //    //     alert("Enter Captcha");
+        //    //     return;
+        //    // };
 
-            if ($scope.login.userName == undefined) {
-                $scope.login.userName = ""
-            };
-            if ($scope.login.password == undefined) {
-                $scope.login.password = ""
-            };
+        //    if ($scope.login.userName == undefined) {
+        //        $scope.login.userName = ""
+        //    };
+        //    if ($scope.login.password == undefined) {
+        //        $scope.login.password = ""
+        //    };
 
-            if ($scope.login.userName == "" && $scope.login.password == "") {
-                $scope.userNamemessage = "* Enter user name";
-                $scope.passwordmessage = "* Enter password";
-                alert("Enter Username And Password");
-                return;
-            }
-            if ($scope.login.userName == "") {
-                $scope.userNamemessage = "* Enter user name";
-                alert("Enter Username");
-                return;
-            }
-            else if ($scope.login.password == "") {
-                $scope.passwordmessage = "* Enter password";
-                alert("Enter Password");
-                return;
-            }
-            else {
-                // if ($scope.login.Captcha == $scope.newCapchaCode) {
-                //     // alert("Valid Captcha");
-                // } else {
-                //     alert("Invalid Captcha. try Again");
-                //     $scope.login.Captcha = "";
-                //     $scope.createCaptcha();
-                //     return;
-                // }
+        //    if ($scope.login.userName == "" && $scope.login.password == "") {
+        //        $scope.userNamemessage = "* Enter user name";
+        //        $scope.passwordmessage = "* Enter password";
+        //        alert("Enter Username And Password");
+        //        return;
+        //    }
+        //    if ($scope.login.userName == "") {
+        //        $scope.userNamemessage = "* Enter user name";
+        //        alert("Enter Username");
+        //        return;
+        //    }
+        //    else if ($scope.login.password == "") {
+        //        $scope.passwordmessage = "* Enter password";
+        //        alert("Enter Password");
+        //        return;
+        //    }
+        //    else {
+        //        // if ($scope.login.Captcha == $scope.newCapchaCode) {
+        //        //     // alert("Valid Captcha");
+        //        // } else {
+        //        //     alert("Invalid Captcha. try Again");
+        //        //     $scope.login.Captcha = "";
+        //        //     $scope.createCaptcha();
+        //        //     return;
+        //        // }
 
-                if ($scope.login.password !== null && $scope.login.userName !== null) {
+        //        if ($scope.login.password !== null && $scope.login.userName !== null) {
 
-                    var data = $crypto.encrypt($scope.login.password, $scope.loginEKey) + "$$@@$$" + $crypto.encrypt($scope.login.userName, $scope.loginEKey) + "$$@@$$" + $scope.loginEKey;
-                    $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {
-                        $scope.LoadImg = true;
-                        var UserRights = [];
-                        sessionStorage.loggedIn = "yes";
-                        $localStorage.authToken = response.data.token + "$$@@$$" + $scope.loginEKey;
-                        var status = response.data.data.UserAuth[0].ResponceCode;
-                        if (status != "200") {
-                            alert(response.data.data.UserAuth[0].RespoceDescription);
-                            return;
-                        } else {
-                            // $http.post(AppSettings.WebApiUrl + 'api/SystemUser/ValidateReCaptcha?encodedResponse ='+$scope.reCaptchaToken, {}).then(
-                            //     function (response) {
-                            //         if (response) {
+        //            var data = $crypto.encrypt($scope.login.password, $scope.loginEKey) + "$$@@$$" + $crypto.encrypt($scope.login.userName, $scope.loginEKey) + "$$@@$$" + $scope.loginEKey;
+        //            $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {
+        //                $scope.LoadImg = true;
+        //                var UserRights = [];
+        //                sessionStorage.loggedIn = "yes";
+        //                $localStorage.authToken = response.data.token + "$$@@$$" + $scope.loginEKey;
+        //                var status = response.data.data.UserAuth[0].ResponceCode;
+        //                if (status != "200") {
+        //                    alert(response.data.data.UserAuth[0].RespoceDescription);
+        //                    return;
+        //                } else {
+        //                    // $http.post(AppSettings.WebApiUrl + 'api/SystemUser/ValidateReCaptcha?encodedResponse ='+$scope.reCaptchaToken, {}).then(
+        //                    //     function (response) {
+        //                    //         if (response) {
 
-                            //         } else{
-                            //             return;
-                            //         }
-                            //     },
-                            //     function () {
-                            //         return;
-                            //     });
+        //                    //         } else{
+        //                    //             return;
+        //                    //         }
+        //                    //     },
+        //                    //     function () {
+        //                    //         return;
+        //                    //     });
 
-                            response.data = response.data.data.SystemUser[0];
-                            try {
-                                $localStorage.authorizationData = {
-                                    token: $localStorage.authToken,
-                                    SysUserID: response.data.UserId,
-                                    College_Code: response.data.CollegeCode,
-                                    College_Name: response.data.CollegeName,
-                                    SystemUserTypeId: response.data.UserTypeId,
-                                    userName: $scope.login.userName.toUpperCase(),
-                                    CollegeID: response.data.CollegeId,
-                                    BranchId: response.data.BranchId,
+        //                    response.data = response.data.data.SystemUser[0];
+        //                    try {
+        //                        $localStorage.authorizationData = {
+        //                            token: $localStorage.authToken,
+        //                            SysUserID: response.data.UserId,
+        //                            College_Code: response.data.CollegeCode,
+        //                            College_Name: response.data.CollegeName,
+        //                            SystemUserTypeId: response.data.UserTypeId,
+        //                            userName: $scope.login.userName.toUpperCase(),
+        //                            CollegeID: response.data.CollegeId,
+        //                            BranchId: response.data.BranchId,
 
-                                    CollegeCatName: "",
-                                    Clg_Type: "",
-                                    SectionId: "",
-                                    SchemeId: "",
-                                    SemesterId: "",
-                                    BranchCode: "",
-                                    AcademicId: "",
-                                    percentage: "",
-                                    TypeFlag: response.data.TypeFlag,
-                                    MngtTypID: response.data.MngtTypID,
-                                    SysUsrGrpID: response.data.SysUsrGrpID,
-                                    SeqNo: response.data.SeqNo,
-
-
-
-                                };
-                            } catch (err) {
-
-                            }
-                            $state.go('Dashboard');
-                        }
-
-                        //AppSettings.ExportToExcelUrl = response.data.ExportToExcelUrl;
-                        //AppSettings.ExportToWordUrl = response.data.ExportToWordUrl;
-                        //AppSettings.ExportToPdfUrl = response.data.ExportToPdfUrl;
-                        //AppSettings.LoggedUserId = response.data.SysUserID;
-                        //AppSettings.LoginName = response.data.LoginName;
-                        //AppSettings.CollegeID = response.data.CollegeID;
-                        //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
-                        //AppSettings.PrevAdmNo = response.data.PrevAdmNo;
-                        //AppSettings.AcdYrID = response.data.AcdYrID;
-                        //AppSettings.TypeFlag = response.data.TypeFlag;
-                        //AppSettings.UserRights = UserRights;
-                        //AppSettings.userName = $scope.login.userName;
-                        //AppSettings.MngtTypID = response.data.MngtTypID;
-                        //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
-                        //AppSettings.SeqNo = response.data.SeqNo;
-                        //AppSettings.DistrictIDs = response.data.DistrictIDs;
-                        //AppSettings.ColCode = response.data.ColCode;
-                        //AppSettings.College_Code = response.data.college_code;
-                        //AppSettings.College_Name = response.data.college_name;
-                        //AppSettings.SystemUserTypeId = response.data.systemusertypeid;
-                        //AppSettings.BranchId = response.data.branchid;
+        //                            CollegeCatName: "",
+        //                            Clg_Type: "",
+        //                            SectionId: "",
+        //                            SchemeId: "",
+        //                            SemesterId: "",
+        //                            BranchCode: "",
+        //                            AcademicId: "",
+        //                            percentage: "",
+        //                            TypeFlag: response.data.TypeFlag,
+        //                            MngtTypID: response.data.MngtTypID,
+        //                            SysUsrGrpID: response.data.SysUsrGrpID,
+        //                            SeqNo: response.data.SeqNo,
 
 
 
-                    });
-                };
-            }
+        //                        };
+        //                    } catch (err) {
 
-        }
+        //                    }
+        //                    $state.go('Dashboard');
+        //                }
+
+        //                //AppSettings.ExportToExcelUrl = response.data.ExportToExcelUrl;
+        //                //AppSettings.ExportToWordUrl = response.data.ExportToWordUrl;
+        //                //AppSettings.ExportToPdfUrl = response.data.ExportToPdfUrl;
+        //                //AppSettings.LoggedUserId = response.data.SysUserID;
+        //                //AppSettings.LoginName = response.data.LoginName;
+        //                //AppSettings.CollegeID = response.data.CollegeID;
+        //                //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
+        //                //AppSettings.PrevAdmNo = response.data.PrevAdmNo;
+        //                //AppSettings.AcdYrID = response.data.AcdYrID;
+        //                //AppSettings.TypeFlag = response.data.TypeFlag;
+        //                //AppSettings.UserRights = UserRights;
+        //                //AppSettings.userName = $scope.login.userName;
+        //                //AppSettings.MngtTypID = response.data.MngtTypID;
+        //                //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
+        //                //AppSettings.SeqNo = response.data.SeqNo;
+        //                //AppSettings.DistrictIDs = response.data.DistrictIDs;
+        //                //AppSettings.ColCode = response.data.ColCode;
+        //                //AppSettings.College_Code = response.data.college_code;
+        //                //AppSettings.College_Name = response.data.college_name;
+        //                //AppSettings.SystemUserTypeId = response.data.systemusertypeid;
+        //                //AppSettings.BranchId = response.data.branchid;
+
+
+
+        //            });
+        //        };
+        //    }
+
+        //}
         $scope.ForgetPasswordChange = function () {
             $state.go('ForgetPassword');
         }

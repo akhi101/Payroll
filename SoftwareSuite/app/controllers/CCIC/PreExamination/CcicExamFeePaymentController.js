@@ -256,8 +256,9 @@
         $scope.showPaymentDetails = function () {
             var getAdmissionsubmod = CcicPreExaminationService.getPayExamFee($scope.InstitutionID, $scope.AcademicYearID, $scope.ExamMonthYearID, $scope.FeePaymentTypeID, $scope.UserName);
             getAdmissionsubmod.then(function (Usersdata) {
+                console.log(Usersdata)
 
-                if (Usersdata.length > 0 && Usersdata[0].StatusCode == 200) {
+                if (Usersdata.length > 0) {
                     $scope.isShowResults = true;
                     $scope.dataBackLog = false;
 

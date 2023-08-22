@@ -252,7 +252,7 @@
             var Approve = TwshStudentRegService.getTwshResult(RegistrationNo);
             Approve.then(function (response) {
                 $scope.StudentData = response[0];
-                $scope.Src = "https://sbtet.telangana.gov.in/TwshCbtApi/Exam/Preview/" + $scope.StudentData.ApplicationNumber;
+                $scope.Src = "https://sbtet.telangana.gov.in/TwshCbt/Exam/Preview/" + $scope.StudentData.ApplicationNumber;
                 $scope.modalInstance = $uibModal.open({
                     templateUrl: "/app/views/TWSH/TwshResult_Popup.html",
                     size: 'xlg',

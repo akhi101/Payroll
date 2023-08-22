@@ -1415,6 +1415,7 @@
     <Content Include="app\controllers\TWSH\MultipleFeePaymentsController.js" />
     <Content Include="app\controllers\TWSH\PaymentProcessController.js" />
     <Content Include="app\controllers\TWSH\TwshCertificateReportsController.js" />
+    <Content Include="app\controllers\TWSH\TwshChangeExamCentreController.js" />
     <Content Include="app\controllers\TWSH\TwshChangePasswordController.js" />
     <Content Include="app\controllers\TWSH\TWSHController.js" />
     <Content Include="app\controllers\TWSH\TwshDashBoardController.js" />
@@ -3064,6 +3065,7 @@
     <Content Include="app\views\TWSH\StudentReg.html" />
     <Content Include="app\views\TWSH\TwshCertificate.html" />
     <Content Include="app\views\TWSH\TwshCertificateReports.html" />
+    <Content Include="app\views\TWSH\TwshChangeExamCentre.html" />
     <Content Include="app\views\TWSH\TwshChangePasword.html" />
     <Content Include="app\views\TWSH\TwshDashBoard.html" />
     <Content Include="app\views\TWSH\TwshDetailedReports.html" />

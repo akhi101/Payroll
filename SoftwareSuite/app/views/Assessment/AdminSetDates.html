@@ -58,8 +58,70 @@
         padding: 6px 9px;
         font-weight: 600;
     }
+
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
 </style>
 <div ng-controller="SetMarksEntryDatesController">
+    <script type="text/javascript">
+        // When the document is ready
+        $(document).ready(function () {
+
+            $('#example1').datepicker({
+                minViewMode: 'years',
+                autoclose: true,
+                format: 'yyyy'
+            });
+            $('#example2').datepicker({
+                minViewMode: 1,
+                autoclose: true,
+                format: 'mm-yyyy'
+            });
+            $('.tabledate').datepicker({
+                //minViewMode: 1,
+                autoclose: true,
+                format: 'dd-mm-yyyy'
+            });
+            //$('#example4').datepicker({
+            //    //minViewMode: 1,
+            //    autoclose: true,
+            //    //format: 'dd-mm-yyyy'
+            //});
+        });
+    </script>
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -189,9 +251,9 @@
                             <div class="form-group">
                                 <label for="datetimepicker1" class="font-weight-bold">Start Date :</label>
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="StartDate" datetime-picker="dd/MM/yyyy HH:mm" id="setToDate " ng-model="StartDate" is-open="showFlag1" required />
+                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="StartDate" datetime-picker="dd/MM/yyyy HH:mm" id="setToDate " ng-model="StartDate" is-open="showFlag4" required />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag4 = true"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </div>
@@ -200,9 +262,9 @@
                             <div class="form-group">
                                 <label for="datetimepicker1" class="font-weight-bold">End Date :</label>
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="EndDate" datetime-picker="dd/MM/yyyy HH:mm" id="EndDate " ng-model="EndDate" is-open="showFlag2" required />
+                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="EndDate" datetime-picker="dd/MM/yyyy HH:mm" id="EndDate " ng-model="EndDate" is-open="showFlag5" required />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag5 = true"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </div>
@@ -211,9 +273,9 @@
                             <div class="form-group">
                                 <label for="datetimepicker1" class="font-weight-bold">Fine Date :</label>
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="FineDate" datetime-picker="dd/MM/yyyy HH:mm" id="FineDate " ng-model="FineDate" is-open="showFlag3" required />
+                                    <input type="text" class="form-control" placeholder="Select Start Date" autocomplete="off" name="FineDate" datetime-picker="dd/MM/yyyy HH:mm" id="FineDate " ng-model="FineDate" is-open="showFlag6" required />
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag6 = true"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </div>
@@ -241,36 +303,70 @@
             <div class="cl-details">
                 <h4>Marks Entry Dates</h4>
             </div>
-            <div class="">
-                <table class="table   table-fixed table-bordered  table-responsive ">
+            <div class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                     <thead>
-                        <tr>
-                            <th style="width: 2%">S No.</th>
-                            <th style="width: 5%">Semester</th>
-                            <th style="width: 5%">Exam Month Year </th>
-                            <th style="width: 5%">Exam Type </th>
-                            <th style="width: 5%">Student Type</th>
-                            <th style="width: 5%">From Date </th>
-                            <th style="width: 5%">To Date </th>
-                            <th style="width: 5%">Fine Date </th>
-                            <th style="width: 5%">Fine Amount</th>
+                        <tr class="cb-1">
+                            <th width="5%">S.No</th>
+                            <th width="10%" class="text-center">Semester</th>
+                            <th width="10%" class="text-center">Exam Month Year </th>
+                            <th width="10%" class="text-center">Exam Type</th>
+                            <th width="10%" class="text-center">Student Type</th>
+                            <th width="12%" class="text-center">From Date</th>
+                            <th width="12%" class="text-center">To Date</th>
+                            <th width="12%" class="text-center">Fine Date</th>
+                            <th width="10%" class="text-center">Fine Amount</th>
+                            <th width="9%" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="date in MarksEntryData">
-                            <td style="width: 2%">{{$index+1}} </td>
-                            <td>{{date.Semester==null ||date.Semester==undefined ? '-' :date.Semester}}</td>
-                            <td>{{date.ExamYearMonth==null ||date.ExamYearMonth==undefined ? '-' :date.ExamYearMonth}}</td>
-                            <td>{{date.examname==null ||date.examname==undefined ? '-' :date.examname}}</td>
-                            <td>{{date.type==null ||date.type==undefined ? '-' :date.type}}</td>
-                            <td>{{date.fromdate==null ||date.fromdate==undefined ? '-' :date.fromdate}}</td>
-                            <td>{{date.todate==null ||date.todate==undefined ?'-' :date.todate}}</td>
-                            <td>{{date.finedate==null ||date.finedate==undefined ? '-' :date.finedate}}</td>
-                            <td>{{date.fine_ammount==null ||date.fine_ammount==undefined ? '-' :date.fine_ammount}}</td>
+                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="date in MarksEntryData">
+                            <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
+                            <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.Semester" /></td>
+                            <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.ExamYearMonth" /></td>
+                            <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.examname" /></td>
+                            <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.type" /></td>
+                            <td class="text-center pointer" style="padding: 3px;">
+                                <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="From Date" autocomplete="off" name="fromdate" datetime-picker="dd-MM-yyyy" id="fromdate " ng-model="date.fromdate" is-open="showFlag1" />
+                                    <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </td>
+                            <td class="text-center pointer" style="padding: 3px;">
+                                <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="To Date" autocomplete="off" name="todate" datetime-picker="dd-MM-yyyy" id="fromdate " ng-model="date.todate" is-open="showFlag2" />
+                                    <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </td>
+                            <td class="text-center pointer" style="padding: 3px;">
+                                <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Fine Date" autocomplete="off" name="finedate" datetime-picker="dd-MM-yyyy" id="finedate " ng-model="date.finedate" is-open="showFlag3" />
+                                    <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </td>
+                            <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.fine_ammount" /></td>
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditDates(date,$index+1)">
+                                    Edit
+                                </button>
+                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateDates(date,$index+1)">
+                                    Update
+                                </button>
+
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            
             <div class="sm-spacer"></div>
         </div>
         <div class="col-md-12">

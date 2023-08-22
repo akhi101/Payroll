@@ -3106,6 +3106,12 @@
                 dependencies: ['controllers/TWSH/TwshExamMonthYearController', 'services/TWSH/TwshStudentRegService']
             },
 
+            'Dashboard.TypeWriting.ChangeExamCentreBatch': {
+                url: "/ChangeExamCentreBatch",
+                templateUrl: 'app/views/TWSH/TwshChangeExamCentre.html',
+                dependencies: ['controllers/TWSH/TwshChangeExamCentreController', 'services/TWSH/TwshStudentRegService']
+            },
+
             'Dashboard.TypeWriting.GenerateTwshNr': {
                 url: "/GenerateTwshNr",
                 templateUrl: 'app/views/TWSH/GenerateTwshNr.html',

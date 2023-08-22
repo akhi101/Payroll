@@ -68,11 +68,15 @@ namespace SoftwareSuite.Controllers.Admission
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 string imgPath = Path.Combine(path, filename);
-                byte[] imageBytes = Convert.FromBase64String(StudentReg.profilephoto1);
-                File.WriteAllBytes(imgPath, imageBytes);
-                relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                //WESCertificate = relativePath;
-                file += relativePath + ',';
+                if (StudentReg.profilephoto1 != null)
+                {
+                    byte[] imageBytes = Convert.FromBase64String(StudentReg.profilephoto1);
+
+                    File.WriteAllBytes(imgPath, imageBytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    //WESCertificate = relativePath;
+                    file += relativePath + ',';
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, ds);
             }
             else
