@@ -459,6 +459,7 @@
     <Content Include="app\AdmissionRoutes.js" />
     <Content Include="app\app.js" />
     <Content Include="app\controllers\AboutCollegeController.js" />
+    <Content Include="app\controllers\Academic\AbsenteesListController.js" />
     <Content Include="app\controllers\Academic\AcademicController.js" />
     <Content Include="app\controllers\Academic\AlphaSelectionController.js" />
     <Content Include="app\controllers\Academic\AttendanceReportController.js" />
@@ -1794,6 +1795,7 @@
     <Content Include="app\services\SystemAdministration\UserGroupMasterService.js" />
     <Content Include="app\services\SystemAdministration\UserService.js" />
     <Content Include="app\services\TWSH\TwshStudentRegService.js" />
+    <Content Include="app\views\Academic\AbsenteesList.html" />
     <Content Include="app\views\Academic\Academic.html" />
     <Content Include="app\views\Academic\AlphaSelection.html" />
     <Content Include="app\views\Academic\AttendanceReport.html" />
