@@ -135,6 +135,26 @@
             var paramObject = { "SubjectTypeId": SubjectTypeId, "stringRubricsData": stringRubricsData };
             return DataAccessService.postData('AssessmentReports/SETRubricsMarks', paramObject);
         };
+
+
+        this.getAbsenteesDates = function (AcademicYearid, semid) {
+            var paramObject = { "AcademicYearid": AcademicYearid, "semid": semid };
+            return DataAccessService.getDataWithPara('Assessment/GetAbsenteesDates', paramObject);
+        };
+
+        this.GetAbsenteesListExcel = function (AcademicYearID, SemId, FromDate, ToDate, CollegeCode, BranchId, DataType) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "SemId": SemId,
+                "FromDate": FromDate,
+                "ToDate": ToDate,
+                "CollegeCode": CollegeCode,
+                "BranchId": BranchId,
+                "DataType": DataType
+            };
+            var promise = DataAccessService.getDataWithPara('Assessment/GetAbsenteesListExcel', paramObj);
+            return promise;
+        };
     });
 
 });

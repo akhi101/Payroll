@@ -6,6 +6,19 @@ using FromBody = System.Web.Http.FromBodyAttribute;
 using SoftwareSuite.BLL;
 using SoftwareSuite.Models.Database;
 using SoftwareSuite.Models.Assessment;
+using DocumentFormat.OpenXml.Wordprocessing;
+using SoftwareSuite.Models;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
+//using System.Threading;
+using System.Timers;
+
+
+
+
 
 namespace SoftwareSuite.Controllers.Assessment
 {
@@ -681,6 +694,106 @@ namespace SoftwareSuite.Controllers.Assessment
             {
                 
                 dbHandler.SaveErorr("ADM_SET_UpdateStudentDetails", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        public class person1
+        {
+            public string ResponseCode { get; set; }
+            public string ResponseDescription { get; set; }
+            public string file { get; set; }
+
+
+        }
+
+        [HttpGet, ActionName("GetAbsenteesDates")]
+        public string GetAbsenteesDates(int AcademicYearid,int semid)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearid", AcademicYearid);
+                param[1] = new SqlParameter("@semid", semid);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AbsenteesDatesBySemID", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_AbsenteesDatesBySemID", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        private static void elapse(object sender, ElapsedEventArgs e, string s)
+        {
+            System.IO.File.Delete(s);
+            ((Timer)sender).Stop();
+            ((Timer)sender).Dispose();
+        }
+
+        [HttpGet, ActionName("GetAbsenteesListExcel")]
+        public string GetAbsenteesListExcel(int AcademicYearID,int SemId, string FromDate,string ToDate,string CollegeCode,int BranchId,int DataType)
+        {
+
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@SemId", SemId);
+                param[2] = new SqlParameter("@FromDate", FromDate);
+                param[3] = new SqlParameter("@ToDate", ToDate);
+                param[4] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[5] = new SqlParameter("@BranchId", BranchId);
+                param[6] = new SqlParameter("@DataType", DataType);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AbsenteesList", param);
+                if (ds.Tables[0].Rows.Count > 0 && DataType == 2)
+
+                {
+                    var filename = "Absentees_Report" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person1> p = new List<person1>();
+                    person1 p1 = new person1();
+                    p1.file = file;
+                    p1.ResponseCode = "200";
+                    p1.ResponseDescription = "Data Found";
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+
+                
+                else
+                {
+                    List<person1> p = new List<person1>();
+                    person1 p1 = new person1();
+                    p1.file = "";
+                    p1.ResponseCode = "400";
+                    p1.ResponseDescription = "Data not Found";
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_AbsenteesList", 0, ex.Message);
                 return ex.Message;
             }
 
