@@ -415,7 +415,7 @@ namespace SoftwareSuite.Controllers.Assessment
             }
 
         }
-
+        //rgthyujio
 
         [HttpGet, ActionName("getActiveExamTypes")]
         public string getActiveExamTypes()
