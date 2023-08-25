@@ -2,7 +2,7 @@ define(['app'], function (app) {
     app.controller("AbsenteesListController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, $uibModal, $timeout, PreExaminationService, AssessmentService) {
 
         var authdata = $localStorage.authorizationData;
-        $scope.UserName = authdata.userName;
+        $scope.UserName = authdata.College_Code;
         $scope.BranchID = authdata.BranchId;
         $scope.endDisable = true;
 

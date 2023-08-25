@@ -2585,6 +2585,12 @@
                 templateUrl: 'app/views/Academic/AbsenteesList.html',
                 dependencies: ['controllers/Academic/AbsenteesListController', 'services/Assessment/AssessmentService', 'services/PreExamination/PreExaminationService']
             },
+
+            'Dashboard.AdmissionDashboard.AbsenteesList': {
+                url: "/AbsenteesList",
+                templateUrl: 'app/views/Academic/AbsenteesList.html',
+                dependencies: ['controllers/Academic/AbsenteesListController', 'services/Assessment/AssessmentService', 'services/PreExamination/PreExaminationService']
+            },
             
 
             'Dashboard.Academic.PromotionalList': {

@@ -751,7 +751,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[5] = new SqlParameter("@BranchId", BranchId);
                 param[6] = new SqlParameter("@DataType", DataType);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AbsenteesList", param);
-                if (ds.Tables[0].Rows.Count > 0 && DataType == 2)
+                if (ds.Tables[0].Rows.Count > 0)
 
                 {
                     var filename = "Absentees_Report" + ".xlsx";
