@@ -416,6 +416,7 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
+
         [HttpGet, ActionName("getActiveExamTypes")]
         public string getActiveExamTypes()
         {
