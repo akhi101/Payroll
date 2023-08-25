@@ -147,7 +147,7 @@ namespace SoftwareSuite.Controllers.Admission
                     DataTable dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ATTENDENCE_API_INSERTION", param);
                     try
                     {
-                        UpdateWorkingDays();
+                        UpdateWorkingDays(optype);
                     }
                     catch (Exception ex) { }
                     if (dt.Rows.Count > 0)
@@ -259,7 +259,7 @@ namespace SoftwareSuite.Controllers.Admission
                     DataSet dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_ATTENDENCE_API_INSERTION", param);
                     if (dt.Tables[0].Rows.Count > 0)
                     {
-                        UpdateWorkingDays();
+                        UpdateWorkingDays(optype);
                     }
                     else
                     {
@@ -270,7 +270,7 @@ namespace SoftwareSuite.Controllers.Admission
                     }
                         try
                     {
-                        UpdateWorkingDays();
+                        UpdateWorkingDays(optype);
                     }
                     catch (Exception ex) { }
                     if (dt.Tables[0].Rows.Count > 0)
@@ -500,7 +500,7 @@ namespace SoftwareSuite.Controllers.Admission
 
 
         [HttpGet, ActionName("UpdateWorkingDays")]
-        public void UpdateWorkingDays()
+        public void UpdateWorkingDays(string optype)
         {
 
             try
@@ -579,7 +579,10 @@ namespace SoftwareSuite.Controllers.Admission
 
                 try
                 {
-                    ProcessAttendanceDisplay();
+                    var response = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+                    if (optype == "1") { 
+                        ProcessAttendanceDisplay();
+                    }
                 }
                 catch (Exception ex) { }
             }
