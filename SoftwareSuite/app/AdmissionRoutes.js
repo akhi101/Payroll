@@ -2579,7 +2579,6 @@
                 dependencies: ['controllers/Academic/AttendanceReportController', 'services/PreExamination/PreExaminationService', 'directives/inputNumberOnly', 'directives/noSpecialChar', 'services/Academic/AcademicService']
             },
 
-
             'Dashboard.Academic.AbsenteesList': {
                 url: "/AbsenteesList",
                 templateUrl: 'app/views/Academic/AbsenteesList.html',
