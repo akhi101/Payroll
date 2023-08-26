@@ -3,6 +3,7 @@ define(['app'], function (app) {
 
         var authdata = $localStorage.authorizationData;
         $scope.UserName = authdata.College_Code;
+        $scope.UserTypeID = authdata.SystemUserTypeId;
         $scope.BranchID = authdata.BranchId;
         $scope.endDisable = true;
 
@@ -61,9 +62,20 @@ define(['app'], function (app) {
                 return;
             }
             $scope.loading = true;
-            var DataType = 1;
             var StartDate = moment($scope.StartDate).format("YYYY-MM-DD")
             var EndDate = moment($scope.EndDate).format("YYYY-MM-DD")
+            if ($scope.UserName == null) {
+                $scope.UserName = '';
+            }
+            if ($scope.UserTypeID == 1) {
+                var DataType=1
+            }
+            else if ($scope.UserTypeID == 2) {
+                var DataType = 2
+            }
+            else if ($scope.UserTypeID == 3) {
+                var DataType = 3
+            }
             var exceldownload = AssessmentService.GetAbsenteesListExcel($scope.AcademicID, $scope.SemesterID, StartDate, EndDate,$scope.UserName,$scope.BranchID,DataType);
             exceldownload.then(function (res) {
                 //var response = JSON.parse(res);
