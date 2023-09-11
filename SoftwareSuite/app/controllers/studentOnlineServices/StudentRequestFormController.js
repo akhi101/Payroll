@@ -849,8 +849,12 @@
                     //    var res = JSON.parse(res)
                     //}
                     if (res.Table[0].ResponceCode == '200') {
+                        if ($scope.Certificate == 3) {
+                            $scope.applicatioNo = response.Table1[0].ApplicationNumber;
+                            alert(res.Table[0].ResponseDescription)
+                        } else {
                         alert(res.Table[0].ResponseDescription)
-                       
+                        }
                     } else {
                         alert(res.Table[0].ResponseDescription)
                     }
@@ -1915,10 +1919,11 @@
                                     } catch (err) {
                                     }
                                     if (res.Table[0].ResponceCode == '200') {
+                                        $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                                         alert(res.Table[0].ResponceDescription);
                                         $scope.GetChallanData();
                                         //$scope.loader = false;
-                                        $scope.applicatioNo = res.Table1[0].ApplicationNumber;
+                                      
                                     } else {
                                         //$scope.loader = false;
                                         alert(res.Table[0].ResponceDescription);
@@ -1937,10 +1942,11 @@
                                     } catch (err) {
                                     }
                                     if (res.Table[0].ResponceCode == '200') {
+                                        $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                                         alert(res.Table[0].ResponceDescription);
                                         $scope.GetChallanData();
                                         //$scope.loader = false;
-                                        $scope.applicatioNo = res.Table1[0].ApplicationNumber;
+                                       
                                     } else {
                                         //$scope.loader = false;
                                         alert(res.Table[0].ResponceDescription);

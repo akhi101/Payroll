@@ -4710,7 +4710,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
-                if(CertificateTypeId == 4)
+                if(CertificateTypeId == 4|| CertificateTypeId == 3)
                 {
                     var dbHandler = new dbHandler();
                     var param = new SqlParameter[3];

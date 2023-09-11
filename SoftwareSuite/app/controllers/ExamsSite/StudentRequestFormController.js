@@ -1852,10 +1852,11 @@
                             } catch (err) {
                             }
                             if (res.Table[0].ResponceCode == '200') {
+                                $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                                 alert(res.Table[0].ResponceDescription);
                                 $scope.GetChallanData();
                                 //$scope.loader = false;
-                                $scope.applicatioNo = res.Table1[0].ApplicationNumber;
+                                
                             } else {
                                 //$scope.loader = false;
                                 alert(res.Table[0].ResponceDescription);
@@ -1874,10 +1875,11 @@
                             } catch (err) {
                             }
                             if (res.Table[0].ResponceCode == '200') {
+                                $scope.applicatioNo = res.Table1[0].ApplicationNumber;
                                 alert(res.Table[0].ResponceDescription);
                                 $scope.GetChallanData();
                                 $scope.loader = false;
-                                $scope.applicatioNo = res.Table1[0].ApplicationNumber;
+                                
                             } else {
                                 $scope.loader = false;
                                 alert(res.Table[0].ResponceDescription);
