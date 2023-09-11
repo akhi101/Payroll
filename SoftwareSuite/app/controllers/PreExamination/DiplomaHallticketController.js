@@ -435,5 +435,9 @@
             document.title = tempTitle;
 
         }
+
+        $scope.backbutton = function () {
+            $state.go('Dashboard.PreExamination')
+        }
     })
 })

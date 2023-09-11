@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
     app.service("MarksEntryService", function (DataAccessService) {
-        this.PostMarksEntryDates = function (Examid, semid, Academicid, UserName, fromDate, toDate, fineDate, ipaddress, fineamount, studenttypeid, schemeId, ExamMonthYearId) {
+        this.AddMarksEntryDates = function (Examid, semid, Academicid, UserName, fromDate, toDate, fineDate, ipaddress, fineamount, studenttypeid, schemeId, ExamMonthYearId) {
             var paramObject = {
                 "examid": Examid,
                 "semid": semid,
@@ -16,7 +16,7 @@
                 "ExamMonthYearId": ExamMonthYearId
 
             };
-            var promise = DataAccessService.postData('Assessment/PostMarksEntryDates', paramObject);
+            var promise = DataAccessService.postData('api/AdminService/PostMarksEntryDates', paramObject);
             return promise;
         },
 
