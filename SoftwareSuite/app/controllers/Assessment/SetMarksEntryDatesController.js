@@ -334,7 +334,7 @@
 
 
             if (EndTime == '00:00:00') {
-                var todate = moment($scope.EndDate).format("DD/MM/YYYY") + "23:59:00";
+                var todate = moment($scope.EndDate).format("DD/MM/YYYY") + " 23:59:00";
             } else {
                 var todate = EndDate + ' ' + EndTime;
             }
@@ -343,7 +343,7 @@
             var FineDate = moment($scope.FineDate).format("DD/MM/YYYY")
             var FineTime = moment($scope.FineDate).format("HH:mm:ss")
             if (FineTime == '00:00:00') {
-                var finedate = moment($scope.FineDate).format("DD/MM/YYYY") + "23:59:00";
+                var finedate = moment($scope.FineDate).format("DD/MM/YYYY") + " 23:59:00";
             } else {
                 var finedate = FineDate + ' ' + FineTime;
             }
