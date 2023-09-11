@@ -482,6 +482,27 @@
             return DataAccessService.postData('api/CcicPreExamination/getPayExamFee', paramObject);
         }
 
+        this.SetHolidayDates = function (Json, AcademicYearId, ExamMonthYearId) {
+            var paramObj = {
+                "Json": Json,
+                "AcademicYearId": AcademicYearId,
+                "ExamMonthYearId": ExamMonthYearId
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/SetHolidayDates', paramObj);
+            return promise;
+        };
+
+        this.setTimeTableData = function (AcademicYearId, ExamMonthYearId, StartDate) {
+            var paramObject = {
+                "AcademicYearId": AcademicYearId,
+                "ExamMonthYearId": ExamMonthYearId,
+                "StartDate": StartDate
+            };
+            var promise = DataAccessService.postData('api/CcicTimeTableGenerator/setTimeTable', paramObject);
+            return promise;
+        }
+
+
 
     });
 });

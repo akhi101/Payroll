@@ -431,12 +431,9 @@
     </div>
     <section class="content">
         <div class="container">
-            <!--<div class="col-md-12">
-                <button class="btn bck_btn"><a href="#/Dashboard/Diploma" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
-            </div>-->
-            <!--<div style="width:100%;text-align:center;">
-                <img src="../../../contents/img/student_img.jpg"  width="100" />
-            </div>-->
+            <div class="col-md-12">
+                <button class="btn bck_btn"><a ng-click="backbutton()" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            </div>
             <div class="container downloadForm" ng-init="createCaptcha()">
                 <div class="row ">
                     <div class="col-md-12  mtp-50">
@@ -444,10 +441,10 @@
                             <div class="row">
 
                                 <!--<div class="col-md-12">
-                                    <div class="offer-custom-style">
-                                        <h2>Download Hallticket</h2>
-                                    </div>
-                                </div>-->
+                            <div class="offer-custom-style">
+                                <h2>Download Hallticket</h2>
+                            </div>
+                        </div>-->
 
                             </div>
                             <div class="body">
@@ -463,22 +460,22 @@
                                                 </div>
                                             </div>
                                             <!--<div class="col-md-3">
-                                                <div class="form-group ">
-                                                    <label>Pin Number</label>
-                                                    <input type="text" class="form-control" name="pinNo" ng-model="PinNo" placeholder="Enter Pin Number" required />
-                                                </div>
-                                            </div>-->
+                                        <div class="form-group ">
+                                            <label>Pin Number</label>
+                                            <input type="text" class="form-control" name="pinNo" ng-model="PinNo" placeholder="Enter Pin Number" required />
+                                        </div>
+                                    </div>-->
                                             <!--<div class="col-md-3">
-                                                <div class="form-group required">
-                                                    <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
-                                                    <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                        <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.CandidateNameDOB" datetime-picker="dd/MM/yyyy" ng-model="dateOfBirth" is-open="showFlag1" required />
-                                                        <span class="input-group-btn">
-                                                            <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>-->
+                                        <div class="form-group required">
+                                            <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
+                                            <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.CandidateNameDOB" datetime-picker="dd/MM/yyyy" ng-model="dateOfBirth" is-open="showFlag1" required />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>-->
                                             <div class="col-md-2 form-group">
                                                 <label for="sel1">
                                                     Exam Type:
@@ -515,7 +512,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <div class="submit-btn" style="margin-bottom:0px;margin-top:28px">
-                                                    <button type="submit"  ng-disabled="SubmitDisable" ng-click="getHallTkt()">View Hall Ticket</button>
+                                                    <button type="submit" ng-disabled="SubmitDisable" ng-click="getHallTkt()">View Hall Ticket</button>
                                                 </div>
                                             </div>
 
@@ -568,11 +565,11 @@
 
                 <!--<h4 class="text-center hall_head" style="font-size: 16px!important;"><b></b></h4>-->
                 <!--<div class="col-md-12" style="padding:0px;border:1px solid #ddd">
-                    <div class="cl-details">
-                        <h2>Payment Summary</h2>
+            <div class="cl-details">
+                <h2>Payment Summary</h2>
 
-                    </div>
-                </div>-->
+            </div>
+        </div>-->
                 <div class="">
 
                     <div class="col-md-12 tbl" style="padding:0px;border:1px solid #ddd">
@@ -706,17 +703,17 @@
                                         12.	Every student shall follow the regulations during examinations, failing which he / she will be booked under malpractice case.
                                     </div>
                                     <div class="textIndent">
-                                      13.	Candidates are advised to check all the pages in the ’/8/16/24-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only. 
+                                        13.	Candidates are advised to check all the pages in the ’/8/16/24-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only.
                                     </div>
                                     <div class="textIndent">
                                         14.	No additional sheets will be supplied under any circumstances. Do Not write any matter on the Question Paper, to avoid malpractice.
                                     </div>
                                     <!--<div class="textIndent">
-                                        15.
-                                    </div>-->
+                                15.
+                            </div>-->
                                     <!--<div class="textIndent" style="text-transform: uppercase;">
-                                        <b>15.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
-                                    </div>-->
+                                <b>15.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
+                            </div>-->
                                 </div>
 
                             </div>
@@ -738,11 +735,11 @@
 
                 <!--<h4 class="text-center hall_head" style="font-size: 16px!important;"><b></b></h4>-->
                 <!--<div class="col-md-12" style="padding:0px;border:1px solid #ddd">
-                    <div class="cl-details">
-                        <h2>Payment Summary</h2>
+            <div class="cl-details">
+                <h2>Payment Summary</h2>
 
-                    </div>
-                </div>-->
+            </div>
+        </div>-->
                 <div class="">
 
                     <div class="col-md-12 tbl" style="padding:0px;border:1px solid #ddd">
@@ -756,7 +753,7 @@
                                             <th width="23%" id="tbl_head1 " class="myead2"><b>PIN</b></th>
                                             <th id="tbl_head2" class="myead2">{{studPin}}</th>
                                             <!--<th width="10%" id="tbl_head1 " class="myead2"><b>Scheme</b></th>
-                                            <th width="26%" id="tbl_head2" class="myead2">{{studentScheme}}</th>-->
+                                    <th width="26%" id="tbl_head2" class="myead2">{{studentScheme}}</th>-->
                                         </tr>
                                     </thead>
                                     <tbody class="">
@@ -810,15 +807,15 @@
                                         <th colspan="1" id="tbl_head1"><b>Exam Time</b></th>
                                     </tr>
                                     <!--<tr class="cb-2">
-                                        <th width="5%" id="tbl_head1" class="text-center"><b>S No</b></th>
-                                        <th colspan="1" id="tbl_head1"><b>Scheme</b></th>
-                                        <th id="tbl_head2" class="myead2 text-center" width="6%"><b>Year/Sem</b></th>
-                                        <th class="text-center"><b>Subject Code</b></th>
-                                        <th id="tbl_head2" class="text-center myead2"><b>Name of the Subject</b></th>
-                                        <th width="11% !important;" id="tbl_head1" class="text-center"><b>Exam Date </b></th>
-                                        <th width="20%" id="tbl_head1" class="text-center"><b>Exam Time</b></th>
+                                <th width="5%" id="tbl_head1" class="text-center"><b>S No</b></th>
+                                <th colspan="1" id="tbl_head1"><b>Scheme</b></th>
+                                <th id="tbl_head2" class="myead2 text-center" width="6%"><b>Year/Sem</b></th>
+                                <th class="text-center"><b>Subject Code</b></th>
+                                <th id="tbl_head2" class="text-center myead2"><b>Name of the Subject</b></th>
+                                <th width="11% !important;" id="tbl_head1" class="text-center"><b>Exam Date </b></th>
+                                <th width="20%" id="tbl_head1" class="text-center"><b>Exam Time</b></th>
 
-                                    </tr>-->
+                            </tr>-->
                                 </thead>
 
                                 <tbody class="">
@@ -859,7 +856,7 @@
 
                             <div style="font-size:12px;float:right!important">Signature of the Head Of Section</div>
                         </div>
-                         <div class="col-md-12" style="padding-left:5px;">
+                        <div class="col-md-12" style="padding-left:5px;">
                             <div class="card terms_card">
                                 <div style="font-size:12px!important;"><b> Instructions :</b></div>
                                 <div>
@@ -897,100 +894,100 @@
                                         12.	Every student shall follow the regulations during examinations, failing which he / she will be booked under malpractice case.
                                     </div>
                                     <div class="textIndent">
-                                        13.	Candidates are advised to check all the pages in the ’/8/16/24-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only. 
+                                        13.	Candidates are advised to check all the pages in the ’/8/16/24-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only.
                                     </div>
                                     <div class="textIndent">
-                                        14.	No additional sheets will be supplied under any circumstances. Do Not write any matter on the Question Paper, to avoid malpractice. 
+                                        14.	No additional sheets will be supplied under any circumstances. Do Not write any matter on the Question Paper, to avoid malpractice.
                                     </div>
                                     <!--<div class="textIndent">
-                                        15.
-                                    </div>-->
+                                15.
+                            </div>-->
                                     <!--<div class="textIndent" style="text-transform: uppercase;">
-                                        <b>15.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
-                                    </div>-->
+                                <b>15.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
+                            </div>-->
                                 </div>
 
                             </div>
                         </div>
                         <!--<div class="col-md-12" style="padding-left:5px;">
-                            <div class="card terms_card">
-                                <div style="font-size:12px!important;"><b> Instructions :</b></div>
-                                <div class="textIndent">
-                                    <b>1. SBTET has rationalized subjects of C-09, C-14, C-16 and C-16S Schemes in to C18 Scheme Subjects. Students has to appear the examination in the newly mapped subjects in C18 Scheme duly downloading the syllabus of the newly mapped subjects from <a>sbtet.telangana.gov.in</a></b><br />
-                                </div>
-                                <div class="textIndent">
-                                    <b>2. The student and Head of Section should cross check the mapped subjects as per the SBTET notification.</b>
-                                </div>
-                                <div class="textIndent">
-                                    <b>3.  Hall-ticket issued to you is an important document preserve carefully upto declaration of the final result.</b>
-                                </div>
-                                <div class="textIndent">
-                                    4. No candidate will be allowed to enter the examination hall without proper hall-ticket
-                                </div>
-                                <div class="textIndent">
-                                    5.  Candidate shall arrive at the examination center at least 30 minutes before the commencement of the examination. While entering the
-                                    examination hall every student shall deposit all books, personal belongings etc at counter provided.
-                                </div>
-                                <div class="textIndent">
-                                    6.  No printed / written material, in any form, shall be taken inside the exam hall, other than hall ticket.
-                                </div>
-                                <div class="textIndent">
-                                    7.  Every student shall cooperate while pockets are being checked or frisked.
-                                </div>
-                                <div class="textIndent">
-                                    8.  Candidates will not be allowed to enter the examination hall, after half-an-hour of the commencement of examination.
-                                </div>
-                                <div class="textIndent">
-                                    9.  Candidates will not be allowed to leave the examination hall before one hour from the commencement of examination. After one hour,
-                                    if any candidate wishes to leave or wants to attend any emergency needs, the candidate must return his / her answer
-                                    script along with question paper to the Invigilator.
-                                </div>
-                                <div class="textIndent">
-                                    10.  Candidates are advised to go through the instructions given on Answer Booklet or OMR Bar Code Sheet before starting answering.
-                                </div>
-                                <div class="textIndent">
-                                    11.  Candidates should not write any matter inside the Answer Booklet which may lead to the identification of the Candidate or institution.
-                                    If he /she do so, he / she will be booked under malpractice. No color sketch pens are to be used unless specified question.
-                                </div>
-                                <div class="textIndent">
-                                    12.Candidates should carry their own Scientific Calculators, Pens, Pencils and required drawing instruments.
-                                </div>
-                                <div class="textIndent">
-                                    13.Candidates will not be allowed with Cell Phones, Organizers, PDA’s and palmtops or any other Electronic
-                                    Gadgets, etc.
-                                </div>
-                                <div class="textIndent">
-                                    14.Every student shall follow the regulations during examinations, failing which he / she will be booked under malpractice case.
-                                </div>
-                                <div class="textIndent">
-                                    <b>15.Candidates are advised to check all the pages in the ’<b>16/24</b>-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only.</b>
-                                </div>
-                                <div class="textIndent">
-                                    <b>16.No additional sheets will be supplied under any circumstances.Do Not write any matter on the Question Paper, to avoid malpractice.</b>
-                                </div>-->
-                                <!--<div class="textIndent">
-                                    15.
-                                </div>-->
-                                <!--<div class="textIndent" style="text-transform: uppercase;">
-                                    <b>17.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
-                                </div>
-                            </div>
+                    <div class="card terms_card">
+                        <div style="font-size:12px!important;"><b> Instructions :</b></div>
+                        <div class="textIndent">
+                            <b>1. SBTET has rationalized subjects of C-09, C-14, C-16 and C-16S Schemes in to C18 Scheme Subjects. Students has to appear the examination in the newly mapped subjects in C18 Scheme duly downloading the syllabus of the newly mapped subjects from <a>sbtet.telangana.gov.in</a></b><br />
+                        </div>
+                        <div class="textIndent">
+                            <b>2. The student and Head of Section should cross check the mapped subjects as per the SBTET notification.</b>
+                        </div>
+                        <div class="textIndent">
+                            <b>3.  Hall-ticket issued to you is an important document preserve carefully upto declaration of the final result.</b>
+                        </div>
+                        <div class="textIndent">
+                            4. No candidate will be allowed to enter the examination hall without proper hall-ticket
+                        </div>
+                        <div class="textIndent">
+                            5.  Candidate shall arrive at the examination center at least 30 minutes before the commencement of the examination. While entering the
+                            examination hall every student shall deposit all books, personal belongings etc at counter provided.
+                        </div>
+                        <div class="textIndent">
+                            6.  No printed / written material, in any form, shall be taken inside the exam hall, other than hall ticket.
+                        </div>
+                        <div class="textIndent">
+                            7.  Every student shall cooperate while pockets are being checked or frisked.
+                        </div>
+                        <div class="textIndent">
+                            8.  Candidates will not be allowed to enter the examination hall, after half-an-hour of the commencement of examination.
+                        </div>
+                        <div class="textIndent">
+                            9.  Candidates will not be allowed to leave the examination hall before one hour from the commencement of examination. After one hour,
+                            if any candidate wishes to leave or wants to attend any emergency needs, the candidate must return his / her answer
+                            script along with question paper to the Invigilator.
+                        </div>
+                        <div class="textIndent">
+                            10.  Candidates are advised to go through the instructions given on Answer Booklet or OMR Bar Code Sheet before starting answering.
+                        </div>
+                        <div class="textIndent">
+                            11.  Candidates should not write any matter inside the Answer Booklet which may lead to the identification of the Candidate or institution.
+                            If he /she do so, he / she will be booked under malpractice. No color sketch pens are to be used unless specified question.
+                        </div>
+                        <div class="textIndent">
+                            12.Candidates should carry their own Scientific Calculators, Pens, Pencils and required drawing instruments.
+                        </div>
+                        <div class="textIndent">
+                            13.Candidates will not be allowed with Cell Phones, Organizers, PDA’s and palmtops or any other Electronic
+                            Gadgets, etc.
+                        </div>
+                        <div class="textIndent">
+                            14.Every student shall follow the regulations during examinations, failing which he / she will be booked under malpractice case.
+                        </div>
+                        <div class="textIndent">
+                            <b>15.Candidates are advised to check all the pages in the ’<b>16/24</b>-page Answer Booklet’ supplied to him / her. All answers are to be written within the given booklet only.</b>
+                        </div>
+                        <div class="textIndent">
+                            <b>16.No additional sheets will be supplied under any circumstances.Do Not write any matter on the Question Paper, to avoid malpractice.</b>
                         </div>-->
+                        <!--<div class="textIndent">
+                    15.
+                </div>-->
+                        <!--<div class="textIndent" style="text-transform: uppercase;">
+                            <b>17.Candidates Are Requested to crosscheck the Examination Dates with time-table Dates and attend Examination as per the time-table.</b>
+                        </div>
+                    </div>
+                </div>-->
                     </div>
                 </div>
             </div>
             <!--<div class="col-md-12" style="padding-left:5px;">
-                <div class="terms_card">
-                    <div>
-                        <b>
-                            Important :
-                            The candidates are requested to carry Photo ID cards such as Aadhaar,
-                            Voter ID, Driving Licence, PAN card etc issued by Government.
-                            Without which they will not be allowed into the examination hall.
-                        </b>
-                    </div>
-                </div>
-            </div>-->
+        <div class="terms_card">
+            <div>
+                <b>
+                    Important :
+                    The candidates are requested to carry Photo ID cards such as Aadhaar,
+                    Voter ID, Driving Licence, PAN card etc issued by Government.
+                    Without which they will not be allowed into the examination hall.
+                </b>
+            </div>
+        </div>
+    </div>-->
             <div class="mySpacer bottom"></div>
             <div class="print_btn" ng-if="result">
                 <div class="col-md-12">

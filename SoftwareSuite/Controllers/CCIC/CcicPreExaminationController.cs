@@ -2129,6 +2129,44 @@ namespace SoftwareSuite.Controllers.CCIC
             }
 
         }
+
+
+        public class HolidayDates
+        {
+            public string Json { get; set; }
+            public int AcademicYearId { get; set; }
+            public int ExamMonthYearId { get; set; }
+        }
+
+
+
+        [HttpPost, ActionName("SetHolidayDates")]
+        public HttpResponseMessage SetHolidayDates([FromBody] HolidayDates data)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@Json", data.Json);
+                param[1] = new SqlParameter("@AcademicYearId", data.AcademicYearId);
+                param[2] = new SqlParameter("@ExamMonthYearId", data.ExamMonthYearId);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_TimeTableNewHolidays_Test", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SET_TimeTableNewHolidays_Test", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+
+
+
     }
 
 }

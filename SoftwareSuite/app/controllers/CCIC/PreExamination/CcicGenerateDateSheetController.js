@@ -201,7 +201,7 @@
 
 
         $scope.dayslot = [{ val: 'AM', lbl: 'AM' }, { val: 'PM', lbl: 'PM' }, { val: 'NOON', lbl: 'NOON' }];
-        $scope.maxsoltsarr = [{ id: 1, lbl: "1" }, { id: 2, lbl: "2" }];
+        $scope.maxsoltsarr = [{ id: 1, lbl: "1" }];
         $scope.editslotarr = [{ id: 1, lbl: "1" }, { id: 2, lbl: "2" }];
         $scope.Backdayarr = [
             { id: 1, daylbl: "Day 1" },
@@ -368,6 +368,7 @@
         $scope.Removeslot = function (index) {
             if (window.confirm("Do you want to delete time slot")) {
                 $scope.slotarr.splice(index, 1);
+                $scope.NoofSlots = null;
             }
         }
 
@@ -396,6 +397,100 @@
 
         $scope.sessioninfo = [{ session: "SESSION 1", val: 1 }, { session: "SESSION 2", val: 2 }]
 
+
+        $scope.GetExamMonthYearData = function (academicYear) {
+            if (academicYear == null || academicYear == undefined || academicYear == "") {
+                return;
+
+            }
+
+            $scope.academicYear = academicYear;
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(academicYear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.SaveHolidays = function () {
+            if ($scope.academicYear == null || $scope.academicYear == '' || $scope.academicYear==undefined) {
+                alert('Please Select Academic Year');
+                return;
+            }
+            if ($scope.monthyear == null || $scope.monthyear == '' || $scope.monthyear == undefined) {
+                alert('Please Select Exam Month Year');
+                return;
+            }
+            if ($scope.StartDate == null || $scope.StartDate == '' || $scope.StartDate == undefined) {
+                alert('Please Select Start Date');
+                return;
+            }
+            //if ($scope.isAllSelected == null || $scope.isAllSelected == '' || $scope.isAllSelected == undefined) {
+            //    alert('Please Select Holiday Dates');
+            //    return;
+            //}
+            var holidaydates = CcicPreExaminationService.SetHolidayDates(JSON.stringify($scope.arr), $scope.academicYear, $scope.monthyear );
+            holidaydates.then(function (res) {
+                if (res[0].ResponceCode == '200') {
+                    alert(res[0].ResponceDescription);
+                    $scope.setTimeTabledata();
+                }
+                else if (res[0].ResponceCode == '400') {
+                    alert(res[0].ResponceDescription);
+                }
+                else {
+                    alert('Error');
+                }
+
+            }, function (error) {
+
+            });
+
+        }
+
+
+        $scope.setTimeTabledata = function () {
+            var startDate = moment($scope.StartDate).format("YYYY-MM-DD")
+            var setTimeTableData = CcicPreExaminationService.setTimeTableData(parseInt($scope.academicYear), parseInt($scope.monthyear),startDate);
+            setTimeTableData.then(function (dat) {
+                try {
+                    var dat = JSON.parse(dat)
+                }
+                catch (err) { }
+                if (dat.Table[0].ResponceCode == '200') {
+                    alert(dat.Table[0].ResponceDescription);
+                    //$scope.getpdfTimeTableData();
+                } else {
+                    alert(dat.Table[0].ResponceDescription);
+                    $scope.ResultNotFound = true;
+                    $scope.ResultFound = false;
+                    $scope.LoadImg = false;
+                }
+
+            }, function (error) {
+                $scope.ResultNotFound = true;
+                $scope.ResultFound = false;
+                $scope.LoadImg = false;
+            });
+
+        }
 
     })
 })

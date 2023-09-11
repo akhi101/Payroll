@@ -367,7 +367,7 @@
             //@studenttypeid int,
             //@schemeid int
             var ipaddress = "ABCD!@#$"
-            var PostMarkEntryDates = MarksEntryService.PostMarksEntryDates(Examid, semid, Academicid, UserName, fromdate, todate, finedate, ipaddress, fineamount, studenttypeid, schemeId, $scope.ExamMonthYear);
+            var PostMarkEntryDates = MarksEntryService.AddMarksEntryDates(Examid, semid, Academicid, UserName, fromdate, todate, finedate, ipaddress, fineamount, studenttypeid, schemeId, $scope.ExamMonthYear);
             PostMarkEntryDates.then(function (response) {
                 alert("Marks Entry Dates are set successfully");
                 $scope.BtnDisable = false;

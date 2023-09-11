@@ -8,6 +8,7 @@
         //console.log(authData)
         const $ctrl = this;
         $ctrl.$onInit = () => {
+            $scope.getcciccurrentAcademicYear();
             $scope.GetCurrentAcademicYearData();
             $scope.GetCurrentBatchData();
             //$scope.GetCourseDurationBatchData();
@@ -24,24 +25,24 @@
 
         $scope.Add_AcademicYear = function () {
 
-            $scope.AcademicStartYear = null;
-            $scope.AcademicYear = null;
-            $scope.CurrentAcademicYear = null;
-            $scope.AcademicYearStartDate = null;
-            $scope.AcademicYearEndDate = null;
+            //$scope.AcademicStartYear = null;
+            //$scope.AcademicYear = null;
+            //$scope.CurrentAcademicYear = null;
+            //$scope.AcademicYearStartDate = null;
+            //$scope.AcademicYearEndDate = null;
         }
         $scope.Add_CurrentBatch = function () {
-            $scope.academicyear = null;
-            $scope.currentbatch = null;
-            $scope.batch = null;
+            //$scope.academicyear = null;
+            //$scope.currentbatch = null;
+            //$scope.batch = null;
 
         }
         $scope.Add_CourseDurBatches = function () {
-            $scope.academicYear = null;
-            $scope.BaTch = null;
-            $scope.courseduration = null;
-            $scope.AYBatchStartDate = null;
-            $scope.AYBatchEndDate = null;
+            //$scope.academicYear = null;
+            //$scope.BaTch = null;
+            //$scope.courseduration = null;
+            //$scope.AYBatchStartDate = null;
+            //$scope.AYBatchEndDate = null;
 
         }
         $scope.clearDefaults = function () {
@@ -100,14 +101,14 @@
                     $scope.loading = false;
                     alert(res[0].ResponseDescription);
                     $scope.loading = false;
-                    $scope.GetCurrentAcademicYearData();
-                    $scope.clearDefaults();
+                    $scope.getcciccurrentAcademicYear();
+                    //$scope.clearDefaults();
                 } else {
                     $scope.loading = false;
                     alert('AcademicYear Added Succesfully');
                     $scope.loading = false;
-                    $scope.GetCurrentAcademicYearData();
-                    $scope.clearDefaults();
+                    $scope.getcciccurrentAcademicYear();
+                    //$scope.clearDefaults();
 
                 }
 
@@ -176,12 +177,12 @@
                 if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription)
                     $scope.GetCurrentAcademicYearData();
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('Updated Successfully')
                 }
                 $scope.GetCurrentAcademicYearData();
-                $scope.clearDefaults();
+                //$scope.clearDefaults();
             },
 
                 function (error) {
@@ -225,11 +226,11 @@
                 if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription)
                     $scope.GetCurrentBatchData();
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('Academic Year Batch Added Successfully')
                     $scope.GetCurrentBatchData();
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
 
                 }
 
@@ -317,11 +318,11 @@
                 if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription)
                     $scope.GetCurrentBatchData();
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('Academic Year Current Batch Updated Successfully')
                     $scope.GetCurrentBatchData();
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
 
                 }
 
@@ -368,11 +369,11 @@
                 if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription)
                     $scope.GetCourseDurationBatchData($scope.AcademicYearID);
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('AcademicYearBatch Added Succesfully')
                     $scope.GetCourseDurationBatchData($scope.AcademicYearID);
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
 
                 }
 
@@ -484,19 +485,19 @@
 
 
 
+        $scope.getcciccurrentAcademicYear = function () {
+            var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+            getCcicCurrentAcademicYear.then(function (response) {
 
-        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
-        getCcicCurrentAcademicYear.then(function (response) {
+                $scope.CurrentAcademicYearData = response;
 
-            $scope.GetCcicCurrentAcademicYear = response;
+            },
+                function (error) {
+                    alert("error while loading CurrentAcademicYear");
+                    var err = JSON.parse(error);
 
-        },
-            function (error) {
-                alert("error while loading CurrentAcademicYear");
-                var err = JSON.parse(error);
-
-            });
-
+                });
+        }
       
 
         var getbatches = CcicPreExaminationService.GetBatches();
@@ -592,11 +593,11 @@
                 if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription)
                     $scope.GetCourseDurationBatchData($scope.AcademicYearID);
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('Academic Year Batch Updated Successfully')
                     $scope.GetCourseDurationBatchData($scope.AcademicYearID);
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
 
                 }
 
@@ -621,12 +622,12 @@
                 if (res[0].ResponceCode == '400') {
                     alert(res[0].ResponceDescription)
 
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 } else {
                     alert('AcademicYear Batch Status Updated Successfully')
                     $scope.GetCourseDurationBatchData($scope.AcademicYearID);
 
-                    $scope.clearDefaults();
+                    //$scope.clearDefaults();
                 }
 
             },
