@@ -233,8 +233,11 @@
         };
 
 
-        this.VerifyEnrollmentDate = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate');
+        this.VerifyEnrollmentDate = function (CourseID) {
+            var paramObj = {
+                "CourseID": CourseID
+            };
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/VerifyEnrollmentDate', paramObj);
         };
 
         this.VerifyFeePaymentDate = function (AcademicYearID, ExamMonthYearID) {
