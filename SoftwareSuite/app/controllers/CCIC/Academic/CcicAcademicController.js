@@ -41,30 +41,8 @@
        
         
         $scope.OpenSubModule = function (Module) {
-          
-          
-            if (Module.ModuleRouteName == 'Enrollment') {
-                var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate();
-                VerifyDate.then(function (response) {
-                    if (response.Table[0].ResponseCode == '200') {
-                       
-                        $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
-
-                    } else {
-                        alert('Enrollment Dates Are Not Found')
-                        $state.go("CcicDashboard.Academic")
-
-                    }
-
-                },
-                    function (error) {
-
-                        var err = JSON.parse(error);
-                    })
-            }
-            else {
+  
                 $state.go("CcicDashboard.Academic." + Module.ModuleRouteName);
-            }
             
             
         }

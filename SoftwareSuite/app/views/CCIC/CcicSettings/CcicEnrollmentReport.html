@@ -173,9 +173,14 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12" ng-show="AdminEnrollmentReportTable">
+                                <div class="col-md-12" ng-show="AdminEnrollmentReportInsCountTable.length>0">
                                     <div class="row base-row">
-
+                                        <div class="col-md-12" ng-if="NoData">
+                                            <div class="col-md-12 no-results">
+                                                <img src="../../contents/img/Folder-Icon.svg" />
+                                                <h2>No Data</h2>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div id="AdminEnrollmentReportTable">
                                                 <form class="form-inline">

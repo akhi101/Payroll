@@ -17,7 +17,7 @@
      
 
 
-        if ($scope.UserTypeID == 1) {
+        if ($scope.UserTypeID == 1 || $scope.UserTypeID==5) {
             $scope.loading = true;
             $scope.AdminEnrollmentReportTable = true;
 

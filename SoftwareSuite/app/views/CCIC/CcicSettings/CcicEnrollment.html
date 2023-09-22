@@ -377,7 +377,7 @@
 
                 <div class="col-md-12  mtp-50">
                     <div style="width:100%;text-align:center;" ng-show="LoadImg">
-                        <img src="../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
+                        <img src="../../../sbtet/contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
                         <p>please wait while data is loading...</p>
                     </div>
                 </div>
@@ -411,48 +411,48 @@
 
                                     <form name="SSC">
                                         <div class="custom-forms" ng-show="SscForm">
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>{{sscHtLbl}}</label>
-                                                        <input type="text" ng-model="sscHallticket" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>{{sscHtLbl}}</label>
+                                                    <input type="text" ng-model="sscHallticket" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label>{{passYrLbl}}</label>
-                                                        <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label>{{passYrLbl}}</label>
+                                                    <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
                                                 </div>
+                                            </div>
 
-                                                <div class="col-md-4">
-                                                    <div class="form-group required">
-                                                        <label for="date-picker-example">Examination Pass Type</label>
-                                                        <select class="form-control" ng-disabled="SSCDetails" ng-model="sscType">
-                                                            <option value="">Select Pass Type</option>
-                                                            <option value="Regular">Regular</option>
-                                                            <option value="Supplementary">Supplmentary</option>
-                                                        </select>
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group required">
+                                                    <label for="date-picker-example">Examination Pass Type</label>
+                                                    <select class="form-control" ng-disabled="SSCDetails" ng-model="sscType">
+                                                        <option value="">Select Pass Type</option>
+                                                        <option value="Regular">Regular</option>
+                                                        <option value="Supplementary">Supplmentary</option>
+                                                    </select>
                                                 </div>
+                                            </div>
 
-                                                <div class="col-md-1 pull-right mtp-50">
-                                                    <div class="cancel-btn" style="margin-bottom:0px;">
-                                                        <button type="button" ng-model="CANcel" ng-disabled="Cancel2" ng-click="Cancel()">Cancel</button>
-                                                    </div>
+                                            <div class="col-md-1 pull-right mtp-50">
+                                                <div class="cancel-btn" style="margin-bottom:0px;">
+                                                    <button type="button" ng-model="CANcel" ng-disabled="Cancel2" ng-click="Cancel()">Cancel</button>
                                                 </div>
-                                                <div class="col-md-2 pull-right mtp-50">
-                                                    <div class="submit-btn " style="margin:0px;" ng-if="mode==1">
-                                                        <button type="submit"  ng-show="getsscbutton"  ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
-                                                    </div>
-                                                    <div class="submit-btn " style="margin:0px;" ng-if="mode==2">
-                                                        <button type="submit" ng-show="nextbutton"  ng-click="Next(sscHallticket, passedoutYear, sscType)">Next</button>
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-2 pull-right mtp-50">
+                                                <div class="submit-btn " style="margin:0px;" ng-if="mode==1">
+                                                    <button type="submit" ng-show="getsscbutton" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
                                                 </div>
-
-
-                                                <div class="col-md-1 pull-right mtp-50">
-
+                                                <div class="submit-btn " style="margin:0px;" ng-if="mode==2">
+                                                    <button type="submit" ng-show="nextbutton" ng-click="Next(sscHallticket, passedoutYear, sscType)">Next</button>
                                                 </div>
+                                            </div>
+
+
+                                            <div class="col-md-1 pull-right mtp-50">
+
+                                            </div>
 
 
 
@@ -465,7 +465,7 @@
                                     <div class="col-md-12" ng-if="loading">
                                         <!--<div class="sm-spacer" style="height:20px"></div>-->
                                         <div style="width:100%;text-align:center;">
-                                            <img src="../../../contents/img/loading2.gif" ng-if="loading" width="50" />
+                                            <img src="../../../sbtet/contents/img/loading2.gif" ng-if="loading" width="50" />
                                         </div>
                                     </div>
 
@@ -475,7 +475,7 @@
 
                     </div>
                 </div>
-                
+
                 <form name="StudentDetails" novalidate>
                     <div class="custom-forms" ng-show="applicationForm">
                         <div class="col-md-12  mtp-50">
@@ -495,7 +495,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Candidate Name</label>
-                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()" 
+                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()"
                                                            onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
                                                            maxlength="50" autocomplete="off" ng-model="CNAME" ng-disabled="CandidateNamefound" class="form-control" required />
                                                 </div>
@@ -643,7 +643,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group required custom-img">
-                                                    <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 50KB) :</label>
+                                                    <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 100KB) :</label>
                                                     <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" />
                                                     <input type="file" id="stdPhotoFile" ng-model="StudentPhoto" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentPhoto()" class="upld-file" required>
                                                 </div>
@@ -651,7 +651,7 @@
 
                                             <div class="col-md-6">
                                                 <div class="form-group required custom-img">
-                                                    <label class="font-weight-bold">Upload Signature(size less than 30KB) :</label>
+                                                    <label class="font-weight-bold">Upload Signature(size less than 50KB) :</label>
                                                     <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="img img-responsive" id="stdSignImg" />
                                                     <input type="file" required id="stdSignFile" ng-model="StudentSign" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
                                                 </div>
@@ -667,7 +667,7 @@
                                                 Upload Certificate
                                             </span>
                                         </div>
-                                        <label class="notifylabel" for="sel1" style="color: red;margin-top:820px"> Document size should be Less than 100KB and Greater than 2MB</label>
+                                        <label class="notifylabel" for="sel1" style="color: red;margin-top:820px"> * Certificate size should be Greater than 100KB and Less than 2MB</label>
                                         <div class="sm-spacer" style="height:20px"></div>
                                         <div class="row">
 
@@ -711,8 +711,8 @@
 
 
                                         <!--<div class="submit-btn" ng-click="UpdateStdDetails(ApplicationNumber,StudentId)" ng-show="Update" style="margin-bottom:0px;">
-        <button type="submit">Update</button>
-    </div>-->
+                                            <button type="submit">Update</button>
+                                        </div>-->
 
                                     </div>
 

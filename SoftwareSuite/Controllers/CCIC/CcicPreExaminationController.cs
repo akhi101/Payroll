@@ -622,21 +622,23 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("VerifyEnrollmentDate")]
-        public HttpResponseMessage VerifyEnrollmentDate()
+        public string VerifyEnrollmentDate(int CourseID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Verify_EnrollmentDate";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@CourseID", CourseID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Verify_EnrollmentDate", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Verify_EnrollmentDate", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return ex.Message;
             }
         }
+
 
         [HttpGet, ActionName("VerifyFeePaymentDate")]
         public string VerifyFeePaymentDate(int AcademicYearID,int ExamMonthYearID)

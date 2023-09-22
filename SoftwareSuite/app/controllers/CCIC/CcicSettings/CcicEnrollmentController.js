@@ -56,15 +56,15 @@
 
         $scope.checkDate = function (DOB_DATE) {
             var currentDate = new Date();
-                var birthdate = new Date(DOB_DATE);
-                if (birthdate > currentDate) {
-                    alert('Selected Date Should not be Future!')
-                    $scope.DOB_DATE = null;
-                    return;
-                } else {
-                    $scope.DOB_DATE = DOB_DATE;
-                }
-            
+            var birthdate = new Date(DOB_DATE);
+            if (birthdate > currentDate) {
+                alert('Selected Date Should not be Future!')
+                $scope.DOB_DATE = null;
+                return;
+            } else {
+                $scope.DOB_DATE = DOB_DATE;
+            }
+
 
         };
 
@@ -78,7 +78,7 @@
         }
 
         $scope.ValidateMobileNumber = function () {
-           
+
             if (/^[6-9]\d{9}$/gi.test($scope.mobileNO)) {
                 return (true)
             }
@@ -228,9 +228,9 @@
             else {
                 $scope.StudentSscCertificate = true;
             }
-            var CourseQualificationID = CourseQualificationDetails.CourseQualificationsID;
+            $scope.CourseQualificationId = CourseQualificationDetails.CourseQualificationsID;
 
-            var getCcicCourseExperience = CcicPreExaminationService.GetCcicCourseExperience(CourseQualificationID);
+            var getCcicCourseExperience = CcicPreExaminationService.GetCcicCourseExperience($scope.CourseQualificationId);
             getCcicCourseExperience.then(function (response) {
 
                 try {
@@ -336,10 +336,10 @@
             $scope.DOB_DATE = '';
             $scope.SEX = '';
 
-            $scope.CandidateNamefound =  false;
-            $scope.FatherNameFound =  false;
-            $scope.MotherNamefound =  false;
-            $scope.Genderfound =  false;
+            $scope.CandidateNamefound = false;
+            $scope.FatherNameFound = false;
+            $scope.MotherNamefound = false;
+            $scope.Genderfound = false;
             $scope.Aadhar = '';
             $scope.houseNo = '';
             $scope.street = '';
@@ -396,24 +396,47 @@
 
         $scope.Continue = function () {
 
-            if ($scope.Course == '' || $scope.Course == undefined || $scope.Course == null) {
-                alert('Please Select Course')
-                return;
-            }
+       
+            var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate($scope.Course);
+            VerifyDate.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch { err}
+                if (res[0].ResponseCode == '200') {
+                    if ($scope.Course == '' || $scope.Course == undefined || $scope.Course == null) {
+                        alert('Please Select Course')
+                        return;
+                    }
 
-            if ($scope.Qualification == '' || $scope.Qualification == undefined || $scope.Qualification == null) {
-                alert('Please Select Qualification')
-                return;
-            }
+                    if ($scope.Qualification == '' || $scope.Qualification == undefined || $scope.Qualification == null) {
+                        alert('Please Select Qualification')
+                        return;
+                    }
 
-            if ($scope.GetCcicCourseExperienceInfo.length > 0 && ($scope.Experience == null || $scope.Experience == undefined || $scope.Experience == '')) {
-                alert('Please Select Experience')
-                return;
-            }
-            $scope.continuebutton = false;
-            $scope.continue = true;
-            alert('Please Scroll down to fill Details')
-            $scope.showEducation = true;
+                    if ($scope.GetCcicCourseExperienceInfo.length > 0 && ($scope.Experience == null || $scope.Experience == undefined || $scope.Experience == '')) {
+                        alert('Please Select Experience')
+                        return;
+                    }
+
+
+                    $scope.continuebutton = false;
+                    $scope.continue = true;
+                    alert('Please Scroll down to fill Details')
+                    $scope.showEducation = true;
+
+                } else {
+                    alert('Enrollment Dates Are Not Found')
+                    return;
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+
+            
 
         }
 
@@ -548,7 +571,7 @@
             $scope.Change = false;
             $scope.Add = true;
 
-           
+
 
             //if ($scope.StudentSscCertificate == '' || $scope.StudentSscCertificate == undefined || $scope.StudentSscCertificate == null) {
             //    alert('Please Select SSC Certificate')
@@ -584,7 +607,7 @@
                 "ApplicationNumber": appNum,
                 "InstitutionID": authData.InstitutionID,
                 "CourseID": parseInt($scope.Course),
-                "CourseQualificationID": $scope.CourseQualifications[0].CourseQualificationsID,
+                "CourseQualificationID": $scope.CourseQualificationId,
                 "CourseExperienceID": CourseExp,
                 "SSC": isSSC,
                 "SSCHallticketNumber": sscHallticket,
@@ -676,7 +699,7 @@
             var input = document.getElementById("stdPhotoFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 50000 && fileSize >= 5000) {
+            if (fileSize <= 100000 && fileSize >= 5000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -712,11 +735,11 @@
                 $('#stdPhotoFile').val('');
                 return;
             } else if (fileSize >= 50000) {
-                alert("file size should not be greater than 50KB");
+                alert("file size should not be greater than 100KB");
                 $('#stdPhotoFile').val('');
                 return;
             } else {
-                alert("file size should be between 5KB and 50KB");
+                alert("file size should be between 5KB and 100KB");
                 $('#stdPhotoFile').val('');
                 return;
             }
@@ -742,7 +765,7 @@
             var input = document.getElementById("stdSignFile");
             var fileSize = input.files[0].size;
 
-            if (fileSize <= 30000 && fileSize >= 3000) {
+            if (fileSize <= 50000 && fileSize >= 3000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -778,11 +801,11 @@
                 $('#stdSignFile').val('');
                 return;
             } else if (fileSize >= 50000) {
-                alert("file size should not be greater than 30KB");
+                alert("file size should not be greater than 50KB");
                 $('#stdSignFile').val('');
                 return;
             } else {
-                alert("file size should be between 3KB and 30KB");
+                alert("file size should be between 3KB and 50KB");
                 $('#stdSignFile').val('');
                 return;
             }
