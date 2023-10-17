@@ -326,6 +326,7 @@
     <Compile Include="Controllers\Assessment\MarksEntryController.cs" />
     <Compile Include="Controllers\Assessment\MarksEntryFinePaymentController.cs" />
     <Compile Include="Controllers\CCIC\CcicAdminServiceController.cs" />
+    <Compile Include="Controllers\CCIC\CcicGenerateTimeTable.cs" />
     <Compile Include="Controllers\CCIC\CcicPageController.cs" />
     <Compile Include="Controllers\CCIC\CcicPreExaminationController.cs" />
     <Compile Include="Controllers\CCIC\CcicStudentRegistrationController.cs" />
@@ -632,6 +633,7 @@
     <Content Include="app\controllers\CCIC\CcicCoursesCardsController.js" />
     <Content Include="app\controllers\CCIC\CcicDashboardController.js" />
     <Content Include="app\controllers\CCIC\CcicForgetPasswordController.js" />
+    <Content Include="app\controllers\CCIC\CcicIndexController.js" />
     <Content Include="app\controllers\CCIC\CcicInstiTableController.js" />
     <Content Include="app\controllers\CCIC\CcicLoginController.js" />
     <Content Include="app\controllers\CCIC\CcicRecentNewsController.js" />
@@ -687,6 +689,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicPrinterNRDownloadController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetExamCentersController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetFeeDatesController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicSubjectMasterController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicUpdateDateSheetController.js" />
     <Content Include="app\controllers\CenterManagemenet\AttachCollegeToPreZoneCenterController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationController.js" />
@@ -1066,6 +1069,7 @@
     <Content Include="app\controllers\PostExam\GenuinenessApproveListController.js" />
     <Content Include="app\controllers\PostExam\GenuineOdcController.js" />
     <Content Include="app\controllers\PostExam\3BacklogIndustrialFailedReportController.js" />
+    <Content Include="app\controllers\PostExam\GetODCDataController.js" />
     <Content Include="app\controllers\PostExam\IC_StudentDetailsController.js" />
     <Content Include="app\controllers\PostExam\MarksMemoApprovalController.js" />
     <Content Include="app\controllers\PostExam\MarksMemoApprovalDetailsController.js" />
@@ -1139,6 +1143,7 @@
     <Content Include="app\controllers\PreExamination\HodCondonationController.js" />
     <Content Include="app\controllers\PreExamination\MercyListController.js" />
     <Content Include="app\controllers\PreExamination\MobileAppHallticketController.js" />
+    <Content Include="app\controllers\PreExamination\PostAttendanceController.js" />
     <Content Include="app\controllers\PreExamination\PrinterNrDownloadController.js" />
     <Content Include="app\controllers\PreExamination\NrExcelReportController.js" />
     <Content Include="app\controllers\PreExamination\NrDownloadController.js" />
@@ -1195,6 +1200,7 @@
     <Content Include="app\controllers\PreExam\collegeWiseAbsentEntryController.js" />
     <Content Include="app\controllers\PreExam\collegewiseSubjectSummaryController.js" />
     <Content Include="app\controllers\PreExam\coursewiseCenterListController.js" />
+    <Content Include="app\controllers\PreExamination\DaywisePcodeReportController.js" />
     <Content Include="app\controllers\PreExam\DFormReportController.js" />
     <Content Include="app\controllers\PreExam\DistCenterlWisePRTANSBKREQSTNTController.js" />
     <Content Include="app\controllers\PreExam\DistColWiseENVETHTHANSBKREQSTNTController.js" />
@@ -1672,6 +1678,8 @@
     <Content Include="app\services\PostExam\ThreeBacklogOdcDataService.js" />
     <Content Include="app\services\PreAssessment\hallTicketGenerationService.js" />
     <Content Include="app\services\PreAssessment\PreAssessmentService.js" />
+    <Content Include="app\views\CCIC\CcicIndex.html" />
+    <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\services\PreExamination\PreExaminationService.js" />
     <Content Include="app\services\PreExam\absentDetailService.js" />
     <Content Include="app\services\PreExam\applicationService.js" />
@@ -2025,6 +2033,7 @@
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicFeePayment.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicHallTicket.html" />
+    <Content Include="app\views\CCIC\Popups\EditSubjectMasterPopup.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicCertificatesData.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicPostExamination.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicResultsProcessing.html" />
@@ -2052,6 +2061,7 @@
     <Content Include="app\views\CCIC\PreExamination\CcicSetFeeDates.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicSetNRData.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicUpdateDateSheet.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicSubjectMaster.html" />
     <Content Include="app\views\CCIC\Sa-Date.html" />
     <Content Include="app\views\CCIC\WebsiteLogin.html" />
     <Content Include="app\views\CenterManagemenet\AttachCollegeToPreZoneCenter.html" />
@@ -2644,6 +2654,7 @@
     <Content Include="app\views\PostExam\Genuineness_DetailsPopup.html" />
     <Content Include="app\views\PostExam\GenuineOdc.html" />
     <Content Include="app\views\PostExam\3BacklogIndustrialFailedReport.html" />
+    <Content Include="app\views\PostExam\GetODCData.html" />
     <Content Include="app\views\PostExam\IC_StudentDetails.html" />
     <Content Include="app\views\PostExam\MarksMemo.html" />
     <Content Include="app\views\PostExam\MarksMemoPopup.html" />
@@ -2779,6 +2790,7 @@
     <Content Include="app\views\PreExam\collegeWiseAbsentEntry.html" />
     <Content Include="app\views\PreExam\collegewiseSubjectSummary.html" />
     <Content Include="app\views\PreExam\coursewiseCenterList.html" />
+    <Content Include="app\views\PreExamination\DaywisePcodeReport.html" />
     <Content Include="app\views\PreExam\DFormReport.html" />
     <Content Include="app\views\PreExam\DieoEnviromentAndEthicsReport.html" />
     <Content Include="app\views\PreExam\DistCenterlWisePRTANSBKREQSTNT.html" />

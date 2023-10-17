@@ -14,6 +14,20 @@
 
         }
 
+        if ($scope.UserTypeID == 4) { // madam
+            $scope.RecommendedLink = true;
+            $scope.RecommendedNoLink = false;
+            $scope.PendingLink = false;
+            $scope.PendingNoLink = true;
+        }
+        else if ($scope.UserTypeID == 10 || $scope.UserTypeID == 1 || $scope.UserTypeID == 5 || $scope.UserTypeID == 6 || $scope.UserTypeID == 7 ||
+             $scope.UserTypeID == 8 || $scope.UserTypeID == 9) { //sir
+            $scope.PendingLink = true;
+            $scope.PendingNoLink = false;
+            $scope.RecommendedNoLink = true;
+            $scope.RecommendedLink = false;
+        }
+
         var data = [];
         $scope.$emit('showLoading', data);
 

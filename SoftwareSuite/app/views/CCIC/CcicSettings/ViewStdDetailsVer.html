@@ -537,9 +537,14 @@
                                     Revise
                                 </button>
                             </div>
-                            <div class="col-md-2 pull-right">
+                            <div class="col-md-2 pull-right" ng-show="ApproveButton">
                                 <button class="btn  btn-success btn-css" ng-click="Approve()">
                                     Approve
+                                </button>
+                            </div>
+                            <div class="col-md-3 pull-right" ng-show="RecommendButton">
+                                <button class="btn  btn-success btn-css" ng-click="Recommend()">
+                                    Recommend
                                 </button>
                             </div>
                         </div>

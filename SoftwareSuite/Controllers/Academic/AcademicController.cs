@@ -739,14 +739,14 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
         [HttpGet, ActionName("getAdminSyllabusReports")]
-        public string getAdminSyllabusReports(string Scheme, string ShiftType, string CollegeCode)
+        public string getAdminSyllabusReports(int AcademicYearId, string SemId, string CollegeCode)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@Scheme", Scheme);
-                param[1] = new SqlParameter("@ShiftType", ShiftType);
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[1] = new SqlParameter("@SemId", SemId);
                 param[2] = new SqlParameter("@CollegeCode", CollegeCode);
                
                

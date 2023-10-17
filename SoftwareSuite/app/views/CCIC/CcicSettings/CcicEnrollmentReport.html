@@ -45,7 +45,11 @@
         font-size: 14px !important;
     }
 
-
+        label.notifylabel {
+            position: absolute;
+            right: 4px;
+            top: -40px;
+        }
     
 
     
@@ -126,6 +130,8 @@
                                <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
                                 <div class="col-md-12" ng-show="EnrollmentReportCoursesTable.length>0">
                                     <div class="row base-row">
+                                        <label class="notifylabel" ng-if="EnrollmentReportCoursesTable.length>0" for="sel1" style="color: red;"> click on link to get student list</label>
+
                                         <div class="col-md-12" ng-if="NoData">
                                             <div class="col-md-12 no-results">
                                                 <img src="../../contents/img/Folder-Icon.svg" />
@@ -150,7 +156,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr ng-repeat="Data in EnrollmentReportCoursesTable">
+                                                            <tr ng-repeat="Data in EnrollmentReportCoursesTable |filter:search">
 
                                                                 <td>{{Data.CourseCode}}</td>
                                                                 <td>{{Data.Intake}}</td>
@@ -208,7 +214,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr ng-repeat="Data in AdminEnrollmentReportInsCountTable" ng-dblclick="showAdminEnrollmentInsCount(Data.InstitutionID)|orderBy:sortKey:reverse|filter:search">
+                                                            <tr ng-repeat="Data in AdminEnrollmentReportInsCountTable |filter:search" ng-dblclick="showAdminEnrollmentInsCount(Data.InstitutionID)|orderBy:sortKey:reverse|filter:search">
 
                                                                 <td>{{Data.InstitutionCode}}</td>
                                                                 <td>{{Data.InstitutionName}}</td>
@@ -219,7 +225,16 @@
                                                                 <td><b>{{Data.Revised}}</b></td>
                                                                 <td><b>{{Data.Rejected}}</b></td>
                                                             </tr>
+                                                            <tr  style="font-weight:bold">
+                                                                <td colspan="2" class="text-centre" style="padding-left:300px">Total</td>
+                                                                <td>{{Enrolled}}</td>
+                                                                <td>{{Submitted}}</td>
+                                                                <td>{{Approved}}</td>
+                                                                <td>{{Pending}}</td>
+                                                                <td>{{Revised}}</td>
+                                                                <td>{{Rejected}}</td>
 
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>

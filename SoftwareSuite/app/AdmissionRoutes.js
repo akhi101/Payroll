@@ -201,6 +201,13 @@
             },
 
 
+            'CcicIndex': {
+                url: "/CcicIndex",
+                templateUrl: 'app/views/CCIC/CcicIndex.html',
+                dependencies: ['controllers/CCIC/CcicIndexController', 'services/PreExamination/PreExaminationService', 'services/AdminServices/AdminService']
+            },
+
+
             'CcicLogin': {
                 url: "/CcicLogin",
                 templateUrl: 'app/views/CCIC/CcicLogin.html',
@@ -513,16 +520,18 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService']
             },
 
-            'CcicDashboard.PreExamination.HallTicketDownload': {
-                url: "/HallTicketDownload",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicHallTicketDownload.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicHallTicketDownloadController', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
+ 
 
             'CcicDashboard.PreExamination.PaymentProcess': {
                 url: "/ExamFeePayment/PaymentProcess",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicPaymentProcess.html',
                 dependencies: ['controllers/CCIC/PreExamination/CcicPaymentProcessController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.SubjectMaster': {
+                url: "/SubjectMaster",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicSubjectMaster.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicSubjectMasterController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
 
@@ -1926,6 +1935,13 @@
                 dependencies: ['controllers/PostExam/CertificateApprovalDetailsController', 'services/PreExamination/PreExaminationService']
             },
 
+            'Dashboard.PostExam.GetODCData': {
+                url: "/GetODCData",
+                templateUrl: 'app/views/PostExam/GetODCData.html',
+                dependencies: ['controllers/PostExam/GetODCDataController', 'services/PreExamination/PreExaminationService','services/DigitalSignatureService']
+            },
+
+
             'Dashboard.PreExamination': {
                 url: "/PreExamination",
                 templateUrl: 'app/views/PreExamination/PreExamination.html',
@@ -2246,6 +2262,19 @@
                 templateUrl: 'app/views/PreExamination/MercyList.html',
                 dependencies: ['controllers/PreExamination/MercyListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
+
+            'Dashboard.PreExamination.PostAttendance': {
+                url: "/PostAttendance",
+                templateUrl: 'app/views/PreExamination/PostAttendance.html',
+                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
+            },
+
+            'Dashboard.PreExamination.DaywisePcodeReport': {
+                url: "/DaywisePcodeReport",
+                templateUrl: 'app/views/PreExamination/DaywisePcodeReport.html',
+                dependencies: ['controllers/PreExamination/DaywisePcodeReportController', 'services/PreExamination/PreExaminationService', 'services/Academic/AcademicService']
+            },
+
 
 
             'Dashboard.PostExam.NameCorrectionApproveList': {

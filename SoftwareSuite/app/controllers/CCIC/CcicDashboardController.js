@@ -29,6 +29,15 @@
                 });
 
 
+            if ($scope.UserTypeID == 2) {
+                $scope.HideChangePassword = true;
+            }
+            else {
+                $scope.HideChangePassword = false;
+
+            }
+
+
             AppSettings.InstitutionCode = authData.InstitutionCode;
             AppSettings.InstitutionName = authData.InstitutionName;
           

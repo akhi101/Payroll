@@ -29,6 +29,12 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAffiliatedCourses');
         };
 
+        this.GetCcicSubjectTypes = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicSubjectTypes');
+        };
+
+
+
         this.GetExaminationCenters = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetExaminationCenters');
         };
@@ -48,6 +54,26 @@
                 "AcademicYearID": AcademicYearID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicAcademicYearCurrentBatch', paramObj);
+            return promise;
+        };
+
+        this.GetCcicSubjectMaster = function (DataType, CourseID, SubjectID) {
+            var paramObj = {
+                "DataType": DataType,
+                "CourseID": CourseID,
+                "SubjectID": SubjectID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditCcicSubjectMaster', paramObj);
+            return promise;
+        };
+
+        this.EditCcicSubjectMaster = function (DataType, CourseID, SubjectID) {
+            var paramObj = {
+                "DataType": DataType,
+                "CourseID": CourseID,
+                "SubjectID": SubjectID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditCcicSubjectMaster', paramObj);
             return promise;
         };
 
@@ -72,6 +98,16 @@
             return DataAccessService.postData('api/CcicPreExamination/AddExamMonthYear', paramObject);
         };
 
+        this.AddCcicSubjectMaster = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateorDeleteCcicSubjectMaster', paramObject);
+        };
+
+        this.UpdateorActiveCcicSubjectMaster = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateorDeleteCcicSubjectMaster', paramObject);
+        };
+
 
         this.GetAYBatchExamMonthYear = function (AcademicYearID, Batch) {
             var paramObj = {
@@ -87,6 +123,28 @@
                 "StartDate": StartDate, "NofDates": NofDates
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetHolidaysForTimeTable', paramObj);
+            return promise;
+        };
+
+        this.GenerateTimeTable = function (HolidaysJson, AcademicYearId, ExamMonthYearId, TimeSlotJson, StartDate, UserName) {
+            var paramObj = {
+                "HolidaysJson": HolidaysJson,
+                "AcademicYearId": AcademicYearId,
+                "ExamMonthYearId": ExamMonthYearId,
+                "TimeSlotJson": TimeSlotJson,
+                "StartDate": StartDate,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GenerateTimeTable', paramObj);
+            return promise;
+        };
+
+        this.VerifyTimeTableGeneration = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/VerifyTimeTableGeneration', paramObj);
             return promise;
         };
 
@@ -344,6 +402,8 @@
             return promise;
         }
 
+      
+
         this.AddAcademicYear = function (AcademicStartYear, AcademicYear, AcademicYearStartDate, AcademicYearEndDate,CurrentAcademicYear,UserName) {
             var paramObj = {
                 "AcademicStartYear": AcademicStartYear, "AcademicYear": AcademicYear, "AcademicYearStartDate": AcademicYearStartDate, "AcademicYearEndDate": AcademicYearEndDate, "CurrentAcademicYear": CurrentAcademicYear,"UserName": UserName
@@ -505,6 +565,23 @@
             return promise;
         }
 
+        this.GetTimeTableDataPdf = function (DataType, AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "DataType": DataType,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetTimeTableDataPdf', paramObj);
+            return promise;
+        }
+
+        this.GetCcicTimeTableExcel = function (DataType, AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "DataType": DataType, "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicTimeTableExcel', paramObj);
+            return promise;
+        };
 
 
     });

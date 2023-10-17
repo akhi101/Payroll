@@ -159,7 +159,7 @@
 
                             <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic/Verification" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12"
                                 <div class="row base-row">
 
                                     <div class="col-md-12">
@@ -184,6 +184,7 @@
                                                             <th>Submitted</th>
                                                             <th>Approved</th>
                                                             <th>Pending</th>
+                                                            <th>Recommended</th>
                                                             <th>Revised</th>
                                                             <th>Rejected</th>
 
@@ -194,12 +195,16 @@
 
                                                             <td>{{Data.CourseCode}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a >{{Data.Enrolled}}</a></b></td>
-                                                            <td><b><a class="">{{Data.Submitted}}</a></b></td>
-                                                            <td><b><a class="">{{Data.Approved}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
-                                                            <td><b><a class="">{{Data.Revised}}</a></b></td>
-                                                            <td><b><a class="">{{Data.Rejected}}</a></b></td>
+                                                            <td>{{Data.Enrolled}}</td>
+                                                            <td>{{Data.Submitted}}</td>
+                                                            <td>{{Data.Approved}}</td>
+                                                            <td ng-show="PendingNoLink">{{Data.Pending}}</td>
+                                                            <td ng-if="PendingLink"><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
+
+                                                            <td ng-show="RecommendedNoLink">{{Data.Recommended}}</td>
+                                                            <td ng-if="RecommendedLink"><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,6)">{{Data.Recommended == null ?'--':Data.Recommended}}</a></b></td>
+                                                            <td>{{Data.Revised}}</td>
+                                                            <td>{{Data.Rejected}}</td>
                                                         </tr>
 
                                                     </tbody>

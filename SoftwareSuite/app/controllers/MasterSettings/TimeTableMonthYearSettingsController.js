@@ -511,7 +511,7 @@
                 if ($scope.slotarr.length <= 0) {
                     alert("Select Slots");
                     return;
-            }
+                }
 
             var day = $scope.DayId == undefined || $scope.DayId == null || $scope.DayId == "" ? 1 : parseInt($scope.DayId);
             for (var k = 0; k < $scope.slotarr.length; k++) {

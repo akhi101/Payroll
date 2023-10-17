@@ -98,6 +98,12 @@
             text-decoration: none;
         }
 
+        .VerifyRecommend {
+            color: lawngreen;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
         label {
             display: inline-block;
             max-width: 100%;
@@ -274,8 +280,13 @@
                                             <td>{{x.PIN}}</td>
                                             <td>{{x.StudentName}}</td>
                                             <td>{{x.Submitted?'Yes':'No'}}</td>
-                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
+                                            <td ng-show="UserTypeID=='10' || UserTypeID=='1' || UserTypeID=='5' || UserTypeID=='6' || UserTypeID=='7' ||
+                                                UserTypeID=='8' || UserTypeID=='9'" ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
                                                 <a class="{{x.ApplicationStatus=='Revised' ? 'VerifyRevise' : (x.ApplicationStatus=='Pending'?'notVerify':'Verify')}}">{{x.ApplicationStatus}}</a>
+                                            </td>
+                                            <td ng-show="UserTypeID=='4'" 
+                                                ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
+                                                <a class="{{x.ApplicationStatus=='Recommended' ? 'VerifyRecommend' : (x.ApplicationStatus=='Pending'?'notVerify':'Verify')}}">{{x.ApplicationStatus}}</a>
                                             </td>
                                         </tr>
                                     </tbody>

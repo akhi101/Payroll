@@ -231,9 +231,9 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateNrData', paramObject);
         };
       
-            this.GetFactultyMappingExcel = function (Scheme, ShiftType, CollegeCode) {
+        this.GetFactultyMappingExcel = function (AcademicYearId, SemId, CollegeCode) {
             var paramObject = {
-                "Scheme": Scheme, "ShiftType": ShiftType, "CollegeCode": CollegeCode,
+                "AcademicYearId": AcademicYearId, "SemId": SemId, "CollegeCode": CollegeCode,
               
             };
 
@@ -1151,6 +1151,10 @@
             return DataAccessService.getDataAll('api/PreExamination/GetSemesters');
         };
 
+        this.GetAllSemesters = function () {
+            return DataAccessService.getDataWithPara('api/PreExamination/GetSemesters');
+        };
+
         this.SetScheme = function (datatypeid, scheme, sequenceid, username) {
             var paramObject = {
                 "datatypeid": datatypeid,
@@ -1237,6 +1241,13 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetMonthYear');
         };
 
+        this.GetMonthYears = function () {
+            return DataAccessService.getDataWithPara('api/PreExamination/GetMonthYears');
+        };
+
+        this.GetStudentTypes = function () {
+            return DataAccessService.getDataWithPara('api/PreExamination/GetStudentTypes');
+        };
         this.getSchemes = function () {
             var promise = DataAccessService.getDataWithPara('Admission/getSchemes');
             return promise;
@@ -1310,7 +1321,35 @@
         this.getActiveExamTypes = function () {
             return DataAccessService.getDataAll('api/PreExamination/getActiveExamTypes');
         };
-        
+
+        this.GetDaywisePcodeReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, Schemeid, ExamTypeId) {
+            var paramObj = {
+                "AcademicYearId": AcademicYearId,
+                "ExamMonthYearId": ExamMonthYearId,
+                "StudentTypeId": StudentTypeId,
+                "Schemeid": Schemeid,
+                "ExamTypeId": ExamTypeId
+            }
+
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetDaywisePcodeReport', paramObj);
+            return promise;
+        };
+
+        this.GetDaywisePcodeExcel = function (AcademicYearId, ExamMonthYearId, StudentTypeId, Schemeid, ExamTypeId) {
+            var paramObj = {
+                "AcademicYearId": AcademicYearId,
+                "ExamMonthYearId": ExamMonthYearId,
+                "StudentTypeId": StudentTypeId,
+                "Schemeid": Schemeid,
+                "ExamTypeId": ExamTypeId
+            }
+
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetDaywisePcodeExcel', paramObj);
+            return promise;
+        };
+
+
+    
 
         this.BackLogDetailsForNc = function (PIN) {
             var paramObj = {

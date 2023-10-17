@@ -402,7 +402,7 @@
                                                 <input id="rdo1" type="radio" name="radio" ng-value=1 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
                                                 <label for="rdo1"><span class="new"></span><span class="new">SSC in Telangana</span></label>
                                                 <input id="rdo2" type="radio" name="radio" ng-value=2 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
-                                                <label for="rdo2"><span class="new"></span><span class="new">Others(CBSE,ICSE)</span></label>
+                                                <label for="rdo2"><span class="new"></span><span class="new">Others(CBSE,ICSE,etc..)</span></label>
 
                                             </div>
                                         </div>
@@ -414,7 +414,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>{{sscHtLbl}}</label>
-                                                    <input type="text" ng-model="sscHallticket" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
+                                                    <input type="text" ng-model="sscHallticket"  maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
