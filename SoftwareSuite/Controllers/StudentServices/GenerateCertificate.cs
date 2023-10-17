@@ -498,26 +498,47 @@ padding :6px
                      <div>
              <div class='container'>
             <br />
-            <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>
+            <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>";
 
-
-            <div class='content'>
+            if (InterimData[0].SchemeId == 9 ||InterimData[0].SchemeId == 5)
+            {
+                page += $@"<div class='content'>
                 <div class='row '>
                     <p class='text-intend'>
                         This is to certify that Mr./Ms.<b class='border_btm' > {InterimData[0].Name ?? "-"}</b> Son/Daughter of <b class='border_btm' >{InterimData[0].FatherName ?? "-"}</b>
                         bearing Permanent Identification Number(PIN) <b class='border_btm'>{InterimData[0].Pin ?? "-"}</b> has <b class='border_btm'>Passed</b>
                         the ";
-            if (InterimData[0].BranchCode != "PH")
-            {
-                page += $@"<b class='border_btm'>{InterimData[0].CourseDuration ?? "-"}</b> ";
+                if (InterimData[0].BranchCode != "PH")
+                {
+                    page += $@"<b class='border_btm'>{InterimData[0].CourseDuration ?? "-"}</b> ";
+                }
+                page += $@"Diploma Course in <b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b> during the Examination held in
+                        <b class='border_btm' >{InterimData[0].MonthYear ?? "-"}</b> at <b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"},{InterimData[0].CollegeAddress}</b> and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-"}</b>
+with <b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average <b>(CGPA)</b> on a scale of <b>10</b> and earned <b class='border_btm'>{InterimData[0].TotalCreditsEarned ?? "-"}</b> credits.
+                    </p>
+                </div>";
+
+               
             }
-            page += $@"Diploma Course in <b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b> during the Examination held in
+            else
+            {
+                page += $@"<div class='content'>
+                <div class='row '>
+                    <p class='text-intend'>
+                        This is to certify that Mr./Ms.<b class='border_btm' > {InterimData[0].Name ?? "-"}</b> Son/Daughter of <b class='border_btm' >{InterimData[0].FatherName ?? "-"}</b>
+                        bearing Permanent Identification Number(PIN) <b class='border_btm'>{InterimData[0].Pin ?? "-"}</b> has <b class='border_btm'>Passed</b>
+                        the ";
+                if (InterimData[0].BranchCode != "PH")
+                {
+                    page += $@"<b class='border_btm'>{InterimData[0].CourseDuration ?? "-"}</b> ";
+                }
+                page += $@"Diploma Course in <b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b> during the Examination held in
                         <b class='border_btm' >{InterimData[0].MonthYear ?? "-"}</b> at <b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"},{InterimData[0].CollegeAddress}</b> and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-"}.</b>
                     </p>
                 </div>";
-            if (InterimData[0].BranchCode != "PH")
-            {
-                page += $@" <div class='row' >
+                if (InterimData[0].BranchCode != "PH" && InterimData[0].Scheme != "C18")
+                {
+                    page += $@" <div class='row' >
                     <table class='table'>
                         <thead>
                             <tr>
@@ -533,17 +554,17 @@ padding :6px
                         </thead>
                         <tbody>";
 
-                for (var i = 0; i < studentintrmMarks.Length; i++)
-                {
-                    page += $@"<tr>
+                    for (var i = 0; i < studentintrmMarks.Length; i++)
+                    {
+                        page += $@"<tr>
                             <td class='text-center'>{studentintrmMarks[i].Examination ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].MaxMarks ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].MaxSecured ?? "-"}</td>
                             <td class='text-center'>{studentintrmMarks[i].InFigures ?? "-"}{percheck(studentintrmMarks[i].Per ?? "-")}</td>                           
                             <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
                         </tr>";
-                }
-                page += $@" <tr>
+                    }
+                    page += $@" <tr>
                                     <td class='text-center'> Total Marks In Figure</td>
                                     <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInFigure}</b> </td>
                                 </tr>
@@ -559,6 +580,7 @@ padding :6px
                         </table>
                     </div>
                       <div>The Diploma Certificate of the above Candidate is <b>GENUINE</b> and issued by this office.</div>";
+                }
             }
             page += $@"
                    <div class='sm-spacer'></div>

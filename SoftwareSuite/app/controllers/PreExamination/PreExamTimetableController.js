@@ -200,7 +200,8 @@
                 var DataTypeId = 1;
                 $scope.LoadImg = true;
                 $scope.gentmetbl = true;
-                var getpdfTimeTableData = PreExaminationService.TimeTablePdfAdmin(parseInt($scope.selAcademicYear1), parseInt($scope.monthyear1), parseInt($scope.SelStudentType1), parseInt($scope.examtype1), parseInt($scope.selscheme1), DataTypeId);
+                //TimeTablePdfAdmin
+                var getpdfTimeTableData = PreExaminationService.TimeTablePdf(parseInt($scope.selAcademicYear1), parseInt($scope.monthyear1), parseInt($scope.SelStudentType1), parseInt($scope.examtype1), parseInt($scope.selscheme1), DataTypeId);
                 getpdfTimeTableData.then(function (data) {
                     $scope.gentmetbl = false;
                     if (data.length > 0) {
@@ -262,7 +263,8 @@
                 var DataTypeId = 2
 
                 $scope.gentmetbl = true;
-                var getpdfTimeTableData = PreExaminationService.TimeTableXlsxAdmin(parseInt($scope.selAcademicYear1), parseInt($scope.monthyear1), parseInt($scope.SelStudentType1), parseInt($scope.examtype1), parseInt($scope.selscheme1), DataTypeId);
+                //TimeTableXlsxAdmin
+                var getpdfTimeTableData = PreExaminationService.TimeTableXlsx(parseInt($scope.selAcademicYear1), parseInt($scope.monthyear1), parseInt($scope.SelStudentType1), parseInt($scope.examtype1), parseInt($scope.selscheme1), DataTypeId);
                 getpdfTimeTableData.then(function (data) {
                     $scope.gentmetbl = false;
                     if (data.length > 0) {
