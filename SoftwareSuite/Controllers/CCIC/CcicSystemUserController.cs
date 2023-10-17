@@ -215,11 +215,11 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 try
                 {
-                    // string decryptpassword = passcrypt.Decrypt(ForgetRes.Password);
+                    //string decryptpassword = passcrypt.Decrypt(CcicForgetRes.UserPassword);
                     string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
                     //string smsusername = ConfigurationManager.AppSettings["SMS_Service_Username"].ToString();
                     //string smspassword = ConfigurationManager.AppSettings["SMS_Service_Password"].ToString();
-                    string Msg = "SBTET Portal Login Credentials, UserName = {0}, UserPassword = {1} SBTETTS.";
+                    string Msg = "SBTET Portal Login Credentials, UserName = {0}, Password = {1}, Secretary,SBTET TS.";
                     var Message = string.Format(Msg, UserName.Replace("'", "''"), CcicForgetRes.UserPassword);
                     string urlParameters = "?mobile=" + mobile + "&message=" + Message + "&templateid=1007161786891783450";
                     HttpClient client = new HttpClient();

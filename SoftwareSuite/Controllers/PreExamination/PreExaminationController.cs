@@ -784,7 +784,98 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-      
+
+        [HttpGet, ActionName("GetDaywisePcodeReport")]
+        public string GetDaywisePcodeReport(int AcademicYearId,int ExamMonthYearId,int StudentTypeId,int Schemeid,int ExamTypeId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@Schemeid", Schemeid);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_DaywisePcodeReport", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_DaywisePcodeReport", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        public string GetDaywisePcodeExcel(int AcademicYearId,int ExamMonthYearId, int StudentTypeId, int Schemeid, int ExamTypeId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@Schemeid", Schemeid);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_DaywisePcodeReport", param);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+
+                    var filename = "Daywise_Pcode_Report" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    //p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    //p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_DaywisePcodeReport", 0, ex.Message);
+                //return ex.Message;
+                List<person> p = new List<person>();
+                person p1 = new person();
+                p1.file = "";
+
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
+            }
+
+        }
+
+
 
         [HttpGet, ActionName("ReleaseTcPin")]
         public string ReleaseTcPin(string Pin)
@@ -1286,14 +1377,14 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetFactultyMappingExcel")]
-        public string GetFactultyMappingExcel(string Scheme,int ShiftType,string CollegeCode)
+        public string GetFactultyMappingExcel(int AcademicYearId,string SemId,string CollegeCode)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@Scheme", Scheme);
-                param[1] = new SqlParameter("@ShiftType", ShiftType);
+                param[0] = new SqlParameter("@AcademicYearId",AcademicYearId);
+                param[1] = new SqlParameter("@SemId", SemId);
                 param[2] = new SqlParameter("@CollegeCode", CollegeCode);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AcademicFacultyMappingStatus", param);
                 if (ds.Tables[0].Rows.Count>0)
@@ -1314,11 +1405,12 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                   
+                    //p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
-                    //return ;
+
 
                 }
                 else
@@ -1326,10 +1418,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    //p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    //p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
+
                 }
                 //
             }
@@ -1337,7 +1430,15 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("USP_GET_AcademicFacultyMappingStatus", 0, ex.Message);
-                return ex.Message;
+                //return ex.Message;
+                List<person> p = new List<person>();
+                person p1 = new person();
+                p1.file = "";
+
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
             }
 
         }
@@ -3934,6 +4035,40 @@ namespace SoftwareSuite.Controllers.PreExamination
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetMonthYears")]
+        public HttpResponseMessage GetMonthYears()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_GET_ExamMonthYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_ExamMonthYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetStudentTypes")]
+        public HttpResponseMessage GetStudentTypes()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_SFP_GETSTUDENTTYPE";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GETSTUDENTTYPE", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }

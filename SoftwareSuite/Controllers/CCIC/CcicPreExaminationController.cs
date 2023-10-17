@@ -18,6 +18,10 @@ using System.Collections.Generic;
 using System.IO;
 using SoftwareSuite.Controllers.ExternalServices;
 using System.Web;
+using System.Data;
+using SoftwareSuite.Models;
+using static SoftwareSuite.Controllers.Assessment.AssessmentController;
+using System.Timers;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -164,6 +168,25 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("GetCcicSubjectTypes")]
+        public HttpResponseMessage GetCcicSubjectTypes()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_SubjectTypes";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_SubjectTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        
+
 
         [HttpGet, ActionName("GetExaminationCenters")]
         public HttpResponseMessage GetExaminationCenters()
@@ -266,6 +289,26 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutions", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetorEditCcicSubjectMaster")]
+        public string GetorEditCcicSubjectMaster(int DataType,int CourseID,int SubjectID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@CourseID", CourseID);
+                param[2] = new SqlParameter("@SubjectID", SubjectID);
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_Edit_SubjectMaster", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
 
@@ -580,6 +623,54 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 dbHandler.SaveErorr("SP_Add_ExamMonthYear", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        public class SubjectMasterData
+        {
+            public int DataType { get; set; }
+            public int SubjectID { get; set; }
+            public int CourseID { get; set; }
+            public int SubjectTypeID { get; set; }
+            public string SubjectCode { get; set; }
+            public string SubjectName { get; set; }
+            public int ExternalMaxMarks { get; set; }
+            public int InternalMaxMarks { get; set; }
+            public int ExternalPassMarks { get; set; }
+            public int TotalPassMarks { get; set; }
+            public string Pcode { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+        }
+
+        [HttpPost, ActionName("AddorUpdateorDeleteCcicSubjectMaster")]
+        public string AddorUpdateorDeleteCcicSubjectMaster([FromBody] SubjectMasterData data)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                var param = new SqlParameter[13];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@SubjectID", data.SubjectID);
+                param[2] = new SqlParameter("@CourseID", data.CourseID);
+                param[3] = new SqlParameter("@SubjectTypeID", data.SubjectTypeID);
+                param[4] = new SqlParameter("@SubjectCode", data.SubjectCode);
+                param[5] = new SqlParameter("@SubjectName", data.SubjectName);
+                param[6] = new SqlParameter("@ExternalMaxMarks", data.ExternalMaxMarks);
+                param[7] = new SqlParameter("@InternalMaxMarks", data.InternalMaxMarks);
+                param[8] = new SqlParameter("@ExternalPassMarks", data.ExternalPassMarks);
+                param[9] = new SqlParameter("@TotalPassMarks", data.TotalPassMarks);
+                param[10] = new SqlParameter("@Pcode", data.Pcode);
+                param[11] = new SqlParameter("@Active", data.Active);
+                param[12] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Delete_SubjectMaster", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_Delete_SubjectMaster", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -1956,9 +2047,9 @@ namespace SoftwareSuite.Controllers.CCIC
 
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@AcademicYearID", request["AcademicYearID"]);
-                param[1] = new SqlParameter("@CourseIds", request["CourseIds"]);
-                param[2] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"]);
+                param[0] = new SqlParameter("@AcademicYearID", request["AcademicYearID"].ToString());
+                param[1] = new SqlParameter("@CourseIds", request["CourseIds"].ToString());
+                param[2] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"].ToString());
                
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionVsExamCenter", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
@@ -2165,10 +2256,148 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpPost, ActionName("GenerateTimeTable")]
+        public HttpResponseMessage GenerateTimeTable([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@HolidaysJson", data["HolidaysJson"].ToString());
+                param[1] = new SqlParameter("@AcademicYearId", data["AcademicYearId"].ToString());
+                param[2] = new SqlParameter("@ExamMonthYearId", data["ExamMonthYearId"].ToString());
+                param[3] = new SqlParameter("@TimeSlotJson", data["TimeSlotJson"].ToString());
+                param[4] = new SqlParameter("@StartDate", data["StartDate"].ToString());
+                param[5] = new SqlParameter("@UserName", data["UserName"].ToString());
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_SET_TimeTable", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_SET_TimeTable", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+
+        }
+
+        [HttpPost, ActionName("VerifyTimeTableGeneration")]
+        public HttpResponseMessage VerifyTimeTableGeneration([FromBody] JsonObject data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", data["AcademicYearID"].ToString());
+                param[1] = new SqlParameter("@ExamMonthYearID", data["ExamMonthYearID"].ToString());
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Verify_TimeTableGeneration", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Verify_TimeTableGeneration", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+
+        }
 
 
+        [HttpGet, ActionName("GetTimeTableDataPdf")]
+        public string GetTimeTableDataPdf(int DataType,int AcademicYearID,int ExamMonthYearID)
+        {
+            string NRReportDir = @"Reports\NR\";
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                DataSet ds = dbHandler.ReturnDataSet("SP_Get_TimeTablePdforExcel", param);
+                CcicGenerateTimeTable CcicGenerateTimeTable = new CcicGenerateTimeTable();
+                var pdf = CcicGenerateTimeTable.GetTtPdf(ds, NRReportDir);
+                //Directory.Delete(NRReportDir, true);
 
+                return pdf;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
+        public class person1
+        {
+            public string ResponseCode { get; set; }
+            public string ResponceCode { get; set; }
+            public string ResponceDescription { get; set; }
+            public string file { get; set; }
+
+        }
+
+        [HttpGet, ActionName("GetCcicTimeTableExcel")]
+        public string GetCcicTimeTableExcel(int DataType, int AcademicYearID,int ExamMonthYearID)
+        {
+
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                DataSet ds = dbHandler.ReturnDataSet("SP_Get_TimeTablePdforExcel", param);
+                if (ds.Tables[0].Rows.Count > 0)
+
+                {
+                    var filename = "TimeTable_"  + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person1> p = new List<person1>();
+                    person1 p1 = new person1();
+                    p1.file = file;
+                    p1.ResponceCode = "200";
+                    p1.ResponceDescription = "Data Found";
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person1> p = new List<person1>();
+                    person1 p1 = new person1();
+                    p1.file = "";
+                    p1.ResponceCode = "400";
+                    p1.ResponceDescription = "Data not Found";
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_TimeTablePdforExcel", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        private void elapse(object sender, ElapsedEventArgs e, string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

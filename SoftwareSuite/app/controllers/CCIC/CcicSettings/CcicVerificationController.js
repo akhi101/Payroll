@@ -15,9 +15,18 @@
         var data = {};
         $scope.$emit('showLoading', data);
 
+        if ($scope.UserTypeID == 1 || $scope.UserTypeID == 5 || $scope.UserTypeID == 6 ||
+            $scope.UserTypeID == 7 || $scope.UserTypeID == 8 || $scope.UserTypeID == 9 || $scope.UserTypeID == 10) {
+            $scope.Pen = true;
+            $scope.ApproveButton = true;
+        }
+        else if ($scope.UserTypeID == 4) {
+            $scope.RecommendButton = true;
 
+        }
 
-        if ($scope.UserTypeID == 1) {
+        if ($scope.UserTypeID == 1 || $scope.UserTypeID == 4 || $scope.UserTypeID == 5 || $scope.UserTypeID == 6 ||
+            $scope.UserTypeID == 7 || $scope.UserTypeID == 8 || $scope.UserTypeID == 9 || $scope.UserTypeID == 10) {
             $scope.loading = true;
             $scope.AdminVerificationReportTable = true;
 
@@ -26,7 +35,7 @@
             $scope.showAdminVerificationInsCount = function (InstitutionID) {
 
                 $localStorage.TempData = {
-                    InstitutionID: InstitutionID,
+                    InstitutionID: InstitutionID
                 };
 
                 $state.go('CcicDashboard.Academic.CcicAdmVerificationCourses');
@@ -39,11 +48,43 @@
                 //}
                 //catch (err) { }
                 $scope.AdminVerificationReportInsCountTable = [];
-                if (Res.Table.length >= 0) {
-                    $scope.loading = false;
+                var Enrolled = 0;
+                var Submitted = 0;
+                var Approved = 0;
+                var Pending = 0;
+                var Revised = 0;
+                var Rejected = 0;
+                var Recommended = 0;
+
+                if (Res.Table.length > 0) {
                     $scope.AdminVerificationReportInsCountTable = Res.Table;
+                    for (var i = 0; i < Res.Table.length; i++) {
+                        if (Res.Table[i].Enrolled != null)
+                            Enrolled = Enrolled + Res.Table[i].Enrolled;
+                        if (Res.Table[i].Submitted != null)
+                            Submitted = Submitted + Res.Table[i].Submitted;
+                        if (Res.Table[i].Approved != null)
+                            Approved = Approved + Res.Table[i].Approved;
+                        if (Res.Table[i].Pending != null)
+                            Pending = Pending + Res.Table[i].Pending;
+                        if (Res.Table[i].Revised != null)
+                            Revised = Revised + Res.Table[i].Revised;
+                        if (Res.Table[i].Rejected != null)
+                            Rejected = Rejected + Res.Table[i].Rejected;
+                        if (Res.Table[i].Recommended != null)
+                            Recommended = Recommended + Res.Table[i].Recommended;
+                    }
+                    $scope.Enrolled = Enrolled;
+                    $scope.Submitted = Submitted;
+                    $scope.Approved = Approved;
+                    $scope.Pending = Pending;
+                    $scope.Revised = Revised;
+                    $scope.Rejected = Rejected;
+                    $scope.Recommended = Recommended;
+                    $scope.loading = false;
                     $scope.$emit('hideLoading', data);
-                } else {
+                }
+                 else {
                     $scope.loading = false;
                     $scope.AdminVerificationReportInsCountTable = [];
                     $scope.$emit('hideLoading', data);

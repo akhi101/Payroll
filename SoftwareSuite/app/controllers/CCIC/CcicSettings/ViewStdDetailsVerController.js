@@ -28,7 +28,17 @@
         $scope.loading = true;
        
 
+        if ($scope.UserTypeID == 1 || $scope.UserTypeID == 5 || $scope.UserTypeID == 6 ||
+            $scope.UserTypeID == 7 || $scope.UserTypeID == 8 || $scope.UserTypeID == 9 || $scope.UserTypeID == 10) {
+            $scope.Pen = true;
+            $scope.RecommendButton = true;
+            $scope.ApproveButton = false;
+        }
+        else if ($scope.UserTypeID == 4) {
+            $scope.ApproveButton = true;
+            $scope.RecommendButton = false;
 
+        }
 
 
 
@@ -118,6 +128,23 @@
                 };
             }
 
+            $scope.Recommend = function () {
+                $scope.ApproveData = $scope.PreviewData;
+                console.log($scope.ApproveData);
+                $scope.modalInstance1 = $uibModal.open({
+                    templateUrl: "/app/views/CCIC/CcicApprovedPopup.html",
+                    size: 'lg',
+                    scope: $scope,
+                    windowClass: 'modal-fit',
+                    backdrop: 'static',
+                    keyboard: false
+                });
+
+                $scope.closeModal1 = function () {
+                    $scope.modalInstance1.close();
+                };
+            }
+
 
             $scope.Approved = function () {
 
@@ -155,6 +182,32 @@
                     } else {
                         $scope.loading = false;
                         alert('Application Approval Status Updated');
+                        $scope.GetInstitutionVerReportData();
+                        //$scope.ViewStudentDetails();
+
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
+
+            }
+
+
+            $scope.Recommended = function () {
+
+                var setrecommendstatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Recommended');
+                setrecommendstatus.then(function (response) {
+                    $scope.loading = false;
+                    if (response[0].ResponseCode == '500') {
+                        alert(response[0].ResponseDescription);
+                        $scope.ViewStudentDetails();
+
+                    } else {
+                        $scope.loading = false;
+                        alert('Application Recommended Status Updated');
                         $scope.GetInstitutionVerReportData();
                         //$scope.ViewStudentDetails();
 
@@ -221,6 +274,9 @@
 
 
         }
+
+
+
 
     });
 });

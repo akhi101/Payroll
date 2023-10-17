@@ -5,6 +5,8 @@
         var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
         $scope.UserName = authData.UserName;
+        $scope.UserTypeID = authData.UserTypeID;
+
         const $ctrl = this;
         $ctrl.$onInit = () => {
 

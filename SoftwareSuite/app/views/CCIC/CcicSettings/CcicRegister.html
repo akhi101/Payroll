@@ -201,133 +201,144 @@
             <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
 
-        <div class="tab-content containercontent">
+            <div class="tab-content containercontent">
 
 
-            <div class="col-md-12 containercontent" ng-show="DropDownTable">
-                <div class="cl-details">
-                    <h2>Register</h2>
+                <div class="col-md-12 containercontent" ng-show="DropDownTable">
+                    <div class="cl-details">
+                        <h2>Register</h2>
 
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12 containercontent" style="padding-bottom:100px;">
-                <div class="base-row" style="padding:15px!important;">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="font-weight-bold"> Academic Year :</label>
-                                <select class="form-control " ng-model="academicYear" name="AcademicYear" required>
-                                    <option value="" selected="selected">Select Year</option>
-                                    <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicAcademicYears" class="">
-                                        {{data.AcademicYear}}
-                                    </option>
-                                    <!--<option value=1>1</option>
-                                <option value=2>2</option>-->
+                <div class="col-md-12 containercontent" style="padding-bottom:100px;">
+                    <div class="base-row" style="padding:15px!important;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="font-weight-bold"> Academic Year :</label>
+                                    <select class="form-control " ng-model="academicYear" name="AcademicYear" required>
+                                        <option value="" selected="selected">Select Year</option>
+                                        <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicAcademicYears"  class="">
+                                            {{data.AcademicYear}}
+                                        </option>
+                                        <!--<option value=1>1</option>
+                        <option value=2>2</option>-->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label class="font-weight-bold"> Batch:</label>
+                                <select class="form-control" ng-model="batch" name="BatchType" required>
+                                    <option value="" selected="selected">Select Batch</option>
+                                    <option value=1>1</option>
+                                    <option value=2>2</option>
+
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="col-md-3 form-group">
-                            <label class="font-weight-bold"> Batch:</label>
-                            <select class="form-control" ng-model="batch" name="BatchType" required>
-                                <option value="" selected="selected">Select Batch</option>
-                                <option value=1>1</option>
-                                <option value=2>2</option>
-
-                            </select>
+                            <div class="col-md-3 pull-left">
+                                <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="getAdminRegisterReportCount(academicYear,batch)">
+                                    Get Details
+                                </button>
+                            </div>
                         </div>
+                    </div>
+                    <label class="notifylabel" ng-if="AdmRegisterReportInsCountTable.length>0" for="sel1" style="color: red;top:130px">Double Click on Row to get Course wise Details</label>
 
-                        <div class="col-md-3 pull-left">
-                            <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="getAdminRegisterReportCount(academicYear,batch)">
-                                Get Details
-                            </button>
+                    <div class="col-md-12" ng-if="loading">
+                        <!--<div class="sm-spacer"></div>-->
+                        <div style="width:100%;text-align:center;">
+                            <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
                         </div>
+                    </div>
+
+                    <div class="col-md-12" ng-if="NoData">
+                        <div class="col-md-12 no-results">
+                            <img src="../../contents/img/Folder-Icon.svg" />
+                            <h2>No Data</h2>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive table-custom-tables-tb" id="RegisterDetails" ng-if="AdmRegisterReportInsCountTable.length>0">
+                        <table class="table table-bordered table-hover table-rounded">
+                            <thead>
+                                <tr class="cb-1">
+
+                                    <th>InstitutionCode</th>
+                                    <th>InstitutionName</th>
+                                    <th>Enrolled</th>
+                                    <th>Submitted</th>
+                                    <th>Approved</th>
+                                    <th>Pending</th>
+                                    <th>Revised</th>
+                                    <th>Rejected</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Data in AdmRegisterReportInsCountTable|orderBy:sortKey:reverse|filter:search" ng-dblclick="showAdminRegisterCoursesCount(Data.InstitutionID,academicYear,batch)">
+
+                                    <td>{{Data.InstitutionCode}}</td>
+                                    <td>{{Data.InstitutionName}}</td>
+                                    <td><b>{{Data.Enrolled}}</></b></td>
+                                    <td><b>{{Data.Submitted}}</b></td>
+                                    <td><b>{{Data.Approved}}</b></td>
+                                    <td><b>{{Data.Pending}}</b></td>
+                                    <td><b>{{Data.Revised}}</b></td>
+                                    <td><b>{{Data.Rejected}}</b></td>
+                                </tr>
+                                <tr style="font-weight:bold">
+                                    <td colspan="2" class="text-centre" style="padding-left:300px">Total</td>
+                                    <td>{{Enrolled}}</td>
+                                    <td>{{Submitted}}</td>
+                                    <td>{{Approved}}</td>
+                                    <td>{{Pending}}</td>
+                                    <td>{{Revised}}</td>
+                                    <td>{{Rejected}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive table-custom-tables-tb" id="RegisterDetails" ng-if="RegisterCoursesCountTable.length>0">
+                        <table class="table table-bordered table-rounded">
+                            <thead>
+                                <tr class="cb-1">
+                                    <th>CourseCode</th>
+                                    <th>Intake</th>
+                                    <th>Enrolled</th>
+                                    <th>Submitted</th>
+                                    <th>Approved</th>
+                                    <th>Pending</th>
+                                    <th>Revised</th>
+                                    <th>Rejected</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Data in RegisterCoursesCountTable|orderBy:sortKey:reverse|filter:search">
+
+                                    <td>{{Data.CourseCode}}</td>
+                                    <td>{{Data.Intake}}</td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,1,academicYear,batch)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,2,academicYear,batch)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,3,academicYear,batch)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,4,academicYear,batch)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,5,academicYear,batch)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
+                                    <td><b><a class="Verify" ng-dblclick="UserDetails(Data.InstitutionID,Data.CourseID,6,academicYear,batch)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="col-md-12" ng-if="loading">
-                    <!--<div class="sm-spacer"></div>-->
-                    <div style="width:100%;text-align:center;">
-                        <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
-                    </div>
-                </div>
-
-                <div class="col-md-12" ng-if="NoData">
-                    <div class="col-md-12 no-results">
-                        <img src="../../contents/img/Folder-Icon.svg" />
-                        <h2>No Data</h2>
-                    </div>
-                </div>
-                <div class="table-responsive table-custom-tables-tb" id="RegisterDetails" ng-if="AdmRegisterReportInsCountTable.length>0">
-                    <table class="table table-bordered table-hover table-rounded">
-                        <thead>
-                            <tr class="cb-1">
-
-                                <th>InstitutionCode</th>
-                                <th>InstitutionName</th>
-                                <th>Enrolled</th>
-                                <th>Submitted</th>
-                                <th>Approved</th>
-                                <th>Pending</th>
-                                <th>Revised</th>
-                                <th>Rejected</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="Data in AdmRegisterReportInsCountTable|orderBy:sortKey:reverse|filter:search" ng-dblclick="showAdminRegisterCoursesCount(Data.InstitutionID,academicYear,batch)">
-
-                                <td>{{Data.InstitutionCode}}</td>
-                                <td>{{Data.InstitutionName}}</td>
-                                <td><b>{{Data.Enrolled}}</></b></td>
-                                <td><b>{{Data.Submitted}}</b></td>
-                                <td><b>{{Data.Approved}}</b></td>
-                                <td><b>{{Data.Pending}}</b></td>
-                                <td><b>{{Data.Revised}}</b></td>
-                                <td><b>{{Data.Rejected}}</b></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="table-responsive table-custom-tables-tb" id="RegisterDetails" ng-if="RegisterCoursesCountTable.length>0">
-                    <table class="table table-bordered table-rounded">
-                        <thead>
-                            <tr class="cb-1">
-                                <th>CourseCode</th>
-                                <th>Intake</th>
-                                <th>Enrolled</th>
-                                <th>Submitted</th>
-                                <th>Approved</th>
-                                <th>Pending</th>
-                                <th>Revised</th>
-                                <th>Rejected</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="Data in RegisterCoursesCountTable|orderBy:sortKey:reverse|filter:search">
-
-                                <td>{{Data.CourseCode}}</td>
-                                <td>{{Data.Intake}}</td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,1,academicYear,batch)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,2,academicYear,batch)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,3,academicYear,batch)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,4,academicYear,batch)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,5,academicYear,batch)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
-                                <td><b><a class="Verify" ng-click="UserDetails(Data.InstitutionID,Data.CourseID,6,academicYear,batch)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
+                <div class="sm-spacer"></div>
+                <div class="sm-spacer"></div>
             </div>
-
-            <div class="sm-spacer"></div>
-            <div class="sm-spacer"></div>
-        </div>
 
 
 

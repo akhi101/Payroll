@@ -281,8 +281,8 @@
         this.GetAvailableFeedbacks = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetAvailableFeedbacks');
         };
-        this.getAdminSyllabusReports = function (Scheme, ShiftType, CollegeCode) {
-            var paramObject = { "Scheme": Scheme, "ShiftType": ShiftType, "CollegeCode": CollegeCode };
+        this.getAdminSyllabusReports = function (AcademicYearId, SemId, CollegeCode) {
+            var paramObject = { "AcademicYearId": AcademicYearId, "SemId": SemId, "CollegeCode": CollegeCode };
             return DataAccessService.getDataWithPara('Academic/getAdminSyllabusReports', paramObject);
         };
 

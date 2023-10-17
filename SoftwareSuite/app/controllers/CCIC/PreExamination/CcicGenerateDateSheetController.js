@@ -155,10 +155,10 @@
         $scope.toggleAll = function () {
             var toggleStatus = $scope.isAllSelected;
             angular.forEach($scope.HolidaysDates, function (itm) { itm.selected = toggleStatus; });
-            $scope.arr = [];
+            $scope.holidayarr = [];
             angular.forEach($scope.HolidaysDates, function (value, key) {
                 if (value.selected === true) {
-                    $scope.arr.push({ "HolidayDate": moment(value.Dates).format("YYYY-MM-DD") })
+                    $scope.holidayarr.push({ "HolidayDate": moment(value.Dates).format("YYYY-MM-DD") })
                 }
             });
         }
@@ -186,7 +186,7 @@
 
         $scope.optionToggled = function () {
             $scope.isAllSelected = $scope.HolidaysDates.every(function (itm) { return itm.selected; })
-            $scope.arr = [];
+            $scope.holidayarr = [];
             angular.forEach($scope.HolidaysDates, function (value, key) {
                 if (value.selected === true) {
                     if (value.Day == "Sunday") {
@@ -194,7 +194,7 @@
                     } else {
                         var Holidays = "Holiday"
                     }
-                    $scope.arr.push({ "HolidayDate": moment(value.Dates).format("YYYY-MM-DD"), "Day": Holidays })
+                    $scope.holidayarr.push({ "HolidayDate": moment(value.Dates).format("YYYY-MM-DD") })
                 }
             });
         }
@@ -429,7 +429,8 @@
 
         }
 
-        $scope.SaveHolidays = function () {
+       
+        $scope.generateTimeTable = function () {
             if ($scope.academicYear == null || $scope.academicYear == '' || $scope.academicYear==undefined) {
                 alert('Please Select Academic Year');
                 return;
@@ -446,11 +447,35 @@
             //    alert('Please Select Holiday Dates');
             //    return;
             //}
-            var holidaydates = CcicPreExaminationService.SetHolidayDates(JSON.stringify($scope.arr), $scope.academicYear, $scope.monthyear );
-            holidaydates.then(function (res) {
+            $scope.timeslotarr = [];
+
+            //var obj = { "FromHH": $scope.Sthh, "FromMM": $scope.Stmm, "FromAmOrPm": $scope.Stamorpm, "ToHH": $scope.Edhh, "ToMM": $scope.Edmm, "ToAmOrPm": $scope.Edamorpm };
+            //console.log(obj)
+            //slotarr.push(obj);
+
+            for (var i = 0; i < $scope.slotarr.length; i++) {
+                var obj = {
+                   
+                    "FromHH": $scope.slotarr[i].Sthh, "FromMM": $scope.slotarr[i].Stmm, "FromAmOrPm": $scope.slotarr[i].Stamorpm, "ToHH": $scope.slotarr[i].Edhh, "ToMM": $scope.slotarr[i].Edmm, "ToAmOrPm": $scope.slotarr[i].Edamorpm,
+                    
+                }
+                $scope.timeslotarr.push(obj);
+            }
+
+            if ($scope.slotarr.length <= 0) {
+                alert("Select Time Slots");
+                return;
+            }
+            var generatett = CcicPreExaminationService.GenerateTimeTable($scope.holidayarr, $scope.academicYear, $scope.monthyear, $scope.timeslotarr, $scope.StartDate, $scope.UserName);
+            generatett.then(function (res) {
+
+                try {
+                    var response = JSON.parse(res)
+                }
+                catch (err) { }
+
                 if (res[0].ResponceCode == '200') {
                     alert(res[0].ResponceDescription);
-                    $scope.setTimeTabledata();
                 }
                 else if (res[0].ResponceCode == '400') {
                     alert(res[0].ResponceDescription);
@@ -476,7 +501,7 @@
                 catch (err) { }
                 if (dat.Table[0].ResponceCode == '200') {
                     alert(dat.Table[0].ResponceDescription);
-                    //$scope.getpdfTimeTableData();
+                    $scope.verifyTimeTableGeneration($scope.academicYear, $scope.monthyear);
                 } else {
                     alert(dat.Table[0].ResponceDescription);
                     $scope.ResultNotFound = true;
@@ -488,6 +513,132 @@
                 $scope.ResultNotFound = true;
                 $scope.ResultFound = false;
                 $scope.LoadImg = false;
+            });
+
+        }
+
+        $scope.verifyTimeTableGeneration = function () {
+            var gettimetablebutton = CcicPreExaminationService.VerifyTimeTableGeneration($scope.academicYear, $scope.monthyear);
+            gettimetablebutton.then(function (dat) {
+                try {
+                    var dat = JSON.parse(dat)
+                }
+                catch (err) { }
+                if (dat[0].ResponseCode == '200') {
+                    //alert(dat[0].ResponceDescription);
+                    $scope.pdfbutton = true;
+                    $scope.excelbutton = true;
+                } else {
+                    //alert(dat[0].ResponseDescription);
+                    //$scope.ResultNotFound = true;
+                    //$scope.ResultFound = false;
+                    $scope.LoadImg = false;
+                }
+
+            }, function (error) {
+                $scope.ResultNotFound = true;
+                $scope.ResultFound = false;
+                $scope.LoadImg = false;
+            });
+
+        }
+
+        const download = (path, filename) => {
+            // Create a new link
+            const anchor = document.createElement('a');
+            anchor.href = path;
+            anchor.download = filename;
+
+            // Append to the DOM
+            document.body.appendChild(anchor);
+
+            // Trigger `click` event
+            anchor.click();
+
+            // Remove element from DOM
+            document.body.removeChild(anchor);
+        };
+        $scope.getpdfTimeTableData = function () {
+            $scope.Loading1 = true;
+            $scope.NoData = false;
+            var DataType = 1;
+            var getdata = CcicPreExaminationService.GetTimeTableDataPdf(DataType, $scope.academicYear, $scope.monthyear);
+            getdata.then(function (res) {
+                if (res == null) {
+                    $scope.Loading1 = false;
+                    alert("No Time Table Present");
+                }
+
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        $scope.Loading1 = false;
+                        $scope.nodata = true;
+                        //window.location.href + '/Reports/' + res + '.pdf';
+                        window.location.href
+                        //window.open(location,'_blank')
+                        var url = window.location.origin + '/Reports/' + res + '.pdf';
+                        console.log(url)
+                        download(url, 'TimeTable_' + $scope.CourseCode + '.pdf');
+                        //window.open(url, '_blank'); 
+                        $scope.nodata = false;
+
+                    } else {
+                        $scope.Loading1 = false;
+                        $scope.nodata = true;
+                        alert("No Time Table Present");
+                    }
+                }
+                else {
+                    $scope.Loading1 = false;
+                    $scope.nodata = true;
+                    alert("No Time Table Present");
+                }
+
+            },
+
+                function (error) {
+                    $scope.loading = false;
+                    $scope.nodata = true;
+                    alert("No Time Table Present");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+
+
+        $scope.getTimeTableExcel = function () {
+            $scope.loading = true;
+            var DataType = 2;
+            var exceldownload = CcicPreExaminationService.GetCcicTimeTableExcel(DataType, $scope.academicYear, $scope.monthyear);
+            exceldownload.then(function (res) {
+                var response = JSON.parse(res);
+                console.log(response)
+                if (response[0].ResponceCode == '200') {
+                    $scope.loading = false;
+
+                    var location = response[0].file;
+                    window.location.href = location;
+                    $scope.Error1 = false;
+                    $scope.Noresult = false;
+                } else if (response[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    $scope.Data = false;
+                    $scope.Noresult = false;
+                    $scope.Error1 = true;
+                    $scope.ErrMsg1 = response[0].ResponceDescription;
+                    alert($scope.ErrMsg1)
+                } else {
+                    $scope.loading = false;
+                    $scope.Data = false
+                    alert("No Data Found");
+                    $scope.Noresult = true;
+                    $scope.Error1 = false;
+
+                }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
             });
 
         }

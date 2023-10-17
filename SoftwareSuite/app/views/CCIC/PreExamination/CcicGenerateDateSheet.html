@@ -317,56 +317,15 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-md-3">
-                        <div class="form-group">
-
-                            <label class="font-weight-bold"> Batch :</label>
-                            <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                <option value="" selected="selected">Select Batch</option>
-                                <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                    {{data.Batch}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>-->
-
                     <div class="col-md-3 form-group">
                         <label for="sel1">
                             Exam Month/Year :
                         </label>
-                        <select class="form-control" ng-model="monthyear" id="ExamYear"
+                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
                                 ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                             <option value="" selected>Select Month/Year of Exam</option>
                         </select>
                     </div>
-
-                    <div class="col-md-2 pull-left">
-                        <button class="btn pull-left myBtn1 btn-primary btn-css text-uppercase" style="margin-top: 23px;" ng-click="SaveHolidays()">
-                            Generate Date Sheet <span class="fa fa-file-pdf-o  heading_icon btn_icons"></span>
-                        </button>
-
-                    </div>
-                    <!--<div class="col-md-3">
-        <div class="gr-btn">
-            <button type="submit" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="Submit()">Add Month/ year<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
-        </div>
-    </div>-->
-                    <!--<div class="col-md-3 form-group">
-        <label for="ExamType">
-            Exam slots per day :
-        </label>
-        <select class="form-control" id="NoofSlots" ng-model="NoofSlots" ng-change="addSlots(NoofSlots)">
-            <option value="" selected>Select No of Slots</option>
-
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=2>3</option>
-            <option value=2>4</option>
-
-        </select>
-    </div>-->
-
-
 
                     <div class="col-md-3 form-group">
                         <label class="font-weight-bold">Start date:</label> <input autocomplete="off" class="form-control" type="date" ng-model="StartDate" ng-change="loadHolidaydates()" placeholder="Select Start Date">
@@ -405,24 +364,16 @@
                         </select>
                     </div>
 
-                    <div class="col-md-2 pull-left">
-                        <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="getpdfTimeTableData()">
-                            Download PDF <span class="fa fa-file-pdf-o  heading_icon btn_icons"></span>
-                        </button>
 
-                    </div>
-                    <div class="col-md-2 pull-left">
-
-                        <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="exportTimetableToExcel()">
-                            Download Excel <span class="fa fa-file-excel-o  heading_icon btn_icons"></span>
-                        </button>
-
-                    </div>
 
                     <div class="col-md-12" ng-show="slotarr.length>0">
                         <h4>Time Slots</h4>
                         <table class="table" cellpadding="0" cellspacing="0">
+                            >
+
                             <tr>
+                                >
+
                                 <th style="width:10%">Time Slot</th>
                                 <th style="width:30%">Start time</th>
                                 <th style="width:30%">End Time</th>
@@ -501,13 +452,47 @@
                         </table>
                     </div>
 
+                    <div class="col-md-2 pull-right">
+                        <button class="btn pull-left myBtn1 btn-primary btn-css text-uppercase" style="margin-top: 23px;" ng-click="generateTimeTable()">
+                            Generate Date Sheet
+                            <span class="heading_icon btn_icons"></span>
+                        </button>
 
+                    </div>
                 </div>
             </form>
         </div>
+        <div class="col-md-2 pull-right" ng-show="pdfbutton">
+            <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="getpdfTimeTableData()">
+                Download PDF
+                <span class="fa fa-file-pdf-o  heading_icon btn_icons"></span>
+            </button>
+
+        </div>
+        <div class="col-md-2 pull-right" ng-show="excelbutton">
+
+            <button class="btn pull-left myBtn1 btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="getTimeTableExcel()">
+                Download Excel
+                <span class="fa fa-file-excel-o  heading_icon btn_icons"></span>
+            </button>
+
+        </div>
+
+        <div class="col-md-12" ng-if="Loading">
+            <div style="width:100%;text-align:center;">
+                <img src="../../../contents/img/Loading1.gif" width="100" />
+                <h4><b>Generating Date Sheet, Please wait...</b></h4>
+            </div>
+        </div>
+
+        <div class="col-md-12" ng-if="Loading1">
+            <div style="width:100%;text-align:center;">
+                <img src="../../../contents/img/loading2.gif" width="100" />
+            </div>
+        </div>
         <div class="sm-spacer"></div>
         <div class="col-md-12" style="padding:0px!important">
-            <div class="cl-details"  ng-show="">
+            <div class="cl-details" ng-show="">
                 <h2>Exam Month Year's list</h2>
             </div>
         </div>
@@ -546,8 +531,8 @@
             </div>
             <div style="width:100%;text-align:center;">
                 <!--<div class="loadingImg">
-                   <img src="../../contents/img/loading2.gif" ng-show="loading" width="64" />
-                </div>-->
+               <img src="../../contents/img/loading2.gif" ng-show="loading" width="64" />
+            </div>-->
 
             </div>
         </div>
