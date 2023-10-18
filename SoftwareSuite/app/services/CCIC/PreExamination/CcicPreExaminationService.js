@@ -172,9 +172,9 @@
             return promise;
         };
 
-        this.GetAdminExamCentersList = function (AcademicYearID, CourseIds, ExamMonthYearID) {
+        this.GetAdminExamCentersList = function (AcademicYearID, ExamMonthYearID) {
             var paramObj = {
-                "AcademicYearID": AcademicYearID, "CourseIds": CourseIds, "ExamMonthYearID": ExamMonthYearID
+                "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/GetAdminExamCentersList', paramObj);
             return promise;

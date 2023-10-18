@@ -797,7 +797,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[3] = new SqlParameter("@Schemeid", Schemeid);
                 param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_DaywisePcodeReport", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_DaywisePcodeReport", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -1376,16 +1376,16 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        [HttpGet, ActionName("GetFactultyMappingExcel")]
-        public string GetFactultyMappingExcel(int AcademicYearId,string SemId,string CollegeCode)
+        [HttpPost, ActionName("GetFacultyMappingExcel")]
+        public string GetFacultyMappingExcel([FromBody] JsonObject data)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@AcademicYearId",AcademicYearId);
-                param[1] = new SqlParameter("@SemId", SemId);
-                param[2] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[0] = new SqlParameter("@AcademicYearId", data["AcademicYearId"].ToString());
+                param[1] = new SqlParameter("@SemId", data["SemId"].ToString());
+                param[2] = new SqlParameter("@CollegeCode", data["CollegeCode"].ToString());
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AcademicFacultyMappingStatus", param);
                 if (ds.Tables[0].Rows.Count>0)
                 {

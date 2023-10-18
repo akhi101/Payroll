@@ -77,7 +77,8 @@
 
         $scope.Submit = function () {
             $scope.loading = true;
-            var getReport = AcademicService.getAdminSyllabusReports($scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode);
+            console.log(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode)
+            var getReport = AcademicService.getAdminSyllabusReports(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode);
             getReport.then(function (response) {
                 if (response.Table.length > 0) {
                     $scope.loading = false;
@@ -121,7 +122,7 @@
 
             $scope.reload = true;
 
-            var loadData1 = PreExaminationService.GetFactultyMappingExcel($scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode)
+            var loadData1 = PreExaminationService.GetFacultyMappingExcel($scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode)
             loadData1.then(function (res) {
               
                 var data = JSON.parse(res)

@@ -231,13 +231,13 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateNrData', paramObject);
         };
       
-        this.GetFactultyMappingExcel = function (AcademicYearId, SemId, CollegeCode) {
+        this.GetFacultyMappingExcel = function (AcademicYearId, SemId, CollegeCode) {
             var paramObject = {
                 "AcademicYearId": AcademicYearId, "SemId": SemId, "CollegeCode": CollegeCode,
               
             };
 
-            return DataAccessService.getDataWithPara('api/PreExamination/GetFactultyMappingExcel', paramObject);
+            return DataAccessService.postData('api/PreExamination/GetFacultyMappingExcel', paramObject);
         };
 
         

@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-detail" ng-click="Submit()" style="margin-top:22px;">
+                    <button type="submit" class="btn btn-detail" ng-click="getDaywisePcodeExcel()" style="margin-top:22px;">
                         Get Report
                     </button>
                 </div>
@@ -104,7 +104,7 @@
             <div class="cl-details">
                 <h2>Daywise Pcode Report</h2>
             </div>
-            <div class="col-md-12">
+            <!--<div class="col-md-12">
                 <div class="pull-right">
                     <a class="ExportToExcel pointer"
                        id="ExportToExcel" ng-click="getDaywisePcodeExcel()">
@@ -112,8 +112,8 @@
                         Export to Excel
                     </a>
                 </div>
-            </div>
-            <div class="col-md-12"  ng-show="DayWisePcodeReportData.length>0">
+            </div>-->
+            <div class="col-md-12">
             <div class="table-responsive table-custom-tables-tb scrollbox">
                 <table id="tblParent1" class="table table-bordered  table-striped table-rounded scrollbox-content">
                     <thead>
@@ -131,7 +131,7 @@
                     </thead>
 
                     <tbody>
-                        <tr ng-show="DayWisePcodeReportData.length>0" ng-repeat="data in DayWisePcodeReport" style="background-color:#fff!important;cursor:pointer;">
+                        <tr ng-repeat="data in DayWisePcodeReport" style="background-color:#fff!important;cursor:pointer;">
                             <!-- <td style="text-align: center" class="checkboxs"><input type="checkbox" ng-model="x.isChecked" ng-class="{selected: x.isChecked}" ng-change="selectEntity(x)"></td>-->
                             <td>{{$index+1}}</td>
                             <td>{{data.ExamDate}}</td>
