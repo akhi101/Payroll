@@ -2958,26 +2958,27 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpPost, ActionName("SendAttendance")]
         public HttpResponseMessage SendAttendance(HttpRequestMessage request)
         {
-            try
-            {
+            //try
+            //{
 
-                var apikey = request.Headers.GetValues("apikey").FirstOrDefault();
-                var apikeyOrig = ConfigurationManager.AppSettings["AttendanceSharingApiKey"].ToString();
-                if (apikey != apikeyOrig)
-                {
-                    var response = Request.CreateResponse(HttpStatusCode.Forbidden);
-                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
-                    SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
-                    return response;
-                }
-            }
-            catch (Exception)
-            {
-                SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
-                var response = Request.CreateResponse(HttpStatusCode.Forbidden);
-                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
-                return response;
-            }
+            //    //var apikey = request.Headers.GetValues("apikey").FirstOrDefault();
+            //    //var apikey = request.Headers.GetValues("apikey").FirstOrDefault();
+            //    var apikeyOrig = ConfigurationManager.AppSettings["AttendanceSharingApiKey"].ToString();
+            //    if (apikeyOrig !="")
+            //    {
+            //        var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+            //        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+            //        SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+            //        return response;
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    SendSms(1, 0, " Attendance is Unsuccessfully while Pushing into DataBase because respcode 403 , respdesc Invalid Api Key");
+            //    var response = Request.CreateResponse(HttpStatusCode.Forbidden);
+            //    response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"403\",\"respdesc\" = \"Invalid Api Key\"\" }"), System.Text.Encoding.UTF8, "application/json");
+            //    return response;
+            //}
             try
             {
 
@@ -3022,7 +3023,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                         int rescode = (int)dt.Rows[0][0];
                         string respdesc = (string)dt.Rows[0][1];
                         var response = Request.CreateResponse(HttpStatusCode.OK);
-                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" + rescode + "\",\"respdesc\" : \"" + respdesc + "\"\" }"), System.Text.Encoding.UTF8, "application/json");
+                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" + rescode + "\",\"respdesc\" : \"" + respdesc + "\"}"), System.Text.Encoding.UTF8, "application/json");
 
                         //succuss message
                         // SendSms(1, 1, " Attendance Successfully Pushed into DataBase");
@@ -3170,16 +3171,20 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param2[1] = new SqlParameter("@deptType", deptflag);
                 param2[2] = new SqlParameter("@startdate", semstartdatepharm2ndyear);
                 db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param2);
-
+                
+                //Dataset res= new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"200\",\"respdesc\" : \"Attendance Data Pushed \" }"), System.Text.Encoding.UTF8, "application/json");
+                //var response = Request.CreateResponse(HttpStatusCode.OK);
+                // response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" +" \"200\" "+ "\",\"respdesc\" : \"" +"\" Attendance Data Pushed\""+ "\" }"), System.Text.Encoding.UTF8, "application/json");
+                // return response;
 
                 //succuss message
                 // SendSms(2, 1, " Updated Working Days Successfully Pushed into DataBase");
 
                 try
                 {
-                    ProcessAttendanceDisplay();
+                 ProcessAttendanceDisplay();
                 }
-                catch (Exception ex) { }
+                 catch (Exception ex) { }
             }
             catch (Exception ex)
             {

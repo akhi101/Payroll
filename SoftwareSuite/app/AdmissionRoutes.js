@@ -2139,6 +2139,12 @@
                 dependencies: ['controllers/PreExamination/CondonationController', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService']
             },
 
+            'Dashboard.PreExamination.PostAttendance': {
+                url: "/PostAttendance",
+                templateUrl: 'app/views/PreExamination/PostAttendance.html',
+                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Admission/AttendanceService']
+            },
+
             'Dashboard.PreExamination.CheckOnRole': {
                 url: "/Condonation/CheckOnRole",
                 templateUrl: 'app/views/PreExamination/CheckOnRole.html',
