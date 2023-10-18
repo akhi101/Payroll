@@ -228,7 +228,7 @@
 
             $scope.loading = true;
             $scope.result = false;
-            var getadmexmcenters = CcicPreExaminationService.GetAdminExamCentersList(parseInt($scope.AcademicYear), $scope.coursearr, parseInt($scope.monthyear))
+            var getadmexmcenters = CcicPreExaminationService.GetAdminExamCentersList(parseInt($scope.AcademicYear),  parseInt($scope.monthyear))
             getadmexmcenters.then(function (response) {
                 if (response.length > 0) {
                     $scope.GetInstitutionCenters = response;

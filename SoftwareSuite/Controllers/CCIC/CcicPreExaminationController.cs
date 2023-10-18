@@ -2046,10 +2046,10 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@AcademicYearID", request["AcademicYearID"].ToString());
-                param[1] = new SqlParameter("@CourseIds", request["CourseIds"].ToString());
-                param[2] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"].ToString());
+                //param[1] = new SqlParameter("@CourseIds", request["CourseIds"].ToString());
+                param[1] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"].ToString());
                
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_InstitutionVsExamCenter", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);

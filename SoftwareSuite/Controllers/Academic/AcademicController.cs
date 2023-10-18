@@ -738,16 +738,16 @@ namespace SoftwareSuite.Controllers.Academic
             }
         }
 
-        [HttpGet, ActionName("getAdminSyllabusReports")]
-        public string getAdminSyllabusReports(int AcademicYearId, string SemId, string CollegeCode)
+        [HttpPost, ActionName("getAdminSyllabusReports")]
+        public string getAdminSyllabusReports([FromBody] JsonObject data)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
-                param[1] = new SqlParameter("@SemId", SemId);
-                param[2] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[0] = new SqlParameter("@AcademicYearId", data["AcademicYearId"]);
+                param[1] = new SqlParameter("@SemId", data["SemId"].ToString());
+                param[2] = new SqlParameter("@CollegeCode", data["CollegeCode"]);
                
                
                 var dt = dbHandler.ReturnDataWithStoredProcedure("usp_ACD_GetFacultyMappingReport", param);
@@ -758,6 +758,9 @@ namespace SoftwareSuite.Controllers.Academic
                 return ex.Message;
             }
         }
+
+
+
 
         
 

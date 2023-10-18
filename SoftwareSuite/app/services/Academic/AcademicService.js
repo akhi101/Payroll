@@ -283,7 +283,8 @@
         };
         this.getAdminSyllabusReports = function (AcademicYearId, SemId, CollegeCode) {
             var paramObject = { "AcademicYearId": AcademicYearId, "SemId": SemId, "CollegeCode": CollegeCode };
-            return DataAccessService.getDataWithPara('Academic/getAdminSyllabusReports', paramObject);
+            console.log(paramObject)
+            return DataAccessService.postData('Academic/getAdminSyllabusReports', paramObject);
         };
 
 

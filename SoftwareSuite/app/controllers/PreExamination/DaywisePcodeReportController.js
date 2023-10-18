@@ -15,9 +15,9 @@ define(['app'], function (app) {
                         var response = JSON.parse(res)
                     }
                     catch {error }
-                    if (response.Table.length > 0) {
+                    if (response.length > 0) {
                         $scope.loading = false;
-                        $scope.DayWisePcodeReportData = response.Table;
+                        $scope.DayWisePcodeReportData = response;
                         $scope.Noresult = false;
                     } else {
                         $scope.loading = false;
