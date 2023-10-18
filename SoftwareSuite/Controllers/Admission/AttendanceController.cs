@@ -577,14 +577,16 @@ namespace SoftwareSuite.Controllers.Admission
                 //succuss message
                 // SendSms(2, 1, " Updated Working Days Successfully Pushed into DataBase");
 
-                try
-                {
-                    var response = Request.CreateResponse(HttpStatusCode.NotAcceptable);
-                    if (optype == "1") { 
-                        ProcessAttendanceDisplay();
-                    }
-                }
-                catch (Exception ex) { }
+      //******** For Attendance Calculation Part**********///////////
+
+                //try
+                //{
+                //    var response = Request.CreateResponse(HttpStatusCode.NotAcceptable);
+                //    if (optype == "1") { 
+                //        ProcessAttendanceDisplay();
+                //    }
+                //}
+                //catch (Exception ex) { }
             }
             catch (Exception ex)
             {
@@ -629,6 +631,28 @@ namespace SoftwareSuite.Controllers.Admission
                 return ex.Message;
             }
         }
+
+        [HttpGet, ActionName("GetAttendanceDataByDate")]
+        public string GetAttendanceDataByDateAsync(string date)
+        {
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                var clientUrl = ConfigurationManager.AppSettings["BMA_API_ROOT"];
+                var client = new RestClient(clientUrl);
+                string apiparams = "/getAttendance?date=" + date;
+                var req = new RestRequest(apiparams, Method.GET);
+                req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
+                var data = client.Get(req);
+                return JsonConvert.SerializeObject(data);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
         [HttpGet, ActionName("ActivateAttendeeStatus")]
         public string ActivateAttendeeStatus(string attendeeId)

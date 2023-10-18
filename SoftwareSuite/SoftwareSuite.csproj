@@ -1139,6 +1139,7 @@
     <Content Include="app\controllers\PreExamination\HodCondonationController.js" />
     <Content Include="app\controllers\PreExamination\MercyListController.js" />
     <Content Include="app\controllers\PreExamination\MobileAppHallticketController.js" />
+    <Content Include="app\controllers\PreExamination\PostAttendanceController.js" />
     <Content Include="app\controllers\PreExamination\PrinterNrDownloadController.js" />
     <Content Include="app\controllers\PreExamination\NrExcelReportController.js" />
     <Content Include="app\controllers\PreExamination\NrDownloadController.js" />
@@ -2724,6 +2725,7 @@
     <Content Include="app\views\PreExamination\HodCondonation.html" />
     <Content Include="app\views\PreExamination\MercyList.html" />
     <Content Include="app\views\PreExamination\MobileAppHallticket.html" />
+    <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\views\PreExamination\PrinterNrDownload.html" />
     <Content Include="app\views\PreExamination\NrExcelReport.html" />
     <Content Include="app\views\PreExamination\NrDownload.html" />
