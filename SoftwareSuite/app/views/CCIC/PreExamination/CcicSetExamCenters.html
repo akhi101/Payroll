@@ -259,13 +259,14 @@
                                 <th>Institution Name</th>
                                 <th>Course Name</th>
                                 <th>Examination Center</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="x in GetInstitutionCenters">
                                 <td>{{$index+1}}</td>
-                                <td>{{x.InstitutionID}} - {{x.InstitutionCode}} - {{x.InstitutionName}} </td>
-                                <td>{{x.CourseID}} - {{x.CourseName}}</td>
+                                <td>{{x.InstitutionName}} </td>
+                                <td>{{x.CourseName}}</td>
                                 <td>
                                     <span ng-if="edit">
                                         {{x.ExaminationCenter}}
@@ -277,7 +278,17 @@
                                         </select>
                                     </span>
                                 </td>
+                                <!--<td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="ChangeStatus(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdationStatus(data,$index+1)">
+                                        Update
+                                    </button>-->
+
+                                </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
