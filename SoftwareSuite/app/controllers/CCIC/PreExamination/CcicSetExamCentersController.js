@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicSetExamCentersController", function ($scope, $localStorage, CcicPreExaminationService) {
+    app.controller("CcicSetExamCentersController", function ($scope, $uibModal, $localStorage, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName
@@ -11,21 +11,10 @@
         const $ctrl = this;
         $ctrl.$onInit = () => {
             $scope.GetExamMonthYearData();
-
+            $scope.getExamCentres();
         }
 
-        var getExamCenters = CcicPreExaminationService.GetExaminationCenters();
-        getExamCenters.then(function (response) {
-            var ExamCentertable = [];
-            $scope.ExamCenters = response;
-            //$scope.loading = false;
-            //$scope.result = true;
-            ExamCentertable = response;
-
-        },
-            function (error) {
-                var err = JSON.parse(error);
-            });
+        
 
         var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
         getCcicCurrentAcademicYear.then(function (response) {
@@ -319,7 +308,39 @@
         //        });
         //}
 
-        $scope.UpdateData = function () {
+
+        $scope.editExaminationCentres = function () {
+            //var DataType = 2;
+            //var getcentre = CcicPreExaminationService.EditCcicExaminationCentres(DataType, ExaminationCentreID);
+            //getcentre.then(function (res) {
+            //    try {
+            //        var Res = JSON.parse(res)
+            //    }
+            //    catch (error) {
+
+            //    }
+            //    $scope.EditData = Res.Table;
+            //    $scope.EditData1 = Res.Table1;
+            //}, function (err) {
+            //    $scope.LoadImg = false;
+            //    alert("Error while loading");
+            //});
+
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/CCIC/Popups/EditCcicExamCentresPopup.html",
+                size: 'xlg',
+                scope: $scope,
+                backdrop: 'static',
+                windowClass: 'modal-fit-att',
+            });
+            $scope.closeModal = function () {
+                $scope.modalInstance.close();
+            }
+        }
+
+        
+
+        $scope.update = function () {
             var setexmcenters = CcicPreExaminationService.SetAdminExamCentersList(JSON.stringify(examCenters), parseInt($scope.monthyear));
             setexmcenters.then(function (response) {
                 if (response[0].ResponseCode == '500') {
@@ -342,6 +363,29 @@
                 })
 
         }
+
+
+        $scope.getExamCentres = function () {
+            var DataType = 1;
+            var ExaminationCentreID = 0;
+            var getcentres = CcicPreExaminationService.GetExaminationCentres(DataType, ExaminationCentreID);
+            getcentres.then(function (res) {
+                try {
+                    var Res = JSON.parse(res)
+                }
+                catch (error) {
+
+                }
+                $scope.GetExaminationCentresTable = Res.Table;
+
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
+        }
+
+
+       
 
     })
 })

@@ -279,6 +279,12 @@
 
             },
 
+            'CcicDashboard.Settings.Users': {
+                url: "/Users",
+                templateUrl: 'app/views/CCIC/CcicSettings/CcicUsers.html',
+                dependencies: ['controllers/CCIC/CcicSettings/CcicUsersController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicSystemUserService']
+            },
+
             'CcicDashboard.Academic.AcademicYearSetting': {
                 url: "/AcademicYearSetting",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicAcademicYearSettings.html',
@@ -501,6 +507,12 @@
             },
 
 
+            'CcicDashboard.PreExamination.ExaminationCentres': {
+                url: "/ExaminationCentres",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicExaminationCentres.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicExaminationCentresController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
+            },
+
             'CcicDashboard.PreExamination.SetFeeDates': {
                 url: "/SetFeeDates",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicSetFeeDates.html',
@@ -546,14 +558,17 @@
             'CcicDashboard.Assessment.SetEntryDates': {
                 url: "/SetEntryDates",
                 templateUrl: 'app/views/CCIC/Assessment/CcicSetEntryDates.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicSetEntryDatesController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+                dependencies: ['controllers/CCIC/Assessment/CcicSetEntryDatesController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
-            'CcicDashboard.Assessment.MarksEntryReports': {
-                url: "/MarksEntryReports",
-                templateUrl: 'app/views/CCIC/Assessment/CcicMarksEntryReports.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicMarksEntryReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            'CcicDashboard.Assessment.MarksEntry': {
+                url: "/MarksEntry",
+                templateUrl: 'app/views/CCIC/Assessment/CcicMarksEntry.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicMarksEntryController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/MenuService', 'services/CCIC/Assessment/CcicAssessmentService']
+
             },
+
+
 
             'CcicDashboard.PostExamination': {
                 url: "/PostExamination",
@@ -1796,10 +1811,24 @@
                 dependencies: ['controllers/PostExam/BonafideApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
+
+
             'Dashboard.PostExam.StudyCertificateApproveListDetails': {
                 url: "/StudyCertificateApproveList/StudyCertificateApproveListDetails",
                 templateUrl: 'app/views/PostExam/BonafideApproveListDetails.html',
                 dependencies: ['controllers/PostExam/BonafideApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+            },
+
+            'Dashboard.PostExam.BonafiedCertificate': {
+                url: "/BonafiedCertificate",
+                templateUrl: 'app/views/PostExam/BonafideCertApproveList.html',
+                dependencies: ['controllers/PostExam/BonafideCertApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+            },
+
+            'Dashboard.PostExam.BonafideCertificateApproveListDetails': {
+                url: "/BonafideCertificate/BonafideCertificateApproveListDetails",
+                templateUrl: 'app/views/PostExam/BonafideCertApproveListDetails.html',
+                dependencies: ['controllers/PostExam/BonafideCertApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
             'Dashboard.PostExam.TransferCertificatePending': {
@@ -4096,10 +4125,24 @@
                 dependencies: ['controllers/PostExam/BonafideApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
+            
+
             'Dashboard.StudentServices.StudyCertificateApproveListDetails': {
                 url: "/StudyCertificateApproveList/StudyCertificateApproveListDetails",
                 templateUrl: 'app/views/PostExam/BonafideApproveListDetails.html',
                 dependencies: ['controllers/PostExam/BonafideApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+            },
+
+            'Dashboard.StudentServices.BonafiedCertificate': {
+                url: "/BonafiedCertificate",
+                templateUrl: 'app/views/PostExam/BonafideCertApproveList.html',
+                dependencies: ['controllers/PostExam/BonafideCertApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+            },
+
+            'Dashboard.StudentServices.BonafiedCertificateApproveListDetails': {
+                url: "/BonafiedCertificate/BonafiedCertificateApproveListDetails",
+                templateUrl: 'app/views/PostExam/BonafideCertApproveListDetails.html',
+                dependencies: ['controllers/PostExam/BonafideCertApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
             //Marks Memo ApproveList  

@@ -71,7 +71,7 @@ define(['app'], function (app) {
             });
 
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/CCIC/Popups/EditSubjectMasterPopup.html",
+                templateUrl: "/app/views/CCIC/Popups/EditExaminationCentresPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 backdrop: 'static',

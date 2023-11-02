@@ -22,6 +22,8 @@ using System.Data;
 using SoftwareSuite.Models;
 using static SoftwareSuite.Controllers.Assessment.AssessmentController;
 using System.Timers;
+using DocumentFormat.OpenXml.Wordprocessing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -308,6 +310,103 @@ namespace SoftwareSuite.Controllers.CCIC
             }
             catch (Exception ex)
             {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetorEditExaminationCentres")]
+        public string GetorEditExaminationCentres(int DataType, int ExaminationCentreID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ExaminationCentreID", ExaminationCentreID);
+                var dt = dbHandler.ReturnDataSet("SP_Get_Edit_ExaminationCentres", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetorEditCcicExaminationCentres")]
+        public string GetorEditCcicExaminationCentres(int DataType, int ExaminationCentreID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ExaminationCentreID", ExaminationCentreID);
+                var dt = dbHandler.ReturnDataSet("SP_Get_Edit_ExaminationCentres", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public class ExamCentresInfo
+        {
+            public int DataType { get; set; }
+            public string PrincipalName { get; set; }
+            public string PrincipalMobile { get; set; }
+            public string PrincipalEmail { get; set; }
+            public int ExaminationCentreID { get; set; }
+            public bool Active { get; set; }
+            public string DistrictID { get; set; }
+            public string UserName { get; set; }
+            public string ExaminationCentreCode { get; set; }
+            public string ExaminationCentreName { get; set; }
+            public string Landmark { get; set; }
+            public string HouseNumber { get; set; }
+            public string StreetName { get; set; }
+            public string Locality { get; set; }
+            public string UserPassword { get; set; }
+
+            public string Village { get; set; }
+            public string Pincode { get; set; }
+
+        }
+
+        [HttpPost, ActionName("AddorUpdateorInActiveExaminationCentres")]
+        public string AddorUpdateorInActiveExaminationCentres([FromBody] ExamCentresInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                var param = new SqlParameter[16];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@ExaminationCentreID", data.ExaminationCentreID);
+                param[2] = new SqlParameter("@ExaminationCentreCode", data.ExaminationCentreCode);
+                param[3] = new SqlParameter("@ExaminationCentreName", data.ExaminationCentreName);
+                param[4] = new SqlParameter("@HouseNumber", data.HouseNumber);
+                param[5] = new SqlParameter("@StreetName", data.StreetName);
+                param[6] = new SqlParameter("@Locality", data.Locality);
+                param[7] = new SqlParameter("@Landmark", data.Landmark);
+                param[8] = new SqlParameter("@Village", data.Village);
+                param[9] = new SqlParameter("@DistrictID", data.DistrictID);
+                param[10] = new SqlParameter("@Pincode", data.Pincode);
+                param[11] = new SqlParameter("@PrincipalName", data.PrincipalName);
+                param[12] = new SqlParameter("@PrincipalMobile", data.PrincipalMobile);
+                param[13] = new SqlParameter("@PrincipalEmail", data.PrincipalEmail);
+                param[14] = new SqlParameter("@Active", data.Active);
+                param[15] = new SqlParameter("@UserName", data.UserName);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_InActive_ExaminationCentres", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_InActive_ExaminationCentres", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -1467,6 +1566,25 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpPost, ActionName("GetDistricts")]
+        public string GetDistricts()
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Districts";
+                var res = dbHandler.ReturnDataSet(StrQuery);
+                return JsonConvert.SerializeObject(res);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Districts", 0, ex.Message);
+                throw ex;
+            }
+        }
+
         [HttpPost, ActionName("GetViewStudentDetails")]
         public string GetViewStudentDetails([FromBody] JsonObject data)
         {
@@ -2398,6 +2516,37 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             throw new NotImplementedException();
         }
+
+
+        //[HttpGet, ActionName("AddorUpdateorInActiveAssesmentEntryDates")]
+        //public string AddorUpdateorInActiveAssesmentEntryDates(int DataType, int EntryDateID, int AcademicYearID, int ExamMonthYearID, DateTime StartDate, DateTime EndDate, bool Active, string UserName)
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        var param = new SqlParameter[8];
+        //        param[0] = new SqlParameter("@DataType", DataType);
+        //        param[1] = new SqlParameter("@EntryDateID", EntryDateID);
+        //        param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
+        //        param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+        //        param[4] = new SqlParameter("@StartDate", StartDate);
+        //        param[5] = new SqlParameter("@EndDate", EndDate);
+        //        param[6] = new SqlParameter("@Active", Active);
+        //        param[7] = new SqlParameter("@UserName", UserName);
+        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_AssesmentEntryDates", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Add_Update_AssesmentEntryDates", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
+
+        
+
     }
 
 }
