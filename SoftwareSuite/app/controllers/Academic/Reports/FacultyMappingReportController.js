@@ -46,6 +46,7 @@
                 $scope.loading = true;
                 var getReport = AcademicService.getAdminSyllabusReports($scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode);
                 getReport.then(function (response) {
+                    var response = JSON.parse(response)
                     if (response.Table.length > 0) {
                         //  $scope.FacultyMappingReport = response.Table;
                         $scope.loading = false;
@@ -76,10 +77,15 @@
 
 
         $scope.Submit = function () {
+            if ($scope.UserTypeId != 2 && $scope.UserTypeId != 3) {
+            $scope.CollegeCode = 'Admin'
+            //ccode = 'Admin'
+        } 
             $scope.loading = true;
             console.log(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode)
             var getReport = AcademicService.getAdminSyllabusReports(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode);
             getReport.then(function (response) {
+                var response = JSON.parse(response)
                 if (response.Table.length > 0) {
                     $scope.loading = false;
                     $scope.FacultyMappingReport = response.Table;
@@ -155,6 +161,8 @@
             $scope.loading = true;
             var getReport = AcademicService.getAdminSyllabusReports($scope.AcademicYear, $scope.semesterarr, CollegeCode);
             getReport.then(function (response) {
+                var response = JSON.parse(response)
+
                 if (response.Table.length > 0) {
                     $scope.loading = false;
                     //  $scope.FacultyMappingReport = response.Table;
@@ -274,6 +282,7 @@
                     $scope.semesterarr.push({ "SemId": value.SemId })
                 }
             });
+            console.log($scope.semesterarr)
         }
 
         //----------------------semester Multi Select End--------------------------------//

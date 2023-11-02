@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
-    app.controller("PostAttendanceController", function ($scope, $http, $localStorage, $state, AppSettings, $uibModal, AttendanceService) {
+    app.controller("PostAttendanceController", function ($scope, PreExaminationService, $http, $localStorage, $state, AppSettings, $uibModal ) {
 
-      
+        $scope.LoadImg = false;
         $scope.GetDetails = function () {
             
             if ($scope.StartDate == null || $scope.StartDate == undefined || $scope.StartDate == "") {
@@ -10,7 +10,7 @@
             }
             $scope.LoadImg = true
             var FromDate = moment($scope.StartDate).format("YYYY-MM-DD");
-            var LoadExamTypeBysem = AttendanceService.GetAttendanceDataByDate(FromDate);
+            var LoadExamTypeBysem = PreExaminationService.GetAttendanceDataByDate(FromDate);
             LoadExamTypeBysem.then(function (response) {
                 var res = JSON.parse(response)
                 if (res.StatusCode == '200') {
@@ -35,7 +35,7 @@
         
         $scope.PostAttendance = function () {
             $scope.LoadImg = true
-            var LoadExamTypeBysem = AttendanceService.PostAttendance($scope.respdata);
+            var LoadExamTypeBysem = PreExaminationService.PostAttendance($scope.respdata);
             LoadExamTypeBysem.then(function (response) {
                 var res = JSON.parse(response)
                 if (res.respcode == '200') {

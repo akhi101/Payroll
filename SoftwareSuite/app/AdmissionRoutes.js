@@ -2142,7 +2142,7 @@
             'Dashboard.PreExamination.PostAttendance': {
                 url: "/PostAttendance",
                 templateUrl: 'app/views/PreExamination/PostAttendance.html',
-                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Admission/AttendanceService']
+                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
             },
 
             'Dashboard.PreExamination.CheckOnRole': {

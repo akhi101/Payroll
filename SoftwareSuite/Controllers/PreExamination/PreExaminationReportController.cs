@@ -348,8 +348,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     var filename = "PrinterNrDownloadExcel" + "_" + ds.Tables[0].Rows[0]["ExamMonthYear"].ToString() + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
-                    DataSet excelds = new DataSet();
-                    excelds.Tables.Add(ds.Tables[1].Copy());
+                    DataSet excelds = ds;
+                    //excelds.Tables.Add(ds.Tables.);
                     bool folderExists = Directory.Exists(path);
                     if (!folderExists)
                         Directory.CreateDirectory(path);
@@ -380,6 +380,58 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
             return "";
         }
+
+        [HttpGet, ActionName("PrinterNrAttendanceExcelReport")]
+        public string PrinterNrAttendanceExcelReport(int ExamMonthYearId, int AcademicYearId, int StudentTypeId, int ExamTypeId = 0, string semid = null)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[1] = new SqlParameter("@AcademicID", AcademicYearId);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[4] = new SqlParameter("@semid", semid);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_NRForPrinter_Attendance", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var filename = "PrinterNr_Attendance_DownloadExcel" + "_" + ds.Tables[0].Rows[0]["ExamMonthYear"].ToString() + "_" + Guid.NewGuid() + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    DataSet excelds = ds;
+                    //excelds.Tables.Add(ds.Tables.);
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(excelds, path + filename);
+                    Timer timer = new Timer(60000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    return "/Downloads/" + filename;
+                }
+                else
+                {
+                    var filename = "PrinterNrDownloadExcel-" + Guid.NewGuid().ToString() + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(30000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    return "/Downloads/" + filename;
+                }
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_NRForPrinter", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
+            }
+            return "";
+        }
+
 
         private void CreateIfMissing(string path)
         {

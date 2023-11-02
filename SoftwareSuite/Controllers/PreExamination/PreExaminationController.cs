@@ -5662,6 +5662,25 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpPost, ActionName("getAdminSyllabusReports")]
+        public string getAdminSyllabusReports([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearId", request["AcademicYearId"]);
+                param[1] = new SqlParameter("@Json", request["Json"].ToString());
+                param[2] = new SqlParameter("@CollegeCode", request["CollegeCode"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("usp_ACD_GetFacultyMappingReport", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
         [HttpPost, ActionName("TCMultipleSelectApprove")]
         public string TCMultipleSelectApprove([FromBody] JsonObject request)

@@ -272,7 +272,9 @@
             <div class="sm-spacer"></div>
             <div class="sm-spacer"></div>
         </div>
-        <div class="col-md-12">
+                <div class="col-md-10" ng-show="data"><div class="notifylabel pull-right" for="sel1" style="color: red;">Click on row to view details</div></div>
+
+        <div class="col-md-2">
             <div class="pull-right" ng-if="data">
                 <a class="ExportToExcel1 pointer"
                    id="ExportToExcel1" ng-click="GetFactultyMappingExcel()">
@@ -281,12 +283,12 @@
                 </a>
             </div>
         </div>
+
         <div class="col-md-12 " ng-show="data">
             <div class="cl-details">
                 <h2>Subject Mapping Report</h2>
             </div>
         </div>
-        <div class="col-md-12" ng-show="data"><div class="notifylabel pull-right" for="sel1" style="color: red;">Click on row to view details</div></div>
         <div class="col-md-12" ng-show="data">
             <div class="table-responsive table-custom-tables-tb scrollbox">
                 <table id="tblParent" class="table table-bordered  table-striped table-rounded scrollbox-content">

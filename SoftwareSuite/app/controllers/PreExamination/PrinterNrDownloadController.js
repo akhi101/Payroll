@@ -176,6 +176,26 @@ define(['app'], function (app) {
             });
         };
 
+        $scope.PrinterNrAttendanceExcelReport = function () {
+            $scope.NrGenerating = true;
+            if ($scope.ExamMonthYearId == "" || $scope.StudentTypeId == "" || $scope.AcademicYearId == "") {
+                $scope.NrGenerating = false;
+                alert("Please Select All Details");
+            }
+            var gerNrexcelData = PreExaminationService.PrinterNrAttendanceExcelReport($scope.AcademicYearId, $scope.ExamMonthYearId, $scope.StudentTypeId, $scope.examTypeId, JSON.stringify($scope.semarr));
+            gerNrexcelData.then(function (res) {
+                $scope.NrGenerating = false;
+                if (res.length > 10) {
+                    window.location.href = res;
+                } else {
+                    alert("Failed to  download Excel report");
+                }
+            }, function (err) {
+                $scope.NrGenerating = false;
+            });
+        };
+        
+
         $scope.downloadPrinterNr = function () {
             $scope.NrGenerating = true;
             if ($scope.ExamMonthYearId == "" || $scope.StudentTypeId == "" || $scope.AcademicYearId == "") {

@@ -49,7 +49,7 @@ namespace SoftwareSuite.Controllers.Academic
         private string countryCode;
         #region Get Methods
         [HttpGet, ActionName("GetElectiveSubjects")]
-        public string GetElectiveSubjects(int semId, int schemeId, int branchId, string collegeCode,int AcademicYearID,int SessionID)
+        public string GetElectiveSubjects(int semId, int schemeId, int branchId, string collegeCode, int AcademicYearID, int SessionID)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace SoftwareSuite.Controllers.Academic
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
-           
+
             {
                 return ex.Message;
             }
@@ -134,7 +134,7 @@ namespace SoftwareSuite.Controllers.Academic
                     foreach (DataRow dr in dt.Rows)
                     {
                         //PincontactList.Add(Convert.ToString(dr["Pin"])+" - "+ Convert.ToString(dr["Contact"]));
-                        communicationController.SendSms(dr["Contact"].ToString(), dr["Message"].ToString(),"");
+                        communicationController.SendSms(dr["Contact"].ToString(), dr["Message"].ToString(), "");
 
                         //c++;
                         //if (c >= 2)
@@ -197,7 +197,7 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
         [HttpGet, ActionName("getAcademicSemByScheme")]
-        public string getAcademicSemByScheme( int SchemeId)
+        public string getAcademicSemByScheme(int SchemeId)
         {
             try
             {
@@ -239,14 +239,14 @@ namespace SoftwareSuite.Controllers.Academic
             }
         }
 
-        
+
 
         [HttpGet, ActionName("GetCollegeList")]
         public async Task<string> GetCollegeList()
         {
             var url = ConfigurationManager.AppSettings["AFF_CollegesList"].ToString();
             var affliationyr = ConfigurationManager.AppSettings["AFF_YR"].ToString();
-            var urlwithparam = url+'/'+affliationyr;
+            var urlwithparam = url + '/' + affliationyr;
             string data = string.Empty;
             using (HttpClient client = new HttpClient())
             {
@@ -338,7 +338,7 @@ namespace SoftwareSuite.Controllers.Academic
         public async Task<string> AFFCollegeTecHStaffInfo()
         {
             var url = ConfigurationManager.AppSettings["AFF_College_TecH_Staff_Info"].ToString();
-            var urlwithparam = url ;
+            var urlwithparam = url;
             string data = string.Empty;
             using (HttpClient client = new HttpClient())
             {
@@ -415,7 +415,7 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
         [HttpPost, ActionName("AttendanceUpdate")]
-        public String AttendanceUpdate([FromBody]List<Attendance> attendance)
+        public String AttendanceUpdate([FromBody] List<Attendance> attendance)
         {
             try
             {
@@ -440,7 +440,7 @@ namespace SoftwareSuite.Controllers.Academic
 
         }
 
-       
+
 
 
 
@@ -486,7 +486,7 @@ namespace SoftwareSuite.Controllers.Academic
         #endregion
         #region POST Methods
         [HttpPost, ActionName("PostElectiveStudentList")]
-        public string PostElectiveStudentList([FromBody]List<ElectiveStudentList> Studentlist)
+        public string PostElectiveStudentList([FromBody] List<ElectiveStudentList> Studentlist)
         {
             try
             {
@@ -514,7 +514,7 @@ namespace SoftwareSuite.Controllers.Academic
 
 
         [HttpPost, ActionName("PostSubjectsAllotedFaculty")]
-        public string PostSubjectsAllotedFaculty([FromBody]facultySubjectMappingData facultySubjectMappingData)
+        public string PostSubjectsAllotedFaculty([FromBody] facultySubjectMappingData facultySubjectMappingData)
         {
             try
             {
@@ -567,7 +567,7 @@ namespace SoftwareSuite.Controllers.Academic
             }
         }
 
-       
+
 
         [HttpGet, ActionName("getActiveSemester")]
         public string getActiveSemester()
@@ -588,11 +588,11 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
 
-        
-              [HttpGet, ActionName("GetStudentsList")]
-        public string GetStudentsList(int schemeId, string collegeCode, int branchId,int semId)
+
+        [HttpGet, ActionName("GetStudentsList")]
+        public string GetStudentsList(int schemeId, string collegeCode, int branchId, int semId)
         {
-          
+
             try
             {
                 var dbHandler = new dbHandler();
@@ -631,7 +631,7 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
 
-        
+
 
 
         [HttpGet, ActionName("GetSchemeSems")]
@@ -642,7 +642,7 @@ namespace SoftwareSuite.Controllers.Academic
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Scheme", Scheme);
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GetSemByScheme", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -654,12 +654,12 @@ namespace SoftwareSuite.Controllers.Academic
 
 
         [HttpGet, ActionName("GetFeedbackReport")]
-        public string GetFeedbackReport(int FeedbackId,string CollegeCode, int branchid, int SchemeId, int SemId)
+        public string GetFeedbackReport(int FeedbackId, string CollegeCode, int branchid, int SchemeId, int SemId)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];  
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@FeedbackId", FeedbackId);
                 param[1] = new SqlParameter("@CollegeCode", CollegeCode);
                 param[2] = new SqlParameter("@branchid", branchid);
@@ -681,7 +681,7 @@ namespace SoftwareSuite.Controllers.Academic
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@FeedbackId", FeedbackId);             
+                param[0] = new SqlParameter("@FeedbackId", FeedbackId);
                 param[1] = new SqlParameter("@branchid", branchid);
                 param[2] = new SqlParameter("@SchemeId", SchemeId);
                 param[3] = new SqlParameter("@SemId", SemId);
@@ -696,7 +696,7 @@ namespace SoftwareSuite.Controllers.Academic
 
 
         [HttpGet, ActionName("GetFacultyMappingList")]
-        public string GetFacultyMappingList(string CollegeCode, int CourseBranchId, int SchemeId, int SemId,int ShiftId)
+        public string GetFacultyMappingList(string CollegeCode, int CourseBranchId, int SchemeId, int SemId, int ShiftId)
         {
             try
             {
@@ -718,7 +718,7 @@ namespace SoftwareSuite.Controllers.Academic
         }
 
         [HttpGet, ActionName("SetFacultyMappingList")]
-        public string SetFacultyMappingList(string CollegeCode, int CourseBranchId,int ShiftId, string data)
+        public string SetFacultyMappingList(string CollegeCode, int CourseBranchId, int ShiftId, string data)
         {
             try
             {
@@ -738,26 +738,9 @@ namespace SoftwareSuite.Controllers.Academic
             }
         }
 
-        [HttpPost, ActionName("getAdminSyllabusReports")]
-        public string getAdminSyllabusReports([FromBody] JsonObject data)
-        {
-            try
-            {
-                var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@AcademicYearId", data["AcademicYearId"]);
-                param[1] = new SqlParameter("@SemId", data["SemId"].ToString());
-                param[2] = new SqlParameter("@CollegeCode", data["CollegeCode"]);
-               
-               
-                var dt = dbHandler.ReturnDataWithStoredProcedure("usp_ACD_GetFacultyMappingReport", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
+
+
+        
 
 
 
