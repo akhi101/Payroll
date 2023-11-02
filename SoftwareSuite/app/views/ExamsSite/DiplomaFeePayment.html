@@ -276,7 +276,7 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="feeCaptcha" />
                             <tbody class="">
 
                                 <tr>
-                                    <td width="19%">Presumptive Attendance(%)</td>
+                                    <td width="19%"> Attendance(%)</td>
                                     <td>{{studentattendance}}</td>
                                 </tr>
 
@@ -298,7 +298,10 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="feeCaptcha" />
                                 </tr>
                                 <tr>
                                     <td width="19%">Premium Tatkal Fee(RS)</td>
-                                    <td>{{studentPremiumTatkalFee}}</td>
+                                    <td>
+                                        <span ng-show="studentPremiumTatkalFee"> {{studentPremiumTatkalFee}}</span>
+                                        <span ng-show="!studentPremiumTatkalFee">-</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td width="19%">Certification Fee</td>

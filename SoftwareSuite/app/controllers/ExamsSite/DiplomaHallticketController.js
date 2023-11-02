@@ -259,10 +259,15 @@
                                 windowClass: 'modal-fit-att',
                             });
                             //  $state.go('Dashboard.PreExamination.Hallticket')
-                        } else if (resp.Table[0].ResponceCode == '400') {
+                        } else if (resp.Table[0].ResponceCode == '400' && resp.Table[0].ResponceDescription == 'Please Submit Feedback.') {
                             $scope.result = false;
                             alert(resp.Table[0].ResponceDescription);
-                        } else {
+                            $state.go('index.StudentFeedback')
+                        }  else if (resp.Table[0].ResponceCode == '400') {
+                            $scope.result = false;
+                            alert(resp.Table[0].ResponceDescription);
+                        }
+                        else {
                             $scope.result = false;
                             $scope.LoadImg = false;
                             $scope.DetailsFound = false;

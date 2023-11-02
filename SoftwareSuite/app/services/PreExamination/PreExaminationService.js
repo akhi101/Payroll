@@ -8,6 +8,18 @@
         this.getAllBranches = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetAllBranches');
         };
+        this.GetAttendanceDataByDate = function (date) {
+            var paramObject = { "date": date };
+            var promise = DataAccessService.getDataWithPara('api/Attendance/GetAttendanceDataByDate', paramObject);
+            return promise;
+        }
+
+        this.PostAttendance = function (obj) {
+            //var paramObject = { "UserId": UserId, "attData": AttDataList };
+            //console.log(paramObject)
+            var promise = DataAccessService.postData('api/PreExamination/SendAttendance', obj);
+            return promise;
+        },
 
         this.GetHomePageSlides = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlides');
@@ -3032,6 +3044,16 @@
             var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrDownloadExcelReport', paramObj);
                 return promise;
             },
+
+            this.PrinterNrAttendanceExcelReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId, semid) {
+                var paramObj = {
+                    "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId,
+                    "semid": semid
+                };
+            var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrAttendanceExcelReport', paramObj);
+                return promise;
+            },
+            
 
             this.PrinterNrCollegeVsBranchReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId) {
             var paramObj = { "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId };

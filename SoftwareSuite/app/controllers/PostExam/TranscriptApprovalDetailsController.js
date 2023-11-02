@@ -611,6 +611,30 @@
             return this;
         }
 
+        $scope.ResetCertificateStatus = function (PIN, Path) {
+            if (Path == null || Path == '' || Path == undefined) {
+                var Path = '';
+            }
+            var ResetCertificateStatus = PreExaminationService.ResetCertificateStatus(3, PIN, Path);
+            ResetCertificateStatus.then(function (response) {
+                try { var response = JSON.parse(response) } catch (err) { }
+                if (response[0].ResponceCode == "200") {
+                    alert(response[0].ResponceDescription);
+                    $scope.GetApprovalDetails();
+                } else {
+                    alert(response[0].ResponceDescription);
+                    $scope.GetApprovalDetails();
+                }
+
+            }, function (err) {
+                $scope.GetApprovalDetails();
+            });
+
+
+
+        }
+
+
         $scope.RelesePin = function (Pin, CertificateTypeId, Id) {
             var ApproveList = PreExaminationService.ReleaseStudentServicesPin(Pin,CertificateTypeId,Id);
             ApproveList.then(function (response) {

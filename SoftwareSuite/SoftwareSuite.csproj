@@ -2749,7 +2749,6 @@
     <Content Include="app\views\PreExamination\HodCondonation.html" />
     <Content Include="app\views\PreExamination\MercyList.html" />
     <Content Include="app\views\PreExamination\MobileAppHallticket.html" />
-    <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\views\PreExamination\PrinterNrDownload.html" />
     <Content Include="app\views\PreExamination\NrExcelReport.html" />
     <Content Include="app\views\PreExamination\NrDownload.html" />
