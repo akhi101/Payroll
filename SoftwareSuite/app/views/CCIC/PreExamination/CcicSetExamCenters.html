@@ -247,11 +247,9 @@
             </div>
 
             <div class="col-md-12" ng-if="GetInstitutionCenters.length>0">
-                <div class="cl-details">
-                    <h2>Set Examination Centers</h2>
-                </div>
+                
 
-                <div class="table-responsive table-custom-tables-tb scrollbox">
+                <!--<div class="table-responsive table-custom-tables-tb scrollbox">
                     <table id="tblParent" class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                         <thead>
                             <tr class="cb-1">
@@ -277,7 +275,7 @@
                                             <option value="" selected>Choose</option>
                                         </select>
                                     </span>
-                                </td>
+                                </td>-->
                                 <!--<td class="text-center">
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="ChangeStatus(data,$index+1)">
                                         Edit
@@ -286,12 +284,48 @@
                                         Update
                                     </button>-->
 
-                                </td>
+                                <!--</td>
                             </tr>
 
                         </tbody>
                     </table>
+                </div>-->
+            <div class="table-responsive table-custom-tables-tb">
+                <div class="cl-details">
+                    <h2>Set Examination Centers</h2>
                 </div>
+                <div ng-if="GetInstitutionCenters.length>0" class="table-responsive table-custom-tables-tb scrollbox">
+                    <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                        <thead>
+                            <tr class="cb-1">
+                                <th width="2%">S.No</th>
+                                <th>Institution Name</th>
+                                <th>Course Name</th>
+                                <th>Examination Center</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in GetInstitutionCenters">
+                                <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
+                                <td class="text-center" style="padding: 3px;">{{data.InstitutionName}}</td>
+                                <td class="text-center" style="padding: 3px;">{{data.CourseName}}</td>
+                                <td class="text-center" style="padding: 3px;">{{data.ExaminationCenter}}</td>
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="editExaminationCentres(data.ExaminationCentreID)">
+                                        Edit
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sm-spacer"></div>
+                <div class="sm-spacer"></div>
+            </div>
             </div>
             <div class="col-md-12">
                 <div ng-if="Noresult" class="no-results">

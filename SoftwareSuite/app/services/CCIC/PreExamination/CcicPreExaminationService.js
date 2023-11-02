@@ -49,6 +49,10 @@
         };
 
 
+        this.GetDistricts = function () {
+            return DataAccessService.postData('api/CcicPreExamination/GetDistricts');
+        };
+
         this.GetCcicAcademicYearCurrentBatch = function (AcademicYearID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID
@@ -75,6 +79,44 @@
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditCcicSubjectMaster', paramObj);
             return promise;
+        };
+
+
+        this.GetExaminationCentres = function (DataType, ExaminationCentreID) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExaminationCentreID": ExaminationCentreID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditExaminationCentres', paramObj);
+            return promise;
+        };
+
+        this.EditExaminationCentres = function (DataType, ExaminationCentreID) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExaminationCentreID": ExaminationCentreID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditExaminationCentres', paramObj);
+            return promise;
+        };
+
+        this.EditCcicExaminationCentres = function (DataType, ExaminationCentreID) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExaminationCentreID": ExaminationCentreID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditCcicExaminationCentres', paramObj);
+            return promise;
+        };
+
+        this.AddExaminationCentres = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateorInActiveExaminationCentres', paramObject);
+        };
+
+        this.UpdateExaminationCentres = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateorInActiveExaminationCentres', paramObject);
         };
 
 
@@ -582,6 +624,8 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicTimeTableExcel', paramObj);
             return promise;
         };
+
+       
 
 
     });

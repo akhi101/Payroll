@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using SoftwareSuite.Models.Database;
 using Newtonsoft.Json;
 using RestSharp;
+using static SoftwareSuite.Controllers.CCIC.CcicPageController;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -109,22 +110,22 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
 
-        [HttpGet, ActionName("getCcicUserTypes")]
-        public HttpResponseMessage getCcicUserTypes()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_UserTypes";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Get_UserTypes", 0, ex.Message);
-                throw ex;
-            }
-        }
+        //[HttpGet, ActionName("getCcicUserTypes")]
+        //public HttpResponseMessage getCcicUserTypes()
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        string StrQuery = "";
+        //        StrQuery = "exec SP_Get_UserTypes";
+        //        return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dbHandler.SaveErorr("SP_Get_UserTypes", 0, ex.Message);
+        //        throw ex;
+        //    }
+        //}
 
         [HttpGet, ActionName("SetCcicModuleInactive")]
         public HttpResponseMessage SetCcicModuleInactive(int UserTypeID, int ModuleID, int Active)
@@ -317,5 +318,96 @@ namespace SoftwareSuite.Controllers.CCIC
             }
 
         }
+
+
+        public class UsersInfo
+        {
+            public int DataType { get; set; }
+            public int UserID { get; set; }
+            public int UserTypeID { get; set; }
+            public string NewUserName { get; set; }
+            public string UserPassword { get; set; }
+            public string NameofUser { get; set; }
+            public string MobileNumber { get; set; }
+            public string Email { get; set; }
+            public string UserName { get; set; }
+            public bool Active { get; set; }
+
+
+
+        }
+
+
+        [HttpPost, ActionName("GetUsers")]
+        public HttpResponseMessage GetUsers([FromBody] UsersInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+
+            try
+            {
+
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Users", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Users", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpPost, ActionName("GetEditorViewUsers")]
+        public HttpResponseMessage GetEditorViewUsers([FromBody] UsersInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+
+            try
+            {
+
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserID", data.UserID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_Users", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_Users", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpPost, ActionName("EditorViewUserTypes")]
+        public HttpResponseMessage EditorViewUserTypes([FromBody] UserTypesInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+
+            try
+            {
+
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_UserTypes", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_UserTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+
+
     } 
 }

@@ -1,6 +1,4 @@
-﻿
-
-define(['app'], function (app) {
+﻿define(['app'], function (app) {
     app.controller("CcicEnrollmentSettingsController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, CcicSettingsService, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;

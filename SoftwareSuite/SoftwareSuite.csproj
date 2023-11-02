@@ -326,6 +326,7 @@
     <Compile Include="Controllers\Assessment\MarksEntryController.cs" />
     <Compile Include="Controllers\Assessment\MarksEntryFinePaymentController.cs" />
     <Compile Include="Controllers\CCIC\CcicAdminServiceController.cs" />
+    <Compile Include="Controllers\CCIC\CcicAssessmentController.cs" />
     <Compile Include="Controllers\CCIC\CcicGenerateTimeTable.cs" />
     <Compile Include="Controllers\CCIC\CcicPageController.cs" />
     <Compile Include="Controllers\CCIC\CcicPreExaminationController.cs" />
@@ -627,6 +628,7 @@
     <Content Include="app\controllers\BranchWiseController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryReportsController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicSetEntryDatesController.js" />
     <Content Include="app\controllers\CCIC\CcicChangePasswordController.js" />
@@ -657,6 +659,7 @@
     <Content Include="app\controllers\CCIC\CcicSettings\CcicVerificationDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\EditStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\EditStudentDetailsController.js" />
+    <Content Include="app\controllers\CCIC\CcicSettings\CcicUsersController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStdDetailsVerController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStudentDetailsController.js" />
@@ -670,6 +673,7 @@
     <Content Include="app\controllers\CCIC\PostExamination\CcicTabulatedReportsController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicAmountController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicExamFeePaymentController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicExaminationCentresController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDownloadController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPaymentProcessController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
@@ -1054,6 +1058,7 @@
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideApproveListDetailsController.js" />
+    <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
     <Content Include="app\controllers\PostExam\C18OdcTrSheetController.js" />
     <Content Include="app\controllers\PostExam\CertificateApprovalDetailsController.js" />
@@ -1396,6 +1401,7 @@
     <Content Include="app\controllers\StudentRequestBoard\TrueExMarksMemoAppListController.js" />
     <Content Include="app\controllers\StudentResultController.js" />
     <Content Include="app\controllers\StudentServices\AdministrationServicesController.js" />
+    <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
     <Content Include="app\controllers\StudentServices\StudentServicesController.js" />
     <Content Include="app\controllers\StudentServices\TcApplicationFormController.js" />
     <Content Include="app\controllers\StudentServices\TCApprovalHODController.js" />
@@ -1678,7 +1684,15 @@
     <Content Include="app\services\PostExam\ThreeBacklogOdcDataService.js" />
     <Content Include="app\services\PreAssessment\hallTicketGenerationService.js" />
     <Content Include="app\services\PreAssessment\PreAssessmentService.js" />
+    <Content Include="app\views\CCIC\Assessment\CcicMarksEntry.html" />
     <Content Include="app\views\CCIC\CcicIndex.html" />
+    <Content Include="app\views\CCIC\CcicSettings\CcicUsers.html" />
+    <Content Include="app\views\CCIC\Popups\EditCcicExamCentresPopup.html" />
+    <Content Include="app\views\CCIC\Popups\EditExaminationCentresPopup.html" />
+    <Content Include="app\views\CCIC\Popups\EditUserPopup.html" />
+    <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
+    <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\services\PreExamination\PreExaminationService.js" />
     <Content Include="app\services\PreExam\absentDetailService.js" />
@@ -3041,6 +3055,7 @@
     <Content Include="app\views\StudentRequestBoard\TrueExMarksMemoAppList.html" />
     <Content Include="app\views\StudentResult.html" />
     <Content Include="app\views\StudentServices\AdministrationServices.html" />
+    <Content Include="app\views\PostExam\BonafideCertApproveList.html" />
     <Content Include="app\views\StudentServices\StudentDetailsPopup.html" />
     <Content Include="app\views\StudentServices\StudentServices.html" />
     <Content Include="app\views\StudentServices\TcApplicationForm.html" />

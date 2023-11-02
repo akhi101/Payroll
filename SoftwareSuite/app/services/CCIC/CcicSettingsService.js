@@ -138,8 +138,64 @@
             return DataAccessService.postData('CcicPage/AddCcicUserSubModules', paramObject);
         }
 
-     
 
+        this.GetUserTypes = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.postData('CcicPage/GetorActiveUserTypes', paramObj);
+            return promise;
+        };
+
+
+        this.GetActiveUserTypes = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.postData('CcicPage/GetorActiveUserTypes', paramObj);
+            return promise;
+        };
+
+        this.EditUserTypes = function (UserTypeID) {
+            var paramObj = {
+                "UserTypeID": UserTypeID
+            };
+            var promise = DataAccessService.postData('api/CcicAdminService/EditorViewUserTypes', paramObj);
+            return promise;
+        };
+
+        this.AddUserTypes = function (paramObject) {
+
+            return DataAccessService.postData('CcicPage/AddorUpdateUserTypes', paramObject);
+        };
+
+        this.UpdateUserTypes = function (paramObject) {
+
+            return DataAccessService.postData('CcicPage/AddorUpdateUserTypes', paramObject);
+        };
+
+
+        this.GetUsers = function (UserTypeID) {
+            var paramObject = { "UserTypeID": UserTypeID };
+            return DataAccessService.postData('api/CcicAdminService/GetUsers', paramObject);
+        };
+
+        this.EditUsers = function (UserID) {
+            var paramObject = { "UserID": UserID };
+            return DataAccessService.postData('api/CcicAdminService/GetEditorViewUsers', paramObject);
+        };
+
+        this.AddUser = function (paramObject) {
+
+            return DataAccessService.postData('CcicPage/AddUser', paramObject);
+        };
+
+        this.UpdateUser = function (paramObject) {
+
+            return DataAccessService.postData('CcicPage/UpdateUserDetails', paramObject);
+        };
+     
+   
 
     })
 })

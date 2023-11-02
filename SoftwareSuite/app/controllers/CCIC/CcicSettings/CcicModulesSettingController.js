@@ -7,6 +7,7 @@
             $scope.modulecolours();
             $scope.getModules();
             $scope.getsubmodules();
+            $scope.getUserTypes();
         }
 
 
@@ -301,14 +302,39 @@
         };
 
 
-        var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
-        GetCcicUserTypes.then(function (response) {
+        //var GetCcicUserTypes = CcicAdminService.GetCcicUserTypes();
+        //GetCcicUserTypes.then(function (response) {
 
-            $scope.UserTypes = response.Table
-        },
-            function (error) {
-                var err = JSON.parse(error);
-            });
+        //    $scope.UserTypes = response.Table
+        //},
+        //    function (error) {
+        //        var err = JSON.parse(error);
+        //    });
+
+        $scope.getUserTypes = function () {
+            var DataType = 1;
+            var getusertype = CcicSettingsService.GetUserTypes(DataType);
+            getusertype.then(function (resp) {
+                //try {
+                //    var res = JSON.parse(resp);
+                //}
+                //catch (err) { }
+
+                if (resp.length > 0) {
+                    $scope.UserTypes = resp;
+
+                }
+                else {
+                    $scope.UserTypes = [];
+                }
+
+            },
+                function (error) {
+                    //alert("data is not loaded");
+                    //    var err = JSON.parse(error);
+                });
+
+        }
 
         //$scope.GetAllCcicModules = function () {
         //    var GetAllCcicModules = CcicSettingsService.GetAllCcicModules;

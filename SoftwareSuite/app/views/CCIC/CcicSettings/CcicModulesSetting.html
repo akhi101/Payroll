@@ -290,7 +290,7 @@
                                         <select class="form-control " ng-model="UserType" name="UserType" ng-change="getUserModules(UserType)" required>
                                             <option value="" selected="selected">Select User</option>
                                             <option value="{{data.UserTypeID}}" ng-repeat="data in UserTypes" class="">
-                                                {{data.UserType}}
+                                                {{data.Role}}
                                             </option>
                                         </select>
                                     </div>
@@ -547,7 +547,7 @@
                                         <select class="form-control " ng-model="userTypeId" id="userTypeId" ng-change="changeUser(userTypeId)" required>
                                             <option value="" selected="selected">Select Usertype</option>
                                             <option value="{{data.UserTypeID}}" ng-repeat="data in UserTypes" class="">
-                                                {{data.UserType}}
+                                                {{data.Role}}
                                             </option>
                                         </select>
                                     </div>

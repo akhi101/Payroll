@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 using SoftwareSuite.Models.Database;
 using Newtonsoft.Json;
 using RestSharp;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SoftwareSuite.Models.Security;
+using static SoftwareSuite.Controllers.CCIC.CcicAdminServiceController;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -344,6 +347,154 @@ namespace SoftwareSuite.Controllers.CCIC
             }
             catch (Exception ex)
             {
+                return ex.Message;
+            }
+        }
+
+
+        public class UserTypesInfo
+        {
+            public string UserTypeName { get; set; }
+            public string UserName { get; set; }
+            public int UserTypeID { get; set; }
+            public int DataType { get; set; }
+            public bool Active { get; set; }
+        }
+
+        [HttpPost, ActionName("GetorActiveUserTypes")]
+        public string GetorActiveUserTypes([FromBody] UserTypesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_UserTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_UserTypes", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        //[HttpGet, ActionName("GetUserTypes")]
+        //public string GetUserTypes()
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        string StrQuery = "";
+        //        StrQuery = "exec SP_Get_UserTypes";
+        //        var res = dbHandler.ReturnDataSet(StrQuery);
+        //        return JsonConvert.SerializeObject(res);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Get_UserTypes", 0, ex.Message);
+        //        throw ex;
+        //    }
+        //}
+
+
+        [HttpPost, ActionName("AddorUpdateUserTypes")]
+        public string AddorUpdateUserTypes([FromBody] UserTypesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[2] = new SqlParameter("@UserTypeName", data.UserTypeName);
+                param[3] = new SqlParameter("@Active", data.Active);
+                param[4] = new SqlParameter("@UserName", data.UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_UserTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_UserTypes", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("AddUser")]
+        public string AddUser([FromBody] UsersInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                string UserEncryptedPassword = "";
+
+                var res = data.UserPassword.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var passencrypt = new HbCrypt();
+                string password = crypt.AesDecrypt(res[0]);
+                string decryptpassword = passencrypt.AesDecrypt(password);
+                UserEncryptedPassword = passencrypt.Encrypt(decryptpassword);
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[1] = new SqlParameter("@NewUserName", data.NewUserName);
+                param[2] = new SqlParameter("@UserPassword", UserEncryptedPassword);
+                param[3] = new SqlParameter("@NameofUser", data.NameofUser);
+                param[4] = new SqlParameter("@MobileNumber", data.MobileNumber);
+                param[5] = new SqlParameter("@Email", data.Email);
+                param[6] = new SqlParameter("@UserName", data.UserName);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_User", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_User", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+
+        [HttpPost, ActionName("UpdateUserDetails")]
+        public string UpdateUserDetails([FromBody] UsersInfo newdata)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@UserID", newdata.UserID);
+                param[1] = new SqlParameter("@NewUserName", newdata.NewUserName);
+                param[2] = new SqlParameter("@UserTypeID", newdata.UserTypeID);
+                param[3] = new SqlParameter("@NameofUser", newdata.NameofUser);
+                param[4] = new SqlParameter("@Email", newdata.Email);
+                param[5] = new SqlParameter("@MobileNumber", newdata.MobileNumber);
+                param[6] = new SqlParameter("@Active", newdata.Active);
+                param[7] = new SqlParameter("@UserName", newdata.UserName);
+
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_User", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_User", 0, ex.Message);
                 return ex.Message;
             }
         }
