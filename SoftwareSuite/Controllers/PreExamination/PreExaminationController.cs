@@ -711,6 +711,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+        [HttpGet, ActionName("ReleaseStudyPin")]
+        public string ReleaseStudyPin(string Pin)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ReleaseStudyPin", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SET_ReleaseStudyPin", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+
+
+
         [HttpGet, ActionName("GenerateOdcDataByPin")]
         public string GenerateOdcDataByPin(string pin)
         {
@@ -4141,15 +4164,31 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafiedDetailsByPin")]
-        public string getBonafiedDetailsByPin(string pin,int ServiceType)
+        public string getBonafiedDetailsByPin(string pin)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@pin", pin);
-                param[1] = new SqlParameter("@ServiceType", ServiceType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_BonafiedCertificateDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("getStudyDetailsByPin")]
+        public string getStudyDetailsByPin(string pin)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@pin", pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_StudyCertificateDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -4197,6 +4236,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
+
+
+        [HttpGet, ActionName("getStudyRequestedDetailsByPin")]
+        public string getStudyRequestedDetailsByPin(string pin, int Id)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@pin", pin);
+                param[1] = new SqlParameter("@Id", Id);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_FeePaidStudyCertificateDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        
 
         [HttpGet, ActionName("getMarksMemoDetailsByPin")]
         public string getMarksMemoDetailsByPin(string pin)
@@ -4344,7 +4406,25 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        
+        [HttpGet, ActionName("getStudyData")]
+        public string getStudyData(string pin, int Id)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@pin", pin);
+                param[1] = new SqlParameter("@Id", Id);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_StudyCertificateDetailsForOfficials", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
         [HttpGet, ActionName("GetAdminFeedbackReport")]
         public string GetAdminFeedbackReport(string CollegeCode, int semid, int FeedbackId)
@@ -5151,6 +5231,28 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("GetStudyApprovalListByScheme")]
+        public string GetStudyApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Scheme", Scheme);
+                param[1] = new SqlParameter("@datatype", datatype);
+                param[2] = new SqlParameter("@userType", userType);
+                param[3] = new SqlParameter("@CollegeCode", CollegeCode);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_StudyApprovalListByScheme", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("GetNameCorrectionListByScheme")]
         public string GetNameCorrectionListByScheme(string Scheme, int datatype, int userType)
         {
@@ -5774,6 +5876,52 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        [HttpPost, ActionName("StudyMultipleSelectApprove")]
+        public string StudyMultipleSelectApprove([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    jsonArray.Add(jobject);
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
+                param[1] = new SqlParameter("@userType", request["userType"]);
+                param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Study_ApproveStatus", param);
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
+                //{
+                //    //for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    //{
+                //    //    if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //    //    {
+                //    //        //var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Study/Bonafide");
+                //    //        //if (status.ToString() == "SUCCESS")
+                //    //        //{
+                //    //        //    UpdateSmsStatus(9, dt.Tables[1].Rows[i]["Pin"].ToString());
+                //    //        //}
+
+                //    //    }
+                //    //}
+                //}
+
+                return JsonConvert.SerializeObject(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpPost, ActionName("BonafiedSetApproveStatusReject")]
         public string BonafiedSetApproveStatusReject([FromBody] JsonObject request)
         {
@@ -5819,6 +5967,54 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
+
+
+        [HttpPost, ActionName("StudySetApproveStatusReject")]
+        public string StudySetApproveStatusReject([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    jsonArray.Add(jobject);
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
+                param[1] = new SqlParameter("@userType", request["userType"]);
+                param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
+                param[3] = new SqlParameter("@Remarks", request["Remarks"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Study_ApproveStatus", param);
+                string Msg = "PIN : {2}, Your application request for Study Certificate is {0} due to {1}.Secretary, SBTET TS.";
+                string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200")
+                {
+                    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                    {
+                        var Message = string.Format(Msg, "Rejected", request["Remarks"].ToString(), dt.Tables[1].Rows[i]["Pin"].ToString());
+                        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                        {
+                            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161786852990603";
+                            HttpClient client = new HttpClient();
+                            client.BaseAddress = new Uri(url);
+                            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                        }
+                    }
+                }
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
 
         [HttpPost, ActionName("UpdateOdcDataByPin")]
         public string UpdateOdcDataByPin([FromBody] JsonObject request)
@@ -5884,7 +6080,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[9];
+                var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@Pin", request["Pin"]);
                 param[1] = new SqlParameter("@Name", request["Name"]);
                 param[2] = new SqlParameter("@FatherName", request["FatherName"]);
@@ -5892,8 +6088,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[4] = new SqlParameter("@AcademicYear", request["AcademicYear"]);
                 param[5] = new SqlParameter("@Conduct", request["Conduct"]);
                 param[6] = new SqlParameter("@userType", request["userType"]);
-                param[7] = new SqlParameter("@ServiceType", request["ServiceType"]);
-                param[8] = new SqlParameter("@Id", request["Id"]);
+                param[7] = new SqlParameter("@Id", request["Id"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SBP_set_Bonafide_admin_approvestatus", param);
 
                 return JsonConvert.SerializeObject(dt);
@@ -5906,6 +6101,39 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
+
+
+        [HttpPost, ActionName("StudySetVerifyStatus")]
+        public string StudySetVerifyStatus([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@Pin", request["Pin"]);
+                param[1] = new SqlParameter("@Name", request["Name"]);
+                param[2] = new SqlParameter("@FatherName", request["FatherName"]);
+                param[3] = new SqlParameter("@Branchcode", request["Branchcode"]);
+                param[4] = new SqlParameter("@AcademicYear", request["AcademicYear"]);
+                param[5] = new SqlParameter("@Conduct", request["Conduct"]);
+                param[6] = new SqlParameter("@userType", request["userType"]);
+                param[7] = new SqlParameter("@Id", request["Id"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SBP_set_Study_admin_approvestatus", param);
+
+                return JsonConvert.SerializeObject(dt);
+
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
 
 
         [HttpPost, ActionName("AdminBonafideSetVerifyStatus")]
@@ -7418,6 +7646,27 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("GetStudyCertApprovalList")]
+        public string GetStudyCertApprovalList(string CollegeCode, int userType, string BranchCode = null)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[1] = new SqlParameter("@userType", userType);
+                param[2] = new SqlParameter("@BranchCode", BranchCode);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_studyApprovalList", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
 
         //[HttpGet, ActionName("GetMigrationApprovalList")]
         //public HttpResponseMessage GetMigrationApprovalList()
@@ -8621,24 +8870,45 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        [HttpGet, ActionName("SetBonafiedData")]
-        public HttpResponseMessage SetBonafiedData(String pin, String ReasonForBonafied, int ServiceType, String Name = null, String FatherName = null, String Branchcode = null, String CollegeCode = null, String Scheme = null, String Gender = null)
+        [HttpPost, ActionName("SetBonafiedData")]
+        public HttpResponseMessage SetBonafiedData([FromBody] JsonObject request)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[9];
-                param[0] = new SqlParameter("@pin", pin);
-                param[1] = new SqlParameter("@ReasonForBonafied", ReasonForBonafied);
-                param[2] = new SqlParameter("@ServiceType", ServiceType);
-                param[3] = new SqlParameter("@Name", Name);
-                param[4] = new SqlParameter("@FatherName", FatherName);
-                param[5] = new SqlParameter("@Branchcode", Branchcode);
-                param[6] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[7] = new SqlParameter("@Scheme", Scheme);
-                param[8] = new SqlParameter("@Gender", Gender);
-
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@pin", request["pin"]);
+                param[1] = new SqlParameter("@ReasonForBonafied", request["ReasonForBonafied"]);
+                param[2] = new SqlParameter("@Name", request["Name"]);
+                param[3] = new SqlParameter("@FatherName", request["FatherName"]);
+                param[4] = new SqlParameter("@Branchcode", request["Branchcode"]);
+                param[5] = new SqlParameter("@CollegeCode", request["CollegeCode"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_BonafiedData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_SET_BonafiedData", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("SetStudyCertData")]
+        public HttpResponseMessage SetStudyCertData([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@pin", request["pin"]);
+                param[1] = new SqlParameter("@ReasonForBonafied", request["ReasonForBonafied"]);
+                param[2] = new SqlParameter("@Name", request["Name"]);
+                param[3] = new SqlParameter("@FatherName", request["FatherName"]);
+                param[4] = new SqlParameter("@Branchcode", request["Branchcode"]);
+                param[5] = new SqlParameter("@CollegeCode", request["CollegeCode"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_StudyData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }

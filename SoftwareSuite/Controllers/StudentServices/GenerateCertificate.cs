@@ -2956,6 +2956,268 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
         }
+        public string GetStudyCertificate(DataSet BonafideDat)
+        {
+            List<BonafideData> BonafideData = BonafideDat.Tables[1].DataTableToList<BonafideData>().ToList(); ;
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
+            CreateIfMissing(dir);
+            string html = @"<html>"
+                   + "<head>"
+                   + $"<title></title>"
+                   + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+                   + @"<style type='text/css'>
+                         html{
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                        }
+                        body {
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                            margin-left: 10px;
+                        } 
+                        table {  
+                            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+                            width: 100%; 
+                            border-collapse: col.lapse;
+                            border-spacing: 0; 
+                        } 
+
+                        td, th, tr { border: 1px solid #000; height: 40px; } /* Make cells a bit taller */
+
+                        th {  
+                            font-weight: bold; /* Make sure they're bold */
+                        }
+
+                        td {  
+                            text-align: center; /* Center our text */
+                        }
+
+                 .logoImg {
+        height: 60px !important;
+        width: 60px !important;
+    }
+ .myHr{
+     border-top: 1px solid #000;
+ }
+ .header-top-section{
+     display:none;
+ }
+ .border_btm{
+     border-bottom:1px solid #ddd;
+      text-transform:uppercase;
+ }
+ .qr_css{
+     height:100px;
+ }
+ .text-uppercase{
+     text-transform:uppercase;
+ }
+ p {
+  text-indent: 50px;
+}
+   .marginData{
+          margin:0px 20px;
+      }
+   .footer_section {
+       display:none;
+   }
+    .footer_section {
+       display:none;
+   }
+
+  .myImg {
+        width: 70% !important;3
+        padding: 0px 120px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block!important;
+        opacity:0.3;
+    }
+    .print_btn{
+        display:none;
+    }
+     .spacer{
+       display:none;
+      }
+     .logo img {
+        float: left;
+        cursor: pointer;
+        margin-right: 0px!important;
+    }
+
+      .text-intend {
+        text-indent: 50px;
+        line-height: 2.5;
+        padding-left:15px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+  .under_margin{
+        margin-bottom:30px;
+    }
+    }
+
+/*---------------------*---------*-Print Css End-*------*-------------------------------*/
+
+    .myImg {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 120px;
+    display: block;
+    opacity: 0.3;
+    z-index: 1000;  
+}
+
+    .marginData {
+        margin: 0px 20px;
+        position:relative;
+    }
+     .container img {
+            vertical-align: middle;
+        }
+
+        .container .content {
+            position: absolute!important;
+            top: 0!important;
+            background: rgb(0, 0, 0)!important;
+            background: rgba(255, 255, 255, 0.36)!important;
+            color: #130404!important;
+            width: 100%!important;
+            padding: 20px!important;
+        }
+           .container{
+          position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding:0px!important;
+        }
+  .under_margin{
+        margin-bottom:30px;
+    }
+ 
+                        </style> "
+                   + "</head><body>";
+
+            string sbString = html;
+
+
+            #region PageHeader
+            var page = $@"
+ <div class='container'>
+<div class='row' >
+             <div class='col-md-5'> </div>
+            <div class='col-md-2'>
+                <div class='logo-image text-center'>
+                    {IsGovClg(BonafideData[0].IsGovClg)}
+                </div>
+            </div>
+            <div class='col-md-5'> </div>
+            </div>
+     
+
+        <div class='row pad'>
+            <div class='col-md-12 title'>
+                <h3 class='text-center hall_head'><b> {BonafideData[0].College_Name}</b></h3>
+
+            </div>
+            <div class='col-md-12'>
+                <h5 class='text-center hall_head'><b>{BonafideData[0].Clg_Address}</b></h5>
+
+            </div>
+
+        </div>";
+           
+                page += $@"<div class='row'>
+        <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>STUDY-CUM-CONDUCT CERTIFICATE</b></h3>
+    </div>";
+           
+
+
+            page += $@"</div>";
+
+            #endregion
+
+            #region PageContent
+            page += $@" <div class='container'>
+       
+      <!--  <hr class='myHr' />-->
+        <div class='marginData'>
+            <div class='row'>
+                <div class='col-md-9'>
+                    <div>SL NO : <b class=''>{BonafideData[0].ApplicationNumber ?? "-"}</b></div>
+                </div>
+                <div class='col-md-3'>
+                    <div>Date : <b class=''>{DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
+                </div>
+            </div>
+        </div>
+       
+        <div class='container'>
+
+            <img  src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>
+            <div class='content'>
+                <div class='row'>
+                    <p class='text-intend'>
+    
+This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-"}</b> S/o/D/o <b class='border_btm' > {BonafideData[0].FatherName ?? "-"},</b> bearing PIN : <b class='border_btm' >{BonafideData[0].Pin ?? "-"}</b> a student of this institution, has";
+           
+                page += $@"<span> studied</span>";
+           
+            page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
+                     during the Academic Years<b class='border_btm' > {BonafideData[0].AcademicYear ?? "-"}.</b><br>
+                        </p>
+                    <p class='text-intend'> During this period his/her conduct and character have been found to be<b class='border_btm' > {BonafideData[0].conduct ?? " - "}</b>.
+
+
+                </p>
+                </div>
+                <div class='sm-spacer'></div>
+                          
+            </div>
+            
+            <div class='sm-spacer'></div>
+                        
+        </div>
+        
+        <div class='container'>
+            <div class='col-md-8'>
+                <h5 class='text-center'><b class='text-uppercase '></b></h5>
+            </div>
+            
+            <div class='col-md-4'>
+                <h5 class='text-center'><b class='text-uppercase '>PRINCIPAL</b></h5>
+            </div>
+        </div>
+            <div class='sm-spacer'></div>
+        </div>";
+            #endregion
+
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+
+            var doc = converter.ConvertHtmlString(sbString);
+            var path = string.Empty;
+          
+                path = dir + "SC" + BonafideData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
+           
+            doc.Save(path);
+            doc.Close();
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+            return relativePath;
+        }
+
 
         public string GetBonafideCertificate(DataSet BonafideDat)
         {
@@ -3130,19 +3392,12 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             </div>
 
         </div>";
-            if (BonafideData[0].ServiceType == 91)
-            {
-                page += $@"<div class='row'>
-        <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>STUDY-CUM-CONDUCT CERTIFICATE</b></h3>
-    </div>";
-            }
-            else
-            {
+        
+         
                 page += $@"<div class='row'>
             <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>BONAFIDE CERTIFICATE</b></h3>
         </div>";
-            }
-
+         
 
             page += $@"</div>";
 
@@ -3171,14 +3426,9 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
                     <p class='text-intend'>
     
 This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-"}</b> S/o/D/o <b class='border_btm' > {BonafideData[0].FatherName ?? "-"},</b> bearing PIN : <b class='border_btm' >{BonafideData[0].Pin ?? "-"}</b> a student of this institution, has";
-            if (BonafideData[0].ServiceType == 91)
-            {
-                page += $@"<span> studied</span>";
-            }
-            else
-            {
+         
                 page += $@"<span> studying</span>";
-            }
+          
             page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
                      during the Academic Years<b class='border_btm' > {BonafideData[0].AcademicYear ?? "-"}.</b><br>
                         </p>
@@ -3222,14 +3472,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
             var doc = converter.ConvertHtmlString(sbString);
             var path = string.Empty;
-            if (BonafideData[0].ServiceType == 91)
-            {
-                 path = dir + "SC" + BonafideData[0].Pin +DateTime.Now.ToString("HHmmss")+".pdf";
-            }
-            else if (BonafideData[0].ServiceType == 92)
-            {
+         
                  path = dir + "BC" + BonafideData[0].Pin +DateTime.Now.ToString("HHmmss")+".pdf";
-            }
+         
                 doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");

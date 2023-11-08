@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
-    app.controller("IndexController", function ($scope, $timeout, $state, $stateParams, AppSettings, PreExaminationService, AdminService) {
-
+    app.controller("IndexController", function ($scope, $timeout, $state, $localStorage, $stateParams, AppSettings, PreExaminationService, AdminService) {
+        $localStorage.StudentServices = "";
         $scope.OpenPage = function () {
             $state.reload();
             $state.go('index.ContactUs', null, { 'reload': true });
@@ -134,12 +134,15 @@
                 $scope.error = true;
             });
 
-        $scope.OpenModule = function (Module) {
-
+        $scope.OpenModule = function (Module, ServiceType) {
+          
             //$localStorage.selectedModule = {
             //    Id: Module.SysModID,
             //    ModuleRouteName: Module.ModuleRouteName
             //}
+            $localStorage.StudentServices = {
+                "ServiceType": ServiceType
+            }
             $state.go(Module);
         }
 

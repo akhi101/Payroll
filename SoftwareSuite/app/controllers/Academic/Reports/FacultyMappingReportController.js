@@ -101,7 +101,7 @@
                 }
             },
                 function (error) {
-                    $scope.loading = false;`
+                    $scope.loading = false;
                     $scope.data = false;
                     $scope.Noresult = true;
                     alert("error while loading Report");

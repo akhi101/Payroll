@@ -1,11 +1,12 @@
 ﻿define(['app'], function (app) {
-    app.controller("BonafideCertificateController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService) {
-   
+    app.controller("StudyCertificateController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService) {
+
+  
         $scope.pin = $localStorage.certData.pin;
         $scope.Id = $localStorage.certData.Id;
       
         $scope.today = new Date();
-        var ApproveList = PreExaminationService.getBonafideData($scope.pin, $scope.Id);
+        var ApproveList = PreExaminationService.getStudyData($scope.pin, $scope.Id);
         ApproveList.then(function (response) {
             var response = JSON.parse(response)
             console.log(response);
@@ -17,10 +18,10 @@
             } else if (response.Table[0].ResponceCode == '400') {
                 //$scope.$emit('hideLoading', data);
                 alert(response.Table[0].ResponceDescription)
-                $state.go('Dashboard.PostExam.StudentCertificateApproveList');
+                $state.go('Dashboard.StudentServices.StudentCertificateApproveList');
             } else {
                 //$scope.$emit('hideLoading', data);
-                $state.go('Dashboard.PostExam.StudentCertificateApproveList');
+                $state.go('Dashboard.StudentServices.StudentCertificateApproveList');
             }
         },
         function (error) {
@@ -29,7 +30,7 @@
             $scope.Data = false;
             $scope.Nodata = true;
             alert("error while loading data");
-            $state.go('Dashboard.PostExam.StudentCertificateApproveList');
+            $state.go('Dashboard.StudentServices.StudentCertificateApproveList');
         });
     })
 })

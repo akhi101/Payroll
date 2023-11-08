@@ -164,7 +164,7 @@ define(['app'], function (app) {
 
 
             $scope['smsbtndisable' + ind] = true;
-            var sensSMS = PreExaminationService.sendcertSMS(PIN, url, mobile, "Study/Bonafide");
+            var sensSMS = PreExaminationService.sendcertSMS(PIN, url, mobile, "Bonafide Certificate");
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {
@@ -393,10 +393,10 @@ define(['app'], function (app) {
 
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDesc)
-                    $state.go('Dashboard.PostExam.BonafideCertApproveListDetailsController');
+                    $state.go('Dashboard.StudentServices.BonafideCertApproveListDetailsController');
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDesc)
-                    $state.go('Dashboard.PostExam.BonafideCertApproveListDetailsController');
+                    $state.go('Dashboard.StudentServices.BonafideCertApproveListDetailsController');
                 }
                 else {
                     //$scope.$emit('hideLoading', data);
@@ -425,10 +425,10 @@ define(['app'], function (app) {
 
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDesc)
-                    $state.go('Dashboard.PostExam.BonafiedCertificate');
+                    $state.go('Dashboard.StudentServices.BonafiedCertificate');
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDesc)
-                    $state.go('Dashboard.PostExam.BonafiedCertificate');
+                    $state.go('Dashboard.StudentServices.BonafiedCertificate');
                 }
                 else {
                     //$scope.$emit('hideLoading', data);
@@ -454,7 +454,7 @@ define(['app'], function (app) {
                 Id: Id
             }
 
-            $state.go('Dashboard.PreExamination.StudyCertificate');
+            $state.go('Dashboard.PreExamination.BonafideCertificate');
         }
 
         $scope.OpenData = function (Pin) {
@@ -462,7 +462,7 @@ define(['app'], function (app) {
 
                 pin: Pin
             }
-            $state.go('Dashboard.PostExam.StudyCertificate')
+            $state.go('Dashboard.StudentServices.BonafideCertificate')
         }
 
         $scope.UpdateAcaYear = function (StartYear, EndYear) {
@@ -525,13 +525,13 @@ define(['app'], function (app) {
         //            pin: Pin
         //        }
 
-        //        $state.go('Dashboard.PostExam.TransferCertificatePending');
+        //        $state.go('Dashboard.StudentServices.TransferCertificatePending');
         //    //} else {
         //    //    $localStorage.certData = {
         //    //        Certificate: CertifiScateType,
         //    //        pin: Pin
         //    //    }
-        //    //    $state.go('Dashboard.PostExam.Tc_StudentDetails')
+        //    //    $state.go('Dashboard.StudentServices.Tc_StudentDetails')
         //    //}
         //}
 
@@ -716,12 +716,12 @@ define(['app'], function (app) {
                             $scope.btndisable = false;
 
                             $scope.GetApprovalDetails()
-                            // $state.go('Dashboard.PostExam.TcApprovalList');
+                            // $state.go('Dashboard.StudentServices.TcApprovalList');
                         } else if (response.Table[0].ResponseCode == '400') {
                             alert(response.Table[0].ResponseDescription)
                             $scope.GetApprovalDetails();
                             $scope.btndisable = false;
-                            // $state.go('Dashboard.PostExam.TcApprovalList');
+                            // $state.go('Dashboard.StudentServices.TcApprovalList');
                         }
                         else {
                             //$scope.$emit('hideLoading', data);
@@ -772,12 +772,12 @@ define(['app'], function (app) {
                         alert(response.Table[0].ResponseDescription)
                         $scope.GetApprovalDetails();
                         $scope.btndisable = false;
-                        $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+                        $state.go('Dashboard.StudentServices.BonafideCertificateApproveListDetails');
                     } else if (response.Table[0].ResponseCode == '400') {
                         alert(response.Table[0].ResponseDescription)
                         $scope.GetApprovalDetails();
                         $scope.btndisable = false;
-                        $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+                        $state.go('Dashboard.StudentServices.BonafideCertificateApproveListDetails');
                     }
                     else {
                         //$scope.$emit('hideLoading', data);
@@ -834,7 +834,7 @@ define(['app'], function (app) {
 
             var stuconduct = $scope.StudentDetails.conduct == null || $scope.StudentDetails.conduct == undefined ? ' ' : $scope.StudentDetails.conduct
             var ApproveStatus = 1
-            var Approve = PreExaminationService.BonafideSetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.ServiceType, $scope.StudentDetails.Id);
+            var Approve = PreExaminationService.BonafideSetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.Id);
 
             Approve.then(function (response) {
 
@@ -853,7 +853,7 @@ define(['app'], function (app) {
                         alert(response.Table[0].ResponseDescription)
                         $scope.StartYear = "";
                         $scope.EndYear = "";
-                        $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+                        $state.go('Dashboard.StudentServices.BonafideCertificateApproveListDetails');
                         $scope.closeModal()
                     }
                     else {

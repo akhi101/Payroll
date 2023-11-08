@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("BonafideApproveListDetailsController", function ($scope, $http, $localStorage, $state, DigitalSignatureService, $stateParams, AppSettings, $uibModal, $timeout, PreExaminationService) {
+    app.controller("StudyCertificateApproveListDetailsController", function ($scope, $http, $localStorage, $state, DigitalSignatureService, $stateParams, AppSettings, $uibModal, $timeout, PreExaminationService) {
         $scope.btndisable = false;
         $scope.MyCheck = false;
 
@@ -128,7 +128,7 @@
 
         $scope.ReleaseBonafidePin = function (PIN) {
            
-            var ReleaseBonafidePin = PreExaminationService.ReleaseBonafidePin(PIN);
+            var ReleaseBonafidePin = PreExaminationService.ReleaseStudyPin(PIN);
             ReleaseBonafidePin.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].ResponseCode == "200") {
@@ -164,7 +164,7 @@
 
 
             $scope['smsbtndisable' + ind] = true;
-            var sensSMS = PreExaminationService.sendcertSMS(PIN, url, mobile, "Study/Bonafide");
+            var sensSMS = PreExaminationService.sendcertSMS(PIN, url, mobile, "Study Certificate");
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {
@@ -285,7 +285,7 @@
             });
 
         $scope.GetApprovalDetails = function () {
-            var ApproveList = PreExaminationService.GetBonafiedApprovalListByScheme($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code);
+            var ApproveList = PreExaminationService.GetStudyApprovalListByScheme($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code);
             ApproveList.then(function (response) {
                 var response = JSON.parse(response)
                 console.log(response);
@@ -481,7 +481,7 @@
         }
 
         $scope.OpenPopup = function (pin, Id) {
-            var ApproveList = PreExaminationService.getBonafiedRequestedDetailsByPin(pin,Id);
+            var ApproveList = PreExaminationService.getStudyRequestedDetailsByPin(pin,Id);
             ApproveList.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response.Table[0].ResponceCode == '200') {
@@ -495,7 +495,7 @@
                     }
                    
                     $scope.modalInstance = $uibModal.open({
-                        templateUrl: "/app/views/PostExam/BonafideDetailsPopup.html",
+                        templateUrl: "/app/views/PostExam/StudyCertificateDetailsPopup.html",
                         size: 'xlg',
                         scope: $scope,
                         windowClass: 'modal-fit-att',
@@ -617,7 +617,7 @@
                     //    return;
                     //}
                     $scope.buttonlabel = "Signing in process ...";
-                    var GetInterimCertificateTobeSignedlocation = PreExaminationService.GetBonafideCertificateTobeSignedlocation(PaymentStudent)
+                    var GetInterimCertificateTobeSignedlocation = PreExaminationService.GetStudyCertificateTobeSignedlocation(PaymentStudent)
                     GetInterimCertificateTobeSignedlocation.then(function (response) {
                         var location = window.location.origin;
                         if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
@@ -666,7 +666,7 @@
                                         return;
                                     }
 
-                                    var getData = PreExaminationService.BonafideMultipleSelectApprove(signedpins, $scope.UserTypeId, ApproveStatus)
+                                    var getData = PreExaminationService.StudyMultipleSelectApprove(signedpins, $scope.UserTypeId, ApproveStatus)
                                     getData.then(function (response) {
                                         try { var response = JSON.parse(response) } catch (err) { }
                                         if (response.Table[0].ResponseCode == '200') {
@@ -708,7 +708,7 @@
                     }
                     $scope.btndisable = true;
                     var ApproveStatus = 1
-                    var Approve = PreExaminationService.BonafideMultipleSelectApprove(array, $scope.UserTypeId, ApproveStatus);
+                    var Approve = PreExaminationService.StudyMultipleSelectApprove(array, $scope.UserTypeId, ApproveStatus);
                     Approve.then(function (response) {
                         var response = JSON.parse(response)
                         if (response.Table[0].ResponseCode == '200') {
@@ -765,7 +765,7 @@
             if (PaymentStudent != [] && PaymentStudent != '') {
                 var ApproveStatus = 2
                 $scope.btndisable = true;
-                var Approve = PreExaminationService.BonafiedSetApproveStatusReject(PaymentStudent, $scope.UserTypeId, ApproveStatus, remarks);
+                var Approve = PreExaminationService.StudySetApproveStatusReject(PaymentStudent, $scope.UserTypeId, ApproveStatus, remarks);
                 Approve.then(function (response) {
                     var response = JSON.parse(response)
                     if (response.Table[0].ResponseCode == '200') {
@@ -834,7 +834,7 @@
 
             var stuconduct = $scope.StudentDetails.conduct == null || $scope.StudentDetails.conduct == undefined ? ' ' : $scope.StudentDetails.conduct
             var ApproveStatus = 1
-            var Approve = PreExaminationService.BonafideSetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.ServiceType, $scope.StudentDetails.Id);
+            var Approve = PreExaminationService.StudySetVerifyStatus($scope.StudentDetails.pin, $scope.StudentDetails.Name, $scope.StudentDetails.FatherName, $scope.StudentDetails.BranchCode, $scope.StudentDetails.AcademicYear, $scope.StudentDetails.conduct, $scope.UserTypeId, $scope.StudentDetails.Id);
 
             Approve.then(function (response) {
 
