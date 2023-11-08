@@ -285,6 +285,9 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicUsersController', 'services/CCIC/CcicSettingsService', 'services/CCIC/CcicSystemUserService']
             },
 
+
+            //----------------------------------------------------------------------------
+
             'CcicDashboard.Academic.AcademicYearSetting': {
                 url: "/AcademicYearSetting",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicAcademicYearSettings.html',
@@ -434,7 +437,7 @@
 
            
 
-           
+    //-------------------------------------------------------------------------------------------       
 
            
 
@@ -546,7 +549,7 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicSubjectMasterController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-
+//------------------------------------------------------------------------------
 
             'CcicDashboard.Assessment': {
                 url: "/Assessment",
@@ -568,7 +571,21 @@
 
             },
 
+            'CcicDashboard.Assessment.SubjectList': {
+                url: "/MarksEntry/SubjectList",
+                templateUrl: 'app/views/CCIC/Assessment/CcicMarksEntrySubjectList.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicMarksEntrySubjectListController','services/CCIC/Assessment/CcicAssessmentService']
 
+            },
+
+            'CcicDashboard.Assessment.MarksEntryPage': {
+                url: "/MarksEntry/SubjectList/MarksEntry",
+                templateUrl: 'app/views/CCIC/Assessment/CcicMarksEntryPage.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicMarksEntryPageController', 'services/CCIC/Assessment/CcicAssessmentService']
+
+            },
+
+//-------------------------------------------------------------------------------------------------
 
             'CcicDashboard.PostExamination': {
                 url: "/PostExamination",
@@ -3230,6 +3247,19 @@
                 url: "/TwshOdcDownload",
                 templateUrl: 'app/views/TWSH/TwshOdcDownload.html',
                 dependencies: ['controllers/TWSH/TwshOdcDownloadController', 'services/TWSH/TwshStudentRegService']
+            },
+
+
+            'Dashboard.TypeWriting.AcademicYearSetting': {
+                url: "/AcademicYearSetting",
+                templateUrl: 'app/views/TWSH/TwshAcademicYearSetting.html',
+                dependencies: ['controllers/TWSH/TwshAcademicYearSettingController', 'services/TWSH/TwshAdminService']
+            },
+
+            'Dashboard.TypeWriting.ViewApplication': {
+                url: "/ViewApplication",
+                templateUrl: 'app/views/Examssite/TwshAdmViewApplication.html',
+                dependencies: ['controllers/Examssite/TwshAdmViewApplicationController', 'services/TWSH/TwshStudentRegService']
             },
 
             'Dashboard.AdmissionDashboard.Admission': {

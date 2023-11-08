@@ -174,6 +174,50 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpGet, ActionName("GetInternalorExternalSubjects")]
+        public string GetInternalorExternalSubjects(int AcademicYearID, int ExamMonthYearID,int InstitutionID, int CourseID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[3] = new SqlParameter("@CourseID", CourseID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_MarksEntryData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
+        [HttpGet, ActionName("GetCcicSubjectPinList")]
+        public string GetCcicSubjectPinList(int AcademicYearID, int CourseID, int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@CourseID", CourseID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_SubjectPinList", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
     }
 
 }

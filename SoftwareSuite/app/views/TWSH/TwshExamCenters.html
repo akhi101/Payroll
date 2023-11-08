@@ -40,20 +40,20 @@
                     <h2>TWSH Exam Centers list</h2>
                 </div>
             </div>
-            <div class="base-row row">
+            <!--<div class="base-row row">
 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="bold" for="sel1">
                             <b> Exam : </b>
-                        </label>
+                        </label>-->
                         <!--<select class="form-control " ng-model="ExamMode" name="ExamMode" >
                         <option value="" selected="selected">Select Exam mode</option>
                         <option value="{{Exam.Id}}" ng-repeat="Exam in ExamTypes">
                             {{Exam.Name}}
                         </option>
                     </select>-->
-                        <select class="form-control" id="ExamMode" ng-model="ExamMode"
+                        <!--<select class="form-control" id="ExamMode" ng-model="ExamMode"
                                 ng-options="Exam.Id as Exam.Name for Exam in ExamTypes ">
                             <option value="" selected>Select Exam mode</option>
                         </select>
@@ -64,28 +64,57 @@
                         <button class="btn btn-success" ng-click="GetDetails()">Submit</button>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
-        <div class="container" ng-show="!Adddata">
-            <div class="col-md-12">
-                <button class="btn pull-right btn-default btn-css text-uppercase" style="margin-top: 10px;margin-bottom: 10px;" ng-click="addData()">
+        <!--<div class="container">-->
+            <!--<div class="col-md-12">
+                <button class="btn pull-right btn-default btn-css text-uppercase" style="margin-top: 10px;margin-bottom: 10px;">
                     Add Exam Center
                 </button>
-            </div>
-        </div>
-        <div class="container" ng-show="Adddata">
+            </div>-->
+        <!--</div>-->
+        <div class="container">
             <div class="col-md-12">
                 <div class="alert alert-info">
                     <div class="studWishinputs">
                         <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                             <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">
+                                            Academic Year :
+                                        </label>
+                                        <select class="form-control" ng-model="year" ng-change="getExamMonthYearsData(year)">
+                                            <option value="" selected>Select Academic Year</option>
+                                            <option ng-repeat="yr in Acayears" value="{{yr.AcademicID}}">
+                                                {{yr.AcademicYear}}
+                                            </option>
+                                        </select>
+                                        <!-- <div class='input-group' id='year'>
+                <input type='text' class="form-control" ng-model="years.AcademicYear" disabled autocomplete="off" name="Fineamount" required />
+            </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Exam Month year:</label>
+                                        <div class="">
+                                            <select class="form-control" name="semister" required ng-model="ExamMonthYear">
+                                                <option value="" selected>Select Month year</option>
+                                                <option ng-repeat="data in ExamMonthYears" value="{{data.ExamMonthYearID}}">
+                                                    {{data.ExamMonthYear}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-3 form-group">
                                     <label for="sel1">
                                         Exam Center :
                                     </label>
                                     <select class="form-control" ng-model="College" name="College">
                                         <option value="" selected>Select Exam Center</option>
-                                        <option ng-repeat="center in ExamCenterCollegeList"  value="{{center}}">
+                                        <option ng-repeat="center in ExamCenterCollegeList" value="{{center}}">
                                             {{center.CollegeCode}} - {{center.CollegeName}}
                                         </option>
                                     </select>
@@ -97,25 +126,26 @@
                                     </label>
                                     <select class="form-control" ng-model="ExamDistrict" name="ExamDistrict">
                                         <option value="" selected>Select Exam District</option>
-                                        <option ng-repeat="dist in ExamDistrictList"   value="{{dist.Id}}">
+                                        <option ng-repeat="dist in ExamDistrictList" value="{{dist.Id}}">
                                             {{dist.district_name}}
                                         </option>
                                     </select>
                                 </div>
-                              
+
                                 <div class="col-md-2 form-group">
                                     <label for="sel1">
-                                        Genders allowed :
+                                        Gender :
                                     </label>
                                     <select class="form-control" ng-model="Gendersallow"
                                             ng-options="data.Id as data.Name for data in GendersList">
-                                        <option value="" selected>Select genders</option>
+                                        <option value="" selected>Select gender</option>
                                     </select>
 
                                 </div>
                                 <div class="col-md-2 form-group">
                                     <label for="sel1">
-                                        TypeWriting(Online) :
+                                        <!--TypeWriting(Online) :-->
+                                        CBT
                                     </label>
                                     <select class="form-control" ng-model="IsTwOnline"
                                             ng-options="data.Id as data.Value for data in inputs">
@@ -124,7 +154,8 @@
                                 </div>
                                 <div class="col-md-2 form-group">
                                     <label for="sel1">
-                                        TypeWriting(Offline) :
+                                        <!--TypeWriting(Offline) :-->
+                                        TMBT
                                     </label>
                                     <select class="form-control" ng-model="IsTwOffline"
                                             ng-options="data.Id as data.Value for data in inputs">
@@ -133,14 +164,15 @@
                                 </div>
                                 <div class="col-md-2 form-group">
                                     <label for="sel1">
-                                        Shorthand(Offline) :
+                                        <!--Shorthand(Offline) :-->
+                                        Shorthand :
                                     </label>
                                     <select class="form-control" ng-model="IsShoffline"
                                             ng-options="data.Id as data.Value for data in inputs">
                                         <option value="" selected>Select</option>
                                     </select>
                                 </div>
-                                <div class="col-md-2 form-group">
+                                <!--<div class="col-md-2 form-group">
                                     <label for="ExamType">
                                         Shorthand(online) :
                                     </label>
@@ -148,7 +180,7 @@
                                             ng-options="data.Id as data.Value for data in inputs">
                                         <option value="" selected>Select</option>
                                     </select>
-                                </div>
+                                </div>-->
                                 <div class="col-md-12">
                                     <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Submit()">
                                         ADD Center

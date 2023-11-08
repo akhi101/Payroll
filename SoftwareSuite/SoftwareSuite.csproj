@@ -377,6 +377,7 @@
     <Compile Include="Controllers\TWSH\GenerateTwshNR.cs" />
     <Compile Include="Controllers\TWSH\GenerateTwshPrinterNr.cs" />
     <Compile Include="Controllers\TWSH\GenerateTwshOdc.cs" />
+    <Compile Include="Controllers\TWSH\TwshAdminController.cs" />
     <Compile Include="Controllers\TWSH\TwshCertificateController.cs" />
     <Compile Include="Controllers\TWSH\TwshPaymentController.cs" />
     <Compile Include="Controllers\TWSH\TwshStudentRegController.cs" />
@@ -629,7 +630,9 @@
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryPageController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryReportsController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntrySubjectListController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicSetEntryDatesController.js" />
     <Content Include="app\controllers\CCIC\CcicChangePasswordController.js" />
     <Content Include="app\controllers\CCIC\CcicCoursesCardsController.js" />
@@ -876,6 +879,7 @@
     <Content Include="app\controllers\ExamsSite\StudentFeedbackController.js" />
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
+    <Content Include="app\controllers\ExamsSite\TwshAdmViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TypingCumShorthandResultsController.js" />
@@ -1417,6 +1421,7 @@
     <Content Include="app\controllers\TWSH\GenerateTwshNrController.js" />
     <Content Include="app\controllers\TWSH\GradewiseExamcentersController.js" />
     <Content Include="app\controllers\TWSH\InstituteRegistrationController.js" />
+    <Content Include="app\controllers\TWSH\TwshAcademicYearSettingController.js" />
     <Content Include="app\controllers\TWSH\TwshApprovalListController.js" />
     <Content Include="app\controllers\TWSH\TwshApprovalListDetailsController.js" />
     <Content Include="app\controllers\TWSH\TwshAuthorizationReportController.js" />
@@ -1684,7 +1689,10 @@
     <Content Include="app\services\PostExam\ThreeBacklogOdcDataService.js" />
     <Content Include="app\services\PreAssessment\hallTicketGenerationService.js" />
     <Content Include="app\services\PreAssessment\PreAssessmentService.js" />
+    <Content Include="app\services\TWSH\TwshAdminService.js" />
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntry.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicMarksEntryPage.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicMarksEntrySubjectList.html" />
     <Content Include="app\views\CCIC\CcicIndex.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicUsers.html" />
     <Content Include="app\views\CCIC\Popups\EditCcicExamCentresPopup.html" />
@@ -1692,6 +1700,7 @@
     <Content Include="app\views\CCIC\Popups\EditUserPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
+    <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\services\PreExamination\PreExaminationService.js" />
@@ -3080,6 +3089,7 @@
     <Content Include="app\views\TWSH\HtmlPage1.html" />
     <Content Include="app\views\TWSH\InstituteRegistration.html" />
     <Content Include="app\views\TWSH\TWSH.html" />
+    <Content Include="app\views\TWSH\TwshAcademicYearSetting.html" />
     <Content Include="app\views\TWSH\TwshApprovalList.html" />
     <Content Include="app\views\TWSH\TwshApprovalListDetails.html" />
     <Content Include="app\views\TWSH\TwshAuthorizationReport.html" />
