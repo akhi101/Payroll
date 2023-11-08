@@ -12,6 +12,39 @@
             $scope.GetDetails();
         }
 
+        var AcademicYearsActive = TwshStudentRegService.GetTwshAcademicYears();
+        AcademicYearsActive.then(function (response) {
+
+            //  $scope.years = response.Table[0];
+            $scope.Acayears = response.Table;
+
+        },
+            function (error) {
+                alert("error while loading Academic Year");
+            });
+
+
+        $scope.getExamMonthYearsData = function (year) {
+
+            //let academicId = $scope.years.AcademicID;
+
+            var EmYears = TwshStudentRegService.GetTwshExamMonthYearbyID(year);
+            EmYears.then(function (response) {
+                console.log(response)
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { error }
+                $scope.ExamMonthYears = Res.Table;
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
+
         $scope.GendersList = [
            { Name: "Male", Id: 1 },
            { Name: "Female", Id: 2 },
@@ -23,10 +56,10 @@
          { Name: "TypeMachine Based Test(TMBT)", Id: 2 }
         ];
 
-        $scope.addData = function () {
+        //$scope.addData = function () {
 
-            $scope.Adddata = true;
-        }
+        //    $scope.Adddata = true;
+        //}
 
         $scope.GetDetails = function () {
            

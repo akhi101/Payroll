@@ -704,9 +704,21 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetApplicationDetails', paramObj);
             return promise;
         };
+
+        this.getStudentApplicationData = function (ApplicationNumber) {
+            var paramObj = { "ApplicationNumber": ApplicationNumber };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentApplicationDetails', paramObj);
+            return promise;
+        };
         this.getDetailsByMobileDetails = function (PhoneNumber, DOB) {
             var paramObj = { "PhoneNumber": PhoneNumber, "DOB": DOB };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetDetailsByMobile', paramObj);
+            return promise;
+        };
+
+        this.getDetailsByMobileNumber = function (PhoneNumber) {
+            var paramObj = { "PhoneNumber": PhoneNumber };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentDetailsByMobile', paramObj);
             return promise;
         };
 
@@ -856,6 +868,17 @@
                 "Batch": Batch
             }
             var promise = DataAccessService.postData('api/TwshStudentReg/UpdateNewBatch', paramObj);
+            return promise;
+        };
+
+        this.GetTwshExamMonthYearbyID = function (AcademicYearID) {
+            var paramObj = { "AcademicYearID": AcademicYearID };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetTwshExamMonthYearbyID', paramObj);
+            return promise;
+        };
+
+        this.GetTwshAcademicYears = function () {
+            var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetTwshAcademicYears');
             return promise;
         };
     });

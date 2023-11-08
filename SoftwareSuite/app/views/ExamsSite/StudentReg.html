@@ -618,7 +618,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Name</label>
-                                            <input type="text" placeholder="Name of the Candidate" autocomplete="off" name="applicationForm.CandidateName" ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
+                                            <input type="text" maxlength="50" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Name of the Candidate" autocomplete="off" name="applicationForm.CandidateName" ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
