@@ -122,9 +122,13 @@ define(['app'], function (app) {
                     $scope.ResultNotFound = false;
                     $scope.LoadImg = false;
                     $scope.StudentData = response.Table[0];
-                    if ($scope.StudentData.Pin.includes("-PH-")) {
+                    if ($scope.StudentData.semid == 8 || $scope.StudentData.semid == 9) {
                         $scope.StudentData.WorkingDaysForExams = 180;
-                    } else {
+                    }
+                    //else if ($scope.StudentData.semid == 1) {
+                    //    $scope.StudentData.WorkingDaysForExams = 85;
+                    //}
+                    else {
                         $scope.StudentData.WorkingDaysForExams = 90;
                     }
                     $scope.StudentData.AttdForExams = (($scope.StudentData.NumberOfDaysPresent / $scope.StudentData.WorkingDaysForExams) * 100).toFixed(0);

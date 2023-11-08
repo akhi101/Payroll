@@ -64,7 +64,12 @@
         };
 
         $scope.UpdateFirstPage = function () {
-
+            //if ($scope.FileName == null || $scope.FileName == "" || $scope.FileName == undefined) {
+            //    $scope.StudentReg.PhotoUpload =0
+            //} else {
+            //    $scope.StudentReg.PhotoUpload = 1
+            //}
+            alert($scope.PhotoUpload)
             if ($scope.StudentReg.profilephoto == null || $scope.StudentReg.profilephoto == '') {
                 alert('Please Upload photo')
             } else if ($scope.StudentReg.CandidateSign == null || $scope.StudentReg.CandidateSign == '') {
@@ -387,6 +392,7 @@
         $scope.uploadPhoto = function () {
             var input = document.getElementById("stdPhotoFile");
             var fileSize = input.files[0].size;
+            $scope.FileName = input.files[0].name
             if (fileSize <= 200000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();

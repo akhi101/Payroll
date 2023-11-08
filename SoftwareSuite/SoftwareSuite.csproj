@@ -1056,8 +1056,8 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
-    <Content Include="app\controllers\PostExam\BonafideApproveListController.js" />
-    <Content Include="app\controllers\PostExam\BonafideApproveListDetailsController.js" />
+    <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
+    <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
     <Content Include="app\controllers\PostExam\C18OdcTrSheetController.js" />
@@ -1102,6 +1102,8 @@
     <Content Include="app\controllers\PostExam\ResultsReportsController.js" />
     <Content Include="app\controllers\PostExam\SeatingArrangementController.js" />
     <Content Include="app\controllers\PostExam\SemMigrationController.js" />
+    <Content Include="app\controllers\PostExam\StudyCertificateApproveListDetailsController.js" />
+    <Content Include="app\controllers\PostExam\StudyCertificateController.js" />
     <Content Include="app\controllers\PostExam\TcApprovalListController.js" />
     <Content Include="app\controllers\PostExam\TcApprovalListDetailsController.js" />
     <Content Include="app\controllers\PostExam\Tc_StudentDetailsController.js" />
@@ -1401,7 +1403,6 @@
     <Content Include="app\controllers\StudentRequestBoard\TrueExMarksMemoAppListController.js" />
     <Content Include="app\controllers\StudentResultController.js" />
     <Content Include="app\controllers\StudentServices\AdministrationServicesController.js" />
-    <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
     <Content Include="app\controllers\StudentServices\StudentServicesController.js" />
     <Content Include="app\controllers\StudentServices\TcApplicationFormController.js" />
     <Content Include="app\controllers\StudentServices\TCApprovalHODController.js" />
@@ -1693,6 +1694,8 @@
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
+    <Content Include="app\views\PostExam\StudyCertificate.html" />
+    <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
     <Content Include="app\services\PreExamination\PreExaminationService.js" />
     <Content Include="app\services\PreExam\absentDetailService.js" />
@@ -2644,8 +2647,8 @@
     <Content Include="app\views\PostExam.html" />
     <Content Include="app\views\PostExam\AmbedkarResultsReport.html" />
     <Content Include="app\views\PostExam\BacklogSubjects.html" />
-    <Content Include="app\views\PostExam\BonafideApproveList.html" />
-    <Content Include="app\views\PostExam\BonafideApproveListDetails.html" />
+    <Content Include="app\views\PostExam\StudyCertificateApproveList.html" />
+    <Content Include="app\views\PostExam\StudyCertificateApproveListDetails.html" />
     <Content Include="app\views\PostExam\BonafideCertificate.html" />
     <Content Include="app\views\PostExam\BonafideDetailsPopup.html" />
     <Content Include="app\views\PostExam\C18OdcTrSheet.html" />

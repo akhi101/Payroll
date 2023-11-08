@@ -325,6 +325,35 @@ namespace SoftwareSuite.Controllers.StudentServices
             }
         }
 
+        [HttpPost, ActionName("GetStudyCertificate")]
+        public async Task<object> GetStudyCertificate([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var respdfList = new List<GetInterimRes>();
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    param[0] = new SqlParameter("@pin", jobject["PIN"]);
+                    param[1] = new SqlParameter("@Id", jobject["Id"]);
+                    DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_StudyCertificateDetailsForOfficials", param);
+                    GenerateCertificate GenerateCertificate = new GenerateCertificate();
+                    var ApplicationNumber = ds.Tables[1].Rows[0]["ApplicationNumber"].ToString();
+                    var pdfurl = GenerateCertificate.GetStudyCertificate(ds);
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Id = jobject["Id"].ToString(), Pin = jobject["PIN"].ToString(), ApplicationNumber = ApplicationNumber });
+                }
+
+                return respdfList;
+            }
+            catch (Exception ex)
+            {
+                return "FAILED" + ex.Message;
+            }
+        }
+
         //[HttpGet, ActionName("GetTransferCertificate")]
         //public string GetTransferCertificate(String pin)
         //{

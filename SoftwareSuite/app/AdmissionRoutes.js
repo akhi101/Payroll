@@ -7,8 +7,7 @@
             //    url: "",
             //    templateurl: "app/indexintrm.html"
             //   // templateurl: 'website/about-right-info.html'
-            //}, 
-
+           
             //'about-right-info': {
             //    url: "/about-right-info",
             //    templateurl:  '/website/about-right-info.html'              
@@ -1463,9 +1462,9 @@
 
 
 
-            'Dashboard.PreExamination.StudyCertificate': {
+            'Dashboard.PreExamination.BonafideCertificate': {
 
-                url: "/StudyCertificate",
+                url: "/BonafideCertificate",
 
                 templateUrl: 'app/views/PostExam/BonafideCertificate.html',
 
@@ -1473,6 +1472,15 @@
 
             },
 
+            //'Dashboard.PreExamination.StudyCertificate': {
+
+            //    url: "/StudyCertificate",
+
+            //    templateUrl: 'app/views/PostExam/StudyCertificate.html',
+
+            //    dependencies: ['controllers/PostExam/StudyCertificateController', 'services/PreExamination/PreExaminationService']
+
+            //},
 
 
 
@@ -1657,8 +1665,8 @@
 
             'Dashboard.PreExamination.StudyCertificate': {
                 url: "/StudyCertificate",
-                templateUrl: 'app/views/PostExam/BonafideCertificate.html',
-                dependencies: ['controllers/PostExam/BonafideCertificateController', 'services/PreExamination/PreExaminationService']
+                templateUrl: 'app/views/PostExam/StudyCertificate.html',
+                dependencies: ['controllers/PostExam/StudyCertificateController', 'services/PreExamination/PreExaminationService']
             },
 
 
@@ -1807,20 +1815,20 @@
 
             'Dashboard.PostExam.StudyCertificateApproveList': {
                 url: "/StudyCertificateApproveList",
-                templateUrl: 'app/views/PostExam/BonafideApproveList.html',
-                dependencies: ['controllers/PostExam/BonafideApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+                templateUrl: 'app/views/PostExam/StudyCertificateApproveList.html',
+                dependencies: ['controllers/PostExam/StudyCertificateApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
 
 
             'Dashboard.PostExam.StudyCertificateApproveListDetails': {
                 url: "/StudyCertificateApproveList/StudyCertificateApproveListDetails",
-                templateUrl: 'app/views/PostExam/BonafideApproveListDetails.html',
-                dependencies: ['controllers/PostExam/BonafideApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+                templateUrl: 'app/views/PostExam/StudyCertificateApproveListDetails.html',
+                dependencies: ['controllers/PostExam/StudyCertificateApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
-            'Dashboard.PostExam.BonafiedCertificate': {
-                url: "/BonafiedCertificate",
+            'Dashboard.PostExam.BonafideCertApproveList': {
+                url: "/BonafideCertApproveList",
                 templateUrl: 'app/views/PostExam/BonafideCertApproveList.html',
                 dependencies: ['controllers/PostExam/BonafideCertApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
@@ -4121,26 +4129,26 @@
             // ------------------study certificate/ bonafide certificate---------------- 
             'Dashboard.StudentServices.StudyCertificateApproveList': {
                 url: "/StudyCertificateApproveList",
-                templateUrl: 'app/views/PostExam/BonafideApproveList.html',
-                dependencies: ['controllers/PostExam/BonafideApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+                templateUrl: 'app/views/PostExam/StudyCertificateApproveList.html',
+                dependencies: ['controllers/PostExam/StudyCertificateApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
             
 
             'Dashboard.StudentServices.StudyCertificateApproveListDetails': {
                 url: "/StudyCertificateApproveList/StudyCertificateApproveListDetails",
-                templateUrl: 'app/views/PostExam/BonafideApproveListDetails.html',
-                dependencies: ['controllers/PostExam/BonafideApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
+                templateUrl: 'app/views/PostExam/StudyCertificateApproveListDetails.html',
+                dependencies: ['controllers/PostExam/StudyCertificateApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
-            'Dashboard.StudentServices.BonafiedCertificate': {
-                url: "/BonafiedCertificate",
+            'Dashboard.StudentServices.BonafideCertApproveList': {
+                url: "/BonafideCertApproveList",
                 templateUrl: 'app/views/PostExam/BonafideCertApproveList.html',
                 dependencies: ['controllers/PostExam/BonafideCertApproveListController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },
 
-            'Dashboard.StudentServices.BonafiedCertificateApproveListDetails': {
-                url: "/BonafiedCertificate/BonafiedCertificateApproveListDetails",
+            'Dashboard.StudentServices.BonafideCertApproveListDetails': {
+                url: "/BonafideCertApproveList/BonafideCertApproveListDetails",
                 templateUrl: 'app/views/PostExam/BonafideCertApproveListDetails.html',
                 dependencies: ['controllers/PostExam/BonafideCertApproveListDetailsController', 'services/PreExamination/PreExaminationService', 'directives/saDate', 'services/DigitalSignatureService']
             },

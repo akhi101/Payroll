@@ -135,16 +135,19 @@
                             <div class="col-md-3">
                                 <div class="form-group ">
                                     <label class="font-weight-bold">Services :</label>
-                                    <select class="form-control" ng-disabled="Service" ng-model="CertificateType" ng-change="changeCertificate()" name="CertificateType">
+                                    <select class="form-control" ng-disabled="Service" ng-change="changeCertificate()" name="CertificateType" ng-model="Certificate"
+                                            ng-options="data.Id as data.Name for data in CertificateTypes">
+                                        <option value="" selected>Select Service</option>
+                                    </select>
+                                    <!--<select class="form-control" ng-disabled="Service" ng-model="CertificateType" ng-change="changeCertificate()" name="CertificateType">
                                         <option value="" selected>Select Service</option>
                                         <option ng-repeat="data in CertificateTypes" value="{{data}}">
                                             {{data.Name}}
                                         </option>
-                                        <!--ng-options="Student.type for Student in StudentType">-->
-                                    </select>
+                                    </select>-->
                                 </div>
                             </div>
-                            <div class="col-md-3" ng-show="Certificate ==9">
+                            <!--<div class="col-md-3" ng-show="Certificate ==9">
                                 <div class="form-group ">
                                     <label class="font-weight-bold">Select Certificate :</label>
                                     <select ng-model="BonafideType" class="form-control" placeholder="Select Certificate" >
@@ -152,7 +155,7 @@
                                         <option value="{{data.ServiceType}}" ng-repeat="data in BonafideTypes">{{data.Name}}</option>
                                     </select>
                                 </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-3">
                                     <div class="form-group ">
                                         <label class="font-weight-bold">PIN :</label>
@@ -335,7 +338,7 @@
                         </div>
                     </div>
                  
-                    <div class="row userRow" ng-show="Certificate ==9">
+                    <div class="row userRow" ng-show="Certificate ==9|| Certificate ==10">
                         <div class="col-md-4 font_bold">Reason </div>
                         <div class="col-md-6">
                             <input type="text" title="Enter Purpose for Bonafied/study certificate" placeholder="Enter Purpose for Bonafied/study certificate" style="width:50%" ng-model="ReasonForBonafied" />
@@ -863,7 +866,7 @@
                 </button>
             </div>
         </form>
-        <div ng-show="TCReceiptFound && (Certificate==6 || Certificate==9)" id="TcReceiptDivPrint">
+        <div ng-show="TCReceiptFound && (Certificate==6 || Certificate==9|| Certificate==10)" id="TcReceiptDivPrint">
             <!--<div class="col-md-12" >
                 <button class="btn bck_btn" ng-click="Back()"><a  class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>-->

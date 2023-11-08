@@ -322,7 +322,7 @@ namespace SoftwareSuite.Models.Admission
 
         public string DateOfBirth { get; set; }
 
-
+        public int PhotoUpload { get; set; }
         public int CategoryId { get; set; }
 
         public string SpecialCategoryId { get; set; }

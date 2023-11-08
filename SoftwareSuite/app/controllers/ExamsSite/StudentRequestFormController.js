@@ -683,8 +683,8 @@
             //  +','+$scope.UEmail3+','+$scope.UEmail4+','+ $scope.UEmail5, $scope.UEmail6
 
 
-            if ($scope.Certificate == 2 || $scope.Certificate == 4 || $scope.Certificate == 1 || $scope.Certificate == 7 || $scope.Certificate == 6 || $scope.Certificate == 5 || $scope.Certificate == 3 || $scope.Certificate == 9) {
-                if ($scope.Certificate == 5) {
+            if ($scope.Certificate== 2 || $scope.Certificate== 4 || $scope.Certificate== 1 || $scope.Certificate== 7 || $scope.Certificate== 6 || $scope.Certificate== 5 || $scope.Certificate== 3 || $scope.Certificate== 9) {
+                if ($scope.Certificate== 5) {
 
 
                     if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
@@ -729,26 +729,26 @@
                         $scope.Affidiate, $scope.Aadharxerox, $scope.studentfilearr)
                     //AadharNo, OdcNo, PoliceFir, PrincipalCoveringLetter, MegisrateAffidavit, AadharCopy, OdcMemos
                     // var SetInterimData = PreExaminationService.SetInterimData($scope.userData.Pin)
-                } else if ($scope.Certificate == 1) {
+                } else if ($scope.Certificate== 1) {
                     // alert("Please Click proceed to pay fee")
                     var SetInterimData = PreExaminationService.SetMigrationData($scope.userData.Pin)
-                } else if ($scope.Certificate == 2) {
+                } else if ($scope.Certificate== 2) {
                     var SetInterimData = PreExaminationService.SetInterimData($scope.userData.Pin)
                     // alert("Please Click proceed to pay fee")
-                } else if ($scope.Certificate == 6) {
+                } else if ($scope.Certificate== 6) {
 
                     var SetInterimData = PreExaminationService.SetTcData($scope.userData.Pin, $scope.Reason, $scope.IdMark1, $scope.IdMark2)
-                } else if ($scope.Certificate == 7) {
+                } else if ($scope.Certificate== 7) {
                     if ($scope.userData.FatherName == null) {
                         $scope.userData.FatherName = ' '
                     }
                     var SetInterimData = PreExaminationService.SetNameCorrectionData($scope.userData.Pin, $scope.userData.Name, $scope.NewName, $scope.userData.FatherName,
                         $scope.NewFatherName, $scope.Gender, $scope.userPhoto)
 
-                } else if ($scope.Certificate == 3) {
+                } else if ($scope.Certificate== 3) {
                     var SetInterimData = PreExaminationService.SetTranscriptData($scope.userData.Pin, $scope.UniversityCount, UniversityEmail, $scope.userPhoto, $scope.WesRefNo, $scope.Email, $scope.studentfilearr)
 
-                } if ($scope.Certificate == 8) {
+                } if ($scope.Certificate== 8) {
                     var ExamMonthYear = $scope.ExamMonthYear
                     if ($scope.ExamMonthYear == 'Other') {
                         if ($scope.ExamMonth == null || $scope.ExamMonth == '' || $scope.ExamMonth == undefined) {
@@ -763,7 +763,7 @@
                     var SetInterimData = PreExaminationService.SetGenuinenessCheck($scope.userData.Pin, $scope.OrganizationType, $scope.OrganizationName, $scope.OrganizationAddress, $scope.OrganizationEmail, $scope.OrganizationMobile, $scope.OdcNo, $scope.Aadharxerox,
                    ExamMonthYear, $scope.Price)
 
-                } else if ($scope.Certificate == 4) {
+                } else if ($scope.Certificate== 4) {
                     if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
                         alert('Please Enter Pin.');
                         return;
@@ -777,7 +777,7 @@
 
                 }
                 SetInterimData.then(function (res) {
-                    //if ($scope.Certificate == 4) {
+                    //if ($scope.Certificate== 4) {
                     //    var res = JSON.parse(res)
                     //}
                     if (res.Table[0].ResponceCode == '200') {
@@ -840,7 +840,7 @@
         $scope.save = function (PinNumber) {
             $scope.Verified = false;
 
-            if ($scope.Certificate == null || $scope.Certificate == "" || $scope.Certificate == undefined) {
+            if ($scope.Certificate== null || $scope.Certificate== "" || $scope.Certificate== undefined) {
                 alert("select Certificate Type");
                 return;
             }
@@ -866,12 +866,12 @@
             $scope.cleardata();
             $scope.PinNumber = PinNumber
             if ($scope.PinNumber.length > 9 && $scope.PinNumber.length < 16) {
-
-                if ($scope.Certificate == 2) {
+                
+                if ($scope.Certificate== 2) {
                     var getData = PreExaminationService.getDetailsByPin($scope.PinNumber)
-                } else if ($scope.Certificate == 1) {
+                } else if ($scope.Certificate== 1) {
                     var getData = PreExaminationService.getMigrationDetailsByPin($scope.PinNumber)
-                } else if ($scope.Certificate == 3) {
+                } else if ($scope.Certificate== 3) {
                     var res = $scope.PinNumber.substring(0, 2);
                     var tempval = angular.uppercase($scope.PinNumber)
                     var exis = (tempval.includes("CCA") || tempval.includes("CCC") || tempval.includes("CCCM") || tempval.includes("CCEC")
@@ -905,11 +905,11 @@
                         var getData = PreExaminationService.getTranscriptDetailsByPin($scope.PinNumber)
                     }
 
-                } else if ($scope.Certificate == 6) {
+                } else if ($scope.Certificate== 6) {
                     var getData = PreExaminationService.getTcDetailsByPin($scope.PinNumber)
-                } else if ($scope.Certificate == 7) {
+                } else if ($scope.Certificate== 7) {
                     var getData = PreExaminationService.getNcDetailsByPin($scope.PinNumber)
-                } else if ($scope.Certificate == 5) {
+                } else if ($scope.Certificate== 5) {
 
                     var res = $scope.PinNumber.substring(0, 2);
                     var tempval = angular.uppercase($scope.PinNumber)
@@ -940,7 +940,7 @@
                     } else {
                         var getData = PreExaminationService.getODCDetailsByPin($scope.PinNumber)
                     }
-                } else if ($scope.Certificate == 4) {
+                } else if ($scope.Certificate== 4) {
                     $scope.GetSchemes();
                     var res = $scope.PinNumber.substring(0, 2);
                     var tempval = angular.uppercase($scope.PinNumber)
@@ -976,8 +976,8 @@
                         var getData = PreExaminationService.getMarksMemoDetailsByPin($scope.PinNumber)
                     }
                 }
-                else if ($scope.Certificate == 9) {
-                  
+                else if ($scope.Certificate== 9) {
+
 
                     var res = $scope.PinNumber.substring(0, 2);
                     var tempval = angular.uppercase($scope.PinNumber)
@@ -1007,13 +1007,45 @@
                         $scope.NoData = false;
                     } else {
 
-                        if ($scope.BonafideType == null || $scope.BonafideType == "" || $scope.BonafideType == undefined) {
-                            alert("Select Certificate Type.");
-                            return;
-                        }
-                        var getData = PreExaminationService.getBonafiedDetailsByPin($scope.PinNumber, $scope.BonafideType)
+
+                        var getData = PreExaminationService.getStudyDetailsByPin($scope.PinNumber)
+                    }
+                
+                } else if ($scope.Certificate== 10) {
+
+
+                    var res = $scope.PinNumber.substring(0, 2);
+                    var tempval = angular.uppercase($scope.PinNumber)
+                    var exis = (tempval.includes("CCA") || tempval.includes("CCC") || tempval.includes("CCCM") || tempval.includes("CCEC")
+                        || tempval.includes("CCEE") || tempval.includes("CCM") || tempval.includes("CCMET") || tempval.includes("CCPT"));
+
+                    if (res >= 75) {
+                        //alert("Data Not Found Plase Fill the below Application for Certificate");
+                        $scope.PinNo = $scope.PinNumber
+                        $scope.result = true;
+                        $scope.OldSudent = true;
+                        $scope.NoDataFound = false;
+                        $scope.NoData = false;
+                    } else if (res <= 04) {
+                        alert("Data Not Found Plase Fill the below Application for Certificate");
+                        $scope.result = true;
+                        $scope.OldSudent = true;
+                        $scope.PinNo = $scope.PinNumber
+                        $scope.NoDataFound = false;
+                        $scope.NoData = false;
+                    } else if (res == 05 && exis) {
+                        //alert("Data Not Found Plase Fill the below Application for Certificate");
+                        $scope.Data = false;
+                        $scope.OldSudent = false;
+                        $scope.PinNo = $scope.PinNumber
+                        $scope.NoDataFound = false;
+                        $scope.NoData = false;
+                    } else {
+
+                        var getData = PreExaminationService.getBonafiedDetailsByPin($scope.PinNumber)
                     }
                 }
+
 
                 getData.then(function (response) {
                     $scope.stsercaptcha = "";
@@ -1038,6 +1070,10 @@
 
                             $scope.StudentPhoneNumber = response.Table1[0].StudentPhoneNumber;
                             $scope.applicatioNo = response.Table1[0].ApplicationNumber;
+                            $scope.NewName = response.Table1[0].Name;
+                            $scope.NewFatherName = response.Table1[0].FatherName;
+                            $scope.CollegeCode = response.Table1[0].CollegeCode;
+                            $scope.BranchCode = response.Table1[0].BranchCode;
                             $scope.NewName = response.Table1[0].Name;
                             $scope.NewFatherName = response.Table1[0].FatherName;
 
@@ -1102,7 +1138,11 @@
                 var response = JSON.parse(response);
             } catch (err) { }
             $scope.CertificateTypes = response.Table;
-            //$scope.CertificateTypes.splice(7, 1);                       
+            //$scope.CertificateTypes.splice(7, 1); 
+            console.log($localStorage.StudentServices)
+            $scope.Certificate= $localStorage.StudentServices.ServiceType;
+           
+           
             $scope.Service = false;
         }, function (error) {
             $scope.NoDataFound = true;
@@ -1158,7 +1198,7 @@
             $('#stdPhotoFile').val(null);
             $('#stdPhotoImg').attr('src', '');
 
-            if ($scope.Certificate == 3) {
+            if ($scope.Certificate== 3) {
                 $scope.studentfilearr = [{
                     fileindex: 0,
                     file: "",
@@ -1230,12 +1270,12 @@
         }
 
         $scope.changeCertificate = function (data) {
-            try {
-                var Cetificate = JSON.parse($scope.CertificateType)
-            } catch (err) { }
-            $scope.CertificateName = Cetificate.Name;
-            $scope.Certificate = Cetificate.Id;
-            $scope.Price = Cetificate.Price;
+            //try {
+            //    var Cetificate = JSON.parse($scope.Certificate)
+            //} catch (err) { }
+            //$scope.CertificateName = Cetificate.Name;
+            //$scope.Certificate = Cetificate.Id;
+            //$scope.Price = Cetificate.Price;
             $scope.cleardata();
         }
 
@@ -1246,7 +1286,7 @@
 
         $scope.Proceed = function () {
 
-            if ($scope.Certificate == 3 || $scope.Certificate == 7 || $scope.Certificate == 6 || $scope.Certificate == 5 || $scope.Certificate == 4 || $scope.Certificate == 9) {
+            if ($scope.Certificate == 3 || $scope.Certificate == 7 || $scope.Certificate == 6 || $scope.Certificate == 5 || $scope.Certificate == 4 || $scope.Certificate == 9 || $scope.Certificate == 10) {
 
 
                 if (!$scope.phonenoupdated) {
@@ -1254,7 +1294,7 @@
                     return;
                 }
 
-                if ($scope.Certificate == 7) {
+                if ($scope.Certificate== 7) {
                     if ($scope.Gender == undefined || $scope.Gender == null || $scope.Gender == '') {
                         alert('Please Choose Gender.');
                         return;
@@ -1288,7 +1328,7 @@
                     }, function (error) {
                         $scope.loader = false;
                     })
-                } else if ($scope.Certificate == 6) {
+                } else if ($scope.Certificate== 6) {
                     if ($scope.IdMark1 == undefined || $scope.IdMark1 == null || $scope.IdMark1 == '') {
                         alert('Please Enter Identifiation Mark 1.');
                         return;
@@ -1329,15 +1369,15 @@
                     //    alert("Please fill all fields")
                     //}
 
-                } else if ($scope.Certificate == 9) {
+                } else if ($scope.Certificate== 10) {
                     if ($scope.ReasonForBonafied == undefined || $scope.ReasonForBonafied == null || $scope.ReasonForBonafied == '') {
                         alert('Please Enter the purpose, for Bonafied/Study certificate.');
                         return;
                     }
-                    if ($scope.BonafideType == undefined || $scope.BonafideType == null || $scope.BonafideType == '') {
-                        alert('Please Select Certificate.');
-                        return;
-                    }
+                    //if ($scope.BonafideType == undefined || $scope.BonafideType == null || $scope.BonafideType == '') {
+                    //    alert('Please Select Certificate.');
+                    //    return;
+                    //}
                   
                     if ($scope.OldSudent) {
                         if ($scope.Gender == undefined || $scope.Gender == '' || $scope.Gender == null) {
@@ -1366,7 +1406,7 @@
                         }
                     }
 
-                    var SetBonafiedData = PreExaminationService.SetBonafiedData($scope.PinNumber, $scope.ReasonForBonafied, $scope.BonafideType, $scope.Name, $scope.FatherName, $scope.Branch, $scope.CollegeCode, $scope.Scheme, $scope.Gender)
+                    var SetBonafiedData = PreExaminationService.SetBonafiedData($scope.PinNumber, $scope.ReasonForBonafied, $scope.userData.Name, $scope.userData.FatherName, $scope.userData.BranchCode, $scope.userData.CollegeCode)
                     SetBonafiedData.then(function (res) {
                         if (res.Table[0].ResponseCode == '200') {
 
@@ -1391,14 +1431,70 @@
                         $scope.result = false;
                     });
 
+                } else if ($scope.Certificate== 9) {
+                    if ($scope.ReasonForBonafied == undefined || $scope.ReasonForBonafied == null || $scope.ReasonForBonafied == '') {
+                        alert('Please Enter the purpose, for Bonafied/Study certificate.');
+                        return;
+                    }
+                    //if ($scope.BonafideType == undefined || $scope.BonafideType == null || $scope.BonafideType == '') {
+                    //    alert('Please Select Certificate.');
+                    //    return;
+                    //}
+
+                    if ($scope.OldSudent) {
+                        if ($scope.Gender == undefined || $scope.Gender == '' || $scope.Gender == null) {
+                            alert('Please select Gender.');
+                            return;
+                        }
+                        if ($scope.Name == undefined || $scope.Name == '' || $scope.Name == null) {
+                            alert('Please Enter Name.');
+                            return;
+                        }
+                        if ($scope.FatherName == undefined || $scope.FatherName == '' || $scope.FatherName == null) {
+                            alert('Please Enter Father name.');
+                            return;
+                        }
+                        if ($scope.Branch == undefined || $scope.Branch == '' || $scope.Branch == null) {
+                            alert('Please select Branch.');
+                            return;
+                        }
+                        if ($scope.CollegeCode == undefined || $scope.CollegeCode == '' || $scope.CollegeCode == null) {
+                            alert('Please select college.');
+                            return;
+                        }
+                        if ($scope.Scheme == undefined || $scope.Scheme == '' || $scope.Scheme == null) {
+                            alert('Please select Scheme.');
+                            return;
+                        }
+                    }
+
+                    var SetBonafiedData = PreExaminationService.SetStudyCertData($scope.PinNumber, $scope.ReasonForBonafied, $scope.userData.Name, $scope.userData.FatherName, $scope.userData.BranchCode, $scope.userData.CollegeCode, $scope.userData.Gender)
+                    SetBonafiedData.then(function (res) {
+                        if (res.Table[0].ResponseCode == '200') {
+
+                            $scope.tcapplicatioNo = res.Table1[0].ApplicationNum;
+                            $scope.showTcReceipt();
+                            alert(res.Table[0].ResponseDesription + ', Please Note the Application Number for further Reference : ' + $scope.tcapplicatioNo)
 
 
+                        } else if (res.Table[0].ResponseCode == '400') {
+                            alert(res.Table[0].ResponseDesription + ', Please Note the Application Number for further Reference : ' + $scope.tcapplicatioNo);
+
+                        } else {
+
+                            $scope.result = false;
+
+                            //  alert(res.Table[0].ResponseDesription);
+                        }
 
 
+                    }, function (error) {
 
+                        $scope.result = false;
+                    });
 
                 }
-                else if ($scope.Certificate == 4) {
+                else if ($scope.Certificate== 4) {
                     //if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
                     //    alert('Please Enter Pin.');
                     //    return;
@@ -1502,7 +1598,7 @@
                     }
 
 
-                } else if ($scope.Certificate == 5) {
+                } else if ($scope.Certificate== 5) {
 
                     $scope.loader = true;
                     //if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
@@ -1669,7 +1765,7 @@
                     }
 
                 }
-                if ($scope.Certificate == 8) {
+                if ($scope.Certificate== 8) {
                     var ExamMonthYear = $scope.ExamMonthYear
                     if ($scope.ExamMonthYear == 'Other') {
                         if ($scope.ExamMonth == null || $scope.ExamMonth == '' || $scope.ExamMonth == undefined) {
@@ -1751,7 +1847,7 @@
 
                     }
 
-                } else if ($scope.Certificate == 3) {
+                } else if ($scope.Certificate== 3) {
 
 
                     if ($scope.UniversityCount == undefined || $scope.UniversityCount == null || $scope.UniversityCount == '') {
@@ -1894,7 +1990,7 @@
                     //$scope.loader = false;
                     // $scope.GetChallanData();
                 }
-            } else if ($scope.Certificate == 1 || $scope.Certificate == 2) {
+            } else if ($scope.Certificate== 1 || $scope.Certificate== 2) {
 
                 if (!$scope.phonenoupdated) {
                     //$scope.loader = false;
@@ -1962,7 +2058,7 @@
                     }
                     $scope.challan = response.Table1[0].ChallanNumber
                     $scope.paymentPin = response.Table1[0].Pin
-                    if ($scope.Certificate == 4) {
+                    if ($scope.Certificate== 4) {
                         $scope.Amount = $scope.Price;
                     } else {
                         $scope.Amount = response.Table1[0].Amount;
@@ -2009,7 +2105,7 @@
                     }
                     $scope.challan = response.Table1[0].ChallanNumber
                     $scope.paymentPin = response.Table1[0].Pin
-                    if ($scope.Certificate == 4) {
+                    if ($scope.Certificate== 4) {
                         $scope.Amount = $scope.Price;
                     } else {
                         $scope.Amount = response.Table1[0].Amount;
@@ -2110,7 +2206,7 @@
             }
 
             if ($scope.studentfilearr.length < 12) {
-                if ($scope.Certificate == 3) {
+                if ($scope.Certificate== 3) {
                     $scope.studentfilearr.push({
                         fileindex: $scope.studentfilearr.length,
                         file: "",

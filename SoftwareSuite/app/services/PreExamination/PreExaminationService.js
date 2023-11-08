@@ -677,6 +677,11 @@
             return DataAccessService.getDataWithPara('api/PreExamination/getBonafideData', param);
         };
 
+        this.getStudyData = function (pin, Id) {
+            var param = { "pin": pin, "Id": Id }
+            return DataAccessService.getDataWithPara('api/PreExamination/getStudyData', param);
+        };
+
         this.SetSignedDate = function (Pin) {
             var param = { "Pin": Pin }
             return DataAccessService.getDataWithPara('api/PreExamination/SetSignedDate', param);
@@ -866,6 +871,10 @@
             return DataAccessService.postData('api/StudentCertificate/GetBonafideCertificate', param);
         };
 
+        this.GetStudyCertificateTobeSignedlocation = function (PinJson) {
+            var param = { "PINjson": PinJson }
+            return DataAccessService.postData('api/StudentCertificate/GetStudyCertificate', param);
+        };
 
         this.GetBranchs = function () {
             return DataAccessService.getDataWithPara('api/PreExamination/GetBranchs');
@@ -1125,7 +1134,14 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetBonafideApprovalList', param);
         };
 
-
+        this.GetStudyCertApprovalList = function (CollegeCode, userType, Branch) {
+            var param = {
+                "CollegeCode": CollegeCode,
+                "userType": userType,
+                "BranchCode": Branch
+            }
+            return DataAccessService.getDataWithPara('api/PreExamination/GetStudyCertApprovalList', param);
+        };
 
         this.GetMigrationApprovalList = function (userType) {
             var param = {
@@ -1572,20 +1588,31 @@
             return promise;
         };
 
-        this.SetBonafiedData = function (pin, ReasonForBonafied,ServiceType, Name, FatherName, Branchcode, CollegeCode, Scheme, Gender) {
+        this.SetBonafiedData = function (pin, ReasonForBonafied, Name, FatherName, Branchcode, CollegeCode) {
             var paramObj = {
                 "pin": pin,
                 "ReasonForBonafied": ReasonForBonafied,
-                "ServiceType":ServiceType,
+                "Name": Name,
+                "FatherName": FatherName,
+                "Branchcode": Branchcode,
+                "CollegeCode": CollegeCode
+            }
+
+            var promise = DataAccessService.postData('api/PreExamination/SetBonafiedData', paramObj);
+            return promise;
+        };
+
+        this.SetStudyCertData = function (pin, ReasonForBonafied, Name, FatherName, Branchcode, CollegeCode) {
+            var paramObj = {
+                "pin": pin,
+                "ReasonForBonafied": ReasonForBonafied,
                 "Name": Name,
                 "FatherName": FatherName,
                 "Branchcode": Branchcode,
                 "CollegeCode": CollegeCode,
-                "Scheme": Scheme,
-                "Gender": Gender
             }
 
-            var promise = DataAccessService.getDataWithPara('api/PreExamination/SetBonafiedData', paramObj);
+            var promise = DataAccessService.postData('api/PreExamination/SetStudyCertData', paramObj);
             return promise;
         };
 
@@ -1953,6 +1980,7 @@
             return promise;
         };
 
+
         this.GetBonafiedApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode) {
             var paramObj = {
                 "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode
@@ -1960,6 +1988,15 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBonafiedApprovalListByScheme', paramObj);
             return promise;
         };
+
+        this.GetStudyApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode) {
+            var paramObj = {
+                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetStudyApprovalListByScheme', paramObj);
+            return promise;
+        };
+
 
         this.GetTranscriptListByScheme = function (Scheme, datatype, userType) {
             var paramObj = {
@@ -2211,14 +2248,28 @@
         }
 
 
-        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType, ServiceType,Id) {
+        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType,Id) {
 
             var paramObj = {
                 "Pin": Pin, "Name": Name, "FatherName": FatherName, "Branchcode": Branchcode, "AcademicYear": AcademicYear,
-                "Conduct": Conduct, "userType": userType, "ServiceType": ServiceType,"Id":Id
+                "Conduct": Conduct, "userType": userType,"Id":Id
             }
 
             var promise = DataAccessService.postData('api/PreExamination/BonafideSetVerifyStatus', paramObj);
+            return promise;
+
+
+        };
+
+
+        this.StudySetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType, Id) {
+
+            var paramObj = {
+                "Pin": Pin, "Name": Name, "FatherName": FatherName, "Branchcode": Branchcode, "AcademicYear": AcademicYear,
+                "Conduct": Conduct, "userType": userType,  "Id": Id
+            }
+
+            var promise = DataAccessService.postData('api/PreExamination/StudySetVerifyStatus', paramObj);
             return promise;
 
 
@@ -2252,6 +2303,15 @@
 
             }
             var promise = DataAccessService.postData('api/PreExamination/BonafideMultipleSelectApprove', paramObj);
+            return promise;
+        };
+
+        this.StudyMultipleSelectApprove = function (PINjson, userType, approvestatus) {
+            var paramObj = {
+                "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus,
+
+            }
+            var promise = DataAccessService.postData('api/PreExamination/StudyMultipleSelectApprove', paramObj);
             return promise;
         };
 
@@ -2412,6 +2472,15 @@
             return promise;
         };
 
+        this.StudySetApproveStatusReject = function (PINjson, userType, approvestatus, remarks) {
+            var paramObj = {
+                "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus,
+                "Remarks": remarks
+            }
+            var promise = DataAccessService.postData('api/PreExamination/StudySetApproveStatusReject', paramObj);
+            return promise;
+        };
+
         this.InterimSetApproveStatus = function (PINjson, userType, approvestatus) {
             var paramObj = {
                 "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus
@@ -2505,11 +2574,19 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getTcDetailsByPin', paramObj);
             return promise;
         };
-        this.getBonafiedDetailsByPin = function (pin, ServiceType) {
+        this.getBonafiedDetailsByPin = function (pin) {
             var paramObj = {
-                "pin": pin, "ServiceType": ServiceType
+                "pin": pin
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getBonafiedDetailsByPin', paramObj);
+            return promise;
+        };
+
+        this.getStudyDetailsByPin = function (pin) {
+            var paramObj = {
+                "pin": pin
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getStudyDetailsByPin', paramObj);
             return promise;
         };
 
@@ -2526,6 +2603,14 @@
                 "pin": pin, "Id": Id
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getBonafiedRequestedDetailsByPin', paramObj);
+            return promise;
+        };
+
+        this.getStudyRequestedDetailsByPin = function (pin, Id) {
+            var paramObj = {
+                "pin": pin, "Id": Id
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getStudyRequestedDetailsByPin', paramObj);
             return promise;
         };
 

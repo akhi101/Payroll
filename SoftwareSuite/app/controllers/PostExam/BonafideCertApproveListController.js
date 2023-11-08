@@ -1,4 +1,4 @@
-define(['app'], function (app) {
+﻿define(['app'], function (app) {
     app.controller("BonafideCertApproveListController", function ($scope, $http, $localStorage, $state, AppSettings, PreExaminationService) {
         var authData = $localStorage.authorizationData;
 
@@ -79,13 +79,13 @@ define(['app'], function (app) {
 
 
         },
-            function (error) {
-                $scope.$emit('hideLoading', data);
+        function (error) {
+            $scope.$emit('hideLoading', data);
 
-                $scope.Data = false;
-                $scope.Nodata = true;
-                alert("error while loading data");
-            });
+            $scope.Data = false;
+            $scope.Nodata = true;
+            alert("error while loading data");
+        });
 
         $scope.ApprovePending = function (Scheme) {
             $scope.ApproveType = 0;
@@ -95,7 +95,7 @@ define(['app'], function (app) {
                 Scheme: Scheme
             }
 
-            $state.go('Dashboard.PostExam.BonafideCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.BonafideCertApproveListDetails');
         }
         $scope.ApprovedList = function (Scheme) {
             $scope.ApproveType = 1;
@@ -103,7 +103,7 @@ define(['app'], function (app) {
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.BonafideCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.BonafideCertApproveListDetails');
         }
 
         $scope.SendToCollege = function (Scheme) {
@@ -112,7 +112,7 @@ define(['app'], function (app) {
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.BonafideCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.BonafideCertApproveListDetails');
         }
         $scope.RejectedList = function (Scheme) {
             $scope.ApproveType = 2;
@@ -120,7 +120,7 @@ define(['app'], function (app) {
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.BonafideCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.BonafideCertApproveListDetails');
         }
 
     })

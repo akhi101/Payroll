@@ -1405,7 +1405,7 @@
                                     alert('Please Select Certificate.');
                                     return;                                                                                                                                                                                                   
                                 }
-                                $scope.BonafideType
+                              
                                 if ($scope.OldSudent) {
                                     if ($scope.Gender == undefined || $scope.Gender == '' || $scope.Gender == null) {
                                         alert('Please select Gender.');
@@ -1433,7 +1433,7 @@
                                     }
                                 }
                                    
-                                var SetBonafiedData = PreExaminationService.SetBonafiedData($scope.PinNumber, $scope.ReasonForBonafied,$scope.BonafideType, $scope.Name, $scope.FatherName, $scope.Branch, $scope.CollegeCode, $scope.Scheme, $scope.Gender)
+                                var SetBonafiedData = PreExaminationService.SetBonafiedData($scope.PinNumber, $scope.ReasonForBonafied, $scope.BonafideType, $scope.userData.Name, $scope.userData.FatherName, $scope.Branch, $scope.CollegeCode, $scope.Scheme, $scope.Gender)
                                 SetBonafiedData.then(function (res) {
                                     if (res.Table[0].ResponseCode == '200') {
 

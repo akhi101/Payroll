@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("BonafideApproveListController", function ($scope, $http, $localStorage, $state, AppSettings, PreExaminationService) {
+    app.controller("StudyCertificateApproveListController", function ($scope, $http, $localStorage, $state, AppSettings, PreExaminationService) {
         var authData = $localStorage.authorizationData;
 
         $scope.College_Code = authData.College_Code
@@ -19,7 +19,7 @@
         $scope.Data = false;
         $scope.Nodata = false;
 
-        var ApproveList = PreExaminationService.GetBonafideApprovalList($scope.College_Code, $scope.UserTypeId, $scope.BranchId);
+        var ApproveList = PreExaminationService.GetStudyCertApprovalList($scope.College_Code, $scope.UserTypeId, $scope.BranchId);
         ApproveList.then(function (response) {
             var response = JSON.parse(response);
             console.log(response);
@@ -95,7 +95,7 @@
                 Scheme: Scheme
             }
 
-            $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.StudyCertificateApproveListDetails');
         }
         $scope.ApprovedList = function (Scheme) {
             $scope.ApproveType = 1;
@@ -103,7 +103,7 @@
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.StudyCertificateApproveListDetails');
         }
 
         $scope.SendToCollege = function (Scheme) {
@@ -112,7 +112,7 @@
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.StudyCertificateApproveListDetails');
         }
         $scope.RejectedList = function (Scheme) {
             $scope.ApproveType = 2;
@@ -120,7 +120,7 @@
                 ApproveType: $scope.ApproveType,
                 Scheme: Scheme
             }
-            $state.go('Dashboard.PostExam.StudyCertificateApproveListDetails');
+            $state.go('Dashboard.StudentServices.StudyCertificateApproveListDetails');
         }
 
     })
