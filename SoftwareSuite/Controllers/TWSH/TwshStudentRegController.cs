@@ -230,16 +230,17 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("SetTwshExamMonthYear")]
-        public string SetTwshExamMonthYear(int DataTypeId, string ExamMonthYear, int ExamMonthYearId, int SequenceId)
+        public string SetTwshExamMonthYear(int DataTypeId,int AcademicID, string ExamMonthYear, int ExamMonthYearId, int SequenceId)
         {
             try
             {
                 var db = new Twshdbandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@Datatypeid", DataTypeId);
-                param[1] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
-                param[2] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
-                param[3] = new SqlParameter("@SequenceId", SequenceId);
+                param[1] = new SqlParameter("@AcademicID", AcademicID);
+                param[2] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
+                param[3] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[4] = new SqlParameter("@SequenceId", SequenceId);
                 var dt = db.ReturnDataWithStoredProcedureTable("USP_SET_CreateOrUpdateExamMonthYear", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -252,7 +253,25 @@ namespace SoftwareSuite.Controllers.TWSH
 
         }
 
-    
+        [HttpGet, ActionName("GetTwshAcademicYears")]
+        public HttpResponseMessage GetTwshAcademicYears()
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_GET_CurrentAcademicYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
         [HttpGet, ActionName("SetTwshTimeSlot")]
         public string SetTwshTimeSlot(int DataTypeId, int CourseId, int GradeId, int BatchId,string Paper1TimeSlot,string Paper2TimeSlot,int Id,string PCODE)
         {

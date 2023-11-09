@@ -269,10 +269,28 @@
             return promise;
         };
 
+        this.GetTwshAcademicYears = function () {
+            var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetTwshAcademicYears');
+            return promise;
+        };
 
-        this.SetTwshExamMonthYear = function (DataTypeId, ExamMonthYear, ExamMonthYearId, SequenceId) {
+
+        this.SetTwshExamMonthYear = function (DataTypeId, AcademicID,ExamMonthYear, ExamMonthYearId, SequenceId) {
             var paramObj = {
                 "DataTypeId": DataTypeId,
+                "AcademicID": AcademicID,
+                "ExamMonthYear": ExamMonthYear,
+                "ExamMonthYearId": ExamMonthYearId,
+                "SequenceId": SequenceId
+            }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/SetTwshExamMonthYear', paramObj);
+            return promise;
+        };
+
+        this.SetExamCentreStatus = function (DataTypeId, AcademicID, ExamMonthYear, ExamMonthYearId, SequenceId) {
+            var paramObj = {
+                "DataTypeId": DataTypeId,
+                "AcademicID": AcademicID,
                 "ExamMonthYear": ExamMonthYear,
                 "ExamMonthYearId": ExamMonthYearId,
                 "SequenceId": SequenceId

@@ -601,9 +601,10 @@
         </div>
 
 
-        <form name="StudentDetails" ng-submit="submitData()">
+        <form name="StudentDetails" novalidate ng-submit="submitData()">
             <div class="custom-forms" ng-show="applicationForm">
-                <div class="col-md-12  mtp-50">
+                <!--ng-show="applicationForm"-->
+                <div class="col-md-12  mtp-50" >
                     <div class="card">
                         <div class="row">
                             <div class="col-md-12">
@@ -618,27 +619,27 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Name</label>
-                                            <input type="text" placeholder="Name of the Candidate" autocomplete="off" name="applicationForm.CandidateName" ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
+                                            <input type="text" maxlength="50" placeholder="Name of the Candidate" autocomplete="off" name="applicationForm.CandidateName" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Father Name</label>
-                                            <input type="text" ng-model="FatherName" placeholder="Father Name" autocomplete="off" name="applicationForm.FatherName" ng-disabled="FatherNamefound" class="form-control" required />
+                                            <input type="text" ng-model="FatherName" maxlength="50" placeholder="Father Name" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.FatherName" ng-disabled="FatherNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Mother Name</label>
-                                            <input type="text" ng-model="MotherName" placeholder="Mother Name" autocomplete="off" name="applicationForm.MotherName" ng-disabled="MotherNamefound" class="form-control" required />
+                                            <input type="text" ng-model="MotherName" maxlength="50" placeholder="Mother Name" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.MotherName" ng-disabled="MotherNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-        <div class="form-group required">
-            <label>Aadhaar Number</label>
-            <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
-        </div>
-    </div>-->
+                                <div class="form-group required">
+                                    <label>Aadhaar Number</label>
+                                    <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
+                                </div>
+                            </div>-->
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
@@ -662,18 +663,19 @@
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-        <div class="form-group  required">
-            <label>Community</label>
-            <select class="form-control" name="applicationForm.community" ng-model="community" required>
-                <option value="" selected>Select Caste</option>
-                <option ng-repeat="community in communities" value="{{community}}">
-                    {{community.CategoryCode}}
-                </option>
-            </select>
-        </div>
-    </div>-->
+                                <div class="form-group  required">
+                                    <label>Community</label>
+                                    <select class="form-control" name="applicationForm.community" ng-model="community" required>
+                                        <option value="" selected>Select Caste</option>
+                                        <option ng-repeat="community in communities" value="{{community}}">
+                                            {{community.CategoryCode}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>-->
                                     <!--<div class="col-md-12">-->
                                     <div class="col-md-4 " ng-show="tmpmode ==2">
+                                        
                                         <div class="form-group ">
                                             <label>Is Blind</label>
                                             <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
@@ -765,11 +767,11 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Institution</label>
-                                            <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
-                                        </div>
-                                    </div>-->
+                                <div class="form-group">
+                                    <label>Institution</label>
+                                    <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
+                                </div>
+                            </div>-->
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Examination Appearing </label>
@@ -827,7 +829,7 @@
                                     <div class="col-md-4 " ng-show="tmpmode==1">
                                         <div class="form-group">
                                             <label>Examination Date(option 1):</label>
-                                            <div class="input-group date"  id="datepicker1">
+                                            <div class="input-group date" id="datepicker1">
                                                 <input autocomplete="off" ng-model="date1" ng-change="dates(date1,1)" class="form-control" type="text" />
                                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -904,28 +906,28 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Institution</label>
-                                            <input type="text" ng-model="Institution" placeholder="Private Candidate" disabled class="form-control" />
-                                        </div>
-                                    </div>-->
+                                <div class="form-group">
+                                    <label>Institution</label>
+                                    <input type="text" ng-model="Institution" placeholder="Private Candidate" disabled class="form-control" />
+                                </div>
+                            </div>-->
 
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>House No</label>
-                                            <input type="text" placeholder="House No/D.no" ng-model="houseNo" autocomplete="off" class="form-control" required />
+                                            <input type="text" placeholder="House No/D.no" maxlength="255" ng-model="houseNo" autocomplete="off" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Street</label>
-                                            <input type="text" placeholder="Street" class="form-control" autocomplete="off" ng-model="street" required />
+                                            <input type="text" placeholder="Street" class="form-control" maxlength="255" autocomplete="off" ng-model="street" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Village/Town</label>
-                                            <input type="text" placeholder="Village/Town" class="form-control" autocomplete="off" ng-model="village" required />
+                                            <input type="text" placeholder="Village/Town" class="form-control" maxlength="500" autocomplete="off" ng-model="village" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -938,7 +940,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group required ">
                                             <label>District</label>
-                                            <input class="form-control" placeholder="District" autocomplete="off" ng-model="district" required>
+                                            <input class="form-control" placeholder="District" autocomplete="off" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' ng-model="district" required>
 
                                         </div>
                                     </div>
@@ -946,7 +948,7 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Pincode</label>
-                                            <input type="text" placeholder="Pin code" autocomplete="off" class="form-control" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="pincode" required />
+                                            <input type="text" placeholder="Pin code" maxlength="6" minlength="6" autocomplete="off" class="form-control" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="pincode" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4 ">
@@ -968,7 +970,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--ng-show="applicationForm"-->
             <div class="col-md-12 pull-right mtp-50" ng-show="applicationForm">
                 <div class="submit-btn" style="margin-bottom:0px;">
                     <button type="submit">Submit</button>
