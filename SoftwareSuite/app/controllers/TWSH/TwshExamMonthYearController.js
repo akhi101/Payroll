@@ -7,6 +7,16 @@
             $scope.ExamMonthYear = "";
         }
 
+        var AcademicYearsActive = TwshStudentRegService.GetTwshAcademicYears();
+        AcademicYearsActive.then(function (response) {
+
+            //  $scope.years = response.Table[0];
+            $scope.Acayears = response.Table;
+
+        },
+            function (error) {
+                alert("error while loading Academic Year");
+            });
 
         $scope.Submit = function () {
             var datatypeid = 1
@@ -15,7 +25,7 @@
                 alert("Enter exam month and year.");
                 return;
             }
-            var ApprovalList = TwshStudentRegService.SetTwshExamMonthYear(datatypeid, $scope.ExamMonthYear, 0, 0);
+            var ApprovalList = TwshStudentRegService.SetTwshExamMonthYear(datatypeid, $scope.year, $scope.ExamMonthYear, 0, 0);
             ApprovalList.then(function (res) {
                 var response = JSON.parse(res)
                 $scope.ExamMonthYear = "";
@@ -66,7 +76,7 @@
                 alert("Enter SequenceId.");
                 return;
             }
-            var SetSemester = TwshStudentRegService.SetTwshExamMonthYear(datatypeid, data.ExamMonthYear, parseInt(data.Id), parseInt(data.SequenceId))
+            var SetSemester = TwshStudentRegService.SetTwshExamMonthYear(datatypeid,data.AcademicID, data.ExamMonthYear, parseInt(data.Id), parseInt(data.SequenceId))
             SetSemester.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponceCode == '200') {
@@ -97,6 +107,32 @@
             }, function (error) {
               
             });
+        }
+
+
+
+        $scope.setExamCentreStatus = function (AcademicID, Active, ExamMonthYear, Id, SequenceId ) {
+
+            var SetStatus = TwshStudentRegService.SetExamCentreStatus(3,AcademicID, Active, ExamMonthYear, Id, SequenceId);
+            SetStatus.then(function (res) {
+                if (res[0].ResponceCode == '400') {
+                    alert(res[0].ResponceDescription)
+
+                    //$scope.clearDefaults();
+                } else {
+                    alert('Exam Centre Status Updated Successfully')
+                    $scope.GetExamYearMonth();
+
+                    //$scope.clearDefaults();
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+
+
         }
     })
 })

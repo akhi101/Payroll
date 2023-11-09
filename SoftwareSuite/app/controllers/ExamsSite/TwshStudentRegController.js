@@ -98,7 +98,7 @@
         //        $scope.instructions = true;
         //    },
 
-        $scope.Blind = function (IsBlind) { 
+        $scope.Blind = function (IsBlind) {
             if (IsBlind == 0) {
                 $('#stdMedicalCertFile').val(null);
 
@@ -106,7 +106,7 @@
                 $scope.stdMedicalCert = null;
                 $scope.IsBlind = IsBlind;
             }
-            else if(IsBlind == 1) {
+            else if (IsBlind == 1) {
                 $scope.IsBlind = IsBlind;
             }
         }
@@ -136,15 +136,20 @@
                 }
             }
 
+            $scope.loader1 = true
+            $scope.submitbutton1 = true
+
+
             // $scope.ExamAppearDetails = true;
             //--------------offline districts------
             $scope.Districts = [];
             //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
-            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id,-1, $scope.selectedgrade.Id);
+            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.selectedgrade.Id);
             ExamDistricts.then(function (res) {
                 $scope.offlineDistricts = res;
 
-
+                $scope.loader1 = false
+                $scope.submitbutton1 = false
             }, function (err) {
                 $scope.offlineDistricts = [];
             });
@@ -154,6 +159,8 @@
             var getexamdates = TwshStudentRegService.getExamDates($scope.selectedcourse.Id, $scope.selectedgrade.Id)
             getexamdates.then(function (resp) {
                 $scope.ExamDates = resp;
+                $scope.loader1 = false
+                $scope.submitbutton1 = false
             }, function (err) {
                 $scope.ExamDates = []
             });
@@ -184,6 +191,8 @@
                 ExamDistricts.then(function (res) {
                     $scope.offlineDistricts = res;
                     $scope.Districts = $scope.offlineDistricts;
+                    $scope.loader1 = false
+                    $scope.submitbutton1 = false
 
                 }, function (err) {
                     $scope.offlineDistricts = [];
@@ -529,15 +538,141 @@
         $scope.checkDate = function (CandidateNameDOB) {
             var currentDate = new Date();
             var birthdate = new Date(CandidateNameDOB);
-                if (birthdate > currentDate) {
-                    alert('Selected Date Should not be Future!')
-                    $scope.CandidateNameDOB = '';
-                    return;
-                } else {
-                    $scope.CandidateNameDOB = CandidateNameDOB;
-                }
+            if (birthdate > currentDate) {
+                alert('Selected Date Should not be Future!')
+                $scope.CandidateNameDOB = '';
+                return;
+            } else {
+                $scope.CandidateNameDOB = CandidateNameDOB;
             }
+        }
         $scope.submitData = function () {
+
+            if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
+                alert("Please Enter Student Name .");
+                return;
+            }
+            if (($scope.FatherName == undefined || $scope.FatherName == "" || $scope.FatherName == null)) {
+                alert("Please Enter Father Name .");
+                return;
+            }
+            if (($scope.MotherName == undefined || $scope.MotherName == "" || $scope.MotherName == null)) {
+                alert("Please Enter Mother Name .");
+                return;
+            }
+            if (($scope.CandidateNameDOB == undefined || $scope.CandidateNameDOB == "" || $scope.CandidateNameDOB == null)) {
+                alert("Please Select Date Of Birth .");
+                return;
+            }
+            if (($scope.Gender == undefined || $scope.Gender == "" || $scope.Gender == null)) {
+                alert("Please Choose Gender.");
+                return;
+            }
+
+            if (($scope.userPhoto == undefined || $scope.userPhoto == "" || $scope.userPhoto == null)) {
+                alert("Please Upload Photo.");
+                return;
+            }
+
+            if (($scope.TwshCourse == undefined || $scope.TwshCourse == "" || $scope.TwshCourse == null)) {
+                alert("Please Enter Examination Appearing .");
+                return;
+            }
+
+
+            if (($scope.TwshLanguage == undefined || $scope.TwshLanguage == "" || $scope.TwshLanguage == null)) {
+                alert("Please Enter Language .");
+                return;
+            }
+
+            if (($scope.TwshGrade == undefined || $scope.TwshGrade == "" || $scope.TwshGrade == null)) {
+                alert("Please Enter Grade .");
+                return;
+            }
+
+            if (($scope.District == undefined || $scope.District == "" || $scope.District == null)) {
+                alert("Please Enter District .");
+                return;
+            }
+
+            if (($scope.examCenter == undefined || $scope.examCenter == "" || $scope.examCenter == null)) {
+                alert("Please Enter Center .");
+                return;
+            }
+
+
+            if (($scope.ExamDateselect == undefined || $scope.ExamDateselect == "" || $scope.ExamDateselect == null)) {
+                alert("Please Enter ExamDateselect .");
+                return;
+            }
+
+            if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
+                alert("Please Enter date1 .");
+                return;
+            }
+
+            if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
+                alert("Please Enter date2 .");
+                return;
+            }
+
+            if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
+                alert("Please Enter date3 .");
+                return;
+            }
+
+            if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
+                alert("Please Enter date4 .");
+                return;
+            }
+
+
+            if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
+                alert("Please Enter date5 .");
+                return;
+            }
+
+
+            if (($scope.houseNo == undefined || $scope.houseNo == "" || $scope.houseNo == null)) {
+                alert("Please Enter houseNo .");
+                return;
+            }
+
+
+            if (($scope.street == undefined || $scope.street == "" || $scope.street == null)) {
+                alert("Please Enter street .");
+                return;
+            }
+
+            if (($scope.village == undefined || $scope.village == "" || $scope.village == null)) {
+                alert("Please Enter village .");
+                return;
+            }
+
+            if (($scope.mandal == undefined || $scope.mandal == "" || $scope.mandal == null)) {
+                alert("Please Enter mandal .");
+                return;
+            }
+
+            if (($scope.district == undefined || $scope.district == "" || $scope.district == null)) {
+                alert("Please Enter district .");
+                return;
+            }
+
+
+            if (($scope.pincode == undefined || $scope.pincode == "" || $scope.pincode == null)) {
+                alert("Please Enter pincode .");
+                return;
+            }
+
+            if (($scope.mobileNO == undefined || $scope.mobileNO == "" || $scope.mobileNO == null)) {
+                alert("Please Enter mobileNO .");
+                return;
+            }
+
+
+
+
             if ((angular.isUndefined($scope.exambatch) || $scope.exambatch == "") && $scope.tmpmode == 2) {
                 alert('Please choose examination batch');
                 return;
@@ -551,6 +686,10 @@
                 alert("Please Upload Medical Certificate");
                 return;
             }
+
+
+          
+
 
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined) {
@@ -637,9 +776,9 @@
             // course = JSON.parse(course);
             // language = JSON.parse(language);
             if (languageId.Id != 1) {
-                mode=2
+                mode = 2
             }
-           
+
             if (!angular.isUndefined(courseId) && !angular.isUndefined(languageId)) {
                 var coursedetail = TwshStudentRegService.getGrades(courseId.Id, languageId.Id);
                 coursedetail.then(function (req) {
@@ -948,7 +1087,7 @@
             }
         }
 
-        
+
         var tempId = [];
         var arr = [];
         var finalarr = [];
