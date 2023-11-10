@@ -193,6 +193,24 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
+        public string GetTwshExamMonthYearbyID(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ExamMonthYearbyID", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("GetTwshNRDates")]
         public HttpResponseMessage GetTwshNRDates()
         {
@@ -248,6 +266,26 @@ namespace SoftwareSuite.Controllers.TWSH
             {
 
                 dbHandler.SaveErorr("USP_SET_CreateOrUpdateExamMonthYear", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("SetFeeDateStatus")]
+        public string SetFeeDateStatus(int FeeFaymentDateID)
+        {
+            try
+            {
+                var db = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@FeeFaymentDateID", FeeFaymentDateID);
+                var dt = db.ReturnDataWithStoredProcedureTable("TWSH_ActiveorInActive_StudentFeePaymentDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("TWSH_ActiveorInActive_StudentFeePaymentDates", 0, ex.Message);
                 return ex.Message;
             }
 
@@ -472,6 +510,7 @@ namespace SoftwareSuite.Controllers.TWSH
 
         public class paymentDetails
         {
+            public int AcademicYearId { get; set; }
 
             public DateTime FromDate { get; set; }
             public DateTime ToDate { get; set; }
@@ -485,6 +524,7 @@ namespace SoftwareSuite.Controllers.TWSH
             public double CertificateFee { get; set; }
   public int ExamMonthYearId { get; set; }
             public int Id { get; set; }
+            public int FeePaymentId { get; set; }
 
 
 
@@ -505,17 +545,19 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[10];
-                param[0] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
-                param[1] = new SqlParameter("@FromDate", request.FromDate);
-                param[2] = new SqlParameter("@ToDate", request.ToDate);
-                param[3] = new SqlParameter("@FineDate", request.FineDate);
-                param[4] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[5] = new SqlParameter("@Fee", request.Fee);
-                param[6] = new SqlParameter("@LateFee", request.LateFee);
-                param[7] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[8] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[9] = new SqlParameter("@CertificateFee", request.CertificateFee);
+                var param = new SqlParameter[11];
+
+                param[0] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
+                param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
+                param[2] = new SqlParameter("@FromDate", request.FromDate);
+                param[3] = new SqlParameter("@ToDate", request.ToDate);
+                param[4] = new SqlParameter("@FineDate", request.FineDate);
+                param[5] = new SqlParameter("@TatkalDate", request.TatkalDate);
+                param[6] = new SqlParameter("@Fee", request.Fee);
+                param[7] = new SqlParameter("@LateFee", request.LateFee);
+                param[8] = new SqlParameter("@TatkalFee", request.TatkalFee);
+                param[9] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
+                param[10] = new SqlParameter("@CertificateFee", request.CertificateFee);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("TWSH_SET_StudentFeePaymentDates", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -535,18 +577,19 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[11];
-                param[0] = new SqlParameter("@Id", request.Id);
-                param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
-                param[2] = new SqlParameter("@FromDate", request.FromDate);
-                param[3] = new SqlParameter("@ToDate", request.ToDate);
-                param[4] = new SqlParameter("@FineDate", request.FineDate);
-                param[5] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[6] = new SqlParameter("@Fee", request.Fee);
-                param[7] = new SqlParameter("@LateFee", request.LateFee);
-                param[8] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[9] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[10] = new SqlParameter("@CertificateFee", request.CertificateFee);
+                var param = new SqlParameter[12];
+                param[0] = new SqlParameter("@FeePaymentId", request.FeePaymentId);
+                param[1] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
+                param[2] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
+                param[3] = new SqlParameter("@FromDate", request.FromDate);
+                param[4] = new SqlParameter("@ToDate", request.ToDate);
+                param[5] = new SqlParameter("@FineDate", request.FineDate);
+                param[6] = new SqlParameter("@TatkalDate", request.TatkalDate);
+                param[7] = new SqlParameter("@Fee", request.Fee);
+                param[8] = new SqlParameter("@LateFee", request.LateFee);
+                param[9] = new SqlParameter("@TatkalFee", request.TatkalFee);
+                param[10] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
+                param[11] = new SqlParameter("@CertificateFee", request.CertificateFee);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("TWSH_UPDATE_StudentFeePaymentDates", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -3751,41 +3794,9 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
 
-        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
-        public string GetTwshExamMonthYearbyID(int AcademicYearID)
-        {
-            try
-            {
-                var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+       
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ExamMonthYearbyID", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpGet, ActionName("GetTwshAcademicYears")]
-        public HttpResponseMessage GetTwshAcademicYears()
-        {
-            try
-            {
-                var dbHandler = new Twshdbandler();
-                string StrQuery = "";
-                StrQuery = "exec USP_GET_CurrentAcademicYear";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
-
-                dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        
 
 
         private class ArrayList

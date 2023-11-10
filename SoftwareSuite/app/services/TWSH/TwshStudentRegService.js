@@ -79,14 +79,20 @@
             var promise = DataAccessService.postData('api/TwshStudentReg/UpdateStudentData', paramObj);
             return promise;
         };
+        this.GetTwshExamMonthYearbyID = function (AcademicYearID) {
+            var paramObj = { "AcademicYearID": AcademicYearID };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetTwshExamMonthYearbyID', paramObj);
+            return promise;
+        };
         this.getStudentDetails = function (ApplicationNumber) {
             var paramObj = { "ApplicationNumber": ApplicationNumber }
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getStudentDetails', paramObj);
             return promise;
         };
 
-        this.TwshsetStudentFeepayments = function (ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
+        this.TwshsetStudentFeepayments = function (AcademicYearId,ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
             var paramObject = {
+                "AcademicYearId": AcademicYearId,
                 "ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "Fee": Fee,
                 "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CertificateFee": CertificateFee
             };
@@ -95,9 +101,9 @@
             return promise;
         };
 
-        this.TwshUpdateStudentFeepayments = function (Id,ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
+        this.TwshUpdateStudentFeepayments = function (FeePaymentId,AcademicYearId,ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
             var paramObject = {
-                "Id":Id,"ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "Fee": Fee,
+                "FeePaymentId": FeePaymentId, "AcademicYearId": AcademicYearId,"ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "Fee": Fee,
                 "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CertificateFee": CertificateFee
             };
             var promise = DataAccessService.postData('api/TwshStudentReg/TwshUpdateStudentFeepayments', paramObject);
@@ -296,6 +302,14 @@
                 "SequenceId": SequenceId
             }
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/SetTwshExamMonthYear', paramObj);
+            return promise;
+        };
+
+        this.SetFeeDateStatus = function (FeePaymentDateID) {
+            var paramObj = {
+                "FeePaymentDateID": FeePaymentDateID
+            }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/SetFeeDateStatus', paramObj);
             return promise;
         };
 
