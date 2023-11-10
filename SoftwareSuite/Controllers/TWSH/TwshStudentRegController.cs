@@ -3794,41 +3794,9 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
 
-        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
-        public string GetTwshExamMonthYearbyID(int AcademicYearID)
-        {
-            try
-            {
-                var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+       
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ExamMonthYearbyID", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
-
-        [HttpGet, ActionName("GetTwshAcademicYears")]
-        public HttpResponseMessage GetTwshAcademicYears()
-        {
-            try
-            {
-                var dbHandler = new Twshdbandler();
-                string StrQuery = "";
-                StrQuery = "exec USP_GET_CurrentAcademicYear";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
-
-                dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        
 
 
         private class ArrayList
