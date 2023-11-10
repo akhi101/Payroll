@@ -2247,6 +2247,27 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+        [HttpGet, ActionName("GetStudentApplicationDetails")]
+        public HttpResponseMessage GetStudentApplicationDetails(String ApplicationNumber)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ApplicationNumber", ApplicationNumber);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_ApplicationNoDetails", param);
+
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetOtpAadhaarKyc")]
         public HttpResponseMessage GetOtpAadhaarKyc(String AadhaarNo)
         {
@@ -2409,6 +2430,27 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[0] = new SqlParameter("@PhoneNumber", PhoneNumber);
                 param[1] = new SqlParameter("@DOB", DOB);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_StudentPhoneNumberDetails", param);
+
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetStudentDetailsByMobile")]
+        public HttpResponseMessage GetStudentDetailsByMobile(String PhoneNumber)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@PhoneNumber", PhoneNumber);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_StudentMobileNumberDetails", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
@@ -3752,6 +3794,43 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
 
+        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
+        public string GetTwshExamMonthYearbyID(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ExamMonthYearbyID", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetTwshAcademicYears")]
+        public HttpResponseMessage GetTwshAcademicYears()
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                string StrQuery = "";
+                StrQuery = "exec USP_GET_CurrentAcademicYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
         private class ArrayList
         {
             public ArrayList()
@@ -3772,6 +3851,10 @@ namespace SoftwareSuite.Controllers.TWSH
         public string ExamDate { get; set; }
         public string GradeCode { get; set; }
     }
+
+
+
+    
 
 
 }

@@ -4,43 +4,43 @@ define(['app'], function (app) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
-        var InstitutionID = authData.InstitutionID;
+        $scope.InstitutionID = authData.InstitutionID;
 
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
+            $scope.GetCcicCoursesByInstitution($scope.InstitutionID)
         }
 
-
-        var examtypes = CcicAssessmentService.getExamTypes();
-        examtypes.then(function (response) {
-            if (response.length > 0) {
-                var modulesList = [];
+        $scope.getexamTypes = function () {
+            var examtypes = CcicAssessmentService.getExamTypes();
+            examtypes.then(function (response) {
                 if (response.length > 0) {
-                    for (var i = 0; i < response.length; i++) {
-                        var obj = {};
-                        obj.SysModName = response[i].ExamType;
-                        obj.SysModID = response[i].ExamTypeID;
-                        obj.ModuleRouteName = response[i].ModuleRouteName;
-                        obj.ModuleImageClass = response[i].ModuleImageClass;
-                        modulesList.push(obj);
+                    var modulesList = [];
+                    if (response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            var obj = {};
+                            obj.SysModName = response[i].ExamType;
+                            obj.SysModID = response[i].ExamTypeID;
+                            obj.ModuleRouteName = response[i].ModuleRouteName;
+                            obj.ModuleImageClass = response[i].ModuleImageClass;
+                            modulesList.push(obj);
 
+                        }
+                        $scope.ExamTypes = modulesList;
+                    } else {
+                        $scope.ExamTypes = [];
                     }
-                    $scope.ExamTypes = modulesList;
-                } else {
-                    $scope.ExamTypes = [];
                 }
-            }
-            else {
-                $scope.ExamCategory = [];
-                alert("Marks entry Not Available for this semester");
-            }
-        }, function (error) {
-            $scope.ExamCategory = [];
-            alert("error while getting data");
-        });
-    
+                else {
+                    $scope.ExamTypes = [];
+                    alert("Marks entry Not Available for this semester");
+                }
+            }, function (error) {
+                $scope.ExamTypes = [];
+                alert("error while getting data");
+            });
+        }
        
         var GetCcicAcademicYears = CcicPreExaminationService.GetCcicAcademicYears()
         GetCcicAcademicYears.then(function (response) {
@@ -55,14 +55,33 @@ define(['app'], function (app) {
                 console.log(err.Message);
             });
 
-        var getaffcourses = CcicPreExaminationService.GetAffiliatedCourses();
-        getaffcourses.then(function (res) {
-            $scope.CoursesData = res;
+        $scope.GetCcicCoursesByInstitution = function (InstitutionID) {
 
-        }, function (err) {
-            $scope.LoadImg = false;
-            alert("Error while loading");
-        });
+            var GetCcicCoursesByInstitution = CcicPreExaminationService.GetCcicCoursesByInstitution(InstitutionID);
+            GetCcicCoursesByInstitution.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+
+                if (res.length > 0) {
+                    $scope.CoursesData = res;
+                }
+                else {
+                    $scope.GetCcicCoursesByInstitution = [];
+                }
+
+                $scope.AffiliatedInsttitutionCourses = res;
+
+
+            },
+                function (error) {
+                    alert("error while loading Courses");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
         $scope.GetExamMonthYearData = function (academicYear) {
             if (academicYear == null || academicYear == undefined || academicYear == "") {
@@ -111,7 +130,7 @@ define(['app'], function (app) {
                 }
                 catch { err }
                 if (res[0].ResponseCode == '200') {
-
+                    $scope.getexamTypes();
 
                 } else {
                     alert('Entry Date Not Found')
@@ -124,6 +143,35 @@ define(['app'], function (app) {
                     var err = JSON.parse(error);
                 })
         }
+
+
+        $scope.OpenAssessmentModule = function (RouteName) {
+
+            if (RouteName.ModuleRouteName == "Internals") {
+                $localStorage.TempData = {
+                    AcademicYearID: $scope.academicYear,
+                    ExamMonthYearID: $scope.ExamMonthYear,
+                    InstitutionID: authData.InstitutionID,
+                    CourseID: $scope.Course
+
+                };
+                $state.go('CcicDashboard.Assessment.SubjectList')
+                var strroute = 'Dashboard.AssessmentDashboard.theory';
+            } else if (RouteName.ModuleRouteName == "Practicals") {
+                $localStorage.TempData = {
+                    AcademicYearID: InstitutionID,
+                    ExamMonthYearID: CourseID,
+                    InstitutionID: authData.InstitutionID,
+                    CourseID: CourseID
+
+                };
+                $state.go('CcicDashboard.Assessment.SubjectList')
+            }
+            
+
+        }
+
+
 
 
     });

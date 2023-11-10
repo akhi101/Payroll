@@ -81,5 +81,29 @@
             return DataAccessService.getDataWithPara('api/CcicAssessment/VerifyAssesmentEntryDate', paramObj);
         };
 
+
+        this.getInternalorExternalSubjects = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID,
+                "CourseID": CourseID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetInternalorExternalSubjects', paramObj);
+            return promise;
+        };
+
+        
+
+        this.getCcicSubjectPinList = function (AcademicYearID, CourseID, InstitutionID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "CourseID": CourseID,
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetCcicSubjectPinList', paramObj);
+            return promise;
+        };
+
     });
 });
