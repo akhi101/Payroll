@@ -78,21 +78,36 @@
             <div class="col-md-12">
                 <button class="btn bck_btn"><a href="#!/Dashboard/TypeWriting" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
+
             <div class="col-md-12">
                 <form name="SetDatesForm" ng-submit="submit(CurrentMonthYear)" novalidate>
                     <div class="base-row" style="padding:15px!important;">
+
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="ExamType">
-                                        Month & Year : 
+                                    <label class="font-weight-bold">
+                                        Academic Year :
                                     </label>
-                                    <select class="form-control" name="monthYear" ng-model="ExamMonthYearId" required>
-                                        <option value="" selected>Select Year Month</option>
-                                        <option ng-repeat="data in getExamYearMonth" value="{{data.Id}}">
-                                            {{data.ExamMonthYear}}
+                                    <select class="form-control" ng-model="year" ng-change="getExamMonthYearsData(year)">
+                                        <option value="" selected>Select Academic Year</option>
+                                        <option ng-repeat="yr in Acayears" value="{{yr.AcademicID}}">
+                                            {{yr.AcademicYear}}
                                         </option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Exam Month year:</label>
+                                    <div class="">
+                                        <select class="form-control" name="semister" required ng-model="ExamMonthYear" ng-change="getExamCentres(ExamMonthYear)">
+                                            <option value="" selected>Select Month year</option>
+                                            <option ng-repeat="data in ExamMonthYears" value="{{data.ExamMonthYearID}}">
+                                                {{data.ExamMonthYear}}
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
@@ -220,7 +235,8 @@
                     <table class="table table-bordered table-hover table-striped table-rounded">
                         <thead>
                             <tr>
-                               <th style="width: 2%">S.No</th>
+                                <th style="width: 2%">S.No</th>
+                                <th class="text-center">Academic Year</th>
                                 <th style="">ExamYearMonth</th>
                                 <th width="16%">From Date </th>
                                 <th style="">Last Date Without Fine</th>
@@ -231,34 +247,36 @@
                                 <th style="">Tatkal Fee</th>
                                 <th style="">Premium Tatkal Fee</th>
                                 <th style="">Certificate Fee </th>
+                                <th style="">Active</th>
                                 <th style="">Action </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="dates in getTwshFeeDates">
                                 <td style="width: 2%">{{$index+1}} </td>
+                                <td class="text-center">{{dates.AcademicStartYear}}</td>
                                 <td>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="dates.ExamMonthYearId" name="iselective" style="width: min-content;"
                                             ng-options="dat.Id as dat.ExamMonthYear for dat in getExamYearMonth">
                                         <option value="" selected>Select </option>
                                     </select>
-                                
+
                                 </td>
                                 <td>
-                                  
-                                        <input type="text"  style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" placeholder="DD-MM-YYYY" autocomplete="off" name="ExamDate{{$index + 1}}"  ng-model="dates.FromDate" />
-                                       
+
+                                    <input type="text" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" placeholder="DD-MM-YYYY" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.FromDate" />
+
                                 </td>
                                 <td>
                                     <input type="text" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" placeholder="To Date" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.ToDate" />
-                                   
+
                                 </td>
                                 <td>
                                     <input type="text" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" placeholder="Fine Date" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.FineDate" />
-                                
+
                                 </td>
                                 <td>
-                                    <input style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text"   placeholder="Tatkal Date" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.TatkalDate" />
+                                    <input style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" placeholder="Tatkal Date" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.TatkalDate" />
 
                                 </td>
                                 <td>
@@ -276,6 +294,11 @@
 
                                 <td>
                                     <input autocomplete="off" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" maxlength="15" ng-model="dates.CertificateFee" />
+                                </td>
+
+                                <td class="text-center">
+                                    <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="dates.IsActive == true" ng-click="setFeeDateStatus(dates.Id)">Active</button>
+                                    <button class="btn btn-danger btn-xs" style="width: 70px;" ng-show="dates.IsActive == false" ng-click="setFeeDateStatus(dates.Id)">InActive</button>
                                 </td>
                                 <td>
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditTwshDate(data,$index+1)">
