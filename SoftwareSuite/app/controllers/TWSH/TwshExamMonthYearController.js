@@ -104,7 +104,7 @@
                     $scope['edit' + j] = true;
                 }
 
-            }, function (error) {
+          /*  //*/}, function (error) {
               
             });
         }

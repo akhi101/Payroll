@@ -8,6 +8,38 @@
         //   $scope.Student.id = 1;
         //var data = {};
         //$scope.$emit('showLoading', data);
+
+        var AcademicYearsActive = TwshStudentRegService.GetTwshAcademicYears();
+        AcademicYearsActive.then(function (response) {
+
+            //  $scope.years = response.Table[0];
+            $scope.Acayears = response.Table;
+
+        },
+            function (error) {
+                alert("error while loading Academic Year");
+            });
+
+        $scope.getExamMonthYearsData = function (year) {
+
+            //let academicId = $scope.years.AcademicID;
+
+            var EmYears = TwshStudentRegService.GetTwshExamMonthYearbyID(year);
+            EmYears.then(function (response) {
+                console.log(response)
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { error }
+                $scope.ExamMonthYears = Res.Table;
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
         var ApprovalLists = TwshStudentRegService.getTwshFeeDates();
         ApprovalLists.then(function (response) {
             if (response.Table.length > 0) {
@@ -461,8 +493,12 @@
                 var LateFee = $scope.lateFee;
                 var TatkalFee = $scope.tatkalFee;
                 var PremiumTatkalFee = $scope.PremiumTatkalFee;
-                var certificateFee = $scope.certificateFee;
-                if ($scope.ExamMonthYearId == null || $scope.ExamMonthYearId == '' || $scope.ExamMonthYearId == undefined) {
+            var certificateFee = $scope.certificateFee;
+            if ($scope.year == null || $scope.year == '' || $scope.year == undefined) {
+                alert("Please Select Academic Year")
+                return
+            }
+            if ($scope.ExamMonthYear == null || $scope.ExamMonthYear == '' || $scope.ExamMonthYear == undefined) {
                     alert("Please Select Exam Month Year")
                     return
                 }
@@ -503,7 +539,7 @@
                     return
                 }
               
-                var setFeePaymentDates = TwshStudentRegService.TwshsetStudentFeepayments($scope.ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, $scope.PremiumTatkalFee, certificateFee);
+            var setFeePaymentDates = TwshStudentRegService.TwshsetStudentFeepayments($scope.year, $scope.ExamMonthYear, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, $scope.PremiumTatkalFee, certificateFee);
             setFeePaymentDates.then(function (response) {
                 $scope.StartDate = '';
                 $scope.EndDate = '';
@@ -593,7 +629,7 @@
                 return
             }
 
-            var UpdateFeePaymentDates = TwshStudentRegService.TwshUpdateStudentFeepayments(data.Id,data.ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, data.Fee, data.LateFee, data.TatkalFee, data.PremiumTatkalFee, data.CertificateFee);
+            var UpdateFeePaymentDates = TwshStudentRegService.TwshUpdateStudentFeepayments(data.Id, data.AcademicYearId,data.ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, data.Fee, data.LateFee, data.TatkalFee, data.PremiumTatkalFee, data.CertificateFee);
             UpdateFeePaymentDates.then(function (response) {
                 if (response[0].ResponceCode=='200'){
                 $scope.StartDate = '';
@@ -644,5 +680,26 @@
         //    console.log(error);
         //});
 
+        $scope.setFeeDateStatus = function (Id) {
+
+            var SetStatus = TwshStudentRegService.SetFeeDateStatus(Id);
+            SetStatus.then(function (res) {
+                if (res[0].ResponceCode == '400') {
+                    alert(res[0].ResponceDescription)
+
+                    //$scope.clearDefaults();
+                } else {
+                    alert('Fee Date Status Changed Successfully')
+                    $scope.GetDates();
+
+                    //$scope.clearDefaults();
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+        }
     })
 })
