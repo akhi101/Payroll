@@ -451,6 +451,10 @@ namespace SoftwareSuite.Controllers.TWSH
 
         }
 
+
+
+       
+
         public class paymentDetails
         {
 
@@ -1293,7 +1297,51 @@ namespace SoftwareSuite.Controllers.TWSH
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
-        
+
+
+        [HttpGet, ActionName("GetExamCenters")]
+        public string GetExamCenters(int DataType,int AcademicYearID,int ExamMonthYearID)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCenters", param);
+
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetExamCentresCoursewise")]
+        public string GetExamCentresCoursewise(int DataType,int ExamCentreID, int AcademicYearID, int ExamMonthYearID)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ExamCentreID", ExamCentreID);
+                param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCentersCourseWise", param);
+
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
         [HttpGet, ActionName("getQualifiedCount")]
         public HttpResponseMessage getQualifiedCount(string userType)
@@ -3768,6 +3816,110 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+        [HttpGet, ActionName("EditTwshExamCentres")]
+        public string EditTwshExamCentres(int ExaminationCentreID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@ExaminationCentreID", ExaminationCentreID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Edit_ExamCenters", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        //[HttpGet, ActionName("SetorUpdateTwshExamCentres")]
+        //public string SetorUpdateTwshExamCentres(int DataType, int ExaminationCentreID, int AcademicYearID, int ExamMonthYearID, string ExaminationCentreCode, string ExaminationcentreName, int DistrictID, int Gender, int CBT, int MBT, int ShortHand, string CentreAddress, bool Active, string UserName)
+        //{
+        //    try
+        //    {
+        //        var db = new Twshdbandler();
+        //        var param = new SqlParameter[14];
+        //        param[0] = new SqlParameter("@DataType", DataType);
+        //        param[1] = new SqlParameter("@ExaminationCentreID", ExaminationCentreID);
+        //        param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
+        //        param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+        //        param[4] = new SqlParameter("@ExaminationCentreCode", ExaminationCentreCode);
+        //        param[5] = new SqlParameter("@ExaminationcentreName", ExaminationcentreName);
+        //        param[6] = new SqlParameter("@DistrictID", DistrictID);
+        //        param[7] = new SqlParameter("@Gender", Gender);
+        //        param[8] = new SqlParameter("@CBT", CBT);
+        //        param[9] = new SqlParameter("@MBT", MBT);
+        //        param[10] = new SqlParameter("@ShortHand", ShortHand);
+        //        param[11] = new SqlParameter("@CentreAddress", CentreAddress);
+        //        param[12] = new SqlParameter("@Active", Active);
+        //        param[13] = new SqlParameter("@UserName", UserName);
+        //        var dt = db.ReturnDataWithStoredProcedureTable("SP_Add_Update_ExaminationCentres", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("SP_Add_Update_ExaminationCentres", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+
+        //}
+
+
+        public class ExamCentres
+        {
+            public int DataType { get; set; }
+            public int ExaminationCentreID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public int DistrictID { get; set; }
+            public int Gender { get; set; }
+            public int CBT { get; set; }
+            public int MBT { get; set; }
+            public int ShortHand { get; set; }
+            public string ExaminationCentreCode { get; set; }
+            public string ExaminationcentreName { get; set; }
+            public string CentreAddress { get; set; }
+            public string UserName { get; set; }
+            public bool Active { get; set; }
+        }
+
+        [HttpPost, ActionName("SetorUpdateTwshExamCentres")]
+        public HttpResponseMessage SetorUpdateTwshExamCentres([FromBody] ExamCentres data)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                HttpResponseMessage response = new HttpResponseMessage();
+                var param = new SqlParameter[14];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@ExaminationCentreID", data.ExaminationCentreID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@ExaminationCentreCode", data.ExaminationCentreCode);
+                param[5] = new SqlParameter("@ExaminationcentreName", data.ExaminationcentreName);
+                param[6] = new SqlParameter("@DistrictID", data.DistrictID);
+                param[7] = new SqlParameter("@Gender", data.Gender);
+                param[8] = new SqlParameter("@CBT", data.CBT);
+                param[9] = new SqlParameter("@MBT", data.MBT);
+                param[10] = new SqlParameter("@ShortHand", data.ShortHand);
+                param[11] = new SqlParameter("@CentreAddress", data.CentreAddress);
+                param[12] = new SqlParameter("@Active", data.Active);
+                param[13] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Add_Update_ExaminationCentres", param);
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_ExaminationCentres", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+
+        }
+
 
         private class ArrayList
         {
@@ -3789,10 +3941,5 @@ namespace SoftwareSuite.Controllers.TWSH
         public string ExamDate { get; set; }
         public string GradeCode { get; set; }
     }
-
-
-
-    
-
 
 }

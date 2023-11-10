@@ -1441,6 +1441,7 @@
     <Content Include="app\controllers\TWSH\TwshDetailedReportsController.js" />
     <Content Include="app\controllers\TWSH\TwshExamCentersController.js" />
     <Content Include="app\controllers\TWSH\TwshExamCenterStrengthController.js" />
+    <Content Include="app\controllers\TWSH\TwshExamCentresCourseWiseController.js" />
     <Content Include="app\controllers\TWSH\TwshExamDatesController.js" />
     <Content Include="app\controllers\TWSH\TwshExamMonthYearController.js" />
     <Content Include="app\controllers\TWSH\TwshExamTimeSlotsController.js" />
@@ -3089,6 +3090,8 @@
     <Content Include="app\views\TWSH\GradewiseExamcenters.html" />
     <Content Include="app\views\TWSH\HtmlPage1.html" />
     <Content Include="app\views\TWSH\InstituteRegistration.html" />
+    <Content Include="app\views\TWSH\Popups\ConfirmOldExamCentresPopup.html" />
+    <Content Include="app\views\TWSH\Popups\EditExamCentresPopup.html" />
     <Content Include="app\views\TWSH\TWSH.html" />
     <Content Include="app\views\TWSH\TwshAcademicYearSetting.html" />
     <Content Include="app\views\TWSH\TwshApprovalList.html" />
@@ -3112,6 +3115,7 @@
     <Content Include="app\views\TWSH\TwshDetailedReports.html" />
     <Content Include="app\views\TWSH\TwshExamCenters.html" />
     <Content Include="app\views\TWSH\TwshExamCenterStrength.html" />
+    <Content Include="app\views\TWSH\TwshExamCentresCourseWise.html" />
     <Content Include="app\views\TWSH\TwshExamDates.html" />
     <Content Include="app\views\TWSH\TwshExamMonthYear.html" />
     <Content Include="app\views\TWSH\TwshExamTimeSlots.html" />
