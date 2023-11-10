@@ -3769,23 +3769,23 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-        [HttpGet, ActionName("GetTwshAcademicYears")]
-        public HttpResponseMessage GetTwshAcademicYears()
-        {
-            try
-            {
-                var dbHandler = new Twshdbandler();
-                string StrQuery = "";
-                StrQuery = "exec USP_GET_CurrentAcademicYear";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
+        //[HttpGet, ActionName("GetTwshAcademicYears")]
+        //public HttpResponseMessage GetTwshAcademicYears()
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new Twshdbandler();
+        //        string StrQuery = "";
+        //        StrQuery = "exec USP_GET_CurrentAcademicYear";
+        //        return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        //        dbHandler.SaveErorr("USP_GET_CurrentAcademicYear", 0, ex.Message);
+        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+        //    }
+        //}
 
 
         private class ArrayList
