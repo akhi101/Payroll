@@ -218,13 +218,9 @@
 
 
         $scope.DownloadtoExcel = function () {
-            if ($scope.ExamMode == null || $scope.ExamMode == undefined || $scope.ExamMode == "") {
-                alert("Please select Exam Mode.");
-                return;
-            }
-            //$scope.loading = true;
-            var ApprovalList = TwshStudentRegService.getExamCentersByModeExcel($scope.ExamMode);
-            ApprovalList.then(function (res) {
+
+            var excel = TwshStudentRegService.getExamCentersExcel($scope.year, $scope.ExamMonthYear);
+            excel.then(function (res) {
                 var response = JSON.parse(res)
                 if (response[0].ResponceCode='200') {
                     //$scope.loading = false;
@@ -246,7 +242,7 @@
         }
 
         $scope.UpdateDetails = function (data) {
-            var Setexamcentres = TwshStudentRegService.UpdateTwshExamCentres(2, data.Id, data.AcademicID, data.ExamMonthYearID, data.ExaminationCenterCode, data.ExaminationCenterName, data.DistrictId, data.GenderId, data.CBT, data.MBT, data.SHORTHAND, data.ExaminationCenterAddress, data.IsActive, data.InsertedBy)
+            var Setexamcentres = TwshStudentRegService.UpdateTwshExamCentres(2, data.Id, data.AcademicID, data.ExamMonthYearID, data.ExaminationCenterCode, data.ExaminationCenterName, data.DistrictId, data.GenderId, data.IsTwOnline, data.IsTw, data.IsSh, data.ExaminationCenterAddress, data.IsActive, data.InsertedBy)
             Setexamcentres.then(function (response) {
                 try {
                     var response = JSON.parse(response)
@@ -337,7 +333,8 @@
                 ExamCentreID: data.Id,
                 AcademicYearID: data.AcademicID,
                 ExamMonthYearID: data.ExamMonthYearID,
-
+                MBT: data.IsTw,
+                SHORTHAND: data.IsSh
             };
 
             $state.go('Dashboard.TypeWriting.TwshExamCentersCourseWise');

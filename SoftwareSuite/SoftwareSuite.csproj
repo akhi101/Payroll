@@ -3093,6 +3093,7 @@
     <Content Include="app\views\TWSH\HtmlPage1.html" />
     <Content Include="app\views\TWSH\InstituteRegistration.html" />
     <Content Include="app\views\TWSH\Popups\ConfirmOldExamCentresPopup.html" />
+    <Content Include="app\views\TWSH\Popups\EditExamCentresCourseWisePopup.html" />
     <Content Include="app\views\TWSH\Popups\EditExamCentresPopup.html" />
     <Content Include="app\views\TWSH\TWSH.html" />
     <Content Include="app\views\TWSH\TwshAcademicYearSetting.html" />

@@ -12,11 +12,23 @@ define(['app'], function (app) {
         }
 
        
+        $scope.CourseAvailableValues = [
+            { "Id": true, "Value": "Yes" },
+            { "Id": false, "Value": "No" }
+        ]
 
+        $scope.changecourseavailable = function (data) {
+            if (data==1) {
+                $scope.UnAvailable = false;
+            }
+            else {
+                $scope.UnAvailable = true;
+            }
+        }
         
         $scope.getExamCentresCoursewise = function () {
             $scope.loading = true;
-            var getcentres = TwshStudentRegService.getExamCentresCoursewise(1, tmpdata.ExamCentreID, tmpdata.AcademicYearID, tmpdata.ExamMonthYearID);
+            var getcentres = TwshStudentRegService.getExamCentresCoursewise(1, tmpdata.ExamCentreID, tmpdata.AcademicYearID, tmpdata.ExamMonthYearID,tmpdata.MBT,tmpdata.SHORTHAND);
             getcentres.then(function (response) {
                 try {
                     var Res = JSON.parse(response)
@@ -28,7 +40,7 @@ define(['app'], function (app) {
                     $scope.getData = Res.Table;
                 }
                 else if (Res.Table.length > 0 && Res.Table[0].ResponseCode == '400') {
-                    alert("No Data Found")
+                    //alert("No Data Found")
                     $scope.loading = false;
                     $scope.confirmGetOldExamCentreData();
                 }
@@ -43,7 +55,7 @@ define(['app'], function (app) {
 
 
         $scope.confirmGetOldExamCentreData = function () {
-            var getcentres = TwshStudentRegService.getExamCentresCoursewise(2, tmpdata.ExamCentreID, tmpdata.AcademicYearID, tmpdata.ExamMonthYearID);
+            var getcentres = TwshStudentRegService.getExamCentresCoursewise(2, tmpdata.ExamCentreID, tmpdata.AcademicYearID, tmpdata.ExamMonthYearID, tmpdata.MBT, tmpdata.SHORTHAND);
             getcentres.then(function (response) {
                 try {
                     var Res = JSON.parse(response)
@@ -70,20 +82,46 @@ define(['app'], function (app) {
 
         
 
-        $scope.EditCentres = function (data, ind) {
+        $scope.EditCentres = function (ExamCentreCourseID) {
+            var editcentres = TwshStudentRegService.editExamCentresCoursewise(ExamCentreCourseID);
+            editcentres.then(function (response) {
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { }
+                if (Res.Table.length > 0) {
+                    $scope.EditData = Res.Table[0];
 
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-                ele1[j].style['-webkit-appearance'] = "auto";
-                ele1[j].style['-moz-appearance'] = "auto";
-            }
-            $scope['edit' + ind] = false;
+                    if ($scope.EditData.CourseAvailable == false) {
+                        $scope.UnAvailable = true;
+                    }
+                    else {
+                        $scope.UnAvailable = false;
+                    }
+                }
+                else {
+                    $scope.getData = [];
+                }
+            },
+                function (error) {
+                    $scope.Data = false;
+                    $scope.loading = false;
+                    alert("error while loading Exam Centers");
 
-        
+                });
 
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/TWSH/Popups/EditExamCentresCourseWisePopup.html",
+                size: 'lg',
+                scope: $scope,
+                windowClass: 'modal-fit',
+                backdrop: 'static',
+                keyboard: false
+            });
 
+            $scope.closeModal = function () {
+                $scope.modalInstance.close();
+            };
             
 
         }
@@ -99,24 +137,6 @@ define(['app'], function (app) {
             { "Id": 0, "Value": "No" }
         ]
 
-        $scope.deleteExamcenter = function (id, data) {
-
-            if (confirm("Are you sure you want to delete Exam center " + data.ExaminationCenterCode + "-" + data.ExaminationCenterName + " ?") == true) {
-
-                var DeleteTwshExamCenter = TwshStudentRegService.DeleteTwshExamCenter(id);
-                DeleteTwshExamCenter.then(function (response) {
-                    if (response[0].ResponceCode == '200') {
-                        alert(response[0].ResponceDescription)
-                        $scope.GetDetails();
-                    } else {
-                        $scope.GetDetails();
-                    }
-                },
-                    function (error) {
-                    });
-            }
-
-        }
 
 
         $scope.DownloadtoExcel = function () {
@@ -147,32 +167,22 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.UpdateDetails = function (ind,data) {
+        $scope.UpdateDetails = function (data) {
 
-            $scope.viewField = false;
-            $scope.modifyField = false;
-            $scope['edit' + ind] = true;
-
-            var ele2 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele2.length; j++) {
-                ele2[j].style['pointer-events'] = "none";
-                ele2[j].style.border = "0";
-                ele2[j].style['-webkit-appearance'] = "none";
-                ele2[j].style['-moz-appearance'] = "none";
-            }
-            var Setexamcentres = TwshStudentRegService.UpdateTwshExamCentres(2, data.Id, data.AcademicID, data.ExamMonthYearID, data.ExaminationCenterCode, data.ExaminationCenterName, data.DistrictId, data.GenderId, data.CBT, data.MBT, data.SHORTHAND, data.ExaminationCenterAddress, data.IsActive, data.InsertedBy)
-            Setexamcentres.then(function (response) {
+            
+            var updatecoursewisecentres = TwshStudentRegService.UpdateTwshExamCentresCourseWise(data.ExamCentreCourseID, data.ExamStrength, data.CourseAvailable, data.Active,$scope.UserName)
+            updatecoursewisecentres.then(function (response) {
                 try {
                     var response = JSON.parse(response)
                 }
                 catch (err) { }
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription);
-                    $scope.getExamCentres(data.ExamMonthYearID);
+                    $scope.getExamCentresCoursewise();
                     $scope.modalInstance.close();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription);
-                    $scope.getExamCentres(data.ExamMonthYearID);
+                    $scope.getExamCentresCoursewise();
                     $scope.modalInstance.close();
                 } else {
                     alert('Something Went Wrong');

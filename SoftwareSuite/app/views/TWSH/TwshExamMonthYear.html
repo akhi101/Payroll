@@ -35,7 +35,7 @@
                             <label class="font-weight-bold">
                                 Academic Year :
                             </label>
-                            <select class="form-control" ng-model="year">
+                            <select class="form-control" ng-model="year" ng-change="GetExamYearMonth()">
                                 <option value="" selected>Select Academic Year</option>
                                 <option ng-repeat="yr in Acayears" value="{{yr.AcademicID}}">
                                     {{yr.AcademicYear}}
@@ -58,12 +58,12 @@
             </form>
         </div>
         <div class="sm-spacer"></div>
-        <div class="col-md-12" style="padding:0px!important">
+        <div class="col-md-12" ng-if="getData.length>0" style="padding:0px!important">
             <div class="cl-details">
                 <h2>Exam Month Year's list</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-if="getData.length>0">
 
             <div id="preExamReports" class="table-responsive table-custom-tables-tb col-md-12">
                 <table class="table table-bordered  table-striped table-rounded">
