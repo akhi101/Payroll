@@ -88,8 +88,8 @@
                          
 
                             <td class="text-center">
-                                <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="data.Active == true" ng-click="setExamCentreStatus(data.AcademicID,false,data.ExamMonthYear,data.Id,data.SequenceId)">Active</button>
-                                <button class="btn btn-danger btn-xs" style="width: 70px;" ng-show="data.Active == false" ng-click="setExamCentreStatus(data.AcademicID,true,data.ExamMonthYear,data.Id,data.SequenceId)">InActive</button>
+                                <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="data.Active == true" ng-click="setExamCentreStatus(data.Id,data.Active)">Active</button>
+                                <button class="btn btn-danger btn-xs" style="width: 70px;" ng-show="data.Active == false" ng-click="setExamCentreStatus(data.Id,data.Active)">InActive</button>
                             </td>
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="Editsemesterdat(data,$index+1)">

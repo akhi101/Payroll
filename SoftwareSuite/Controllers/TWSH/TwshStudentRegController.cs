@@ -271,15 +271,15 @@ namespace SoftwareSuite.Controllers.TWSH
 
         }
 
-        [HttpGet, ActionName("SetFeeDateStatus")]
-        public string SetFeeDateStatus(int FeeFaymentDateID)
+        [HttpGet, ActionName("TwshSetFeeDateStatus")]
+        public string TwshSetFeeDateStatus(int FeePaymentDateID)
         {
             try
             {
                 var db = new Twshdbandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@FeeFaymentDateID", FeeFaymentDateID);
-                var dt = db.ReturnDataWithStoredProcedureTable("TWSH_ActiveorInActive_StudentFeePaymentDates", param);
+                param[0] = new SqlParameter("@FeePaymentDateID", FeePaymentDateID);
+                var dt = db.ReturnDataWithStoredProcedure("TWSH_ActiveorInActive_StudentFeePaymentDates", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -311,20 +311,18 @@ namespace SoftwareSuite.Controllers.TWSH
 
 
         [HttpGet, ActionName("SetTwshTimeSlot")]
-        public string SetTwshTimeSlot(int DataTypeId, int CourseId, int GradeId, int BatchId,string Paper1TimeSlot,string Paper2TimeSlot,int Id,string PCODE)
+        public string SetTwshTimeSlot(int DataTypeId, string Paper1TimeSlot,string Paper2TimeSlot,int Id,string PCODE,int Active)
         {
             try
             {
                 var db = new Twshdbandler();
-                var param = new SqlParameter[8];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@Datatypeid", DataTypeId);
-                param[1] = new SqlParameter("@CourseId", CourseId);
-                param[2] = new SqlParameter("@GradeId", GradeId);
-                param[3] = new SqlParameter("@BatchId", BatchId);
-                param[4] = new SqlParameter("@Paper1TimeSlot", Paper1TimeSlot);
-                param[5] = new SqlParameter("@Paper2TimeSlot", Paper2TimeSlot);
-                param[6] = new SqlParameter("@Id", Id);
-                param[7] = new SqlParameter("@PCODE", PCODE);
+                param[1] = new SqlParameter("@Paper1TimeSlot", Paper1TimeSlot);
+                param[2] = new SqlParameter("@Paper2TimeSlot", Paper2TimeSlot);
+                param[3] = new SqlParameter("@Id", Id);
+                param[4] = new SqlParameter("@PCODE", PCODE);
+                param[5] = new SqlParameter("@Active", Active);
                 var dt = db.ReturnDataWithStoredProcedureTable("USP_SET_CreateOrUpdateBatchTimings", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -378,6 +376,48 @@ namespace SoftwareSuite.Controllers.TWSH
             {
 
                 dbHandler.SaveErorr("SP_GET_Twsh_StudentData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("SetExamMonthYearStatus")]
+        public string SetExamMonthYearStatus(int Id, int Active)
+        {
+            try
+            {
+                var db = new Twshdbandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Id", Id);
+                param[1] = new SqlParameter("@Active", Active);
+                var dt = db.ReturnDataWithStoredProcedure("USP_Set_ExamMonthYearStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_Set_ExamMonthYearStatus", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("SetAcademicYearStatus")]
+        public string SetAcademicYearStatus(int AcademicID, int Active)
+        {
+            try
+            {
+                var db = new Twshdbandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicID", AcademicID);
+                param[1] = new SqlParameter("@Active", Active);
+                var dt = db.ReturnDataWithStoredProcedure("USP_Set_AcademicYearStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_Set_AcademicYearStatus", 0, ex.Message);
                 return ex.Message;
             }
 
@@ -675,14 +715,19 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("getExamTimeSlotsExcel")]
-        public string getExamTimeSlotsExcel()
+        public string getExamTimeSlotsExcel(int AcademicYearID, int ExamMonthYearID)
         {
             List<person> p = new List<person>();
             person p1 = new person();
             try
             {
+                HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                DataSet ds = dbHandler.ReturnDataSet("TWSH_GET_Grade_Batch_Time");
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("TWSH_GET_Grade_Batch_Time", param);
+          
                 var filename = "TWSH_Exam_Time_Slots" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -2849,13 +2894,16 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("getExamTimeSlots")]
-        public HttpResponseMessage getExamTimeSlots()
+        public HttpResponseMessage getExamTimeSlots(int AcademicYearID,int ExamMonthYearID)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                DataTable dt = dbHandler.ReturnData("TWSH_GET_Grade_Batch_Time");
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("TWSH_GET_Grade_Batch_Time", param);
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
             catch (Exception ex)
