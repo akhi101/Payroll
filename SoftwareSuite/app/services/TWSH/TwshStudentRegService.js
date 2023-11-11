@@ -220,6 +220,12 @@
             return promise;
         };
 
+        this.getTwshExamMonthYearsbyID = function (AcademicYearID) {
+            var paramObj = { "AcademicYearID": AcademicYearID };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getTwshExamMonthYearsbyID', paramObj);
+            return promise;
+        };
+
         this.getTwshExamCenterCollegeList = function () {
             var promise = DataAccessService.getDataAll('api/TwshStudentReg/getTwshExamCenterCollegeList');
             return promise;
@@ -498,15 +504,55 @@
             return promise;
         };
 
+        this.getExamCenters = function (DataType, AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "DataType": DataType,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
+            }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetExamCenters', paramObj);
+            return promise;
+        };
+
+        this.getExamCentresCoursewise = function (DataType, ExamCentreID, AcademicYearID, ExamMonthYearID, MBT, SHORTHAND) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExamCentreID": ExamCentreID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "MBT": MBT,
+                "SHORTHAND": SHORTHAND
+
+            }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetExamCentresCoursewise', paramObj);
+            return promise;
+        };
+
+        this.editExamCentresCoursewise = function (ExamCentreCourseID) {
+            var paramObj = {
+                "ExamCentreCourseID": ExamCentreCourseID
+            }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/EditExamCentresCoursewise', paramObj);
+            return promise;
+        };
+
+        this.getExamCentersExcel = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = { "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID }
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getExamCentersExcel', paramObj);
+            return promise;
+        };
+
         this.getExamCentersByModeExcel = function (Mode) {
             var paramObj = { "Mode": Mode }
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getExamCentersByModeExcel', paramObj);
             return promise;
         };
 
+
         this.getExamTimeSlotsExcel = function (AcademicYearID,ExamMonthYearID) {
             var paramObj = { "AcademicYearID": AcademicYearID, "ExamMonthYearID": ExamMonthYearID }
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getExamTimeSlotsExcel', paramObj);
+
             return promise;
         };
         this.SetTwshExamCenters = function (Id, ExaminationCenterCode, ExaminationCenterName, DistrictId, IsTw, IsSh, IsTwOnline, IsShOnline, GenderId, IsActive) { 
@@ -523,6 +569,61 @@
                 "IsActive": IsActive
             }
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/SetTwshExamCenters', paramObj);
+            return promise;
+        };
+
+        this.SetTwshExamCentres = function (DataType, ExaminationCentreID, AcademicYearID, ExamMonthYearID, ExaminationCentreCode, ExaminationcentreName, DistrictID, Gender, CBT, MBT, ShortHand, CentreAddress, Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExaminationCentreID": ExaminationCentreID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExaminationCentreCode": ExaminationCentreCode,
+                "ExaminationcentreName": ExaminationcentreName,
+                "DistrictID": DistrictID,
+                "Gender": Gender,
+                "CBT": CBT,
+                "MBT": MBT,
+                "ShortHand": ShortHand,
+                "CentreAddress": CentreAddress,
+                "Active": Active,
+                "UserName": UserName,
+            }
+            var promise = DataAccessService.postData('api/TwshStudentReg/SetorUpdateTwshExamCentres', paramObj);
+            return promise;
+        };
+
+
+        this.UpdateTwshExamCentres = function (DataType, ExaminationCentreID, AcademicYearID, ExamMonthYearID, ExaminationCentreCode, ExaminationcentreName, DistrictID, Gender, CBT, MBT, ShortHand, CentreAddress, Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExaminationCentreID": ExaminationCentreID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExaminationCentreCode": ExaminationCentreCode,
+                "ExaminationcentreName": ExaminationcentreName,
+                "DistrictID": DistrictID,
+                "Gender": Gender,
+                "CBT": CBT,
+                "MBT": MBT,
+                "ShortHand": ShortHand,
+                "CentreAddress": CentreAddress,
+                "Active": Active,
+                "UserName": UserName,
+            }
+            var promise = DataAccessService.postData('api/TwshStudentReg/SetorUpdateTwshExamCentres', paramObj);
+            return promise;
+        };
+
+        this.UpdateTwshExamCentresCourseWise = function (ExamCentreCourseID, ExamStrength, CourseAvailable, Active, UserName) {
+            var paramObj = {
+                "ExamCentreCourseID": ExamCentreCourseID,
+                "ExamStrength": ExamStrength,
+                "CourseAvailable": CourseAvailable,
+                "Active": Active,
+                "UserName": UserName,
+            }
+            var promise = DataAccessService.postData('api/TwshStudentReg/UpdateTwshExamCentresCourseWise', paramObj);
             return promise;
         };
 
@@ -924,6 +1025,14 @@
 
         this.GetTwshAcademicYears = function () {
             var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetTwshAcademicYears');
+            return promise;
+        };
+
+        this.editExamCenters = function (ExaminationCentreID) {
+            var paramObj = {
+                "ExaminationCentreID": ExaminationCentreID
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/EditTwshExamCentres', paramObj);
             return promise;
         };
     });
