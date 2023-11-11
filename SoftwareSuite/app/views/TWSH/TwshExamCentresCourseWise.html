@@ -114,7 +114,7 @@
     </div>
     <div class="container">
         <div class="col-md-12">
-            <button class="btn bck_btn"><a href="#!/Dashboard/TypeWriting" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            <button class="btn bck_btn"><a href="#!/Dashboard/TypeWriting/TwshExamCenters" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
     </div>
     <div class="container">
@@ -134,9 +134,9 @@
                             <th class="text-center">Exam Month Year</th>
                             <th class="text-center">Exam Center Code</th>
                             <th class="text-center">Exam Center Name</th>
-                            <th class="text-center">Course Name</th>
+                            <th class="text-center">Grade Name</th>
                             <th class="text-center">Course Available</th>
-                            <th class="text-center">Course Strength</th>
+                            <th class="text-center">Grade Strength</th>
                             <th class="text-center" style="width:10%">Is Active</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -149,27 +149,25 @@
                             <td class="text-center">{{data.ExamMonthYear}}</td>
                             <td class="text-center">{{data.ExaminationCenterCode}}</td>
                             <td class="text-center">{{data.ExamCentre}}</td>
-                            <td class="text-center">{{data.CourseName}}</td>
+                            <td class="text-center">{{data.GradeName}}</td>
                             <td class="text-center">{{data.CourseAvailable==1 ? 'Yes' : 'No'}}</td>
-                            <td>
+                            <td class="text-center">{{data.ExamStrength}}</td>
+                            <!--<td>
 
                                 <div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ExamStrength" /></div>
-                            </td>
+                            </td>-->
                             <td class="text-center">{{data.Active==1 ? 'Yes' : 'No'}}</td>
 
 
 
-                            <!--<td class="text-center">
-        <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditCentres(data.Id)">
-            Edit
-        </button>
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditCentres(data.ExamCentreCourseID)">
+                                    Edit
+                                </button>
 
 
-    </td>-->
-                            <td style="text-align:center" width="8%">
-                                <button ng-hide="viewField" class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditCentres($index+1)">Edit</button>
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="modifyField" ng-click="UpdateDetails($index+1,data.ExamStrength,data.ExamCentreCourseID,data.Active,data.UserName)"><span>Update</span></button>
                             </td>
+                            
                         </tr>
 
                     </tbody>
