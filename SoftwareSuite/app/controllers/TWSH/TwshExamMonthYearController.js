@@ -115,9 +115,13 @@
 
 
 
-        $scope.setExamCentreStatus = function (AcademicID, Active, ExamMonthYear, Id, SequenceId ) {
-
-            var SetStatus = TwshStudentRegService.SetExamCentreStatus(3,AcademicID, Active, ExamMonthYear, Id, SequenceId);
+        $scope.setExamCentreStatus = function (Id, Status ) {
+            if (Status == true) {
+                Status = 1
+            } else {
+                Status = 0
+            }
+            var SetStatus = TwshStudentRegService.SetExamMonthYearStatus(Id, Status);
             SetStatus.then(function (res) {
                 if (res[0].ResponceCode == '400') {
                     alert(res[0].ResponceDescription)

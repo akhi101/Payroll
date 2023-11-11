@@ -3267,7 +3267,7 @@
             'Dashboard.TypeWriting.AcademicYearSetting': {
                 url: "/AcademicYearSetting",
                 templateUrl: 'app/views/TWSH/TwshAcademicYearSetting.html',
-                dependencies: ['controllers/TWSH/TwshAcademicYearSettingController', 'services/TWSH/TwshAdminService']
+                dependencies: ['controllers/TWSH/TwshAcademicYearSettingController', 'services/TWSH/TwshAdminService', 'services/TWSH/TwshStudentRegService']
             },
 
             'Dashboard.TypeWriting.ViewApplication': {

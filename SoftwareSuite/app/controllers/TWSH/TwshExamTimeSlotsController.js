@@ -8,6 +8,41 @@
 
         }
 
+        var AcademicYearsActive = TwshStudentRegService.GetTwshAcademicYears();
+        AcademicYearsActive.then(function (response) {
+
+            //  $scope.years = response.Table[0];
+            $scope.Acayears = response.Table;
+
+        },
+            function (error) {
+                alert("error while loading Academic Year");
+            });
+
+        $scope.getExamMonthYearsData = function (year) {
+
+            //let academicId = $scope.years.AcademicID;
+
+            var EmYears = TwshStudentRegService.GetTwshExamMonthYearbyID(year);
+            EmYears.then(function (response) {
+                console.log(response)
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { error }
+                $scope.ExamMonthYears = Res.Table;
+                $scope.getData = []
+                $scope.Data = false;
+            },
+                function (error) {
+                    $scope.getData = []
+                    $scope.Data = false;
+                    alert("error while loading Data");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
         var ExamDistricts = TwshStudentRegService.GetAllGrades();
         ExamDistricts.then(function (res) {
             $scope.Grades = res;
@@ -41,38 +76,46 @@
          { Name: "TypeMachine Based Test(TMBT)", Id: 2 }
         ];
 
-        $scope.loading = true;
-            var ApprovalList = TwshStudentRegService.getExamTimeSlots();
-            ApprovalList.then(function (response) {
-               
-                if (response.length > 0) {
-                    $scope.loading = false;
-                    $scope.Data = true;
-                    $scope.getData = response;
-                    for (var j = 1; j < response.length + 1; j++) {
-                        $scope['edit' + j] = true;
-                    }
-                } else {
-                    alert("No Data Found")
-                    $scope.loading = false;
-                    $scope.Data = false;
-                }
-            },
-        function (error) {
+        $scope.ChangeExamMonthYear = function () {
+            $scope.getData = []
             $scope.Data = false;
-            $scope.loading = false;
-            alert("error while loading Exam Month Year");
+        }
 
-        });
+
+        //$scope.loading = true;
+        //    var ApprovalList = TwshStudentRegService.getExamTimeSlots();
+        //    ApprovalList.then(function (response) {
+               
+        //        if (response.length > 0) {
+        //            $scope.loading = false;
+        //            $scope.Data = true;
+        //            $scope.getData = response;
+        //            for (var j = 1; j < response.length + 1; j++) {
+        //                $scope['edit' + j] = true;
+        //            }
+        //        } else {
+        //            alert("No Data Found")
+        //            $scope.loading = false;
+        //            $scope.Data = false;
+        //        }
+        //    },
+        //function (error) {
+        //    $scope.Data = false;
+        //    $scope.loading = false;
+        //    alert("error while loading Exam Month Year");
+
+        //});
        
             $scope.Timeslots = function () {
-                var ApprovalList = TwshStudentRegService.getExamTimeSlots();
+                var ApprovalList = TwshStudentRegService.getExamTimeSlots($scope.year, $scope.ExamMonthYear);
                 ApprovalList.then(function (response) {
-                    if (response.length > 0) {
+                    //var response = JSON.parse(response)
+                    if (response.Table.length > 0) {
                         $scope.loading = false;
                         $scope.Data = true;
-                        $scope.getData = response;
-                        for (var j = 1; j < response.length + 1; j++) {
+                        $scope.getData = response.Table;
+                        console.log($scope.getData)
+                        for (var j = 1; j < response.Table.length + 1; j++) {
                             $scope['edit' + j] = true;
                         }
                     } else {
@@ -160,8 +203,8 @@
         ]
 
         $scope.DownloadtoExcel = function () {
-         
-            var ApprovalList = TwshStudentRegService.getExamTimeSlotsExcel();
+            console.log($scope.year, $scope.ExamMonthYear)
+            var ApprovalList = TwshStudentRegService.getExamTimeSlotsExcel($scope.year, $scope.ExamMonthYear);
             ApprovalList.then(function (res) {
                 var response = JSON.parse(res)
                 if (response[0].ResponceCode = '200') {
@@ -216,19 +259,7 @@
 
             var datatypeid = 2;
 
-            if (data.CourseId == null || data.CourseId == undefined || data.CourseId == "") {
-                alert("Please select Course.");
-                return;
-            }
-
-            if (data.GradeId == null || data.GradeId == undefined || data.GradeId == "") {
-                alert("Please select Grade.");
-                return;
-            }
-            if (data.BatchId == null || data.BatchId == undefined || data.BatchId == "") {
-                alert("Please select Batch.");
-                return;
-            }
+         
             if (data.Paper1TimeSlot == null || data.Paper1TimeSlot == undefined || data.PPaper1TimeSlotaper1 == "") {
                 alert("Please Enter Paper 1 Time Slot.");
                 return;
@@ -241,7 +272,7 @@
                 alert("Please Enter PCODE.");
                 return;
             }
-            var SetSemester = TwshStudentRegService.SetTwshTimeSlot(datatypeid, data.CourseId, data.GradeId, data.BatchId, data.Paper1TimeSlot, data.Paper2TimeSlot, data.Id, data.PCODE)
+            var SetSemester = TwshStudentRegService.SetTwshTimeSlot(datatypeid,  data.Paper1TimeSlot, data.Paper2TimeSlot, data.Id, data.PCODE,data.Active)
             SetSemester.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponceCode == '200') {
