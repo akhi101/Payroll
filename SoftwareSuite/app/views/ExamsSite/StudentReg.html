@@ -604,7 +604,7 @@
         <form name="StudentDetails" novalidate ng-submit="submitData()">
             <div class="custom-forms" ng-show="applicationForm">
                 <!--ng-show="applicationForm"-->
-                <div class="col-md-12  mtp-50" >
+                <div class="col-md-12  mtp-50">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-12">
@@ -677,7 +677,7 @@
                             </div>-->
                                     <!--<div class="col-md-12">-->
                                     <div class="col-md-4 " ng-show="tmpmode ==2">
-                                        
+
                                         <div class="form-group ">
                                             <label>Is Blind</label>
                                             <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
@@ -971,6 +971,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12" ng-show="IsBlind == 1">
+
+                <p>
+                    <span> <input type="checkbox" ng-model="Checkbox"  /></span>
+                    I agree to write the exam in Briley script being blind and also upload the medical certificate.
+
+                </p>
             </div>
             <!--ng-show="applicationForm"-->
             <div class="col-md-12 pull-right mtp-50" ng-show="applicationForm">

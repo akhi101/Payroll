@@ -687,6 +687,9 @@
                 return;
             }
 
+            if ($scope.IsBlind == 1 && ($scope.Checkbox == undefined || $scope.Checkbox == "" || $scope.Checkbox == null)) {
+                alert("Please agree terms and conditions .")
+            }
 
           
 
