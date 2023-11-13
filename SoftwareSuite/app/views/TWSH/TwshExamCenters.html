@@ -10,7 +10,39 @@
    position:sticky;
    top:0px;
    
+
 }
+    th, td, p, input {
+        font: 14px Verdana;
+    }
+
+    table, th, td {
+        border: solid 1px #000;
+        border-collapse: collapse;
+        padding: 5px 5px;
+        /*text-align: center;*/
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    .th {
+        background-color: red;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 13px !important;
+    }
+    label.notifylabel1 {
+        position: absolute;
+        /* right: 19px; */
+        /* top: -32px; */
+    }
 </style>
 <div ng-controller="TwshExamCentersController">
     <div class="breadcrumb-header">
@@ -42,36 +74,36 @@
             </div>
             <!--<div class="base-row row">
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="bold" for="sel1">
-                            <b> Exam : </b>
-                        </label>-->
-                        <!--<select class="form-control " ng-model="ExamMode" name="ExamMode" >
-                        <option value="" selected="selected">Select Exam mode</option>
-                        <option value="{{Exam.Id}}" ng-repeat="Exam in ExamTypes">
-                            {{Exam.Name}}
-                        </option>
-                    </select>-->
-                        <!--<select class="form-control" id="ExamMode" ng-model="ExamMode"
-                                ng-options="Exam.Id as Exam.Name for Exam in ExamTypes ">
-                            <option value="" selected>Select Exam mode</option>
-                        </select>
-                    </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="bold" for="sel1">
+                        <b> Exam : </b>
+                    </label>-->
+            <!--<select class="form-control " ng-model="ExamMode" name="ExamMode" >
+            <option value="" selected="selected">Select Exam mode</option>
+            <option value="{{Exam.Id}}" ng-repeat="Exam in ExamTypes">
+                {{Exam.Name}}
+            </option>
+        </select>-->
+            <!--<select class="form-control" id="ExamMode" ng-model="ExamMode"
+                            ng-options="Exam.Id as Exam.Name for Exam in ExamTypes ">
+                        <option value="" selected>Select Exam mode</option>
+                    </select>
                 </div>
-                <div class="col-md-3">
-                    <div class="gr-btn">
-                        <button class="btn btn-success" ng-click="GetDetails()">Submit</button>
-                    </div>
+            </div>
+            <div class="col-md-3">
+                <div class="gr-btn">
+                    <button class="btn btn-success" ng-click="GetDetails()">Submit</button>
                 </div>
-            </div>-->
+            </div>
+        </div>-->
         </div>
         <!--<div class="container">-->
-            <!--<div class="col-md-12">
-                <button class="btn pull-right btn-default btn-css text-uppercase" style="margin-top: 10px;margin-bottom: 10px;">
-                    Add Exam Center
-                </button>
-            </div>-->
+        <!--<div class="col-md-12">
+        <button class="btn pull-right btn-default btn-css text-uppercase" style="margin-top: 10px;margin-bottom: 10px;">
+            Add Exam Center
+        </button>
+    </div>-->
         <!--</div>-->
         <div class="container">
             <div class="col-md-12">
@@ -90,16 +122,13 @@
                                                 {{yr.AcademicYear}}
                                             </option>
                                         </select>
-                                        <!-- <div class='input-group' id='year'>
-                <input type='text' class="form-control" ng-model="years.AcademicYear" disabled autocomplete="off" name="Fineamount" required />
-            </div> -->
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="font-weight-bold">Exam Month year:</label>
                                         <div class="">
-                                            <select class="form-control" name="semister" required ng-model="ExamMonthYear">
+                                            <select class="form-control" name="semister" required ng-model="ExamMonthYear" ng-change="getExamCentres(ExamMonthYear)">
                                                 <option value="" selected>Select Month year</option>
                                                 <option ng-repeat="data in ExamMonthYears" value="{{data.ExamMonthYearID}}">
                                                     {{data.ExamMonthYear}}
@@ -134,7 +163,7 @@
 
                                 <div class="col-md-2 form-group">
                                     <label for="sel1">
-                                        Gender :
+                                        Genders Allowed :
                                     </label>
                                     <select class="form-control" ng-model="Gendersallow"
                                             ng-options="data.Id as data.Name for data in GendersList">
@@ -147,7 +176,7 @@
                                         <!--TypeWriting(Online) :-->
                                         CBT
                                     </label>
-                                    <select class="form-control" ng-model="IsTwOnline"
+                                    <select class="form-control" ng-model="CBT"
                                             ng-options="data.Id as data.Value for data in inputs">
                                         <option value="" selected>Select </option>
                                     </select>
@@ -157,7 +186,7 @@
                                         <!--TypeWriting(Offline) :-->
                                         TMBT
                                     </label>
-                                    <select class="form-control" ng-model="IsTwOffline"
+                                    <select class="form-control" ng-model="MBT"
                                             ng-options="data.Id as data.Value for data in inputs">
                                         <option value="" selected>Select</option>
                                     </select>
@@ -167,20 +196,20 @@
                                         <!--Shorthand(Offline) :-->
                                         Shorthand :
                                     </label>
-                                    <select class="form-control" ng-model="IsShoffline"
+                                    <select class="form-control" ng-model="ShortHand"
                                             ng-options="data.Id as data.Value for data in inputs">
                                         <option value="" selected>Select</option>
                                     </select>
                                 </div>
                                 <!--<div class="col-md-2 form-group">
-                                    <label for="ExamType">
-                                        Shorthand(online) :
-                                    </label>
-                                    <select class="form-control" ng-model="IsShOnline"
-                                            ng-options="data.Id as data.Value for data in inputs">
-                                        <option value="" selected>Select</option>
-                                    </select>
-                                </div>-->
+                                <label for="ExamType">
+                                    Shorthand(online) :
+                                </label>
+                                <select class="form-control" ng-model="IsShOnline"
+                                        ng-options="data.Id as data.Value for data in inputs">
+                                    <option value="" selected>Select</option>
+                                </select>
+                            </div>-->
                                 <div class="col-md-12">
                                     <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Submit()">
                                         ADD Center
@@ -194,7 +223,8 @@
             </div>
         </div>
         <div class="sm-spacer"></div>
-        <div class="col-md-12 " ng-show="Data">
+        <label class="notifylabel1" ng-show="getData.length>1" for="sel1" style="color: red;"> Double Click on table row to get Grade Strength</label>
+        <div class="col-md-12" ng-show="Data">
             <div class="pull-right">
                 <a class="ExportToExcel1 pointer"
                    id="ExportToExcel1" ng-click="DownloadtoExcel()">
@@ -209,92 +239,46 @@
                 <h2>Exam Centers list</h2>
             </div>
         </div>
-        <div class="row" ng-show="Data">
-
-            <div id="preExamReports" class="table-responsive table-custom-tables-tb col-md-12 scrollbox">
-                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+        <div class="col-md-12" ng-show="getData.length>1">
+            <div id="preExamReports" class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
                             <th class="text-center" style="width: 2%;">S.No</th>
+                            <th class="text-center">Academic Year</th>
+                            <th class="text-center">Exam Month Year</th>
                             <th class="text-center">Exam Center Code</th>
                             <th class="text-center">Exam Center</th>
                             <th class="text-center">District</th>
-                            <th class="text-center">Is Shorthand</th>
-                            <th class="text-center">Is Shorthand Online</th>
-                            <th class="text-center">Is Typewriting</th>
-                            <th class="text-center">Is Typewriting Online</th>
-                            <th class="text-center">Genders Allowed</th>
+                            <th class="text-center">CBT</th>
+                            <th class="text-center">MBT</th>
+                            <th class="text-center">SHORT HAND</th>
                             <th class="text-center" style="width:10%">Is Active</th>
-                            <th width="10%" class="text-center">Delete</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in getData" ng-click="openDetails(x)">
+                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in getData" ng-dblclick="openDetails(data)">
 
                             <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center"><input autocomplete="off" style="width:100%;" disabled class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ExaminationCenterCode" /></td>
-                            <td class="text-center"><input autocomplete="off" style="width:100%;" disabled class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ExaminationCenterName" /></td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DistrictId"
-                                        ng-options="data.Id as data.district_name for data in ExamDistrictList">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                                <!--<input autocomplete="off" style="width:100%;" disabled class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ExaminationCenterAddress" />-->
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IsSh"
-                                        ng-options="data.Id as data.Value for data in inputs">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IsShOnline"
-                                        ng-options="data.Id as data.Value for data in inputs">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IsTw"
-                                        ng-options="data.Id as data.Value for data in inputs">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IsTwOnline"
-                                        ng-options="data.Id as data.Value for data in inputs">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GenderId"
-                                        ng-options="data.Id as data.Name for data in GendersList">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                            </td>
-                            <td class="text-center">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IsActive"
-                                        ng-options="data.Id as data.Value for data in ActiveValues">
-                                    <option value="" selected>Choose</option>
-                                </select>
-                                <!-- <input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.IsActive" />-->
-                                
-                            </td>
-                            <td class="text-center">
-                                <a><button title="Click here to Delete" ng-click="deleteExamcenter(data.Id,data)" class="btn btn-xs btn_delete">                                
-                                <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>                               
+                            <td class="text-center">{{data.AcademicYear}}</td>
+                            <td class="text-center">{{data.ExamMonthYear}}</td>
+                            <td class="text-center">{{data.ExaminationCenterCode}}</td>
+                            <td class="text-center">{{data.ExaminationCenterName}}</td>
+                            <td class="text-center">{{data.District}}</td>
+                            <td class="text-center">{{data.IsTwOnline==1 ? 'Yes' : 'No'}}</td>
+                            <td class="text-center">{{data.IsTw==1 ? 'Yes' : 'No'}}</td>
+                            <td class="text-center">{{data.IsSh==1 ? 'Yes' : 'No'}}</td>
+                            <td class="text-center">{{data.IsActive==1 ? 'Yes' : 'No'}}</td>
 
-                            </td>
-                            
+
 
                             <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="Editsemesterdat(data,$index+1)">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditCentres(data.Id)">
                                     Edit
                                 </button>
-                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="Updatesemesterdat(data,$index+1)">
-                                    Update
-                                </button>
+
 
                             </td>
                         </tr>
@@ -302,7 +286,6 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
         <div style="width:100%;text-align:center;">
             <div class="loading">

@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.controller("TwshAcademicYearSettingController", function ($scope, $localStorage,TwshAdminService) {
+    app.controller("TwshAcademicYearSettingController", function ($scope, $localStorage, TwshAdminService, TwshStudentRegService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName
@@ -72,6 +72,35 @@ define(['app'], function (app) {
 
         }
 
+
+        $scope.SetAcademicYearStatus = function (Id, Status) {
+            if (Status == true) {
+                Status = 1
+            } else {
+                Status = 0
+            }
+            var SetStatus = TwshStudentRegService.SetAcademicYearStatus(Id, Status);
+            SetStatus.then(function (res) {
+                var res = JSON.parse(res)
+                if (res.Table[0].ResponceCode == '400') {
+                    alert(res.Table[0].ResponceDescription)
+
+                    $scope.GetData();
+                } else {
+                    alert(res.Table[0].ResponceDescription)
+                    $scope.GetData();
+
+                    //$scope.clearDefaults();
+                }
+
+            },
+                function (error) {
+
+                    var err = JSON.parse(error);
+                })
+
+
+        }
 
         $scope.UpdateAcademicYear = function (dat, ind) {
             $scope['edit' + ind] = true;
@@ -177,5 +206,6 @@ define(['app'], function (app) {
         }
 
 
+        
     })
 })

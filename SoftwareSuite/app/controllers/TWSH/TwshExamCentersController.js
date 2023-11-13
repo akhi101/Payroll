@@ -1,15 +1,16 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshExamCentersController", function ($scope, $http, $timeout, $localStorage, $state, $stateParams, AppSettings, TwshStudentRegService) {
-        
+    app.controller("TwshExamCentersController", function ($scope, $localStorage, $uibModal, $http, $timeout, $localStorage, $state, $stateParams, AppSettings, TwshStudentRegService) {
+        var authData = $localStorage.authorizationData;
+        $scope.UserName = authData.userName;
+        $scope.UserTypeID = authData.SystemUserTypeId;
         const $ctrl = this;
         $ctrl.$onInit = () => {
             $scope.ExamMode = 2;
-            $scope.GetExamYearMonth();
             $scope.ExamMonthYear = "";
             $scope.Adddata = false;
             $scope.GetExamCenters();
             $scope.GetTwshDisticts();
-            $scope.GetDetails();
+            //$scope.GetDetails();
         }
 
         var AcademicYearsActive = TwshStudentRegService.GetTwshAcademicYears();
@@ -61,34 +62,68 @@
         //    $scope.Adddata = true;
         //}
 
-        $scope.GetDetails = function () {
-           
-            if ($scope.ExamMode == null || $scope.ExamMode == undefined || $scope.ExamMode == "") {
-                alert("Please select Exam Mode.");
-                return;
-            }
-            $scope.loading = true;
-            var ApprovalList = TwshStudentRegService.getExamCentersByMode($scope.ExamMode);
-            ApprovalList.then(function (response) {
-                if (response.length>0){
+        $scope.getExamCentres = function (ExamMonthYear) {
+        $scope.loading = true;
+            var getcentres = TwshStudentRegService.getExamCenters(1,$scope.year, ExamMonthYear);
+            getcentres.then(function (response) {
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { }
+                if (Res.Table.length > 1 &&  Res.Table[0].ResponseCode == undefined){
                     $scope.loading = false;
                     $scope.Data = true;
-                $scope.getData = response;
-                for (var j = 1; j < response.length + 1; j++) {
-                    $scope['edit' + j] = true;
+                    $scope.getData = Res.Table;
                 }
-                } else {
-                    alert("No Data Found")
+                else if (Res.Table.length > 0 && Res.Table[0].ResponseCode == '400') {
+                    //alert("No Data Found")
                     $scope.loading = false;
-                    $scope.Data = false;
+                        $scope.modalInstance = $uibModal.open({
+                            templateUrl: "/app/views/TWSH/Popups/ConfirmOldExamCentresPopup.html",
+                            size: 'lg',
+                            scope: $scope,
+                            windowClass: 'modal-fit',
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+
+                    $scope.closeModal = function () {
+                        $scope.modalInstance.close();
+                    };
                 }
             },
         function (error) {
             $scope.Data = false;
             $scope.loading = false;
-            alert("error while loading Exam Month Year");
+            alert("error while loading Exam Centers");
            
         });
+        }
+
+
+        $scope.confirmGetOldExamCentreData = function () {
+            var getcentres = TwshStudentRegService.getExamCenters(2, $scope.year, $scope.ExamMonthYear);
+            getcentres.then(function (response) {
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { }
+                if (Res.Table.length > 0) {
+                    $scope.loading = false;
+                    $scope.getData = Res.Table;
+                    $scope.modalInstance.close();
+                }
+                else{
+                    alert("No Data Found")
+                    $scope.loading = false;
+                }
+            },
+                function (error) {
+                    $scope.Data = false;
+                    $scope.loading = false;
+                    alert("error while loading Exam Centers");
+
+                });
         }
 
         $scope.GetExamCenters = function () {
@@ -114,17 +149,43 @@
         }
 
 
+        $scope.EditCentres = function (Id) {
+            var getcentres = TwshStudentRegService.editExamCenters(Id);
+            getcentres.then(function (response) {
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch { }
+                if (Res.Table.length > 0) {
+                    $scope.EditData = Res.Table[0];
+                }
+                else {
+                    alert("No Data Found")
+                }
+            },
+                function (error) {
+                    $scope.Data = false;
+                    $scope.loading = false;
+                    alert("error while loading Exam Centers");
 
-        $scope.Editsemesterdat = function (data, ind) {
+                });
 
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-            }
-            $scope['edit' + ind] = false;
+
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/TWSH/Popups/EditExamCentresPopup.html",
+                size: 'lg',
+                scope: $scope,
+                windowClass: 'modal-fit',
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            $scope.closeModal = function () {
+                $scope.modalInstance.close();
+            };
 
         }
+       
 
         $scope.ActiveValues = [
             { "Id": true, "Value": true },
@@ -157,13 +218,9 @@
 
 
         $scope.DownloadtoExcel = function () {
-            if ($scope.ExamMode == null || $scope.ExamMode == undefined || $scope.ExamMode == "") {
-                alert("Please select Exam Mode.");
-                return;
-            }
-            //$scope.loading = true;
-            var ApprovalList = TwshStudentRegService.getExamCentersByModeExcel($scope.ExamMode);
-            ApprovalList.then(function (res) {
+
+            var excel = TwshStudentRegService.getExamCentersExcel($scope.year, $scope.ExamMonthYear);
+            excel.then(function (res) {
                 var response = JSON.parse(res)
                 if (response[0].ResponceCode='200') {
                     //$scope.loading = false;
@@ -184,29 +241,24 @@
         });
         }
 
-        $scope.Updatesemesterdat = function (data, ind) {
-            $scope['edit' + ind] = true;
-
-            var ele2 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele2.length; j++) {
-                ele2[j].style['pointer-events'] = "none";
-                ele2[j].style.border = "0";
-            }
-
-
-            
-            var SetSemester = TwshStudentRegService.SetTwshExamCenters(data.Id, data.ExaminationCenterCode, data.ExaminationCenterName, data.DistrictId, data.IsTw, data.IsSh, data.IsTwOnline, data.IsShOnline, data.GenderId, data.IsActive)
-            SetSemester.then(function (response) {
-                var response = JSON.parse(response)
-                if (response[0].ResponceCode == '200') { 
-                    alert(response[0].ResponceDescription);
-                    $scope.GetDetails();
-                } else if (response[0].ResponceCode == '400') {
-                    alert(response[0].ResponceDescription);
-                    $scope.GetDetails();
+        $scope.UpdateDetails = function (data) {
+            var Setexamcentres = TwshStudentRegService.UpdateTwshExamCentres(2, data.Id, data.AcademicID, data.ExamMonthYearID, data.ExaminationCenterCode, data.ExaminationCenterName, data.DistrictId, data.GenderId, data.IsTwOnline, data.IsTw, data.IsSh, data.ExaminationCenterAddress, data.IsActive, data.InsertedBy)
+            Setexamcentres.then(function (response) {
+                try {
+                    var response = JSON.parse(response)
+                }
+                catch (err) { }
+                if (response.Table[0].ResponseCode == '200') { 
+                    alert(response.Table[0].ResponseDescription);
+                    $scope.getExamCentres(data.ExamMonthYearID);
+                    $scope.modalInstance.close();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription);
+                    $scope.getExamCentres(data.ExamMonthYearID);
+                    $scope.modalInstance.close();
                 }else {
                     alert('Something Went Wrong');
-                    $scope.GetDetails();
+                    $scope.getExamCentres();
                 }
             },
                 function (error) {
@@ -216,22 +268,6 @@
                 });
         }
 
-        $scope.GetExamYearMonth = function () {
-            var data = {};
-            $scope.$emit('showLoading', data);
-            var ApprovalLists = TwshStudentRegService.GetTwshExamCenters();
-            ApprovalLists.then(function (response) {
-                $scope.getData = response.Table;
-                for (var j = 1; j < response.Table.length + 1; j++) {
-                    $scope['edit' + j] = true;
-                }
-                $scope.$emit('hideLoading', data);
-            }, function (error) {
-                $scope.$emit('hideLoading', data);
-                alert("error while loading Academic Year");
-
-            });
-        }
 
         $scope.Submit = function () {
 
@@ -251,35 +287,35 @@
                 alert("Select Geneders allowed");
                 return;
             }
-            if ($scope.IsTwOnline == undefined || $scope.IsTwOnline == null) {
-                alert("Select IsTwOnline");
+            if ($scope.CBT == undefined ||  $scope.CBT == '') {
+                alert("Select CBT");
                 return;
             }
-            if ($scope.IsTwOffline == undefined || $scope.IsTwOffline == null) {
-                alert("Select IsTwOffline");
+            if ($scope.MBT == undefined  || $scope.MBT=='') {
+                alert("Select MBT");
                 return;
             }
-            if ($scope.IsShoffline == undefined || $scope.IsShoffline == null) {
-                alert("Select IsShoffline");
+            if ($scope.ShortHand == undefined || $scope.ShortHand=='') {
+                alert("Select ShortHand");
                 return;
             }
-            if ($scope.IsShOnline == undefined || $scope.IsShOnline == null) {
-                alert("Select IsShOnline");
-                return;
-            }
+           
 
-            var SetTwshExamCenter = TwshStudentRegService.SetTwshExamCenter(examcenterdetail.CollegeCode, examcenterdetail.CollegeName, examcenterdetail.Address, $scope.ExamDistrict,$scope.IsTwOffline,$scope.IsShoffline,$scope.IsTwOnline,$scope.IsShOnline, $scope.Gendersallow)
+            var SetTwshExamCenter = TwshStudentRegService.SetTwshExamCentres(1,0, $scope.year, $scope.ExamMonthYear, examcenterdetail.CollegeCode, examcenterdetail.CollegeName, $scope.ExamDistrict, $scope.Gendersallow, $scope.CBT, $scope.MBT, $scope.ShortHand, examcenterdetail.Address,1,$scope.UserName)
             SetTwshExamCenter.then(function (response) {
-                try { var response = JSON.parse(response) } catch (err) { }
-                if (response[0].ResponceCode == '200') {
-                    alert(response[0].ResponceDescription)
-                    $scope.GetDetails();
-                } else if (response[0].ResponceCode == '400') {
-                    alert(response[0].ResponceDescription)
-                    $scope.GetDetails();
+                try {
+                    var response = JSON.parse(response)
+                }
+                catch (err) { }
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getExamCentres(data.ExamMonthYearID);
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getExamCentres(data.ExamMonthYearID);
                 } else {
                     alert('Something Went Wrong');
-                    $scope.GetDetails();
+                    $scope.getExamCentres(data.ExamMonthYearID);
                 }
             },
                 function (error) {
@@ -287,6 +323,23 @@
 
 
                 });
+        }
+
+
+
+        $scope.openDetails = function (data) {
+
+            $localStorage.TempData = {
+                ExamCentreID: data.Id,
+                AcademicYearID: data.AcademicID,
+                ExamMonthYearID: data.ExamMonthYearID,
+                MBT: data.IsTw,
+                SHORTHAND: data.IsSh
+            };
+
+            $state.go('Dashboard.TypeWriting.TwshExamCentersCourseWise');
+
+
         }
     })
 })

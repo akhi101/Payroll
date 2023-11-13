@@ -84,7 +84,7 @@
                     <div class="base-row" style="padding:15px!important;">
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="font-weight-bold">
                                         Academic Year :
@@ -97,7 +97,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="font-weight-bold">Exam Month year:</label>
                                     <div class="">
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="datetimepicker1" class="font-weight-bold">Start Date :</label>
                                 <div class='input-group date'>
                                     <input type='date' class="form-control" id='datetimepicker1' ng-model="StartDate" min="{{today}}" ng-change="SetEndDate(StartDate)" name="StartDate" required />
@@ -124,7 +124,7 @@
                                 </span>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker2" class="font-weight-bold">Last Date without fine :</label>
                                     <div class='input-group'>
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Last Date with Fine :</label>
                                     <div class='input-group'>
@@ -154,7 +154,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Tatkal Date :</label>
                                     <div class='input-group'>
@@ -168,7 +168,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Fee Amount :</label>
                                     <div id='Fineamount'>
@@ -176,9 +176,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Late Fee :</label>
                                     <div id='Fineamount'>
@@ -186,7 +184,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Tatkal Fee :</label>
                                     <div id='Fineamount'>
@@ -194,7 +195,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Premium Tatkal Fee :</label>
                                     <div id='Fineamount'>
@@ -202,10 +203,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            
-                            <div class="col-md-4 ">
+                            <div class="col-md-3 ">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Certificate Fee(CF) :</label>
                                     <div id='CertificateFee'>
@@ -213,12 +211,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 text-center">
-                                <button type="submit" class="btn btn-detail"  style="margin-top:23px">
+                            <div class="col-md-3 text-center">
+                                <button type="submit" class="btn btn-detail" style="margin-top:23px">
                                     Set Dates
                                 </button>
                             </div>
                         </div>
+                       
 
                     </div>
 
@@ -247,7 +246,6 @@
                                 <th style="">Tatkal Fee</th>
                                 <th style="">Premium Tatkal Fee</th>
                                 <th style="">Certificate Fee </th>
-                                <th style="">Active</th>
                                 <th style="">Action </th>
                             </tr>
                         </thead>
@@ -296,10 +294,7 @@
                                     <input autocomplete="off" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" maxlength="15" ng-model="dates.CertificateFee" />
                                 </td>
 
-                                <td class="text-center">
-                                    <button class="btn btn-success btn-xs" style="width: 70px;" ng-show="dates.IsActive == true" ng-click="setFeeDateStatus(dates.Id)">Active</button>
-                                    <button class="btn btn-danger btn-xs" style="width: 70px;" ng-show="dates.IsActive == false" ng-click="setFeeDateStatus(dates.Id)">InActive</button>
-                                </td>
+                             
                                 <td>
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditTwshDate(data,$index+1)">
                                         Edit
@@ -307,6 +302,8 @@
                                     <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateTwshDate(dates,$index+1)">
                                         Update
                                     </button>
+                                    <button class="btn btn-success btn-xs btn_margin_top" style="width: 70px;" ng-show="dates.IsActive == true" ng-click="setFeeDateStatus(dates.Id)">Active</button>
+                                    <button class="btn btn-danger btn-xs  btn_margin_top" style="width: 70px;" ng-show="dates.IsActive == false" ng-click="setFeeDateStatus(dates.Id)">InActive</button>
                                 </td>
                             </tr>
                         </tbody>
