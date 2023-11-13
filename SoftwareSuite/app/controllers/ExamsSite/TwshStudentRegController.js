@@ -220,16 +220,18 @@
         }
 
         $scope.submitmode = function () {
-            $scope.courseDetails = false;
-            $scope.showmodeofexam = false;
-            $scope.ExamAppearDetails = true;
-            $scope.oldUser = false;
-            $scope.oldUser2 = false;
-            $scope.sscForm = false;
-            $scope.applicationForm = false;
-
+          
             $scope.Districts = [];
             if ($scope.mode == 1) {
+                $scope.ExamAppearDetails = true;
+                $scope.courseDetails = false;
+                $scope.showmodeofexam = false;
+                //$scope.ExamAppearDetails = true;
+                $scope.oldUser = false;
+                $scope.oldUser2 = false;
+                $scope.sscForm = false;
+                $scope.applicationForm = false;
+
                 $scope.tmpmode = 1;
                 $scope.ExamModeName = 'Computer Based Test (CBT)';
                 var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
@@ -244,6 +246,36 @@
 
             } else if ($scope.mode == 2) {
                 $scope.tmpmode = 2;
+                var VerifyDate = TwshStudentRegService.VerifyApplicationDates($scope.tmpmode);
+                VerifyDate.then(function (response) {
+                    try {
+                        var res = JSON.parse(response)
+
+                    }
+                    catch (err) { }
+                    if (res.Table[0].ResponseCode == '200') {
+                        $scope.ExamAppearDetails = true;
+                        $scope.courseDetails = false;
+                        $scope.showmodeofexam = false;
+                        //$scope.ExamAppearDetails = true;
+                        $scope.oldUser = false;
+                        $scope.oldUser2 = false;
+                        $scope.sscForm = false;
+                        $scope.applicationForm = false;
+
+                    }
+                    else if (res.Table[0].ResponseCode == '400') {
+                        alert(res.Table[0].ResponseDescription);
+                        return;
+                        //$scope.ExamAppearDetails = false;
+                    }
+
+                },
+                    function (error) {
+                        alert("error while Verifying Dates")
+                        //var err = JSON.parse(error);
+
+                    });
                 $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
                 $scope.Districts = $scope.offlineDistricts;
             }

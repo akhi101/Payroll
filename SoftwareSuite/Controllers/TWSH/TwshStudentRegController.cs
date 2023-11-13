@@ -193,16 +193,16 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
-        public string GetTwshExamMonthYearbyID(int AcademicYearID)
+        [HttpGet, ActionName("VerifyApplicationDates")]
+        public string VerifyApplicationDates(int Mode)
         {
             try
             {
                 var dbHandler = new Twshdbandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[0] = new SqlParameter("@Mode", Mode);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ExamMonthYearbyID", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Verify_ApplicationDates", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

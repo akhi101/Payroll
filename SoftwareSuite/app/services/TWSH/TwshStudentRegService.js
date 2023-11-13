@@ -913,5 +913,11 @@
             var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetTwshAcademicYears');
             return promise;
         };
+
+        this.VerifyApplicationDates = function (Mode) {
+            var paramObj = { "Mode": Mode };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/VerifyApplicationDates', paramObj);
+            return promise;
+        };
     });
 });
