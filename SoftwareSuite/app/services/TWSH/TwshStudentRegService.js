@@ -1028,11 +1028,17 @@
             return promise;
         };
 
+
+        this.VerifyApplicationDates = function (Mode) {
+            var paramObj = { "Mode": Mode };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/VerifyApplicationDates', paramObj);
+
         this.editExamCenters = function (ExaminationCentreID) {
             var paramObj = {
                 "ExaminationCentreID": ExaminationCentreID
             };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/EditTwshExamCentres', paramObj);
+
             return promise;
         };
     });
