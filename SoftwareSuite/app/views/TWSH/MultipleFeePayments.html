@@ -54,7 +54,8 @@
                                 <td class="text-center">{{data.FeePaid}}</td>
                                 <td class="pointer text-center">
                                     <button class="btn-xs btn sm_btn" ng-click="feePaid()" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeeNotPaid == '0' ">{{data.FeeNotPaid}}</button>
-                                    <button class="btn-xs btn fail-btn" ng-click="openNotPaid(data.id)" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeeNotPaid != '0' ">{{data.FeeNotPaid}}</button>
+                                    <!--<button class="btn-xs btn fail-btn" ng-click="openNotPaid(data.id)" data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeeNotPaid != '0' ">{{data.FeeNotPaid}}</button>-->
+                                    <button class="btn-xs btn fail-btn"  data-toggle="tooltip" data-placement="top" title="Click to Open Details" ng-if="data.FeeNotPaid != '0' ">{{data.FeeNotPaid}}</button>
                                 </td>
 
                             </tr>

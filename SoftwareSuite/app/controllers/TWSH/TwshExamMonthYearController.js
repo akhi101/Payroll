@@ -3,7 +3,7 @@
         
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.GetExamYearMonth();
+            //$scope.GetExamYearMonth();
             $scope.ExamMonthYear = "";
         }
 
@@ -31,10 +31,10 @@
                 $scope.ExamMonthYear = "";
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription);
-                    $scope.GetExamYearMonth();
+                    $scope.GetExamYearMonth($scope.year);
                 } else if (response[0].ResponceCode == '400') {
                     alert(response[0].ResponceDescription);
-                    $scope.GetExamYearMonth();
+                    $scope.GetExamYearMonth($scope.year);
                 } else {
                     alert('Something Went Wrong')
                 }
@@ -81,10 +81,10 @@
                 var response = JSON.parse(response)
                 if (response[0].ResponceCode == '200') {
                     alert(response[0].ResponceDescription)
-                    $scope.GetExamYearMonth();
+                    $scope.GetExamYearMonth($scope.year);
                 } else if (response[0].ResponceCode == '400') {
                     alert(response[0].ResponceDescription);
-                    $scope.GetExamYearMonth();
+                    $scope.GetExamYearMonth($scope.year);
                 } else {
                     alert('Something Went Wrong')
                 }
@@ -97,8 +97,12 @@
         }
 
         $scope.GetExamYearMonth = function () {
-            var ApprovalLists = TwshStudentRegService.getTwshExamMonthYears();
+            var ApprovalLists = TwshStudentRegService.getTwshExamMonthYearsbyID($scope.year);
             ApprovalLists.then(function (response) {
+                try {
+                    var response = JSON.parse(response);
+                }
+                catch {error }
                 $scope.getData = response.Table;
                 for (var j = 1; j < response.Table.length + 1; j++) {
                     $scope['edit' + j] = true;
@@ -111,9 +115,13 @@
 
 
 
-        $scope.setExamCentreStatus = function (AcademicID, Active, ExamMonthYear, Id, SequenceId ) {
-
-            var SetStatus = TwshStudentRegService.SetExamCentreStatus(3,AcademicID, Active, ExamMonthYear, Id, SequenceId);
+        $scope.setExamCentreStatus = function (Id, Status ) {
+            if (Status == true) {
+                Status = 1
+            } else {
+                Status = 0
+            }
+            var SetStatus = TwshStudentRegService.SetExamMonthYearStatus(Id, Status);
             SetStatus.then(function (res) {
                 if (res[0].ResponceCode == '400') {
                     alert(res[0].ResponceDescription)
@@ -121,7 +129,7 @@
                     //$scope.clearDefaults();
                 } else {
                     alert('Exam Centre Status Updated Successfully')
-                    $scope.GetExamYearMonth();
+                    $scope.GetExamYearMonth($scope.year);
 
                     //$scope.clearDefaults();
                 }

@@ -682,14 +682,16 @@
 
         $scope.setFeeDateStatus = function (Id) {
 
-            var SetStatus = TwshStudentRegService.SetFeeDateStatus(Id);
+            var SetStatus = TwshStudentRegService.TwshSetFeeDateStatus(Id);
+
             SetStatus.then(function (res) {
-                if (res[0].ResponceCode == '400') {
-                    alert(res[0].ResponceDescription)
+                var res = JSON.parse(res)
+                if (res.Table[0].ResponceCode == '400') {
+                    alert(res.Table[0].ResponceDescription)
 
                     //$scope.clearDefaults();
                 } else {
-                    alert('Fee Date Status Changed Successfully')
+                    alert(res.Table[0].ResponceDescription)
                     $scope.GetDates();
 
                     //$scope.clearDefaults();

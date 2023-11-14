@@ -979,7 +979,7 @@
             'TWSH.TwshReports': {
                 url: "/Reports",
                 templateUrl: 'app/views/TWSH/TwshReports.html',
-                dependencies: ['controllers/TWSH/TwshReportsController']
+                dependencies: ['controllers/TWSH/TwshReportsController', 'services/TWSH/TwshStudentRegService', 'services/BillDesk/paymentService']
             },
             'TWSH.TwshQualifiedCount': {
                 url: "/TwshQualifiedCount",
@@ -3239,6 +3239,12 @@
                 dependencies: ['controllers/TWSH/TwshExamCentersController', 'services/TWSH/TwshStudentRegService']
             },
 
+            'Dashboard.TypeWriting.TwshExamCentersCourseWise': {
+                url: "TwshExamCenters/TwshExamCentersCourseWise",
+                templateUrl: 'app/views/TWSH/TwshExamCentresCourseWise.html',
+                dependencies: ['controllers/TWSH/TwshExamCentresCourseWiseController', 'services/TWSH/TwshStudentRegService']
+            },
+
             'Dashboard.TypeWriting.TwshExamTimeSlots': {
                 url: "/TwshExamTimeSlots",
                 templateUrl: 'app/views/TWSH/TwshExamTimeSlots.html',
@@ -3261,7 +3267,7 @@
             'Dashboard.TypeWriting.AcademicYearSetting': {
                 url: "/AcademicYearSetting",
                 templateUrl: 'app/views/TWSH/TwshAcademicYearSetting.html',
-                dependencies: ['controllers/TWSH/TwshAcademicYearSettingController', 'services/TWSH/TwshAdminService']
+                dependencies: ['controllers/TWSH/TwshAcademicYearSettingController', 'services/TWSH/TwshAdminService', 'services/TWSH/TwshStudentRegService']
             },
 
             'Dashboard.TypeWriting.ViewApplication': {
