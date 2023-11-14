@@ -24,6 +24,7 @@
         $scope.OnlineExamDates = [];
         $scope.QualifiedExam = false;
         $scope.PreviousExam = false;
+        $scope.CheckBox = false;
 
         //$scope.exammode = [                                      // ----------exam modes-----
         //    { "name": "Online", "Id": 1 },
@@ -105,9 +106,14 @@
                 $scope.stdMedicalCert = '';
                 $scope.stdMedicalCert = null;
                 $scope.IsBlind = IsBlind;
+                $scope.CheckBox = false;
             }
             else if (IsBlind == 1) {
                 $scope.IsBlind = IsBlind;
+                $scope.CheckBox = true;
+            }
+            else {
+                $scope.CheckBox = false;
             }
         }
         $scope.submitCourse = function (courseId, languageId, gradeId) {
@@ -601,36 +607,36 @@
             }
 
 
-            if (($scope.ExamDateselect == undefined || $scope.ExamDateselect == "" || $scope.ExamDateselect == null)) {
+            if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
                 alert("Please Enter ExamDateselect .");
                 return;
             }
 
-            if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
-                alert("Please Enter date1 .");
-                return;
-            }
+            //if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
+            //    alert("Please Enter date1 .");
+            //    return;
+            //}
 
-            if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
-                alert("Please Enter date2 .");
-                return;
-            }
+            //if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
+            //    alert("Please Enter date2 .");
+            //    return;
+            //}
 
-            if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
-                alert("Please Enter date3 .");
-                return;
-            }
+            //if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
+            //    alert("Please Enter date3 .");
+            //    return;
+            //}
 
-            if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
-                alert("Please Enter date4 .");
-                return;
-            }
+            //if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
+            //    alert("Please Enter date4 .");
+            //    return;
+            //}
 
 
-            if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
-                alert("Please Enter date5 .");
-                return;
-            }
+            //if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
+            //    alert("Please Enter date5 .");
+            //    return;
+            //}
 
 
             if (($scope.houseNo == undefined || $scope.houseNo == "" || $scope.houseNo == null)) {
@@ -649,10 +655,10 @@
                 return;
             }
 
-            if (($scope.mandal == undefined || $scope.mandal == "" || $scope.mandal == null)) {
-                alert("Please Enter mandal .");
-                return;
-            }
+            //if (($scope.mandal == undefined || $scope.mandal == "" || $scope.mandal == null)) {
+            //    alert("Please Enter mandal .");
+            //    return;
+            //}
 
             if (($scope.district == undefined || $scope.district == "" || $scope.district == null)) {
                 alert("Please Enter district .");
@@ -687,8 +693,16 @@
                 return;
             }
 
+            if ($scope.IsBlind == 1) {
+                $scope.CheckBox = true;
+            }
+            else {
+                $scope.CheckBox = false;
+            }
+
             if ($scope.IsBlind == 1 && ($scope.Checkbox == undefined || $scope.Checkbox == "" || $scope.Checkbox == null)) {
-                alert("Please agree terms and conditions .")
+                alert("Please agree terms and conditions .");
+                return;
             }
 
           
@@ -735,6 +749,7 @@
 
             $scope.applicationForm = false;
             $scope.previewData = true;
+            $scope.CheckBox = false;
             $scope.sscForm = false;
             $scope.ExamAppearDetails = false;
         }
@@ -743,6 +758,13 @@
             $scope.applicationForm = true;
             $scope.sscForm = false;
             $scope.ExamAppearDetails = false;
+            if ($scope.IsBlind == 1) {
+                $scope.CheckBox = true;
+            }
+            else {
+                $scope.CheckBox = false;
+            }
+            
 
         }
 
@@ -1052,11 +1074,51 @@
         });
 
 
+        //$scope.uploadPhoto = function () {
+        //    var input = document.getElementById("stdPhotoFile");
+        //    var fileSize = input.files[0].size;
+        //    console.log(fileSize);
+        //    if (fileSize <= 50000) {
+        //        if (input.files && input.files[0]) {
+        //            var reader = new FileReader();
+        //            reader.readAsDataURL(input.files[0]);
+        //            reader.onload = function (e) {
+        //                $('#stdPhotoImg').attr('src', e.target.result);
+
+        //                var canvas = document.createElement("canvas");
+        //                var imageElement = document.createElement("img");
+
+        //                imageElement.setAttribute = $('<img>', { src: e.target.result });
+        //                var context = canvas.getContext("2d");
+        //                imageElement.setAttribute.one("load", function () {
+        //                    canvas.width = this.width;
+        //                    canvas.height = this.height;
+        //                    context.drawImage(this, 0, 0);
+        //                    var base64Image = canvas.toDataURL("image/png");
+        //                    $scope.userPhoto = base64Image;
+        //                });
+
+
+        //            }
+        //            reader.onerror = function (e) {
+        //                console.error("File could not be read! Code " + e.target.error.code);
+        //            };
+
+        //        }
+        //    }
+        //    else {
+        //        alert("file size should be less then 50kb ");
+        //        return;
+        //    }
+        //}
+
+
+
         $scope.uploadPhoto = function () {
             var input = document.getElementById("stdPhotoFile");
             var fileSize = input.files[0].size;
-            console.log(fileSize);
-            if (fileSize <= 50000) {
+
+            if (fileSize <= 50000 && fileSize >= 25000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1066,7 +1128,9 @@
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
 
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
                         var context = canvas.getContext("2d");
                         imageElement.setAttribute.one("load", function () {
                             canvas.width = this.width;
@@ -1074,6 +1138,7 @@
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
                             $scope.userPhoto = base64Image;
+
                         });
 
 
@@ -1083,13 +1148,35 @@
                     };
 
                 }
-            }
-            else {
-                alert("file size should be less then 50kb ");
+            } else if (fileSize <= 25000) {
+                alert("Photo size should be greater than 25KB");
+                $('#stdPhotoFile').val('');
+                return;
+            } else if (fileSize >= 50000) {
+                alert("Photo size should be less than 50KB");
+                $('#stdPhotoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 25KB and 50KB");
+                $('#stdPhotoFile').val('');
                 return;
             }
         }
 
+
+        $scope.toDataURL = function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
 
         var tempId = [];
         var arr = [];
@@ -1131,7 +1218,7 @@
             var input = document.getElementById("stdSscCertFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 300000) {
+            if (fileSize <= 200000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1158,8 +1245,17 @@
 
                 }
             }
-            else {
-                alert("file size should be less then 300kb. ");
+            else if (fileSize <= 200000) {
+                alert("file size should be less than 200KB");
+                $('#stdSscCertFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should greater than 100KB");
+                $('#stdSscCertFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#stdSscCertFile').val('');
                 return;
             }
         }
@@ -1170,7 +1266,7 @@
             var input = document.getElementById("StdinterCertoFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 300000) {
+            if (fileSize <= 200000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1197,8 +1293,17 @@
 
                 }
             }
-            else {
-                alert("file size should be less then 300kb. ");
+            else if (fileSize <= 200000) {
+                alert("file size should be less than 200KB");
+                $('#StdinterCertoFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should be greater than 100KB");
+                $('#StdinterCertoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#StdinterCertoFile').val('');
                 return;
             }
         }
@@ -1207,7 +1312,7 @@
             var input = document.getElementById("QualifiedCertoFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 300000) {
+            if (fileSize <= 200000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1234,8 +1339,17 @@
 
                 }
             }
-            else {
-                alert("file size should be less then 300kb. ");
+            else if (fileSize <= 200000) {
+                alert("file size should be less than 200KB");
+                $('#QualifiedCertoFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should be greater than 100KB");
+                $('#QualifiedCertoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#QualifiedCertoFile').val('');
                 return;
             }
         }
@@ -1244,7 +1358,7 @@
             var input = document.getElementById("stdMedicalCertFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 300000) {
+            if (fileSize <= 200000 && fileSize >= 100000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1271,8 +1385,17 @@
 
                 }
             }
-            else {
-                alert("file size should be less then 300kb. ");
+            else if (fileSize <= 200000) {
+                alert("file size should not be less than 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should not be greater than 100KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#stdMedicalCertFile').val('');
                 return;
             }
         }
