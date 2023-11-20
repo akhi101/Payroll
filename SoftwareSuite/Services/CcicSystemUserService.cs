@@ -100,6 +100,24 @@ namespace SoftwareSuite.Services
             }
         }
 
+        public DataTable GetCcicForgotPassword(ccicdbHandler dbHandler, string UserName)
+        {
+            try
+            {
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserName", UserName);
+                var res = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Password", param);
+                return res;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                throw ex;
+            }
+        }
+
         public DataTable GetCcicChangePassword(ccicdbHandler dbHandler, int UserID, string OldPassword, string NewPassword)
         {
             DataTable dt = new DataTable();

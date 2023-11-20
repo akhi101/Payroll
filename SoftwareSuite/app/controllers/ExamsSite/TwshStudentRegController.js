@@ -99,6 +99,21 @@
         //        $scope.instructions = true;
         //    },
 
+        $scope.getbatchtimings = function (BatchNumber) {
+            var gettimings = TwshStudentRegService.GetGradeWiseBatchTimings($scope.Selgrade.Id, $scope.exambatch);
+            gettimings.then(function (res) {
+                try {
+                    var Res = JSON.parse(res)
+                }
+                catch { error }
+                $scope.GradeBatchTimings = Res.Table;
+                $scope.Paper1Time = $scope.GradeBatchTimings[0].Paper1Time
+                $scope.Paper2Time = $scope.GradeBatchTimings[0].Paper2Time
+            }, function (err) {
+                $scope.GradeBatchTimings = [];
+            });
+        }
+
         $scope.Blind = function (IsBlind) {
             if (IsBlind == 0) {
                 $('#stdMedicalCertFile').val(null);
@@ -225,6 +240,18 @@
             $scope.applicationForm = false;
         }
 
+        $scope.backAtMode1 = function () {
+            $scope.courseDetails = false;
+            $scope.showmodeofexam = true;
+            $scope.ExamAppearDetails = false;
+            $scope.oldUser = false;
+            $scope.oldUser2 = false;
+            $scope.sscForm = false;
+            $scope.applicationForm = false;
+            $scope.yesBtn = null;
+            $scope.noBtn = null;
+        }
+
         $scope.submitmode = function () {
           
             $scope.Districts = [];
@@ -251,9 +278,11 @@
                 $scope.Districts = $scope.onlineDistricts;
 
             } else if ($scope.mode == 2) {
-                $scope.tmpmode = 2;
-                var VerifyDate = TwshStudentRegService.VerifyApplicationDates($scope.tmpmode);
-                VerifyDate.then(function (response) {
+                //$scope.tmpmode = 2;
+
+                var date = TwshStudentRegService.VerifyApplicationDates($scope.mode);
+                date.then(function (response) {
+
                     try {
                         var res = JSON.parse(response)
 
@@ -282,6 +311,7 @@
                         //var err = JSON.parse(error);
 
                     });
+            
                 $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
                 $scope.Districts = $scope.offlineDistricts;
             }
@@ -319,7 +349,15 @@
                 $scope.sscForm = false;
                 $scope.oldUser2 = false;
                 $scope.applicationForm = false;
-            } else {
+            }
+            //else if (twsh === 'No') {
+            //    $scope.oldUser = false;
+            //    $scope.sscForm = false;
+            //    $scope.oldUser2 = false;
+            //    $scope.applicationForm = true;
+            //    $scope.ExamAppearDetails = false;
+            //}
+            else {
                 if ($scope.selectedgrade.CriteriaTypeId == 1) {
                     $scope.ExamAppearDetails = false;
                     $scope.oldUser = false;
@@ -534,7 +572,7 @@
         $scope.Aadhaarback = function () {
             $scope.ShowAadhaarDetail = false;
             $scope.ExamAppearDetails = true;
-            $scope.oldUser = true;
+            $scope.oldUser = false;
             $scope.oldUser2 = false;
             $scope.sscForm = false;
             $scope.applicationForm = false;

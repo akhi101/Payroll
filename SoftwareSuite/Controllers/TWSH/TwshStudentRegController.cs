@@ -3541,7 +3541,8 @@ namespace SoftwareSuite.Controllers.TWSH
                         else
                         {
                             var cc = new CommunicationController();
-                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "");
+                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
+
                         }
 
                     }
@@ -4131,6 +4132,27 @@ namespace SoftwareSuite.Controllers.TWSH
             }
 
         }
+
+        [HttpGet, ActionName("GetGradeWiseBatchTimings")]
+        public string GetGradeWiseBatchTimings(int GradeID,int BatchID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@GradeID", GradeID);
+                param[1] = new SqlParameter("@BatchID", BatchID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExaminationBatchTimings", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
 
 
         private class ArrayList

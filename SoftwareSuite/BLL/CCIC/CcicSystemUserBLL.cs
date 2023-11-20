@@ -116,6 +116,40 @@ namespace SoftwareSuite.BLL
             }
         }
 
+        public CcicSystemRes GetCcicForgotPassword(string UserName)
+        {
+            try
+            {
+                CcicSystemUserService CcicSystemUserService = new CcicSystemUserService();
+                ccicdbHandler dbHandler = new ccicdbHandler();
+                DataTable tblUsersList = new DataTable();
+                tblUsersList = CcicSystemUserService.GetCcicForgotPassword(dbHandler, UserName);
+                // return JsonConvert.SerializeObject(tblUsersList);  
+                string status = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                if (status == "200")
+                {
+                    CcicSystemRes res = new CcicSystemRes();
+                    res.UserPassword = Convert.ToString(tblUsersList.Rows[0]["UserPassword"]);
+                    res.ResponceCode = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                    res.ResponceDescription = Convert.ToString(tblUsersList.Rows[0]["ResponceDescription"]);
+                    return res;
+                }
+                else
+                {
+                    CcicSystemRes res = new CcicSystemRes();
+                    res.UserPassword = Convert.ToString(tblUsersList.Rows[0]["UserPassword"]);
+                    res.ResponceCode = Convert.ToString(tblUsersList.Rows[0]["ResponceCode"]);
+                    res.ResponceDescription = Convert.ToString(tblUsersList.Rows[0]["ResponceDescription"]);
+                    return res;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         public CcicSystemRes GetCcicChangePassword(Int32 UserID, string OldPassword, string NewPassword)
         {
