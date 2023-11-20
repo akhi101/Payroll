@@ -1,0 +1,83 @@
+﻿define(['app'], function (app) {
+    app.controller("TicketsController", function ($scope, $http, $localStorage, $state, AppSettings, AdminService) {
+        var authData = $localStorage.authorizationData;
+        $scope.UserName = authData.UserName;
+        $scope.UserTypeID = authData.UserTypeID;
+
+
+
+        const $ctrl = this;
+
+
+        $ctrl.$onInit = () => {
+            //$scope.getcirculars();
+        
+        }
+        $scope.AddTicketsPage = function () {
+            //$localStorage.authData = {
+            //    InstitutionID: InstitutionID,
+            //};
+
+            $state.go('Dashboard.AddTickets');
+
+
+        }
+
+        $scope.getticketscount = function () {
+
+
+            var ticketsCount = AdminService.GetTicketsCount($scope.UserName);
+            ticketsCount.then(function (Res) {
+                //try {
+                //    var Res = JSON.parse(response);
+                //}
+                //catch (err) { }
+                $scope.TaskCount = [];
+                var Pending = 0;
+               
+                var Approved = 0;
+                
+                var UnderProcess = 0;
+                var Completed = 0;
+
+                if (Res.Table.length > 0) {
+                    $scope.TaskCount = Res.Table;
+                    for (var i = 0; i < Res.Table.length; i++) {
+                        if (Res.Table[i].Pending != null)
+                            Pending = Pending + Res.Table[i].Pending;
+                        if (Res.Table[i].Approved != null)
+                            Approved = Approved + Res.Table[i].Approved;
+                        if (Res.Table[i].UnderProcess != null)
+                            UnderProcess = UnderProcess + Res.Table[i].UnderProcess;
+        
+                        if (Res.Table[i].Completed != null)
+                            Completed = Completed + Res.Table[i].Completed;
+                    }
+                    $scope.Pending = Pending;
+                    $scope.Approved = Approved;
+                   
+                    $scope.UnderProcess = UnderProcess;
+                    $scope.Completed = Completed;
+                    $scope.loading = false;
+                  
+                }
+                else {
+                    $scope.loading = false;
+                    $scope.ticketsCount = [];
+                    
+                    $scope.NoData = true;
+                }
+            },
+                function (error) {
+                    //   alert("error while loading Notification");
+                    var err = JSON.parse(error);
+                });
+
+        
+
+
+
+    }
+
+    })
+})

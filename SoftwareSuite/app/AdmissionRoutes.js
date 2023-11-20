@@ -1423,6 +1423,8 @@
             },
 
 
+
+
             'Dashboard.PreExamination.SetExaminationExpenditureCharges': {
 
                 url: "/SetExaminationExpenditureCharges",
@@ -4243,7 +4245,31 @@
                 templateUrl: 'app/views/PostExam/Odc_StudentDetails.html',
                 dependencies: ['controllers/PostExam/Odc_StudentDetailsController', 'services/PreExamination/PreExaminationService']
             },
+
+            'Dashboard.Tickets': {
+
+                url: "/Tickets",
+
+                templateUrl: 'app/views/Tickets/Tickets.html',
+
+                dependencies: ['controllers/Tickets/TicketsController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+            'Dashboard.AddTickets': {
+
+                url: "/AddTickets",
+
+                templateUrl: 'app/views/Tickets/AddTickets.html',
+
+                dependencies: ['controllers/Tickets/AddTicketsController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+
+
         }
+
 
     }
 })
