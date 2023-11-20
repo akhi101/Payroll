@@ -11,6 +11,12 @@
             return promise;
         }
 
+        this.GetCcicForgotPassword = function (reqdata) {
+            var paramObject = reqdata;
+            var promise = DataAccessService.postData('api/CcicSystemUser/GetCcicForgotPassword', paramObject);
+            return promise;
+        }
+
 
 
 

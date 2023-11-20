@@ -664,6 +664,12 @@
                 dependencies: ['controllers/GetDeCryptPaSSPageController', 'services/SystemAdministration/SystemUserService', 'services/ForgetPasswordService']
             },
 
+            'index.GetCcicDeCryptPaSSPage': {
+                url: "/GetCcicDeCryptPaSSPage",
+                templateUrl: 'app/views/CCIC/GetCcicDeCryptPaSSPage.html',
+                dependencies: ['controllers/CCIC/GetCcicDeCryptPaSSPageController', 'services/CCIC/CcicSystemUserService', 'services/CCIC/CcicForgetPasswordService']
+            },
+
 
             'index.WebsiteLogin': {
                 url: "/WebsiteLogin",

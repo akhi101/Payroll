@@ -245,6 +245,42 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
+        [HttpPost, ActionName("GetCcicForgotPassword")]
+        public async Task<HttpResponseMessage> GetCcicForgotPassword()
+        {
+
+            var data = await Request.Content.ReadAsStringAsync();
+            var res = data.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+            var crypt = new CcicCrypt(res[1]);
+            string UserName = crypt.AesDecrypt(res[0]);
+            CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
+            CcicSystemRes CcicForgetRes = new CcicSystemRes();
+            var passcrypt = new CcicCrypt();
+            CcicForgetRes = CcicSystemUserBLL.GetCcicForgotPassword(UserName.Replace("'", "''"));
+            string retMsg = string.Empty;
+            if (CcicForgetRes.ResponceCode == "200")
+            {
+                try
+                {
+                    string decryptpassword = passcrypt.CcicDecrypt(CcicForgetRes.UserPassword);
+                    return Request.CreateResponse(HttpStatusCode.OK, decryptpassword);
+                }
+                catch (Exception ex)
+                {
+                    retMsg = "{\"status\":\"400\",\"statusdesc\": \"" + ex.Message + "\"}";
+                    return Request.CreateResponse(HttpStatusCode.OK, retMsg);
+                }
+            }
+            
+            else
+            {
+                retMsg = "{\"status\":\"" + CcicForgetRes.ResponceCode + "\",\"statusdesc\": \"" + CcicForgetRes.ResponceDescription + "\"}";
+                return Request.CreateResponse(HttpStatusCode.OK, retMsg);
+
+            }
+
+        }
+
 
         [HttpPost]
         public async Task<HttpResponseMessage> GetCcicChangePassword()
