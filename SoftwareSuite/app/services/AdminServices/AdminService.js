@@ -414,6 +414,18 @@
             var promise = DataAccessService.getDataWithPara('api/AdminService/GetorEditorDeleteTicketsData', paramObject);
             return promise;
         }
+
+        this.UpdateCountsData = function (TaskID, Status, Remarks) {
+            var paramObject = {
+                "TaskID": TaskID,
+                "Status": Status,
+                "Remarks": Remarks
+        
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateCountsData', paramObject);
+            return promise;
+        }
         
 
         this.SetTender = function (ExcelData, TenderFileName, Title, CircularTypeId, TenderDate,EndDate) {

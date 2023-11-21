@@ -1710,6 +1710,7 @@
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
     <Content Include="app\views\Popups\EditTicketsPopup.html" />
+    <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />

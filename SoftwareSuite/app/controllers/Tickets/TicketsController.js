@@ -23,10 +23,13 @@
 
         }
 
-        $scope.showDetails = function (DataType) {
+ 
+
+        $scope.PendingCount = function (UserName) {
 
             $localStorage.TempData = {
-                DataType: DataType
+                DataType: 1,
+                UserName: UserName
 
             };
 
@@ -35,6 +38,43 @@
 
         }
 
+        $scope.ApprovedCount = function (UserName) {
+
+            $localStorage.TempData = {
+                DataType: 2,
+                UserName: UserName
+
+            };
+
+            $state.go('Dashboard.TicketsCountData');
+
+
+        }
+
+        $scope.UnderProcessCount = function (UserName) {
+
+            $localStorage.TempData = {
+                DataType: 3,
+                UserName: UserName
+
+            };
+
+            $state.go('Dashboard.TicketsCountData');
+
+
+        }
+        $scope.CompletedCount = function (UserName) {
+
+            $localStorage.TempData = {
+                DataType: 4,
+                UserName: UserName
+
+            };
+
+            $state.go('Dashboard.TicketsCountData');
+
+
+        }
 
 
             var ticketsCount = AdminService.GetTicketsCount($scope.UserName);

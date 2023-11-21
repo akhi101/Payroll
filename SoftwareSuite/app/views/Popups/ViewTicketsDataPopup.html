@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     input[type=checkbox] {
         margin: 4px 0 0;
         width: 20px;
@@ -74,7 +74,7 @@
 </style>
 <div class="modal-content">
     <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Edit Details</h2>
+        <h2 class="modal-title" id="exampleModalLabel">View Details</h2>
         <button type="button" class="close" ng-click="closeModal()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -131,73 +131,59 @@
             <span class="text-muted word-break">
                 {{EditData.Remarks}}
             </span>
+            <hr>
 
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold"> Projects </label>
+            <strong ng-show="DataType=='2'" class="course-label">Approved Remarks:</strong>
+            <span class="text-muted word-break">
+                {{EditData.WorkAssigned}}
+            </span>
+            <hr>
 
-                <select class="form-control" id="Project" ng-model="EditData.ProjectID"
-                        ng-options="data.ProjectID as data.ProjectName for data in Projects">
-                    <option value="" selected>Select Project</option>
-                </select>
-            </div>
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold"> Task Type </label>
+            <strong ng-show="DataType=='2'" class="course-label">Approved Date Time:</strong>
+            <span class="text-muted word-break">
+                {{EditData.ApprovedDateTime}}
+            </span>
+            <hr>
 
-                <select class="form-control" id="TaskType" ng-model="EditData.TaskTypeID"
-                        ng-options="data.TaskTypeID as data.TaskTypeName for data in TaskTypes">
-                    <option value="" selected>Select Task Type</option>
-                </select>
-            </div>
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold">Description</label>
-                <div class="form-group">
-                    <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="EditData.TaskDescription" required></textarea>
-                </div>
-            </div>
+            <strong ng-show="DataType=='3'" class="course-label">Work Assigned To:</strong>
+            <span class="text-muted word-break">
+                {{EditData.WorkAssigned}}
+            </span>
+            <hr>
 
-            <div class="form-group" ng-show="">
-                <label>Upload File </label>
-                <div class="form-group">
-                    <input id="Circular" type="file" placeholder="" onchange="angular.element(this).scope().uploadfiles()" ng-model="EditData.TaskFilePath" />
-                    <label ng-show="imgLabel">{{EditData.FileNmae}}</label>
-                </div>
-            </div>
+            <strong ng-show="DataType=='3'" class="course-label">Work Assigned DateTime:</strong>
+            <span class="text-muted word-break">
+                {{EditData.WorkAssignedDateTime}}
+            </span>
+            <hr>
 
-            <div class="form-group" ng-show="">
-                <label for="checkbox" class="col-form-label">Active:</label>
-                <input type="checkbox" style="top:4px" ng-model="EditData.Active" />
-            </div>
-            <div class="form-group" ng-show="DataType=='1'">
-                <label class="font-weight-bold">Remarks</label>
-                <div class="form-group">
-                    <textarea type="text" rows="5" maxlength="200" class="form-control" placeholder="Enter Remarks" ng-model="Remarks" required></textarea>
-                </div>
-            </div>
+            <strong ng-show="DataType=='4'" class="course-label">Completed Remarks:</strong>
+            <span class="text-muted word-break">
+                {{EditData.CompletedRemarks}}
+            </span>
+            <hr>
+
+            <strong ng-show="DataType=='4'" class="course-label">Completion DateTime:</strong>
+            <span class="text-muted word-break">
+                {{EditData.CompletionDateTime}}
+            </span>
+
+
+            <!--<div class="form-group" ng-show="DataType=='1'">
+        <label class="font-weight-bold">Remarks</label>
+        <div class="form-group">
+            <textarea type="text" rows="5" maxlength="200" class="form-control" placeholder="Enter Remarks" ng-model="Remarks" required></textarea>
+        </div>
+    </div>-->
             <!--</div>-->
         </form>
     </div>
     <div class="modal-footer">
         <div class="row padRow">
-            <div class="col-md-2  pull-right" ng-show="DataType=='1'">
-                <button class="btn btn-danger btn-css" ng-click="Reject(EditData,Remarks)">
-                    Reject
-                </button>
-            </div>
-
-            <div class="col-md-2 pull-right" ng-show="DataType=='1'">
-
-                <button class="btn  btn-warning btn-css" ng-click="Revise(EditData,Remarks)">
-                    Revise
-                </button>
-            </div>
-            <div class="col-md-2 pull-right" ng-show="DataType=='1'">
-                <button class="btn  btn-success btn-css" ng-click="Approve(EditData,Remarks)">
-                    Approve
-                </button>
-            </div>
+           
             <div class="col-md-2 pull-right" ng-show="DataType=='2' || DataType=='3' || DataType=='4'">
                 <button class="btn  btn-danger btn-css" ng-click="Close()">
-                   Cancel
+                    Cancel
                 </button>
             </div>
         </div>

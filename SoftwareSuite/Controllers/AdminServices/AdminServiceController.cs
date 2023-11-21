@@ -1094,6 +1094,7 @@ namespace SoftwareSuite.Controllers.AdminServices
             public string Remarks { get; set; }
             public string UserName { get; set; }
             public bool Active { get; set; }
+            public int Status { get; set; }
 
         }
 
@@ -1160,6 +1161,29 @@ namespace SoftwareSuite.Controllers.AdminServices
             {
 
                 dbHandler.SaveErorr("SP_Add_Update_Tasks", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateCountsData")]
+        public HttpResponseMessage UpdateCountsData([FromBody] TicketsData TicketsData)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@TaskID", TicketsData.TaskID);
+                param[1] = new SqlParameter("@Status", TicketsData.Status);
+                param[2] = new SqlParameter("@Remarks", TicketsData.Remarks);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_CountsData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_CountsData", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
