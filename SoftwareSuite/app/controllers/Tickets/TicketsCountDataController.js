@@ -4,22 +4,18 @@ define(['app'], function (app) {
 
         var authData = $localStorage.authorizationData;
         var tmpData = $localStorage.TempData;
-        $scope.UserName = authData.userName;
+        //$scope.UserName = authData.userName;
         $scope.UserTypeID = authData.SystemUserTypeId;
         $scope.DataType = tmpData.DataType;
 
-        if ($scope.DataType=1) {
-            $scope.Status='Pending'
+
+        if (tmpData.UserName == 'ADM') {
+            $scope.UserName == tmpData.UserName;
         }
-        else if ($scope.DataType = 2) {
-            $scope.Status = 'Approved'
+        else {
+            $scope.UserName == tmpData.UserName;
         }
-        else if ($scope.DataType = 3) {
-            $scope.Status = 'UnderProcess'
-        }
-        else if ($scope.DataType = 4) {
-            $scope.Status = 'Completed'
-        }
+
         const $ctrl = this;
 
 
@@ -28,6 +24,18 @@ define(['app'], function (app) {
             $scope.getTicketsCountData();
          
 
+            //if (tmpData.DataType = 1) {
+            //    $scope.Status = 'Pending'
+            //}
+            //else if (tmpData.DataType = 2) {
+            //    $scope.Status = 'Approved'
+            //}
+            //else if (tmpData.DataType = 3) {
+            //    $scope.Status = 'UnderProcess'
+            //}
+            //else if (tmpData.DataType = 4) {
+            //    $scope.Status = 'Completed'
+            //}
            // $scope.CurrentDate = new Date();
 
             if ($scope.UserTypeID == 1) {
@@ -35,6 +43,7 @@ define(['app'], function (app) {
                 $scope.DownloadButton = false;
                 $scope.DeleteButton = false;
                 $scope.User = true;
+
             }
             else {
                 $scope.ActiveData = true;
@@ -116,7 +125,7 @@ define(['app'], function (app) {
         //$scope.location = window.location.origin;
 
         $scope.getTicketsCountData = function () {
-            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName);
+            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, tmpData.UserName);
             getticketdata.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -137,8 +146,8 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.editTicketData = function (TaskID) {
-            var getticket = AdminService.EditTicketData(2, $scope.UserName, TaskID);
+        $scope.editAdmTicketData = function (TaskID) {
+            var getticket = AdminService.EditTicketData(2, tmpData.UserName, TaskID);
             getticket.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -163,7 +172,7 @@ define(['app'], function (app) {
                 });
 
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/Popups/EditTicketsDataPopup.html",
+                templateUrl: "/app/views/Popups/ViewTicketsDataPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 backdrop: 'static',
@@ -174,6 +183,45 @@ define(['app'], function (app) {
                 $scope.modalInstance.close();
             }
         }
+
+        $scope.editTicketData = function (TaskID) {
+            var getticket = AdminService.EditTicketData(2, tmpData.UserName, TaskID);
+            getticket.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch {
+
+                }
+                if (res.Table.length > 0) {
+                    $scope.EditData = res.Table[0];
+                    var url = $scope.EditData.TicketFilePath;
+                    $scope.URL = $scope.EditData.TicketFilePath;
+                    var filename = url.substring(url.lastIndexOf('/') + 1);
+                    $scope.EditData.FileNmae = filename;
+
+                } else {
+                    $scope.EditData = [];
+                }
+            },
+                function (error) {
+
+
+                });
+
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/Popups/EditTicketsPopup.html",
+                size: 'xlg',
+                scope: $scope,
+                backdrop: 'static',
+                //windowClass: 'modal-fit-att',
+            });
+
+            $scope.closeModal = function () {
+                $scope.modalInstance.close();
+            }
+        }
+
 
         $scope.DownloadFile = function () {
             //var location = $scope.URL;
@@ -486,6 +534,90 @@ define(['app'], function (app) {
 
         }
 
+        $scope.Approve = function (data,Remarks) {
+            var Status=1
+            var updatecountsdata = AdminService.UpdateCountsData(data.TaskID, Status, Remarks);
+            updatecountsdata.then(function (res) {
+                if (res[0].StatusCode == '200') {
+                    $scope.modalInstance.close();
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription)
+                    $scope.getTicketsCountData();
+                }
+                if (res[0].StatusCode == '400') {
+                    $scope.loading = false;
+                    $scope.modalInstance.close();
+                    alert(res[0].StatusDescription);
+                    $scope.getTicketsCountData();
+                }
+            }, function (err) {
+                $scope.loading = false;
+                $scope.error = false;
+                $scope.data = true;
+            })
+        }
+
+        $scope.Revise = function (data, Remarks) {
+
+            if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                alert('please Enter Remarks')
+                return;
+            }
+
+            var Status = 2
+            var updatecountsdata = AdminService.UpdateCountsData(data.TaskID, Status, Remarks);
+            updatecountsdata.then(function (res) {
+                if (res[0].StatusCode == '200') {
+                    $scope.modalInstance.close();
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription)
+                    $scope.getTicketsCountData();
+                }
+                if (res[0].StatusCode == '400') {
+                    $scope.loading = false;
+                    $scope.modalInstance.close();
+                    alert(res[0].StatusDescription);
+                    $scope.getTicketsCountData();
+                }
+            }, function (err) {
+                $scope.loading = false;
+                $scope.error = false;
+                $scope.data = true;
+            })
+        }
+
+        $scope.Reject = function (data, Remarks) {
+
+            if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                alert('please Enter Remarks')
+                return;
+            }
+
+            var Status = 3
+            var updatecountsdata = AdminService.UpdateCountsData(data.TaskID, Status, Remarks);
+            updatecountsdata.then(function (res) {
+                if (res[0].StatusCode == '200') {
+                    $scope.modalInstance.close();
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription)
+                    $scope.getTicketsCountData();
+                }
+                if (res[0].StatusCode == '400') {
+                    $scope.loading = false;
+                    $scope.modalInstance.close();
+                    alert(res[0].StatusDescription);
+                    $scope.getTicketsCountData();
+                }
+            }, function (err) {
+                $scope.loading = false;
+                $scope.error = false;
+                $scope.data = true;
+            })
+        }
+
+        $scope.Close = function () {
+            $scope.modalInstance.close();
+        }
 
     })
 })
