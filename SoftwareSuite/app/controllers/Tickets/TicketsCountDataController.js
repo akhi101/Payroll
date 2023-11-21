@@ -9,7 +9,65 @@ define(['app'], function (app) {
         $scope.DataType = tmpData.DataType;
 
 
-        if (tmpData.UserName == 'ADM') {
+        if (tmpData.DataType == '1' && tmpData.UserName == 'ADMIN') {
+            $scope.SAPending = true;
+        }
+        else if (tmpData.DataType == '2' && tmpData.UserName == 'ADMIN') {
+            $scope.SAApproved = true;
+
+        }
+        else if (tmpData.DataType == '3' && tmpData.UserName == 'ADMIN') {
+            $scope.SAUnderProcess = true;
+
+        }
+        else if (tmpData.DataType == '4' && tmpData.UserName == 'ADMIN') {
+            $scope.SACompleted = true;
+
+        }
+
+
+
+        else if (tmpData.DataType == '1' && tmpData.UserName == 'ADM') {
+            $scope.AdmPending = true;
+
+        }
+
+        else if (tmpData.DataType == '2' && tmpData.UserName == 'ADM') {
+            $scope.AdmApproved = true;
+
+        }
+        else if (tmpData.DataType == '3' && tmpData.UserName == 'ADM') {
+            $scope.AdmUnderProcess = true;
+
+        }
+        else if (tmpData.DataType == '4' && tmpData.UserName == 'ADM') {
+            $scope.AdmCompleted = true;
+
+        }
+
+        else if ((tmpData.DataType == '1' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+            $scope.GenUsersPending = true;
+
+        }
+
+        else if ((tmpData.DataType == '2' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+            $scope.GenUsersApproved = true;
+
+        }
+        else if ((tmpData.DataType == '3' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+            $scope.GenUsersUnderProcess = true;
+
+        }
+        else if ((tmpData.DataType == '4' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+            $scope.GenUsersCompleted = true;
+
+        }
+     
+
+        if (tmpData.UserName == 'ADMIN') {
+            $scope.UserName == tmpData.UserName;
+        }
+        else if(tmpData.UserName == 'ADM') {
             $scope.UserName == tmpData.UserName;
         }
         else {
