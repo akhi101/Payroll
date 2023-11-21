@@ -677,10 +677,10 @@
             }
 
 
-            if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
-                alert("Please Enter ExamDateselect .");
-                return;
-            }
+            //if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
+            //    alert("Please Enter ExamDateselect .");
+            //    return;
+            //}
 
             //if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
             //    alert("Please Enter date1 .");
@@ -796,10 +796,10 @@
             $scope.examCenterSel = $scope.selectedexamCenter.ExaminationCenterName;
             // $scope.ExamDateselected = JSON.parse($scope.ExamDateselect);
             if ($scope.tmpmode == 1) {
-                if (arr.length < 5) {
-                    alert("choose all exam dates");
-                    return;
-                }
+                //if (arr.length < 5) {
+                //    alert("choose all exam dates");
+                //    return;
+                //}
 
 
 
