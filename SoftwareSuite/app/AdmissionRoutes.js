@@ -4272,6 +4272,16 @@
 
             },
 
+            'Dashboard.TicketsCountData': {
+
+                url: "/TicketsCountData",
+
+                templateUrl: 'app/views/Tickets/TicketsCountData.html',
+
+                dependencies: ['controllers/Tickets/TicketsCountDataController', 'services/PreExamination/PreExaminationService']
+
+            },
+
 
 
         }

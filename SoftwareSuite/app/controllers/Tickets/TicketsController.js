@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("TicketsController", function ($scope, $http, $localStorage, $state, AppSettings, AdminService) {
         var authData = $localStorage.authorizationData;
-        $scope.UserName = authData.UserName;
+        $scope.UserName = authData.userName;
         $scope.UserTypeID = authData.UserTypeID;
 
 
@@ -23,15 +23,26 @@
 
         }
 
-        $scope.getticketscount = function () {
+        $scope.showDetails = function (DataType) {
+
+            $localStorage.TempData = {
+                DataType: DataType
+
+            };
+
+            $state.go('Dashboard.TicketsCountData');
+
+
+        }
+
 
 
             var ticketsCount = AdminService.GetTicketsCount($scope.UserName);
-            ticketsCount.then(function (Res) {
-                //try {
-                //    var Res = JSON.parse(response);
-                //}
-                //catch (err) { }
+        ticketsCount.then(function (response) {
+                try {
+                    var Res = JSON.parse(response);
+                }
+                catch (err) { }
                 $scope.TaskCount = [];
                 var Pending = 0;
                
@@ -77,7 +88,7 @@
 
 
 
-    }
+    
 
     })
 })

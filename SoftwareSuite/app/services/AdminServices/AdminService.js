@@ -468,5 +468,16 @@
         //    return promise;
         //}
 
+        this.GetTicketsCountData = function (DataType, UserName) {
+            var paramObject = {
+                "DataType": DataType,
+                "UserName": UserName,
+
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetTicketsCountData', paramObject);
+            return promise;
+        }
+
     })
 })

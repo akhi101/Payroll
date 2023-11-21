@@ -1,30 +1,50 @@
-﻿define(['app'], function (app) {
-    app.controller("AddTicketsController", function ($scope, $uibModal, $http, $localStorage, $state, AppSettings, AdminService) {
+define(['app'], function (app) {
+    app.controller("TicketsCountDataController", function ($scope, $uibModal, $http, $localStorage, $state, AppSettings, AdminService) {
 
 
         var authData = $localStorage.authorizationData;
+        var tmpData = $localStorage.TempData;
         $scope.UserName = authData.userName;
-        $scope.UserTypeID = authData.UserTypeID;
+        $scope.UserTypeID = authData.SystemUserTypeId;
+        $scope.DataType = tmpData.DataType;
 
+        if ($scope.DataType=1) {
+            $scope.Status='Pending'
+        }
+        else if ($scope.DataType = 2) {
+            $scope.Status = 'Approved'
+        }
+        else if ($scope.DataType = 3) {
+            $scope.Status = 'UnderProcess'
+        }
+        else if ($scope.DataType = 4) {
+            $scope.Status = 'Completed'
+        }
         const $ctrl = this;
 
 
         $ctrl.$onInit = () => {
             $scope.imgLabel = true;
-            $scope.getTicketsData();
-            //$scope.usertypes()
-            //   var usertypeid = 1
+            $scope.getTicketsCountData();
+         
 
+           // $scope.CurrentDate = new Date();
 
-          
-                $scope.CurrentDate = new Date();
-                //var date = today.getDate();
-                //var month = today.getMonth();
-                //var year = today.getFullYear();
-                //var CurrentDate = date + '/' + month + '/' + year;
-                //console.log(CurrentDate)
-            
-                var getcirculartype = AdminService.getCircularTypes();
+            if ($scope.UserTypeID == 1) {
+                $scope.ActiveData = false;
+                $scope.DownloadButton = false;
+                $scope.DeleteButton = false;
+                $scope.User = true;
+            }
+            else {
+                $scope.ActiveData = true;
+                $scope.DownloadButton = true;
+                $scope.DeleteButton = true;
+                $scope.User = false;
+            }
+           
+
+            var getcirculartype = AdminService.getCircularTypes();
             getcirculartype.then(function (response) {
                 if (response.Table.length > 0) {
                     $scope.CircularTypes = response.Table;
@@ -87,28 +107,28 @@
         }
 
 
-       
 
 
-        
+
+
 
 
         //$scope.location = window.location.origin;
 
-        $scope.getTicketsData = function () {
-            var getticket = AdminService.GetTicketsData(1, $scope.UserName, 0);
-            getticket.then(function (response) {
+        $scope.getTicketsCountData = function () {
+            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName);
+            getticketdata.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 }
                 catch {
-                    
+
                 }
                 if (res.Table.length > 0) {
-                    $scope.TasksTableData = res.Table;
+                    $scope.TasksData = res.Table;
 
                 } else {
-                    $scope.TasksTableData = [];
+                    $scope.TasksData = [];
                 }
             },
                 function (error) {
@@ -129,6 +149,7 @@
                 if (res.Table.length > 0) {
                     $scope.EditData = res.Table[0];
                     var url = $scope.EditData.TicketFilePath;
+                    $scope.URL = $scope.EditData.TicketFilePath;
                     var filename = url.substring(url.lastIndexOf('/') + 1);
                     $scope.EditData.FileNmae = filename;
 
@@ -142,7 +163,7 @@
                 });
 
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/Popups/EditTicketsPopup.html",
+                templateUrl: "/app/views/Popups/EditTicketsDataPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 backdrop: 'static',
@@ -153,8 +174,13 @@
                 $scope.modalInstance.close();
             }
         }
-        
 
+        $scope.DownloadFile = function () {
+            //var location = $scope.URL;
+            //window.location.href = location;
+            window.open($scope.URL, 'Download');
+
+        }
 
 
         $scope.deleteItem = function (TaskID) {
@@ -186,7 +212,7 @@
 
 
 
-        
+
         $scope.ChangeFile = function () {
             $scope.imgLabel = false;
         }
@@ -338,7 +364,7 @@
 
 
 
-            
+
             var currentdate = moment(data.CurrentDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var updatetickets = AdminService.UpdateTickets(DataType, data.TaskID, data.TaskTypeID, data.ProjectID, data.TaskDescription, $scope.updatepdffile, file.value.split("\\").pop(), currentdate, null, data.Active, data.UserName);
             updatetickets.then(function (res) {
@@ -460,6 +486,6 @@
 
         }
 
-       
+
     })
 })
