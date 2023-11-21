@@ -350,10 +350,10 @@
                         <tr ng-repeat="data in TaskCount">
                             <td class="text-center">{{$index+1}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
-                            <td class="text-center"><b><a class="Pending" ng-click="PendingCount(data.UserName)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
-                            <td class="text-center"><b><a class="Approved" ng-click="ApprovedCount(data.UserName)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
-                            <td class="text-center"><b><a class="UnderProcess" ng-click="UnderProcessCount(data.UserName)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
-                            <td class="text-center"><b><a class="Completed" ng-click="CompletedCount(data.UserName)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="PendingCount(data.UserName)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="ApprovedCount(data.UserName)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="UnderProcessCount(data.UserName)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="CompletedCount(data.UserName)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
 
 
                         </tr>
