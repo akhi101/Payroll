@@ -1,4 +1,26 @@
-﻿<style>
+<style>
+    .ClrGreen {
+        color: green;
+        font-weight: bold;
+    }
+
+    .notVerify {
+        color: #dd1010;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .Verify {
+        color: green;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .VerifyRevise {
+        color: orange;
+        font-weight: 600;
+        text-decoration: none;
+    }
     .download_btn, .download_btn:hover {
         background-color: #fff;
         width: 35px;
@@ -195,7 +217,7 @@
     /*background-color: #3d7eaa!important;*/
 </style>
 
-<div ng-controller="AddTicketsController">
+<div ng-controller="TicketsCountDataController">
     <div class="header" ng-include="'app/views/SBPHeader.html'"> </div>
     <div class="row navbar_section">
         <nav class="navbar navbar-inverse navbar_inverse_section">
@@ -279,7 +301,7 @@
                 <ol class="breadcrumb">
                     <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
                     <li><a href="#!/Dashboard/Tickets">Tickets</a></li>
-                    <li><a href="#!/Dashboard/Tickets/AddTickets">Add Tickets</a></li>
+                    <li><a href="#!/Dashboard/Tickets/TicketsCountData">Tickets Data</a></li>
                 </ol>
             </section>
         </div>
@@ -289,116 +311,53 @@
         <div class="col-md-12">
             <a href="#!/Dashboard/Tickets" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
         </div>
-        <div class="col-md-12">
-            <div class="cl-details">
-                <h2> Add Tickets</h2>
-
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                <div class="studWishinputs">
-                    <form name="circularForm">
-                        <div class="row">
-                            <div class="col-md-4">
-
-                                <div class="form-group">
-                                    <label>Date</label>
-                                    <input class="form-control" type="text" disabled ng-model="CurrentDate | date:'dd-MM-yyyy'">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="font-weight-bold"> Projects </label>
-                                    <select class="form-control " ng-model="Project" name="Project" required>
-                                        <option value="" selected="selected">Select Project</option>
-                                        <option value="{{data.ProjectID}}" ng-repeat="data in Projects" class="">
-                                            {{data.ProjectName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="font-weight-bold"> Task Type </label>
-                                    <select class="form-control " ng-model="TaskType" name="TaskType" required>
-                                        <option value="" selected="selected">Select Task Type</option>
-                                        <option value="{{data.TaskTypeID}}" ng-repeat="data in TaskTypes" class="">
-                                            {{data.TaskTypeName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="font-weight-bold">Description</label>
-                                <div class="form-group">
-                                    <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="Description" required></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Upload File </label>
-                                <div class="form-group">
-                                    <input id="Circular" type="file" placeholder="" maxlength="500" onchange="angular.element(this).scope().uploadpdffiles()" ng-model="Circularfile" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" style="margin-top: 24px;" class="btn btn-success pull-right" ng-click="SaveData()">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="sm-spacer"></div>
-        </div>
+     
         <div class="col-md-12" ng-if="data">
             <div class="cl-details">
-                <h2> Ticket List</h2>
+                <h2> Ticket Data List</h2>
 
             </div>
         </div>
         <div class="col-md-12">
-            <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TasksTableData.length>0">
+            <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TasksData.length>0">
                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
                             <th class="text-center" width="7%">S.No</th>
                             <th class="text-center" width="20%">Date</th>
-                            <th class="text-center"> Project</th>
+                            <th ng-show="User" class="text-center"> User</th>
+                            <th class="text-center">Project </th>
                             <th class="text-center"> Task Type</th>
                             <th class="text-center">Description</th>
-                            <th class="text-center">Active</th>
-                            <!--<th width="16%"></th>-->
-                            <th width="10%" class="text-center">Download</th>
-                            <th width="10%" class="text-center">Delete</th>
+                            <th ng-show="ActiveData" class="text-center">Active</th>
+                            <th width="10%" ng-show="DownloadButton" class="text-center">Download</th>
+                            <th width="10%" ng-show="DeleteButton" class="text-center">Delete</th>
                             <th width="10%" class="text-center">Action</th>
-                            <!--<th width="10%" class="text-center">Switch</th>-->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in TasksTableData">
+                        <tr ng-repeat="data in TasksData">
                             <td class="text-center">{{$index+1}}</td>
                             <td width="20%" class="text-center">{{data.TaskDate | date:'dd-MM-yyyy'}}</td>
+                            <td ng-show="User" class="text-center">{{data.UserName}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
                             <td class="text-center">{{data.TaskType}}</td>
                             <td class="text-center">{{data.TaskDescription}}</td>
-                            <td class="text-center">{{data.Active==1 ? 'Yes' : 'No'}}</td>
-                            <td class="text-center">
+                            <td class="text-center" ng-show="ActiveData">{{data.Active==1 ? 'Yes' : 'No'}}</td>
+                            <td class="text-center" ng-show="DownloadButton">
                                 <a href="{{data.Url}}" download><button title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button></a>
                             </td>
-                            <td class="text-center">
+                            <td class="text-center" ng-show="DeleteButton">
                                 <a><button title="Click here to Delete" ng-click="deleteItem(data.TaskID)" class="btn btn-xs btn_delete"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
                             </td>
-                            <td class="text-center">
+                            <!--<td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 50px;" ng-click="editTicketData(data.TaskID)">
                                     Edit
                                 </button>
+                            </td>-->
+                            <td ng-click="editTicketData(data.TaskID)">
+                                <a class="{{Status=='Revised' ? 'VerifyRevise' : (Status=='Pending'?'notVerify':'Verify')}}">{{Status}}</a>
                             </td>
-
 
                         </tr>
                     </tbody>

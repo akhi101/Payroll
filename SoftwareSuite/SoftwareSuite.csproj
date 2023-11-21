@@ -1421,6 +1421,7 @@
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterListController.js" />
     <Content Include="app\controllers\Tickets\AddTicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsController.js" />
+    <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
     <Content Include="app\controllers\TWSH\ApplyCertificateController.js" />
     <Content Include="app\controllers\TWSH\GenerateTwshNrController.js" />
     <Content Include="app\controllers\TWSH\GradewiseExamcentersController.js" />
@@ -1707,6 +1708,7 @@
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
+    <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
     <Content Include="app\views\Popups\EditTicketsPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
@@ -3088,6 +3090,7 @@
     <Content Include="app\views\test.html.txt" />
     <Content Include="app\views\Tickets\AddTickets.html" />
     <Content Include="app\views\Tickets\Tickets.html" />
+    <Content Include="app\views\Tickets\TicketsCountData.html" />
     <Content Include="app\views\TotalExampaymentPopup.html" />
     <Content Include="app\views\TwalletRedirect.html" />
     <Content Include="app\views\TwoYearsCertificatePopup.html" />

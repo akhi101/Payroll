@@ -993,7 +993,7 @@ namespace SoftwareSuite.Controllers.AdminServices
         }
 
         [HttpGet, ActionName("GetTicketsCount")]
-        public HttpResponseMessage GetTicketsCount(string UserName)
+        public string GetTicketsCount(string UserName)
         {
             try
             {
@@ -1002,13 +1002,13 @@ namespace SoftwareSuite.Controllers.AdminServices
                 param[0] = new SqlParameter("@UserName", UserName);
 
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_UserTaskCounts ", param);
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
-                return response;
+                return JsonConvert.SerializeObject(dt);
+
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_UserTaskCounts ", 0, ex.Message);
-                throw ex;
+                return ex.Message;
+
             }
         }
 
@@ -1056,6 +1056,28 @@ namespace SoftwareSuite.Controllers.AdminServices
 
         }
 
+        [HttpGet, ActionName("GetTicketsCountData")]
+        public string GetTicketsCountData(int DataType, string UserName)
+        {
+            var dbHandler = new dbHandler();
+
+            try
+            {
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_UserTaskCountsData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_UserTaskCountsData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
         public class TicketsData
         {
             public int ID { get; set; }
@@ -1085,7 +1107,7 @@ namespace SoftwareSuite.Controllers.AdminServices
                 if (TicketsData.DataType == 1)
                 {
                     string relativePath = string.Empty;
-                    var path = ConfigurationManager.AppSettings["circularPath"];
+                    var path = ConfigurationManager.AppSettings["TicketsPath"];
                     var TicketName = TicketsData.TicketFileName;
                     bool folder = Directory.Exists(path);
                     if (!folder)
@@ -1100,7 +1122,7 @@ namespace SoftwareSuite.Controllers.AdminServices
                 else if (TicketsData.DataType == 2 && TicketsData.TicketFilePath != "Empty")
                 {
                     string relativePath = string.Empty;
-                    var path = ConfigurationManager.AppSettings["circularPath"];
+                    var path = ConfigurationManager.AppSettings["TicketsPath"];
                     var TicketName = TicketsData.TicketFileName;
                     bool folder = Directory.Exists(path);
                     if (!folder)

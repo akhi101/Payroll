@@ -10,16 +10,19 @@
         font-weight: 600;
         text-decoration: none;
     }
+
     .Approved {
         color: green;
         font-weight: 600;
         text-decoration: none;
     }
+
     .UnderProcess {
         color: yellow;
         font-weight: 600;
         text-decoration: none;
     }
+
     .download_btn, .download_btn:hover {
         background-color: #fff;
         width: 35px;
@@ -215,7 +218,83 @@
 
     /*background-color: #3d7eaa!important;*/
 </style>
+<div class="header" ng-include="'app/views/SBPHeader.html'"> </div>
+<div class="row navbar_section">
+    <nav class="navbar navbar-inverse navbar_inverse_section">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+
+            </div>
+            <div class="container navbar_container_section">
+                <div class="row">
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li ng-class="{'active':homeDashBoard}">
+                                <a href="#!/Dashboard"><b class="main_header_main_menu home_icon"><i class="fa fa-home myhome"></i> </b> </a>
+                            </li>
+                            <!-- <li>
+                                <a href="#!/Dashboard/Assessment">
+                                    <b class="main_header_main_menu">
+                                        Assessment
+
+                                    </b>
+                                </a>
+                            </li>
+                            <li ng-if="!access3">
+                                <a href="#!/Dashboard/MarksSummary">
+                                    <b  class="main_header_main_menu">
+                                        Reports
+
+                                    </b>
+                                </a>
+                            </li>
+                            <li ng-show="access1">
+                                <a href="#!/Dashboard/SearchPin">
+                                    <b class="main_header_main_menu">
+                                        Search Pin
+
+                                    </b>
+                                </a>
+                            </li> -->
+                            <!--temporary field open-->
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right log-navbar">
+                            <li>
+                                <a href="#">
+                                    Welcome <span id="college_name1">{{college_name1}}</span>
+                                    {{userName}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="main_header_main_menu" ng-click="logOut()">
+                                    <i class="fa fa-sign-out fa-fw"></i>
+                                    Logout
+                                </a>
+                            </li>
+                            <li>
+                                <a style="font-size:small" href="#" class="main_header_main_menu" ng-click="ChangePassword()">
+                                    <i class="fa fa-sign-out fa-fw"></i> Change
+                                    Password <span><b></b></span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
 <div ng-controller="TicketsController">
+
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -237,16 +316,16 @@
             <div class="alert alert-info">
                 <div class="studWishinputs">
                     <form name="circularForm">
-          
+
                         <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" style="margin-top: 24px;" class="btn btn-success pull-right" ng-click="AddTicketsPage()">Add Tickets</button>
+                            <div class="col-md-6">
+                                <button type="submit" style="margin-right:-70px" class="btn btn-success pull-right" ng-click="AddTicketsPage()">Add Tickets</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="sm-spacer"></div>
+            <!--<div class="sm-spacer"></div>-->
         </div>
         <div class="col-md-12" ng-if="data">
             <div class="cl-details">
@@ -255,38 +334,33 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="data">
+            <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TaskCount.length>0">
                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
-                            <th width="7%">S.No</th>
-                            <th> Project Name</th>
-                            <th> Pending</th>
-                            <th>Approved</th>
-                            <th>Under Process</th>
-                            <th>Completed</th>
-                            <!--<th width="16%"></th>-->
-                            <!--<th width="10%" class="text-center">Download</th>
-                            <th width="10%" class="text-center">Delete</th>
-                            <th width="10%" class="text-center">Action</th>-->
-                            <!--<th width="10%" class="text-center">Switch</th>-->
+                            <th class="text-center" width="7%">S.No</th>
+                            <th class="text-center"> Project Name</th>
+                            <th class="text-center"> Pending</th>
+                            <th class="text-center">Approved</th>
+                            <th class="text-center">Under Process</th>
+                            <th class="text-center">Completed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="data in TaskCount">
-                            <td>{{$index+1}}</td>
-                            <td>{{data.ProjectName}}</td>
-                            <td><b><a class="Pending" ng-click="showDetails(data.CourseID,1)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
-                            <td><b><a class="Approved" ng-click="showDetails(data.CourseID,1)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
-                            <td><b><a class="UnderProcess" ng-click="showDetails(data.CourseID,1)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
-                            <td><b><a class="Completed" ng-click="showDetails(data.CourseID,1)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
+                            <td class="text-center">{{$index+1}}</td>
+                            <td class="text-center">{{data.ProjectName}}</td>
+                            <td class="text-center"><b><a class="Pending" ng-click="showDetails(1)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
+                            <td class="text-center"><b><a class="Approved" ng-click="showDetails(2)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
+                            <td class="text-center"><b><a class="UnderProcess" ng-click="showDetails(3)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
+                            <td class="text-center"><b><a class="Completed" ng-click="showDetails(4)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
 
 
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="sm-spacer"></div>
+            <!--<div class="sm-spacer"></div>-->
 
         </div>
         <div class="col-md-12" ng-if="loading">
@@ -302,6 +376,6 @@
             </div>
         </div>
     </div>
-    <div class="sm-spacer"></div>
-    <div class="sm-spacer"></div>
+    <!--<div class="sm-spacer"></div>
+    <div class="sm-spacer"></div>-->
 </div>

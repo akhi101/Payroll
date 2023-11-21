@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     input[type=checkbox] {
         margin: 4px 0 0;
         width: 20px;
@@ -87,38 +87,77 @@
                 {{EditData.TaskDate | date:'dd-MM-yyyy'}}
             </span>
             <hr>
-            <div class="form-group">
+
+
+            <strong class="course-label">User:</strong>
+            <span class="text-muted word-break">
+                {{EditData.UserName}}
+            </span>
+            <hr>
+
+            <strong class="course-label">Project Name:</strong>
+            <span class="text-muted word-break">
+                {{EditData.ProjectName}}
+            </span>
+            <hr>
+
+            <strong class="course-label">Task Type:</strong>
+            <span class="text-muted word-break">
+                {{EditData.TaskType}}
+            </span>
+            <hr>
+
+
+
+            <strong class="course-label">Task Description:</strong>
+            <span class="text-muted word-break">
+                {{EditData.TaskDescription}}
+            </span>
+            <hr>
+
+            <strong class="course-label">Task Date:</strong>
+            <span class="text-muted word-break">
+                {{EditData.FileNmae}}
+            </span>
+            <hr>
+
+            <strong class="course-label">File Download:</strong>
+            <span class="text-muted word-break">
+                <button ng-click="DownloadFile()" title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button>
+            </span>
+
+            <div class="form-group" ng-show="">
                 <label class="font-weight-bold"> Projects </label>
-              
-                <select class="form-control" id="Project" ng-model="EditData.ProjectID" 
+
+                <select class="form-control" id="Project" ng-model="EditData.ProjectID"
                         ng-options="data.ProjectID as data.ProjectName for data in Projects">
                     <option value="" selected>Select Project</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="">
                 <label class="font-weight-bold"> Task Type </label>
-                
+
                 <select class="form-control" id="TaskType" ng-model="EditData.TaskTypeID"
                         ng-options="data.TaskTypeID as data.TaskTypeName for data in TaskTypes">
                     <option value="" selected>Select Task Type</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="">
                 <label class="font-weight-bold">Description</label>
                 <div class="form-group">
                     <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="EditData.TaskDescription" required></textarea>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="">
                 <label>Upload File </label>
                 <div class="form-group">
-                    <input id="Circular" type="file" placeholder=""  onchange="angular.element(this).scope().uploadfiles()" ng-model="EditData.TaskFilePath" />
+                    <input id="Circular" type="file" placeholder="" onchange="angular.element(this).scope().uploadfiles()" ng-model="EditData.TaskFilePath" />
                     <label ng-show="imgLabel">{{EditData.FileNmae}}</label>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-show="">
                 <label for="checkbox" class="col-form-label">Active:</label>
                 <input type="checkbox" style="top:4px" ng-model="EditData.Active" />
             </div>

@@ -209,20 +209,20 @@ define(['app'], function (app) {
                             var Condonation = 0;
 
 
-                            for (var i = 0; i < response.length; i++) {
-                                if (response[i].Onroll != null)
-                                    Onroll = Onroll + response[i].Onroll;
-                                if (response[i].FeeEligible != null)
-                                    FeeEligible = FeeEligible + response[i].FeeEligible;
+                            for (var i = 0; i < response.Table.length; i++) {
+                                if (response.Table[i].Onroll != null)
+                                    Onroll = Onroll + response.Table[i].Onroll;
+                                if (response.Table[i].FeeEligible != null)
+                                    FeeEligible = FeeEligible + response.Table[i].FeeEligible;
 
-                                if (response[i].FeePayed != null)
-                                    FeePayed = FeePayed + response[i].FeePayed;
+                                if (response.Table[i].FeePayed != null)
+                                    FeePayed = FeePayed + response.Table[i].FeePayed;
 
-                                if (response[i].FeeNotPayed != null)
-                                    FeeNotPayed = FeeNotPayed + response[i].FeeNotPayed;
+                                if (response.Table[i].FeeNotPayed != null)
+                                    FeeNotPayed = FeeNotPayed + response.Table[i].FeeNotPayed;
 
-                                if (response[i].Condonation != null)
-                                    Condonation = Condonation + response[i].Condonation;
+                                if (response.Table[i].Condonation != null)
+                                    Condonation = Condonation + response.Table[i].Condonation;
 
 
 
@@ -313,22 +313,22 @@ define(['app'], function (app) {
                         var Condonation = 0;
                         var Detained = 0;
 
-                        for (var i = 0; i < response.length; i++) {
-                            if (response[i].Onroll != null)
-                                Onroll = Onroll + response[i].Onroll;
-                            if (response[i].FeeEligible != null)
-                                FeeEligible = FeeEligible + response[i].FeeEligible;
+                        for (var i = 0; i < response.Table.length; i++) {
+                            if (response.Table[i].Onroll != null)
+                                Onroll = Onroll + response.Table[i].Onroll;
+                            if (response.Table[i].FeeEligible != null)
+                                FeeEligible = FeeEligible + response.Table[i].FeeEligible;
 
-                            if (response[i].FeePayed != null)
-                                FeePayed = FeePayed + response[i].FeePayed;
+                            if (response.Table[i].FeePayed != null)
+                                FeePayed = FeePayed + response.Table[i].FeePayed;
 
-                            if (response[i].FeeNotPayed != null)
-                                FeeNotPayed = FeeNotPayed + response[i].FeeNotPayed;
+                            if (response.Table[i].FeeNotPayed != null)
+                                FeeNotPayed = FeeNotPayed + response.Table[i].FeeNotPayed;
 
-                            if (response[i].Condonation != null)
-                                Condonation = Condonation + response[i].Condonation;
-                            if (response[i].Detained != null)
-                                Detained = Detained + response[i].Detained;
+                            if (response.Table[i].Condonation != null)
+                                Condonation = Condonation + response.Table[i].Condonation;
+                            if (response.Table[i].Detained != null)
+                                Detained = Detained + response.Table[i].Detained;
 
 
                         }
