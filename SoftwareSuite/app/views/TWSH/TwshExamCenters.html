@@ -116,24 +116,31 @@
                                         <label class="font-weight-bold">
                                             Academic Year :
                                         </label>
-                                        <select class="form-control" ng-model="year" ng-change="getExamMonthYearsData(year)">
+                                        <select class="form-control " id="selSession" ng-change="getExamMonthYearsData(year)" ng-model="year" ng-options="yr.AcademicID  as yr.AcademicYear   for yr in Acayears">
+                                            <option value="" selected>Select Academic Year</option>
+                                        </select>
+                                        <!--<select class="form-control" ng-model="year" ng-change="getExamMonthYearsData(year)">
                                             <option value="" selected>Select Academic Year</option>
                                             <option ng-repeat="yr in Acayears" value="{{yr.AcademicID}}">
                                                 {{yr.AcademicYear}}
                                             </option>
-                                        </select>
+                                        </select>-->
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="font-weight-bold">Exam Month year:</label>
                                         <div class="">
-                                            <select class="form-control" name="semister" required ng-model="ExamMonthYear" ng-change="getExamCentres(ExamMonthYear)">
+                                            <select class="form-control " id="selSession" ng-change="getExamCentres(ExamMonthYear)" ng-model="ExamMonthYear" 
+                                                    ng-options="data.ExamMonthYearID  as data.ExamMonthYear  for data in ExamMonthYears">
+                                                <option value="" selected>Select Month year</option>
+                                            </select>
+                                            <!--<select class="form-control" name="semister" required ng-model="ExamMonthYear" ng-change="getExamCentres(ExamMonthYear)">
                                                 <option value="" selected>Select Month year</option>
                                                 <option ng-repeat="data in ExamMonthYears" value="{{data.ExamMonthYearID}}">
                                                     {{data.ExamMonthYear}}
                                                 </option>
-                                            </select>
+                                            </select>-->
                                         </div>
                                     </div>
                                 </div>

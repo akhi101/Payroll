@@ -33,6 +33,7 @@ namespace SoftwareSuite.Controllers.Admission
     }
     public class PostAttUpdateData
     {
+        public string Remarks { get; set; }
         public int UserId { get; set; }
         public List<PostAttData> attData { get; set; }
     }
@@ -364,11 +365,12 @@ namespace SoftwareSuite.Controllers.Admission
                 var json = new JavaScriptSerializer().Serialize(PostAttData);
                 Debug.WriteLine("Attendance Updation json: " + json);
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@UserId", UpDAttData.UserId);
                 param[1] = new SqlParameter("@IpAddress", clientIpAddress);
                 param[2] = new SqlParameter("@Json", json);
-                var res = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_StudentAttendenceModification_1", param);
+                param[3] = new SqlParameter("@Remarks", UpDAttData.Remarks);
+                var res = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_StudentAttendenceUpdation", param);// USP_SET_StudentAttendenceModification_1
                 return JsonConvert.SerializeObject(res);
             }
             catch (Exception ex)

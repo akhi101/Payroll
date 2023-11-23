@@ -424,7 +424,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;                   
@@ -485,7 +485,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -540,7 +540,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -755,7 +755,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -852,7 +852,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1142,7 +1142,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1211,7 +1211,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1318,7 +1318,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -1360,7 +1360,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1420,7 +1420,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1489,7 +1489,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                    
@@ -1561,7 +1561,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -1615,7 +1615,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                
@@ -1671,7 +1671,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -1724,7 +1724,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -1777,7 +1777,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -1830,7 +1830,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -1883,7 +1883,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -1939,7 +1939,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2000,7 +2000,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2061,7 +2061,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2123,7 +2123,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2182,7 +2182,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2241,7 +2241,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2299,7 +2299,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2367,7 +2367,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -2429,7 +2429,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //    if (!folderExists)
                 //        Directory.CreateDirectory(path);
                 //    eh.ExportDataSet(excelds, path + filename);
-                //    Timer timer = new Timer(60000);
+                //    Timer timer = new Timer(200000);
                 //    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 //    timer.Start();
                 //    return "/Downloads/" + filename;
@@ -2474,7 +2474,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -2880,7 +2880,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -2945,7 +2945,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -3295,7 +3295,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -3348,7 +3348,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -3566,7 +3566,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 
@@ -3598,7 +3598,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
 
@@ -3635,7 +3635,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 var file = "/Downloads/" + filename;
@@ -3679,7 +3679,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
 
@@ -3710,7 +3710,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
 
@@ -3855,7 +3855,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -3896,7 +3896,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -3960,7 +3960,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -4847,7 +4847,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -6294,7 +6294,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -8218,7 +8218,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 return "/Downloads/" + filename;
@@ -8248,7 +8248,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 return "/Downloads/" + filename;
@@ -8279,7 +8279,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 return "/Downloads/" + filename;
@@ -8318,7 +8318,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -8358,7 +8358,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
@@ -8398,7 +8398,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                         Directory.CreateDirectory(path);
                     var eh = new ExcelHelper();
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     string res = "/Downloads/" + filename;
@@ -8443,7 +8443,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(60000);
+                Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 return "/Downloads/" + filename;
@@ -12468,7 +12468,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -12509,7 +12509,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         //            if (!folderExists)
         //                Directory.CreateDirectory(path);
         //            eh.ExportDataSet(ds, path + filename1);
-        //            Timer timer = new Timer(60000);
+        //            Timer timer = new Timer(200000);
         //            timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename1);
         //            timer.Start();
 
@@ -12874,7 +12874,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //    if (!folderExists)
                 //        Directory.CreateDirectory(path);
                 //    eh.ExportDataSet(excelds, path + filename);
-                //    Timer timer = new Timer(60000);
+                //    Timer timer = new Timer(200000);
                 //    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 //    timer.Start();
 
@@ -12894,7 +12894,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                 //        Directory.CreateDirectory(path1);
                 //    eh1.ExportDataSet(excelds1, path1 + filename1);
-                //    Timer timer1 = new Timer(60000);
+                //    Timer timer1 = new Timer(200000);
                 //    timer1.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename1);
                 //    timer1.Start();
 
@@ -12907,7 +12907,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //    if (!folderExists)
                 //        Directory.CreateDirectory(path);
                 //    eh.ExportDataSet(excelds, path + filename);
-                //    Timer timer = new Timer(60000);
+                //    Timer timer = new Timer(200000);
                 //    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 //    timer.Start();
                     
@@ -12958,7 +12958,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -13024,7 +13024,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -13090,7 +13090,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(excelds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;

@@ -149,20 +149,32 @@
            
             console.log(AttDataList);
            
-         
+            $scope.AttDataList = AttDataList
         }
 
     
 
 
-        $scope.UpdateAtt = function () {         
+        $scope.UpdateAtt = function (Remarks) {
             if (AttDataList != [] && AttDataList != '') {
-                var postattendance = AttendanceService.UpdateAttendenceDataByBranch($scope.userType, AttDataList);
+                $scope.Remarks=Remarks
+                if ($scope.Remarks == null || $scope.Remarks == undefined || $scope.Remarks == "") {
+                    alert("Please Enter Remarks")
+                    return
+                }
+                var postattendance = AttendanceService.UpdateAttendenceDataByBranch($scope.userType, $scope.AttDataList, $scope.Remarks);
                 postattendance.then(function (response) {
                     var res = JSON.parse(response);
-                    alert(res[0].ResponceDescription);
-                   // $scope.GetStudentAttData($scope.attpin, $scope.attName);
-                    $scope.modalInstance.close();
+                    if (res[0].ResponceCode == '200') {
+                        alert(res[0].ResponceDescription);
+                        // $scope.GetStudentAttData($scope.attpin, $scope.attName);
+                        $scope.modalInstance.close();
+                        $scope.AttDataList = []
+                        AttDataList = []
+                    } else if (res[0].ResponceCode == '400') {
+                        alert(res[0].ResponceDescription);
+
+                    }
                  //   $scope.GetStudentAttData($scope.attpin, $scope.attName);
                 }, function (error) {
                     console.log(error);
@@ -171,6 +183,8 @@
             } else {
                 alert('No valid data Present');
                 $scope.modalInstance.close();
+                $scope.AttDataList = []
+                AttDataList = []
               //  $scope.GetStudentAttData($scope.attpin, $scope.attName);
             }
 
@@ -251,7 +265,9 @@
 
             if (pin != null && pin != "" && pin != undefined) {
 
-            if($scope.userType == 1 || $scope.userType == 2){
+                if ($scope.userType == 1 || $scope.userType == 2) {
+                    $scope.AttDataList = []
+                    AttDataList = []
                 $scope.modalInstance = $uibModal.open({
                     templateUrl: "/app/views/Admission/Reports/UpdateStudentAttendance.html",
                     size: 'xlg',

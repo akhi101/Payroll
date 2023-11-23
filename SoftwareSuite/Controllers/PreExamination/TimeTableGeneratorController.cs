@@ -140,7 +140,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -290,7 +290,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                    
@@ -371,7 +371,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
@@ -420,7 +420,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(60000);
+                    Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
 
