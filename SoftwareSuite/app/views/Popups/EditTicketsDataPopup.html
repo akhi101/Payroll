@@ -73,10 +73,11 @@
     }
 </style>
 <div class="modal-content">
+
     <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Edit Details</h2>
+        <h2 class="modal-title" id="exampleModalLabel">Details</h2>
         <button type="button" class="close" ng-click="closeModal()" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span1  aria-hidden="true">&times;</span1>
         </button>
     </div>
     <div class="modal-body">
@@ -115,59 +116,100 @@
             </span>
             <hr>
 
-            <strong class="course-label">Task Date:</strong>
+            <strong ng-if="TaskRemarks" class="course-label">Remarks:</strong>
+            <span class="text-muted word-break">
+                {{EditData.TaskRemarks}}
+            </span>
+            <hr ng-if="TaskRemarks">
+
+            <strong class="course-label">File Name:</strong>
             <span class="text-muted word-break">
                 {{EditData.FileNmae}}
             </span>
             <hr>
 
-            <strong class="course-label">File Download:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" ng-show="IssueFile">Issue File Download:</strong>
+            <span class="text-muted word-break" ng-show="IssueFile">
                 <button ng-click="DownloadFile()" title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button>
             </span>
-            <hr>
+            <hr ng-show="IssueFile">
 
-            <strong ng-show="DataType=='2' || DataType=='3' || DataType=='4'" class="course-label">Remarks:</strong>
-            <span class="text-muted word-break">
-                {{EditData.Remarks}}
+            <strong class="course-label" ng-show="saremarkslabel">System Analyst Remarks:</strong>
+            <span class="text-muted word-break" ng-show="saremarkslabel">
+                {{EditData.SystemAnalystRemarks}}
             </span>
+            <hr ng-show="saremarkslabel">
 
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold"> Projects </label>
+            <strong class="course-label" ng-show="sadatelabel">SystemAnalyst Forwarded DateTime:</strong>
+            <span class="text-muted word-break" ng-show="sadatelabel">
+                {{EditData.SystemAnalystForwardedDateTime}}
+            </span>
+            <hr ng-show="sadatelabel">
 
-                <select class="form-control" id="Project" ng-model="EditData.ProjectID"
-                        ng-options="data.ProjectID as data.ProjectName for data in Projects">
-                    <option value="" selected>Select Project</option>
-                </select>
-            </div>
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold"> Task Type </label>
+            <strong class="course-label" ng-show="worklabel">WorkAssigned To:</strong>
+            <span class="text-muted word-break" ng-show="worklabel">
+                {{EditData.WorkAssignedTo}}
+            </span>
+            <hr ng-show="worklabel">
 
-                <select class="form-control" id="TaskType" ng-model="EditData.TaskTypeID"
-                        ng-options="data.TaskTypeID as data.TaskTypeName for data in TaskTypes">
-                    <option value="" selected>Select Task Type</option>
-                </select>
-            </div>
-            <div class="form-group" ng-show="">
-                <label class="font-weight-bold">Description</label>
+            <strong class="course-label" ng-show="filenamelabel">WorkAssignedDateTime:</strong>
+            <span class="text-muted word-break" ng-show="filenamelabel">
+                {{EditData.WorkAssignedDateTime}}
+            </span>
+            <hr ng-show="filenamelabel">
+
+            <strong class="course-label" ng-show="completelabel">Status:</strong>
+            <span class="text-muted word-break" ng-show="worklabel">
+                {{EditData.CompletionStatus}}
+            </span>
+            <hr ng-show="completelabel">
+
+            <strong class="course-label" ng-show="statusupddatelabel">Status Updated DateTime:</strong>
+            <span class="text-muted word-break" ng-show="filenamelabel">
+                {{EditData.StatusUpdatedDateTime}}
+            </span>
+            <hr ng-show="statusupddatelabel">
+
+            <strong class="course-label" ng-show="ResolvedFile">Resolved File Download:</strong>
+            <span class="text-muted word-break" ng-show="ResolvedFile">
+                <button ng-click="DownloadFile1()" title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button>
+            </span>
+            <hr ng-show="ResolvedFile">
+
+
+
+            <div class="form-group" ng-show="AssignedToTextBox">
+                <label class="font-weight-bold">Task Assigned To :</label>
+                <!--<input type="text" class="form-group" maxlength="100" ng-model="TaskAssigned">-->
                 <div class="form-group">
-                    <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="EditData.TaskDescription" required></textarea>
+                    <textarea type="text" rows="1" maxlength="100" class="form-control" placeholder="Enter Task Assigned To" ng-model="TaskAssigned" required></textarea>
                 </div>
             </div>
 
-            <div class="form-group" ng-show="">
-                <label>Upload File </label>
+            <div class="form-group" ng-show="TaskFile">
+                <label>Upload Updated File : </label>
                 <div class="form-group">
                     <input id="Circular" type="file" placeholder="" onchange="angular.element(this).scope().uploadfiles()" ng-model="EditData.TaskFilePath" />
-                    <label ng-show="imgLabel">{{EditData.FileNmae}}</label>
+                    <!--<label ng-show="imgLabel">{{EditData.FileNmae}}</label>-->
+                </div>
+            </div>
+            <hr ng-show="TaskFile">
+
+            <div class="form-group" ng-show="CompletionStatus">
+                <label class="font-weight-bold">Status :</label>
+                <div class="form-group">
+                    <textarea type="text" rows="1" maxlength="100" class="form-control" placeholder="Enter Status" ng-model="TaskCompletionStatus" required></textarea>
                 </div>
             </div>
 
-            <div class="form-group" ng-show="">
-                <label for="checkbox" class="col-form-label">Active:</label>
-                <input type="checkbox" style="top:4px" ng-model="EditData.Active" />
+            <div class="form-group" ng-show="RemarksStatus">
+                <label class="font-weight-bold">Remarks :</label>
+                <div class="form-group">
+                    <textarea type="text" rows="1" maxlength="100" class="form-control" placeholder="Enter Status Remarks" ng-model="StatusRemarks" required></textarea>
+                </div>
             </div>
-            <div class="form-group" ng-show="DataType=='1'">
+
+            <div class="form-group" ng-show="RemarksText">
                 <label class="font-weight-bold">Remarks</label>
                 <div class="form-group">
                     <textarea type="text" rows="5" maxlength="200" class="form-control" placeholder="Enter Remarks" ng-model="Remarks" required></textarea>
@@ -178,26 +220,37 @@
     </div>
     <div class="modal-footer">
         <div class="row padRow">
-            <div class="col-md-2  pull-right" ng-show="DataType=='1'">
+            <div class="col-md-2  pull-right" ng-show="RejectButton">
                 <button class="btn btn-danger btn-css" ng-click="Reject(EditData,Remarks)">
                     Reject
                 </button>
             </div>
 
-            <div class="col-md-2 pull-right" ng-show="DataType=='1'">
+            <div class="col-md-2 pull-right" ng-show="ReviseButton">
 
                 <button class="btn  btn-warning btn-css" ng-click="Revise(EditData,Remarks)">
                     Revise
                 </button>
             </div>
-            <div class="col-md-2 pull-right" ng-show="DataType=='1'">
+            <div class="col-md-2 pull-right" ng-show="ApproveButton">
                 <button class="btn  btn-success btn-css" ng-click="Approve(EditData,Remarks)">
                     Approve
                 </button>
             </div>
             <div class="col-md-2 pull-right" ng-show="DataType=='2' || DataType=='3' || DataType=='4'">
                 <button class="btn  btn-danger btn-css" ng-click="Close()">
-                   Cancel
+                    Cancel
+                </button>
+            </div>
+            <div class="col-md-2 pull-right" ng-show="UpdateButton">
+                <button class="btn  btn-primary btn-css" ng-click="updateWorkAssignedTo(EditData,TaskAssigned)">
+                    Update
+                </button>
+            </div>
+
+            <div class="col-md-2 pull-right" ng-show="updateButton">
+                <button class="btn  btn-primary btn-css" ng-click="updateFileStatus(EditData,TaskCompletionStatus,StatusRemarks)">
+                    Update
                 </button>
             </div>
         </div>

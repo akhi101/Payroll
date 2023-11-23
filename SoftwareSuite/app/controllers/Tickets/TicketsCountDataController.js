@@ -4,75 +4,137 @@ define(['app'], function (app) {
 
         var authData = $localStorage.authorizationData;
         var tmpData = $localStorage.TempData;
-        //$scope.UserName = authData.userName;
+        $scope.UserName = authData.userName;
         $scope.UserTypeID = authData.SystemUserTypeId;
         $scope.DataType = tmpData.DataType;
+        //$scope.UserName = tmpData.UserName;
 
 
-        if (tmpData.DataType == '1' && tmpData.UserName == 'ADMIN') {
+        if (tmpData.DataType == '1' && $scope.UserName == 'ADMIN') {
             $scope.SAPending = true;
+            $scope.RemarksText = true;
+            $scope.RejectButton = true;
+            $scope.ReviseButton = true;
+            $scope.ApproveButton = true;
         }
-        else if (tmpData.DataType == '2' && tmpData.UserName == 'ADMIN') {
+        else if (tmpData.DataType == '2' && $scope.UserName == 'ADMIN') {
             $scope.SAApproved = true;
+            $scope.IssueFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
 
         }
-        else if (tmpData.DataType == '3' && tmpData.UserName == 'ADMIN') {
+        else if (tmpData.DataType == '3' && $scope.UserName == 'ADMIN') {
             $scope.SAUnderProcess = true;
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.IssueFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
 
         }
-        else if (tmpData.DataType == '4' && tmpData.UserName == 'ADMIN') {
+        else if (tmpData.DataType == '4' && $scope.UserName == 'ADMIN') {
             $scope.SACompleted = true;
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.completelabel = true;
+            $scope.statusupddatelabel = true;
+            $scope.IssueFile = true;
+            $scope.ResolvedFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
 
         }
 
 
 
-        else if (tmpData.DataType == '1' && tmpData.UserName == 'ADM') {
+        else if (tmpData.DataType == '1' && $scope.UserName == 'ELITESOFT') {
             $scope.AdmPending = true;
 
         }
 
-        else if (tmpData.DataType == '2' && tmpData.UserName == 'ADM') {
+        else if (tmpData.DataType == '2' && $scope.UserName == 'ELITESOFT') {
             $scope.AdmApproved = true;
-
+            $scope.AssignedToTextBox = true;
+            $scope.UpdateButton = true;
+            $scope.IssueFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
         }
-        else if (tmpData.DataType == '3' && tmpData.UserName == 'ADM') {
+        else if (tmpData.DataType == '3' && $scope.UserName == 'ELITESOFT') {
             $scope.AdmUnderProcess = true;
-
+            $scope.updateButton = true;
+            $scope.TaskFile = true;
+            $scope.CompletionStatus = true;
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.IssueFile = true;
+            $scope.RemarksStatus = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
         }
-        else if (tmpData.DataType == '4' && tmpData.UserName == 'ADM') {
+        else if (tmpData.DataType == '4' && $scope.UserName == 'ELITESOFT') {
             $scope.AdmCompleted = true;
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.completelabel = true;
+            $scope.statusupddatelabel = true;
+            $scope.IssueFile = true;
+            $scope.ResolvedFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
 
         }
 
-        else if ((tmpData.DataType == '1' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+        else if ((tmpData.DataType == '1' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT'))) {
             $scope.GenUsersPending = true;
 
         }
 
-        else if ((tmpData.DataType == '2' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+        else if ((tmpData.DataType == '2' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT'))) {
             $scope.GenUsersApproved = true;
+            $scope.IssueFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '3' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT'))) {
             $scope.GenUsersUnderProcess = true;
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.IssueFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
+            //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '4' && (tmpData.UserName != 'ADMIN' && tmpData.UserName != 'ADM'))) {
+        else if ((tmpData.DataType == '4' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT'))) {
             $scope.GenUsersCompleted = true;
-
+            $scope.worklabel = true;
+            $scope.filenamelabel = true;
+            $scope.completelabel = true;
+            $scope.statusupddatelabel = true;
+            $scope.IssueFile = true;
+            $scope.ResolvedFile = true;
+            $scope.saremarkslabel = true;
+            $scope.sadatelabel = true;
         }
      
 
-        if (tmpData.UserName == 'ADMIN') {
-            $scope.UserName == tmpData.UserName;
-        }
-        else if(tmpData.UserName == 'ADM') {
-            $scope.UserName == tmpData.UserName;
-        }
-        else {
-            $scope.UserName == tmpData.UserName;
-        }
+        //if (tmpData.UserName == 'ADMIN') {
+        //    $scope.UserName == tmpData.UserName;
+        //}
+        //else if (tmpData.UserName == 'EliteSoft') {
+        //    $scope.UserName == tmpData.UserName;
+        //}
+        //else {
+        //    $scope.UserName == tmpData.UserName;
+        //}
 
         const $ctrl = this;
 
@@ -96,7 +158,7 @@ define(['app'], function (app) {
             //}
            // $scope.CurrentDate = new Date();
 
-            if ($scope.UserTypeID == 1) {
+            if (tmpData.UserName == 'ADMIN' || tmpData.UserName == 'Elitesoft') {
                 $scope.ActiveData = false;
                 $scope.DownloadButton = false;
                 $scope.DeleteButton = false;
@@ -183,7 +245,7 @@ define(['app'], function (app) {
         //$scope.location = window.location.origin;
 
         $scope.getTicketsCountData = function () {
-            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, tmpData.UserName);
+            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName,tmpData.UserName,tmpData.ProjectID);
             getticketdata.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -217,6 +279,7 @@ define(['app'], function (app) {
                     $scope.EditData = res.Table[0];
                     var url = $scope.EditData.TicketFilePath;
                     $scope.URL = $scope.EditData.TicketFilePath;
+                    $scope.UpdatedFile = $scope.EditData.UpdatedFile;
                     var filename = url.substring(url.lastIndexOf('/') + 1);
                     $scope.EditData.FileNmae = filename;
 
@@ -230,7 +293,7 @@ define(['app'], function (app) {
                 });
 
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/Popups/ViewTicketsDataPopup.html",
+                templateUrl: "/app/views/Popups/EditTicketsDataPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 backdrop: 'static',
@@ -255,6 +318,7 @@ define(['app'], function (app) {
                     $scope.EditData = res.Table[0];
                     var url = $scope.EditData.TicketFilePath;
                     $scope.URL = $scope.EditData.TicketFilePath;
+                    $scope.UpdatedFile = $scope.EditData.UpdatedFile;
                     var filename = url.substring(url.lastIndexOf('/') + 1);
                     $scope.EditData.FileNmae = filename;
 
@@ -288,6 +352,13 @@ define(['app'], function (app) {
 
         }
 
+        $scope.DownloadFile1 = function () {
+            //var location = $scope.URL;
+            //window.location.href = location;
+            window.open($scope.UpdatedFile, 'Download');
+
+        }
+
 
         $scope.deleteItem = function (TaskID) {
 
@@ -301,7 +372,7 @@ define(['app'], function (app) {
                     catch { }
                     if (Res.Table[0].StatusCode == '200') {
                         alert(Res.Table[0].StatusDescription)
-                        $scope.getTicketsData();
+                        $scope.getTicketsCountData();
                     } else {
 
                     }
@@ -428,14 +499,14 @@ define(['app'], function (app) {
                     //$scope.error = false;
                     //$scope.data = true;
                     alert(res[0].StatusDescription)
-                    $scope.getTicketsData();
+                    $scope.getTicketsCountData();
                 }
                 if (res[0].StatusCode == '400') {
                     $scope.loading = false;
                     //$scope.error = false;
                     //$scope.data = true;
                     alert(res[0].StatusDescription)
-                    $scope.getTicketsData();
+                    $scope.getTicketsCountData();
                 }
             }, function (err) {
                 $scope.loading = false;
@@ -481,7 +552,7 @@ define(['app'], function (app) {
                     //$scope.error = false;
                     //$scope.data = true;
                     alert(res[0].StatusDescription)
-                    $scope.getTicketsData();
+                    $scope.getTicketsCountData();
                 }
                 if (res[0].StatusCode == '400') {
                     $scope.loading = false;
@@ -489,7 +560,7 @@ define(['app'], function (app) {
                     //$scope.error = false;
                     //$scope.data = true;
                     alert(res[0].StatusDescription);
-                    $scope.getTicketsData();
+                    $scope.getTicketsCountData();
                 }
             }, function (err) {
                 $scope.loading = false;
@@ -675,6 +746,76 @@ define(['app'], function (app) {
 
         $scope.Close = function () {
             $scope.modalInstance.close();
+        }
+
+
+        $scope.updateWorkAssignedTo = function (data,TaskAssigned) {
+
+            if (TaskAssigned == '' || TaskAssigned == null || TaskAssigned == undefined) {
+                alert('please Enter Assigned To')
+                return;
+            }
+            var DataType = 1;
+            var updatedata = AdminService.UpdateWorkAssigned(DataType, data.TaskID, TaskAssigned,'','','');
+            updatedata.then(function (res) {
+                if (res[0].StatusCode == '200') {
+                    $scope.modalInstance.close();
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription)
+                    $scope.getTicketsCountData();
+                }
+                if (res[0].StatusCode == '400') {
+                    $scope.loading = false;
+                    $scope.modalInstance.close();
+                    alert(res[0].StatusDescription);
+                    $scope.getTicketsCountData();
+                }
+            }, function (err) {
+                $scope.loading = false;
+                $scope.error = false;
+                $scope.data = true;
+            })
+        }
+
+        $scope.updateFileStatus = function (data, TaskCompletionStatus, StatusRemarks) {
+
+
+            var file = document.getElementById("Circular");
+
+            //if ((TaskCompletionStatus != '' || TaskCompletionStatus != null || TaskCompletionStatus != undefined) && ($scope.updatepdffile == '' || $scope.updatepdffile == null || $scope.updatepdffile == undefined)) {
+            //    alert('please Upload File')
+            //    return;
+            //}
+
+            if (TaskCompletionStatus == '' || TaskCompletionStatus == null || TaskCompletionStatus == undefined) {
+                alert('please enter Completion Status')
+                return;
+            }
+            if ($scope.updatepdffile == '' || $scope.updatepdffile == null || $scope.updatepdffile == undefined) {
+                var DataType = 3;
+            }
+            else if ($scope.updatepdffile != '' || $scope.updatepdffile != null || $scope.updatepdffile != undefined) {
+                var DataType = 2;
+            }
+            var updatedata = AdminService.UpdateFileStatus(DataType, data.TaskID, null, TaskCompletionStatus, $scope.updatepdffile, file.value.split("\\").pop(), StatusRemarks);
+            updatedata.then(function (res) {
+                if (res[0].StatusCode == '200') {
+                    $scope.modalInstance.close();
+                    $scope.loading = false;
+                    alert(res[0].StatusDescription)
+                    $scope.getTicketsCountData();
+                }
+                if (res[0].StatusCode == '400') {
+                    $scope.loading = false;
+                    $scope.modalInstance.close();
+                    alert(res[0].StatusDescription);
+                    $scope.getTicketsCountData();
+                }
+            }, function (err) {
+                $scope.loading = false;
+                $scope.error = false;
+                $scope.data = true;
+            })
         }
 
     })
