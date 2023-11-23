@@ -1034,9 +1034,11 @@
                 "Mode": Mode
             };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/VerifyApplicationDates', paramObj);
+
             return promise;
 
         };
+
         this.editExamCenters = function (ExaminationCentreID) {
             var paramObj = {
                 "ExaminationCentreID": ExaminationCentreID

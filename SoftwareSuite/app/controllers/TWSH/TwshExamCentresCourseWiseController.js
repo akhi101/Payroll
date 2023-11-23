@@ -5,6 +5,8 @@ define(['app'], function (app) {
         $scope.UserTypeID = authData.SystemUserTypeId;
 
         var tmpdata = $localStorage.TempData;
+
+
         const $ctrl = this;
         $ctrl.$onInit = () => {
             $scope.getExamCentresCoursewise();

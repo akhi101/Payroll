@@ -10,6 +10,8 @@
             $scope.Adddata = false;
             $scope.GetExamCenters();
             $scope.GetTwshDisticts();
+            console.log($localStorage.TempData)
+            $scope.year = $localStorage.TempData.AcademicYearID
             //$scope.GetDetails();
         }
 
@@ -18,7 +20,9 @@
 
             //  $scope.years = response.Table[0];
             $scope.Acayears = response.Table;
-
+           // console.log($localStorage.TempData)
+            $scope.AcademyearicID = $localStorage.TempData.AcademicYearID
+            $scope.getExamMonthYearsData()
         },
             function (error) {
                 alert("error while loading Academic Year");
@@ -29,7 +33,7 @@
 
             //let academicId = $scope.years.AcademicID;
 
-            var EmYears = TwshStudentRegService.GetTwshExamMonthYearbyID(year);
+            var EmYears = TwshStudentRegService.GetTwshExamMonthYearbyID($scope.year);
             EmYears.then(function (response) {
                 console.log(response)
                 try {
@@ -37,6 +41,8 @@
                 }
                 catch { error }
                 $scope.ExamMonthYears = Res.Table;
+                $scope.ExamMonthYear = $localStorage.TempData.ExamMonthYearID
+                $scope.getExamCentres()
             },
                 function (error) {
                     alert("error while loading semesters");
@@ -64,7 +70,7 @@
 
         $scope.getExamCentres = function (ExamMonthYear) {
         $scope.loading = true;
-            var getcentres = TwshStudentRegService.getExamCenters(1,$scope.year, ExamMonthYear);
+            var getcentres = TwshStudentRegService.getExamCenters(1,$scope.year,$scope.ExamMonthYear);
             getcentres.then(function (response) {
                 try {
                     var Res = JSON.parse(response)

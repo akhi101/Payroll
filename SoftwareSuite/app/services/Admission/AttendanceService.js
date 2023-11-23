@@ -11,8 +11,8 @@
             var promise = DataAccessService.getDataWithPara('api/Attendance/GetAttendenceDataByBranch', paramObject);
             return promise;
             },           
-        this.UpdateAttendenceDataByBranch = function (UserId, AttDataList) {
-            var paramObject = { "UserId": UserId, "attData": AttDataList };
+        this.UpdateAttendenceDataByBranch = function (UserId, AttDataList,Remarks) {
+            var paramObject = { "UserId": UserId, "attData": AttDataList, "Remarks": Remarks };
             console.log(paramObject)
             var promise = DataAccessService.postData('api/Attendance/UpdateStudentAttendance', paramObject);
             return promise;
