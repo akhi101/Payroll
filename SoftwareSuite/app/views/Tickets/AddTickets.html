@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group required" >
                                     <label class="font-weight-bold"> Projects </label>
                                     <select class="form-control " ng-model="Project" name="Project" required>
                                         <option value="" selected="selected">Select Project</option>
@@ -319,8 +319,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
+                            <div class="col-md-4" >
+                                <div class="form-group required">
                                     <label class="font-weight-bold"> Task Type </label>
                                     <select class="form-control " ng-model="TaskType" name="TaskType" required>
                                         <option value="" selected="selected">Select Task Type</option>
@@ -332,13 +332,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 required" >
                                 <label class="font-weight-bold">Description</label>
-                                <div class="form-group">
+                                <div class="form-group " >
                                     <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="Description" required></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" >
                                 <label class="font-weight-bold">Task Remarks</label>
                                 <div class="form-group">
                                     <textarea type="text" rows="1" maxlength="500" class="form-control" placeholder="Enter Task Remarks" ng-model="TaskRemarks" required></textarea>

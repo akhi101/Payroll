@@ -100,10 +100,10 @@
 <div ng-controller="PreExamReportsController">
     <section class="content">
         <div class="container">
-            <div class="col-md-12" ng-if="userTypeId == '2' || userTypeId == '3'">
+            <div class="col-md-12" ng-show="userTypeId == '2' || userTypeId == '3'">
                 <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
-            <div class="col-md-12" ng-if="userTypeId == '1' || userTypeId == '1011' || userTypeId == '1020'  || ||  userTypeId == '1012' || userTypeId == '1000' || userTypeId == '1009'|| userTypeId == '1007'|| userTypeId == '1002'">
+            <div class="col-md-12" ng-show="userTypeId == '1' || userTypeId == '1011' || userTypeId == '1020'  || ||  userTypeId == '1012' || userTypeId == '1000' || userTypeId == '1009'|| userTypeId == '1007'|| userTypeId == '1002'">
                 <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination/AdminPreExamReports" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
             <div class="row" ng-show="isShowTags">
