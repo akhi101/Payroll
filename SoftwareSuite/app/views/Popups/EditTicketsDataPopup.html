@@ -116,11 +116,11 @@
             </span>
             <hr>
 
-            <strong ng-if="TaskRemarks" class="course-label">Remarks:</strong>
+            <strong ng-show="TaskRemarks!=''" class="course-label">Remarks:</strong>
             <span class="text-muted word-break">
                 {{EditData.TaskRemarks}}
             </span>
-            <hr ng-if="TaskRemarks">
+            <hr ng-show="TaskRemarks!=''">
 
             <strong class="course-label">File Name:</strong>
             <span class="text-muted word-break">
