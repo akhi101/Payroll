@@ -16,6 +16,7 @@ define(['app'], function (app) {
             $scope.RejectButton = true;
             $scope.ReviseButton = true;
             $scope.ApproveButton = true;
+            $scope.CloseButton = true;
         }
         else if (tmpData.DataType == '2' && $scope.UserName == 'ADMIN') {
             $scope.SAApproved = true;
@@ -670,7 +671,8 @@ define(['app'], function (app) {
                 if (res[0].StatusCode == '200') {
                     $scope.modalInstance.close();
                     $scope.loading = false;
-                    alert(res[0].StatusDescription)
+                    alert(res[0].StatusDescription);
+                    $state.go('Dashboard.Tickets');
                     $scope.getTicketsCountData();
                 }
                 if (res[0].StatusCode == '400') {
@@ -699,7 +701,8 @@ define(['app'], function (app) {
                 if (res[0].StatusCode == '200') {
                     $scope.modalInstance.close();
                     $scope.loading = false;
-                    alert(res[0].StatusDescription)
+                    alert(res[0].StatusDescription);
+                    $state.go('Dashboard.Tickets');
                     $scope.getTicketsCountData();
                 }
                 if (res[0].StatusCode == '400') {
@@ -728,7 +731,8 @@ define(['app'], function (app) {
                 if (res[0].StatusCode == '200') {
                     $scope.modalInstance.close();
                     $scope.loading = false;
-                    alert(res[0].StatusDescription)
+                    alert(res[0].StatusDescription);
+                    $state.go('Dashboard.Tickets');
                     $scope.getTicketsCountData();
                 }
                 if (res[0].StatusCode == '400') {

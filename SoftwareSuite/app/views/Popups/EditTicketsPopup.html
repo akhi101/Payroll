@@ -77,57 +77,57 @@
 </style>
 <div class="modal-content">
     <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Edit Details</h2>
+        <h2 class="modal-title" style="text-align:center" id="exampleModalLabel">Edit Details</h2>
         <button type="button" class="close" ng-click="closeModal()" data-dismiss="modal" aria-label="Close">
-            <span class="newSpan" aria-hidden="true">&times;</span>
+            <!--<span class="newSpan" aria-hidden="true">&times;</span>-->
         </button>
     </div>
     <div class="modal-body">
 
         <form>
-            <strong class="course-label">Task Date:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Task Date:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.TaskDate | date:'dd-MM-yyyy'}}
             </span>
             <hr>
             <div class="form-group">
-                <label class="font-weight-bold"> Projects </label>
+                <label style="font-size:20px !important" class="font-weight-bold"> Projects </label>
 
-                <select class="form-control" id="Project" ng-model="EditData.ProjectID"
+                <select style="font-size:18px" class="form-control" id="Project" ng-model="EditData.ProjectID"
                         ng-options="data.ProjectID as data.ProjectName for data in Projects">
                     <option value="" selected>Select Project</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="font-weight-bold"> Task Type </label>
+                <label style="font-size:20px !important" class="font-weight-bold"> Task Type </label>
 
-                <select class="form-control" id="TaskType" ng-model="EditData.TaskTypeID"
+                <select style="font-size:18px" class="form-control" id="TaskType" ng-model="EditData.TaskTypeID"
                         ng-options="data.TaskTypeID as data.TaskTypeName for data in TaskTypes">
                     <option value="" selected>Select Task Type</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="font-weight-bold">Description</label>
+                <label style="font-size:20px !important" class="font-weight-bold">Description</label>
                 <div class="form-group">
-                    <textarea type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="EditData.TaskDescription" required></textarea>
+                    <textarea style="font-size:18px" type="text" rows="5" maxlength="500" class="form-control" placeholder="Enter Description" ng-model="EditData.TaskDescription" required></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label class="font-weight-bold">Task Remarks</label>
+                <label style="font-size:20px !important" class="font-weight-bold">Task Remarks</label>
                 <div class="form-group">
-                    <textarea type="text" rows="1" maxlength="500" class="form-control" placeholder="Enter Task Remarks" ng-model="EditData.TaskRemarks" required></textarea>
+                    <textarea style="font-size:18px" type="text" rows="1" maxlength="500" class="form-control" placeholder="Enter Task Remarks" ng-model="EditData.TaskRemarks" required></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label>Upload File </label>
+                <label style="font-size:20px !important">Upload File </label>
                 <div class="form-group">
                     <input id="Circular" type="file" placeholder="" onchange="angular.element(this).scope().uploadfiles()" ng-model="EditData.TaskFilePath" />
-                    <label ng-show="imgLabel">{{EditData.FileNmae}}</label>
+                    <label style="font-size:18px" ng-show="imgLabel">{{EditData.FileNmae}}</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="checkbox" class="col-form-label">Active:</label>
+                <label style="font-size:20px !important" for="checkbox" class="col-form-label">Active:</label>
                 <input type="checkbox" style="top:4px" ng-model="EditData.Active" />
             </div>
             <!--</div>-->

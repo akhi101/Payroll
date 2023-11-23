@@ -82,89 +82,89 @@
     <div class="modal-body">
 
         <form>
-            <strong class="course-label">Task Date:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Task Date:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.TaskDate | date:'dd-MM-yyyy'}}
             </span>
             <hr>
 
 
-            <strong class="course-label">User:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">User:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.UserName}}
             </span>
             <hr>
 
-            <strong class="course-label">Project Name:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Project Name:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.ProjectName}}
             </span>
             <hr>
 
-            <strong class="course-label">Task Type:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Task Type:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.TaskType}}
             </span>
             <hr>
 
 
 
-            <strong class="course-label">Task Description:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Task Description:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.TaskDescription}}
             </span>
             <hr>
 
-            <strong class="course-label">Task Date:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">Task Date:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.FileNmae}}
             </span>
             <hr>
 
-            <strong class="course-label">File Download:</strong>
-            <span class="text-muted word-break">
+            <strong class="course-label" style="font-size:20px">File Download:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 <button ng-click="DownloadFile()" title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button>
             </span>
             <hr>
 
-            <strong ng-show="DataType=='2' || DataType=='3' || DataType=='4'" class="course-label">Remarks:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='2' || DataType=='3' || DataType=='4'" class="course-label">Remarks:</strong>
+            <span class="text-muted word-break" style="font-size:20px">
                 {{EditData.Remarks}}
             </span>
             <hr ng-show="DataType=='2' || DataType=='3' || DataType=='4'">
 
-            <strong ng-show="DataType=='2'" class="course-label">Approved Remarks:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='2'" class="course-label">Approved Remarks:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.WorkAssigned}}
             </span>
             <hr ng-show="DataType=='2'">
 
-            <strong ng-show="DataType=='2'" class="course-label">Approved Date Time:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='2'" class="course-label">Approved Date Time:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.ApprovedDateTime}}
             </span>
             <hr ng-show="DataType=='2'">
 
-            <strong ng-show="DataType=='3'" class="course-label">Work Assigned To:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='3'" class="course-label">Work Assigned To:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.WorkAssigned}}
             </span>
             <hr ng-show="DataType=='3'">
 
-            <strong ng-show="DataType=='3'" class="course-label">Work Assigned DateTime:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='3'" class="course-label">Work Assigned DateTime:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.WorkAssignedDateTime}}
             </span>
             <hr ng-show="DataType=='3'">
 
-            <strong ng-show="DataType=='4'" class="course-label">Completed Remarks:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='4'" class="course-label">Completed Remarks:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.CompletedRemarks}}
             </span>
             <hr ng-show="DataType=='4'">
 
-            <strong ng-show="DataType=='4'" class="course-label">Completion DateTime:</strong>
-            <span class="text-muted word-break">
+            <strong style="font-size:20px" ng-show="DataType=='4'" class="course-label">Completion DateTime:</strong>
+            <span style="font-size:20px" class="text-muted word-break">
                 {{EditData.CompletionDateTime}}
             </span>
 
