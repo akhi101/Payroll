@@ -331,7 +331,7 @@
             return promise;
         }
 
-        this.AddTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, Remarks, Active,UserName) {
+        this.AddTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, TaskRemarks, Active,UserName) {
             var paramObject = {
                 "DataType": DataType,
                 "TaskID": TaskID,
@@ -341,7 +341,7 @@
                 "TicketFilePath": ExcelData,
                 "TicketFileName": TicketFileName,
                 "TaskDate": TaskDate,
-                "Remarks": Remarks,
+                "TaskRemarks": TaskRemarks,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -350,7 +350,7 @@
             return promise;
         }
 
-        this.UpdateTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, Remarks, Active, UserName) {
+        this.UpdateTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, TaskRemarks, Active, UserName) {
             var paramObject = {
                 "DataType": DataType,
                 "TaskID": TaskID,
@@ -360,7 +360,7 @@
                 "TicketFilePath": ExcelData,
                 "TicketFileName": TicketFileName,
                 "TaskDate": TaskDate,
-                "Remarks": Remarks,
+                "TaskRemarks": TaskRemarks,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -426,8 +426,37 @@
             var promise = DataAccessService.postData('api/AdminService/UpdateCountsData', paramObject);
             return promise;
         }
-        
 
+        this.UpdateWorkAssigned = function (DataType, TaskID, WorkAssignedTo, CompletionStatus, UpdatedFilePath, StatusRemarks) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "WorkAssignedTo": WorkAssignedTo,
+                "CompletionStatus": CompletionStatus,
+                "UpdatedFilePath": UpdatedFilePath,
+                "StatusRemarks": StatusRemarks
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateWorkAssigned', paramObject);
+            return promise;
+        }
+
+
+        this.UpdateFileStatus = function (DataType, TaskID, WorkAssignedTo, CompletionStatus, ExcelData, UpdatedFileName, StatusRemarks) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "WorkAssignedTo": WorkAssignedTo,
+                "CompletionStatus": CompletionStatus,
+                "UpdatedFilePath": ExcelData,
+                "UpdatedFileName": UpdatedFileName,
+                "StatusRemarks": StatusRemarks
+
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateWorkStatus', paramObject);
+            return promise;
+        }
         this.SetTender = function (ExcelData, TenderFileName, Title, CircularTypeId, TenderDate,EndDate) {
             var paramObject = {
                 "Title": Title, "Url": ExcelData, "TenderFileName": TenderFileName,
@@ -480,10 +509,12 @@
         //    return promise;
         //}
 
-        this.GetTicketsCountData = function (DataType, UserName) {
+        this.GetTicketsCountData = function (DataType, UserName,User,ProjectID) {
             var paramObject = {
                 "DataType": DataType,
                 "UserName": UserName,
+                "User": User,
+                "ProjectID": ProjectID
 
             };
 

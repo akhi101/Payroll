@@ -339,6 +339,7 @@
                     <thead>
                         <tr class="cb-1">
                             <th class="text-center" width="7%">S.No</th>
+                            <th class="text-center"> User</th>
                             <th class="text-center"> Project Name</th>
                             <th class="text-center"> Pending</th>
                             <th class="text-center">Approved</th>
@@ -349,11 +350,12 @@
                     <tbody>
                         <tr ng-repeat="data in TaskCount">
                             <td class="text-center">{{$index+1}}</td>
+                            <td class="text-center">{{data.UserName}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
-                            <td class="text-center"><b><a  ng-click="PendingCount(data.UserName)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="ApprovedCount(data.UserName)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="UnderProcessCount(data.UserName)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="CompletedCount(data.UserName)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="PendingCount(data.UserName,data.ProjectID)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="ApprovedCount(data.UserName,data.ProjectID)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="UnderProcessCount(data.UserName,data.ProjectID)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
+                            <td class="text-center"><b><a  ng-click="CompletedCount(data.UserName,data.ProjectID)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
 
 
                         </tr>

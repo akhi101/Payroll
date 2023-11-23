@@ -25,11 +25,12 @@
 
  
 
-        $scope.PendingCount = function (UserName) {
+        $scope.PendingCount = function (UserName,ProjectID) {
 
             $localStorage.TempData = {
                 DataType: 1,
-                UserName: UserName
+                UserName: UserName,
+                ProjectID: ProjectID
 
             };
 
@@ -38,12 +39,12 @@
 
         }
 
-        $scope.ApprovedCount = function (UserName) {
+        $scope.ApprovedCount = function (UserName, ProjectID) {
 
             $localStorage.TempData = {
                 DataType: 2,
-                UserName: UserName
-
+                UserName: UserName,
+                ProjectID: ProjectID
             };
 
             $state.go('Dashboard.TicketsCountData');
@@ -51,24 +52,24 @@
 
         }
 
-        $scope.UnderProcessCount = function (UserName) {
+        $scope.UnderProcessCount = function (UserName, ProjectID) {
 
             $localStorage.TempData = {
                 DataType: 3,
-                UserName: UserName
-
+                UserName: UserName,
+                ProjectID: ProjectID
             };
 
             $state.go('Dashboard.TicketsCountData');
 
 
         }
-        $scope.CompletedCount = function (UserName) {
+        $scope.CompletedCount = function (UserName, ProjectID) {
 
             $localStorage.TempData = {
                 DataType: 4,
-                UserName: UserName
-
+                UserName: UserName,
+                ProjectID: ProjectID
             };
 
             $state.go('Dashboard.TicketsCountData');

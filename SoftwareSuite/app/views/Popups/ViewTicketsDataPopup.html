@@ -131,37 +131,37 @@
             <span class="text-muted word-break">
                 {{EditData.Remarks}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='2' || DataType=='3' || DataType=='4'">
 
             <strong ng-show="DataType=='2'" class="course-label">Approved Remarks:</strong>
             <span class="text-muted word-break">
                 {{EditData.WorkAssigned}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='2'">
 
             <strong ng-show="DataType=='2'" class="course-label">Approved Date Time:</strong>
             <span class="text-muted word-break">
                 {{EditData.ApprovedDateTime}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='2'">
 
             <strong ng-show="DataType=='3'" class="course-label">Work Assigned To:</strong>
             <span class="text-muted word-break">
                 {{EditData.WorkAssigned}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='3'">
 
             <strong ng-show="DataType=='3'" class="course-label">Work Assigned DateTime:</strong>
             <span class="text-muted word-break">
                 {{EditData.WorkAssignedDateTime}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='3'">
 
             <strong ng-show="DataType=='4'" class="course-label">Completed Remarks:</strong>
             <span class="text-muted word-break">
                 {{EditData.CompletedRemarks}}
             </span>
-            <hr>
+            <hr ng-show="DataType=='4'">
 
             <strong ng-show="DataType=='4'" class="course-label">Completion DateTime:</strong>
             <span class="text-muted word-break">

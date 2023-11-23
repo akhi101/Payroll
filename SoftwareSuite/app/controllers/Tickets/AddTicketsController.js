@@ -277,19 +277,17 @@
                 return;
             }
 
-            //if ($scope.StartDate == '' || $scope.StartDate == null || $scope.StartDate == undefined) {
-            //    alert('please select notification date')
-            //    return;
-            //}
-            //if ($scope.addpdffile == '' || $scope.addpdffile == null || $scope.addpdffile == undefined) {
-            //    alert('please upload file')
-            //    return;
-            //}
+            if ($scope.addpdffile == '' || $scope.addpdffile == null || $scope.addpdffile == undefined) {
+                var DataType = 4;
+            }
+            else if ($scope.addpdffile != '' || $scope.addpdffile != null || $scope.addpdffile != undefined) {
+                var DataType = 1;
+            }
             $scope.loading = true;
             $scope.error = false;
             $scope.data = false;
             var currentdate = moment($scope.CurrentDate).format("YYYY-MM-DD HH:mm:ss.SSS");
-            var addtickets = AdminService.AddTickets(1, 0, $scope.TaskType, $scope.Project, $scope.Description, $scope.addpdffile, file.value.split("\\").pop(), currentdate, null, 1, $scope.UserName);
+            var addtickets = AdminService.AddTickets(DataType, null, $scope.TaskType, $scope.Project, $scope.Description, $scope.addpdffile, file.value.split("\\").pop(), currentdate, $scope.TaskRemarks, 1, $scope.UserName);
             addtickets.then(function (res) {
                 if (res[0].StatusCode == '200') {
                     $scope.loading = false;
@@ -340,7 +338,7 @@
 
             
             var currentdate = moment(data.CurrentDate).format("YYYY-MM-DD HH:mm:ss.SSS");
-            var updatetickets = AdminService.UpdateTickets(DataType, data.TaskID, data.TaskTypeID, data.ProjectID, data.TaskDescription, $scope.updatepdffile, file.value.split("\\").pop(), currentdate, null, data.Active, data.UserName);
+            var updatetickets = AdminService.UpdateTickets(DataType, data.TaskID, data.TaskTypeID, data.ProjectID, data.TaskDescription, $scope.updatepdffile, file.value.split("\\").pop(), currentdate, data.TaskRemarks, data.Active, data.UserName);
             updatetickets.then(function (res) {
                 if (res[0].StatusCode == '200') {
                     //$scope.updatepdffile = '';
