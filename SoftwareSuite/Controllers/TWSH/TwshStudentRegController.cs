@@ -211,6 +211,24 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+        [HttpGet, ActionName("GetTwshExamMonthYearbyID")]
+        public string GetTwshExamMonthYearbyID(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_Twsh_ExamMonthYearbyID", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("GetTwshNRDates")]
         public HttpResponseMessage GetTwshNRDates()
         {
