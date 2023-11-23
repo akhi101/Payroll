@@ -100,10 +100,10 @@
 <div ng-controller="PreExamReportsController">
     <section class="content">
         <div class="container">
-            <div class="col-md-12" ng-if="userTypeId == '2' || userTypeId == '3'">
+            <div class="col-md-12" ng-show="userTypeId == '2' || userTypeId == '3'">
                 <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
-            <div class="col-md-12" ng-if="userTypeId == '1' || userTypeId == '1011' || userTypeId == '1020'  || ||  userTypeId == '1012' || userTypeId == '1000' || userTypeId == '1009'|| userTypeId == '1007'|| userTypeId == '1002'">
+            <div class="col-md-12" ng-show="userTypeId == '1' || userTypeId == '1011' || userTypeId == '1020'  || ||  userTypeId == '1012' || userTypeId == '1000' || userTypeId == '1009'|| userTypeId == '1007'|| userTypeId == '1002'">
                 <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination/AdminPreExamReports" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
             <div class="row" ng-show="isShowTags">
@@ -336,7 +336,7 @@
                                         <th ng-click="sort('Scheme')">College Code</th>
                                         <th class="" ng-click="sort('Semester')">Branch Code</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('Branch')">Semester</th>
-                                        <!--<th class="text-center" style="width: 10%" ng-click="sort('On Roll')">On Roll</th>-->
+                                        <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">On Roll</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Fee Eligible</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Fee Paid</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Fee Unpaid</th>
@@ -352,7 +352,7 @@
                                         <td class="text-center">{{x.CollegeCode}}</td>
                                         <td class="text-center">{{x.BranchCode}}</td>
                                         <td class="text-center">{{x.Semester}}</td>
-                                        <!-- <td class="text-center"><a ng-click="GetOnrole(x)"> {{x.Onroll}} </a></td>-->
+                                         <td class="text-center"><a ng-click="GetOnrole(x)"> {{x.Onroll}} </a></td>
                                         <td class="text-center"><a ng-click="GetFeeEligibleList(x)">{{x.FeeEligible}}</a></td>
                                         <td class="text-center"><a ng-click="GetFeePayedList(x)">{{x.FeePayed}}</a></td>
                                         <td class="text-center"><a ng-click="GetFeeNotPayedList(x)">{{x.FeeNotPayed}}</a></td>

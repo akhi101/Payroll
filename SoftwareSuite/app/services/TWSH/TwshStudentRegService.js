@@ -1030,9 +1030,15 @@
 
 
         this.VerifyApplicationDates = function (Mode) {
-            var paramObj = { "Mode": Mode };
+            var paramObj = {
+                "Mode": Mode
+            };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/VerifyApplicationDates', paramObj);
-        }
+
+            return promise;
+
+        };
+
         this.editExamCenters = function (ExaminationCentreID) {
             var paramObj = {
                 "ExaminationCentreID": ExaminationCentreID
@@ -1041,5 +1047,15 @@
 
             return promise;
         };
+
+        this.GetGradeWiseBatchTimings = function (GradeID, BatchID) {
+            var paramObj = {
+                "GradeID": GradeID,
+                "BatchID": BatchID
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetGradeWiseBatchTimings', paramObj);
+            return promise;
+        };
+        
     });
 });

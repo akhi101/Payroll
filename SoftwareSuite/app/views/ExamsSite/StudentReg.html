@@ -414,6 +414,11 @@
 
                                 </div>
                             </div>
+                            <div class="col-md-12 pull-left mtp-50">
+                                <div class="back-btn" style="margin-bottom:0px;">
+                                    <button type="button" ng-click="backAtMode1()">Back</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="row" ng-show="oldUser">
                             <div class="col-md-4">
@@ -555,7 +560,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Aadhaar Number</label>
-                                            <input type="text" ng-model="adhaarno" maxlength="12" minlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
+                                            <input type="text" ng-model="adhaarno" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4 pull-left" ng-if="!otpsent && tmpmode ==1">
@@ -637,11 +642,11 @@
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-                                <div class="form-group required">
-                                    <label>Aadhaar Number</label>
-                                    <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
-                                </div>
-                            </div>-->
+        <div class="form-group required">
+            <label>Aadhaar Number</label>
+            <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
+        </div>
+    </div>-->
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
@@ -665,16 +670,16 @@
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-                                <div class="form-group  required">
-                                    <label>Community</label>
-                                    <select class="form-control" name="applicationForm.community" ng-model="community" required>
-                                        <option value="" selected>Select Caste</option>
-                                        <option ng-repeat="community in communities" value="{{community}}">
-                                            {{community.CategoryCode}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>-->
+        <div class="form-group  required">
+            <label>Community</label>
+            <select class="form-control" name="applicationForm.community" ng-model="community" required>
+                <option value="" selected>Select Caste</option>
+                <option ng-repeat="community in communities" value="{{community}}">
+                    {{community.CategoryCode}}
+                </option>
+            </select>
+        </div>
+    </div>-->
                                     <!--<div class="col-md-12">-->
                                     <div class="col-md-4 " ng-show="tmpmode ==2">
 
@@ -690,22 +695,24 @@
                                     <div class="col-md-4" ng-if="isqualified1">
                                         <div class="form-group required">
                                             <label> SSC ROll No</label>
-                                            <input type="text" ng-model="SscRollNo" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" ng-disabled="SscRollNofound" required class="form-control" />
+                                            <input type="text" maxlength="20" ng-model="SscRollNo" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" ng-disabled="SscRollNofound" required class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4" ng-if="isqualified2">
                                         <div class="form-group required ">
                                             <label> Inter ROll No</label>
-                                            <input type="text" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
+                                            <input type="text" maxlength="20" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4" ng-if="isqualified3">
                                         <div class="form-group required">
                                             <label>Previous Qualified Exam Hallticket</label>
-                                            <input type="text" name="applicationForm.InterRollNo" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" required class="form-control" />
+                                            <input type="text" name="applicationForm.InterRollNo" maxlength="20" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" required class="form-control" />
                                         </div>
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <p class="" style="color:red"><b>Note :</b> Upload Files should be Either JPG or PNG or JPEG format only.</p>
+                                    </div>
                                     <!--<div class="col-md-12">-->
                                     <div class="col-md-4">
                                         <div class="form-group required custom-img">
@@ -717,7 +724,7 @@
                                     </div>
                                     <div class="col-md-4" ng-show="IsBlind=='1'">
                                         <div class="form-group required custom-img">
-                                            <label>Upload Medical Certificate(size less than 300KB) :</label>
+                                            <label>Upload Medical Certificate(size less than 200KB) :</label>
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
                                             <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
                                             <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
@@ -726,7 +733,7 @@
 
                                     <div class="col-md-4" ng-if="isqualified1">
                                         <div class="form-group required custom-img">
-                                            <label>Upload SSC/10th Certificate(size less than 300KB) :</label>
+                                            <label>Upload SSC/10th Certificate(size less than 200KB) :</label>
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
                                             <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
                                             <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
@@ -735,7 +742,7 @@
 
                                     <div class="col-md-4" ng-if="isqualified2">
                                         <div class="form-group required custom-img">
-                                            <label>Upload Intermediate Certificate(size less than 300KB) :</label>
+                                            <label>Upload Intermediate Certificate(size less than 200KB) :</label>
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
                                             <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
                                             <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
@@ -743,7 +750,7 @@
                                     </div>
                                     <div class="col-md-4" ng-if="isqualified3">
                                         <div class="form-group required custom-img">
-                                            <label>Lower Qualified Exam Certificate(size less than 300KB) </label>
+                                            <label>Lower Qualified Exam Certificate(size less than 200KB) </label>
                                             <!--<label for="StudentPhoto">Photo Update :</label>-->
                                             <img ng-src="{{qualifiedexamCert}}" class="img img-responsive" id="QualifiedCert" />
                                             <input type="file" id="QualifiedCertoFile" placeholder="Qualified exam certificate" required ng-model="qualifiedexamCert" onchange="angular.element(this).scope().uploadQualCert()" class="upld-file">
@@ -769,11 +776,11 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Institution</label>
-                                    <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
-                                </div>
-                            </div>-->
+        <div class="form-group">
+            <label>Institution</label>
+            <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
+        </div>
+    </div>-->
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Examination Appearing </label>
@@ -881,12 +888,25 @@
                                     <div class="col-md-4 " ng-show="tmpmode==2">
                                         <div class="form-group ">
                                             <label>Examination Batch</label>
-                                            <select class="form-control" ng-model="exambatch">
+                                            <select class="form-control" ng-model="exambatch" ng-change="getbatchtimings(exambatch.BatchNumber)">
                                                 <option value="" selected>Select Exam Batch</option>
                                                 <option ng-repeat="exambatch in exambatchList" value="{{exambatch.BatchNumber}}">
                                                     {{exambatch.BatchNumber}}
                                                 </option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" ng-if="GradeBatchTimings.length>0">
+                                        <div class="form-group">
+                                            <label>Paper1 Time</label>
+                                            <input type="text" disabled class="form-control" autocomplete="off" ng-model="Paper1Time" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-if="GradeBatchTimings.length>0">
+                                        <div class="form-group">
+                                            <label>Paper2 Time</label>
+                                            <input type="text" disabled class="form-control" autocomplete="off" ng-model="Paper2Time" />
                                         </div>
                                     </div>
                                 </div>
@@ -935,7 +955,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group ">
                                             <label>Mandal</label>
-                                            <input type="text" class="form-control" placeholder="Mandal" autocomplete="off" ng-model="mandal">
+                                            <input type="text" maxlength="100" class="form-control" placeholder="Mandal" autocomplete="off" ng-model="mandal">
 
                                         </div>
                                     </div>
@@ -950,7 +970,7 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Pincode</label>
-                                            <input type="text" placeholder="Pin code" maxlength="6" minlength="6" autocomplete="off" class="form-control" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="pincode" required />
+                                            <input type="text" placeholder="Pin code" maxlength="6" minlength="6" autocomplete="off" class="form-control"  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="pincode" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4 ">
@@ -962,7 +982,7 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group ">
                                             <label>Email</label>
-                                            <input type="text" placeholder="Email Address" autocomplete="off" class="form-control" ng-model="email" />
+                                            <input type="text" maxlenghth="100" placeholder="Email Address" autocomplete="off" class="form-control" ng-model="email" />
                                         </div>
                                     </div>
 
@@ -972,7 +992,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12" ng-show="IsBlind == 1">
+            <div class="col-md-12" ng-show="CheckBox">
 
                 <p>
                     <span> <input type="checkbox" ng-model="Checkbox"  /></span>
@@ -1125,9 +1145,19 @@
                                     <div class="col-md-7 pre-text">: {{exambatch}} </div>
 
                                 </div>
+                                <div class="col-md-6 " ng-if="mode==2">
+                                    <div class="col-md-5"> <label>Paper 1 Time </label></div>
+                                    <div class="col-md-7 pre-text">: {{Paper1Time}} </div>
+
+                                </div>
+                                <div class="col-md-6 " ng-if="mode==2">
+                                    <div class="col-md-5"> <label>Paper 2 Time</label></div>
+                                    <div class="col-md-7 pre-text">: {{Paper2Time}} </div>
+
+                                </div>
                                 <!--<div class="col-md-6 form-group">
-                                    <label>Examination Center :</label> Hyderabad
-                                </div>-->
+        <label>Examination Center :</label> Hyderabad
+    </div>-->
 
                             </div>
                         </div>

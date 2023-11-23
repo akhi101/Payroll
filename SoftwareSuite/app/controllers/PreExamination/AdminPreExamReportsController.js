@@ -3,12 +3,12 @@
         var $ctrl = this
         $ctrl.$onInit = () => {
             $scope.loading = false;
-            var data = {};
-            //$scope.$emit('showLoading', data);
+            
 
             var authData = $localStorage.authorizationData;
         }
-
+        var data = {};
+        //$scope.$emit('showLoading', data);
         var LoadExamTypeBysem = MarksEntryService.getStudentType();
         LoadExamTypeBysem.then(function (response) {
             if (response.Table.length > 0) {
@@ -148,7 +148,7 @@
                     $scope.FeeNotPaid = FeeNotPaid;
                     $scope.Condonation = Condonation;
                     $scope.Detained = Detained;                 
-                    $scope.$emit('hideLoading', data);
+                  /*  $scope.$emit('hideLoading', data);*/
 
                 } else {
                     $scope.loading = false;

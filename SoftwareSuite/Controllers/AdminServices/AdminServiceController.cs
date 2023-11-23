@@ -14,6 +14,7 @@ using System.Web;
 using SoftwareSuite.Models;
 using System.IO;
 using SoftwareSuite.Models.Assessment;
+using System.Configuration;
 
 namespace SoftwareSuite.Controllers.AdminServices
 {
@@ -215,6 +216,45 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
 
         }
+
+        [HttpGet, ActionName("GetProjects")]
+        public HttpResponseMessage GetProjects()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Projects";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Projects", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetTaskTypes")]
+        public HttpResponseMessage GetTaskTypes()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_TaskType";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_TaskType", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.Gone, ex);
+            }
+
+        }
+
+
 
         [HttpGet, ActionName("getStaffList")]
         public HttpResponseMessage getStaffList()
@@ -952,7 +992,300 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
         }
 
-        
+        [HttpGet, ActionName("GetTicketsCount")]
+        public string GetTicketsCount(string UserName)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserName", UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_UserTaskCounts ", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+
+            }
+        }
+
+        private string GetWebAppRoot()
+        {
+            var env = ConfigurationManager.AppSettings["SMS_ENV"].ToString();
+            string host = (HttpContext.Current.Request.Url.IsDefaultPort) ?
+               HttpContext.Current.Request.Url.Host :
+               HttpContext.Current.Request.Url.Authority;
+            if (env == "PROD")
+            {
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + "/";
+            }
+            else if (env == "DEV")
+            {
+
+                host = String.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, host);
+                return host + HttpContext.Current.Request.ApplicationPath;
+            }
+            return host + "/";
+        }
+
+
+        [HttpGet, ActionName("GetorEditorDeleteTicketsData")]
+        public string GetorEditorDeleteTicketsData(int DataType, string UserName,int TaskID)
+        {
+            var dbHandler = new dbHandler();
+
+            try
+            {
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@TaskID", TaskID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Delete_Task", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_Delete_Task", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetTicketsCountData")]
+        public string GetTicketsCountData(int DataType, string UserName,string User,int ProjectID)
+        {
+            var dbHandler = new dbHandler();
+
+            try
+            {
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@UserName", UserName);
+                param[2] = new SqlParameter("@User", User);
+                param[3] = new SqlParameter("@ProjectID", ProjectID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_UserTaskCountsData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_UserTaskCountsData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        public class TicketsData
+        {
+            public int ID { get; set; }
+            public string Title { get; set; }
+            public string TaskDescription { get; set; }
+            public string TicketFilePath { get; set; }
+            public string UpdatedFilePath { get; set; }
+            public string UpdatedFileName { get; set; }
+            public string TicketFileName { get; set; }
+            public int CircularTypeId { get; set; }
+            public DateTime TaskDate { get; set; }
+            public int DataType { get; set; }
+            public int TaskID { get; set; }
+            public int TaskTypeID { get; set; }
+            public int ProjectID { get; set; }
+            public string Remarks { get; set; }
+            public string UserName { get; set; }
+            public bool Active { get; set; }
+            public int Status { get; set; }
+            public string CompletionStatus { get; set; }
+            public string WorkAssignedTo { get; set; }
+
+            public string StatusRemarks { get; set; }
+            public string TaskRemarks { get; set; }
+
+        }
+
+        [HttpPost, ActionName("AddorUpdateorDeleteTickets")]
+        public HttpResponseMessage AddorUpdateorDeleteTickets([FromBody] TicketsData TicketsData)
+        {
+            try
+            {
+
+                var TicketFilePath = string.Empty;
+                if (TicketsData.DataType == 1)
+                {
+                    string relativePath = string.Empty;
+                    var path = ConfigurationManager.AppSettings["TicketsPath"];
+                    var TicketName = TicketsData.TicketFileName;
+                    bool folder = Directory.Exists(path);
+                    if (!folder)
+                        Directory.CreateDirectory(path);
+                    string TicketPath = Path.Combine(path, TicketName);
+
+                    byte[] PrincipalimageBytes = Convert.FromBase64String(TicketsData.TicketFilePath);
+                    File.WriteAllBytes(TicketPath, PrincipalimageBytes);
+                    relativePath = TicketPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    TicketFilePath = relativePath;
+                }
+                else if (TicketsData.DataType == 2 && TicketsData.TicketFilePath != "Empty")
+                {
+                    string relativePath = string.Empty;
+                    var path = ConfigurationManager.AppSettings["TicketsPath"];
+                    var TicketName = TicketsData.TicketFileName;
+                    bool folder = Directory.Exists(path);
+                    if (!folder)
+                        Directory.CreateDirectory(path);
+                    string TicketPath = Path.Combine(path, TicketName);
+
+                    byte[] PrincipalimageBytes = Convert.FromBase64String(TicketsData.TicketFilePath);
+                    File.WriteAllBytes(TicketPath, PrincipalimageBytes);
+                    relativePath = TicketPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    TicketFilePath = relativePath;
+                }
+                else
+                {
+                    TicketFilePath = TicketsData.TicketFilePath;
+                }
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[10];
+                param[0] = new SqlParameter("@DataType", TicketsData.DataType);
+                param[1] = new SqlParameter("@TaskID", TicketsData.TaskID);
+                param[2] = new SqlParameter("@TaskTypeID", TicketsData.TaskTypeID);
+                param[3] = new SqlParameter("@ProjectID", TicketsData.ProjectID);
+                param[4] = new SqlParameter("@TaskDescription", TicketsData.TaskDescription);
+                param[5] = new SqlParameter("@TicketFilePath", TicketFilePath);
+                param[6] = new SqlParameter("@TaskDate", TicketsData.TaskDate);
+                param[7] = new SqlParameter("@TaskRemarks", TicketsData.TaskRemarks);
+                param[8] = new SqlParameter("@Active", TicketsData.Active);
+                param[9] = new SqlParameter("@UserName", TicketsData.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Tasks", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_Tasks", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateCountsData")]
+        public HttpResponseMessage UpdateCountsData([FromBody] TicketsData TicketsData)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@TaskID", TicketsData.TaskID);
+                param[1] = new SqlParameter("@Status", TicketsData.Status);
+                param[2] = new SqlParameter("@Remarks", TicketsData.Remarks);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_CountsData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_CountsData", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateWorkStatus")]
+        public HttpResponseMessage UpdateWorkStatus([FromBody] TicketsData TicketsData)
+        {
+            try
+            {
+                var UpdatedFilePath = string.Empty;
+                if (TicketsData.DataType == 1)
+                {
+                    string relativePath = string.Empty;
+                    var path = ConfigurationManager.AppSettings["UpdatedTicketsPath"];
+                    var TicketName = TicketsData.TicketFileName;
+                    bool folder = Directory.Exists(path);
+                    if (!folder)
+                        Directory.CreateDirectory(path);
+                    string TicketPath = Path.Combine(path, TicketName);
+
+                    byte[] PrincipalimageBytes = Convert.FromBase64String(TicketsData.TicketFilePath);
+                    File.WriteAllBytes(TicketPath, PrincipalimageBytes);
+                    relativePath = TicketPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    UpdatedFilePath = relativePath;
+                }
+                else if (TicketsData.DataType == 2 && TicketsData.UpdatedFilePath != "Empty")
+                {
+                    string relativePath = string.Empty;
+                    var path = ConfigurationManager.AppSettings["UpdatedTicketsPath"];
+                    var TicketName = TicketsData.UpdatedFileName;
+                    bool folder = Directory.Exists(path);
+                    if (!folder)
+                        Directory.CreateDirectory(path);
+                    string TicketPath = Path.Combine(path, TicketName);
+
+                    byte[] PrincipalimageBytes = Convert.FromBase64String(TicketsData.UpdatedFilePath);
+                    File.WriteAllBytes(TicketPath, PrincipalimageBytes);
+                    relativePath = TicketPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    UpdatedFilePath = relativePath;
+                }
+                else
+                {
+                    UpdatedFilePath = TicketsData.UpdatedFilePath;
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataType", TicketsData.DataType);
+                param[1] = new SqlParameter("@TaskID", TicketsData.TaskID);
+                param[2] = new SqlParameter("@WorkAssignedTo", TicketsData.WorkAssignedTo);
+                param[3] = new SqlParameter("@CompletionStatus", TicketsData.CompletionStatus);
+                param[4] = new SqlParameter("@UpdatedFilePath", UpdatedFilePath);
+                param[5] = new SqlParameter("@StatusRemarks", TicketsData.StatusRemarks);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_WorkAssignedData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_WorkAssignedData", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateWorkAssigned")]
+        public HttpResponseMessage UpdateWorkAssigned([FromBody] TicketsData TicketsData)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataType", TicketsData.DataType);
+                param[1] = new SqlParameter("@TaskID", TicketsData.TaskID);
+                param[2] = new SqlParameter("@WorkAssignedTo", TicketsData.WorkAssignedTo);
+                param[3] = new SqlParameter("@CompletionStatus", TicketsData.CompletionStatus);
+                param[4] = new SqlParameter("@UpdatedFilePath", TicketsData.UpdatedFilePath);
+                param[5] = new SqlParameter("@StatusRemarks", TicketsData.StatusRemarks);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_WorkAssignedData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_WorkAssignedData", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+
         [HttpPost, ActionName("SaveScheamdata")]
         public HttpResponseMessage SaveScheamdata([FromBody]JsonObject request)
         {
@@ -975,6 +1308,7 @@ namespace SoftwareSuite.Controllers.AdminServices
                 throw ex;
             }
         }
+
 
     }
 

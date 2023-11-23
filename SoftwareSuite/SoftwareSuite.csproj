@@ -670,6 +670,7 @@
     <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicHallTicketController.js" />
+    <Content Include="app\controllers\CCIC\GetCcicDeCryptPaSSPageController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicCertificatesDataController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicResultsProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicRVRCProcessingController.js" />
@@ -1418,6 +1419,9 @@
     <Content Include="app\controllers\SystemAdministration\SystemUserListController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterListController.js" />
+    <Content Include="app\controllers\Tickets\AddTicketsController.js" />
+    <Content Include="app\controllers\Tickets\TicketsController.js" />
+    <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
     <Content Include="app\controllers\TWSH\ApplyCertificateController.js" />
     <Content Include="app\controllers\TWSH\GenerateTwshNrController.js" />
     <Content Include="app\controllers\TWSH\GradewiseExamcentersController.js" />
@@ -1697,12 +1701,16 @@
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntrySubjectList.html" />
     <Content Include="app\views\CCIC\CcicIndex.html" />
     <Content Include="app\views\CCIC\CcicSettings\CcicUsers.html" />
+    <Content Include="app\views\CCIC\GetCcicDeCryptPaSSPage.html" />
     <Content Include="app\views\CCIC\Popups\EditCcicExamCentresPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditExaminationCentresPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
+    <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
+    <Content Include="app\views\Popups\EditTicketsPopup.html" />
+    <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />
@@ -3081,6 +3089,9 @@
     <Content Include="app\views\SystemAdministration\UserGroupMaster.html" />
     <Content Include="app\views\SystemAdministration\UserGroupMasterList.html" />
     <Content Include="app\views\test.html.txt" />
+    <Content Include="app\views\Tickets\AddTickets.html" />
+    <Content Include="app\views\Tickets\Tickets.html" />
+    <Content Include="app\views\Tickets\TicketsCountData.html" />
     <Content Include="app\views\TotalExampaymentPopup.html" />
     <Content Include="app\views\TwalletRedirect.html" />
     <Content Include="app\views\TwoYearsCertificatePopup.html" />

@@ -664,6 +664,12 @@
                 dependencies: ['controllers/GetDeCryptPaSSPageController', 'services/SystemAdministration/SystemUserService', 'services/ForgetPasswordService']
             },
 
+            'index.GetCcicDeCryptPaSSPage': {
+                url: "/GetCcicDeCryptPaSSPage",
+                templateUrl: 'app/views/CCIC/GetCcicDeCryptPaSSPage.html',
+                dependencies: ['controllers/CCIC/GetCcicDeCryptPaSSPageController', 'services/CCIC/CcicSystemUserService', 'services/CCIC/CcicForgetPasswordService']
+            },
+
 
             'index.WebsiteLogin': {
                 url: "/WebsiteLogin",
@@ -1421,6 +1427,8 @@
                 dependencies: ['controllers/DcBills/AddExamExpenditureController', 'services/PreExamination/PreExaminationService']
 
             },
+
+
 
 
             'Dashboard.PreExamination.SetExaminationExpenditureCharges': {
@@ -4243,7 +4251,41 @@
                 templateUrl: 'app/views/PostExam/Odc_StudentDetails.html',
                 dependencies: ['controllers/PostExam/Odc_StudentDetailsController', 'services/PreExamination/PreExaminationService']
             },
+
+            'Dashboard.Tickets': {
+
+                url: "/Tickets",
+
+                templateUrl: 'app/views/Tickets/Tickets.html',
+
+                dependencies: ['controllers/Tickets/TicketsController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+            'Dashboard.AddTickets': {
+
+                url: "/AddTickets",
+
+                templateUrl: 'app/views/Tickets/AddTickets.html',
+
+                dependencies: ['controllers/Tickets/AddTicketsController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+            'Dashboard.TicketsCountData': {
+
+                url: "/TicketsCountData",
+
+                templateUrl: 'app/views/Tickets/TicketsCountData.html',
+
+                dependencies: ['controllers/Tickets/TicketsCountDataController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+
+
         }
+
 
     }
 })

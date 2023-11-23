@@ -163,7 +163,15 @@
             var promise = DataAccessService.getDataWithPara('api/AdminService/getCircularTypes');
             return promise;
         }
-        
+        this.getProjects = function () {
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetProjects');
+            return promise;
+        }
+
+        this.getTaskTypes = function () {
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetTaskTypes');
+            return promise;
+        }
 
         this.getBranchesList = function (CollegeCode) {         
             var paramObj = {"CollegeCode": CollegeCode};
@@ -322,8 +330,133 @@
             var promise = DataAccessService.postData('api/PreExamination/UploadDownload', paramObject);
             return promise;
         }
-        
 
+        this.AddTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, TaskRemarks, Active,UserName) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "TaskTypeID": TaskTypeID,
+                "ProjectID": ProjectID,
+                "TaskDescription": TaskDescription,
+                "TicketFilePath": ExcelData,
+                "TicketFileName": TicketFileName,
+                "TaskDate": TaskDate,
+                "TaskRemarks": TaskRemarks,
+                "Active": Active,
+                "UserName": UserName
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/AddorUpdateorDeleteTickets', paramObject);
+            return promise;
+        }
+
+        this.UpdateTickets = function (DataType, TaskID, TaskTypeID, ProjectID, TaskDescription, ExcelData, TicketFileName, TaskDate, TaskRemarks, Active, UserName) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "TaskTypeID": TaskTypeID,
+                "ProjectID": ProjectID,
+                "TaskDescription": TaskDescription,
+                "TicketFilePath": ExcelData,
+                "TicketFileName": TicketFileName,
+                "TaskDate": TaskDate,
+                "TaskRemarks": TaskRemarks,
+                "Active": Active,
+                "UserName": UserName
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/AddorUpdateorDeleteTickets', paramObject);
+            return promise;
+        }
+
+        this.DeleteTickets = function (ExcelData, CircularFileName, Title, CircularTypeId, NotificationDate) {
+            var paramObject = {
+                "Title": Title, "Url": ExcelData, "CircularFileName": CircularFileName, "CircularTypeId": CircularTypeId,
+                "NotificationDate": NotificationDate
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/AddorUpdateorDeleteTickets', paramObject);
+            return promise;
+        }
+
+        this.GetTicketsData = function (DataType, UserName, TaskID) {
+            var paramObject = {
+                "DataType": DataType,
+                "UserName": UserName,
+                "TaskID": TaskID
+
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetorEditorDeleteTicketsData', paramObject);
+            return promise;
+        }
+
+        this.EditTicketData = function (DataType, UserName, TaskID) {
+            var paramObject = {
+                "DataType": DataType,
+                "UserName": UserName,
+                "TaskID": TaskID
+
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetorEditorDeleteTicketsData', paramObject);
+            return promise;
+        }
+
+        this.DeleteTicketsData = function (DataType, UserName, TaskID) {
+            var paramObject = {
+                "DataType": DataType,
+                "UserName": UserName,
+                "TaskID": TaskID
+
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetorEditorDeleteTicketsData', paramObject);
+            return promise;
+        }
+
+        this.UpdateCountsData = function (TaskID, Status, Remarks) {
+            var paramObject = {
+                "TaskID": TaskID,
+                "Status": Status,
+                "Remarks": Remarks
+        
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateCountsData', paramObject);
+            return promise;
+        }
+
+        this.UpdateWorkAssigned = function (DataType, TaskID, WorkAssignedTo, CompletionStatus, UpdatedFilePath, StatusRemarks) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "WorkAssignedTo": WorkAssignedTo,
+                "CompletionStatus": CompletionStatus,
+                "UpdatedFilePath": UpdatedFilePath,
+                "StatusRemarks": StatusRemarks
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateWorkAssigned', paramObject);
+            return promise;
+        }
+
+
+        this.UpdateFileStatus = function (DataType, TaskID, WorkAssignedTo, CompletionStatus, ExcelData, UpdatedFileName, StatusRemarks) {
+            var paramObject = {
+                "DataType": DataType,
+                "TaskID": TaskID,
+                "WorkAssignedTo": WorkAssignedTo,
+                "CompletionStatus": CompletionStatus,
+                "UpdatedFilePath": ExcelData,
+                "UpdatedFileName": UpdatedFileName,
+                "StatusRemarks": StatusRemarks
+
+            };
+
+            var promise = DataAccessService.postData('api/AdminService/UpdateWorkStatus', paramObject);
+            return promise;
+        }
         this.SetTender = function (ExcelData, TenderFileName, Title, CircularTypeId, TenderDate,EndDate) {
             var paramObject = {
                 "Title": Title, "Url": ExcelData, "TenderFileName": TenderFileName,
@@ -364,11 +497,30 @@
             var promise = DataAccessService.postData('api/PreExamination/UpdateTender', paramObject);
             return promise;
         }
+
+        this.GetTicketsCount = function (UserName) {
+            var paramObj = { "UserName": UserName };
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetTicketsCount', paramObj);
+            return promise;
+        }
         
         //this.uploadFile = function (ExcelData, Title, Description, Ids) {
         //    var promise = DataAccessService.uploadFileToUrl('AdminServiceBase/uploadFile?Title=' + Title + '&Description=' + Description + '&Ids='+Ids, ExcelData);
         //    return promise;
         //}
+
+        this.GetTicketsCountData = function (DataType, UserName,User,ProjectID) {
+            var paramObject = {
+                "DataType": DataType,
+                "UserName": UserName,
+                "User": User,
+                "ProjectID": ProjectID
+
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetTicketsCountData', paramObject);
+            return promise;
+        }
 
     })
 })
