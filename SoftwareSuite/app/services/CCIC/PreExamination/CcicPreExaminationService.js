@@ -412,9 +412,11 @@
             return DataAccessService.postData('api/CcicPreExamination/UpdateStudentDetails', paramObject);
         };
 
-        this.GetViewStudentDetails = function (ApplicationNumber, StudentID ) {
+        this.GetViewStudentDetails = function (ApplicationNumber, StudentID,ApplicationStatus ) {
             var paramObj = {
-                "ApplicationNumber": ApplicationNumber, "StudentID": StudentID
+                "ApplicationNumber": ApplicationNumber,
+                "StudentID": StudentID,
+                "ApplicationStatus": ApplicationStatus
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/GetViewStudentDetails', paramObj);
             return promise;
@@ -436,9 +438,12 @@
             return promise;
         }
 
-        this.SetApplicationApprovalStatus = function (StudentId, UpdatedBy, ApplicationStatus) {
+        this.SetApplicationApprovalStatus = function (StudentId, UpdatedBy, ApplicationStatus,Remarks) {
             var paramObj = {
-                "StudentId": StudentId, "UpdatedBy": UpdatedBy, "ApplicationStatus": ApplicationStatus
+                "StudentId": StudentId,
+                "UpdatedBy": UpdatedBy,
+                "ApplicationStatus": ApplicationStatus,
+                "Remarks": Remarks
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/SetApplicationApprovalStatus', paramObj);
             return promise;

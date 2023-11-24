@@ -349,6 +349,90 @@
             return DataAccessService.postData('MasterPage/AddUserSubModule', paramObject);
         }
 
+        this.GetUserTypes = function (DataType, UserTypeID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUserTypes', paramObj);
+            return promise;
+        };
+
+        this.GetActiveUserTypes = function (DataType, UserTypeID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUserTypes', paramObj);
+            return promise;
+        };
+
+        this.EditUserTypes = function (DataType, UserTypeID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUserTypes', paramObj);
+            return promise;
+        };
+
+        this.AddUserTypes = function (paramObject) {
+
+            return DataAccessService.postData('MasterPage/AddorUpdateUserTypes', paramObject);
+        };
+
+        this.UpdateUserTypes = function (paramObject) {
+
+            return DataAccessService.postData('MasterPage/AddorUpdateUserTypes', paramObject);
+        };
+
+
+        this.GetUsers = function (DataType, UserTypeID, UserID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "UserID": UserID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUsers', paramObj);
+            return promise;
+        };
+
+        this.GetUsers = function (DataType, UserTypeID, UserID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "UserID": UserID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUsers', paramObj);
+            return promise;
+        };
+
+        this.EditUsers = function (DataType, UserTypeID,UserID, Active) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserTypeID": UserTypeID,
+                "UserID": UserID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('MasterPage/GetorEditorActiveUsers', paramObj);
+            return promise;
+        };
+
+        this.AddUser = function (paramObject) {
+
+            return DataAccessService.postData('MasterPage/AddorUpdateUsers', paramObject);
+        };
+
+        this.UpdateUser = function (paramObject) {
+
+            return DataAccessService.postData('MasterPage/AddorUpdateUsers', paramObject);
+        };
+
 
     })
 })

@@ -263,7 +263,7 @@
                                             <td>{{x.PIN}}</td>
                                             <td>{{x.StudentName}}</td>
                                             <td>{{x.Submitted?'Yes':'No'}}</td>
-                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID)">
+                                            <td ng-click="ViewStudentDetails(x.ApplicationNumber,x.StudentID,x.ApplicationStatus)">
                                                 <a class="{{x.ApplicationStatus=='Pending'?'notVerify':'Verify'}}">{{x.ApplicationStatus}}</a>
                                             </td>
                                         </tr>

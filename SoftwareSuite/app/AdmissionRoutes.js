@@ -1230,10 +1230,16 @@
 
 
 
+            //'Dashboard.MasterSettings.CreateUser': {
+            //    url: "/CreateUser",
+            //    templateUrl: 'app/views/MasterSettings/CreateUser.html',
+            //    dependencies: ['controllers/MasterSettings/CreateUserController', 'services/MasterSettings/MasterPageService', 'services/MasterSettings/MasterSettingsService', 'services/SystemAdministration/SystemUserService']
+            //},
+
             'Dashboard.MasterSettings.CreateUser': {
                 url: "/CreateUser",
-                templateUrl: 'app/views/MasterSettings/CreateUser.html',
-                dependencies: ['controllers/MasterSettings/CreateUserController', 'services/MasterSettings/MasterPageService', 'services/MasterSettings/MasterSettingsService', 'services/SystemAdministration/SystemUserService']
+                templateUrl: 'app/views/MasterSettings/CreateUser1.html',
+                dependencies: ['controllers/MasterSettings/CreateUserController1', 'services/MasterSettings/MasterPageService', 'services/MasterSettings/MasterSettingsService', 'services/SystemAdministration/SystemUserService']
             },
 
             'Dashboard.MasterSettings.InsertMarks': {

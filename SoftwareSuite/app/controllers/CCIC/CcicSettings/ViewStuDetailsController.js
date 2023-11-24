@@ -18,7 +18,7 @@
             $state.go('CcicDashboard.Academic')
         }
         $scope.loading = true;
-        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID);
+        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
         ViewStudentDetail.then(function (response) {
 
             try {

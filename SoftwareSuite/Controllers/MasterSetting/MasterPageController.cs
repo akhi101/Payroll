@@ -1679,5 +1679,151 @@ namespace SoftwareSuite.Controllers.MasterSetting
 
         }
 
+        public class UserTypesInfo
+        {
+            public string UserTypeName { get; set; }
+            public string UserName { get; set; }
+            public int UserTypeID { get; set; }
+            public int DataType { get; set; }
+            public bool Active { get; set; }
+            public string Purpose { get; set; }
+        }
+
+        [HttpPost, ActionName("GetorEditorActiveUserTypes")]
+        public string GetorEditorActiveUserTypes([FromBody] UserTypesInfo data)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[2] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_Active_UserTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_Active_UserTypes", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpPost, ActionName("AddorUpdateUserTypes")]
+        public string AddorUpdateUserTypes([FromBody] UserTypesInfo data)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[2] = new SqlParameter("@UserTypeName", data.UserTypeName);
+                param[3] = new SqlParameter("@Purpose", data.Purpose);
+                param[4] = new SqlParameter("@Active", data.Active);
+                param[5] = new SqlParameter("@UserName", data.UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_UserTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_UserTypes", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+
+        public class UsersInfo
+        {
+            public int DataType { get; set; }
+            public int UserID { get; set; }
+            public int UserTypeID { get; set; }
+            public string NewUserName { get; set; }
+            public string UserPassword { get; set; }
+            public string NameofUser { get; set; }
+            public string MobileNumber { get; set; }
+            public string Email { get; set; }
+            public string UserName { get; set; }
+            public bool Active { get; set; }
+            public DateTime ExpiryDate { get; set; }
+            public string LastName { get; set; }
+            public string Address { get; set; }
+            public int CollegeID { get; set; }
+            public int BranchID { get; set; }
+
+
+
+
+        }
+
+        [HttpPost, ActionName("GetorEditorActiveUsers")]
+        public string GetorEditorActiveUsers([FromBody] UsersInfo data)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[2] = new SqlParameter("@UserID", data.UserID);
+                param[3] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_Active_Users", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_Active_Users", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("AddorUpdateUsers")]
+        public string AddorUpdateUsers([FromBody] UsersInfo data)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[15];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@UserID", data.UserID);
+                param[2] = new SqlParameter("@UserTypeID", data.UserTypeID);
+                param[3] = new SqlParameter("@NewUserName", data.NewUserName);
+                param[4] = new SqlParameter("@UserPassword", data.UserPassword);
+                param[5] = new SqlParameter("@ExpiryDate", data.ExpiryDate);
+                param[6] = new SqlParameter("@Active", data.Active);
+                param[7] = new SqlParameter("@NameofUser", data.NameofUser);
+                param[8] = new SqlParameter("@LastName", data.LastName);
+                param[9] = new SqlParameter("@Address", data.Address);
+                param[10] = new SqlParameter("@Email", data.Email);
+                param[11] = new SqlParameter("@MobileNumber", data.MobileNumber);
+                param[12] = new SqlParameter("@CollegeID", data.CollegeID);
+                param[13] = new SqlParameter("@BranchID", data.BranchID);
+                param[14] = new SqlParameter("@UserName", data.UserName);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_User", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_User", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
     }
 }

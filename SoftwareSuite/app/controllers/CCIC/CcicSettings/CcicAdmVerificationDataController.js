@@ -159,16 +159,39 @@
         //}
 
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID) {
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID,ApplicationStatus) {
 
-            $localStorage.TempData3 = {
-                ApplicationNumber: ApplicationNumber,
-                StudentID: StudentID
+            if (ApplicationStatus == 'Pending') {
+                $localStorage.TempData3 = {
+                    ApplicationNumber: ApplicationNumber,
+                    StudentID: StudentID,
+                    ApplicationStatus: 1
 
+                };
 
-            };
+                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            }
+            else if (ApplicationStatus == 'Revised') {
+                $localStorage.TempData3 = {
+                    ApplicationNumber: ApplicationNumber,
+                    StudentID: StudentID,
+                    ApplicationStatus: 2
 
-            $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+                };
+
+                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            }
+            else if (ApplicationStatus == 'Rejected') {
+                $localStorage.TempData3 = {
+                    ApplicationNumber: ApplicationNumber,
+                    StudentID: StudentID,
+                    ApplicationStatus: 3
+
+                };
+
+                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            }
+            
 
 
         }

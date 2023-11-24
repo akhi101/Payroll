@@ -119,18 +119,25 @@
 
 
 
-                                                    <strong class="Student-label">Remarks</strong>
-                                                    <textarea> </textarea>
+                                                    <!--<strong class="Student-label">Remarks</strong>
+    <textarea> </textarea>
 
-                                                    <hr>
-                                                    <p style="font-size:15px">Are you Sure You Want to Revise?</p>
+    <hr>-->
+
+                                                    <div class="form-group">
+                                                        <label style="font-size:15px !important" class="font-weight-bold">Remarks :</label>
+                                                        <div class="form-group">
+                                                            <textarea style="font-size:18px" type="text" rows="1" maxlength="100" class="form-control" placeholder="Enter Remarks" ng-model="Remarks" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                        <p style="font-size:15px">Are you Sure You Want to Revise?</p>
 
 
 
+
+                                                    </div>
 
                                                 </div>
-
-                                            </div>
 
 
                                         </div>
@@ -147,7 +154,7 @@
             </div>
         </div>
         <div class="modal-footer ng-scope">
-            <button type="button" class="btn btn-success" ng-click="Revised()">Yes</button>
+            <button type="button" class="btn btn-success" ng-click="Revised(Remarks)">Yes</button>
             <button type="button" class="btn btn-primary" ng-click="closeModal2()">No</button>
         </div>
     </div>

@@ -52,7 +52,7 @@
         $scope.ViewStudentDetails = function () {
             //$scope.loading = true;
             $scope.DataTable = false;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID);
+            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
             ViewStudentDetail.then(function (response) {
 
                 try {
@@ -146,9 +146,9 @@
             }
 
 
-            $scope.Approved = function () {
+            $scope.Approved = function (Remarks) {
 
-                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID,  'Approved');
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID,  'Approved',Remarks);
                 setapprovestatus.then(function (response) {
                     $scope.loading = false;
                     if (response[0].ResponseCode == '500') {
@@ -170,9 +170,12 @@
 
             }
 
-            $scope.Revised = function () {
-
-                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Revised');
+            $scope.Revised = function (Remarks) {
+                if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                    alert('Please Enter Remarks');
+                    return;
+                }
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Revised',Remarks);
                 setapprovestatus.then(function (response) {
                     $scope.loading = false;
                     if (response[0].ResponseCode == '500') {
@@ -248,9 +251,13 @@
                     });
             }
 
-            $scope.Rejected = function () {
+            $scope.Rejected = function (Remarks) {
 
-                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Rejected');
+                if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                    alert('Please Enter Remarks');
+                    return;
+                }
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Rejected',Remarks);
                 setapprovestatus.then(function (response) {
                     $scope.loading = false;
                     if (response[0].ResponseCode == '500') {

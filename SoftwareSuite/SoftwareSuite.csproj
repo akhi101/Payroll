@@ -903,6 +903,7 @@
     <Content Include="app\controllers\MasterSettings\ChangeAttendanceController.js" />
     <Content Include="app\controllers\MasterSettings\CreateBranchSchemeController.js" />
     <Content Include="app\controllers\MasterSettings\CreateSchemeController.js" />
+    <Content Include="app\controllers\MasterSettings\CreateUserController1.js" />
     <Content Include="app\controllers\MasterSettings\DateSheetMonthYearController.js" />
     <Content Include="app\controllers\MasterSettings\ExamSessionSettingsController.js" />
     <Content Include="app\controllers\MasterSettings\ExamSchemeSemesterSettingsController.js" />
@@ -1708,8 +1709,11 @@
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
+    <Content Include="app\views\MasterSettings\CreateUser1.html" />
     <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
     <Content Include="app\views\Popups\EditTicketsPopup.html" />
+    <Content Include="app\views\Popups\EditUserPopup.html" />
+    <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />

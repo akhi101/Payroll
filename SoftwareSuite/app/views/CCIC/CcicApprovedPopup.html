@@ -114,11 +114,15 @@
                                                     <strong class="course-label">HallTicketNo</strong>
                                                     <p class="text-muted word-break fl-right">
                                                         {{ApproveData.SSCHallticketNumber}}
-                                                    </p> 
+                                                    </p>
                                                     <hr>
 
-                                                    <strong class="Student-label">Remarks</strong>
-                                                    <textarea> </textarea>
+                                                    <div class="form-group">
+                                                        <label style="font-size:15px !important" class="font-weight-bold">Remarks :</label>
+                                                        <div class="form-group">
+                                                            <textarea style="font-size:18px" type="text" rows="1" maxlength="100" class="form-control" placeholder="Enter Remarks" ng-model="Remarks" required></textarea>
+                                                        </div>
+                                                    </div>
 
                                                     <hr>
                                                     <p ng-show="UserTypeID==4" style="font-size:15px">Are you Sure You Want to Approve?</p>
@@ -146,7 +150,7 @@
         </div>
         <div class="modal-footer ng-scope">
 
-            <button ng-show="UserTypeID==4" type="button" class="btn btn-success" ng-click="Approved()">Yes</button>
+            <button ng-show="UserTypeID==4" type="button" class="btn btn-success" ng-click="Approved(Remarks)">Yes</button>
             <button ng-show="UserTypeID==10" type="button" class="btn btn-success" ng-click="Recommended()">Yes</button>
             <button type="button" class="btn btn-primary" ng-click="closeModal1()">No</button>
         </div>
