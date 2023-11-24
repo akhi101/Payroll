@@ -1591,9 +1591,10 @@ namespace SoftwareSuite.Controllers.CCIC
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
                 param[1] = new SqlParameter("@StudentID", data["StudentID"]);
+                param[2] = new SqlParameter("@ApplicationStatus", data["ApplicationStatus"]);
                 
 
 
@@ -1640,10 +1641,11 @@ namespace SoftwareSuite.Controllers.CCIC
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@StudentID", data["StudentId"]);
                 param[1] = new SqlParameter("@UpdatedBy", data["UpdatedBy"]);
                 param[2] = new SqlParameter("@ApplicationStatus", data["ApplicationStatus"]);
+                param[3] = new SqlParameter("@Remarks", data["Remarks"]);
 
 
 
