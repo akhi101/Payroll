@@ -1076,7 +1076,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(dt, path + filename);
-                    Timer timer = new Timer(600000);
+                    Timer timer = new Timer(200000000);//600000
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
@@ -5318,6 +5318,48 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("GetAttendanceApprovalDetails")]
+        public string GetAttendanceApprovalDetails(int UserId,string CollegeCode,int DataType)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@UserId", UserId);
+                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[2] = new SqlParameter("@DataType", DataType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AttendenceUpdationApprovalList", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("getAttendanceDetails")]
+        public string getAttendanceDetails(int UserId, string AttendeeId, string Pin)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@UserId", UserId);
+                param[1] = new SqlParameter("@AttendeeId", AttendeeId);
+                param[2] = new SqlParameter("@Pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AttendenceUpdationApprovalListData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("GetOdcListByScheme")]
         public string GetOdcListByScheme(string Scheme, int datatype, int userType)
         {
@@ -5605,6 +5647,28 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@ApplicationNo", ApplicationNo);
                 param[1] = new SqlParameter("@userType", userType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_VerifyTranscript", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("SetAttendanceVerificationStatus")]
+        public string SetAttendanceVerificationStatus(int UserId,string AttendeeId,string Pin)
+        {
+
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@UserId", UserId);
+                param[1] = new SqlParameter("@AttendeeId", AttendeeId);
+                param[2] = new SqlParameter("@Pin", Pin);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_AttendenceUpdationVerification", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -7149,6 +7213,53 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        [HttpPost, ActionName("AttendanceApproveStatus")]
+        public string AttendanceApproveStatus([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var finalJsonArray = new ArrayList();
+                var jsonArray = new JsonArray();
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    jsonArray.Add(jobject);
+                }
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
+                param[1] = new SqlParameter("@UserId", request["UserId"]);
+                param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
+                param[3] = new SqlParameter("@Remarks", request["Remarks"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_AttendenceUpdationApprove", param);
+                //string Msg = "PIN : {2}, Your application request for Migration certificate is {0} due to {1}.Secretary, SBTET TS.";
+                //string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200")
+                //{
+                //    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                //    {
+                //        var Message = string.Format(Msg, "Rejected", request["Remarks"].ToString(), dt.Tables[1].Rows[i]["Pin"].ToString());
+                //        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                //        {
+                //            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161786852990603";
+                //            HttpClient client = new HttpClient();
+                //            client.BaseAddress = new Uri(url);
+                //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                //        }
+                //    }
+                //}
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
         [HttpGet, ActionName("getApprovePinList")]
         public string getApprovePinList(string Scheme, int datatype, int userType)
         {
@@ -7437,6 +7548,23 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+        [HttpGet, ActionName("GetAttendanceApproveList")]
+        public string GetAttendanceApproveList(int UserId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@UserId", UserId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AttendenceUpdationApprovalCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
         [HttpGet, ActionName("GetOdcApprovalList")]
         public string GetOdcApprovalList(int userType)
@@ -13941,7 +14069,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     if (!folderExists)
                         Directory.CreateDirectory(path);
                     eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(600000);
+                    Timer timer = new Timer(2000000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
