@@ -6,6 +6,7 @@
         var authdata = $localStorage.authorizationData;
         var CollegeId = authdata.College_Code ==null ||authdata.College_Code==undefined ?$localStorage.CollegeAttendanceReports.collegecode:authdata.College_Code;
         $scope.userType = authdata.SystemUserTypeId
+        $scope.UserId = authdata.SysUserID
         var AcademicId = authdata.AcademicId == null || authdata.AcademicId ==undefined || authdata.AcademicId == "" ? 6 : authdata.AcademicId;
         $scope.AttendanceReportbranchwisestats = [];
         var Scheme = authdata.SchemeId;
@@ -162,7 +163,7 @@
                     alert("Please Enter Remarks")
                     return
                 }
-                var postattendance = AttendanceService.UpdateAttendenceDataByBranch($scope.userType, $scope.AttDataList, $scope.Remarks);
+                var postattendance = AttendanceService.UpdateAttendenceDataByBranch($scope.UserId, $scope.AttDataList, $scope.Remarks);
                 postattendance.then(function (response) {
                     var res = JSON.parse(response);
                     if (res[0].ResponceCode == '200') {
@@ -265,9 +266,10 @@
 
             if (pin != null && pin != "" && pin != undefined) {
 
-                if ($scope.userType == 1 || $scope.userType == 2) {
+                if ($scope.userType == 1 || $scope.userType == 2 || $scope.userType == 1014) {
                     $scope.AttDataList = []
                     AttDataList = []
+                    $scope.Remarks =""
                 $scope.modalInstance = $uibModal.open({
                     templateUrl: "/app/views/Admission/Reports/UpdateStudentAttendance.html",
                     size: 'xlg',

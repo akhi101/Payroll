@@ -1152,6 +1152,17 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetMigrationApprovalList', param);
         };
 
+        this.GetAttendanceApproveList = function (UserId) {
+            var param = {
+
+                "UserId": UserId
+
+            }
+            return DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceApproveList', param);
+        };
+
+        
+
         this.GetOdcApprovalList = function (userType) {
             var param = {
 
@@ -1675,6 +1686,16 @@
             return promise;
         };
 
+        
+        this.SetAttendanceVerificationStatus = function (UserId,AttendeeId, Pin) {
+            var paramObj = {
+                "UserId": UserId,
+                "AttendeeId": AttendeeId,
+                "Pin": Pin
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/SetAttendanceVerificationStatus', paramObj);
+            return promise;
+        };
 
         this.SetTranscriptVerificationStatus = function (ApplicationNo, userType) {
             var paramObj = {
@@ -2019,6 +2040,23 @@
                 "Scheme": Scheme, "datatype": datatype, "userType": userType
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetMigrationApprovalListByScheme', paramObj);
+            return promise;
+        };
+   
+        this.GetAttendanceApprovalDetails = function (UserId, CollegeCode, DataType) {
+            var paramObj = {
+                "UserId": UserId, "CollegeCode": CollegeCode, "DataType": DataType
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceApprovalDetails', paramObj);
+            return promise;
+        };
+
+        
+        this.getAttendanceDetails = function (UserId, AttendeeId, Pin) {
+            var paramObj = {
+                "UserId": UserId, "AttendeeId": AttendeeId, "Pin": Pin
+            }
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/getAttendanceDetails', paramObj);
             return promise;
         };
 
@@ -2452,6 +2490,24 @@
             var promise = DataAccessService.postData('api/PreExamination/MigrationSetApproveStatusReject', paramObj);
             return promise;
         };
+
+        this.AttendanceApproveStatus = function (PINjson, UserId, approvestatus, remarks) {
+            var paramObj = {
+                "PINjson": PINjson, "UserId": UserId, "approvestatus": approvestatus, "Remarks": remarks
+
+            }
+            var promise = DataAccessService.postData('api/PreExamination/AttendanceApproveStatus', paramObj);
+            return promise;
+        };
+
+        //this.AttendanceApproveStatusReject = function (PINjson, userType, approvestatus, remarks) {
+        //    var paramObj = {
+        //        "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus,
+        //        "Remarks": remarks
+        //    }
+        //    var promise = DataAccessService.postData('api/PreExamination/AttendanceApproveStatusReject', paramObj);
+        //    return promise;
+        //};
 
 
         this.TcSetApproveStatusReject = function (PINjson, userType, approvestatus, remarks) {

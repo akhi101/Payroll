@@ -36,7 +36,7 @@
         }, function (error) {
             alert("error");
         });
-        } else if ($scope.userType == 1 ) {
+        } else if ($scope.userType == 1 || $scope.userType == 1014) {
             let AcademicId = authData.AcademicId ==undefined ||authData.AcademicId ==null ||authData.AcademicId == ""?6:authData.AcademicId;
             let college_Code =$localStorage.CollegeAttendanceReports.collegecode;
 

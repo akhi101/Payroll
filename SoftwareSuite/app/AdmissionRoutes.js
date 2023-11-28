@@ -3959,6 +3959,21 @@
                 templateUrl: 'app/views/Academic/StudentFeedback.html',
                 dependencies: ['controllers/Academic/StudentFeedbackController', 'services/Academic/AcademicService']
             },
+
+            
+               'Dashboard.Academic.AttendanceApproveList': {
+                   url: "/AttendanceApproveList",
+                   templateUrl: 'app/views/Academic/AttendanceApproveList.html',
+                   dependencies: ['controllers/Academic/AttendanceApproveListController' , 'services/PreExamination/PreExaminationService','services/Academic/AcademicService']
+            },
+
+            'Dashboard.Academic.AttendanceApproveListDetails': {
+                url: "/AttendanceApproveList/AttendanceApproveListDetails",
+                templateUrl: 'app/views/Academic/AttendanceApproveListDetails.html',
+                dependencies: ['controllers/Academic/AttendanceApproveListDetailsController', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService']
+            },
+            
+
             'Dashboard.Results.BacklogResults': {
                 url: "/BacklogResults",
                 templateUrl: 'app/views/Results/BacklogResults.html',
