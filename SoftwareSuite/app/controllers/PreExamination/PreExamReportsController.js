@@ -4,6 +4,7 @@ define(['app'], function (app) {
         $scope.ExamType = 'Regular';
         var authData = $localStorage.authorizationData;
         $scope.ExamMonthyear = localStorage.getItem('FeeExamMonthYear');
+        //$scope.semar = localStorage.getItem('FeeSemester'); 
         $scope.semar = localStorage.getItem('FeeSemester'); 
         $scope.StudentTypeId = localStorage.getItem('StudentTypeId');
         $scope.userId = authData.SysUserID
@@ -17,7 +18,8 @@ define(['app'], function (app) {
         $scope.isHodTable = false;
         $scope.userTypeId = authData.SystemUserTypeId;
 
-
+        $scope.SemArray = [];
+        $scope.SemArray.push({ "semid": $scope.semar })
 
         var getSemesters = PreExaminationService.getAllSemester();
         getSemesters.then(function (res) {
@@ -104,7 +106,6 @@ define(['app'], function (app) {
         $scope.GetOnrole = function (data) {
             data.type = 1;
             $localStorage.authorizationData.onRoleDetails = data;
-
             $state.go("Dashboard.PreExamination.CheckOnRole");
         };
 
@@ -300,7 +301,7 @@ define(['app'], function (app) {
                 var data = {};
                 $scope.$emit('showLoading', data);
                 $scope.userId = 1;
-                var getAdmissionsubmod = PreExaminationService.getAdminCollegePreExamReports($scope.userId, $scope.CollegeCode, $scope.ExamMonthyear, $scope.semar, $scope.StudentTypeId);
+                var getAdmissionsubmod = PreExaminationService.getAdminCollegePreExamReports($scope.userId, $scope.CollegeCode, $scope.ExamMonthyear, JSON.stringify($scope.SemArray), $scope.StudentTypeId);
                 getAdmissionsubmod.then(function (response) {
 
 

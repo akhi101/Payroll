@@ -331,7 +331,7 @@
                             <th class="text-center">Description</th>
                             <th ng-show="ActiveData" class="text-center">Active</th>
                             <th width="10%" ng-show="DownloadButton" class="text-center">Download</th>
-                            <!--<th width="10%" ng-show="DeleteButton" class="text-center">Delete</th>-->
+                            <th width="10%" ng-show="DeleteButton" class="text-center">Delete</th>
                             <th width="10%" class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -347,9 +347,9 @@
                             <td class="text-center" ng-show="DownloadButton">
                                 <a href="{{data.Url}}" download><button title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button></a>
                             </td>
-                            <!--<td class="text-center" ng-show="DeleteButton">
+                            <td class="text-center" ng-show="DeleteButton">
                                 <a><button title="Click here to Delete" ng-click="deleteItem(data.TaskID)" class="btn btn-xs btn_delete"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
-                            </td>-->
+                            </td>
                             <!--<td class="text-center">
         <button class="btn-xs btn btn-info" style="width: 50px;" ng-click="editTicketData(data.TaskID)">
             Edit

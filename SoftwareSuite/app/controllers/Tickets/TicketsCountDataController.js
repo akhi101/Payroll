@@ -17,6 +17,7 @@ define(['app'], function (app) {
             $scope.ReviseButton = true;
             $scope.ApproveButton = true;
             $scope.CloseButton = true;
+            $scope.DeleteButton = true;
         }
         else if (tmpData.DataType == '2' && $scope.UserName == 'ADMIN') {
             $scope.SAApproved = true;
@@ -53,6 +54,7 @@ define(['app'], function (app) {
 
         else if (tmpData.DataType == '1' && $scope.UserName == 'ELITESOFT') {
             $scope.AdmPending = true;
+            $scope.DeleteButton = true;
 
         }
 
@@ -93,6 +95,7 @@ define(['app'], function (app) {
 
         else if ((tmpData.DataType == '1' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT'))) {
             $scope.GenUsersPending = true;
+            $scope.DeleteButton = true;
 
         }
 
@@ -162,14 +165,14 @@ define(['app'], function (app) {
             if (tmpData.UserName == 'ADMIN' || tmpData.UserName == 'Elitesoft') {
                 $scope.ActiveData = false;
                 $scope.DownloadButton = false;
-                $scope.DeleteButton = false;
+                //$scope.DeleteButton = false;
                 $scope.User = true;
 
             }
             else {
                 $scope.ActiveData = true;
                 $scope.DownloadButton = true;
-                $scope.DeleteButton = true;
+                //$scope.DeleteButton = true;
                 $scope.User = false;
             }
            
@@ -372,7 +375,8 @@ define(['app'], function (app) {
                     }
                     catch { }
                     if (Res.Table[0].StatusCode == '200') {
-                        alert(Res.Table[0].StatusDescription)
+                        alert(Res.Table[0].StatusDescription);
+                        $state.go('Dashboard.Tickets');
                         $scope.getTicketsCountData();
                     } else {
 

@@ -6,6 +6,9 @@
             
 
             var authData = $localStorage.authorizationData;
+            $scope.userId = authData.SysUserID
+            $scope.userTypeId = authData.SystemUserTypeId;
+
         }
         var data = {};
         //$scope.$emit('showLoading', data);
@@ -172,7 +175,8 @@
             
           var CollegeCode = data.CollegeCode;
           localStorage.setItem('FeeExamMonthYear', $scope.ExamMonthYearId);
-          localStorage.setItem('FeeSemester', JSON.stringify($scope.semarr));
+          //localStorage.setItem('FeeSemester', JSON.stringify($scope.semarr));
+          localStorage.setItem('FeeSemester', data.semid);
           localStorage.setItem('CollegeCode', CollegeCode);
           localStorage.setItem('StudentTypeId', $scope.StudentTypeId)
             $state.go('Dashboard.PreExamination.PreExamReports')
