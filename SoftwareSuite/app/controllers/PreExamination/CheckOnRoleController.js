@@ -75,6 +75,13 @@
         //}
 
         var ApprovalData = $localStorage.authorizationData.onRoleDetails;
+
+        var Semester = ApprovalData.semid;
+        //$scope.NewSemester = Semester.split('');
+        $scope.NewSemArray = [];
+        /*for (var i = 0; i < Semester.length;i++) {*/
+        $scope.NewSemArray.push({ "semid":Semester})
+        /*}*/
         //console.log(ApprovalData.type, authData.SystemUserTypeId, ApprovalData.CollegeCode, ApprovalData.BranchCode, ApprovalData.Semester,
         //$scope.ExamMonthyearId, $scope.Semester)
         if ($scope.userTypeId == 3 || $scope.userTypeId == 2) {
@@ -98,7 +105,7 @@
         }
 
         var ApprovalList = PreExaminationService.getApprovalList(ApprovalData.type, userid, ApprovalData.CollegeCode, ApprovalData.BranchCode,
-            $scope.ExamMonthyearId, $scope.Semester);
+            $scope.ExamMonthyearId, JSON.stringify($scope.NewSemArray));
         ApprovalList.then(function (response) {
             $scope.tableData = [];
             $scope.ExamPayment = response;
