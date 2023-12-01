@@ -78,7 +78,7 @@
         }
 
 
-            var ticketsCount = AdminService.GetTicketsCount($scope.UserName);
+        var ticketsCount = AdminService.GetTicketsCount($scope.UserName);
         ticketsCount.then(function (response) {
                 try {
                     var Res = JSON.parse(response);
