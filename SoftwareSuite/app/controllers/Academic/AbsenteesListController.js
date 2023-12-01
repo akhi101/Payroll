@@ -62,12 +62,14 @@ define(['app'], function (app) {
                 return;
             }
             $scope.loading = true;
+            //$scope.loader1 = true;
+            $scope.disablebutton = true;
             var StartDate = moment($scope.StartDate).format("YYYY-MM-DD")
             var EndDate = moment($scope.EndDate).format("YYYY-MM-DD")
             if ($scope.UserName == null) {
                 $scope.UserName = '';
             }
-            if ($scope.UserTypeID == 1) {
+            if ($scope.UserTypeID == 1 || $scope.UserTypeID == 1014) {
                 var DataType=1
             }
             else if ($scope.UserTypeID == 2) {
@@ -81,13 +83,16 @@ define(['app'], function (app) {
                 //var response = JSON.parse(res);
                 if (res[0].ResponseCode == '200') {
                     $scope.loading = false;
-
+                    //$scope.loader1 = false;
+                    $scope.disablebutton = false;
                     var location = res[0].file;
                     window.location.href = location;
                     $scope.Error1 = false;
                     $scope.Noresult = false;
                 } else if (res[0].ResponseCode == '400') {
                     $scope.loading = false;
+                    //$scope.loader1 = false;
+                    $scope.disablebutton = false;
                     $scope.Data = false;
                     $scope.Noresult = false;
                     $scope.Error1 = true;
@@ -95,6 +100,8 @@ define(['app'], function (app) {
                     alert($scope.ErrMsg1)
                 } else {
                     $scope.loading = false;
+                    //$scope.loader1 = false;
+                    $scope.disablebutton = false;
                     $scope.Data = false
                     alert("No Data Found");
                     $scope.Noresult = true;
@@ -103,6 +110,9 @@ define(['app'], function (app) {
                 }
             }, function (err) {
                 $scope.LoadImg = false;
+                $scope.loading = false;
+                //$scope.loader1 = false;
+                $scope.disablebutton = false;
                 alert("Error while loading");
             });
 

@@ -136,4 +136,15 @@ namespace SoftwareSuite.Models.Assessment
         public int semid { get; set; }
     }
 
+    public class AbsenteesData{
+        public int AcademicYearID { get; set; }
+        public int SemId { get; set; }
+        public int BranchId { get; set; }
+        public int DataType { get; set; }
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
+        public string CollegeCode { get; set; }
+    }
+
+
 }

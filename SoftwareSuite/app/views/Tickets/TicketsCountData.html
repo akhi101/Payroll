@@ -324,7 +324,7 @@
                     <thead>
                         <tr class="cb-1">
                             <th class="text-center" width="7%">S.No</th>
-                            <th class="text-center" width="20%">Date</th>
+                            <th class="text-center" width="10%">Date</th>
                             <th ng-show="User" class="text-center"> User</th>
                             <th class="text-center">Project </th>
                             <th class="text-center"> Task Type</th>
@@ -338,7 +338,7 @@
                     <tbody>
                         <tr ng-repeat="data in TasksData">
                             <td class="text-center">{{$index+1}}</td>
-                            <td width="20%" class="text-center">{{data.TaskDate | date:'dd-MM-yyyy'}}</td>
+                            <td width="10%" class="text-center">{{data.TaskDate | date:'dd-MM-yyyy'}}</td>
                             <td ng-show="User" class="text-center">{{data.UserName}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
                             <td class="text-center">{{data.TaskType}}</td>
@@ -355,50 +355,50 @@
             Edit
         </button>
     </td>-->
-                            <td ng-show="SAPending" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="SAPending" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="notVerify">Pending</a>
                             </td>
 
-                            <td ng-show="SAApproved" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="SAApproved" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Approved</a>
                             </td>
 
-                            <td ng-show="SAUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="SAUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="VerifyRevise">UnderProcess</a>
                             </td>
-                            <td ng-show="SACompleted" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="SACompleted" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Completed</a>
                             </td>
 
-                            <td ng-show="AdmPending" ng-click="editTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="AdmPending" ng-click="editTicketData(data.TaskID)">
                                 <a class="notVerify">Pending</a>
                             </td>
 
-                            <td ng-show="AdmApproved" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="AdmApproved" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Approved</a>
                             </td>
 
-                            <td ng-show="AdmUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="AdmUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="VerifyRevise">UnderProcess</a>
                             </td>
-                            <td ng-show="AdmCompleted" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="AdmCompleted" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Completed</a>
                             </td>
 
 
 
-                            <td ng-show="GenUsersPending" ng-click="editTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="GenUsersPending" ng-click="editTicketData(data.TaskID)">
                                 <a class="notVerify">Pending</a>
                             </td>
 
-                            <td ng-show="GenUsersApproved" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="GenUsersApproved" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Approved</a>
                             </td>
 
-                            <td ng-show="GenUsersUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="GenUsersUnderProcess" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="VerifyRevise">UnderProcess</a>
                             </td>
-                            <td ng-show="GenUsersCompleted" ng-click="editAdmTicketData(data.TaskID)">
+                            <td class="text-center" ng-show="GenUsersCompleted" ng-click="editAdmTicketData(data.TaskID)">
                                 <a class="Verify">Completed</a>
                             </td>
 
