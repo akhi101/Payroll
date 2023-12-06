@@ -52,13 +52,13 @@ define(['app'], function (app) {
 
 
 
-        else if (tmpData.DataType == '1' && $scope.UserName == 'ELITESOFT') {
+        else if (tmpData.DataType == '1' && $scope.UserName == 'IT_TEAM') {
             $scope.AdmPending = true;
             $scope.DeleteButton = true;
 
         }
 
-        else if (tmpData.DataType == '2' && $scope.UserName == 'ELITESOFT') {
+        else if (tmpData.DataType == '2' && $scope.UserName == 'IT_TEAM') {
             $scope.AdmApproved = true;
             $scope.AssignedToTextBox = true;
             $scope.UpdateButton = true;
@@ -67,7 +67,7 @@ define(['app'], function (app) {
             $scope.sadatelabel = true;
             //$scope.ResolvedFile = true;
         }
-        else if (tmpData.DataType == '3' && $scope.UserName == 'ELITESOFT') {
+        else if (tmpData.DataType == '3' && $scope.UserName == 'IT_TEAM') {
             $scope.AdmUnderProcess = true;
             $scope.updateButton = true;
             $scope.TaskFile = true;
@@ -80,7 +80,7 @@ define(['app'], function (app) {
             $scope.sadatelabel = true;
             //$scope.ResolvedFile = true;
         }
-        else if (tmpData.DataType == '4' && $scope.UserName == 'ELITESOFT') {
+        else if (tmpData.DataType == '4' && $scope.UserName == 'IT_TEAM') {
             $scope.AdmCompleted = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -93,13 +93,13 @@ define(['app'], function (app) {
 
         }
 
-        else if ((tmpData.DataType == '1' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '1' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
             $scope.GenUsersPending = true;
             $scope.DeleteButton = true;
 
         }
 
-        else if ((tmpData.DataType == '2' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '2' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
             $scope.GenUsersApproved = true;
             $scope.IssueFile = true;
             $scope.saremarkslabel = true;
@@ -107,7 +107,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
             $scope.GenUsersUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -117,7 +117,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '4' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'ELITESOFT' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '4' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
             $scope.GenUsersCompleted = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
