@@ -22,6 +22,8 @@
             $scope.uploadPhoto = response[0].Photo;
             $scope.imagesrc = response[0].File1;
             $scope.imagesrc2 = response[0].File2;
+            $scope.IsEligible = response[0].IsEligible;
+            $scope.SelectedOnlineExamDate = response[0].SelectedOnlineExamDate;
             if ($scope.ExamMode == 1) {
                 $scope.avaexamdates = JSON.parse(response[0].OnlineExamDate)
             }
