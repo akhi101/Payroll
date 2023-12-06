@@ -71,7 +71,8 @@
 
         }
 
-        $scope.openStudentList = function (courseId,gradeId,languageId,examBatch) {
+        $scope.openStudentList = function (courseId, gradeId, languageId, examBatch, DataType) {
+         
             $localStorage.collegeAuthorization = "";                
 
                 collegeauthorization = {
@@ -79,8 +80,10 @@
                     CourseId: courseId,
                     GradeId: gradeId,
                     LanguageId: languageId,
-                    ExamBatch: examBatch
-                }
+                    ExamBatch: examBatch,
+                    DataType: DataType
+            }
+         
             $localStorage.collegeAuthorization = collegeauthorization;
             $state.go('TWSH.ViewAuthorization');
         }
