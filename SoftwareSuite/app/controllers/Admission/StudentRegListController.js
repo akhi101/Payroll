@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("StudentRegListController", function ($scope, $state, $stateParams, $localStorage, AppSettings, StudentRegService, RegisterAdmittedStudentService, $uibModal, Excel, $timeout, $rootScope) {
+    app.controller("StudentRegListController", function ($scope, SystemUserService, $state, $stateParams, $localStorage, AppSettings, StudentRegService, RegisterAdmittedStudentService, $uibModal, Excel, $timeout, $rootScope) {
         var data = {};
         $scope.Loading = false;
         $scope.$emit('showLoading', data);
@@ -35,6 +35,22 @@
         //        RightForCurrentPage.push(obj);
         //    }
         //}
+
+        var eKey = SystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            sessionStorage.Ekey = res;
+
+        });
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.togglePasswordVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
 
         $scope.sort = function (keyname) {
             $scope.sortKey = keyname;   //set the sortKey to the param passed
@@ -1332,10 +1348,11 @@
 
 
         $scope.approveAadhaar = function () {
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.aadhaarVerStu.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             $scope.Loading = true;
             var ret = confirm("Do you confirm that the Aadhaar Data matches with the Data given by student");
             if (ret) {
-                StudentRegService.StudentAadhaarVerified($scope.aadhaarVerStu.StudentId, $scope.aadhaarVerStu.AadharNo).then(function (data) {
+                StudentRegService.StudentAadhaarVerified($scope.aadhaarVerStu.StudentId, EncriptedAadhar).then(function (data) {
                     // console.log(data);
 
                     if (data.length > 0) {

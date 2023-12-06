@@ -3558,11 +3558,11 @@ namespace SoftwareSuite.Controllers.TWSH
                         }
                         else
                         {
-                            //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
                             //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Please note Your Application No{(string)appno}for TWSH{{#var#}}exam secretary SBTET, TS.", "1007170028100323520");
-                            var com = new CommunicationController();
-                            var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
-                            var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
+                            var cc = new CommunicationController();
+                            //var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
+                            //var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
+                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
 
                         }
 
