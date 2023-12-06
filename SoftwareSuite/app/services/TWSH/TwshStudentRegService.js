@@ -885,9 +885,9 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetFeeNotpaidList', paramObj);
             return promise;
         };
-        this.getApprovedList = function (UserId, CourseId, GradeId, LanguageId, ExamBatch) {
+        this.getApprovedList = function (UserId, CourseId, GradeId, LanguageId, ExamBatch,DataType) {
 
-            var paramObj = { "UserId": UserId, "CourseId": CourseId, "GradeId": GradeId, "LanguageId": LanguageId, "ExamBatch": ExamBatch };
+            var paramObj = { "UserId": UserId, "CourseId": CourseId, "GradeId": GradeId, "LanguageId": LanguageId, "ExamBatch": ExamBatch, "DataType": DataType };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetApprovedList', paramObj);
             return promise;
         };

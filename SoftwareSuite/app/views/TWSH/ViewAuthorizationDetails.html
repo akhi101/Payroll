@@ -160,8 +160,8 @@
                                 </div>
 
                                 <div class="col-md-12" ng-show="ExamMode ==1">
-                                    <div class="col-md-3"><label>Select Date for Online Examination</label></div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-3" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''"><label>Select Date for Online Examination</label></div>
+                                    <div class="col-md-8" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''">
                                         <div class="rdo-grp">
                                             <div ng-repeat="date in avaexamdates track by $index">
                                                 <input id="rdo{{$index+1}}" type="radio" name="examdate" class="examdate" value="{{date}}" ng-model="def.exam" />
@@ -171,8 +171,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12" ng-show="ExamMode ==1">
-                                    <div class="col-md-3"><label>Select time for Online Examination</label></div>                                  
-                                        <input type="time" name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />
+                                    <div class="col-md-3" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''">
+                                        <label>Select time for Online Examination</label>
+                                    </div>
+                                    <input type="time" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />
+                                </div> <div class="col-md-12" ng-show="ExamMode ==1">
+                                    <div class="col-md-3" ng-show="SelectedOnlineExamDate!=null||SelectedOnlineExamDate!=undefined||SelectedOnlineExamDate!=''">
+                                        <label>Selectd time for Online Examination</label>
+                                    </div>
+               <!--                     <input type="time"  name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />-->
+                                       <label ng-show="SelectedOnlineExamDate!=null&&SelectedOnlineExamDate!=undefined&&SelectedOnlineExamDate!=''">: {{SelectedOnlineExamDate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -199,9 +207,9 @@
 
                 </div>
             </div>
-            <div class="col-md-6 pull-right">
-                <div class="submit-btn" style="margin-bottom:0px;">
-                    <button class="" ng-click="approve()">Approve</button>
+            <div class="col-md-6 pull-right" >
+                <div class="submit-btn" style="margin-bottom:0px;" ng-show="IsEligible==false">
+                    <button class="" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="approve()">Approve</button>
 
                 </div>
             </div>

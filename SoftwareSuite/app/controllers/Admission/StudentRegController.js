@@ -69,7 +69,7 @@
             //} else {
             //    $scope.StudentReg.PhotoUpload = 1
             //}
-            alert($scope.PhotoUpload)
+            console.log($scope.StudentReg)
             if ($scope.StudentReg.profilephoto == null || $scope.StudentReg.profilephoto == '') {
                 alert('Please Upload photo')
             } else if ($scope.StudentReg.CandidateSign == null || $scope.StudentReg.CandidateSign == '') {

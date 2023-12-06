@@ -181,8 +181,15 @@
 
                                 $scope.SubExamPayment = response;
                                 if (response.length > 0) {
-                                    $scope.isShowResults = true;
-                                    document.getElementById("overlayCss").style.display = "none";
+                                    if (response[0].Responsecode == '400') {
+                                        alert(response[0].Responsedescription)
+                                        $scope.isShowResults = false;
+                                        document.getElementById("overlayCss").style.display = "none";
+                                    } else {
+                                        $scope.isShowResults = true;
+                                        document.getElementById("overlayCss").style.display = "none";
+                                    }
+                                   
                                 }
                                 else {
                                     alert("No Data Found")
@@ -201,9 +208,16 @@
 
 
                                 if (Usersdata.length > 0) {
-                                    $scope.isShowResults = true;
-                                    $scope.ExamPayment = Usersdata;
-                                    document.getElementById("overlayCss").style.display = "none";
+                                    if (Usersdata[0].Responsecode == '400') {
+                                        alert(Usersdata[0].Responsedescription)
+                                        $scope.isShowResults = false;
+                                        document.getElementById("overlayCss").style.display = "none";
+                                    } else {
+                                        $scope.isShowResults = true;
+                                        $scope.ExamPayment = Usersdata;
+                                        document.getElementById("overlayCss").style.display = "none";
+                                    }
+                                   
                                 }
                                 else {
                                     $scope.isShowResults = false;
