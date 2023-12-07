@@ -2827,15 +2827,18 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("ApproveDetails")]
-        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate)
+        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate,int ApproveStatus, int Remarks)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Id", Id);
                 param[1] = new SqlParameter("@examDate", examDate);
+                param[2] = new SqlParameter("@ApproveStatus", ApproveStatus);
+                param[3] = new SqlParameter("@Remarks", Remarks);
+
                 var ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 if (!string.IsNullOrWhiteSpace(examDate))
                 {
@@ -4174,6 +4177,27 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[1] = new SqlParameter("@BatchID", BatchID);
 
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExaminationBatchTimings", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("RejectorApproveSubmitDetails")]
+        public string RejectorApproveSubmitDetails(int ApprovedStatus, int Id,string examDate, string RejectedRemarks)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
+                param[1] = new SqlParameter("@Id", Id);
+                param[2] = new SqlParameter("@examDate", examDate);
+                param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

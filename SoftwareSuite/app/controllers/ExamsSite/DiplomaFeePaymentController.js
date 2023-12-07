@@ -72,8 +72,10 @@
         LoadExamTypeBysem.then(function (response) {
             if (response.Table.length > 0) {
                 $scope.StudentType = response.Table;
-                var data = { id: 999, type: "Promotional" };
+               
+                var data = { id: 999, type: "Promotional"}
                 $scope.StudentType.push(data);
+              
             } else {
                 $scope.StudentType = [];
                 alert("No Student found on this Record");

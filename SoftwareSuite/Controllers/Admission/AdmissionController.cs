@@ -20,6 +20,7 @@ using System.IO;
 using RestSharp;
 //using DocumentFormat.OpenXml.Drawing.Charts;
 using SoftwareSuite.Models.Security;
+using DataTable = System.Data.DataTable;
 // using X15 = DocumentFormat.OpenXml.Office2013.Excel;
 
 

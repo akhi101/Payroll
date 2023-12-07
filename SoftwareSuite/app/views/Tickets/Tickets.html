@@ -327,14 +327,14 @@
             </div>
             <!--<div class="sm-spacer"></div>-->
         </div>
-        <div class="col-md-12" ng-if="data">
+        <div class="col-md-12" ng-show="TaskCount.length>0">
             <div class="cl-details">
                 <h2> Tickets Count List</h2>
 
             </div>
         </div>
         <div class="col-md-12">
-            <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TaskCount.length>0">
+            <div class="table-responsive table-custom-tables-tb scrollbox" ng-show="TaskCount.length>0">
                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
@@ -342,9 +342,12 @@
                             <th class="text-center"> User</th>
                             <th class="text-center"> Project Name</th>
                             <th class="text-center"> Pending</th>
-                            <th class="text-center"> Approved</th>
-                            <th class="text-center"> Under Process</th>
-                            <th class="text-center"> Completed</th>
+
+                            <th class="text-center">Approved</th>
+                            <th class="text-center">Under Process</th>
+                            <th class="text-center">Completed</th>
+                            <th class="text-center">Total</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -352,12 +355,20 @@
                             <td class="text-center">{{$index+1}}</td>
                             <td class="text-center">{{data.UserName}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
-                            <td class="text-center"><b><a  ng-click="PendingCount(data.UserName,data.ProjectID)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="ApprovedCount(data.UserName,data.ProjectID)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="UnderProcessCount(data.UserName,data.ProjectID)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
-                            <td class="text-center"><b><a  ng-click="CompletedCount(data.UserName,data.ProjectID)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
+                            <td class="text-center"><b><a ng-click="PendingCount(data.UserName,data.ProjectID)">{{data.Pending == null ?'--':data.Pending}}</a></b></td>
+                            <td class="text-center"><b><a ng-click="ApprovedCount(data.UserName,data.ProjectID)">{{data.Approved == null ?'--':data.Approved}}</a></b></td>
+                            <td class="text-center"><b><a ng-click="UnderProcessCount(data.UserName,data.ProjectID)">{{data.UnderProcess == null ?'--':data.UnderProcess}}</a></b></td>
+                            <td class="text-center"><b><a ng-click="CompletedCount(data.UserName,data.ProjectID)">{{data.Completed == null ?'--':data.Completed}}</a></b></td>
+                            <td class="text-center"><b>{{data.Pending+data.Approved+data.UnderProcess+data.Completed}}</b></td>
 
-
+                        </tr>
+                        <tr>
+                            <td class="text-center" colspan="3">Total</td>
+                            <td class="text-center"><b>{{Pending}}</b></td>
+                            <td class="text-center"><b>{{Approved}}</b></td>
+                            <td class="text-center"><b>{{UnderProcess}}</b></td>
+                            <td class="text-center"><b>{{Completed}}</b></td>
+                            <td class="text-center"><b>{{Pending+Approved+UnderProcess+Completed}}</b></td>
                         </tr>
                     </tbody>
                 </table>
