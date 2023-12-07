@@ -1,3 +1,42 @@
+<style>
+
+    @media only screen and (max-width: 600px) {
+        .btn-mobile {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .loader {
+        border: 4px solid #5cb85c;
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 4s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 <div ng-controller="AbsenteesListController">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
@@ -79,13 +118,25 @@
                             </div>
                             <div class="col-md-1">
                                 <div class="gr-btn">
-                                    <button class="btn submit_btn btn-primary gr-button" style="margin-top:10px;" ng-click="Submit()">Get Report</button>
+                                    <!--<button class="btn submit_btn btn-primary gr-button" style="margin-top:10px;" ng-click="Submit()">Get Report</button>-->
+                                    <button type="submit" ng-click="Submit()" style="margin-top:10px;" class="btn submit_btn btn-primary gr-button" ng-disabled="disablebutton">
+                                        <span ng-show="!loader1">Get Report</span>
+                                        <span ng-show="loader1"><div class="loader"> </div></span>
+                                    </button>
                                     <!--  <button class="btn submit_btn btn-primary gr-button" style="margin-top:10px;" ng-click="UpdateExpenditure()" ng-show="UpdateTrue">Update Expenditure</button>-->
                                 </div>
                             </div>
 
                         </div>
+
                     </form>
+
+                </div>
+            </div>
+            <div class="col-md-12" ng-if="loading">
+                <div style="width:100%;text-align:center;">
+                    <img src="../../../contents/img/loading1.gif" width="100" />
+                    <h4><b>Please wait getting Report...</b></h4>
                 </div>
             </div>
         </div>

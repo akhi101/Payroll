@@ -2678,18 +2678,19 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
         [HttpGet, ActionName("GetApprovedList")]
-        public HttpResponseMessage GetApprovedList(int UserId, int CourseId, int LanguageId, int GradeId, int ExamBatch)
+        public HttpResponseMessage GetApprovedList(int UserId, int CourseId, int LanguageId, int GradeId, int ExamBatch,int DataType)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@UserId", UserId);
                 param[1] = new SqlParameter("@CourseId", CourseId);
                 param[2] = new SqlParameter("@LanguageId", LanguageId);
                 param[3] = new SqlParameter("@GradeId", GradeId);
                 param[4] = new SqlParameter("@ExamBatch", ExamBatch);
+                param[5] = new SqlParameter("@DataType", DataType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_NeedToAprooveList", param);
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
@@ -3558,11 +3559,11 @@ namespace SoftwareSuite.Controllers.TWSH
                         }
                         else
                         {
-                            //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
                             //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Please note Your Application No{(string)appno}for TWSH{{#var#}}exam secretary SBTET, TS.", "1007170028100323520");
-                            var com = new CommunicationController();
-                            var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
-                            var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
+                            var cc = new CommunicationController();
+                            //var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
+                            //var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
+                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
 
                         }
 

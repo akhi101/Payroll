@@ -3462,7 +3462,7 @@
             'Dashboard.AdmissionDashboard.Admission.StudentRegList': {
                 url: "/StudentRegList",
                 templateUrl: 'app/views/Admission/StudentRegList.html',
-                dependencies: ['controllers/Admission/StudentRegListController', 'services/Admission/StudentRegService', 'services/Admission/RegisterAdmittedStudentService']
+                dependencies: ['controllers/Admission/StudentRegListController', 'services/Admission/StudentRegService', 'services/Admission/RegisterAdmittedStudentService', 'services/SystemAdministration/SystemUserService']
             },
             'Dashboard.AdmissionDashboard.Admission.StudentReg': {
                 url: "/StudentRegList/StudentReg",

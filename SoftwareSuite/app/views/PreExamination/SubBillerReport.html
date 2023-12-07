@@ -80,9 +80,9 @@
                                 <div class="form-group">
                                     <label>Select Date:</label>
                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                        <input type="text" class="form-control" placeholder="Select Date" title="Click on Calendar icon to Select From Date" disabled autocomplete="off" name="setdate" datetime-picker="dd/MM/yyyy" id="setFromDate" ng-model="setFromDate" is-open="showFlag12" ng-change="Todate()" required />
+                                        <input type="text" class="form-control" placeholder="Select Date" title="Click on Calendar icon to Select Date" disabled autocomplete="off" name="setdate" datetime-picker="dd/MM/yyyy" id="Date" ng-model="Date" is-open="showFlag13" required />
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary" ng-click="showFlag12 = true"><i class="fa fa-calendar"></i></button>
+                                            <button type="button" class="btn btn-primary" ng-click="showFlag13 = true"><i class="fa fa-calendar"></i></button>
                                         </span>
                                     </p>
                                 </div>
@@ -90,12 +90,59 @@
 
                             <div class="col-md-4">
                                 <div class="form-group text-center">
-                                    <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                                    <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetCount()">
                                         Get Report
                                         <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                        <label ng-show="SubBillerCount.length>0" class="notifylabel" for="sel1" style="color: red;">Click on Table Row to get Day Wise Report</label>
+
+                        <div class="table-responsive table-custom-tables-tb" id="Details" ng-show="SubBillerCount.length>0">
+                            <table class="table table-bordered table-hover table-rounded">
+                                <thead>
+                                    <tr class="cb-1">
+
+                                        <th class="text-center">Sub BillerID</th>
+                                        <th class="text-center">Total Records</th>
+                                        <th class="text-center">Total Amount Payed</th>
+                                        <th class="text-center">Success</th>
+                                        <th class="text-center">Success Amount</th>
+                                        <th class="text-center">Fail</th>
+                                        <th class="text-center">Fail Amount</th>
+                                        <th class="text-center">Rejected</th>
+                                        <th class="text-center">Rejected Amount</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="Data in SubBillerCount">
+
+                                        <td class="text-center">{{Data.subbillerid}}</td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(1,Data.subbillerid)">{{Data.TotalRecords == null ?'--':Data.TotalRecords}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(2,Data.subbillerid)">{{Data.TotalAmountPayed == null ?'--':Data.TotalAmountPayed}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(3,Data.subbillerid)">{{Data.Success == null ?'--':Data.Success}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(4,Data.subbillerid)">{{Data.SuccessAmount == null ?'--':Data.SuccessAmount}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(5,Data.subbillerid)">{{Data.Fail == null ?'--':Data.Fail}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(6,Data.subbillerid)">{{Data.FailAmount == null ?'--':Data.FailAmount}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(7,Data.subbillerid)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(8,Data.subbillerid)">{{Data.RejectedAmount == null ?'--':Data.RejectedAmount}}</a></b></td>
+                                    </tr>
+                                    <tr style="font-weight:bold">
+                                        <td colspan="1" class="text-center">Total</td>
+                                        <td class="text-center">{{TotalRecords}}</td>
+                                        <td class="text-center">{{TotalAmountPayed}}</td>
+                                        <td class="text-center">{{Success}}</td>
+                                        <td class="text-center">{{SuccessAmount}}</td>
+                                        <td class="text-center">{{Fail}}</td>
+                                        <td class="text-center">{{FailAmount}}</td>
+                                        <td class="text-center">{{Rejected}}</td>
+                                        <td class="text-center">{{RejectedAmount}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 

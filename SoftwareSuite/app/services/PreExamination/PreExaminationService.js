@@ -21,9 +21,9 @@
             return promise;
         },
 
-        this.GetHomePageSlides = function () {
-            return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlides');
-        };
+            this.GetHomePageSlides = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlides');
+            };
 
         this.GetHomePageSlidesActive = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetHomePageSlidesActive');
@@ -54,35 +54,35 @@
             return DataAccessService.postData('api/PreExamination/RequestLog', paramObject);
         },
 
-        this.ThreeBacklogODCByPin = function (fromdate, todate, PIN) {
-            var paramObj = {
-                "fromdate": fromdate,
-                "todate": todate,
-                "PIN": PIN
-            }
-            var promise = DataAccessService.postData('PreExaminationReport/ThreeBacklogODCByPin', paramObj);
-            return promise;
-        };
+            this.ThreeBacklogODCByPin = function (fromdate, todate, PIN) {
+                var paramObj = {
+                    "fromdate": fromdate,
+                    "todate": todate,
+                    "PIN": PIN
+                }
+                var promise = DataAccessService.postData('PreExaminationReport/ThreeBacklogODCByPin', paramObj);
+                return promise;
+            };
 
         this.GetPolycetAcademicYear = function () {
             return DataAccessService.getDataAll('Admission/GetPolycetAcademicYear');
         };
-        
+
 
         this.GetPromotionalList = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetPromotionalList');
         };
-        
-        
+
+
         this.GetCollegeTypes = function () {
             return DataAccessService.getDataAll('Admission/GetCollegeTypes');
         };
-        
+
         this.GetAdmissionTypes = function () {
             return DataAccessService.getDataAll('Admission/GetAdmissionTypes');
         };
-        
-        
+
+
         this.GetNICData = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetNICData');
         };
@@ -93,7 +93,7 @@
             };
             return DataAccessService.getDataWithPara('api/PreExamination/getActiveExamTypesByScheme', paramObject);
         };
-        
+
 
         this.GetPolycetExamCenters = function (AcademicYear) {
             var paramObject = {
@@ -126,14 +126,14 @@
             };
             return DataAccessService.getDataWithPara('api/PreExamination/getBranchsByCollegeCode', paramObject);
         };
-   
+
         this.GetResultsReports = function (Scheme, semid, branchid, collegecode) {
             var paramObject = {
                 "Scheme": Scheme, "semid": semid, "branchid": branchid, "collegecode": collegecode
             };
             return DataAccessService.postData('api/PreExamination/GetResultsReports', paramObject);
         };
-  
+
         this.GetAmbedkarResultsReport = function (scheme) {
             var paramObject = {
                 "scheme": scheme
@@ -148,9 +148,9 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceReportData', paramObject);
         };
 
-        this.GetAsssessmentConsolidatedReport = function (AcademicyearId,collegecode,branchId,schemeid,semid,ExamType) {
+        this.GetAsssessmentConsolidatedReport = function (AcademicyearId, collegecode, branchId, schemeid, semid, ExamType) {
             var paramObject = {
-                "AcademicyearId": AcademicyearId, "collegecode": collegecode, "branchId": branchId, "schemeid": schemeid, "semid": semid,"ExamType": ExamType
+                "AcademicyearId": AcademicyearId, "collegecode": collegecode, "branchId": branchId, "schemeid": schemeid, "semid": semid, "ExamType": ExamType
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GetAsssessmentConsolidatedReport', paramObject);
         };
@@ -184,15 +184,15 @@
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GetExpenditure', paramObject);
         };
-        
-        
+
+
 
         this.getElectiveMappedReport = function (UserTypeId, CollegeCode, BranchCode) {
-            var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };         
+            var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };
             return DataAccessService.getDataWithPara('api/PreExamination/getElectiveMappedReport', paramObject);
         };
 
-       
+
         this.GetDayWiseNrReports = function (ExamMonthYearId, AcademicID, StudentTypeId) {
             var paramObject = { "ExamMonthYearId": ExamMonthYearId, "AcademicID": AcademicID, "StudentTypeId": StudentTypeId };
             return DataAccessService.getDataWithPara('api/PreExamination/GetDayWiseNrReports', paramObject);
@@ -202,7 +202,7 @@
             var paramObject = { "ExamMonthYearId": ExamMonthYearId, "AcademicID": AcademicID, "StudentTypeId": StudentTypeId };
             return DataAccessService.getDataWithPara('api/PreExamination/GetDayWiseNrReportsExcel', paramObject);
         };
-  
+
         this.GetBranchSemFeeReports = function (dataType, StudentTypeId, emy) {
             var paramObject = { "dataType": dataType, "StudentTypeId": StudentTypeId, "emy": emy };
             return DataAccessService.getDataWithPara('api/PreExamination/GetBranchSemFeeReports', paramObject);
@@ -218,10 +218,10 @@
             return DataAccessService.getDataWithPara('api/PreExamination/TransferBmaAttendee', paramObject);
         };
 
-     
+
 
         this.SetSessionalExpenditure = function (object) {
-           
+
             return DataAccessService.postData('api/PreExamination/SetSessionalExpenditure', object);
         };
 
@@ -234,25 +234,25 @@
             return DataAccessService.getDataWithPara('api/PreExamination/SetEventExpenditure', paramObject);
         };
 
-        this.GenerateNrData = function (ExamMonthYearId, StudentTypeId, Scheme,ExamTypeId,UserName) {
+        this.GenerateNrData = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, UserName) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
                 "ExamTypeId": ExamTypeId, "UserName": UserName
             };
-           
+
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateNrData', paramObject);
         };
-      
+
         this.GetFacultyMappingExcel = function (AcademicYearId, SemId, CollegeCode) {
             var paramObject = {
                 "AcademicYearId": AcademicYearId, "SemId": SemId, "CollegeCode": CollegeCode,
-              
+
             };
 
             return DataAccessService.postData('api/PreExamination/GetFacultyMappingExcel', paramObject);
         };
 
-        
+
         this.SetHomePageSlidesStatus = function (Id, Status) {
             var paramObject = {
                 "Id": Id, "Status": Status
@@ -265,7 +265,7 @@
         this.ResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, academicyearid, UserName) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
-                "ExamTypeId": ExamTypeId,"academicyearid": academicyearid,"UserName": UserName
+                "ExamTypeId": ExamTypeId, "academicyearid": academicyearid, "UserName": UserName
             };
 
             return DataAccessService.getDataWithPara('api/PreExamination/ResultsProcessing', paramObject);
@@ -298,7 +298,7 @@
 
             return DataAccessService.getDataWithPara('api/PreExamination/ResultsDeployTables', paramObject);
         };
-        
+
         this.RVRCResultsDeployTables = function (ExamMonthYearId, StudentTypeId, Scheme, UserName, ExamTypeId) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
@@ -308,7 +308,7 @@
             return DataAccessService.getDataWithPara('api/PreExamination/RVRCResultsDeployTables', paramObject);
         };
 
-        
+
         this.getMercyData = function (Id, DataType) {
             var paramObject = {
                 "Id": Id, "DataType": DataType
@@ -333,10 +333,10 @@
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
                 "ExamTypeId": ExamTypeId, "UserName": UserName
             };
-          
+
             return DataAccessService.getDataWithPara('api/PreExamination/PostMarks', paramObject);
         };
-        
+
         this.getElectiveMappedReportExcel = function (UserTypeId, CollegeCode, BranchCode) {
             var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };
             return DataAccessService.getDataWithPara('api/PreExamination/getElectiveMappedReportExcel', paramObject);
@@ -357,7 +357,7 @@
             var paramObject = { "UserTypeId": UserTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode };
             return DataAccessService.getDataWithPara('api/PreExamination/getElectiveMappingSubjectReportExcel', paramObject);
         };
-        
+
         this.GetBonafideTypes = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetBonafideTypes');
         };
@@ -373,7 +373,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GenerateOdcDataByPin', paramObject);
             return promise;
         }
-        
+
         this.GetMigrationDetails = function (AcademicYearId) {
             var paramObject = { "AcademicYearId": AcademicYearId };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetMigrationDetails', paramObject);
@@ -388,12 +388,12 @@
 
 
 
-        this.UpdateSmsStatus = function (CertificateTypeId, Pin,Id) {
-            var paramObject = { "CertificateTypeId": CertificateTypeId, "Pin": Pin ,"Id":Id};
+        this.UpdateSmsStatus = function (CertificateTypeId, Pin, Id) {
+            var paramObject = { "CertificateTypeId": CertificateTypeId, "Pin": Pin, "Id": Id };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/UpdateSmsStatus', paramObject);
             return promise;
         }
-       
+
         this.EnableFeePayment = function (ExamMonthYear, Pin, studenttypeid, ExamFee, LateFee, TatkalFee, PremiumTatkalFee, Semid) {
             var paramObject = { "ExamMonthYear": ExamMonthYear, "Pin": Pin, "studenttypeid": studenttypeid, "ExamFee": ExamFee, "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "Semid": Semid };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/EnableFeePayment', paramObject);
@@ -466,11 +466,12 @@
             return promise;
         }
 
-        
-        this.SubmitFeedback = function (Name,Email,Mobile,Message) {
+
+        this.SubmitFeedback = function (Name, Email, Mobile, Message) {
             var paramObject = {
                 "Name": Name, "Email": Email, "Mobile": Mobile,
-            "Message": Message};
+                "Message": Message
+            };
             var promise = DataAccessService.postData('api/PreExamination/SubmitFeedback', paramObject);
             return promise;
         }
@@ -499,7 +500,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTotalCollegeWiseCharges', paramObject);
             return promise;
         }
-        
+
         this.GetTotalDayWiseCharges = function (ExamMonthYearId, AcademicID, StudentTypeId) {
             var paramObject = { "ExamMonthYearId": ExamMonthYearId, "AcademicID": AcademicID, "StudentTypeId": StudentTypeId };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTotalDayWiseCharges', paramObject);
@@ -510,7 +511,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetDcBillsAbstract', paramObject);
             return promise;
         }
-        
+
 
         this.GetTimeTableExistingHolidays = function (AcademicYearId, SessionId, ExamMonthYearId, StudentTypeId, ExamTypeId) {
             var paramObject = { "AcademicYearId": AcademicYearId, "SessionId": SessionId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId };
@@ -546,7 +547,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ResetCertificateStatus', paramObject);
             return promise;
         }
-    
+
         this.GetChallanNumbers = function (PaymentTypeID, PaymentSubTypeID, ExamMonthYearID, PIN) {
             var paramObject = { "PaymentTypeID": PaymentTypeID, "PaymentSubTypeID": PaymentSubTypeID, "PIN": PIN, "ExamMonthYearID": ExamMonthYearID };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetChallanNumbers', paramObject);
@@ -554,7 +555,7 @@
         }
 
         this.ResetNameCorrectionToDs = function (Pin) {
-            var paramObject = { "Pin": Pin};
+            var paramObject = { "Pin": Pin };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ResetNameCorrectionToDs', paramObject);
             return promise;
         }
@@ -585,7 +586,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearForHallticketandFeepayment', paramObject);
             return promise;
         }
-        
+
 
         this.ResetTwshCertificateStatus = function (RegistrationNo, certifictepath) {
             var paramObject = { "RegistrationNo": RegistrationNo, "certifictepath": certifictepath };
@@ -604,7 +605,7 @@
 
         this.PublishTimetable = function (ExamMonthYearId, StudentTypeId) {
             var paramObject = {
-               "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId
+                "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId
             };
             var promise = DataAccessService.postData('api/TimeTableGenerator/PublishTimetable', paramObject);
             return promise;
@@ -672,7 +673,7 @@
 
 
 
-        this.getBonafideData = function (pin,Id) {
+        this.getBonafideData = function (pin, Id) {
             var param = { "pin": pin, "Id": Id }
             return DataAccessService.getDataWithPara('api/PreExamination/getBonafideData', param);
         };
@@ -729,7 +730,7 @@
                 "Semester": Semester,
                 "Scheme": Scheme
             }
-           // //console.log(paramObj)
+            // //console.log(paramObj)
             var promise = DataAccessService.getDataWithPara('api/PreExamination/sendMemoSMS', paramObj);
             return promise;
         };
@@ -891,11 +892,11 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetCertificateTypes');
         };
 
-        
+
         this.GetTimetableDatesByExamMonthYear = function (StudentTypeId, ExamMonthYearId) {
             var param = {
                 "StudentTypeId": StudentTypeId,
-                "ExamMonthYearId": ExamMonthYearId              
+                "ExamMonthYearId": ExamMonthYearId
             }
             return DataAccessService.getDataWithPara('api/PreExamination/GetTimetableDatesByExamMonthYear', param);
         };
@@ -939,24 +940,24 @@
             }
             return DataAccessService.getDataWithPara('api/PreExamination/UpdateUserdata', param);
         };
-     
+
         this.AdmissionFilterReport = function (AcademicYearId, branchid, categoryid, admissiontype, schemeid, isphysicallyhandicaped, semid, collegetype, DataTypeId) {
             var param = {
                 "AcademicYearId": AcademicYearId,
                 "branchid": branchid,
                 "categoryid": categoryid,
-                "admissiontype": admissiontype, 
+                "admissiontype": admissiontype,
                 "schemeid": schemeid,
                 "isphysicallyhandicaped": isphysicallyhandicaped,
                 "semid": semid,
                 "collegetype": collegetype,
                 "DataTypeId": DataTypeId
-               
+
             }
-          
+
             return DataAccessService.postData('api/PreExamination/AdmissionFilterReport', param);
         };
-        
+
         this.AdmissionSubReportsFilter = function (CollegeCode, UserId, AcademicYearId, branchid, categoryid, admissiontype, schemeid, isphysicallyhandicaped, semid, collegetype, DataTypeId) {
             var param = {
                 "CollegeCode": CollegeCode,
@@ -971,7 +972,7 @@
                 "collegetype": collegetype,
                 "DataTypeId": DataTypeId
             }
-          
+
             return DataAccessService.postData('api/PreExamination/AdmissionSubReportsFilter', param);
         };
 
@@ -998,8 +999,8 @@
                 "BranchId": BranchId,
                 "SemId": SemId,
                 "AcademicYearId": AcademicYearId,
-                "DataFormatTypeId":DataFormatTypeId,
-                "categoryid":categoryid,
+                "DataFormatTypeId": DataFormatTypeId,
+                "categoryid": categoryid,
                 "admissiontype": admissiontype,
                 "schemeid": schemeid,
                 "isphysicallyhandicaped": isphysicallyhandicaped,
@@ -1008,7 +1009,7 @@
             return DataAccessService.postData('api/PreExamination/AdmissionSubReportPinList', param);
         };
 
-        
+
 
         this.AdmissionReportsFilterExcel = function (AcademicYearId, branchid, categoryid, admissiontype, schemeid, isphysicallyhandicaped, semid, collegetype, DataTypeId) {
             var param = {
@@ -1023,7 +1024,7 @@
                 "DataTypeId": DataTypeId
 
             }
-          
+
             return DataAccessService.postData('api/PreExamination/AdmissionFilterReportExcel', param);
         };
         this.AdmissionBranchReportsFilterExcel = function (AcademicYearId, branchid, categoryid, admissiontype, schemeid, isphysicallyhandicaped, semid, collegetype, DataTypeId) {
@@ -1043,7 +1044,7 @@
             return DataAccessService.postData('api/PreExamination/AdmissionBranchReportsFilterExcel', param);
         };
 
-        
+
         this.getInterimDetails = function (pin) {
             var param = {
                 "pin": pin,
@@ -1161,7 +1162,7 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceApproveList', param);
         };
 
-        
+
 
         this.GetOdcApprovalList = function (userType) {
             var param = {
@@ -1219,12 +1220,12 @@
                 "Scheme": Scheme,
                 "ExamMonthYearId": ExamMonthYearId,
                 "Date": Date,
-               
+
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GetOdcData', paramObject);
         };
-        
-        
+
+
         this.GetExamSessionDates = function (ExamMonthYearId, AcademicYearId, StudentTypeId, ExamTypeId, schemeid) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId,
@@ -1309,7 +1310,7 @@
             return promise;
         }
 
-        
+
         this.getTwoYearsCertificateDetails = function (pin) {
             var paramObject = { "pin": pin };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getTwoYearsCertificateDetails', paramObject);
@@ -1323,7 +1324,7 @@
             return promise;
         }
 
- 
+
         this.GetTwoYearsApproveList = function (Scheme, datatype, userType) {
             var paramObject = { "Scheme": Scheme, "datatype": datatype, "userType": userType };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsApproveList', paramObject);
@@ -1388,7 +1389,7 @@
         };
 
 
-    
+
 
         this.BackLogDetailsForNc = function (PIN) {
             var paramObj = {
@@ -1398,7 +1399,7 @@
             return promise;
         };
 
-        
+
         this.GetExpenditureById = function (Id) {
             var paramObj = {
                 "Id": Id
@@ -1426,7 +1427,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GETMemoDataByPin', paramObj);
             return promise;
         };
-      
+
         this.ReleaseMarksEntry = function (CollegeCode, BranchId, SemId, SchemeId, ExamTypeId) {
             var paramObj = {
                 "CollegeCode": CollegeCode,
@@ -1441,7 +1442,7 @@
         };
 
 
-        this.ReleaseSixthSem = function (AcademicYearId,CollegeCode, BranchId) {
+        this.ReleaseSixthSem = function (AcademicYearId, CollegeCode, BranchId) {
             var paramObj = {
                 "AcademicYearId": AcademicYearId,
                 "CollegeCode": CollegeCode,
@@ -1451,7 +1452,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseSixthSem', paramObj);
             return promise;
         };
-        
+
 
         this.GETMemoDataByPinForPrinting = function (Scheme, sem, ExamYearMonth, pin) {
             var paramObj = {
@@ -1510,7 +1511,7 @@
             }
             var promise = DataAccessService.postData('api/PreExamination/SetTcData', paramObj);
             return promise;
-        };      
+        };
 
         this.AddExpenditureData = function (CollegeCode, StudentType, ExamMonthYear, ExamDate, ExpenditureAmount, Description, DataTypeId) {
             var paramObj = {
@@ -1520,7 +1521,7 @@
                 "ExamDate": ExamDate,
                 "ExpenditureAmount": ExpenditureAmount,
                 "Description": Description,
-                "DataTypeId": DataTypeId, 
+                "DataTypeId": DataTypeId,
             }
             var promise = DataAccessService.postData('api/PreExamination/AddExpenditureData', paramObj);
             return promise;
@@ -1528,7 +1529,7 @@
 
         this.UpdateExpenditureData = function (ExpenditureAmount, Description, Id) {
             var paramObj = {
-               
+
                 "ExpenditureAmount": ExpenditureAmount,
                 "Description": Description,
                 "Id": Id,
@@ -1686,8 +1687,8 @@
             return promise;
         };
 
-        
-        this.SetAttendanceVerificationStatus = function (UserId,AttendeeId, Pin) {
+
+        this.SetAttendanceVerificationStatus = function (UserId, AttendeeId, Pin) {
             var paramObj = {
                 "UserId": UserId,
                 "AttendeeId": AttendeeId,
@@ -1715,7 +1716,7 @@
             return promise;
         };
 
-        
+
 
         this.SetMigrationData = function (pin) {
             var paramObj = {
@@ -2042,7 +2043,7 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetMigrationApprovalListByScheme', paramObj);
             return promise;
         };
-   
+
         this.GetAttendanceApprovalDetails = function (UserId, CollegeCode, DataType) {
             var paramObj = {
                 "UserId": UserId, "CollegeCode": CollegeCode, "DataType": DataType
@@ -2051,7 +2052,7 @@
             return promise;
         };
 
-        
+
         this.getAttendanceDetails = function (UserId, AttendeeId, Pin) {
             var paramObj = {
                 "UserId": UserId, "AttendeeId": AttendeeId, "Pin": Pin
@@ -2106,7 +2107,7 @@
                     "Scheme": Scheme, "datatype": datatype
 
                 }
-            return DataAccessService.getDataWithPara('api/PreExamination/CertificateFeePaymentReports', paramObj);
+                return DataAccessService.getDataWithPara('api/PreExamination/CertificateFeePaymentReports', paramObj);
             },
 
             this.Memos = function (Scheme, ExamMonthYearId, Date) {
@@ -2117,12 +2118,12 @@
                 return DataAccessService.getDataWithPara('api/PreExamination/Memos', paramObj);
             },
 
-            this.GetTwoYearsOdcData = function ( FromDate, Todate) {
+            this.GetTwoYearsOdcData = function (FromDate, Todate) {
                 var paramObj = {
-                     "FromDate": FromDate, "Todate": Todate
+                    "FromDate": FromDate, "Todate": Todate
 
                 }
-            return DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsOdcData', paramObj);
+                return DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsOdcData', paramObj);
             },
 
             this.GetChangePassword = function (reqdata) {
@@ -2131,11 +2132,11 @@
                 return promise;
             }
 
-            
+
         this.GetTrSheets = function (Scheme, ExamMonthYearId, Date, CollegeCodesList, Semid) {
-                var paramObj = {
-                    "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList, "Semid": Semid
-                }
+            var paramObj = {
+                "Scheme": Scheme, "ExamMonthYearId": ExamMonthYearId, "Date": Date, "CollegeCodesList": CollegeCodesList, "Semid": Semid
+            }
             return DataAccessService.postData('api/StudentCertificate/GetTrSheetsData', paramObj);
         },
 
@@ -2152,7 +2153,7 @@
                     "ExamMonthYearId": ExamMonthYearId, "CollegeCodesList": CollegeCodesList
 
                 }
-            return DataAccessService.getDataWithPara('api/StudentCertificate/GetC18OdcTrSheets', paramObj);
+                return DataAccessService.getDataWithPara('api/StudentCertificate/GetC18OdcTrSheets', paramObj);
             },
             this.UpdateMobileNumber = function (Pin, PhoneNumber) {
                 var paramObj = {
@@ -2286,11 +2287,11 @@
         }
 
 
-        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType,Id) {
+        this.BonafideSetVerifyStatus = function (Pin, Name, FatherName, Branchcode, AcademicYear, Conduct, userType, Id) {
 
             var paramObj = {
                 "Pin": Pin, "Name": Name, "FatherName": FatherName, "Branchcode": Branchcode, "AcademicYear": AcademicYear,
-                "Conduct": Conduct, "userType": userType,"Id":Id
+                "Conduct": Conduct, "userType": userType, "Id": Id
             }
 
             var promise = DataAccessService.postData('api/PreExamination/BonafideSetVerifyStatus', paramObj);
@@ -2304,7 +2305,7 @@
 
             var paramObj = {
                 "Pin": Pin, "Name": Name, "FatherName": FatherName, "Branchcode": Branchcode, "AcademicYear": AcademicYear,
-                "Conduct": Conduct, "userType": userType,  "Id": Id
+                "Conduct": Conduct, "userType": userType, "Id": Id
             }
 
             var promise = DataAccessService.postData('api/PreExamination/StudySetVerifyStatus', paramObj);
@@ -2385,7 +2386,7 @@
             return promise;
         };
 
-        
+
 
 
         this.DMMSetApproveStatusReject = function (PINjson, userType, approvestatus, remarks) {
@@ -2396,8 +2397,8 @@
             return promise;
         };
 
-        
-        this.TwoYearsCertificateSetApproveStatusReject = function (PINjson, userType, approvestatus,Scheme, remarks) {
+
+        this.TwoYearsCertificateSetApproveStatusReject = function (PINjson, userType, approvestatus, Scheme, remarks) {
             var paramObj = {
                 "PINjson": PINjson, "userType": userType, "approvestatus": approvestatus, "Scheme": Scheme, "Remarks": remarks
             }
@@ -2654,7 +2655,7 @@
             return promise;
         };
 
-        this.getBonafiedRequestedDetailsByPin = function (pin,Id) {
+        this.getBonafiedRequestedDetailsByPin = function (pin, Id) {
             var paramObj = {
                 "pin": pin, "Id": Id
             }
@@ -2710,7 +2711,7 @@
             return promise;
         };
 
-        
+
         this.getStudentApprovalList = function () {
             return DataAccessService.getDataWithPara('api/PreExamination/GetStudentApprovalList');
         };
@@ -2721,7 +2722,7 @@
 
         this.PostFeepaymentDates = function (StudentType, Semid, FromDate, ToDate, Fee, FineDate, LateFee, TatkalDate, TatkalFee, PremiumTatkalFee, CondonationFee, PresemptiveAttendedDays, maxWorkingDays, CertificateFee,
             SchemeId, ExamMonthYearId, CondonationP, DetentionP, IsPresemtiveCalculationRequired, IsTimetableRequired, IsOnlyC18) {
-            
+
             var paramObject = {
                 "StudentType": StudentType, "Semid": Semid, "FromDate": FromDate, "ToDate": ToDate, "Fee": Fee, "FineDate": FineDate,
                 "LateFee": LateFee, "TatkalDate": TatkalDate, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CondonationFee": CondonationFee, "PresemptiveAttendedDays": PresemptiveAttendedDays,
@@ -2735,21 +2736,21 @@
             return promise;
         };
 
-        this.UpdateOdcDataByPin = function (SNO,UserName, NAME, SEX, FNAME, CEN, CEN_NAME,CEN_ADDRESS, PIN,COURSE,BR ,MAX_MARKS_1YR, TOTAL1, TOTAL1_25, MAX_MARKS_3SEM, TOTAL3S, MAX_MARKS_4SEM, TOTAL4S,
-           MAX_MARKS_5SEM, TOTAL5S, MAX_MARKS_6SEM, TOTAL6S, MAX_MARKS_7SEM, TOTAL7S, GRAND_TOTAL, PER, scheme, MAX_MARKS_1SEM, TOTAL1S, TOTAL1S_25, MAX_MARKS_2SEM, TOTAL2S, TOTAL2S_25, MONTH_YEAR) {
-            var paramObject = {              
+        this.UpdateOdcDataByPin = function (SNO, UserName, NAME, SEX, FNAME, CEN, CEN_NAME, CEN_ADDRESS, PIN, COURSE, BR, MAX_MARKS_1YR, TOTAL1, TOTAL1_25, MAX_MARKS_3SEM, TOTAL3S, MAX_MARKS_4SEM, TOTAL4S,
+            MAX_MARKS_5SEM, TOTAL5S, MAX_MARKS_6SEM, TOTAL6S, MAX_MARKS_7SEM, TOTAL7S, GRAND_TOTAL, PER, scheme, MAX_MARKS_1SEM, TOTAL1S, TOTAL1S_25, MAX_MARKS_2SEM, TOTAL2S, TOTAL2S_25, MONTH_YEAR) {
+            var paramObject = {
                 "SNO": SNO, "UserName": UserName, "NAME": NAME, "SEX": SEX, "FNAME": FNAME, "CEN": CEN, "CEN_NAME": CEN_NAME, "CEN_ADDRESS": CEN_ADDRESS, "PIN": PIN, "COURSE": COURSE, "BR": BR,
                 "MAX_MARKS_1YR": MAX_MARKS_1YR, "TOTAL1": TOTAL1, "TOTAL1_25": TOTAL1_25, "MAX_MARKS_3SEM": MAX_MARKS_3SEM, "TOTAL3S": TOTAL3S,
-            "MAX_MARKS_4SEM":MAX_MARKS_4SEM,"TOTAL4S":TOTAL4S,"MAX_MARKS_5SEM":MAX_MARKS_5SEM,"TOTAL5S":TOTAL5S,"MAX_MARKS_6SEM":MAX_MARKS_6SEM,"TOTAL6S":TOTAL6S,
-            "MAX_MARKS_7SEM":MAX_MARKS_7SEM,"TOTAL7S":TOTAL7S,"GRAND_TOTAL":GRAND_TOTAL,
-                "PER":PER,"scheme":scheme,"MAX_MARKS_1SEM":MAX_MARKS_1SEM,"TOTAL1S":TOTAL1S,
+                "MAX_MARKS_4SEM": MAX_MARKS_4SEM, "TOTAL4S": TOTAL4S, "MAX_MARKS_5SEM": MAX_MARKS_5SEM, "TOTAL5S": TOTAL5S, "MAX_MARKS_6SEM": MAX_MARKS_6SEM, "TOTAL6S": TOTAL6S,
+                "MAX_MARKS_7SEM": MAX_MARKS_7SEM, "TOTAL7S": TOTAL7S, "GRAND_TOTAL": GRAND_TOTAL,
+                "PER": PER, "scheme": scheme, "MAX_MARKS_1SEM": MAX_MARKS_1SEM, "TOTAL1S": TOTAL1S,
                 "TOTAL1S_25": TOTAL1S_25, "MAX_MARKS_2SEM": MAX_MARKS_2SEM, "TOTAL2S": TOTAL2S, "TOTAL2S_25": TOTAL2S_25, "MONTH_YEAR": MONTH_YEAR
             };
             //console.log(paramObject)
             var promise = DataAccessService.postData('api/PreExamination/UpdateOdcDataByPin', paramObject);
             return promise;
         };
-        
+
         this.getAdminExamCentersList = function (ExamMonthYearId, StudentTypeId, ExamTypeID) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeID": ExamTypeID
@@ -2767,7 +2768,7 @@
             var promise = DataAccessService.postData('api/PreExamination/AddMersyData', paramObject);
             return promise;
         };
-        
+
 
 
         this.UpdateOldStudentData = function (paramObject) {
@@ -2802,7 +2803,7 @@
         };
 
 
-       
+
 
         this.GetSchemes = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetSchemes');
@@ -2811,7 +2812,7 @@
         this.GetAllSchemes = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetSchemes');
         };
-        
+
         this.getExaminationCentersList = function (Examyearid, studentTypeId, ExamTypeID) {
             var paramObject = {
                 "Examyearid": Examyearid,
@@ -2837,13 +2838,13 @@
             return DataAccessService.getDataWithPara('api/PreExamination/getOmrBranchCount', paramObject);
         };
 
-        this.GenerateC18MemosData = function (ExamMonthYearId, MinCredits,Day,Month,Year) {
+        this.GenerateC18MemosData = function (ExamMonthYearId, MinCredits, Day, Month, Year) {
             var paramObject = {
                 "ExamMonthYearId": ExamMonthYearId, "MinCredits": MinCredits, "Day": Day, "Month": Month, "Year": Year
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateC18MemosData', paramObject);
         };
-        
+
 
         this.getExaminationMonthYear = function () {
             return DataAccessService.getDataWithPara('api/PreExamination/getExaminationMonthYear');
@@ -2851,7 +2852,7 @@
 
 
         this.getChallanData = function (StudentTypeId, pin) {
-          
+
             var paramObject = {
                 "StudentTypeId": StudentTypeId, "pin": pin
             };
@@ -2879,7 +2880,7 @@
             return DataAccessService.postData('api/PreExamination/SetExaminationCenters', paramObj);
         };
 
-       
+
 
         this.getPayExamFee = function (UserId, StudentTypeId, Semid, ExamMonthYearId) {
             var paramObject = {
@@ -2889,11 +2890,11 @@
             return DataAccessService.postData('api/PreExamination/getPayExamFee', paramObject);
         }
 
-   
+
         this.UpdateMigrationData = function (AcademicYearId, CummulativeCredits, id) {
             var paramObject = {
                 "AcademicYearId": AcademicYearId, "CummulativeCredits": CummulativeCredits, "id": id
-            };  
+            };
             return DataAccessService.postData('api/PreExamination/UpdateMigrationData', paramObject);
         }
 
@@ -2908,7 +2909,7 @@
                 "UserId": UserId, "StudentTypeId": StudentTypeId, "ExamMonthYearId": ExamMonthYearId, "Semester": Semester
             };
             ////console.log(paramObject)
-           
+
             return DataAccessService.getDataWithPara('api/PreExamination/getApproveExamFees', paramObject);
         }
 
@@ -2929,7 +2930,7 @@
             return DataAccessService.postData('api/PreExamination/setApprovalSingleList', paramObject);
         }
 
-        this.getApprovalList = function (type, StudentTypeId, CollegeCode, BranchCode,ExamMonthYearId, Semester) {
+        this.getApprovalList = function (type, StudentTypeId, CollegeCode, BranchCode, ExamMonthYearId, Semester) {
             var paramObject = {
                 "type": type, "StudentTypeId": StudentTypeId,
                 "collegeCode": CollegeCode, "branchcode": BranchCode, "ExamMonthYearId": ExamMonthYearId, "semester": Semester
@@ -2961,7 +2962,7 @@
         }
 
         this.GetStudentFeePaymentDetails = function (Pin, StudentTypeId, EMYR) {
-            var paramObject = { "Pin": Pin, "StudentTypeId": StudentTypeId ,"EMYR":EMYR};
+            var paramObject = { "Pin": Pin, "StudentTypeId": StudentTypeId, "EMYR": EMYR };
             return DataAccessService.getDataWithPara('api/PreExamination/GetStudentFeePaymentDetails', paramObject);
         }
 
@@ -2982,11 +2983,11 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/Odc_SetVerifyStatus', paramObject);
             return promise;
         }
-        
+
         this.Odc_Set_UpdateAffidavit = function (Pin, userType, MegistrateAffidavit) {
             var paramObject = { "Pin": Pin, "userType": userType, "MegistrateAffidavit": MegistrateAffidavit };
-         
-          var promise = DataAccessService.postData('api/PreExamination/Odc_Set_UpdateAffidavit', paramObject);
+
+            var promise = DataAccessService.postData('api/PreExamination/Odc_Set_UpdateAffidavit', paramObject);
             return promise;
         }
 
@@ -3076,15 +3077,15 @@
             },
 
             this.getHallticket = function (Pin, DateOfBirth, StudentTypeId, EMYR) {
-                if (StudentTypeId == 1){
-                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId,"EMYR":EMYR};
-                var promise = DataAccessService.getDataWithPara('api/PreExamination/GetRegularHallticket', paramObject);
-                return promise;
-            }else if(StudentTypeId == 2){
-                var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "Exammonthyearid": EMYR };
-                var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket', paramObject);
-                return promise;
-        }
+                if (StudentTypeId == 1) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "EMYR": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetRegularHallticket', paramObject);
+                    return promise;
+                } else if (StudentTypeId == 2) {
+                    var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "Exammonthyearid": EMYR };
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket', paramObject);
+                    return promise;
+                }
             },
 
             this.getHallticket1 = function (Pin, DateOfBirth, StudentTypeId, EMYR) {
@@ -3099,7 +3100,7 @@
                 }
             },
 
-            this.getAdminCollegePreExamReports = function (UserId, CollegeCode,ExamMonthYearId, Semester,StudentTypeId) {
+            this.getAdminCollegePreExamReports = function (UserId, CollegeCode, ExamMonthYearId, Semester, StudentTypeId) {
                 var paramObj = { "UserId": UserId, "CollegeCode": CollegeCode, "ExamMonthYearId": ExamMonthYearId, "Semester": Semester, "StudentTypeId": StudentTypeId };
                 console.log(paramObj)
                 var promise = DataAccessService.getDataWithPara('api/PreExamination/getAdminCollegePreExamReports', paramObj);
@@ -3110,9 +3111,9 @@
             var promise = DataAccessService.getDataWithPara('PreExaminationReport/GetFeePaymentReports', paramObj);
             return promise;
         }
-        this.GetAdminPreExamReports = function (ExamMonthYearId,Semester,StudentTypeId) {
+        this.GetAdminPreExamReports = function (ExamMonthYearId, Semester, StudentTypeId) {
             var paramObj = { "ExamMonthYearId": ExamMonthYearId, "Semester": Semester, "StudentTypeId": StudentTypeId };
-            var promise =  DataAccessService.getDataWithPara('api/PreExamination/GetAdminPreExamReports',paramObj);
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetAdminPreExamReports', paramObj);
             return promise;
         },
 
@@ -3129,6 +3130,16 @@
             this.GetSubBillerReport = function (SubBillerId, fromDate, toDate) {
                 var paramObj = { "SubBillerId": SubBillerId, "StartDate": fromDate, "EndDate": toDate };
                 var promise = DataAccessService.postData('PreExaminationReport/GetSubBillerReport', paramObj);
+                return promise;
+            },
+
+            this.GetDayWiseSubBillerReport = function (DataType, subbillerid, Date) {
+            var paramObj = {
+                "DataType": DataType,
+                "subbillerid": subbillerid,
+                "Date": Date
+            };
+            var promise = DataAccessService.postData('PreExaminationReport/GetDayWiseSubBillerReport', paramObj);
                 return promise;
             },
             this.GetFeePaymentReports = function (studentTypeId, startDate, endDate, examType) {
@@ -3160,10 +3171,10 @@
                 return promise;
             },
 
-            this.NrExcelReports = function (StudentTypeId, CollegeCode, ExamTypeId,ExamMonthYearId) {
-            var paramObj = {
-                
-                "StudentTypeId": StudentTypeId, "CollegeCode": CollegeCode, "ExamTypeId": ExamTypeId, "ExamMonthYearId": ExamMonthYearId
+            this.NrExcelReports = function (StudentTypeId, CollegeCode, ExamTypeId, ExamMonthYearId) {
+                var paramObj = {
+
+                    "StudentTypeId": StudentTypeId, "CollegeCode": CollegeCode, "ExamTypeId": ExamTypeId, "ExamMonthYearId": ExamMonthYearId
                 };
                 var promise = DataAccessService.getDataWithPara('PreExaminationReport/NrExcelReports', paramObj);
 
@@ -3171,18 +3182,19 @@
             },
 
             this.PrinterNrDownload = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId, semid) {
-            var paramObj = {
-                "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId,"semid": semid };
+                var paramObj = {
+                    "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId, "semid": semid
+                };
                 var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrDownload', paramObj);
                 return promise;
             },
-         
-        this.PrinterNrDownloadExcelReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId, semid) {
-            var paramObj = {
-                "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId,
-                "semid": semid
-            };
-            var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrDownloadExcelReport', paramObj);
+
+            this.PrinterNrDownloadExcelReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId, semid) {
+                var paramObj = {
+                    "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId,
+                    "semid": semid
+                };
+                var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrDownloadExcelReport', paramObj);
                 return promise;
             },
 
@@ -3191,13 +3203,13 @@
                     "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId,
                     "semid": semid
                 };
-            var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrAttendanceExcelReport', paramObj);
+                var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrAttendanceExcelReport', paramObj);
                 return promise;
             },
-            
+
 
             this.PrinterNrCollegeVsBranchReport = function (AcademicYearId, ExamMonthYearId, StudentTypeId, ExamTypeId) {
-            var paramObj = { "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId };
+                var paramObj = { "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "ExamTypeId": ExamTypeId };
                 var promise = DataAccessService.getDataWithPara('PreExaminationReport/PrinterNrCollegeVsBranchReport', paramObj);
                 return promise;
             },
@@ -3206,23 +3218,23 @@
                 return DataAccessService.getDataAll('PreExaminationReport/FeeNotPaidExcelReport');
             },
 
-         this.GetNBAReports1Excel = function () {
-             return DataAccessService.getDataAll('api/PreExamination/GetNBAReports1Excel');
-         },
-        
-         this.GetNBAReports2Excel = function () {
-             return DataAccessService.getDataAll('api/PreExamination/GetNBAReports2Excel');
-         },
-         this.GetNBAReports31Excel = function () {
-             return DataAccessService.getDataAll('api/PreExamination/GetNBAReports31Excel');
-         },
-         this.GetNBAReports32Excel = function () {
-             return DataAccessService.getDataAll('api/PreExamination/GetNBAReports32Excel');
-         },
-         this.GetNBAReports4Excel = function () {
-             return DataAccessService.getDataAll('api/PreExamination/GetNBAReports4Excel');
-         },
-       
+            this.GetNBAReports1Excel = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetNBAReports1Excel');
+            },
+
+            this.GetNBAReports2Excel = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetNBAReports2Excel');
+            },
+            this.GetNBAReports31Excel = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetNBAReports31Excel');
+            },
+            this.GetNBAReports32Excel = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetNBAReports32Excel');
+            },
+            this.GetNBAReports4Excel = function () {
+                return DataAccessService.getDataAll('api/PreExamination/GetNBAReports4Excel');
+            },
+
 
             this.GetOdcReasons = function () {
                 return DataAccessService.getDataAll('api/PreExamination/GetOdcReasons');
@@ -3274,12 +3286,12 @@
                 return promise;
             },
 
-         this.SetSemTransfer = function (AcademicYearId, SemId) {
-             var paramObj = { "AcademicYearId": AcademicYearId, "SemId": SemId };
-             var promise = DataAccessService.getDataWithPara('api/PreExamination/SetSemTransfer', paramObj);
-             return promise;
-         },
-        
+            this.SetSemTransfer = function (AcademicYearId, SemId) {
+                var paramObj = { "AcademicYearId": AcademicYearId, "SemId": SemId };
+                var promise = DataAccessService.getDataWithPara('api/PreExamination/SetSemTransfer', paramObj);
+                return promise;
+            },
+
             this.setBackLogData = function (Pin, StudentType, Profilephoto) {
                 var paramObj = { "Pin": Pin, "StudentType": StudentType, "Profilephoto": Profilephoto };
                 var promise = DataAccessService.postData('api/PreExamination/setBackLogData', paramObj);
@@ -3287,7 +3299,7 @@
             },
             this.uploadExcel = function (ExcelData) {
                 var promise = DataAccessService.uploadFileToUrl('PreExaminationReport/GetFromExalReports', ExcelData);
-                
+
                 return promise;
             }
         this.uploadJsonData = function (Json, type) {
@@ -3309,26 +3321,26 @@
             return promise;
         }
 
-        this.UploadResultFileJson = function (ExamMonthYearId, StudentTypeId, Scheme,ExamTypeId,Json, UserName) {
+        this.UploadResultFileJson = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, Json, UserName) {
             var paramObj = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "ExamTypeId": ExamTypeId, "Json": Json, "UserName": UserName }
             var promise = DataAccessService.postData('api/PreExamination/UploadResultFileJson', paramObj);
             return promise;
         }
 
         this.UploadRVRCFileJson = function (ExamMonthYearId, StudentTypeId, Scheme, UserName, Json) {
-            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "UserName": UserName, "Json": Json}
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "UserName": UserName, "Json": Json }
             var promise = DataAccessService.postData('api/PreExamination/UploadRVRCFileJson', paramObj);
             return promise;
         }
 
-     
-        this.UploadWantingsJson = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId,DataTypeId,UserName, Json) {
-            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "ExamTypeId": ExamTypeId,"DataTypeId":DataTypeId,"UserName": UserName , "Json": Json }
+
+        this.UploadWantingsJson = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, DataTypeId, UserName, Json) {
+            var paramObj = { "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "ExamTypeId": ExamTypeId, "DataTypeId": DataTypeId, "UserName": UserName, "Json": Json }
             ////console.log(paramObj)
             var promise = DataAccessService.postData('api/PreExamination/UploadWantingsJson', paramObj);
             return promise;
         }
-        
+
         this.DeployNicData = function (AcademicYearId, AdmissionType) {
             var paramObj = { "AcademicYearId": AcademicYearId, "AdmissionType": AdmissionType }
             ////console.log(paramObj)
@@ -3336,8 +3348,8 @@
             return promise;
         }
 
-        this.uploadJsonExcel = function (AcademicYearId,AdmissionType,json) {
-            var paramObj = { "AcademicYearId":AcademicYearId,"AdmissionType":AdmissionType,"json": json }
+        this.uploadJsonExcel = function (AcademicYearId, AdmissionType, json) {
+            var paramObj = { "AcademicYearId": AcademicYearId, "AdmissionType": AdmissionType, "json": json }
             ////console.log(paramObj)
             var promise = DataAccessService.postData('api/PreExamination/uploadJsonExcel', paramObj);
             return promise;
@@ -3388,7 +3400,7 @@
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForFeedback', paramObject);
         };
-       
+
         this.UpdateSubjectMasterDetails = function (SubId, Subject_Code, SubjectName, iselective, BoardQuestionPaper, AnswerBookLet, Mid1Max_Marks, Mid2Max_Marks, Mid3Max_Marks, InternalMax_Marks, end_exam_max_marks, Credits, PCode) {
             var paramObject = {
                 "SubId": SubId, "Subject_Code": Subject_Code, "SubjectName": SubjectName, "iselective": iselective,
@@ -3408,6 +3420,15 @@
         this.GetMercyList = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetMercyList');
         };
+
+        this.GetSubBillerDayWiseCount = function (Date) {
+            var paramObj = {
+                "Date": Date
+            };
+            var promise = DataAccessService.getDataWithPara('PreExaminationReport/GetSubBillerDayWiseCount', paramObj);
+            return promise;
+        
+        }
 
     });
 });

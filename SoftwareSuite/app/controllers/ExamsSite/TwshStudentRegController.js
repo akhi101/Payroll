@@ -811,7 +811,6 @@
                 //}
 
 
-
                 $scope.finalArray = arr.map(function (obj) {
                     return obj.date;
                 });

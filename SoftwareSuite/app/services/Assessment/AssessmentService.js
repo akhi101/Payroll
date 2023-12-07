@@ -152,7 +152,7 @@
                 "BranchId": BranchId,
                 "DataType": DataType
             };
-            var promise = DataAccessService.getDataWithPara('Assessment/GetAbsenteesListExcel', paramObj);
+            var promise = DataAccessService.postData('Assessment/GetAbsenteesListExcel', paramObj);
             return promise;
         };
     });

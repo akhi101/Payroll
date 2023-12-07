@@ -126,6 +126,38 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpPost, ActionName("GetDayWiseSubBillerReport")]
+        public string GetDayWiseSubBillerReport(int DataType,string subbillerid, string Date)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "SP_Get_SubBillerDateBasedReportslist ";
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@subbillerid", subbillerid);
+                param[2] = new SqlParameter("@Date", Date);
+                //param[2].Value = Date;
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                var filename = "SubBillerReport_" + subbillerid + "_" + Guid.NewGuid().ToString() + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPathTR"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPathTR"] + filename);
+                timer.Start();
+                return "/TR/" + filename;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_SubBillerDateBasedReportslist", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
+                return "Error Occured. Please Try Again";
+            }
+        }
+
         [HttpPost, ActionName("ThreeBacklogODCByPin")]
         public string ThreeBacklogODCByPin(string fromdate, string todate, string PIN)
         {
@@ -601,6 +633,24 @@ namespace SoftwareSuite.Controllers.PreExamination
             System.IO.File.Delete(s);
             ((Timer)sender).Stop();
             ((Timer)sender).Dispose();
+        }
+
+        [HttpGet, ActionName("GetSubBillerDayWiseCount")]
+        public string GetSubBillerDayWiseCount(string Date )
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Date ", Date);
+                var ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SubBillerDateBasedReports", param);
+                return JsonConvert.SerializeObject(ds);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_SubBillerDateBasedReports", 0, ex.Message);
+                return ex.Message;
+            }
         }
     }
 }

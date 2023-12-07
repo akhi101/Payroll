@@ -8,6 +8,7 @@
         $scope.GradeId = $localStorage.collegeAuthorization.GradeId;
         $scope.LanguageId = $localStorage.collegeAuthorization.LanguageId;
         $scope.ExamBatch = $localStorage.collegeAuthorization.ExamBatch;
+        $scope.DataType = $localStorage.collegeAuthorization.DataType;
         //$scope.UserId = "3";
         //$scope.courseId = "1";
         //$scope.GradeId = "1";
@@ -15,7 +16,7 @@
         //$scope.ExamBatch = "2";
       
     
-        var GetApprovedList = TwshStudentRegService.getApprovedList($scope.UserId, $scope.courseId, $scope.GradeId, $scope.LanguageId, $scope.ExamBatch);
+        var GetApprovedList = TwshStudentRegService.getApprovedList($scope.UserId, $scope.courseId, $scope.GradeId, $scope.LanguageId, $scope.ExamBatch,$scope.DataType);
         GetApprovedList.then(function (response) {
            // alert()
 

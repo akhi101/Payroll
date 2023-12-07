@@ -668,7 +668,7 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
-        public class person1
+        public class person
         {
             public string ResponseCode { get; set; }
             public string ResponseDescription { get; set; }
@@ -704,41 +704,43 @@ namespace SoftwareSuite.Controllers.Assessment
             ((Timer)sender).Dispose();
         }
 
-        [HttpGet, ActionName("GetAbsenteesListExcel")]
-        public string GetAbsenteesListExcel(int AcademicYearID,int SemId, string FromDate,string ToDate,string CollegeCode,int BranchId,int DataType)
+        [HttpPost, ActionName("GetAbsenteesListExcel")]
+        public string GetAbsenteesListExcel([FromBody] AbsenteesData request)
         {
 
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[7];
-                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
-                param[1] = new SqlParameter("@SemId", SemId);
-                param[2] = new SqlParameter("@FromDate", FromDate);
-                param[3] = new SqlParameter("@ToDate", ToDate);
-                param[4] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[5] = new SqlParameter("@BranchId", BranchId);
-                param[6] = new SqlParameter("@DataType", DataType);
-                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AbsenteesList", param);
-                if (ds.Tables[0].Rows.Count > 0)
+                param[0] = new SqlParameter("@AcademicYearID", request.AcademicYearID);
+                param[1] = new SqlParameter("@SemId", request.SemId);
+                param[2] = new SqlParameter("@FromDate", request.FromDate);
+                param[3] = new SqlParameter("@ToDate", request.ToDate);
+                param[4] = new SqlParameter("@CollegeCode", request.CollegeCode);
+                param[5] = new SqlParameter("@BranchId", request.BranchId);
+                param[6] = new SqlParameter("@DataType", request.DataType);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AbsenteesList", param);
+                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200")
 
                 {
                     var filename = "Absentees_Report" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    DataSet excelds = new DataSet();
+                    excelds.Tables.Add(dt.Tables[1].Copy());
                     bool folderExists = Directory.Exists(path);
                     if (!folderExists)
                         Directory.CreateDirectory(path);
-                    eh.ExportDataSet(ds, path + filename);
+                    eh.ExportDataSet(excelds, path + filename);
                     Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
-                    List<person1> p = new List<person1>();
-                    person1 p1 = new person1();
+                    List<person> p = new List<person>();
+                    person p1 = new person();
                     p1.file = file;
-                    p1.ResponseCode = "200";
-                    p1.ResponseDescription = "Data Found";
+                    p1.ResponseCode = dt.Tables[0].Rows[0]["ResponseCode"].ToString();
+                    p1.ResponseDescription = dt.Tables[0].Rows[0]["ResponseDescription"].ToString();
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -749,11 +751,11 @@ namespace SoftwareSuite.Controllers.Assessment
                 
                 else
                 {
-                    List<person1> p = new List<person1>();
-                    person1 p1 = new person1();
+                    List<person> p = new List<person>();
+                    person p1 = new person();
                     p1.file = "";
-                    p1.ResponseCode = "400";
-                    p1.ResponseDescription = "Data not Found";
+                    p1.ResponseCode = dt.Tables[0].Rows[0]["ResponseCode"].ToString();
+                    p1.ResponseDescription = dt.Tables[0].Rows[0]["ResponseDescription"].ToString();
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
