@@ -3516,6 +3516,14 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var db = new Twshdbandler();
+                string encriptedaadhar = "";
+
+                var res = ReqData.Aadhaar.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[30];
                 param[0] = new SqlParameter("@UserId", ReqData.UserId);
                 param[1] = new SqlParameter("@StudentName", ReqData.StudentName);
@@ -3546,7 +3554,7 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[26] = new SqlParameter("@File3", ReqData.File3);
                 param[27] = new SqlParameter("@Photo", ReqData.Photo);
                 param[28] = new SqlParameter("@ExamMode", ReqData.mode);
-                param[29] = new SqlParameter("@Aadhaar", ReqData.Aadhaar);
+                param[29] = new SqlParameter("@Aadhaar", encriptedaadhar);
                 var dt = db.ReturnDataWithStoredProcedureTable("SP_SET_StudentApplicationDetails", param);
                 var appno = dt.Rows[0]["ApplicationNumber"];
                 var Status = dt.Rows[0]["ResponceCode"];

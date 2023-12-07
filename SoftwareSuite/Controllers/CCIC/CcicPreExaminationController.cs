@@ -24,6 +24,8 @@ using static SoftwareSuite.Controllers.Assessment.AssessmentController;
 using System.Timers;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using SoftwareSuite.Models.Security;
+using SoftwareSuite.Models.CCIC;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -1215,6 +1217,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
                 var dbHandler = new ccicdbHandler();
+                string encriptedaadhar = "";
+
+                var res = CertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[32];
                 param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
@@ -1231,7 +1241,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[12] = new SqlParameter("@DateofBirth", CertificateReqAtt.DateofBirth);
                 param[13] = new SqlParameter("@SSCDateofBirth", CertificateReqAtt.SSCDateofBirth);
                 param[14] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
-                param[15] = new SqlParameter("@AadharNumber", CertificateReqAtt.AadharNumber);
+                param[15] = new SqlParameter("@AadharNumber", encriptedaadhar);
                 param[16] = new SqlParameter("@HouseNumber", CertificateReqAtt.HouseNumber);
                 param[17] = new SqlParameter("@Street", CertificateReqAtt.Street);
                 param[18] = new SqlParameter("@Landmark", CertificateReqAtt.Landmark);
@@ -1293,7 +1303,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentExpCertpath = string.Empty;
 
 
-                if (UpdateCertificateReqAtt.StudentPhoto != "")
+                if (UpdateCertificateReqAtt.StudentPhoto != null)
                 {
                     StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1311,7 +1321,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     photo_url = "";
                 }
 
-                if (UpdateCertificateReqAtt.StudentSign != "")
+                if (UpdateCertificateReqAtt.StudentSign != null)
                 {
                     StdSign = "Sign_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1329,7 +1339,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     sign_url = "";
                 }
 
-                if (UpdateCertificateReqAtt.SSCCertificate != "")
+                if (UpdateCertificateReqAtt.SSCCertificate != null)
                 {
                     StdSscCert = "SSCCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1348,7 +1358,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.QualificationCertificate != "")
+                if (UpdateCertificateReqAtt.QualificationCertificate != null)
                 {
                     StdQualCert = "QualificationCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1367,7 +1377,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.ExperienceCertificate != "")
+                if (UpdateCertificateReqAtt.ExperienceCertificate != null)
                 {
                     StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1595,7 +1605,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
                 param[1] = new SqlParameter("@StudentID", data["StudentID"]);
                 param[2] = new SqlParameter("@ApplicationStatus", data["ApplicationStatus"]);
-                
+
+                var passcrypt = new CcicCrypt();
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_ViewStudentDetails", param);

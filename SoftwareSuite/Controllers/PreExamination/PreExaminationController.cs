@@ -36,6 +36,7 @@ using SoftwareSuite.Models.DCBills;
 using SoftwareSuite.Controllers.Common;
 using Newtonsoft.Json.Linq;
 using System.Xml;
+using SoftwareSuite.Models.Security;
 
 namespace SoftwareSuite.Controllers.PreExamination
 {
@@ -9256,9 +9257,17 @@ namespace SoftwareSuite.Controllers.PreExamination
                 AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
-                param[1] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[1] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[2] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[3] = new SqlParameter("@PoliceFir", Fir);
                 param[4] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
@@ -9714,9 +9723,17 @@ namespace SoftwareSuite.Controllers.PreExamination
                 // AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
-                param[1] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[1] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[2] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[3] = new SqlParameter("@PoliceFir", Fir);
                 param[4] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
@@ -9821,6 +9838,14 @@ namespace SoftwareSuite.Controllers.PreExamination
                 // AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[15];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
                 param[1] = new SqlParameter("@Name", OdCRequest.Name);
@@ -9830,7 +9855,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[5] = new SqlParameter("@Scheme", OdCRequest.Scheme);
                 param[6] = new SqlParameter("@Gender", OdCRequest.Gender);
                 param[7] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
-                param[8] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[8] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[9] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[10] = new SqlParameter("@AadharCopy", AadharData);
                 param[11] = new SqlParameter("@OdcMemos", file);

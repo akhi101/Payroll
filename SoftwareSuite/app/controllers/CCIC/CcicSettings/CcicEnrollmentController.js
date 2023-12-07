@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicEnrollmentController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("CcicEnrollmentController", function ($scope, $crypto, $localStorage, $state, CcicPreExaminationService, CcicSystemUserService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
@@ -17,6 +17,25 @@
         }
 
         $scope.loading = false;
+
+        var eKey = CcicSystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            console.log($scope.EKey)
+            sessionStorage.Ekey = res;
+
+
+        });
+
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
 
         //$scope.StuName = function () {
 
@@ -590,7 +609,7 @@
             $scope.ShowDetails = false;
 
 
-
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.Aadhar, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             let sscHallticket = ($scope.sscHallticket == null || $scope.sscHallticket == undefined || $scope.sscHallticket == '') ? '' : $scope.sscHallticket;
 
             let passedoutYear = ($scope.passedoutYear == null || $scope.passedoutYear == undefined || $scope.passedoutYear == '') ? '' : parseInt($scope.passedoutYear);
@@ -602,7 +621,7 @@
             //let StdExpCer = ($scope.stdExperienceCertificate == null || $scope.stdExperienceCertificate == undefined || $scope.stdExperienceCertificate == '') ? '' : $scope.stdExperienceCertificate;
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
             let MName = ($scope.MNAME == null || $scope.MNAME == undefined || $scope.MNAME == '') ? '' : $scope.MNAME;
-            let Aadhar = ($scope.Aadhar == null || $scope.Aadhar == undefined || $scope.Aadhar == '') ? '' : $scope.Aadhar;
+            let Aadhar = ($scope.Aadhar == null || $scope.Aadhar == undefined || $scope.Aadhar == '') ? '' : EncriptedAadhar;
             var paramObj = {
                 "ApplicationNumber": appNum,
                 "InstitutionID": authData.InstitutionID,
@@ -621,7 +640,7 @@
                 "DateofBirth": moment($scope.DOB_DATE).format("YYYY-MM-DD"),
                 "SSCDateofBirth": "",
                 "Gender": $scope.SEX,
-                "AadharNumber": parseInt(Aadhar),
+                "AadharNumber": Aadhar,
                 "HouseNumber": $scope.houseNo,
                 "Street": $scope.street,
                 "Landmark": $scope.landmark,
@@ -651,7 +670,8 @@
                     $scope.LoadImg = true;
                     $scope.ApplicationNumber = res[0].ApplicationNumber;
                     $scope.StudentId = res[0].StudentID;
-                    $scope.ViewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
+                    $scope.ApplicationStatus = res[0].ApplicationStatus;
+                    $scope.ViewStudentDetails(res[0].ApplicationNumber, res[0].StudentID, res[0].ApplicationStatus);
                     /* $state.go('CcicDashboard.Academic.ViewStudentDetails')*/
                     //$scope.PreviewStudentDetails(res[0].ApplicationNumber, res[0].StudentID);
                     alert(res[0].ResponseDescription);
@@ -685,10 +705,11 @@
 
 
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentId) {
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentId, ApplicationStatus) {
             $localStorage.TempData1 = {
                 ApplicationNumber: ApplicationNumber,
-                StudentId: StudentId
+                StudentId: StudentId,
+                ApplicationStatus: ApplicationStatus
 
             }
             $state.go('CcicDashboard.Academic.ViewStudentDetails');
