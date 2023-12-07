@@ -209,7 +209,8 @@
             </div>
             <div class="col-md-6 pull-right" >
                 <div class="submit-btn" style="margin-bottom:0px;" ng-show="IsEligible==false">
-                    <button class="" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="approve()">Approve</button>
+                    <button class="" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="Reject(2)">Reject</button>
+                    <button class="" ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="approve(1)">Approve</button>
 
                 </div>
             </div>
