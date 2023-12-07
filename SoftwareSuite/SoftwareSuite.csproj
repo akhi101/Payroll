@@ -1699,9 +1699,6 @@
     <Content Include="app\services\PreAssessment\hallTicketGenerationService.js" />
     <Content Include="app\services\PreAssessment\PreAssessmentService.js" />
     <Content Include="app\services\TWSH\TwshAdminService.js" />
-    <Content Include="app\views\Academic\AttendanceApproveList.html" />
-    <Content Include="app\views\Academic\AttendanceApproveListDetails.html" />
-    <Content Include="app\views\Academic\AttendanceDetailsPopup.html" />
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntry.html" />
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntryPage.html" />
     <Content Include="app\views\CCIC\Assessment\CcicMarksEntrySubjectList.html" />

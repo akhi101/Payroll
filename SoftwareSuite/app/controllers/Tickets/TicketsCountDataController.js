@@ -247,7 +247,7 @@ define(['app'], function (app) {
 
 
         //$scope.location = window.location.origin;
-
+        $scope.loading = true;
         $scope.getTicketsCountData = function () {
             var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName,tmpData.UserName,tmpData.ProjectID);
             getticketdata.then(function (response) {
@@ -258,13 +258,17 @@ define(['app'], function (app) {
 
                 }
                 if (res.Table.length > 0) {
+                    $scope.loading = false;
                     $scope.TasksData = res.Table;
 
                 } else {
+                    $scope.loading = false;
+
                     $scope.TasksData = [];
                 }
             },
                 function (error) {
+                    $scope.loading = false;
 
 
                 });

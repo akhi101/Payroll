@@ -77,7 +77,7 @@
 
         }
 
-
+        $scope.loading = true;
             var ticketsCount = AdminService.GetTicketsCount($scope.UserName);
         ticketsCount.then(function (response) {
                 try {
@@ -92,7 +92,8 @@
                 var UnderProcess = 0;
                 var Completed = 0;
 
-                if (Res.Table.length > 0) {
+            if (Res.Table.length > 0) {
+                $scope.loading = false;
                     $scope.TaskCount = Res.Table;
                     for (var i = 0; i < Res.Table.length; i++) {
                         if (Res.Table[i].Pending != null)
@@ -113,7 +114,9 @@
                     $scope.loading = false;
                   
                 }
-                else {
+            else {
+                $scope.loading = false;
+
                     $scope.loading = false;
                     $scope.ticketsCount = [];
                     

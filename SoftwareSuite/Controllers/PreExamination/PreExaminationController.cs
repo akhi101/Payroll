@@ -1086,7 +1086,6 @@ namespace SoftwareSuite.Controllers.PreExamination
                     p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
-
                     return JsonConvert.SerializeObject(p);
                     //return ;
 
@@ -3203,11 +3202,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //succuss message
                 // SendSms(2, 1, " Updated Working Days Successfully Pushed into DataBase");
 
-                try
-                {
-                 ProcessAttendanceDisplay();
-                }
-                 catch (Exception ex) { }
+                //try
+                //{
+                // ProcessAttendanceDisplay();
+                //}
+                // catch (Exception ex) { }
             }
             catch (Exception ex)
             {
