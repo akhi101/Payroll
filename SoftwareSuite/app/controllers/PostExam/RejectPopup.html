@@ -13,11 +13,12 @@
     <form name="RejectForm">
         <div class="form-group">
             <label>Remarks</label>
-            <input type="text" class="form-control" ng-model="remarks" required/>
+            <input type="text" class="form-control" maxlength="500" ng-model="remarks" required/>
         </div>
         <div class="row">
         <div class="col-md-6"><button class="btn btn-danger" ng-click="closeModal()">No</button></div>
-            <div class="col-md-6"><button class="btn btn-success pull-right"  ng-class="{'disabled': btndisable}" ng-click="!btndisable && Submit(2,remarks)">Yes</button></div>
+            <div class="col-md-6"><button class="btn btn-success pull-right"  ng-class="{'disabled': btndisable}" ng-click="!btndisable && RejectSubmit(remarks)">Yes</button></div>
+           
         </div>
     </form>
     </div>
