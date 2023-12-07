@@ -1056,6 +1056,30 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetGradeWiseBatchTimings', paramObj);
             return promise;
         };
+
+
+
+        this.RejectSubmitDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks) {
+            var paramObj = {
+                "ApprovedStatus": ApprovedStatus,
+                "Id": Id,
+                "examDate": examDate,
+                "RejectedRemarks": RejectedRemarks
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveSubmitDetails', paramObj);
+            return promise;
+        };
+
+        this.ApproveSubmitDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks) {
+            var paramObj = {
+                "ApprovedStatus": ApprovedStatus,
+                "Id": Id,
+                "examDate": examDate,
+                "RejectedRemarks": RejectedRemarks
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveSubmitDetails', paramObj);
+            return promise;
+        };
         
     });
 });

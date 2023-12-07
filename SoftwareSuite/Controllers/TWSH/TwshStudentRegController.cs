@@ -4177,6 +4177,27 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+        [HttpGet, ActionName("RejectorApproveSubmitDetails")]
+        public string RejectorApproveSubmitDetails(int ApprovedStatus, int Id,string examDate, string RejectedRemarks)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
+                param[1] = new SqlParameter("@Id", Id);
+                param[2] = new SqlParameter("@examDate", examDate);
+                param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
 
 

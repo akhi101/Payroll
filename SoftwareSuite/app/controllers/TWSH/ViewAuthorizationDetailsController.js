@@ -137,5 +137,96 @@
         }
 
 
+        $scope.closeModal = function () {
+            $scope.modalInstance.close();
+        }
+
+
+        $scope.RejectSubmit = function (remarks) {
+
+            var RejectDetails = TwshStudentRegService.RejectSubmitDetails(2, $scope.Id, 0, remarks);
+            RejectDetails.then(function (response) {
+                try {
+                    var Res = JSON.parse(response);
+                }
+                catch {}
+                if (Res.Table[0].ResponceCode == '200') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+                    $scope.modalInstance.close();
+                    $state.go('TWSH.ViewAuthorization')
+                } else if (Res.Table[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+                    $scope.modalInstance.close();
+
+                } else {
+                    $scope.loading = false;
+                    alert("No Data Found");
+
+                }
+
+            }, function (err) {
+                $scope.loading = false;
+                alert("Error while loading");
+            });
+
+           
+               
+
+
+        }
+
+
+        //$scope.Approve = function (ApproveStatus) {
+        //    $scope.remarks = '';
+        //    $scope.modalInstance = $uibModal.open({
+        //        templateUrl: "/app/Controllers/PostExam/RejectPopup.html",
+        //        size: 'xlg',
+        //        scope: $scope,
+        //        windowClass: 'modal-fit-att',
+        //    });
+        //}
+
+
+        //$scope.closeModal = function () {
+        //    $scope.modalInstance.close();
+        //}
+
+        $scope.ApproveSubmit = function (remarks) {
+
+            var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, $scope.examdate, remarks);
+            ApproveDetails.then(function (response) {
+                try {
+                    var Res = JSON.parse(response);
+                }
+                catch { }
+                if (Res.Table[0].ResponceCode == '200') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+                    $scope.modalInstance.close();
+                    $state.go('TWSH.ViewAuthorization')
+                } else if (Res.Table[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+                    $scope.modalInstance.close();
+
+                } else {
+                    $scope.loading = false;
+                    alert("No Data Found");
+
+                }
+
+            }, function (err) {
+                $scope.loading = false;
+                alert("Error while loading");
+            });
+
+
+
+
+
+        }
+
     })
 })
