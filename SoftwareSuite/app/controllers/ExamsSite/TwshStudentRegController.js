@@ -1,6 +1,8 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshStudentRegController", function ($scope, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
+    app.controller("TwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
 
+
+       
         $scope.isChecked = true;
         $scope.instructions = false;
         $scope.courseDetails = true;
@@ -63,6 +65,27 @@
             $scope.LoadOnlineDist();
 
         }
+
+
+        var eKey = SystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            console.log($scope.EKey)
+            sessionStorage.Ekey = res;
+
+
+        });
+
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
+
         $scope.LoadOnlineDist = function () {
             //--------Online Districts -----------
             var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
@@ -623,6 +646,7 @@
             }
         }
         $scope.submitData = function () {
+            $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
 
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
                 alert("Please Enter Student Name .");
@@ -1469,15 +1493,16 @@
             }
         }
 
+
         $scope.submitApplication = function () {
 
-
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             var req = {
                 "UserId": $scope.UserId == null || $scope.UserId == undefined ? "" : $scope.UserId,
                 "StudentName": $scope.CandidateName == null || $scope.CandidateName == undefined ? "" : $scope.CandidateName,
                 "FatherName": $scope.FatherName == null || $scope.FatherName == undefined ? "" : $scope.FatherName,
                 "MotherName": $scope.MotherName == null || $scope.MotherName == undefined ? "" : $scope.MotherName,
-                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : $scope.adhaarno,
+                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
                 "Gender": $scope.Gender == null || $scope.Gender == undefined ? "" : $scope.Gender,
                 "StudentPhoneNumber": $scope.mobileNO == null || $scope.mobileNO == undefined ? "" : $scope.mobileNO,
                 "CourseId": $scope.selectedcourse.Id == null || $scope.selectedcourse.Id == undefined ? "" : $scope.selectedcourse.Id,

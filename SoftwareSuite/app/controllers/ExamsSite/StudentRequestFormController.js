@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("StudentRequestFormController", function ($scope, $http, $localStorage, $state, $window, $stateParams, AppSettings, PreExaminationService, PaymentService, $uibModal) {
+    app.controller("StudentRequestFormController", function ($scope, $crypto, SystemUserService,$http, $localStorage, $state, $window, $stateParams, AppSettings, PreExaminationService, PaymentService, $uibModal) {
         $scope.TCReceiptFound = false;
         $scope.serviceform = true;
         $scope.result = false;
@@ -12,6 +12,20 @@
         //{ "Id": "4", "Name": "NC" },
         //    ]
 
+        var eKey = SystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            sessionStorage.Ekey = res;
+
+        });
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
         var getNoDataScheme = PreExaminationService.getNoDataSchemes();
         getNoDataScheme.then(function (response) {
 
@@ -685,6 +699,7 @@
 
             if ($scope.Certificate== 2 || $scope.Certificate== 4 || $scope.Certificate== 1 || $scope.Certificate== 7 || $scope.Certificate== 6 || $scope.Certificate== 5 || $scope.Certificate== 3 || $scope.Certificate== 9) {
                 if ($scope.Certificate== 5) {
+                    var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
 
 
                     if ($scope.userData.Pin == undefined || $scope.userData.Pin == null || $scope.userData.Pin == '') {
@@ -725,7 +740,7 @@
                         alert('Please upload  Certificates');
                         return;
                     }
-                    var SetInterimData = PreExaminationService.SetOdcData($scope.userData.Pin, $scope.AadharNo, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
+                    var SetInterimData = PreExaminationService.SetOdcData($scope.userData.Pin, EncriptedAadhar, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
                         $scope.Affidiate, $scope.Aadharxerox, $scope.studentfilearr)
                     //AadharNo, OdcNo, PoliceFir, PrincipalCoveringLetter, MegisrateAffidavit, AadharCopy, OdcMemos
                     // var SetInterimData = PreExaminationService.SetInterimData($scope.userData.Pin)
@@ -1607,6 +1622,7 @@
 
                     //    return;
                     //}
+                    var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
                     if ($scope.AadharNo == undefined || $scope.AadharNo == '' || $scope.AadharNo == null) {
 
                         alert('Please Enter Aadhaar Number.');
@@ -1720,7 +1736,8 @@
                         }
                         $scope.ProceedDisable = true;
                         $scope.loader = true;
-                        var SetOdcData = PreExaminationService.SetOldStudentsOdcDataPayment($scope.PinNumber, $scope.Name, $scope.FatherName, $scope.Branch, $scope.CollegeCode, $scope.Scheme, $scope.Gender, $scope.AadharNo, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
+                        var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+                        var SetOdcData = PreExaminationService.SetOldStudentsOdcDataPayment($scope.PinNumber, $scope.Name, $scope.FatherName, $scope.Branch, $scope.CollegeCode, $scope.Scheme, $scope.Gender, EncriptedAadhar, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
                             $scope.Affidiate, $scope.Aadharxerox, $scope.studentfilearr, $scope.OdcReason)
                         SetOdcData.then(function (res) {
                             console.log(res)
@@ -1743,7 +1760,8 @@
                     } else {
                         $scope.ProceedDisable = true;
                         $scope.loader = true;
-                        var SetOdcData = PreExaminationService.SetOdcDataPayment($scope.userData.Pin, $scope.AadharNo, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
+                        var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+                        var SetOdcData = PreExaminationService.SetOdcDataPayment($scope.userData.Pin, EncriptedAadhar, $scope.OdcNo, $scope.userPhoto1, $scope.PrincipalCover,
                             $scope.Affidiate, $scope.Aadharxerox, $scope.studentfilearr, $scope.OdcReason)
                         SetOdcData.then(function (res) {
                             if (res.Table[0].ResponceCode == '200') {

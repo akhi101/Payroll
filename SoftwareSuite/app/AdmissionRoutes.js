@@ -335,7 +335,7 @@
             'CcicDashboard.Academic.EditStudentDetails': {
                 url: "/EditStudentDetails",
                 templateUrl: 'app/views/CCIC/CcicSettings/EditStudentDetails.html',
-                dependencies: ['controllers/CCIC/CcicSettings/EditStudentDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+                dependencies: ['controllers/CCIC/CcicSettings/EditStudentDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService','services/CCIC/CcicSystemUserService']
             },
 
             'CcicDashboard.Academic.ViewStdDetailsVerification': {
@@ -347,7 +347,7 @@
             'CcicDashboard.Academic.EnrollmentReport': {
                 url: "/EnrollmentReport",
                 templateUrl: 'app/views/CCIC/CcicSettings/CcicEnrollmentReport.html',
-                dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+                dependencies: ['controllers/CCIC/CcicSettings/CcicEnrollmentReportController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSystemUserService']
             },
 
             
@@ -692,7 +692,7 @@
             'index.StudentRequestForm': {
                 url: "/StudentRequestForm",
                 templateUrl: 'app/views/ExamsSite/StudentRequestForm.html',
-                dependencies: ['controllers/ExamsSite/StudentRequestFormController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/ExamsSite/StudentRequestFormController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService','services/SystemAdministration/SystemUserService']
             },
 
             'Dashboard.PostExam.StudentRequestForm': {

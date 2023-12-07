@@ -110,6 +110,23 @@
             display: none;
         }
     }
+
+    .toggle-eye {
+        position: relative;
+    }
+
+        .toggle-eye input {
+            padding-right: 30px;
+        }
+
+    .eye-icon {
+        position: absolute;
+        top: 59%;
+        right: 415px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 1;
+    }
 </style>
 
 <div ng-controller="StudentRequestFormController" ng-init="createCaptcha()">
@@ -347,8 +364,10 @@
                     <div class="row userRow" ng-show="Certificate ==5">
                         <div class="col-md-4 font_bold">Aadhaar Number </div>
                         <div class="col-md-6">
-                            <input type="number" placeholder="Enter Aadhaar No" ng-model="AadharNo" class="upld-file">
-
+                            <input type="{{inputType}}" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar No" ng-model="AadharNo" id="aadharNumber" class="upld-file">
+                            <div class="eye-icon" ng-click="toggleAadharVisibility()">
+                                {{eyeIcon}}
+                            </div>
                         </div>
                     </div>
                     <div class="row userRow" ng-show="Certificate ==5">
