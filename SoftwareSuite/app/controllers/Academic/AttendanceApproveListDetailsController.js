@@ -255,16 +255,18 @@
         //    }
 
         //}
-
+     
         $scope.Verify = function (AttendeeId, Pin) {
             var ApproveList = PreExaminationService.SetAttendanceVerificationStatus($scope.UserId, AttendeeId, Pin);
             ApproveList.then(function (response) {
                 var response = JSON.parse(response)
-                $scope.closeModal();
+               
                 if (response.Table[0].ResponceCode == '200') {
+                    $scope.closeModal();
                     alert(response.Table[0].ResponceDescription)
 
                 } else if (response.Table[0].ResponceCode == '400') {
+                    $scope.closeModal();
                     alert(response.Table[0].ResponceDescription)
 
                 }
@@ -286,6 +288,7 @@
                 var response = JSON.parse(response)
 
                 $scope.StudentDetails = response.Table//.Table[0];
+                $scope.RemarksData = response.Table1
                 $scope.$emit('hideLoading', data);
             },
                 function (error) {
@@ -296,15 +299,29 @@
                     alert("error while loading data");
                     $scope.$emit('hideLoading', data);
                 });
+           
+
             $scope.modalInstance = $uibModal.open({
                 templateUrl: "/app/views/Academic/AttendanceDetailsPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
-                //backdrop: 'static',
+                //ackdrop: false,
             });
+            $scope.closeModal = function () {
+               // $uibModalInstance.dismiss()
+                $scope.modalInstance.dismiss();
+                $scope.modalInstance.close();
+                //$scope.modalInstance.close();
+            }
         }
 
+        $scope.closeModal = function () {
+            // $uibModalInstance.dismiss()
+            $scope.modalInstance.dismiss();
+            $scope.modalInstance.close();
+            //$scope.modalInstance.close();
+        }
 
         $scope.Approve = function (Pin) {
             $scope.Pin = Pin;
@@ -313,78 +330,12 @@
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
-                //backdrop: 'static',
+               // backdrop: false,
             });
 
-            $scope.closeModal = function () {
-                $scope.noteChallan = false;
-                $scope.modalInstance.close();
-            }
+           
         }
-
-        //$scope.Proceed = function (status) {
-        //    $scope.Pin;
-        //    $scope.Approve = status;
-        //    //alert("Certificate Approved Successfully")
-        //    $scope.modalInstance.close();
-        //    var ApproveList = PreExaminationService.SetCertificateApproval($scope.Pin, $scope.Approve);
-        //    ApproveList.then(function (response) {
-        //        try { var response = JSON.parse(response); } catch (err) { }
-
-        //        if (response.Table[0].ResponseCode == '200') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        } else if (response.Table[0].ResponseCode == '400') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        }
-        //        else {
-        //            //$scope.$emit('hideLoading', data);
-        //            $scope.Data = false;
-        //            $scope.Nodata = true;
-        //        }
-
-        //    },
-        //    function (error) {
-        //        //$scope.$emit('hideLoading', data);
-
-        //        $scope.Data = false;
-        //        $scope.Nodata = true;
-        //        alert("error while loading data");
-        //    });
-        //}
-
-        //$scope.Proceed1 = function (Pin) {
-        //    $scope.Pin = Pin;
-        //    $scope.Approve = 2;
-
-        //    var ApproveList = PreExaminationService.SetCertificateApproval($scope.Pin, $scope.Approve);
-        //    ApproveList.then(function (response) {
-        //        var response = JSON.parse(response)
-        //        console.log(response);
-
-        //        if (response.Table[0].ResponseCode == '200') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        } else if (response.Table[0].ResponseCode == '400') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        }
-        //        else {
-        //            //$scope.$emit('hideLoading', data);
-        //            $scope.Data = false;
-        //            $scope.Nodata = true;
-        //        }
-
-        //    },
-        //    function (error) {
-        //        //$scope.$emit('hideLoading', data);
-
-        //        $scope.Data = false;
-        //        $scope.Nodata = true;
-        //        alert("error while loading data");
-        //    });
-        //}
+     
 
         var PaymentStudent = [];
         var PaymentStudentList = [];
@@ -418,64 +369,7 @@
         };
 
 
-        $scope.checkODC = function () {
-            $scope.ResultFound = false;
-            $scope.ResultNotFound = false;
-            $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/PostExam/ODCPopup.html",
-                size: 'xlg',
-                scope: $scope,
-                windowClass: 'modal-fit-att',
-                //backdrop: 'static',
-            });
-        }
-
-        $scope.GetODC = function (Pin) {
-
-            if ((Pin == undefined) || (Pin == "0") || (Pin == "")) {
-                alert("Enter PIN");
-                return;
-            }
-            $scope.ODCPin = Pin;
-            $scope.LoadImg = true;
-            $scope.ResultFound = false;
-            $scope.ResultNotFound = false;
-            var getmemodetails = PreExaminationService.getTranscriptODCDetailsByPin(Pin);
-            getmemodetails.then(function (res) {
-                try { var response = JSON.parse(res) } catch (err) { }
-                $scope.modalInstance = $uibModal.open({
-                    templateUrl: "/app/views/PostExam/ODCPopup.html",
-                    size: 'xlg',
-                    scope: $scope,
-                    windowClass: 'modal-fit-att',
-                    //backdrop: 'static',
-                });
-
-                if (response.Table[0].ResponceCode == '200') {
-                    $scope.ODCstudData = response.Table1[0];
-                    $scope.Odcmarkstable = response.Table2;
-                    $scope.ResultFound = true;
-                    $scope.LoadImg = false;
-                    $scope.ResultNotFound = false;
-                }
-                else {
-                    $scope.ODCstudData = [];
-                    $scope.Odcmarkstable = [];
-                    $scope.ResultFound = false;
-                    $scope.LoadImg = false;
-                    $scope.ResultNotFound = true;
-
-                }
-
-
-            }, function (err) {
-                $scope.ResultFound = false;
-                $scope.LoadImg = false;
-                $scope.ResultNotFound = true;
-
-            })
-
-        }
+        
 
         Array.prototype.remByVal = function (val) {
             for (var i = 0; i < this.length; i++) {
@@ -497,7 +391,9 @@
             return this;
         }
 
-        $scope.Approve = function (ApproveStatus,remarks) {
+
+
+        $scope.Submit = function (ApproveStatus,remarks) {
             if (PaymentStudent != [] && PaymentStudent != '') {
                 //console.log(PaymentStudent)
                
@@ -514,10 +410,11 @@
                                             alert(response.Table[0].ResponseDescription);
                                             $scope.buttonlabel = "Approve";
                                             $scope.btndisable = false;
+                                            $scope.getlist();
                                             if ($scope.Remarks != "" || $scope.Remarks != undefined || $scope.Remarks == null) {
                                                 $scope.closeModal()
                                             }
-                                            $scope.getlist();
+
                                         } else {
                                             alert(response.Table[0].ResponseDescription);
                                             $scope.btndisable = false;
@@ -556,7 +453,9 @@
                     size: 'xlg',
                     scope: $scope,
                     windowClass: 'modal-fit-att',
+                   // backdrop: false,
                 });
+             
             } else {
                 alert("Please select Pins")
                 return;
@@ -564,55 +463,60 @@
         }
 
 
-        $scope.closeModal = function () {
-            $scope.modalInstance.close();
-        }
+        //$scope.closeModal = function () {
+        //    $scope.modalInstance = $uibModal({})
+        //    alert()
+        //   // $uibModalInstance.close(result);
+        //    $scope.modalInstance.dismiss();
+        //    $scope.modalInstance.dismiss('cancel');
+        //    $scope.modalInstance.close();
+        //}
 
 
-        $scope.Submit = function (remarks) {
-            if (PaymentStudent != [] && PaymentStudent != '') {
-                var ApproveStatus = 2
-                $scope.btndisable = true;
+        //$scope.Submit = function (remarks) {
+        //    if (PaymentStudent != [] && PaymentStudent != '') {
+        //        var ApproveStatus = 2
+        //        $scope.btndisable = true;
 
-                var Approve = PreExaminationService.MigrationSetApproveStatusReject(PaymentStudent, $scope.UserId, ApproveStatus, remarks);
-                Approve.then(function (response) {
-                    var response = JSON.parse(response)
-                    if (response.Table[0].ResponseCode == '200') {
-                        alert(response.Table[0].ResponseDescription)
-                        $scope.btndisable = false;
-                        $scope.closeModal()
-                        $scope.getlist();
+        //        var Approve = PreExaminationService.MigrationSetApproveStatusReject(PaymentStudent, $scope.UserId, ApproveStatus, remarks);
+        //        Approve.then(function (response) {
+        //            var response = JSON.parse(response)
+        //            if (response.Table[0].ResponseCode == '200') {
+        //                alert(response.Table[0].ResponseDescription)
+        //                $scope.btndisable = false;
+        //                $scope.closeModal()
+        //                $scope.getlist();
 
-                    } else if (response.Table[0].ResponseCode == '400') {
-                        alert(response.Table[0].ResponseDescription)
-                        $scope.btndisable = false;
-                        $scope.closeModal()
-                        $scope.getlist();
-                    }
-                    else {
-                        //$scope.$emit('hideLoading', data);
-                        $scope.Data = false;
-                        $scope.Nodata = true;
-                        $scope.closeModal()
+        //            } else if (response.Table[0].ResponseCode == '400') {
+        //                alert(response.Table[0].ResponseDescription)
+        //                $scope.btndisable = false;
+        //                $scope.closeModal()
+        //                $scope.getlist();
+        //            }
+        //            else {
+        //                //$scope.$emit('hideLoading', data);
+        //                $scope.Data = false;
+        //                $scope.Nodata = true;
+        //                $scope.closeModal()
 
-                    }
-                    //alert("Success")
+        //            }
+        //            //alert("Success")
 
-                },
-                    function (error) {
-                        //$scope.$emit('hideLoading', data);
-                        $scope.btndisable = false;
+        //        },
+        //            function (error) {
+        //                //$scope.$emit('hideLoading', data);
+        //                $scope.btndisable = false;
 
-                        $scope.Data = false;
-                        $scope.Nodata = true;
-                        $scope.closeModal()
-                        alert("error while loading data");
-                    });
-            } else {
-                alert('select the pins');
-                return;
-            }
-        }
+        //                $scope.Data = false;
+        //                $scope.Nodata = true;
+        //                $scope.closeModal()
+        //                alert("error while loading data");
+        //            });
+        //    } else {
+        //        alert('select the pins');
+        //        return;
+        //    }
+        //}
 
 
 
