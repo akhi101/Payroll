@@ -904,8 +904,8 @@
             return promise;
         };
 
-        this.approveDetails = function (Id, examDate) {
-            var paramObj = { "Id": Id, "examDate": examDate };
+        this.approveDetails = function (Id, examDate, ApproveStatus) {
+            var paramObj = { "Id": Id, "examDate": examDate, "ApproveStatus": ApproveStatus };
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/ApproveDetails', paramObj);
             return promise;
         };

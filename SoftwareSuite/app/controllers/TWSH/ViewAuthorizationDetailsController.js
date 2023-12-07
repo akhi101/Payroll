@@ -47,7 +47,7 @@
             $scope.SelectDateofExam = date;
         }
 
-        $scope.approve = function () {
+        $scope.approve = function (ApproveStatus) {
             if ($scope.ExamMode == 2) {
 
                 $scope.def.exam = "";
@@ -75,7 +75,7 @@
             }
 
 
-            var ApproveDetails = TwshStudentRegService.approveDetails($scope.Id, examdate);
+            var ApproveDetails = TwshStudentRegService.approveDetails($scope.Id, examdate, ApproveStatus,Remarks);
             ApproveDetails.then(function (response) {
 
 
@@ -123,6 +123,18 @@
         $scope.closeModal = function () {
             $scope.modalInstance.close();
         };
+
+
+
+        $scope.Reject = function (ApproveStatus) {
+            $scope.remarks = '';
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/Controllers/PostExam/RejectPopup.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+            });
+        }
 
 
     })

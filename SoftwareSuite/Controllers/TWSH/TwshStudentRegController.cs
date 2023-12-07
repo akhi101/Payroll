@@ -2827,15 +2827,18 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("ApproveDetails")]
-        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate)
+        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate,int ApproveStatus, int Remarks)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Id", Id);
                 param[1] = new SqlParameter("@examDate", examDate);
+                param[2] = new SqlParameter("@ApproveStatus", ApproveStatus);
+                param[3] = new SqlParameter("@Remarks", Remarks);
+
                 var ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 if (!string.IsNullOrWhiteSpace(examDate))
                 {
