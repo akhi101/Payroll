@@ -213,103 +213,6 @@
                     alert("error while loading data");
                 });
         }
-        //    $scope.ApprovalData = [
-        //{ "Id": "1", "Scheme": "C16", "CollegeCode": "20", "PIN": "16001-m-001", "Name": "Ram","Phone":"1234567890","ApprovalDate":"08-04-2020"},
-        //  { "Id": "2", "Scheme": "C16", "CollegeCode": "20", "PIN": "16001-M-001", "Name": "Ramesh", "Phone": "1234567890", "ApprovalDate": "08-04-2020", },
-        //    { "Id": "3", "Scheme": "C16", "CollegeCode": "20", "PIN": "16001-m-001", "Name": "Ram", "Phone": "1234567890", "ApprovalDate": "08-04-2020", }
-
-        //    ]
-
-        //$scope.Changecheck = function () {
-
-        //    if ($scope.MyCheck == false) {
-        //        $scope.btnDisable = false;
-        //        //$scope.MyCheck = true;
-        //    } else {
-        //        $scope.btnDisable = true;
-        //    }
-
-        //}
-
-        //$scope.Approve = function (Pin) {
-        //    $scope.Pin = Pin;
-        //    $scope.modalInstance = $uibModal.open({
-        //        templateUrl: "/app/views/AlertPopup.html",
-        //        size: 'xlg',
-        //        scope: $scope,
-        //        windowClass: 'modal-fit-att',
-        //        //backdrop: 'static',
-        //    });
-
-        //    $scope.closeModal = function () {
-        //        $scope.noteChallan = false;
-        //        $scope.modalInstance.close();
-        //    }
-        //}
-
-        //$scope.Proceed = function (status) {
-        //    $scope.Pin;
-        //    $scope.Approve = status;
-        //    //alert("Certificate Approved Successfully")
-        //    $scope.modalInstance.close();
-        //    var ApproveList = PreExaminationService.SetCertificateApproval($scope.Pin, $scope.Approve);
-        //    ApproveList.then(function (response) {
-        //        try { var response = JSON.parse(response); } catch (err) { }
-
-        //        if (response.Table[0].ResponseCode == '200') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        } else if (response.Table[0].ResponseCode == '400') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        }
-        //        else {
-        //            //$scope.$emit('hideLoading', data);
-        //            $scope.Data = false;
-        //            $scope.Nodata = true;
-        //        }
-
-        //    },
-        //    function (error) {
-        //        //$scope.$emit('hideLoading', data);
-
-        //        $scope.Data = false;
-        //        $scope.Nodata = true;
-        //        alert("error while loading data");
-        //    });
-        //}
-
-        //$scope.Proceed1 = function (Pin) {
-        //    $scope.Pin = Pin;
-        //    $scope.Approve = 2;
-
-        //    var ApproveList = PreExaminationService.SetCertificateApproval($scope.Pin, $scope.Approve);
-        //    ApproveList.then(function (response) {
-        //        var response = JSON.parse(response)
-        //        console.log(response);
-
-        //        if (response.Table[0].ResponseCode == '200') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        } else if (response.Table[0].ResponseCode == '400') {
-        //            alert(response.Table[0].ResponseDesc)
-        //            $state.go('Dashboard.PostExam.CertificateApproveList');
-        //        }
-        //        else {
-        //            //$scope.$emit('hideLoading', data);
-        //            $scope.Data = false;
-        //            $scope.Nodata = true;
-        //        }
-
-        //    },
-        //    function (error) {
-        //        //$scope.$emit('hideLoading', data);
-
-        //        $scope.Data = false;
-        //        $scope.Nodata = true;
-        //        alert("error while loading data");
-        //    });
-        //}
 
         var PaymentStudent = [];
         var PaymentStudentList = [];
@@ -540,7 +443,7 @@
         }
 
 
-        $scope.closeModal = function () {
+        $scope.ClosedModal = function () {
             $scope.modalInstance.close();
         }
 
@@ -556,20 +459,20 @@
                     if (response.Table[0].ResponseCode == '200') {
                         alert(response.Table[0].ResponseDescription)
                         $scope.btndisable = false;
-                        $scope.closeModal()
+                        $scope.ClosedModal()
                         $scope.getlist();
 
                     } else if (response.Table[0].ResponseCode == '400') {
                         alert(response.Table[0].ResponseDescription)
                         $scope.btndisable = false;
-                        $scope.closeModal()
+                        $scope.ClosedModal()
                         $scope.getlist();
                     }
                     else {
                         //$scope.$emit('hideLoading', data);
                         $scope.Data = false;
                         $scope.Nodata = true;
-                        $scope.closeModal()
+                        $scope.ClosedModal()
 
                     }
                     //alert("Success")
@@ -581,7 +484,7 @@
 
                         $scope.Data = false;
                         $scope.Nodata = true;
-                        $scope.closeModal()
+                        $scope.ClosedModal()
                         alert("error while loading data");
                     });
             } else {
@@ -840,7 +743,7 @@
 //        //        //backdrop: 'static',
 //        //    });
 
-//        //    $scope.closeModal = function () {
+//        //    $scope.ClosedModal = function () {
 //        //        $scope.noteChallan = false;
 //        //        $scope.modalInstance.close();
 //        //    }
@@ -1139,7 +1042,7 @@
 //        }
 
 
-//        $scope.closeModal = function () {
+//        $scope.ClosedModal = function () {
 //            $scope.modalInstance.close();
 //        }
 

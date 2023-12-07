@@ -139,16 +139,18 @@
                             var attdata = $scope.StudentAttData(dat.AttendeeId, dat.date, dat.Status);
                             tempId.push(dat.date);
                             AttDataList.push(attdata);
+                            console.log(AttDataList);
 
                         }
                     }
                 } else if (AttDataList.length == 0) {
                     var attdata = $scope.StudentAttData(dat.AttendeeId, dat.date, dat.Status);
                     AttDataList.push(attdata);
+                    console.log(AttDataList);
                 }              
             }
            
-            console.log(AttDataList);
+       
            
             $scope.AttDataList = AttDataList
         }

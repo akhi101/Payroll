@@ -193,24 +193,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in StudentDetails">
-                            <td>{{$index+1}}</td>
-                            <td>{{data.Pin}}</td>
-                            <td>{{data.Date}}</td>
-                            <td>{{data.Status}}</td>
+                        <tr ng-repeat="data in StudentDetails" ng-class="{'text-success': data.Approved =='1','text-warning': data.Approved =='0','text-danger': data.Approved =='2'}">
+                            <td ><b>{{$index+1}}</b></td>
+                            <td><b>{{data.Pin}}</b></td>
+                            <td><b>{{data.Date}}</b></td>
+                            <td><b>{{data.Status}}</b></td>
                             
                         </tr>
                     </tbody>
                 </table>
-                <div class="row padRow">
+                <div class="row padRow" ng-repeat="data in RemarksData">
                     <div class="col-md-2 font_bold">Remarks</div>
-                    <div class="col-md-10">: {{StudentDetails[0].Remarks}}</div>
+                    <div class="col-md-10" ng-class="{'text-success': data.Approved =='1','text-warning': data.Approved =='0','text-danger': data.Approved =='2'}">: {{data.remarks}}</div>
                 </div>
                 
                
 
             <div class="row">
-
                 <div class="col-md-6">
                     <button class="btn btn-danger" style="margin-top:21px" ng-click="closeModal()">Close</button>
                 </div>
@@ -222,5 +221,5 @@
         </div>
     </div>
 </div>
-
+</div>
 
