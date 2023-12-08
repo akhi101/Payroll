@@ -265,6 +265,8 @@ define(['app'], function (app) {
                     $scope.loading = false;
 
                     $scope.TasksData = [];
+                    $state.go('Dashboard.Tickets');
+
                 }
             },
                 function (error) {
