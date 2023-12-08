@@ -673,6 +673,8 @@ namespace SoftwareSuite.Controllers.Assessment
             public string ResponseCode { get; set; }
             public string ResponseDescription { get; set; }
             public string file { get; set; }
+            public string Password { get; set; }
+            public string Data { get; set; }
 
 
         }

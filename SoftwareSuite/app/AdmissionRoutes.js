@@ -315,7 +315,7 @@
             'CcicDashboard.Academic.EditStdDetails': {
                 url: "/EditStdDetails",
                 templateUrl: 'app/views/CCIC/CcicSettings/EditStdDetails.html',
-                dependencies: ['controllers/CCIC/CcicSettings/EditStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
+                dependencies: ['controllers/CCIC/CcicSettings/EditStdDetailsController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSystemUserService']
             },
 
             'CcicDashboard.Academic.ViewStuDetails': {
