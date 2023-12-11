@@ -2,7 +2,7 @@
     app.controller("ChangePasswordController", function ($scope, $state, $filter, $localStorage, $stateParams, $crypto, AppSettings, ChangePasswordService, MenuService, SystemUserService) {
       
             var authData = $localStorage.authorizationData;
-
+        $scope.NewPassword = "";
             $scope.userType = authData.SystemUserTypeId
             $scope.userName = authData.userName;
 

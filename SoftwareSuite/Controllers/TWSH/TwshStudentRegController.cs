@@ -4186,7 +4186,7 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("RejectorApproveSubmitDetails")]
-        public string RejectorApproveSubmitDetails(int ApprovedStatus, int Id,string examDate, string RejectedRemarks)
+        public string RejectorApproveSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null)
         {
             try
             {
