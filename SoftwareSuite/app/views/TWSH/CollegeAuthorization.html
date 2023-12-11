@@ -45,6 +45,7 @@
 
                                 <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Exam Batch</th>
                                 <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">On Roll</th>
+                                <th class="text-center" style="width: 10%" ng-click="sort('Rejected')">Not Approved</th>
                                 <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Need to Approve</th>
 
                             </tr>
@@ -56,17 +57,22 @@
                                 <td>{{data.Course}}</td>
                                 <td>{{data.GradeName}}</td>
                                 <td class="text-center">{{data.ExamBatch}}</td>
-                                <td class="text-center" ><a ng-click="openStudentList(data.CourseId,data.GradeId,data.LanguageId,data.ExamBatch,0)">{{data.OnRoll}}</a></td>
-
+                                <td class="text-center"><a ng-click="openStudentList(data.CourseId,data.GradeId,data.LanguageId,data.ExamBatch,0)">{{data.OnRoll}}</a></td>
+                                <td class="text-center"><a ng-click="openStudentList(data.CourseId,data.GradeId,data.LanguageId,data.ExamBatch,2)">{{data.isrejected}}</a></td>
                                 <td class="pointer text-center">
-                                <span ng-show="data.NeedToApprove > '0'"><button class="btn-xs btn sm_btn fail-btn  ng-binding" ng-click="openStudentList(data.CourseId,data.GradeId,data.LanguageId,data.ExamBatch,1)"
-                                 data-toggle="tooltip" data-placement="top" title="Click to Open Details">{{data.NeedToApprove}}</button></span>
-                                  <span ng-show="data.NeedToApprove == '0'">
-                                      <button class="btn-xs btn success-btn sm_btn ng-binding" ng-click=noData()
+                                    <span ng-show="data.NeedToApprove > '0'">
+                                        <button class="btn-xs btn sm_btn fail-btn  ng-binding" ng-click="openStudentList(data.CourseId,data.GradeId,data.LanguageId,data.ExamBatch,1)"
                                                 data-toggle="tooltip" data-placement="top" title="Click to Open Details">
                                             {{data.NeedToApprove}}
                                         </button>
-                                    </span></td>
+                                    </span>
+                                    <span ng-show="data.NeedToApprove == '0'">
+                                        <button class="btn-xs btn success-btn sm_btn ng-binding" ng-click=noData()
+                                                data-toggle="tooltip" data-placement="top" title="Click to Open Details">
+                                            {{data.NeedToApprove}}
+                                        </button>
+                                    </span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
