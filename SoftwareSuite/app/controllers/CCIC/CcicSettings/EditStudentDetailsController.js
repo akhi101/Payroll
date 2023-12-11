@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("EditStudentDetailsController", function ($scope, CcicSystemUserService, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("EditStudentDetailsController", function ($scope,CcicSystemUserService, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;

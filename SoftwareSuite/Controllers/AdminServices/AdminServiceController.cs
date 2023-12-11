@@ -1012,6 +1012,16 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
         }
 
+        public class person
+        {
+            public string file { get; set; }
+            public string ResponceCode { get; set; }
+            public string ResponceDescription { get; set; }
+        }
+
+
+        
+
         private string GetWebAppRoot()
         {
             var env = ConfigurationManager.AppSettings["SMS_ENV"].ToString();

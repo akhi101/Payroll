@@ -1441,6 +1441,7 @@
     <Content Include="app\controllers\Tickets\AddTicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
+    <Content Include="app\controllers\Tickets\TicketsReportController.js" />
     <Content Include="app\controllers\TWSH\ApplyCertificateController.js" />
     <Content Include="app\controllers\TWSH\GenerateTwshNrController.js" />
     <Content Include="app\controllers\TWSH\GradewiseExamcentersController.js" />
@@ -3114,6 +3115,7 @@
     <Content Include="app\views\Tickets\AddTickets.html" />
     <Content Include="app\views\Tickets\Tickets.html" />
     <Content Include="app\views\Tickets\TicketsCountData.html" />
+    <Content Include="app\views\Tickets\TicketsReport.html" />
     <Content Include="app\views\TotalExampaymentPopup.html" />
     <Content Include="app\views\TwalletRedirect.html" />
     <Content Include="app\views\TwoYearsCertificatePopup.html" />
