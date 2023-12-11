@@ -4283,6 +4283,16 @@
 
             },
 
+            'Dashboard.TicketsReport': {
+
+                url: "/Tickets/TicketsReport",
+
+                templateUrl: 'app/views/Tickets/TicketsReport.html',
+
+                dependencies: ['controllers/Tickets/TicketsReportController', 'services/AdminServices/AdminService']
+
+            },
+
             'Dashboard.AddTickets': {
 
                 url: "/AddTickets",
