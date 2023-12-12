@@ -2068,7 +2068,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["TicketsFolderPath"] + filename);
                     timer.Start();
-                    var file = "/TicketsDownloads/" + filename;
+                    var file = "/Downloads/" + filename;
 
                     p1.file = file;
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
