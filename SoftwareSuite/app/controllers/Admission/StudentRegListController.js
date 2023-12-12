@@ -47,7 +47,7 @@
         $scope.eyeIcon = '👁️';
 
 
-        $scope.togglePasswordVisibility = function () {
+        $scope.toggleAadharVisibility = function () {
             $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
             $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
         };

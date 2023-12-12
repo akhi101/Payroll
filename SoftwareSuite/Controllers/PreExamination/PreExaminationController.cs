@@ -36,6 +36,9 @@ using SoftwareSuite.Models.DCBills;
 using SoftwareSuite.Controllers.Common;
 using Newtonsoft.Json.Linq;
 using System.Xml;
+using SoftwareSuite.Models.Security;
+using DocumentFormat.OpenXml.Wordprocessing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
 
 namespace SoftwareSuite.Controllers.PreExamination
 {
@@ -1596,6 +1599,8 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
+
+
         [HttpGet, ActionName("GetNBAReports1Excel")]
         public string GetNBAReports1Excel()
         {
@@ -2028,6 +2033,67 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("USP_GET_AttendanceReportData", 0, ex.Message);
+
+                p1.file = "";
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetTicketsReportExcel")]
+        public string GetTicketsReportExcel(string FromDate, string ToDate)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FromDate", FromDate);
+                param[1] = new SqlParameter("@ToDate", ToDate);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_TicketsReport", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var filename = "Tickets_Report" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["TicketsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["TicketsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/TicketsDownloads/" + filename;
+
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_TicketsReport", 0, ex.Message);
 
                 p1.file = "";
                 p1.ResponceCode = "400";
@@ -9256,9 +9322,17 @@ namespace SoftwareSuite.Controllers.PreExamination
                 AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
-                param[1] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[1] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[2] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[3] = new SqlParameter("@PoliceFir", Fir);
                 param[4] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
@@ -9714,9 +9788,17 @@ namespace SoftwareSuite.Controllers.PreExamination
                 // AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
-                param[1] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[1] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[2] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[3] = new SqlParameter("@PoliceFir", Fir);
                 param[4] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
@@ -9821,6 +9903,14 @@ namespace SoftwareSuite.Controllers.PreExamination
                 // AadharData = Aadhar;
 
                 var dbHandler = new dbHandler();
+                string encriptedaadhar = "";
+
+                var res = OdCRequest.AadharNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                var crypt = new HbCrypt(res[1]);
+                var aadharencrypt = new HbCrypt();
+                string aadhar = crypt.AesDecrypt(res[0]);
+                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[15];
                 param[0] = new SqlParameter("@pin", OdCRequest.pin);
                 param[1] = new SqlParameter("@Name", OdCRequest.Name);
@@ -9830,7 +9920,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[5] = new SqlParameter("@Scheme", OdCRequest.Scheme);
                 param[6] = new SqlParameter("@Gender", OdCRequest.Gender);
                 param[7] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
-                param[8] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
+                param[8] = new SqlParameter("@AadharNo", encriptedaadhar);
                 param[9] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
                 param[10] = new SqlParameter("@AadharCopy", AadharData);
                 param[11] = new SqlParameter("@OdcMemos", file);
@@ -14313,6 +14403,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+
 
     }
 

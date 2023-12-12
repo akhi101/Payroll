@@ -325,9 +325,9 @@
 
                                 </div>
 
-                                <div class="col-md-6" ng-if="PreviewData.AadharNumber">
+                                <div class="col-md-6" ng-if="maskedAadhaar">
                                     <div class="col-md-5"> <label>Aadhar Number </label></div>
-                                    <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
+                                    <div class="col-md-7 pre-text">: {{maskedAadhaar}}</div>
 
                                 </div>
 
@@ -427,7 +427,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="(!isSubmitted&&UserTypeID==2) || (isSubmitted&&UserTypeID==2&&(ApplicationStatus=='Submitted' || ApplicationStatus=='Revised'))">
+                <div ng-if="(!isSubmitted&&UserTypeID==2) || (isSubmitted&&UserTypeID==2&&(Submitted=='Submitted' || ApplicationStatus=='2'))">
                     <div class="col-md-8">
 
                     </div>
@@ -435,7 +435,7 @@
                     <div class="col-md-1 pull-right mtp-50 containercontent">
 
                         <div class="cancel-btn" style="margin-bottom:0px;">
-                            <button type="button" ng-click="Modify()">Edit</button>
+                            <button type="button"  ng-click="Modify()">Edit</button>
                         </div>
 
                     </div>

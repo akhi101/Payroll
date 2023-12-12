@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("EditStudentDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("EditStudentDetailsController", function ($scope,CcicSystemUserService, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
@@ -20,6 +20,25 @@
             /*$scope.EditStudentDetails();*/
 
         }
+
+        var eKey = CcicSystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            console.log($scope.EKey)
+            sessionStorage.Ekey = res;
+
+
+        });
+
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
 
         var data = {};
         $scope.$emit('showLoading', data);

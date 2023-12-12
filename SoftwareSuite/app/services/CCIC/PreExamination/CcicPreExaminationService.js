@@ -418,7 +418,7 @@
                 "StudentID": StudentID,
                 "ApplicationStatus": ApplicationStatus
             };
-            var promise = DataAccessService.postData('api/CcicPreExamination/GetViewStudentDetails', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetViewStudentDetails', paramObj);
             return promise;
         }
 
@@ -426,7 +426,7 @@
             var paramObj = {
                 "ApplicationNumber": ApplicationNumber, "StudentID": StudentID
             };
-            var promise = DataAccessService.postData('api/CcicPreExamination/GetStudentDetails', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentDetails', paramObj);
             return promise;
         }
 

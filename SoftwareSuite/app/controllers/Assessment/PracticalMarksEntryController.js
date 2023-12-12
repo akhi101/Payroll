@@ -176,10 +176,10 @@
                         $scope.subbtn = true;
                     }
                 } else {
-                    alert('No Pins available for the selected inputs.')
                     if (!angular.isUndefined(response.Table2) && response.Table2.length > 0) {
                         alert(response.Table2[0].ResponceDescription);
                     }
+                    alert('No Pins available for the selected inputs.')
                 }
             }, function (error) {
                 $scope.pinWise = [];

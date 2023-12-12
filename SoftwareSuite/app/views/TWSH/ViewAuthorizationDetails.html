@@ -179,9 +179,17 @@
                                     <div class="col-md-3" ng-show="SelectedOnlineExamDate!=null||SelectedOnlineExamDate!=undefined||SelectedOnlineExamDate!=''">
                                         <label>Selectd time for Online Examination</label>
                                     </div>
-               <!--                     <input type="time"  name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />-->
-                                       <label ng-show="SelectedOnlineExamDate!=null&&SelectedOnlineExamDate!=undefined&&SelectedOnlineExamDate!=''">: {{SelectedOnlineExamDate}}</label>
+                                    <!--                     <input type="time"  name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />-->
+                                    <label ng-show="SelectedOnlineExamDate!=null&&SelectedOnlineExamDate!=undefined&&SelectedOnlineExamDate!=''">: {{SelectedOnlineExamDate}}</label>
                                 </div>
+                                <div class="col-md-12" ng-show="RejectedRemarks">
+                                    <div class="col-md-3" >
+                                        <label>Rejected Remarks</label>
+                                    </div>
+                                    <!--                     <input type="time"  name="examtime" class="examtime" min="09:00" max="18:00" value={{examtime}} ng-model='examtime' />-->
+                                <label ng-show="RejectedRemarks">: {{RejectedRemarks}}</label>
+                                </div>
+                                
                             </div>
                         </div>
                             <hr />
@@ -207,7 +215,7 @@
 
                 </div>
             </div>
-            <div class="col-md-2 pull-right" style="padding: 5px 20px" ng-show="IsEligible==false">
+            <div class="col-md-2 pull-right" style="padding: 5px 20px" ng-show="IsEligible==false  && isrejected==false">
                 <!--<div class="submit-btn" style="margin-bottom:0px;" >-->
                 <button class="btn btn-danger"  ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="Reject(2)">Reject</button>
                 <button class="btn btn-success"  ng-show="SelectedOnlineExamDate==null||SelectedOnlineExamDate==undefined||SelectedOnlineExamDate==''" ng-click="ApproveButton(1)">Approve</button>

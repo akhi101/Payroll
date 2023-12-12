@@ -80,7 +80,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="aadhar">Aadhar Number</label>
                                 <input type="{{inputType}}" class="form-control" autocomplete="off" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="aadharNumber" ng-disabled="AadhaarData" ng-model="aadhaarVerStu.AadharNo" placeholder="Enter Aadhaar Number">
-                                <div class="eye-icon" ng-click="togglePasswordVisibility()">
+                                <div class="eye-icon" ng-click="toggleAadharVisibility()">
                                     {{eyeIcon}}
                                 </div>
                                 

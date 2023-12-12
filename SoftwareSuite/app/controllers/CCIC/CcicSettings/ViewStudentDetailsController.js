@@ -19,7 +19,7 @@
             $state.go('CcicDashboard.Academic')
         }
         $scope.loading = true;
-        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId);
+        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData1.ApplicationNumber, tempData1.StudentId, tempData1.ApplicationStatus);
         ViewStudentDetail.then(function (response) {
 
             try {
@@ -42,7 +42,7 @@
                 $scope.loading = false;
                 $scope.PreviewData = res[0];
                 //$scope.DateofBirth = $scope.PreviewData.DateofBirth;
-
+                $scope.maskedAadhaar = $scope.PreviewData.AadharNumber.slice(0, 8).replace(/[0-9]/g, "X") + $scope.PreviewData.AadharNumber.slice(-4);
                 $scope.$emit('hideLoading', data);
 
             } else {

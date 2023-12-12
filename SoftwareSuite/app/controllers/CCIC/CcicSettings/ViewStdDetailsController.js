@@ -9,6 +9,8 @@
         //$scope.ReportTypeID = tempData2.ReportTypeID;
         $scope.isSubmitted = tempData3.isSubmitted;
         $scope.ApplicationStatus = tempData3.ApplicationStatus;
+
+        $scope.Submitted = tempData3.ApplicationStatus;
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
@@ -20,8 +22,18 @@
         $scope.Close = function () {
             $state.go('CcicDashboard.Academic.EnrollmentReport')
         }
+
+        if (tempData3.ApplicationStatus == 'Pending') {
+            $scope.ApplicationStatus = 1;
+        }
+        else if (tempData3.ApplicationStatus == 'Revised') {
+            $scope.ApplicationStatus = 2;
+        }
+        else if (tempData3.ApplicationStatus == 'Rejected') {
+            $scope.ApplicationStatus = 3;
+        }
         $scope.loading = true;
-        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID,tempData3.ApplicationStatus);
+        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, $scope.ApplicationStatus);
         ViewStudentDetail.then(function (response) {
 
             try {
@@ -30,9 +42,16 @@
             catch (err) { }
 
             $scope.PreviewData = [];
-            if (res.length >= 0) {
+            if (res[0].Data.length > 0) {
                 $scope.loading = false;
-                $scope.PreviewData = res[0];
+                var PreviewData = res[0].Data;
+                //console.log(PreviewData)
+                $scope.Aadhaar = res[0].Password;
+                $scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
+                $scope.PreviewData1 = JSON.parse(PreviewData)
+                $scope.PreviewData = $scope.PreviewData1.Table[0]
+                //console.log($scope.PreviewData)
+                //console.log(res[0].Data)
                 $scope.$emit('hideLoading', data);
 
             } else {
