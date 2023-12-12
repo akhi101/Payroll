@@ -49,63 +49,6 @@
             $scope.SelectDateofExam = date;
         }
 
-        $scope.approve = function (ApproveStatus) {
-            if ($scope.ExamMode == 2) {
-
-                $scope.def.exam = "";
-                $scope.examtime = "";
-                var examdate = "";
-
-            } else if ($scope.ExamMode == 1) {
-
-                if (angular.isUndefined($scope.def.exam) || $scope.def.exam == "") {
-                    $scope.showStatus = true;
-                    $scope.statusclass = 'alert-danger';
-                    $scope.StatusMessage = "Select Online Examination Date.";
-                    $timeout(function () {
-                        $scope.showStatus = false;
-
-                    }, 5000);
-                    return;
-                }
-                if ($scope.examtime == '11:00') {
-                    var examdate = $scope.def.exam + " " + $scope.examtime;
-                } else {
-                    var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
-                }
-
-            }
-
-
-            var ApproveDetails = TwshStudentRegService.approveDetails($scope.Id, examdate, ApproveStatus,Remarks);
-            ApproveDetails.then(function (response) {
-
-
-                window.scroll({
-                    top: 50, // could be negative value
-                    left: 0,
-                    behavior: 'smooth'
-                });
-                $scope.showStatus = true;
-                $scope.statusclass = 'alert-success';
-                $scope.StatusMessage = "Application Verified Successfully";
-                $timeout(function () {
-                    $scope.showStatus = true;
-                    $state.go('TWSH.Authorization')
-                }, 5000);
-                //alert(response[0].Responce)
-            },
-                function (error) {
-                    $scope.showStatus = true;
-                    $scope.statusclass = 'alert-danger';
-                    $scope.StatusMessage = "Server error";
-                    $timeout(function () {
-                        $scope.showStatus = true;
-                        $state.go('TWSH.Authorization')
-                    }, 5000);
-
-                });
-        }
         $scope.openImage = function (imagesrc) {
             $scope.img = imagesrc;
             $scope.modalInstance = $uibModal.open({
@@ -180,6 +123,64 @@
 
         }
 
+        $scope.ApproveButton = function () {
+            if ($scope.ExamMode == 2) {
+
+                $scope.def.exam = "";
+                $scope.examtime = "";
+                var examdate = "";
+
+            } else if ($scope.ExamMode == 1) {
+
+                if (angular.isUndefined($scope.def.exam) || $scope.def.exam == "") {
+                    $scope.showStatus = true;
+                    $scope.statusclass = 'alert-danger';
+                    $scope.StatusMessage = "Select Online Examination Date.";
+                    $timeout(function () {
+                        $scope.showStatus = false;
+
+                    }, 5000);
+                    return;
+                }
+                if ($scope.examtime == '11:00') {
+                    var examdate = $scope.def.exam + " " + $scope.examtime;
+                } else {
+                    var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
+                }
+
+            }
+
+            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate, '');
+            ApproveDetails.then(function (response) {
+
+
+                window.scroll({
+                    top: 50, // could be negative value
+                    left: 0,
+                    behavior: 'smooth'
+                });
+                $scope.showStatus = true;
+                $scope.statusclass = 'alert-success';
+                $scope.StatusMessage = "Application Verified Successfully";
+                $timeout(function () {
+                    $scope.showStatus = true;
+                    $state.go('TWSH.Authorization')
+                }, 5000);
+                //alert(response[0].Responce)
+            },
+                function (error) {
+                    $scope.showStatus = true;
+                    $scope.statusclass = 'alert-danger';
+                    $scope.StatusMessage = "Server error";
+                    $timeout(function () {
+                        $scope.showStatus = true;
+                        $state.go('TWSH.Authorization')
+                    }, 5000);
+
+                });
+        }
+
+
 
         //$scope.Approve = function (ApproveStatus) {
         //    $scope.remarks = '';
@@ -195,6 +196,7 @@
         //$scope.closeModal = function () {
         //    $scope.modalInstance.close();
         //}
+
 
         $scope.ApproveSubmit = function () {
             if ($scope.ExamMode == 2) {
@@ -251,7 +253,8 @@
 
 
 
-        }
+
+        //}
 
     })
 })
