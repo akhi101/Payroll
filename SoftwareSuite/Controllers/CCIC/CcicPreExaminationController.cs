@@ -1217,14 +1217,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
                 var dbHandler = new ccicdbHandler();
-                string encriptedaadhar = "";
+                //string encriptedaadhar = "";
 
-                var res = CertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
-                var crypt = new HbCrypt(res[1]);
-                var aadharencrypt = new HbCrypt();
-                string aadhar = crypt.AesDecrypt(res[0]);
-                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
-                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
+                //var res = CertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                //var crypt = new HbCrypt(res[1]);
+                //var aadharencrypt = new HbCrypt();
+                //string aadhar = crypt.AesDecrypt(res[0]);
+                //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[32];
                 param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
@@ -1241,7 +1241,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[12] = new SqlParameter("@DateofBirth", CertificateReqAtt.DateofBirth);
                 param[13] = new SqlParameter("@SSCDateofBirth", CertificateReqAtt.SSCDateofBirth);
                 param[14] = new SqlParameter("@Gender", CertificateReqAtt.Gender);
-                param[15] = new SqlParameter("@AadharNumber", encriptedaadhar);
+                param[15] = new SqlParameter("@AadharNumber", CertificateReqAtt.AadharNumber);
                 param[16] = new SqlParameter("@HouseNumber", CertificateReqAtt.HouseNumber);
                 param[17] = new SqlParameter("@Street", CertificateReqAtt.Street);
                 param[18] = new SqlParameter("@Landmark", CertificateReqAtt.Landmark);
@@ -1396,14 +1396,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
                 var dbHandler = new ccicdbHandler();
-                string encriptedaadhar = "";
+                //string encriptedaadhar = "";
 
-                var res = UpdateCertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
-                var crypt = new HbCrypt(res[1]);
-                var aadharencrypt = new HbCrypt();
-                string aadhar = crypt.AesDecrypt(res[0]);
-                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
-                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
+                //var res = UpdateCertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                //var crypt = new HbCrypt(res[1]);
+                //var aadharencrypt = new HbCrypt();
+                //string aadhar = crypt.AesDecrypt(res[0]);
+                //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[32];
                 param[0] = new SqlParameter("@ApplicationNumber", UpdateCertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", UpdateCertificateReqAtt.InstitutionID);
@@ -1420,7 +1420,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[12] = new SqlParameter("@DateofBirth", UpdateCertificateReqAtt.DateofBirth);
                 param[13] = new SqlParameter("@SSCDateofBirth", UpdateCertificateReqAtt.SSCDateofBirth);
                 param[14] = new SqlParameter("@Gender", UpdateCertificateReqAtt.Gender);
-                param[15] = new SqlParameter("@AadharNumber", encriptedaadhar);
+                param[15] = new SqlParameter("@AadharNumber", UpdateCertificateReqAtt.AadharNumber);
                 param[16] = new SqlParameter("@HouseNumber", UpdateCertificateReqAtt.HouseNumber);
                 param[17] = new SqlParameter("@Street", UpdateCertificateReqAtt.Street);
                 param[18] = new SqlParameter("@Landmark", UpdateCertificateReqAtt.Landmark);
@@ -1612,30 +1612,28 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 var dbHandler = new ccicdbHandler();
-                string decryptpassword = "";
+                //string decryptpassword = "";
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@ApplicationNumber", ApplicationNumber);
                 param[1] = new SqlParameter("@StudentID",StudentID);
                 param[2] = new SqlParameter("@ApplicationStatus", ApplicationStatus);
 
-                var passcrypt = new CcicCrypt();
+                //var passcrypt = new CcicCrypt();
 
                 var dt = dbHandler.ReturnDataSet("SP_Get_ViewStudentDetails", param);
 
-             
-                string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
-                decryptpassword = passcrypt.CcicDecrypt(Password);
-                List<person> p = new List<person>();
-                person p1 = new person();
-                //p1.file = file;
-                //p1.ResponseCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
-                //p1.ResponseDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
-                p1.Data = JsonConvert.SerializeObject(dt);
-                p1.Password = decryptpassword;
 
-                p.Add(p1);
+                //string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
+                //decryptpassword = passcrypt.CcicDecrypt(Password);
+                //List<person> p = new List<person>();
+                //person p1 = new person();             
+                //p1.Data = JsonConvert.SerializeObject(dt);
+                //p1.Password = decryptpassword;
 
-                return JsonConvert.SerializeObject(p);
+                //p.Add(p1);
+
+                //return JsonConvert.SerializeObject(p);
+                return JsonConvert.SerializeObject(dt);
 
 
             }
@@ -1656,27 +1654,26 @@ namespace SoftwareSuite.Controllers.CCIC
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string decryptpassword = "";
+                //string decryptpassword = "";
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@ApplicationNumber", ApplicationNumber);
                 param[1] = new SqlParameter("@StudentID", StudentID);
 
-                var passcrypt = new CcicCrypt();
+                //var passcrypt = new CcicCrypt();
 
                 var dt = dbHandler.ReturnDataSet("SP_Get_StudentDetails", param);
-                string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
-                decryptpassword = passcrypt.CcicDecrypt(Password);
-                List<person> p = new List<person>();
-                person p1 = new person();
-                //p1.file = file;
-                //p1.ResponseCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
-                //p1.ResponseDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
-                p1.Data = JsonConvert.SerializeObject(dt);
-                p1.Password = decryptpassword;
+                //string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
+                //decryptpassword = passcrypt.CcicDecrypt(Password);
+                //List<person> p = new List<person>();
+                //person p1 = new person();
+                //p1.Data = JsonConvert.SerializeObject(dt);
+                //p1.Password = decryptpassword;
 
-                p.Add(p1);
+                //p.Add(p1);
 
-                return JsonConvert.SerializeObject(p);
+                //return JsonConvert.SerializeObject(p);
+                return JsonConvert.SerializeObject(dt);
+
 
             }
             catch (Exception ex)
