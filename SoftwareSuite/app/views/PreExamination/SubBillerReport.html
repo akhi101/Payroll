@@ -121,13 +121,13 @@
 
                                         <td class="text-center">{{Data.subbillerid}}</td>
                                         <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(1,Data.subbillerid)">{{Data.TotalRecords == null ?'--':Data.TotalRecords}}</a></b></td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(2,Data.subbillerid)">{{Data.TotalAmountPayed == null ?'--':Data.TotalAmountPayed}}</a></b></td>
+                                        <td class="text-center">{{Data.TotalAmountPayed}}</td>
                                         <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(3,Data.subbillerid)">{{Data.Success == null ?'--':Data.Success}}</a></b></td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(4,Data.subbillerid)">{{Data.SuccessAmount == null ?'--':Data.SuccessAmount}}</a></b></td>
+                                        <td class="text-center">{{Data.SuccessAmount}}</td>
                                         <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(5,Data.subbillerid)">{{Data.Fail == null ?'--':Data.Fail}}</a></b></td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(6,Data.subbillerid)">{{Data.FailAmount == null ?'--':Data.FailAmount}}</a></b></td>
+                                        <td class="text-center">{{Data.FailAmount}}</td>
                                         <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(7,Data.subbillerid)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(8,Data.subbillerid)">{{Data.RejectedAmount == null ?'--':Data.RejectedAmount}}</a></b></td>
+                                        <td class="text-center">{{Data.RejectedAmount}}</td>
                                     </tr>
                                     <tr style="font-weight:bold">
                                         <td colspan="1" class="text-center">Total</td>

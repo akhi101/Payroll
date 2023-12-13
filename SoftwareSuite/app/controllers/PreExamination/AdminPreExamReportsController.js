@@ -55,6 +55,7 @@
 
         
         var expanded = false;
+        var expanded1 = false;
         $scope.showsemCheckboxes = function () {
             var checkboxes = document.getElementById("checkboxessem");
             if (!expanded) {
@@ -96,6 +97,110 @@
         }
 
         $scope.optionToggledsem = function () {
+            $scope.isAllSelectedsem = $scope.GetSemesters.every(function (itm) { return itm.selected; })
+            $scope.semarr = [];
+            angular.forEach($scope.GetSemesters, function (value, key) {
+                if (value.selected === true) {
+                    $scope.semarr.push({ "semid": value.semid })
+                }
+            });
+        }
+
+
+
+        $scope.showSEMCheckboxes = function () {
+            var checkboxes = document.getElementById("checkboxessem1");
+            if (!expanded1) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                checkboxes.style['z-index'] = 99;
+                expanded1 = true;
+            } else {
+                checkboxes.style.display = "none";
+                expanded1 = false;
+            }
+        }
+
+        $scope.closeSEMCheckbox = function () {
+            var checkboxes = document.getElementById("checkboxessem");
+            if (!expanded) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                expanded = true;
+            } else {
+                checkboxes.style.display = "none";
+                expanded = false;
+            }
+        }
+
+        $scope.toggleAllSEM = function () {
+            var toggleStatus = $scope.isAllSelectedsem1;
+            angular.forEach($scope.GetSemesters, function (itm1) { itm1.selected = toggleStatus; });
+            $scope.semarr1 = [];
+            angular.forEach($scope.GetSemesters, function (value1, key) {
+                if (value1.selected === true) {
+                    $scope.semarr1.push({ "semid": value.semid })
+                }
+            });
+        }
+
+        $scope.optionToggledSEM = function () {
+            $scope.isAllSelectedsem1 = $scope.GetSemesters.every(function (itm1) { return itm1.selected; })
+            $scope.semarr1 = [];
+            angular.forEach($scope.GetSemesters, function (value1, key) {
+                if (value1.selected === true) {
+                    $scope.semarr1.push({ "semid": value1.semid })
+                }
+            });
+        }
+
+
+        var expanded2 = false;
+        $scope.ShowsemCheckboxes = function () {
+            var checkboxes2 = document.getElementById("checkboxessem2");
+            if (!expanded2) {
+                checkboxes2.style.display = "block";
+                checkboxes2.style.position = "absolute";
+                checkboxes2.style.width = "92%";
+                checkboxes2.style.backgroundColor = "white";
+                checkboxes2.style['z-index'] = 99;
+                expanded2 = true;
+            } else {
+                checkboxes2.style.display = "none";
+                expanded2 = false;
+            }
+        }
+
+        $scope.ClosesemCheckbox = function () {
+            var checkboxes2 = document.getElementById("checkboxessem2");
+            if (!expanded2) {
+                checkboxes2.style.display = "block";
+                checkboxes2.style.position = "absolute";
+                checkboxes2.style.width = "92%";
+                checkboxes2.style.backgroundColor = "white";
+                expanded2 = true;
+            } else {
+                checkboxes2.style.display = "none";
+                expanded2 = false;
+            }
+        }
+
+        $scope.ToggleAllsem = function () {
+            var toggleStatus = $scope.isAllSelectedsem2;
+            angular.forEach($scope.GetSemesters, function (itm2) { itm2.selected = toggleStatus; });
+            $scope.semarr2 = [];
+            angular.forEach($scope.GetSemesters, function (value2, key) {
+                if (value2.selected === true) {
+                    $scope.semarr2.push({ "semid": value2.semid })
+                }
+            });
+        }
+
+        $scope.OptionToggledSEM = function () {
             $scope.isAllSelectedsem = $scope.GetSemesters.every(function (itm) { return itm.selected; })
             $scope.semarr = [];
             angular.forEach($scope.GetSemesters, function (value, key) {
@@ -152,6 +257,72 @@
                     $scope.Condonation = Condonation;
                     $scope.Detained = Detained;                 
                   /*  $scope.$emit('hideLoading', data);*/
+
+                } else {
+                    $scope.loading = false;
+                    $scope.reports = false;
+                    $scope.Noreports = true;
+                }
+
+            },
+                function (error) {
+                    $scope.loading = false;
+                    $scope.reports = false;
+                    $scope.Noreports = true;
+                    alert("error while loading data");
+                });
+        }
+
+
+        $scope.getAdminFeedBackReports = function () {
+            $scope.loading = true;
+            $scope.Noreports = false;
+            $scope.reports = false;
+            var AcademicYearsActive = PreExaminationService.GetAdminFeedBackReports($scope.ExamMonthYearID, JSON.stringify($scope.semarr1), $scope.StudentTypeID);
+            AcademicYearsActive.then(function (response) {
+                //var response = JSON.parse(response);
+                //console.log(response);
+                if (response.length > 0) {
+                    $scope.loading = false;
+                    $scope.reports = true;
+                    $scope.Noreports = false;
+                    $scope.getReports = response;
+                    var OnRoll = 0
+                    var Elgible = 0;
+                    //var St = 0;
+                    var FeePaid = 0;
+                    var FeedBackSubmitted = 0;
+                    var FeedBackNotSubmitted = 0;
+                    //var Condonation = 0;
+                    //var FeeNotPaid = 0;
+                    //var Detained = 0;
+
+                    for (var i = 0; i < response.length; i++) {
+                        if (response[i].OnRoll != null)
+                            OnRoll = OnRoll + response[i].OnRoll;
+                        if (response[i].Elgible != null)
+                            Elgible = Elgible + response[i].Elgible;
+
+                        if (response[i].FeePaid != null)
+                            FeePaid = FeePaid + response[i].FeePaid;
+
+                        if (response[i].FeedBackSubmitted != null)
+                            FeedBackSubmitted = FeedBackSubmitted + response[i].FeedBackSubmitted;
+
+                        if (response[i].FeedBackNotSubmitted != null)
+                            FeedBackNotSubmitted = FeedBackNotSubmitted + response[i].FeedBackNotSubmitted;
+                        //if (response[i].Detained != null)
+                        //    Detained = Detained + response[i].Detained;
+
+
+                    }
+                    $scope.OnRoll = OnRoll;
+                    $scope.Elgible = Elgible;
+                    $scope.FeePaid = FeePaid;
+                    $scope.FeedBackSubmitted = FeeNotPaid;
+                    $scope.FeedBackNotSubmitted = Condonation;
+                    //$scope.Detained = Detained;
+                    /*  $scope.$emit('hideLoading', data);*/
 
                 } else {
                     $scope.loading = false;
