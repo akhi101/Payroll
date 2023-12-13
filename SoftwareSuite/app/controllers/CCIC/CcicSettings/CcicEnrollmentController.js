@@ -609,7 +609,7 @@
             $scope.ShowDetails = false;
 
 
-            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.Aadhar, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+            //var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.Aadhar, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             let sscHallticket = ($scope.sscHallticket == null || $scope.sscHallticket == undefined || $scope.sscHallticket == '') ? '' : $scope.sscHallticket;
 
             let passedoutYear = ($scope.passedoutYear == null || $scope.passedoutYear == undefined || $scope.passedoutYear == '') ? '' : parseInt($scope.passedoutYear);
@@ -621,7 +621,7 @@
             //let StdExpCer = ($scope.stdExperienceCertificate == null || $scope.stdExperienceCertificate == undefined || $scope.stdExperienceCertificate == '') ? '' : $scope.stdExperienceCertificate;
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
             let MName = ($scope.MNAME == null || $scope.MNAME == undefined || $scope.MNAME == '') ? '' : $scope.MNAME;
-            let Aadhar = ($scope.Aadhar == null || $scope.Aadhar == undefined || $scope.Aadhar == '') ? '' : EncriptedAadhar;
+            let Aadhar = ($scope.Aadhar == null || $scope.Aadhar == undefined || $scope.Aadhar == '') ? '' : $scope.Aadhar;
             var paramObj = {
                 "ApplicationNumber": appNum,
                 "InstitutionID": authData.InstitutionID,

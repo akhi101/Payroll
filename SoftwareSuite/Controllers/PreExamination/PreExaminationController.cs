@@ -39,6 +39,8 @@ using System.Xml;
 using SoftwareSuite.Models.Security;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
+using DocumentFormat.OpenXml.Bibliography;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
 
 namespace SoftwareSuite.Controllers.PreExamination
 {
@@ -2046,9 +2048,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         [HttpGet, ActionName("GetTicketsReportExcel")]
         public string GetTicketsReportExcel(string FromDate, string ToDate)
-        {
-            List<person> p = new List<person>();
-            person p1 = new person();
+        {        
             try
             {
                 var dbHandler = new dbHandler();
@@ -2056,50 +2056,22 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@FromDate", FromDate);
                 param[1] = new SqlParameter("@ToDate", ToDate);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_TicketsReport", param);
-                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
-                {
-                    var filename = "Tickets_Report" + ".xlsx";
-                    var eh = new ExcelHelper();
-                    var path = ConfigurationManager.AppSettings["TicketsFolderPath"];
-                    bool folderExists = Directory.Exists(path);
-                    if (!folderExists)
-                        Directory.CreateDirectory(path);
-                    eh.ExportDataSet(ds, path + filename);
-                    Timer timer = new Timer(200000);
-                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["TicketsFolderPath"] + filename);
-                    timer.Start();
-                    var file = "/TicketsDownloads/" + filename;
-
-                    p1.file = file;
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
-                    p.Add(p1);
-
-                    return JsonConvert.SerializeObject(p);
-                    //return ;
-
-                }
-                else
-                {
-
-                    p1.file = "";
-                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
-                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
-                    p.Add(p1);
-                    return JsonConvert.SerializeObject(p);
-                }
-                //
+                var filename = "TicketsData_"  + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
             }
             catch (Exception ex)
             {
-
                 dbHandler.SaveErorr("SP_Get_TicketsReport", 0, ex.Message);
-
-                p1.file = "";
-                p1.ResponceCode = "400";
-                p1.ResponceDescription = ex.Message;
-                p.Add(p1);
-                return JsonConvert.SerializeObject(p);
+                return ex.Message;
             }
 
         }

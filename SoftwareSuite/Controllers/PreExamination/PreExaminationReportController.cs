@@ -107,21 +107,50 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[2] = new SqlParameter("@toData", SqlDbType.Date);
                 param[2].Value = EndDate;
                 var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
-                var filename = "SubBillerReport_" + SubBillerId + "_" + Guid.NewGuid().ToString() + ".xlsx";
+                var filename = "SubBillerReport_"  + ".xlsx";
                 var eh = new ExcelHelper();
-                var path = ConfigurationManager.AppSettings["DownloadsFolderPathTR"];
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
                 Timer timer = new Timer(30000);
-                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPathTR"] + filename);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
-                return "/TR/" + filename;
+                return "/Downloads/" + filename;
             }
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_GET_SubBillerIdBasedReports", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
+                return "Error Occured. Please Try Again";
+            }
+        }
+
+        [HttpPost, ActionName("GetDayWiseSubBillerCountExcel")]
+        public string GetDayWiseSubBillerCountExcel(string Date)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "USP_GET_SubBillerDateBasedReports ";
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@Date", Date);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                var filename = "SubBillerReportCount_" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_GET_SubBillerDateBasedReports", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
                 return "Error Occured. Please Try Again";
             }
         }
@@ -141,13 +170,13 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
                 var filename = "SubBillerReport_" + subbillerid + "_" + Guid.NewGuid().ToString() + ".xlsx";
                 var eh = new ExcelHelper();
-                var path = ConfigurationManager.AppSettings["DownloadsFolderPathTR"];
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPathSB"];
                 bool folderExists = Directory.Exists(path);
                 if (!folderExists)
                     Directory.CreateDirectory(path);
                 eh.ExportDataSet(ds, path + filename);
                 Timer timer = new Timer(30000);
-                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPathTR"] + filename);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPathSB"] + filename);
                 timer.Start();
                 return "/TR/" + filename;
             }
