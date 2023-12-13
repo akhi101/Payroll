@@ -1,5 +1,20 @@
 ﻿<style>
+    .toggle-eye {
+        position: relative;
+    }
 
+        .toggle-eye input {
+            padding-right: 30px;
+        }
+
+    .eye-icon {
+        position: absolute;
+        top: 64%;
+        right: -7px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 1;
+    }
     .submit-btn button {
         background: #7cb82f;
         padding: 5px 20px;
@@ -336,7 +351,10 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Aadhar Number</label>
-                                                    <input type="text" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="EditData.AadharNumber" required>
+                                                    <input type="{{inputType}}" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="EditData.AadharNumber" required>
+                                                    <div class="eye-icon" ng-click="toggleAadharVisibility()">
+                                                        {{eyeIcon}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

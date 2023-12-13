@@ -522,5 +522,15 @@
             return promise;
         }
 
+        this.GetTicketsReportExcel = function (FromDate,ToDate) {
+            var paramObject = {
+                "FromDate": FromDate,
+                "ToDate": ToDate
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTicketsReportExcel', paramObject);
+            return promise;
+        }
+
     })
 })

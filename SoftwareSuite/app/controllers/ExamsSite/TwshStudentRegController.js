@@ -1,6 +1,8 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshStudentRegController", function ($scope, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
+    app.controller("TwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
 
+
+       
         $scope.isChecked = true;
         $scope.instructions = false;
         $scope.courseDetails = true;
@@ -63,6 +65,27 @@
             $scope.LoadOnlineDist();
 
         }
+
+
+        var eKey = SystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            console.log($scope.EKey)
+            sessionStorage.Ekey = res;
+
+
+        });
+
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
+
         $scope.LoadOnlineDist = function () {
             //--------Online Districts -----------
             var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
@@ -414,8 +437,8 @@
                     //    alert("OTP sent to Aadhaar registered mobile number")
 
                 } else {
-                   // $scope.otpbtndisable = false;
-                    $scope.otpsent = true;
+                    $scope.otpbtndisable = false;
+                   // $scope.otpsent = true;
                     alert(res.errdesc)
                 }
             }, function (err) {
@@ -425,85 +448,86 @@
         }
 
         $scope.VerifyOtp = function (aadhaar, aadharotp) {
+//--------------------
+            //$scope.ExamAppearDetails = false;
+            //$scope.oldUser = false;
+            //$scope.oldUser2 = false;
+            //$scope.sscForm = true;
+            //$scope.ShowAadhaarDetail = false;
+            //$scope.applicationForm = false;
+//---------------------
+            if (aadharotp == '' || aadharotp == null) {
+                alert("OTP Can't be Empty");
+                return;
+            }
+            $scope.verifybtndisable = true;
+            if ($scope.Txnid != "" && $scope.Txnid != undefined && $scope.Txnid != null) {
+                var aadhaarenc = btoa(aadhaar);
+                var VerifyOtp = TwshStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
+                VerifyOtp.then(function (res) {
+                    if (res == true) {
+                        $scope.adhaarOtp = '';
 
-            $scope.ExamAppearDetails = false;
-            $scope.oldUser = false;
-            $scope.oldUser2 = false;
-            $scope.sscForm = true;
-            $scope.ShowAadhaarDetail = false;
-            $scope.applicationForm = false;
-            //if (aadharotp == '' || aadharotp == null) {
-            //    alert("OTP Can't be Empty");
-            //    return;
-            //}
-            //$scope.verifybtndisable = true;
-            //if ($scope.Txnid != "" && $scope.Txnid != undefined && $scope.Txnid != null) {
-            //    var aadhaarenc = btoa(aadhaar);
-            //    var VerifyOtp = TwshStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
-            //    VerifyOtp.then(function (res) {
-            //        if (res == true) {
-            //            $scope.adhaarOtp = '';
+                        alert("Verfication success.");
+                        $scope.verifybtndisable = false;
+                        if ($scope.selectedgrade.CriteriaTypeId == 1) {
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = true;
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.applicationForm = false;
+                        } else if ($scope.selectedgrade.CriteriaTypeId == 4 && ($scope.selectedgrade.QualificationGradeId == undefined || $scope.selectedgrade.QualificationGradeId == null)) {
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = false;
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.applicationForm = true;
+                            $scope.isqualified1 = false;
+                            $scope.isqualified2 = false;
+                            $scope.isqualified3 = false;
+                        } else {
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = false;
+                            $scope.applicationForm = true;
+                            if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
+                                $scope.isqualified1 = false;
 
-            //            alert("Verfication success.");
-            //            $scope.verifybtndisable = false;
-            //            if ($scope.selectedgrade.CriteriaTypeId == 1) {
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = true;
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.applicationForm = false;
-            //            } else if ($scope.selectedgrade.CriteriaTypeId == 4 && ($scope.selectedgrade.QualificationGradeId == undefined || $scope.selectedgrade.QualificationGradeId == null)) {
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = false;
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.applicationForm = true;
-            //                $scope.isqualified1 = false;
-            //                $scope.isqualified2 = false;
-            //                $scope.isqualified3 = false;
-            //            } else {
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = false;
-            //                $scope.applicationForm = true;
-            //                if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
-            //                    $scope.isqualified1 = false;
+                            } else {
+                                $scope.isqualified1 = true;
 
-            //                } else {
-            //                    $scope.isqualified1 = true;
+                            }
+                            $scope.isqualified2 = false;
+                            if ($scope.QualifiedExam == true) {
+                                $scope.isqualified3 = false;
 
-            //                }
-            //                $scope.isqualified2 = false;
-            //                if ($scope.QualifiedExam == true) {
-            //                    $scope.isqualified3 = false;
+                            } else {
+                                $scope.isqualified3 = true;
 
-            //                } else {
-            //                    $scope.isqualified3 = true;
-
-            //                }
-            //            }
-            //        } else {
-            //            $scope.adhaarOtp = '';
-            //            $scope.ShowAadhaarDetail = false;
-            //            $scope.verifybtndisable = false;
-            //            alert("Verfication fail, try again after sometime.");
-            //            $scope.ExamAppearDetails = false;
-            //            $scope.oldUser = false;
-            //            $scope.oldUser2 = true;
-            //            $scope.sscForm = false;
-            //            $scope.applicationForm = false;
-            //        }
+                            }
+                        }
+                    } else {
+                        $scope.adhaarOtp = '';
+                        $scope.ShowAadhaarDetail = false;
+                        $scope.verifybtndisable = false;
+                        alert("Verfication fail, try again after sometime.");
+                        $scope.ExamAppearDetails = false;
+                        $scope.oldUser = false;
+                        $scope.oldUser2 = true;
+                        $scope.sscForm = false;
+                        $scope.applicationForm = false;
+                    }
 
 
-            //    }, function (err) {
-            //        $scope.verifybtndisable = false;
-            //        console.log(res);
-            //    });
-            //}
+                }, function (err) {
+                    $scope.verifybtndisable = false;
+                    console.log(res);
+                });
+            }
         }
 
         $scope.Continue = function () {
@@ -632,6 +656,7 @@
             }
         }
         $scope.submitData = function () {
+            $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
 
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
                 alert("Please Enter Student Name .");
@@ -1480,15 +1505,16 @@
             }
         }
 
+
         $scope.submitApplication = function () {
 
-
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             var req = {
                 "UserId": $scope.UserId == null || $scope.UserId == undefined ? "" : $scope.UserId,
                 "StudentName": $scope.CandidateName == null || $scope.CandidateName == undefined ? "" : $scope.CandidateName,
                 "FatherName": $scope.FatherName == null || $scope.FatherName == undefined ? "" : $scope.FatherName,
                 "MotherName": $scope.MotherName == null || $scope.MotherName == undefined ? "" : $scope.MotherName,
-                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : $scope.adhaarno,
+                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
                 "Gender": $scope.Gender == null || $scope.Gender == undefined ? "" : $scope.Gender,
                 "StudentPhoneNumber": $scope.mobileNO == null || $scope.mobileNO == undefined ? "" : $scope.mobileNO,
                 "CourseId": $scope.selectedcourse.Id == null || $scope.selectedcourse.Id == undefined ? "" : $scope.selectedcourse.Id,

@@ -171,6 +171,12 @@
             </span>
             <hr ng-show="completelabel">
 
+            <strong class="course-label" style="font-size:20px" ng-show="completelabel">Status Remarks:</strong>
+            <span class="text-muted word-break" style="font-size:20px" ng-show="worklabel">
+                {{EditData.StatusRemarks}}
+            </span>
+            <hr ng-show="completelabel">
+
             <strong class="course-label" style="font-size:20px" ng-show="statusupddatelabel">Status Updated On DateTime:</strong>
             <span class="text-muted word-break" style="font-size:20px" ng-show="filenamelabel">
                 {{EditData.StatusUpdatedDateTime  | date:'dd-MM-yyyy HH:MM'}}

@@ -3138,6 +3138,12 @@
                 return promise;
             },
 
+            this.GetDayWiseSubBillerCountExcel = function (Date) {
+            var paramObj = { "Date": Date };
+            var promise = DataAccessService.postData('PreExaminationReport/GetDayWiseSubBillerCountExcel', paramObj);
+                return promise;
+            },
+
             this.GetDayWiseSubBillerReport = function (DataType, subbillerid, Date) {
             var paramObj = {
                 "DataType": DataType,

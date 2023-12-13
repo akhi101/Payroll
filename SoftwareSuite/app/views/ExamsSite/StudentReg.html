@@ -192,7 +192,30 @@
         .btn {
             font-size: auto !important;
         }
+
+       
     </style>
+
+    <style>
+
+        .toggle-eye {
+            position: relative;
+        }
+
+            .toggle-eye input {
+                padding-right: 30px;
+            }
+
+        .eye-icon {
+            position: absolute;
+            top: 62%;
+            right: -9px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 1;
+
+        }
+     </style>
     <div class="sm-spacer"></div>
     <div class="container">
         <div class="row">
@@ -560,7 +583,10 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Aadhaar Number</label>
-                                            <input type="text" ng-model="adhaarno" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
+                                            <input type="{{inputType}}" ng-model="adhaarno" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
+                                            <div class="eye-icon" ng-click="toggleAadharVisibility()">
+                                                {{eyeIcon}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 pull-left" ng-if="!otpsent && tmpmode ==1">
@@ -1047,7 +1073,7 @@
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="col-md-6"> <label>Aadhaar Number</label></div>
-                                            <div class="col-md-6 pre-text">: {{adhaarno}}</div>
+                                            <div class="col-md-6 pre-text">: {{maskedAadhaar}}</div>
 
                                         </div>
                                         <div class="col-md-6 " ng-show="selectedCommunityname != null && selectedCommunityname =='undefined'">

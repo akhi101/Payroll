@@ -667,7 +667,7 @@
             return promise;
         };
         this.SubmitApplication = function (object) {
-            var promise = DataAccessService.postData('api/TwshStudentReg/SubmitApplication', object);
+            var promise = DataAccessService.postData('api/TwshStudentReg/SubmitTwshApplication', object);
             return promise;
         };
 
@@ -904,14 +904,9 @@
             return promise;
         };
 
-        this.approveDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks) {
-            var paramObj = {
-                "ApprovedStatus": ApprovedStatus,
-                "Id": Id,
-                "examDate": examDate,
-                "RejectedRemarks": RejectedRemarks
-            };
-            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveSubmitDetails', paramObj);
+        this.approveDetails = function (Id, examDate, ApproveStatus) {
+            var paramObj = { "Id": Id, "examDate": examDate, "ApproveStatus": ApproveStatus };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/ApproveDetails', paramObj);
             return promise;
         };
 

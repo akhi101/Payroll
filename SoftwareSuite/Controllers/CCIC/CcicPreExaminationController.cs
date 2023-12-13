@@ -24,6 +24,8 @@ using static SoftwareSuite.Controllers.Assessment.AssessmentController;
 using System.Timers;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using SoftwareSuite.Models.Security;
+using SoftwareSuite.Models.CCIC;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -1215,6 +1217,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
                 var dbHandler = new ccicdbHandler();
+                //string encriptedaadhar = "";
+
+                //var res = CertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                //var crypt = new HbCrypt(res[1]);
+                //var aadharencrypt = new HbCrypt();
+                //string aadhar = crypt.AesDecrypt(res[0]);
+                //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[32];
                 param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
@@ -1293,7 +1303,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentExpCertpath = string.Empty;
 
 
-                if (UpdateCertificateReqAtt.StudentPhoto != "")
+                if (UpdateCertificateReqAtt.StudentPhoto != null)
                 {
                     StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1311,7 +1321,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     photo_url = "";
                 }
 
-                if (UpdateCertificateReqAtt.StudentSign != "")
+                if (UpdateCertificateReqAtt.StudentSign != null)
                 {
                     StdSign = "Sign_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1329,7 +1339,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     sign_url = "";
                 }
 
-                if (UpdateCertificateReqAtt.SSCCertificate != "")
+                if (UpdateCertificateReqAtt.SSCCertificate != null)
                 {
                     StdSscCert = "SSCCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1348,7 +1358,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.QualificationCertificate != "")
+                if (UpdateCertificateReqAtt.QualificationCertificate != null)
                 {
                     StdQualCert = "QualificationCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1367,7 +1377,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.ExperienceCertificate != "")
+                if (UpdateCertificateReqAtt.ExperienceCertificate != null)
                 {
                     StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1386,6 +1396,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
                 var dbHandler = new ccicdbHandler();
+                //string encriptedaadhar = "";
+
+                //var res = UpdateCertificateReqAtt.AadharNumber.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                //var crypt = new HbCrypt(res[1]);
+                //var aadharencrypt = new HbCrypt();
+                //string aadhar = crypt.AesDecrypt(res[0]);
+                //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[32];
                 param[0] = new SqlParameter("@ApplicationNumber", UpdateCertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", UpdateCertificateReqAtt.InstitutionID);
@@ -1585,21 +1603,39 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpPost, ActionName("GetViewStudentDetails")]
-        public string GetViewStudentDetails([FromBody] JsonObject data)
+
+
+        [HttpGet, ActionName("GetViewStudentDetails")]
+        public string GetViewStudentDetails(string ApplicationNumber,int StudentID,string ApplicationStatus)
         {
             try
             {
+
                 var dbHandler = new ccicdbHandler();
+                //string decryptpassword = "";
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
-                param[1] = new SqlParameter("@StudentID", data["StudentID"]);
-                param[2] = new SqlParameter("@ApplicationStatus", data["ApplicationStatus"]);
-                
+                param[0] = new SqlParameter("@ApplicationNumber", ApplicationNumber);
+                param[1] = new SqlParameter("@StudentID",StudentID);
+                param[2] = new SqlParameter("@ApplicationStatus", ApplicationStatus);
+
+                //var passcrypt = new CcicCrypt();
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_ViewStudentDetails", param);
 
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_ViewStudentDetails", param);
+                //string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
+                //decryptpassword = passcrypt.CcicDecrypt(Password);
+                //List<person> p = new List<person>();
+                //person p1 = new person();             
+                //p1.Data = JsonConvert.SerializeObject(dt);
+                //p1.Password = decryptpassword;
+
+                //p.Add(p1);
+
+                //return JsonConvert.SerializeObject(p);
                 return JsonConvert.SerializeObject(dt);
+
+
             }
             catch (Exception ex)
             {
@@ -1610,20 +1646,35 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        [HttpPost, ActionName("GetStudentDetails")]
-        public string GetStudentDetails([FromBody] JsonObject data)
+
+
+        [HttpGet, ActionName("GetStudentDetails")]
+        public string GetStudentDetails(string ApplicationNumber, int StudentID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
+                //string decryptpassword = "";
                 var param = new SqlParameter[2];
-                param[0] = new SqlParameter("@ApplicationNumber", data["ApplicationNumber"]);
-                param[1] = new SqlParameter("@StudentID", data["StudentID"]);
+                param[0] = new SqlParameter("@ApplicationNumber", ApplicationNumber);
+                param[1] = new SqlParameter("@StudentID", StudentID);
 
+                //var passcrypt = new CcicCrypt();
 
+                var dt = dbHandler.ReturnDataSet("SP_Get_StudentDetails", param);
+                //string Password = dt.Tables[0].Rows[0]["AadharNumber"].ToString();
+                //decryptpassword = passcrypt.CcicDecrypt(Password);
+                //List<person> p = new List<person>();
+                //person p1 = new person();
+                //p1.Data = JsonConvert.SerializeObject(dt);
+                //p1.Password = decryptpassword;
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_StudentDetails", param);
+                //p.Add(p1);
+
+                //return JsonConvert.SerializeObject(p);
                 return JsonConvert.SerializeObject(dt);
+
+
             }
             catch (Exception ex)
             {

@@ -23,6 +23,16 @@
 
         }
 
+        $scope.TicketsReportPage = function () {
+            //$localStorage.authData = {
+            //    InstitutionID: InstitutionID,
+            //};
+
+            $state.go('Dashboard.TicketsReport');
+
+
+        }
+
  
 
         $scope.PendingCount = function (UserName,ProjectID) {
