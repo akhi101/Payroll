@@ -292,7 +292,7 @@
                                 <label for="sel1">
                                     Exam Type:
                                 </label>
-                                <select class="form-control" ng-model="StudentTypeId" name="StudentType" ng-change="changedVal()">
+                                <select class="form-control" ng-model="StudentTypeID" name="StudentType" ng-change="changedVal()">
                                     <option value="" selected>Select Exam Type</option>
                                     <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                         {{Student.type}}
@@ -304,7 +304,7 @@
                                 <label for="sel1">
                                     Exam Month Year:
                                 </label>
-                                <select class="form-control" ng-model="ExamMonthYearId" name="ExamMonthYear">
+                                <select class="form-control" ng-model="ExamMonthYearID" name="ExamMonthYear">
                                     <option value="" selected>Select Exam Month Year</option>
                                     <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
                                         {{item.ExamYearMonth}}
@@ -317,18 +317,18 @@
                                     Semester:
                                 </label>
                                 <div class="multiselect">
-                                    <div class="selectBox" ng-click="showsemCheckboxes()">
+                                    <div class="selectBox" ng-click="showSEMCheckboxes()">
                                         <select class="form-control ">
-                                            <option ng-blur="closesemCheckbox()">Select Sem</option>
+                                            <option ng-blur="closeSEMCheckbox()">Select Sem</option>
                                         </select>
                                         <div class="overSelect"></div>
                                     </div>
-                                    <div id="checkboxessem" style="max-height: 10em; overflow-y: scroll;">
+                                    <div id="checkboxessem1" style="max-height: 10em; overflow-y: scroll;">
                                         <label class="contain">
-                                            <input type="checkbox" ng-click="toggleAllsem()" ng-model="isAllSelectedsem" /><span class="checkmark"></span>Select All
+                                            <input type="checkbox" ng-click="toggleAllSEM()" ng-model="isAllSelectedsem1" /><span class="checkmark"></span>Select All
                                         </label>
-                                        <label class="contain" ng-repeat="sem in GetSemesters">
-                                            <input type="checkbox" ng-model="sem.selected" ng-change="optionToggledsem(sem.selected)"><span class="checkmark"></span>{{sem.semester}}
+                                        <label class="contain" ng-repeat="sem1 in GetSemesters">
+                                            <input type="checkbox" ng-model="sem1.selected" ng-change="optionToggledSEM(sem1.selected)"><span class="checkmark"></span>{{sem1.semester}}
                                         </label>
 
                                     </div>
@@ -338,7 +338,7 @@
 
                             <div class="col-md-3">
                                 <div class="gr-btn">
-                                    <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="GetFeepaymentReport()">Get Feedback Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
+                                    <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="getAdminFeedBackReports()">Get Feedback Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
                                 </div>
                             </div>
 
@@ -449,7 +449,7 @@
                                 <label for="sel1">
                                     Exam Type:
                                 </label>
-                                <select class="form-control" ng-model="StudentTypeId" name="StudentType" ng-change="changedVal()">
+                                <select class="form-control" ng-model="studenttypeid" name="StudentType" ng-change="changedVal()">
                                     <option value="" selected>Select Exam Type</option>
                                     <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                         {{Student.type}}
@@ -461,7 +461,7 @@
                                 <label for="sel1">
                                     Exam Month Year:
                                 </label>
-                                <select class="form-control" ng-model="ExamMonthYearId" name="ExamMonthYear">
+                                <select class="form-control" ng-model="exammonthyearid" name="ExamMonthYear">
                                     <option value="" selected>Select Exam Month Year</option>
                                     <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
                                         {{item.ExamYearMonth}}
@@ -474,18 +474,18 @@
                                     Semester:
                                 </label>
                                 <div class="multiselect">
-                                    <div class="selectBox" ng-click="showsemCheckboxes()">
+                                    <div class="selectBox" ng-click="ShowsemCheckboxes()">
                                         <select class="form-control ">
-                                            <option ng-blur="closesemCheckbox()">Select Sem</option>
+                                            <option ng-blur="ClosesemCheckbox()">Select Sem</option>
                                         </select>
                                         <div class="overSelect"></div>
                                     </div>
-                                    <div id="checkboxessem" style="max-height: 10em; overflow-y: scroll;">
+                                    <div id="checkboxessem2" style="max-height: 10em; overflow-y: scroll;">
                                         <label class="contain">
-                                            <input type="checkbox" ng-click="toggleAllsem()" ng-model="isAllSelectedsem" /><span class="checkmark"></span>Select All
+                                            <input type="checkbox" ng-click="ToggleAllsem()" ng-model="isAllSelectedsem2" /><span class="checkmark"></span>Select All
                                         </label>
-                                        <label class="contain" ng-repeat="sem in GetSemesters">
-                                            <input type="checkbox" ng-model="sem.selected" ng-change="optionToggledsem(sem.selected)"><span class="checkmark"></span>{{sem.semester}}
+                                        <label class="contain" ng-repeat="sem2 in GetSemesters">
+                                            <input type="checkbox" ng-model="sem2.selected" ng-change="OptionToggledsem(sem2.selected)"><span class="checkmark"></span>{{sem2.semester}}
                                         </label>
 
                                     </div>
