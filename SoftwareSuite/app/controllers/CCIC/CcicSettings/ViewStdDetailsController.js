@@ -24,6 +24,9 @@
         }
 
         if (tempData3.ApplicationStatus == 'Pending') {
+            $scope.ApplicationStatus = 0;
+        }
+        else if (tempData3.ApplicationStatus == 'Approved') {
             $scope.ApplicationStatus = 1;
         }
         else if (tempData3.ApplicationStatus == 'Revised') {
@@ -42,14 +45,14 @@
             catch (err) { }
 
             $scope.PreviewData = [];
-            if (res[0].Data.length > 0) {
+            if (res.Table.length > 0) {
                 $scope.loading = false;
-                var PreviewData = res[0].Data;
+                $scope.PreviewData = res.Table[0];
                 //console.log(PreviewData)
-                $scope.Aadhaar = res[0].Password;
-                $scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
-                $scope.PreviewData1 = JSON.parse(PreviewData)
-                $scope.PreviewData = $scope.PreviewData1.Table[0]
+                //$scope.Aadhaar = res[0].Password;
+                //$scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
+                //$scope.PreviewData1 = JSON.parse(PreviewData)
+                //$scope.PreviewData = $scope.PreviewData1.Table[0]
                 //console.log($scope.PreviewData)
                 //console.log(res[0].Data)
                 $scope.$emit('hideLoading', data);

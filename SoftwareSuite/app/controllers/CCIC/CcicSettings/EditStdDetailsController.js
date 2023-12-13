@@ -428,11 +428,11 @@
                 $scope.applicationForm = true;
                 $scope.loading = false;
          
-                var EditData = editRes[0].Data;
-                $scope.Aadhaar = editRes[0].Password;
-                $scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
-                $scope.EditData1 = JSON.parse(EditData)
-                $scope.EditData = $scope.EditData1.Table[0]
+                $scope.EditData = editRes.Table[0];
+                //$scope.Aadhaar = editRes[0].Password;
+                //$scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
+                //$scope.EditData1 = JSON.parse(EditData)
+                //$scope.EditData = $scope.EditData1.Table[0]
 
                 $scope.ApplicationNumber = tempData4.ApplicationNumber;
                 $scope.CourseName = $scope.EditData.CourseName;
@@ -659,7 +659,7 @@
 
             $scope.LoadImg = true;
 
-            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.Aadhaar, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+            //var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.Aadhaar, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
 
             let appNum = ($scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined || $scope.ApplicationNumber == '') ? '' : $scope.ApplicationNumber;
 
@@ -681,7 +681,7 @@
                 "DateofBirth": moment($scope.DateofBirth).format("YYYY-MM-DD"),
                 "SSCDateofBirth": "",
                 "Gender": $scope.Gender,
-                "AadharNumber": EncriptedAadhar,
+                "AadharNumber": $scope.Aadhaar,
                 "HouseNumber": $scope.HouseNumber,
                 "Street": $scope.Street,
                 "Landmark": $scope.Landmark,

@@ -7,6 +7,18 @@
         $scope.selectedSubBiller = "";
 
         $scope.GetReport = function () {
+            if ($scope.selectedSubBiller == '' || $scope.selectedSubBiller == null || $scope.selectedSubBiller == undefined) {
+                alert('Please select Sub Biller');
+                return;
+            }
+            if ($scope.setFromDate == '' || $scope.setFromDate == null || $scope.setFromDate == undefined) {
+                alert('Please select From Date');
+                return;
+            }
+            if ($scope.setToDate == '' || $scope.setToDate == null || $scope.setToDate == undefined) {
+                alert('Please select To Date');
+                return;
+            }
             $scope.LoadImg = true;
             $scope.isShowResults = true;
             var subBiller = $scope.selectedSubBiller;
@@ -17,7 +29,7 @@
                     if (response != null && response.length > 1) {
                         var location = window.location.origin;
                         $scope.LoadImg = false;
-                        window.location.href = '/Reports' + response;
+                        window.location.href =  response;
                         $scope.NoResult = false;
                     } else {
                         $scope.LoadImg = false;
@@ -138,6 +150,86 @@
                         console.log(err.Message);
                     });
         }
+
+
+
+        $scope.DownloadtoExcel = function () {
+            if ($scope.Date == '' || $scope.Date == null || $scope.Date == undefined) {
+                alert('Please select Date');
+                return;
+            }
+
+            $scope.LoadImg = true;
+            $scope.isShowResults = true;
+            var Date = moment($scope.Date).format("YYYY-MM-DD");
+            PreExaminationService.GetDayWiseSubBillerCountExcel(Date.toString())
+                .then(function (response) {
+                    if (response != null && response.length > 1) {
+                        var location = window.location.origin;
+                        $scope.LoadImg = false;
+                        window.location.href =  response;
+                        $scope.NoResult = false;
+                    } else {
+                        $scope.LoadImg = false;
+                        alert("Error Generating The Report");
+                        $scope.NoResult = true;
+                    }
+                },
+                    function (error) {
+                        $scope.LoadImg = false;
+                        alert("error data is not getting");
+                        var err = JSON.parse(error);
+                        console.log(err.Message);
+                    });
+
+        }
+
+
+
+        $scope.printSubBillerCount = function () {
+
+            var divName = "table-print";
+            var $markstable = document.createElement("div");
+            $markstable.innerHTML = '';
+            $markstable.className = "Pay_Reciept";
+
+
+
+            var divToPrint = document.getElementById(divName);
+            var temp = document.body.innerHTML;
+
+            var domClone = divToPrint.cloneNode(true);
+            var $printSection = document.getElementById("printSection");
+            if ($printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+
+
+                document.body.appendChild($printSection);
+
+                var $ele1 = document.createElement("div");
+                $ele1.className = "row";
+
+                var $ele2 = document.createElement("div");
+                $ele2.className = "col-lg-2 col-md-12";
+
+                var $ele3 = document.createElement("div");
+                $ele3.className = "col-lg-10 col-md-12";
+
+
+                $ele1.appendChild($ele3);
+
+                $printSection.appendChild($ele1);
+
+                $printSection.appendChild($ele1);
+                $printSection.appendChild($markstable);
+
+            }
+
+            window.print();
+
+
+        };
 
 
 

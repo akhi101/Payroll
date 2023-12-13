@@ -31,7 +31,7 @@ define(['app'], function (app) {
                     if (response != null && response.length > 1) {
                         var location = window.location.origin;
                         $scope.LoadImg = false;
-                        window.location.href = '/TicketsDownloads' + response;
+                        window.location.href =  response;
                         $scope.NoResult = false;
                     } else {
                         $scope.LoadImg = false;
