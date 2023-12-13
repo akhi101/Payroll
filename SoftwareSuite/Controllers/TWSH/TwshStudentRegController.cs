@@ -3509,7 +3509,7 @@ namespace SoftwareSuite.Controllers.TWSH
 
 
 
-        [HttpPost, ActionName("SubmitApplication")]
+        [HttpPost, ActionName("SubmitTwshApplication")]
         public async Task<object> SubmitTwshApplication([FromBody] StudentDetails ReqData)
         {
             HttpResponseMessage response = new HttpResponseMessage();
@@ -3559,28 +3559,28 @@ namespace SoftwareSuite.Controllers.TWSH
                 var appno = dt.Rows[0]["ApplicationNumber"];
                 var Status = dt.Rows[0]["ResponceCode"];
                 var Respdesc = dt.Rows[0]["ResponceDescription"];
-                try
-                {
-                    if ((string)Status == "200")
-                    {
-                        if (ReqData.mode == 1)
-                        {
-                            var cc = new CommunicationController();
-                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}. Please pay fee to confirm slot.\nSecretary, SBTET.", "");
-                        }
-                        else
-                        {
-                            //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Please note Your Application No{(string)appno}for TWSH{{#var#}}exam secretary SBTET, TS.", "1007170028100323520");
-                            var cc = new CommunicationController();
-                            //var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
-                            //var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
-                            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
+                //try
+                //{
+                //    if ((string)Status == "200")
+                //    {
+                //        if (ReqData.mode == 1)
+                //        {
+                //            var cc = new CommunicationController();
+                //            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}. Please pay fee to confirm slot.\nSecretary, SBTET.", "");
+                //        }
+                //        else
+                //        {
+                //            //cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Please note Your Application No{(string)appno}for TWSH{{#var#}}exam secretary SBTET, TS.", "1007170028100323520");
+                //            var cc = new CommunicationController();
+                //            //var msg = "Please note Your Application No (string)appno for TWSH 2023 exam secretary SBTET, TS.";
+                //            //var test = await com.SendSms(ReqData.StudentPhoneNumber.ToString(), msg, "1007170028100323520");
+                //            cc.SendSms(ReqData.StudentPhoneNumber, $"{ReqData.StudentName}, Your Application number for TWSH Exam is {(string)appno}.\nSecretary, SBTET.", "1007162694676451620");
 
-                        }
+                //        }
 
-                    }
-                }
-                catch (Exception ex) { }
+                //    }
+                //}
+                //catch (Exception ex) { }
                 response = Request.CreateResponse(HttpStatusCode.OK);
                 response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"" + Status + "\",\"ApplicationNo\" : \"" + appno + "\",\"respdesc\" : \"" + Respdesc + "\"}"), System.Text.Encoding.UTF8, "application/json");
                 return response;

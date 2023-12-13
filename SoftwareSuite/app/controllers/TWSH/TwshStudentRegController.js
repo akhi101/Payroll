@@ -1,5 +1,7 @@
 ﻿define(['app'], function (app) {
-    app.controller("TwshStudentRegController", function ($scope, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
+    app.controller("TwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
+
+
 
         $scope.isChecked = true;
         $scope.instructions = false;
@@ -63,6 +65,27 @@
             $scope.LoadOnlineDist();
 
         }
+
+
+        var eKey = SystemUserService.GetEKey();
+        eKey.then(function (res) {
+            $scope.EKey = res;
+            console.log($scope.EKey)
+            sessionStorage.Ekey = res;
+
+
+        });
+
+
+        $scope.inputType = 'password';
+        $scope.eyeIcon = '👁️';
+
+
+        $scope.toggleAadharVisibility = function () {
+            $scope.inputType = ($scope.inputType === 'password') ? 'text' : 'password';
+            $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
+        };
+
         $scope.LoadOnlineDist = function () {
             //--------Online Districts -----------
             var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
@@ -131,7 +154,6 @@
                 $scope.CheckBox = false;
             }
         }
-
         $scope.submitCourse = function (courseId, languageId, gradeId) {
             $scope.tmpmode = '';
 
@@ -158,14 +180,20 @@
                 }
             }
 
+            $scope.loader1 = true
+            $scope.submitbutton1 = true
+
+
             // $scope.ExamAppearDetails = true;
             //--------------offline districts------
             $scope.Districts = [];
-            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+            //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.selectedgrade.Id);
             ExamDistricts.then(function (res) {
                 $scope.offlineDistricts = res;
 
-
+                $scope.loader1 = false
+                $scope.submitbutton1 = false
             }, function (err) {
                 $scope.offlineDistricts = [];
             });
@@ -175,6 +203,8 @@
             var getexamdates = TwshStudentRegService.getExamDates($scope.selectedcourse.Id, $scope.selectedgrade.Id)
             getexamdates.then(function (resp) {
                 $scope.ExamDates = resp;
+                $scope.loader1 = false
+                $scope.submitbutton1 = false
             }, function (err) {
                 $scope.ExamDates = []
             });
@@ -200,10 +230,13 @@
                 $scope.Grade = $scope.selectedgrade.GradeName;
                 $scope.tmpmode = 2;
                 $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
-                var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+                //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+                var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.selectedgrade.Id);
                 ExamDistricts.then(function (res) {
                     $scope.offlineDistricts = res;
                     $scope.Districts = $scope.offlineDistricts;
+                    $scope.loader1 = false
+                    $scope.submitbutton1 = false
 
                 }, function (err) {
                     $scope.offlineDistricts = [];
@@ -243,17 +276,18 @@
         }
 
         $scope.submitmode = function () {
-           
 
             $scope.Districts = [];
             if ($scope.mode == 1) {
+                $scope.ExamAppearDetails = true;
                 $scope.courseDetails = false;
                 $scope.showmodeofexam = false;
-                $scope.ExamAppearDetails = true;
+                //$scope.ExamAppearDetails = true;
                 $scope.oldUser = false;
                 $scope.oldUser2 = false;
                 $scope.sscForm = false;
                 $scope.applicationForm = false;
+
                 $scope.tmpmode = 1;
                 $scope.ExamModeName = 'Computer Based Test (CBT)';
                 var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
@@ -267,7 +301,8 @@
                 $scope.Districts = $scope.onlineDistricts;
 
             } else if ($scope.mode == 2) {
-                $scope.tmpmode = 2;
+                //$scope.tmpmode = 2;
+
                 var date = TwshStudentRegService.VerifyApplicationDates($scope.mode);
                 date.then(function (response) {
 
@@ -299,6 +334,7 @@
                         //var err = JSON.parse(error);
 
                     });
+
                 $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
                 $scope.Districts = $scope.offlineDistricts;
             }
@@ -344,7 +380,6 @@
             //    $scope.applicationForm = true;
             //    $scope.ExamAppearDetails = false;
             //}
-
             else {
                 if ($scope.selectedgrade.CriteriaTypeId == 1) {
                     $scope.ExamAppearDetails = false;
@@ -378,6 +413,7 @@
         }
 
         $scope.SendOtp = function (aadhaar) {
+            $scope.otpsent = true;
             if ($scope.adhaarno == '' || $scope.adhaarno == null) {
                 alert("Aadhaar number Can't be Empty");
                 return;
@@ -402,6 +438,7 @@
 
                 } else {
                     $scope.otpbtndisable = false;
+                    // $scope.otpsent = true;
                     alert(res.errdesc)
                 }
             }, function (err) {
@@ -411,6 +448,14 @@
         }
 
         $scope.VerifyOtp = function (aadhaar, aadharotp) {
+            //--------------------
+            //$scope.ExamAppearDetails = false;
+            //$scope.oldUser = false;
+            //$scope.oldUser2 = false;
+            //$scope.sscForm = true;
+            //$scope.ShowAadhaarDetail = false;
+            //$scope.applicationForm = false;
+            //---------------------
             if (aadharotp == '' || aadharotp == null) {
                 alert("OTP Can't be Empty");
                 return;
@@ -599,18 +644,6 @@
             })
         }
 
-        $scope.validateDate = function (date, option) {
-            const regex = '^(?:(?:31(\-)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\-)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\-)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\-)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$'
-            if (date.match(regex)) {
-                return true;
-            }
-            else {
-                alert("Exam Date (option :" + option + "):" + date + "is not valid date format,please enter date in(DD-MM-YYYY format");
-                $("#datepicker" + option).datepicker('setDate', null);
-                return false;
-            }
-        }
-
         $scope.checkDate = function (CandidateNameDOB) {
             var currentDate = new Date();
             var birthdate = new Date(CandidateNameDOB);
@@ -622,8 +655,9 @@
                 $scope.CandidateNameDOB = CandidateNameDOB;
             }
         }
-
         $scope.submitData = function () {
+            $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
+
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
                 alert("Please Enter Student Name .");
                 return;
@@ -677,10 +711,10 @@
             }
 
 
-            if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
-                alert("Please Enter ExamDateselect .");
-                return;
-            }
+            //if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
+            //    alert("Please Enter ExamDateselect .");
+            //    return;
+            //}
 
             //if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
             //    alert("Please Enter date1 .");
@@ -796,17 +830,10 @@
             $scope.examCenterSel = $scope.selectedexamCenter.ExaminationCenterName;
             // $scope.ExamDateselected = JSON.parse($scope.ExamDateselect);
             if ($scope.tmpmode == 1) {
-                if (arr.length < 5) {
-                    alert("choose all exam dates");
-                    return;
-                }
-
-                for (var i = 0; i < arr.length; i++) {
-                    if ($scope.validateDate(arr[i].date, arr[i].opt)) {
-                    } else {
-                        break;
-                    }
-                }
+                //if (arr.length < 5) {
+                //    alert("choose all exam dates");
+                //    return;
+                //}
 
 
                 $scope.finalArray = arr.map(function (obj) {
@@ -818,7 +845,7 @@
                         return;
                     }
                 });
-                $scope.ExamDateSel = JSON.stringify($scope.finalArray).replace("/", "-");
+                $scope.ExamDateSel = JSON.stringify($scope.finalArray).replace("/", "-");;
             } else if ($scope.tmpmode == 2) {
                 $scope.ExamDateSel = $scope.ExamDateselected.ExamDate;
             }
@@ -879,6 +906,7 @@
             if (languageId.Id != 1) {
                 mode = 2
             }
+
             if (!angular.isUndefined(courseId) && !angular.isUndefined(languageId)) {
                 var coursedetail = TwshStudentRegService.getGrades(courseId.Id, languageId.Id);
                 coursedetail.then(function (req) {
@@ -1044,7 +1072,8 @@
 
             } else if ($scope.mode == 2) {
                 //-----------------load offline Exam Centers----------------------
-                var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
+                //var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
+                var ExamCenters = TwshStudentRegService.getExaminationCenters(-1, $scope.SelectedDistrictId.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
                 ExamCenters.then(function (req) {
                     $scope.examCenterList = req
                 }, function (err) {
@@ -1148,6 +1177,46 @@
         });
 
 
+        //$scope.uploadPhoto = function () {
+        //    var input = document.getElementById("stdPhotoFile");
+        //    var fileSize = input.files[0].size;
+        //    console.log(fileSize);
+        //    if (fileSize <= 50000) {
+        //        if (input.files && input.files[0]) {
+        //            var reader = new FileReader();
+        //            reader.readAsDataURL(input.files[0]);
+        //            reader.onload = function (e) {
+        //                $('#stdPhotoImg').attr('src', e.target.result);
+
+        //                var canvas = document.createElement("canvas");
+        //                var imageElement = document.createElement("img");
+
+        //                imageElement.setAttribute = $('<img>', { src: e.target.result });
+        //                var context = canvas.getContext("2d");
+        //                imageElement.setAttribute.one("load", function () {
+        //                    canvas.width = this.width;
+        //                    canvas.height = this.height;
+        //                    context.drawImage(this, 0, 0);
+        //                    var base64Image = canvas.toDataURL("image/png");
+        //                    $scope.userPhoto = base64Image;
+        //                });
+
+
+        //            }
+        //            reader.onerror = function (e) {
+        //                console.error("File could not be read! Code " + e.target.error.code);
+        //            };
+
+        //        }
+        //    }
+        //    else {
+        //        alert("file size should be less then 50kb ");
+        //        return;
+        //    }
+        //}
+
+
+
         $scope.uploadPhoto = function () {
             var input = document.getElementById("stdPhotoFile");
             var fileSize = input.files[0].size;
@@ -1212,54 +1281,6 @@
             xhr.send();
         }
 
-        $scope.uploadMedicalCert = function () {
-            var input = document.getElementById("stdMedicalCertFile");
-            var fileSize = input.files[0].size;
-            console.log(fileSize);
-            if (fileSize <= 200000 && fileSize >= 100000) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(input.files[0]);
-                    reader.onload = function (e) {
-                        $('#stdMedicalCert').attr('src', e.target.result);
-
-                        var canvas = document.createElement("canvas");
-                        var imageElement = document.createElement("img");
-
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
-                        var context = canvas.getContext("2d");
-                        imageElement.setAttribute.one("load", function () {
-                            canvas.width = this.width;
-                            canvas.height = this.height;
-                            context.drawImage(this, 0, 0);
-                            var base64Image = canvas.toDataURL("image/png");
-                            $scope.stdMedicalCert = base64Image;
-                        });
-
-                    }
-                    reader.onerror = function (e) {
-                        console.error("File could not be read! Code " + e.target.error.code);
-                    };
-
-                }
-            }
-            else if (fileSize <= 200000) {
-                alert("file size should not be less than 200KB");
-                $('#stdMedicalCertFile').val('');
-                return;
-            } else if (fileSize >= 100000) {
-                alert("file size should not be greater than 100KB");
-                $('#stdMedicalCertFile').val('');
-                return;
-            } else {
-                alert("file size should be between 100KB and 200KB");
-                $('#stdMedicalCertFile').val('');
-                return;
-            }
-        }
-
-
-       
         var tempId = [];
         var arr = [];
         var finalarr = [];
@@ -1300,7 +1321,7 @@
             var input = document.getElementById("stdSscCertFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 200000 && fileSize >= 100000) {
+            if (fileSize <= 200000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
@@ -1331,11 +1352,13 @@
                 alert("file size should be less than 200KB");
                 $('#stdSscCertFile').val('');
                 return;
-            } else if (fileSize >= 100000) {
-                alert("file size should greater than 100KB");
-                $('#stdSscCertFile').val('');
-                return;
-            } else {
+            }
+            //else if (fileSize >= 100000) {
+            //    alert("file size should greater than 100KB");
+            //    $('#stdSscCertFile').val('');
+            //    return;
+            //}
+            else {
                 alert("file size should be between 100KB and 200KB");
                 $('#stdSscCertFile').val('');
                 return;
@@ -1436,21 +1459,68 @@
             }
         }
 
+        $scope.uploadMedicalCert = function () {
+            var input = document.getElementById("stdMedicalCertFile");
+            var fileSize = input.files[0].size;
+            console.log(fileSize);
+            if (fileSize <= 200000 && fileSize >= 100000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#stdMedicalCert').attr('src', e.target.result);
+
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.stdMedicalCert = base64Image;
+                        });
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            }
+            else if (fileSize <= 200000) {
+                alert("file size should not be less than 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should not be greater than 100KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            }
+        }
+
 
         $scope.submitApplication = function () {
 
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             var req = {
                 "UserId": $scope.UserId == null || $scope.UserId == undefined ? "" : $scope.UserId,
                 "StudentName": $scope.CandidateName == null || $scope.CandidateName == undefined ? "" : $scope.CandidateName,
                 "FatherName": $scope.FatherName == null || $scope.FatherName == undefined ? "" : $scope.FatherName,
                 "MotherName": $scope.MotherName == null || $scope.MotherName == undefined ? "" : $scope.MotherName,
-                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : $scope.adhaarno,
+                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
                 "Gender": $scope.Gender == null || $scope.Gender == undefined ? "" : $scope.Gender,
                 "StudentPhoneNumber": $scope.mobileNO == null || $scope.mobileNO == undefined ? "" : $scope.mobileNO,
                 "CourseId": $scope.selectedcourse.Id == null || $scope.selectedcourse.Id == undefined ? "" : $scope.selectedcourse.Id,
                 "LanguageId": $scope.selectedlanguage.Id == null || $scope.selectedlanguage.Id == undefined ? "" : $scope.selectedlanguage.Id,
                 "GradeId": $scope.selectedgrade.Id == null || $scope.selectedgrade.Id == undefined ? "" : $scope.selectedgrade.Id,
-                "MonthYearId": $scope.MonthYearId == null || $scope.MonthYearId == undefined ? "0" : $scope.MonthYearId,
+                "MonthYearId": $scope.MonthYearId == null || $scope.MonthYearId == undefined ? "" : $scope.MonthYearId,
                 "ExamDistrictId": $scope.SelectedDistrictId.Id == null || $scope.SelectedDistrictId.Id == undefined ? "" : $scope.SelectedDistrictId.Id,
                 "ExamCenterId": $scope.selectedexamCenter.Id == null || $scope.selectedexamCenter.Id == undefined ? "" : $scope.selectedexamCenter.Id,
                 "ExamDate": $scope.ExamDateSel == null || $scope.ExamDateSel == undefined ? "" : $scope.ExamDateSel,

@@ -437,8 +437,8 @@
                     //    alert("OTP sent to Aadhaar registered mobile number")
 
                 } else {
-                   // $scope.otpbtndisable = false;
-                    $scope.otpsent = true;
+                    $scope.otpbtndisable = false;
+                   // $scope.otpsent = true;
                     alert(res.errdesc)
                 }
             }, function (err) {
@@ -448,85 +448,86 @@
         }
 
         $scope.VerifyOtp = function (aadhaar, aadharotp) {
+//--------------------
+            //$scope.ExamAppearDetails = false;
+            //$scope.oldUser = false;
+            //$scope.oldUser2 = false;
+            //$scope.sscForm = true;
+            //$scope.ShowAadhaarDetail = false;
+            //$scope.applicationForm = false;
+//---------------------
+            if (aadharotp == '' || aadharotp == null) {
+                alert("OTP Can't be Empty");
+                return;
+            }
+            $scope.verifybtndisable = true;
+            if ($scope.Txnid != "" && $scope.Txnid != undefined && $scope.Txnid != null) {
+                var aadhaarenc = btoa(aadhaar);
+                var VerifyOtp = TwshStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
+                VerifyOtp.then(function (res) {
+                    if (res == true) {
+                        $scope.adhaarOtp = '';
 
-            $scope.ExamAppearDetails = false;
-            $scope.oldUser = false;
-            $scope.oldUser2 = false;
-            $scope.sscForm = true;
-            $scope.ShowAadhaarDetail = false;
-            $scope.applicationForm = false;
-            //if (aadharotp == '' || aadharotp == null) {
-            //    alert("OTP Can't be Empty");
-            //    return;
-            //}
-            //$scope.verifybtndisable = true;
-            //if ($scope.Txnid != "" && $scope.Txnid != undefined && $scope.Txnid != null) {
-            //    var aadhaarenc = btoa(aadhaar);
-            //    var VerifyOtp = TwshStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
-            //    VerifyOtp.then(function (res) {
-            //        if (res == true) {
-            //            $scope.adhaarOtp = '';
+                        alert("Verfication success.");
+                        $scope.verifybtndisable = false;
+                        if ($scope.selectedgrade.CriteriaTypeId == 1) {
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = true;
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.applicationForm = false;
+                        } else if ($scope.selectedgrade.CriteriaTypeId == 4 && ($scope.selectedgrade.QualificationGradeId == undefined || $scope.selectedgrade.QualificationGradeId == null)) {
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = false;
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.applicationForm = true;
+                            $scope.isqualified1 = false;
+                            $scope.isqualified2 = false;
+                            $scope.isqualified3 = false;
+                        } else {
+                            $scope.ShowAadhaarDetail = false;
+                            $scope.ExamAppearDetails = false;
+                            $scope.oldUser = false;
+                            $scope.oldUser2 = false;
+                            $scope.sscForm = false;
+                            $scope.applicationForm = true;
+                            if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
+                                $scope.isqualified1 = false;
 
-            //            alert("Verfication success.");
-            //            $scope.verifybtndisable = false;
-            //            if ($scope.selectedgrade.CriteriaTypeId == 1) {
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = true;
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.applicationForm = false;
-            //            } else if ($scope.selectedgrade.CriteriaTypeId == 4 && ($scope.selectedgrade.QualificationGradeId == undefined || $scope.selectedgrade.QualificationGradeId == null)) {
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = false;
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.applicationForm = true;
-            //                $scope.isqualified1 = false;
-            //                $scope.isqualified2 = false;
-            //                $scope.isqualified3 = false;
-            //            } else {
-            //                $scope.ShowAadhaarDetail = false;
-            //                $scope.ExamAppearDetails = false;
-            //                $scope.oldUser = false;
-            //                $scope.oldUser2 = false;
-            //                $scope.sscForm = false;
-            //                $scope.applicationForm = true;
-            //                if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
-            //                    $scope.isqualified1 = false;
+                            } else {
+                                $scope.isqualified1 = true;
 
-            //                } else {
-            //                    $scope.isqualified1 = true;
+                            }
+                            $scope.isqualified2 = false;
+                            if ($scope.QualifiedExam == true) {
+                                $scope.isqualified3 = false;
 
-            //                }
-            //                $scope.isqualified2 = false;
-            //                if ($scope.QualifiedExam == true) {
-            //                    $scope.isqualified3 = false;
+                            } else {
+                                $scope.isqualified3 = true;
 
-            //                } else {
-            //                    $scope.isqualified3 = true;
-
-            //                }
-            //            }
-            //        } else {
-            //            $scope.adhaarOtp = '';
-            //            $scope.ShowAadhaarDetail = false;
-            //            $scope.verifybtndisable = false;
-            //            alert("Verfication fail, try again after sometime.");
-            //            $scope.ExamAppearDetails = false;
-            //            $scope.oldUser = false;
-            //            $scope.oldUser2 = true;
-            //            $scope.sscForm = false;
-            //            $scope.applicationForm = false;
-            //        }
+                            }
+                        }
+                    } else {
+                        $scope.adhaarOtp = '';
+                        $scope.ShowAadhaarDetail = false;
+                        $scope.verifybtndisable = false;
+                        alert("Verfication fail, try again after sometime.");
+                        $scope.ExamAppearDetails = false;
+                        $scope.oldUser = false;
+                        $scope.oldUser2 = true;
+                        $scope.sscForm = false;
+                        $scope.applicationForm = false;
+                    }
 
 
-            //    }, function (err) {
-            //        $scope.verifybtndisable = false;
-            //        console.log(res);
-            //    });
-            //}
+                }, function (err) {
+                    $scope.verifybtndisable = false;
+                    console.log(res);
+                });
+            }
         }
 
         $scope.Continue = function () {
