@@ -32,6 +32,7 @@
         }
 
         $scope.feePaid = function () {
+          
             $scope.showStatus = true;
             $scope.statusclass = 'alert-success';
             $scope.StatusMessage = "No Pending Fee Payments";
