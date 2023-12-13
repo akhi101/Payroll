@@ -667,7 +667,7 @@
             return promise;
         };
         this.SubmitApplication = function (object) {
-            var promise = DataAccessService.postData('api/TwshStudentReg/SubmitApplication', object);
+            var promise = DataAccessService.postData('api/TwshStudentReg/SubmitTwshApplication', object);
             return promise;
         };
 
