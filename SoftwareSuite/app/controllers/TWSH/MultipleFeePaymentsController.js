@@ -23,10 +23,11 @@
 
             });
 
-        $scope.openNotPaid = function (gradeId) {
+        $scope.openNotPaid = function (gradeId,DataType) {
             $localStorage.gradeDetails = {
                 userId: $scope.userId,
                 gradeId: gradeId,            
+                DataType: DataType
             }         
             $state.go('TWSH.PaymentProcess')
         }

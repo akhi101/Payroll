@@ -880,8 +880,8 @@
             return promise;
         };
 
-        this.getFeeNotpaidList = function (UserId, GradeId) {
-            var paramObj = { "UserId": UserId, "GradeId": GradeId };
+        this.getFeeNotpaidList = function (UserId, GradeId,datatype) {
+            var paramObj = { "UserId": UserId, "GradeId": GradeId, "datatype": datatype};
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetFeeNotpaidList', paramObj);
             return promise;
         };
@@ -906,6 +906,7 @@
 
         this.approveDetails = function (Id, examDate, ApproveStatus) {
             var paramObj = { "Id": Id, "examDate": examDate, "ApproveStatus": ApproveStatus };
+            console.log(paramObj)
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/ApproveDetails', paramObj);
             return promise;
         };

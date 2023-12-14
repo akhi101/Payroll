@@ -5,7 +5,8 @@
         var gradeData = $localStorage.gradeDetails;
         $scope.userId = gradeData.userId;
         $scope.gradeId = gradeData.gradeId;
-        var getFeeNotPaid = TwshStudentRegService.getFeeNotpaidList($scope.userId, $scope.gradeId);
+        $scope.DataType = gradeData.DataType;
+        var getFeeNotPaid = TwshStudentRegService.getFeeNotpaidList($scope.userId, $scope.gradeId, $scope.DataType);
         getFeeNotPaid.then(function (response) {
           
             $scope.NotpaidList = response;
