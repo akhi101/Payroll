@@ -2827,17 +2827,17 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("ApproveDetails")]
-        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate,int ApproveStatus, int Remarks)
+        public async Task<HttpResponseMessage> ApproveDetails(int ApprovedStatus, int Id, string examDate, string RejectedRemarks)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@Id", Id);
-                param[1] = new SqlParameter("@examDate", examDate);
-                param[2] = new SqlParameter("@ApproveStatus", ApproveStatus);
-                param[3] = new SqlParameter("@Remarks", Remarks);
+                param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
+                param[1] = new SqlParameter("@Id", Id);
+                param[2] = new SqlParameter("@examDate", examDate);
+                param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
 
                 var ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 if (!string.IsNullOrWhiteSpace(examDate))
@@ -2875,7 +2875,7 @@ namespace SoftwareSuite.Controllers.TWSH
                                 string Msg = "{0}, Your application for {1} Exam is scheduled on {2} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {3}, password: {4} to practice and attend the Exam with Aadhaar Card Secretary, SBTET TS.";
                                 var Message = string.Format(Msg, user.Name, user.GradeCode, user.ExamDate, user.Username,"twshcbt");
                                 cc.SendSms(user.PhoneNumber,Message,"1007162694676451620");
-                              //  cc.SendSms(user.PhoneNumber, $"{HttpUtility.UrlEncode(msgusrname)}, Your application for {user.GradeCode} Examination is scheduled on {HttpUtility.UrlEncode(user.ExamDate)} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {user.Username}, password: twshcbt to practice for the exam. Attend the Examination with Aadhaar Card Secretary, SBTET TS.", "1007161889732982505");
+                                cc.SendSms(user.PhoneNumber, $"{HttpUtility.UrlEncode(msgusrname)}, Your application for {user.GradeCode} Examination is scheduled on {HttpUtility.UrlEncode(user.ExamDate)} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {user.Username}, password: twshcbt to practice for the exam. Attend the Examination with Aadhaar Card Secretary, SBTET TS.", "1007161889732982505");
                             }
                         }
                         catch (Exception ex)
