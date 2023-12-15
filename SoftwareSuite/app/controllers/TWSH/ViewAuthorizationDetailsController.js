@@ -223,7 +223,7 @@
                     var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
                 }
             }
-            var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id,examdate, 0);
+            var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, examdate, 0);
             ApproveDetails.then(function (response) {
                 try {
                     var Res = JSON.parse(response);
@@ -233,7 +233,7 @@
                     $scope.loading = false;
                     alert(Res.Table[0].ResponceDescription);
                     $state.go('TWSH.ViewAuthorization')
-                    $scope.modalInstance.close();       
+                    $scope.modalInstance.close();
                 } else if (Res.Table[0].ResponceCode == '400') {
                     $scope.loading = false;
                     alert(Res.Table[0].ResponceDescription);
@@ -254,7 +254,7 @@
 
 
 
-        //}
-
+            //}
+        }
     })
 })
