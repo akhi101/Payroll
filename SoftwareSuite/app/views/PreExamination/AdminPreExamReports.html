@@ -381,7 +381,7 @@
                                         <th style="width: 2%;">S.No</th>
                                         <th ng-click="sort('Scheme')">College Code</th>
                                         <th class="" ng-click="sort('Semester')">College Name</th>
-                                        <th ng-if="StudentTypeId ==1" class="text-center" style="width: 10%" ng-click="sort('On Roll')">On Roll</th>
+                                        <th ng-if="StudentTypeID ==1" class="text-center" style="width: 10%" ng-click="sort('On Roll')">On Roll</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Fee Eligible</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Fee Paid</th>
                                         <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Feedback Submited</th>
@@ -398,11 +398,12 @@
                                         <td class="text-center">{{$index + 1}}</td>
                                         <td class="text-center">{{x.CollegeCode}}</td>
                                         <td class="text-center">{{x.college_name}}</td>
-                                        <td ng-if="StudentTypeId ==1" class="text-center"><a> {{x.OnRoll}}</a></td>
-                                        <td class="text-center"><a>{{x.Elgible}}</a></td>
+                                        <td ng-if="StudentTypeID ==1" class="text-center"><a> {{x.OnRoll}}</a></td>
+                                        <td class="text-center"><a>{{x.FeeEligible}}</a></td>
                                         <td class="text-center"><a>{{x.FeePaid}}</a></td>
-                                        <td class="text-center"><a>{{x.FeeNotPaid}}</a></td>
-                                        <td ng-if="StudentTypeId ==1" class="text-center"><a> {{x.Condonation}} </a> </td>
+                                        <td class="text-center"><a>{{x.Feedbacksubmitted}}</a></td>
+                                        <td class="text-center"><a>{{x.Feedbacknotsubmitted}}</a></td>
+                                        <!--<td ng-if="StudentTypeId ==1" class="text-center"><a> {{x.Condonation}} </a> </td>-->
                                         <!--<td ng-if="StudentTypeId ==1" class="text-center"><a>{{x.Detained}}</a></td>-->
                                         <!--<td class="text-center">{{x.NeedApproved}}</td>
                             <td class="text-center">{{x.Approved}}</td>-->
@@ -415,12 +416,12 @@
                                     <tr style="background-color:#fff!important;">
                                         <!--<td style="text-align: center" class="checkboxs"><input type="checkbox" ng-model="data.isChecked" ng-class="{selected: data.isChecked}" ng-change="selectEntity(data)"></td>-->
                                         <td class="text-center" colspan="3"></td>
-                                        <td ng-if="StudentTypeId ==1" class="text-center">{{OnRoll}}</td>
-                                        <td class="text-center">{{Elgible}}</td>
+                                        <td ng-if="StudentTypeID ==1" class="text-center">{{OnRoll}}</td>
+                                        <td class="text-center">{{FeeEligible}}</td>
                                         <td class="text-center">{{FeePaid}}</td>
-                                        <td class="text-center">{{FeeNotPaid}}</td>
-                                        <td ng-if="StudentTypeId ==1" class="text-center">{{Condonation}}</td>
-                                        <td ng-if="StudentTypeId ==1" class="text-center">{{Detained}}</td>
+                                        <td class="text-center">{{Feedbacksubmitted}}</td>
+                                        <td class="text-center">{{Feedbacknotsubmitted}}</td>
+
                                     </tr>
                                 </tbody>
                             </table>

@@ -143,7 +143,7 @@
             $scope.semarr1 = [];
             angular.forEach($scope.GetSemesters, function (value1, key) {
                 if (value1.selected === true) {
-                    $scope.semarr1.push({ "semid": value.semid })
+                    $scope.semarr1.push({ "semid": value1.semid })
                 }
             });
         }
@@ -288,11 +288,11 @@
                     $scope.Noreports = false;
                     $scope.getReports = response;
                     var OnRoll = 0
-                    var Elgible = 0;
+                    var FeeEligible = 0;
                     //var St = 0;
                     var FeePaid = 0;
-                    var FeedBackSubmitted = 0;
-                    var FeedBackNotSubmitted = 0;
+                    var Feedbacksubmitted = 0;
+                    var Feedbacknotsubmitted = 0;
                     //var Condonation = 0;
                     //var FeeNotPaid = 0;
                     //var Detained = 0;
@@ -300,27 +300,27 @@
                     for (var i = 0; i < response.length; i++) {
                         if (response[i].OnRoll != null)
                             OnRoll = OnRoll + response[i].OnRoll;
-                        if (response[i].Elgible != null)
-                            Elgible = Elgible + response[i].Elgible;
+                        if (response[i].FeeEligible != null)
+                            FeeEligible = FeeEligible + response[i].FeeEligible;
 
                         if (response[i].FeePaid != null)
                             FeePaid = FeePaid + response[i].FeePaid;
 
-                        if (response[i].FeedBackSubmitted != null)
-                            FeedBackSubmitted = FeedBackSubmitted + response[i].FeedBackSubmitted;
+                        if (response[i].Feedbacksubmitted != null)
+                            Feedbacksubmitted = Feedbacksubmitted + response[i].Feedbacksubmitted;
 
-                        if (response[i].FeedBackNotSubmitted != null)
-                            FeedBackNotSubmitted = FeedBackNotSubmitted + response[i].FeedBackNotSubmitted;
+                        if (response[i].Feedbacknotsubmitted != null)
+                            Feedbacknotsubmitted = Feedbacknotsubmitted + response[i].Feedbacknotsubmitted;
                         //if (response[i].Detained != null)
                         //    Detained = Detained + response[i].Detained;
 
 
                     }
                     $scope.OnRoll = OnRoll;
-                    $scope.Elgible = Elgible;
+                    $scope.FeeEligible = FeeEligible;
                     $scope.FeePaid = FeePaid;
-                    $scope.FeedBackSubmitted = FeeNotPaid;
-                    $scope.FeedBackNotSubmitted = Condonation;
+                    $scope.Feedbacksubmitted = Feedbacksubmitted;
+                    $scope.Feedbacknotsubmitted = Feedbacknotsubmitted;
                     //$scope.Detained = Detained;
                     /*  $scope.$emit('hideLoading', data);*/
 
