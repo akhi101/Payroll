@@ -159,39 +159,56 @@
         //}
 
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID,ApplicationStatus) {
+        //$scope.ViewStudentDetails = function (ApplicationNumber, StudentID,ApplicationStatus) {
 
-            if (ApplicationStatus == 'Pending') {
-                $localStorage.TempData3 = {
-                    ApplicationNumber: ApplicationNumber,
-                    StudentID: StudentID,
-                    ApplicationStatus: 1
+        //    if (ApplicationStatus == 'Pending') {
+        //        $localStorage.TempData3 = {
+        //            ApplicationNumber: ApplicationNumber,
+        //            StudentID: StudentID,
+        //            ApplicationStatus: 1
 
-                };
+        //        };
 
-                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
-            }
-            else if (ApplicationStatus == 'Revised') {
-                $localStorage.TempData3 = {
-                    ApplicationNumber: ApplicationNumber,
-                    StudentID: StudentID,
-                    ApplicationStatus: 2
+        //        $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+        //    }
+        //    else if (ApplicationStatus == 'Revised') {
+        //        $localStorage.TempData3 = {
+        //            ApplicationNumber: ApplicationNumber,
+        //            StudentID: StudentID,
+        //            ApplicationStatus: 2
 
-                };
+        //        };
 
-                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
-            }
-            else if (ApplicationStatus == 'Rejected') {
-                $localStorage.TempData3 = {
-                    ApplicationNumber: ApplicationNumber,
-                    StudentID: StudentID,
-                    ApplicationStatus: 3
+        //        $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+        //    }
+        //    else if (ApplicationStatus == 'Rejected') {
+        //        $localStorage.TempData3 = {
+        //            ApplicationNumber: ApplicationNumber,
+        //            StudentID: StudentID,
+        //            ApplicationStatus: 3
 
-                };
+        //        };
 
-                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
-            }
+        //        $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+        //    }
             
+
+
+        //}
+
+
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, Submitted, ApplicationStatus) {
+
+            $localStorage.TempData3 = {
+                ApplicationNumber: ApplicationNumber,
+                StudentID: StudentID,
+                Submitted: Submitted,
+                ApplicationStatus: ApplicationStatus
+
+
+            };
+
+            $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
 
 
         }

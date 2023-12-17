@@ -433,16 +433,19 @@
                             <hr style="border-color: #454545 ">
                             <div class="row " style="padding: 0px 15px;">
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-4 text-center" ng-if="imagesrc != '' && imagesrc != null ">
+                                    <div>Click on the file to Expand</div>
+                                    <img class="zoom" ng-src="{{imagesrc}}" ng-click="openImage(imagesrc)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-4 text-center" ng-if="imagesrc1 != '' && imagesrc1 != null ">
+                                    <div>Click on the file to Expand</div>
+                                    <img class="zoom" ng-src="{{imagesrc1}}" ng-click="openImage(imagesrc1)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-4 text-center" ng-if="imagesrc2 != '' && imagesrc2 != null ">
+                                    <div>Click on the file to Expand</div>
+                                    <img class="zoom" ng-src="{{imagesrc2}}" ng-click="openImage(imagesrc2)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
 

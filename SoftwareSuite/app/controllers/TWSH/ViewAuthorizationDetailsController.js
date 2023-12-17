@@ -18,7 +18,7 @@
             $scope.loading = false;
             $scope.getData = true;
             $scope.ExamMode = response[0].ExamMode;
-            $scope.ApproveDetails = response.Table;
+            $scope.ApproveDetails = response[0];
             $scope.uploadPhoto = response[0].Photo;
             $scope.imagesrc = response[0].File1;
             $scope.imagesrc2 = response[0].File2;
@@ -56,6 +56,7 @@
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
+                backdrop:'static'
 
             });
 
@@ -78,6 +79,16 @@
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
+                backdrop: 'static'
+            });
+        }
+
+        $scope.ReleaseButton = function () {
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/Controllers/PostExam/ReleasePopup.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
             });
         }
 
@@ -88,8 +99,12 @@
 
 
         $scope.Submit = function (remarks) {
-          
-            var RejectDetails = TwshStudentRegService.RejectSubmitDetails(2, $scope.Id, 0, remarks);
+
+            if (remarks == null || remarks == '' || remarks == undefined) {
+                alert('Please Enter Remarks');
+                return;
+            }
+            var RejectDetails = TwshStudentRegService.RejectSubmitDetails(2, $scope.Id, 0, remarks,null);
             RejectDetails.then(function (response) {
                 try {
                     var Res = JSON.parse(response);
@@ -123,6 +138,47 @@
 
         }
 
+
+        $scope.ReleaseSubmit = function (releaseremarks) {
+
+            if (releaseremarks == null || releaseremarks == '' || releaseremarks == undefined) {
+                alert('Please Enter Remarks');
+                return;
+            }
+            var ReleaseDetails = TwshStudentRegService.ReleaseSubmitDetails(3, $scope.Id, 0, null,releaseremarks);
+            ReleaseDetails.then(function (response) {
+                try {
+                    var Res = JSON.parse(response);
+                }
+                catch { }
+                if (Res.Table[0].ResponceCode == '200') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+
+                    $state.go('TWSH.ViewAuthorization')
+                    $scope.modalInstance.close();
+                } else if (Res.Table[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    alert(Res.Table[0].ResponceDescription);
+                    $scope.modalInstance.close();
+
+                } else {
+                    $scope.loading = false;
+                    alert("No Data Found");
+
+                }
+
+            }, function (err) {
+                $scope.loading = false;
+                alert("Error while loading");
+            });
+
+
+
+
+
+        }
+
         $scope.ApproveButton = function () {
             if ($scope.ExamMode == 2) {
 
@@ -150,7 +206,7 @@
 
             }
 
-            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate, '');
+            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate, '',null,null);
             ApproveDetails.then(function (response) {
 
 

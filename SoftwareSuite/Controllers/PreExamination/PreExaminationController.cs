@@ -11107,6 +11107,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("GetAdminHallTicketReports")]
+        public HttpResponseMessage GetAdminHallTicketReports(int ExamMonthYearId, string Semester, int StudentTypeId)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[1] = new SqlParameter("@Semester", Semester);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("ADM_SFP_GET_HallticketPaymentReports", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ADM_SFP_GET_HallticketPaymentReports", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpPost, ActionName("getApproveExamFeeCondonation")]
         public HttpResponseMessage getApproveExamFeeCondonation([FromBody] JsonObject request)

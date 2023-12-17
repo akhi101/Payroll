@@ -6,9 +6,9 @@
 
         $scope.userId = authData.UserId;
         $scope.UserId = authData == undefined || authData == "" ? -1 : authData.UserId;
-    
+
         var GetExamCenterApplied = TwshStudentRegService.getExamCenterApplied($scope.UserId);
-        GetExamCenterApplied.then(function (response) {         
+        GetExamCenterApplied.then(function (response) {
             if (response) {
                 if (response.Table) {
                     $scope.studDetailsfound = true;
@@ -30,7 +30,7 @@
                     $scope.statusclass = "alert-danger";
                     $scope.studDetailsfound = false;
                 }
-               
+
                 //$timeout(function () {
                 //    $scope.showStatus = false;                  
                 //}, 5000);
@@ -43,7 +43,7 @@
                 //}, 5000);
                 $scope.studDetailsfound = false;
             }
-           
+
         },
             function (error) {
                 $scope.showStatus = true;
@@ -72,18 +72,18 @@
         }
 
         $scope.openStudentList = function (courseId, gradeId, languageId, examBatch, DataType) {
-         
-            $localStorage.collegeAuthorization = "";                
 
-                collegeauthorization = {
-                    UserId: $scope.UserId,
-                    CourseId: courseId,
-                    GradeId: gradeId,
-                    LanguageId: languageId,
-                    ExamBatch: examBatch,
-                    DataType: DataType
+            $localStorage.collegeAuthorization = "";
+
+            collegeauthorization = {
+                UserId: $scope.UserId,
+                CourseId: courseId,
+                GradeId: gradeId,
+                LanguageId: languageId,
+                ExamBatch: examBatch,
+                DataType: DataType
             }
-         
+
             $localStorage.collegeAuthorization = collegeauthorization;
             $state.go('TWSH.ViewAuthorization');
         }

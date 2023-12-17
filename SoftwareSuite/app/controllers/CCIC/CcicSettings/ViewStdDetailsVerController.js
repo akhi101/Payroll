@@ -47,12 +47,23 @@
         $scope.Close = function () {
             $state.go('CcicDashboard.Academic.VerificationReport')
         }
-
+        if (tempData3.ApplicationStatus == 'Pending') {
+            $scope.ApplicationStatus = 0;
+        }
+        else if (tempData3.ApplicationStatus == 'Approved') {
+            $scope.ApplicationStatus = 1;
+        }
+        else if (tempData3.ApplicationStatus == 'Revised') {
+            $scope.ApplicationStatus = 2;
+        }
+        else if (tempData3.ApplicationStatus == 'Rejected') {
+            $scope.ApplicationStatus = 3;
+        }
 
         $scope.ViewStudentDetails = function () {
             //$scope.loading = true;
             $scope.DataTable = false;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
+            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, $scope.ApplicationStatus);
             ViewStudentDetail.then(function (response) {
 
                 try {
@@ -62,9 +73,9 @@
                 $scope.ShowStudentDetails = true;
                 $scope.DataTable = false;
                 $scope.PreviewData = [];
-                if (res.length >= 0) {
+                if (res.Table.length >= 0) {
                     $scope.loading = false;
-                    $scope.PreviewData = res[0];
+                    $scope.PreviewData = res.Table[0];
                     $scope.$emit('hideLoading', data);
 
                 } else {
