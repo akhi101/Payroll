@@ -2637,15 +2637,17 @@ namespace SoftwareSuite.Controllers.TWSH
 
 
         [HttpGet, ActionName("GetFeeNotpaidList")]
-        public HttpResponseMessage GetFeeNotpaidList(int UserId, int GradeId)
+        public HttpResponseMessage GetFeeNotpaidList(int UserId, int GradeId,int datatype)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@UserId", UserId);
                 param[1] = new SqlParameter("@GradeId", GradeId);
+                param[2] = new SqlParameter("@datatype", datatype);
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_FeeNotPaidDetails", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
