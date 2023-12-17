@@ -223,61 +223,67 @@
                 });
         }
         $scope.editData = function () {
-            var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
-            GetDetailsByMobileDetails.then(function (response) {
-                console.log(response)
-                console.log(response.Table[0].ResponseCode)
-                if (response.Table[0].ResponseCode == '200') {
-                    //alert()
-                    $scope.userPhotos = "";
-                    $scope.getData = false;
-                    $scope.editStudentData = true;
-                    $scope.ApplicatioNo = response.Table1[0].ApplicationNumber;
-                    $scope.EmailId = response.Table1[0].EmailId;
-                    $scope.HnoStreet = response.Table1[0].HnoStreet;
-                    $scope.VillageTown = response.Table1[0].VillageTown;
-                    $scope.tmpmode = response.Table1[0].ExamMode
-                    $scope.userPhotos = response.Table1[0].Photo;
-                    $scope.DistrictId = response.Table1[0].DistrictId;
-                    $scope.SelectedDistrictId = {
-                        Id: response.Table1[0].DistrictId
+            if ($scope.IsEligible == true) {
+                alert('Application Already Approved cannot Edit');
+                return;
+            }
+            else {
+                var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
+                GetDetailsByMobileDetails.then(function (response) {
+                    //console.log(response)
+                    //console.log(response.Table[0].ResponseCode)
+                    if (response.Table[0].ResponseCode == '200') {
+                        //alert()
+                        $scope.userPhotos = "";
+                        $scope.getData = false;
+                        $scope.editStudentData = true;
+                        $scope.ApplicatioNo = response.Table1[0].ApplicationNumber;
+                        $scope.EmailId = response.Table1[0].EmailId;
+                        $scope.HnoStreet = response.Table1[0].HnoStreet;
+                        $scope.VillageTown = response.Table1[0].VillageTown;
+                        $scope.tmpmode = response.Table1[0].ExamMode
+                        $scope.userPhotos = response.Table1[0].Photo;
+                        $scope.DistrictId = response.Table1[0].DistrictId;
+                        $scope.SelectedDistrictId = {
+                            Id: response.Table1[0].DistrictId
+                        }
+                        $scope.ExamCenterId = response.Table1[0].ExamCenterId;
+                        $scope.Photo = response.Table1[0].Photo;
+                        $scope.DistrictName = response.Table1[0].DistrictName;
+                        $scope.stdSscCert = response.Table1[0].File1;
+                        $scope.StdinterCert = response.Table1[0].File2;
+                        $scope.IsBlind = response.Table1[0].IsBlind == false ? '0' : '1';
+                        $scope.ExamDateselect = response.Table1[0].ExamDate;
+                        $scope.ExamDate = response.Table1[0].ExamDate;
+                        $scope.exambatch = response.Table1[0].ExamBatch;
+
+
+                    } else {
+
+                        alert(response.Table[0].ResponseDescription);
+                        $scope.userPhotos = "";
+                        $scope.getData = true;
+                        $scope.editStudentData = false;
+                        $scope.ApplicatioNo = "";
+                        $scope.EmailId = "";
+                        $scope.HnoStreet = "";
+                        $scope.VillageTown = "";
+                        $scope.tmpmode = "";
+                        $scope.userPhotos = "";
+                        $scope.DistrictId = "";
+                        $scope.Photo = "";
+                        $scope.DistrictName = "";
+                        $scope.stdSscCert = "";
+                        $scope.StdinterCert = "";
                     }
-                    $scope.ExamCenterId = response.Table1[0].ExamCenterId;
-                    $scope.Photo = response.Table1[0].Photo;
-                    $scope.DistrictName = response.Table1[0].DistrictName;
-                    $scope.stdSscCert = response.Table1[0].File1;
-                    $scope.StdinterCert = response.Table1[0].File2;
-                    $scope.IsBlind = response.Table1[0].IsBlind == false ? '0' : '1';
-                    $scope.ExamDateselect = response.Table1[0].ExamDate;
-                    $scope.ExamDate = response.Table1[0].ExamDate;
-                    $scope.exambatch = response.Table1[0].ExamBatch;
-
-
-                } else {
-
-                    alert(response.Table[0].ResponseDescription);
-                    $scope.userPhotos = "";
-                    $scope.getData = true;
-                    $scope.editStudentData = false;
-                    $scope.ApplicatioNo = "";
-                    $scope.EmailId = "";
-                    $scope.HnoStreet = "";
-                    $scope.VillageTown = "";
-                    $scope.tmpmode = "";
-                    $scope.userPhotos = "";
-                    $scope.DistrictId = "";
-                    $scope.Photo = "";
-                    $scope.DistrictName = "";
-                    $scope.stdSscCert = "";
-                    $scope.StdinterCert = "";
-                }
 
 
 
-            }, function (error) {
+                }, function (error) {
 
 
-            });
+                });
+            }
 
         }
         $scope.UpdateData = function () {

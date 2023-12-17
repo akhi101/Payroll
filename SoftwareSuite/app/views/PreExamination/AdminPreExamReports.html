@@ -22,13 +22,39 @@
         border: 1px #dadada solid;
     }
 
-        #checkboxessem label {
-            display: block;
-        }
+    #checkboxessem label {
+        display: block;
+    }
 
-            #checkboxessem label:hover {
-                background-color: #1e90ff;
-            }
+    #checkboxessem label:hover {
+        background-color: #1e90ff;
+    }
+
+    #checkboxessem1 {
+        display: none;
+        border: 1px #dadada solid;
+    }
+
+    #checkboxessem1 label {
+        display: block;
+    }
+
+    #checkboxessem1 label:hover {
+        background-color: #1e90ff;
+    }
+
+    #checkboxessem2 {
+        display: none;
+        border: 1px #dadada solid;
+    }
+
+    #checkboxessem2 label {
+        display: block;
+    }
+
+    #checkboxessem2 label:hover {
+        background-color: #1e90ff;
+    }
 
 
     .contain {
@@ -99,6 +125,30 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        background-color: #eee;
+        border: 1px solid #cac6c6;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .contain:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .contain input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+  
+    
 </style>
 <div ng-controller="AdminPreExamReportsController">
     <section class="content">
@@ -317,18 +367,18 @@
                                     Semester:
                                 </label>
                                 <div class="multiselect">
-                                    <div class="selectBox" ng-click="showSEMCheckboxes()">
+                                    <div class="selectBox" ng-click="showsemCheckboxes1()">
                                         <select class="form-control ">
-                                            <option ng-blur="closeSEMCheckbox()">Select Sem</option>
+                                            <option ng-blur="closesemCheckbox1()">Select Sem</option>
                                         </select>
                                         <div class="overSelect"></div>
                                     </div>
                                     <div id="checkboxessem1" style="max-height: 10em; overflow-y: scroll;">
                                         <label class="contain">
-                                            <input type="checkbox" ng-click="toggleAllSEM()" ng-model="isAllSelectedsem1" /><span class="checkmark"></span>Select All
+                                            <input type="checkbox" ng-click="toggleAllsem1()" ng-model="isAllSelectedsem1" /><span class="checkmark"></span>Select All
                                         </label>
-                                        <label class="contain" ng-repeat="sem1 in GetSemesters">
-                                            <input type="checkbox" ng-model="sem1.selected" ng-change="optionToggledSEM(sem1.selected)"><span class="checkmark"></span>{{sem1.semester}}
+                                        <label class="contain" ng-repeat="sem1 in GetSemesters1">
+                                            <input type="checkbox" ng-model="sem1.selected" ng-change="optionToggledsem1(sem1.selected)"><span class="checkmark"></span>{{sem1.semester}}
                                         </label>
 
                                     </div>
@@ -475,18 +525,18 @@
                                     Semester:
                                 </label>
                                 <div class="multiselect">
-                                    <div class="selectBox" ng-click="ShowsemCheckboxes()">
+                                    <div class="selectBox" ng-click="showsemCheckboxes2()">
                                         <select class="form-control ">
-                                            <option ng-blur="ClosesemCheckbox()">Select Sem</option>
+                                            <option ng-blur="closesemCheckbox2()">Select Sem</option>
                                         </select>
                                         <div class="overSelect"></div>
                                     </div>
                                     <div id="checkboxessem2" style="max-height: 10em; overflow-y: scroll;">
                                         <label class="contain">
-                                            <input type="checkbox" ng-click="ToggleAllsem()" ng-model="isAllSelectedsem2" /><span class="checkmark"></span>Select All
+                                            <input type="checkbox" ng-click="toggleAllsem2()" ng-model="isAllSelectedsem2" /><span class="checkmark"></span>Select All
                                         </label>
-                                        <label class="contain" ng-repeat="sem2 in GetSemesters">
-                                            <input type="checkbox" ng-model="sem2.selected" ng-change="OptionToggledsem(sem2.selected)"><span class="checkmark"></span>{{sem2.semester}}
+                                        <label class="contain" ng-repeat="sem2 in GetSemesters2">
+                                            <input type="checkbox" ng-model="sem2.selected" ng-change="optionToggledsem2(sem2.selected)"><span class="checkmark"></span>{{sem2.semester}}
                                         </label>
 
                                     </div>

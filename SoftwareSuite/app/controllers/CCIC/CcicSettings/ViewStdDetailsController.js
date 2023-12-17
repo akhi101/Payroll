@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("ViewStdDetailsController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
+    app.controller("ViewStdDetailsController", function ($scope, $uibModal, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
@@ -7,7 +7,7 @@
         var tempData3 = $localStorage.TempData3;
         //var tempData2 = $localStorage.TempData2;
         //$scope.ReportTypeID = tempData2.ReportTypeID;
-        $scope.isSubmitted = tempData3.isSubmitted;
+        $scope.isSubmitted = tempData3.Submitted;
         $scope.ApplicationStatus = tempData3.ApplicationStatus;
 
         $scope.Submitted = tempData3.ApplicationStatus;
@@ -48,6 +48,9 @@
             if (res.Table.length > 0) {
                 $scope.loading = false;
                 $scope.PreviewData = res.Table[0];
+                $scope.imagesrc = res.Table[0].SSCCertificate;
+                $scope.imagesrc1 = res.Table[0].QualificationCertificate;
+                $scope.imagesrc2 = res.Table[0].ExperienceCertificate;
                 //console.log(PreviewData)
                 //$scope.Aadhaar = res[0].Password;
                 //$scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
@@ -112,6 +115,24 @@
                 var err = JSON.parse(error);
             });
         }
+
+
+
+        $scope.openImage = function (imagesrc) {
+            $scope.img = imagesrc;
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "app/views/CCIC/Popups/ViewDocument.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+
+            });
+
+        }
+
+        $scope.closeModal = function () {
+            $scope.modalInstance.close();
+        };
 
 
 
