@@ -1085,7 +1085,6 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
             return promise;
         };
-
         this.ReleaseSubmitDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks, ReleasedRemarks) {
             var paramObj = {
                 "ApprovedStatus": ApprovedStatus,
