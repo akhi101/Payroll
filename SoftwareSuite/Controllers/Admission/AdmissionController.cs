@@ -513,17 +513,17 @@ namespace SoftwareSuite.Controllers.Admission
             try
             {
                 var dbHandler = new dbHandler();
-                string encriptedaadhar = "";
+                //string encriptedaadhar = "";
 
-                var res = AadhaarNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
-                var crypt = new HbCrypt(res[1]);
-                var aadharencrypt = new HbCrypt();
-                string aadhar = crypt.AesDecrypt(res[0]);
-                string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
-                encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
+                //var res = AadhaarNo.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+                //var crypt = new HbCrypt(res[1]);
+                //var aadharencrypt = new HbCrypt();
+                //string aadhar = crypt.AesDecrypt(res[0]);
+                //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
+                //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@StudentID", StudentId);
-                param[1] = new SqlParameter("@AadhaarNo", encriptedaadhar);
+                param[1] = new SqlParameter("@AadhaarNo", AadhaarNo);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("usp_StudentAadharVerify", param);
                 string Msg = "PIN successfully generated, Your PIN : {0}, Secretary, SBTETTS.";
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();

@@ -7,11 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using RestSharp;
 using System.Web.Http;
 using System.Xml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using System.Data;
 using System.IO;
 using SoftwareSuite.Models.Database;
@@ -2829,17 +2829,18 @@ namespace SoftwareSuite.Controllers.TWSH
         }
 
         [HttpGet, ActionName("ApproveDetails")]
-        public async Task<HttpResponseMessage> ApproveDetails(int Id, string examDate,int ApproveStatus, int Remarks)
+        public async Task<HttpResponseMessage> ApproveDetails(int ApprovedStatus, int Id, string examDate, string RejectedRemarks,string ReleasedRemarks)
         {
             try
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@Id", Id);
-                param[1] = new SqlParameter("@examDate", examDate);
-                param[2] = new SqlParameter("@ApproveStatus", ApproveStatus);
-                param[3] = new SqlParameter("@Remarks", Remarks);
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
+                param[1] = new SqlParameter("@Id", Id);
+                param[2] = new SqlParameter("@examDate", examDate);
+                param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
+                param[4] = new SqlParameter("@ReleasedRemarks", ReleasedRemarks);
 
                 var ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 if (!string.IsNullOrWhiteSpace(examDate))
@@ -2877,7 +2878,7 @@ namespace SoftwareSuite.Controllers.TWSH
                                 string Msg = "{0}, Your application for {1} Exam is scheduled on {2} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {3}, password: {4} to practice and attend the Exam with Aadhaar Card Secretary, SBTET TS.";
                                 var Message = string.Format(Msg, user.Name, user.GradeCode, user.ExamDate, user.Username,"twshcbt");
                                 cc.SendSms(user.PhoneNumber,Message,"1007162694676451620");
-                              //  cc.SendSms(user.PhoneNumber, $"{HttpUtility.UrlEncode(msgusrname)}, Your application for {user.GradeCode} Examination is scheduled on {HttpUtility.UrlEncode(user.ExamDate)} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {user.Username}, password: twshcbt to practice for the exam. Attend the Examination with Aadhaar Card Secretary, SBTET TS.", "1007161889732982505");
+                                cc.SendSms(user.PhoneNumber, $"{HttpUtility.UrlEncode(msgusrname)}, Your application for {user.GradeCode} Examination is scheduled on {HttpUtility.UrlEncode(user.ExamDate)} hrs. Please login to https://sbtet.telangana.gov.in/TwshCbt using username: {user.Username}, password: twshcbt to practice for the exam. Attend the Examination with Aadhaar Card Secretary, SBTET TS.", "1007161889732982505");
                             }
                         }
                         catch (Exception ex)
@@ -4187,24 +4188,71 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-        [HttpGet, ActionName("RejectorApproveSubmitDetails")]
-        public string RejectorApproveSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null)
+        //[HttpGet, ActionName("RejectorApproveorReleaseSubmitDetails")]
+        //public string RejectorApproveorReleaseSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null,string ReleasedRemarks=null)
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new Twshdbandler();
+        //        var param = new SqlParameter[5];
+        //        param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
+        //        param[1] = new SqlParameter("@Id", Id);
+        //        param[2] = new SqlParameter("@examDate", examDate);
+        //        param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
+        //        param[4] = new SqlParameter("@ReleasedRemarks", ReleasedRemarks);
+
+        //        var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ex.Message;
+        //    }
+        //}
+
+        public class submitdetails
+        {
+            public int Id { get; set; }
+            public int ApprovedStatus { get; set; }
+            public string examDate { get; set; }
+            public string RejectedRemarks { get; set; }
+            public string ReleasedRemarks { get; set; }
+        }
+
+        [HttpPost, ActionName("RejectorApproveorReleaseSubmitDetails")]
+        public async Task<HttpResponseMessage> RejectorApproveorReleaseSubmitDetails([FromBody] submitdetails data)
         {
             try
             {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
-                param[1] = new SqlParameter("@Id", Id);
-                param[2] = new SqlParameter("@examDate", examDate);
-                param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
-
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@ApprovedStatus", data.ApprovedStatus);
+                param[1] = new SqlParameter("@Id", data.Id);
+                param[2] = new SqlParameter("@examDate", data.examDate);
+                param[3] = new SqlParameter("@RejectedRemarks", data.RejectedRemarks);
+                param[4] = new SqlParameter("@ReleasedRemarks", data.ReleasedRemarks);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
-                return JsonConvert.SerializeObject(dt);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "201")
+                {
+                    string ApplicationNumber = Convert.ToString(dt.Tables[1].Rows[0]["ApplicationNumber"]);
+                    string MobileNumber = Convert.ToString(dt.Tables[1].Rows[0]["StudentPhoneNumber"]);
+                    string ExamMonthYear = Convert.ToString(dt.Tables[1].Rows[0]["ExamMonthYear"]);
+                    string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                    var temptateid = "1007170253154796137";
+                    var msg = " your application No " + ApplicationNumber + " for TWSH "  + ExamMonthYear + " exam is rejected. Secretary SBTET TS.";
+                    CommunicationController com = new CommunicationController();
+                    com.SendSms(MobileNumber, msg, temptateid);
+                };
+
+                response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                dbHandler.SaveErorr("SP_SET_ApproveStudentEligibility", 0, ex.Message);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                return response;
             }
         }
 

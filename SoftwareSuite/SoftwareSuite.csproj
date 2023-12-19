@@ -1081,6 +1081,7 @@
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
+    <Content Include="app\controllers\PostExam\ReleasePopup.html" />
     <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
@@ -1496,6 +1497,7 @@
     <Content Include="app\controllers\TWSH\TypeWritingCertificateController.js" />
     <Content Include="app\controllers\TWSH\ViewAuthorizationController.js" />
     <Content Include="app\controllers\TWSH\ViewAuthorizationDetailsController.js" />
+    <Content Include="app\controllers\TWSH\ViewStudentApplicationController.js" />
     <Content Include="app\controllers\UploadExcelController.js" />
     <Content Include="app\controllers\UserManualController.js" />
     <Content Include="app\customControls\customControls.module.js" />
@@ -1728,6 +1730,7 @@
     <Content Include="app\views\CCIC\Popups\EditExaminationCentresPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
+    <Content Include="app\views\CCIC\Popups\ViewDocument.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\MasterSettings\CreateUser1.html" />
@@ -3185,6 +3188,7 @@
     <Content Include="app\views\TWSH\ViewAuthorization.html" />
     <Content Include="app\views\TWSH\ViewAuthorizationDetails.html" />
     <Content Include="app\views\TWSH\ViewDocument.html" />
+    <Content Include="app\views\TWSH\ViewStudentApplication.html" />
     <Content Include="app\views\UploadExcel.html" />
     <Content Include="app\views\UserManual.html" />
     <Content Include="assets\cont\css\fontello.css" />

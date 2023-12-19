@@ -3122,6 +3122,12 @@
         return promise;
         },
 
+        this.GetAdminHallTicketReports = function (ExamMonthYearId, Semester, StudentTypeId) {
+        var paramObj = { "ExamMonthYearId": ExamMonthYearId, "Semester": Semester, "StudentTypeId": StudentTypeId };
+        var promise = DataAccessService.getDataWithPara('api/PreExamination/GetAdminHallTicketReports', paramObj);
+        return promise;
+        },
+
             //this.getAdminCollegePreExamReports = function (UserId, CollegeCode) {
             //    var paramObj = { "UserId": UserId, "CollegeCode": CollegeCode };
             //    var promise = DataAccessService.getDataWithPara('api/PreExamination/getAdminCollegePreExamReports', paramObj);
