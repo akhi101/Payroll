@@ -905,9 +905,15 @@
         };
 
 
-        this.approveDetails = function (Id, examDate, ApproveStatus) {
-            var paramObj = { "Id": Id, "examDate": examDate, "ApproveStatus": ApproveStatus };
-            console.log(paramObj)
+        this.approveDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks, ReleasedRemarks) {
+            var paramObj = {
+                "ApprovedStatus": ApprovedStatus,
+                "Id": Id,
+                "examDate": examDate,
+                "RejectedRemarks": RejectedRemarks,
+                "ReleasedRemarks": ReleasedRemarks
+            };
+            //console.log(paramObj)
 
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/ApproveDetails', paramObj);
             return promise;
@@ -1070,7 +1076,7 @@
                 "RejectedRemarks": RejectedRemarks,
                 "ReleasedRemarks": ReleasedRemarks
             };
-            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
+            var promise = DataAccessService.postData('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
             return promise;
         };
 
@@ -1082,7 +1088,7 @@
                 "RejectedRemarks": RejectedRemarks,
                 "ReleasedRemarks": ReleasedRemarks
             };
-            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
+            var promise = DataAccessService.postData('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
             return promise;
         };
         this.ReleaseSubmitDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks, ReleasedRemarks) {
@@ -1093,7 +1099,7 @@
                 "RejectedRemarks": RejectedRemarks,
                 "ReleasedRemarks": ReleasedRemarks
             };
-            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
+            var promise = DataAccessService.postData('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
             return promise;
         };
         
