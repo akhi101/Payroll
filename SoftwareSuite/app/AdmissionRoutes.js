@@ -4319,6 +4319,17 @@
                 dependencies: ['controllers/Tickets/TicketsCountDataController', 'services/PreExamination/PreExaminationService']
 
             },
+            
+
+            'Dashboard.TicketsStatusWiseReport': {
+
+                url: "/TicketsStatusWiseReport",
+
+                templateUrl: 'app/views/Tickets/TicketsStatusWiseReport.html',
+
+                dependencies: ['controllers/Tickets/TicketsStatusWiseReportController', 'services/PreExamination/PreExaminationService']
+
+            },
 
 
 

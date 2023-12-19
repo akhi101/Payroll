@@ -503,7 +503,12 @@
             var promise = DataAccessService.getDataWithPara('api/AdminService/GetTicketsCount', paramObj);
             return promise;
         }
-        
+
+        this.GetStatusWiseTickets = function (DataType) {
+            var paramObj = { "DataType": DataType };
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetStatusWiseTickets', paramObj);
+            return promise;
+        }
         //this.uploadFile = function (ExcelData, Title, Description, Ids) {
         //    var promise = DataAccessService.uploadFileToUrl('AdminServiceBase/uploadFile?Title=' + Title + '&Description=' + Description + '&Ids='+Ids, ExcelData);
         //    return promise;

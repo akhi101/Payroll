@@ -15,6 +15,7 @@ using SoftwareSuite.Models;
 using System.IO;
 using SoftwareSuite.Models.Assessment;
 using System.Configuration;
+using System.Timers;
 
 namespace SoftwareSuite.Controllers.AdminServices
 {
@@ -1009,6 +1010,58 @@ namespace SoftwareSuite.Controllers.AdminServices
             {
                 return ex.Message;
 
+            }
+        }
+
+        private static void elapse(object sender, ElapsedEventArgs e, string s)
+        {
+            System.IO.File.Delete(s);
+            ((Timer)sender).Stop();
+            ((Timer)sender).Dispose();
+        }
+
+
+        [HttpGet, ActionName("GetStatusWiseTickets")]
+        public string GetStatusWiseTickets(int DataType)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "SP_Get_StatusWiseTaskData ";
+                string Name ="";
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", DataType);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                if (DataType == 1)
+                {
+                     Name = "Pending";
+                }else if(DataType == 2)
+                {
+                     Name = "Approve";
+                }
+                else if (DataType == 3)
+                {
+                    Name = "Under Process";
+                }
+                else if (DataType == 4)
+                {
+                    Name = "Completed";
+                }
+                var filename = Name + "_StatusWiseReport_" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex)
+            {
+                return "Error Occured. Please Try Again";
             }
         }
 
