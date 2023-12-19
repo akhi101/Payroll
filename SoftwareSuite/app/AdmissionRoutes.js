@@ -1032,6 +1032,12 @@
                 templateUrl: 'app/views/TWSH/TwshViewApplication.html',
                 dependencies: ['controllers/TWSH/TwshViewApplicationController', 'services/TWSH/TwshStudentRegService']
             },
+
+            'TWSH.ViewStudentApplication': {
+                url: "/MultipleFeePayments/PaymentProcess/ViewStudentApplication",
+                templateUrl: 'app/views/TWSH/ViewStudentApplication.html',
+                dependencies: ['controllers/TWSH/ViewStudentApplicationController', 'services/TWSH/TwshStudentRegService']
+            },
             'TWSH.TypeWritingCertificate': {
                 url: "/TwshQualifiedList/TypeWritingCertificate",
                 templateUrl: 'app/views/TWSH/TypeWritingCertificate.html',
@@ -3289,6 +3295,7 @@
                 templateUrl: 'app/views/Examssite/TwshAdmViewApplication.html',
                 dependencies: ['controllers/Examssite/TwshAdmViewApplicationController', 'services/TWSH/TwshStudentRegService']
             },
+
 
             'Dashboard.AdmissionDashboard.Admission': {
                 url: "/Admission",

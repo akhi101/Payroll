@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("PaymentProcessController", function ($scope, $state, TwshStudentRegService,$uibModal,PaymentService, $localStorage) {
+    app.controller("PaymentProcessController", function ($scope, $localStorage, $state, TwshStudentRegService,$uibModal,PaymentService, $localStorage) {
         $scope.btndisable = true;
         //$scope.allItemsSelected = false;
         var gradeData = $localStorage.gradeDetails;
@@ -197,5 +197,16 @@
                 $scope.Paybtndisable = false;
             });
         }
+
+
+        $scope.getData = function (ApplicationNumber){
+            $localStorage.TempData = {
+                ApplicationNumber: ApplicationNumber
+
+            };
+            $state.go('TWSH.ViewStudentApplication');
+        }
+
+
     })
 })

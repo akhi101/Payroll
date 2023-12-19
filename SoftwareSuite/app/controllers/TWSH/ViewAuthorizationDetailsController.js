@@ -106,19 +106,19 @@
             }
             var RejectDetails = TwshStudentRegService.RejectSubmitDetails(2, $scope.Id, 0, remarks,null);
             RejectDetails.then(function (response) {
-                try {
-                    var Res = JSON.parse(response);
-                }
-                catch {}
-                if (Res.Table[0].ResponceCode == '200') {
+                //try {
+                //    var Res = JSON.parse(response);
+                //}
+                //catch {}
+                if (response.Table[0].ResponceCode == '201') {
                     $scope.loading = false;
-                    alert(Res.Table[0].ResponceDescription);
+                    alert(response.Table[0].ResponceDescription);
                   
                     $state.go('TWSH.ViewAuthorization')
                     $scope.modalInstance.close();
-                } else if (Res.Table[0].ResponceCode == '400') {
+                } else if (response.Table[0].ResponceCode == '400') {
                     $scope.loading = false;
-                    alert(Res.Table[0].ResponceDescription);
+                    alert(response.Table[0].ResponceDescription);
                     $scope.modalInstance.close();
 
                 } else {
@@ -147,19 +147,19 @@
             }
             var ReleaseDetails = TwshStudentRegService.ReleaseSubmitDetails(3, $scope.Id, 0, null,releaseremarks);
             ReleaseDetails.then(function (response) {
-                try {
-                    var Res = JSON.parse(response);
-                }
-                catch { }
-                if (Res.Table[0].ResponceCode == '200') {
+                //try {
+                //    var Res = JSON.parse(response);
+                //}
+                //catch { }
+                if (response.Table[0].ResponceCode == '200') {
                     $scope.loading = false;
-                    alert(Res.Table[0].ResponceDescription);
+                    alert(response.Table[0].ResponceDescription);
 
                     $state.go('TWSH.ViewAuthorization')
                     $scope.modalInstance.close();
-                } else if (Res.Table[0].ResponceCode == '400') {
+                } else if (response.Table[0].ResponceCode == '400') {
                     $scope.loading = false;
-                    alert(Res.Table[0].ResponceDescription);
+                    alert(response.Table[0].ResponceDescription);
                     $scope.modalInstance.close();
 
                 } else {
@@ -206,7 +206,7 @@
 
             }
 
-            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate, '',null,null);
+            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate,'','');
             ApproveDetails.then(function (response) {
 
 
@@ -220,7 +220,7 @@
                 $scope.StatusMessage = "Application Verified Successfully";
                 $timeout(function () {
                     $scope.showStatus = true;
-                    $state.go('TWSH.Authorization')
+                    $state.go('TWSH.ViewAuthorization')
                 }, 5000);
                 //alert(response[0].Responce)
             },
@@ -230,7 +230,7 @@
                     $scope.StatusMessage = "Server error";
                     $timeout(function () {
                         $scope.showStatus = true;
-                        $state.go('TWSH.Authorization')
+                        $state.go('TWSH.ViewAuthorization')
                     }, 5000);
 
                 });
@@ -279,7 +279,7 @@
                     var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
                 }
             }
-            var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, examdate, 0);
+            var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, examdate, null,null);
             ApproveDetails.then(function (response) {
                 try {
                     var Res = JSON.parse(response);
