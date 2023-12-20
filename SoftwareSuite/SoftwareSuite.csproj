@@ -1079,8 +1079,10 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
+    <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
+    <Content Include="app\views\Popups\ReleasePopup.html" />
     <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
@@ -1122,7 +1124,7 @@
     <Content Include="app\controllers\PostExam\Odc_StudentDetailsController.js" />
     <Content Include="app\controllers\PostExam\PostExamController.js" />
     <Content Include="app\controllers\PostExam\PromotionalListController.js" />
-    <Content Include="app\controllers\PostExam\RejectPopup.html" />
+    <Content Include="app\views\Popups\RejectPopup.html" />
     <Content Include="app\controllers\PostExam\ResultsReportsController.js" />
     <Content Include="app\controllers\PostExam\SeatingArrangementController.js" />
     <Content Include="app\controllers\PostExam\SemMigrationController.js" />
@@ -1438,10 +1440,12 @@
     <Content Include="app\controllers\SystemAdministration\SystemUserListController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterListController.js" />
+    <Content Include="app\controllers\TestingController.js" />
     <Content Include="app\controllers\Tickets\AddTicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
     <Content Include="app\controllers\Tickets\TicketsReportController.js" />
+    <Content Include="app\controllers\Tickets\TicketsStatusWiseReportController.js" />
     <Content Include="app\controllers\TWSH\ApplyCertificateController.js" />
     <Content Include="app\controllers\TWSH\GenerateTwshNrController.js" />
     <Content Include="app\controllers\TWSH\GradewiseExamcentersController.js" />
@@ -1494,6 +1498,7 @@
     <Content Include="app\controllers\TWSH\TypeWritingCertificateController.js" />
     <Content Include="app\controllers\TWSH\ViewAuthorizationController.js" />
     <Content Include="app\controllers\TWSH\ViewAuthorizationDetailsController.js" />
+    <Content Include="app\controllers\TWSH\ViewStudentApplicationController.js" />
     <Content Include="app\controllers\UploadExcelController.js" />
     <Content Include="app\controllers\UserManualController.js" />
     <Content Include="app\customControls\customControls.module.js" />
@@ -1726,6 +1731,7 @@
     <Content Include="app\views\CCIC\Popups\EditExaminationCentresPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserPopup.html" />
     <Content Include="app\views\CCIC\Popups\EditUserTypesPopup.html" />
+    <Content Include="app\views\CCIC\Popups\ViewDocument.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\MasterSettings\CreateUser1.html" />
@@ -3114,10 +3120,12 @@
     <Content Include="app\views\SystemAdministration\UserGroupMaster.html" />
     <Content Include="app\views\SystemAdministration\UserGroupMasterList.html" />
     <Content Include="app\views\test.html.txt" />
+    <Content Include="app\views\Testing.html" />
     <Content Include="app\views\Tickets\AddTickets.html" />
     <Content Include="app\views\Tickets\Tickets.html" />
     <Content Include="app\views\Tickets\TicketsCountData.html" />
     <Content Include="app\views\Tickets\TicketsReport.html" />
+    <Content Include="app\views\Tickets\TicketsStatusWiseReport.html" />
     <Content Include="app\views\TotalExampaymentPopup.html" />
     <Content Include="app\views\TwalletRedirect.html" />
     <Content Include="app\views\TwoYearsCertificatePopup.html" />
@@ -3183,6 +3191,7 @@
     <Content Include="app\views\TWSH\ViewAuthorization.html" />
     <Content Include="app\views\TWSH\ViewAuthorizationDetails.html" />
     <Content Include="app\views\TWSH\ViewDocument.html" />
+    <Content Include="app\views\TWSH\ViewStudentApplication.html" />
     <Content Include="app\views\UploadExcel.html" />
     <Content Include="app\views\UserManual.html" />
     <Content Include="assets\cont\css\fontello.css" />

@@ -318,14 +318,33 @@
                     <form name="circularForm">
 
                         <div class="row">
-                            <div class="col-md-6">
-                                <button type="submit" style="margin-right:-70px" class="btn btn-success pull-right" ng-click="AddTicketsPage()">Add Ticket</button>
+
+                            <div class="col-md-4" style="left:80px">
+                                <button type="submit" class="btn btn-success pull-left" ng-click="AddTicketsPage()">Add Ticket</button>
+
                             </div>
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-primary pull-right" ng-click="TicketsReportPage()">Tickets Report</button>
+                                <div class="col-md-4" style="left:80px">
+                                    <button type="submit" class="btn btn-info pull-left" ng-click="GetStatuswiseReport()">Statuswise Report</button>
+                                </div>
+                                <!--<div class="col-md-3" style="left:30px">
+                                    <div class="form-group">
+                                        <label>Statuswise Report</label>
+                                        <select class="form-control" name="" ng-model="StatusValue">
+                                            <option value="">Select Status</option>
+                                            <option value="">Pending</option>
+                                            <option value="">Approved</option>
+                                            <option value="">Under Process</option>
+                                            <option value="">Completed</option>
+                                        </select>
+
+                                    </div>
+                                </div>-->
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary pull-right" ng-click="TicketsReportPage()">Datewise Report</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+
+</form>
                 </div>
             </div>
             <!--<div class="sm-spacer"></div>-->

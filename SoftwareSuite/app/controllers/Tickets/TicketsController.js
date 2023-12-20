@@ -141,7 +141,14 @@
                 });
 
         
+        $scope.GetStatuswiseReport = function () {
 
+          
+
+            $state.go('Dashboard.TicketsStatusWiseReport');
+
+
+        }
 
 
     

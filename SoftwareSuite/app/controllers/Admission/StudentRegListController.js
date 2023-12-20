@@ -36,12 +36,12 @@
         //    }
         //}
 
-        var eKey = SystemUserService.GetEKey();
-        eKey.then(function (res) {
-            $scope.EKey = res;
-            sessionStorage.Ekey = res;
+        //var eKey = SystemUserService.GetEKey();
+        //eKey.then(function (res) {
+        //    $scope.EKey = res;
+        //    sessionStorage.Ekey = res;
 
-        });
+        //});
 
         $scope.inputType = 'password';
         $scope.eyeIcon = '👁️';
@@ -1348,11 +1348,11 @@
 
 
         $scope.approveAadhaar = function () {
-            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.aadhaarVerStu.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+            //var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.aadhaarVerStu.AadharNo, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
             $scope.Loading = true;
             var ret = confirm("Do you confirm that the Aadhaar Data matches with the Data given by student");
             if (ret) {
-                StudentRegService.StudentAadhaarVerified($scope.aadhaarVerStu.StudentId, EncriptedAadhar).then(function (data) {
+                StudentRegService.StudentAadhaarVerified($scope.aadhaarVerStu.StudentId, $scope.aadhaarVerStu.AadharNo).then(function (data) {
                     // console.log(data);
 
                     if (data.length > 0) {

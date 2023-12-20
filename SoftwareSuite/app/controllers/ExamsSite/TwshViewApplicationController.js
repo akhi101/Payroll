@@ -81,6 +81,8 @@
 
 
         $scope.getDetails = function () {
+            $scope.getbutton1 = true;
+            $scope.loading = true;
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined && !$scope.CandidateNameDOBfound && !(reg == $scope.CandidateNameDOBfound)) {
                 var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
@@ -94,6 +96,8 @@
 
                 if (response.length > 0) {
                     $scope.getData = true;
+                    $scope.getbutton1 = false
+                    $scope.loading = false;
                     $scope.editStudentData = false;
                     $scope.showStatus = false;
                     var ApplicationDetails = response;
@@ -127,17 +131,23 @@
                     $scope.tmpmode = ApplicationDetails[0].ExamMode;
                     $scope.LanguageName = ApplicationDetails[0].LanguageName;
                     $scope.IsEligible = ApplicationDetails[0].IsEligible;
+                    $scope.IsRejected = ApplicationDetails[0].isrejected;
+                    $scope.IsReleased = ApplicationDetails[0].isreleased;
                     $scope.IsFeePaid = ApplicationDetails[0].IsFeePaid;
                     $scope.CourseId = ApplicationDetails[0].CourseId;
                     $scope.LanguageId = ApplicationDetails[0].LanguageId;
                     $scope.GradeId = ApplicationDetails[0].GradeId;
                     $scope.ExamCenterId = ApplicationDetails[0].ExamCenterId;
+                    $scope.RejectedRemarks = ApplicationDetails[0].RejectedRemarks;
+                    $scope.ReleasedRemarks = ApplicationDetails[0].ReleasedRemarks;
 
                     $scope.GetExamDates()
                     $scope.loadDistricts();
 
                 } else {
                     $scope.getData = false;
+                    $scope.getbutton1 = false;
+                    $scope.loading = false;
                     $scope.StatusMessage = "No data found!";
                     $scope.showStatus = true;
                     $scope.statusclass = "alert-danger";
@@ -146,6 +156,8 @@
 
             }, function (error) {
                 $scope.getData = false;
+                $scope.getbutton1 = false;
+                $scope.loading = false;
                 $scope.StatusMessage = "No data found!";
                 $scope.showStatus = true;
                 $scope.statusclass = "alert-danger";
@@ -154,7 +166,8 @@
         }
 
         $scope.getDetailsByMobile = function (mobile, dob) {
-
+            $scope.getbutton2 = true;
+            $scope.loading = true;
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.dateOfBirth != null && $scope.dateOfBirth !== undefined && !$scope.dateOfBirthFound && !(reg == $scope.dateOfBirthFound)) {
                 var datechange = moment($scope.dateOfBirth).format("DD/MM/YYYY HH:mm:ss");
@@ -169,6 +182,8 @@
 
                 if (response.length > 0) {
                     $scope.getData = true;
+                    $scope.getbutton2 = false;
+                    $scope.loading = false;
                     $scope.showStatus = false;
                     $scope.editStudentData = false;
                     var ApplicationDetails = response;
@@ -196,17 +211,23 @@
                     $scope.DistrictName = ApplicationDetails[0].DistrictName;
                     $scope.LanguageName = ApplicationDetails[0].LanguageName;
                     $scope.IsEligible = ApplicationDetails[0].IsEligible;
+                    $scope.IsRejected = ApplicationDetails[0].isrejected;
+                    $scope.IsReleased = ApplicationDetails[0].isreleased;
                     $scope.IsFeePaid = ApplicationDetails[0].IsFeePaid;
                     $scope.CourseId = ApplicationDetails[0].CourseId;
                     $scope.LanguageId = ApplicationDetails[0].LanguageId;
                     $scope.GradeId = ApplicationDetails[0].GradeId;
                     $scope.ExamCenterId = ApplicationDetails[0].ExamCenterId;
+                    $scope.RejectedRemarks = ApplicationDetails[0].RejectedRemarks;
+                    $scope.ReleasedRemarks = ApplicationDetails[0].ReleasedRemarks;
 
                     $scope.GetExamDates()
                     $scope.loadDistricts();
 
                 } else {
                     $scope.getData = false;
+                    $scope.getbutton2 = false;
+                    $scope.loading = false;
                     $scope.StatusMessage = "No data found!";
                     $scope.showStatus = true;
                     $scope.statusclass = "alert-danger";
@@ -216,6 +237,8 @@
             },
                 function (error) {
                     $scope.getData = false;
+                    $scope.getbutton2 = false;
+                    $scope.loading = false;
                     $scope.StatusMessage = "No data found!";
                     $scope.showStatus = true;
                     $scope.statusclass = "alert-danger";
@@ -223,64 +246,81 @@
                 });
         }
         $scope.editData = function () {
-            var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
-            GetDetailsByMobileDetails.then(function (response) {
-                console.log(response)
-                console.log(response.Table[0].ResponseCode)
-                if (response.Table[0].ResponseCode == '200') {
-                    //alert()
-                    $scope.userPhotos = "";
-                    $scope.getData = false;
-                    $scope.editStudentData = true;
-                    $scope.ApplicatioNo = response.Table1[0].ApplicationNumber;
-                    $scope.EmailId = response.Table1[0].EmailId;
-                    $scope.HnoStreet = response.Table1[0].HnoStreet;
-                    $scope.VillageTown = response.Table1[0].VillageTown;
-                    $scope.tmpmode = response.Table1[0].ExamMode
-                    $scope.userPhotos = response.Table1[0].Photo;
-                    $scope.DistrictId = response.Table1[0].DistrictId;
-                    $scope.SelectedDistrictId = {
-                        Id: response.Table1[0].DistrictId
+            $scope.editbutton = true;
+            if ($scope.IsEligible == true) {
+                alert('Application Already Approved cannot Edit');
+                $scope.editbutton = false;
+                return;
+            }
+            if ($scope.IsRejected == true) {
+                alert('Your Application is Rejected, Please contact to Examination Centre');
+                $scope.editbutton = false;
+                return;
+            }
+            else {
+                var GetDetailsByMobileDetails = TwshStudentRegService.getStudentDetails($scope.ApplicationNumber);
+                GetDetailsByMobileDetails.then(function (response) {
+                    //console.log(response)
+                    //console.log(response.Table[0].ResponseCode)
+                    if (response.Table[0].ResponseCode == '200') {
+                        //alert()
+                        $scope.userPhotos = "";
+                        $scope.getData = false;
+                        $scope.editStudentData = true;
+                        $scope.editbutton = false;
+                        $scope.ApplicatioNo = response.Table1[0].ApplicationNumber;
+                        $scope.EmailId = response.Table1[0].EmailId;
+                        $scope.HnoStreet = response.Table1[0].HnoStreet;
+                        $scope.VillageTown = response.Table1[0].VillageTown;
+                        $scope.tmpmode = response.Table1[0].ExamMode
+                        $scope.userPhotos = response.Table1[0].Photo;
+                        $scope.DistrictId = response.Table1[0].DistrictId;
+                        $scope.SelectedDistrictId = {
+                            Id: response.Table1[0].DistrictId
+                        }
+                        $scope.ExamCenterId = response.Table1[0].ExamCenterId;
+                        $scope.Photo = response.Table1[0].Photo;
+                        $scope.DistrictName = response.Table1[0].DistrictName;
+                        $scope.stdSscCert = response.Table1[0].File1;
+                        $scope.StdinterCert = response.Table1[0].File2;
+                        $scope.IsBlind = response.Table1[0].IsBlind == false ? '0' : '1';
+                        $scope.ExamDateselect = response.Table1[0].ExamDate;
+                        $scope.ExamDate = response.Table1[0].ExamDate;
+                        $scope.exambatch = response.Table1[0].ExamBatch;
+
+
+                    } else {
+
+                        alert(response.Table[0].ResponseDescription);
+                        $scope.editbutton = false;
+                        $scope.userPhotos = "";
+                        $scope.getData = true;
+                        $scope.editStudentData = false;
+                        $scope.ApplicatioNo = "";
+                        $scope.EmailId = "";
+                        $scope.HnoStreet = "";
+                        $scope.VillageTown = "";
+                        $scope.tmpmode = "";
+                        $scope.userPhotos = "";
+                        $scope.DistrictId = "";
+                        $scope.Photo = "";
+                        $scope.DistrictName = "";
+                        $scope.stdSscCert = "";
+                        $scope.StdinterCert = "";
                     }
-                    $scope.ExamCenterId = response.Table1[0].ExamCenterId;
-                    $scope.Photo = response.Table1[0].Photo;
-                    $scope.DistrictName = response.Table1[0].DistrictName;
-                    $scope.stdSscCert = response.Table1[0].File1;
-                    $scope.StdinterCert = response.Table1[0].File2;
-                    $scope.IsBlind = response.Table1[0].IsBlind == false ? '0' : '1';
-                    $scope.ExamDateselect = response.Table1[0].ExamDate;
-                    $scope.ExamDate = response.Table1[0].ExamDate;
-                    $scope.exambatch = response.Table1[0].ExamBatch;
-
-
-                } else {
-
-                    alert(response.Table[0].ResponseDescription);
-                    $scope.userPhotos = "";
-                    $scope.getData = true;
-                    $scope.editStudentData = false;
-                    $scope.ApplicatioNo = "";
-                    $scope.EmailId = "";
-                    $scope.HnoStreet = "";
-                    $scope.VillageTown = "";
-                    $scope.tmpmode = "";
-                    $scope.userPhotos = "";
-                    $scope.DistrictId = "";
-                    $scope.Photo = "";
-                    $scope.DistrictName = "";
-                    $scope.stdSscCert = "";
-                    $scope.StdinterCert = "";
-                }
 
 
 
-            }, function (error) {
+                }, function (error) {
 
 
-            });
+                });
+            }
 
         }
         $scope.UpdateData = function () {
+            $scope.submitbutton = true;
+            $scope.loader4 = true;
             if ($scope.tmpmode == 1) {
                 //if (arr.length < 5) {
                 //    alert("choose all exam dates");
@@ -325,7 +365,8 @@
                 $scope.Name, $scope.FatherName, $scope.MotherName, $scope.Gender, $scope.CandidateNameDOB1, $scope.IsBlind, $scope.GradeId, $scope.exambatch, $scope.ExamCenterId,
                 $scope.StudentPhoneNumber);
             UpdateData.then(function (response) {
-
+                $scope.submitbutton = false;
+                $scope.loader4 = false;
                 $scope.StatusMessage = "Student Details updated Successfully";
                 $scope.showStatus = true;
                 $scope.statusclass = "alert-success";
