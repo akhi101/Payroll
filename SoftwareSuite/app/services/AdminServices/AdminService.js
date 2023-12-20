@@ -537,5 +537,18 @@
             return promise;
         }
 
+
+        this.GetStatuswiseReport = function (DataType) {
+            var paramObject = {
+
+                "DataType": DataType
+                
+            };
+
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetStatuswiseReport', paramObject);
+            return promise;
+        }
+
+
     })
 })

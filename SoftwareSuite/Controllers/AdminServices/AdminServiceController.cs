@@ -1371,9 +1371,31 @@ namespace SoftwareSuite.Controllers.AdminServices
                 throw ex;
             }
         }
+        [HttpGet, ActionName("GetStatuswiseReport")]
+        public string GetStatuswiseReport(int DataType)
+        {
+            var dbHandler = new dbHandler();
 
+            try
+            {
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", DataType);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_StatusWiseTaskData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_StatusWiseTaskData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
 
     }
+
+
+
 
     public class AdminServiceBaseController : BaseController
     {
@@ -1418,7 +1440,7 @@ namespace SoftwareSuite.Controllers.AdminServices
             return "0";
         }
 
-     
+        
 
     }
 
