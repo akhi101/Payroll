@@ -1079,9 +1079,10 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
+    <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
-    <Content Include="app\controllers\PostExam\ReleasePopup.html" />
+    <Content Include="app\views\Popups\ReleasePopup.html" />
     <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
@@ -1123,7 +1124,7 @@
     <Content Include="app\controllers\PostExam\Odc_StudentDetailsController.js" />
     <Content Include="app\controllers\PostExam\PostExamController.js" />
     <Content Include="app\controllers\PostExam\PromotionalListController.js" />
-    <Content Include="app\controllers\PostExam\RejectPopup.html" />
+    <Content Include="app\views\Popups\RejectPopup.html" />
     <Content Include="app\controllers\PostExam\ResultsReportsController.js" />
     <Content Include="app\controllers\PostExam\SeatingArrangementController.js" />
     <Content Include="app\controllers\PostExam\SemMigrationController.js" />
