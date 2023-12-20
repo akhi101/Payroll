@@ -27,15 +27,16 @@
             <div class="alert text-center " ng-class="{'{{statusclass}}': showStatus}" ng-if="showStatus">
                 <span>{{StatusMessage}}</span>
             </div>
+            <div class="col-md-12 " ng-show="studDetailsfound"><div class="notifylabel pull-right" for="sel1" style="color: red;">Click on row to view details</div></div>
             <div class="col-md-12" ng-if="studDetailsfound">
                 <div class="cl-details">
-                    <h2 ng-click="openStudentDetails()">Candidates List</h2>
+                    <h2 ng-click="openStudentDetails()">{{Title}} Candidates List</h2>
                 </div>
             </div>
             <!--<div style="width:100%;text-align:center;">
-            <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-        </div>-->
-            <div class="col-md-12 " ng-show="studDetailsfound"><div class="notifylabel pull-right" for="sel1" style="color: red;">Click on row to view details</div></div>
+        <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+    </div>-->
+
 
             <div class="col-md-12" ng-if="studDetailsfound">
                 <div id="attendanceReport" class="table-responsive table-custom-tables-tb">

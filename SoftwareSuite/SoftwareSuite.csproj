@@ -1729,6 +1729,8 @@
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\MasterSettings\CreateUser1.html" />
+    <Content Include="app\views\newwebsite\assets\img\CTE-Venkatesham.jpeg.jpg" />
+    <Content Include="app\views\newwebsite\assets\img\CTE-Venkatesham.jpg" />
     <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
     <Content Include="app\views\Popups\EditTicketsPopup.html" />
     <Content Include="app\views\Popups\EditUserPopup.html" />
@@ -3247,6 +3249,7 @@
     <Content Include="assets\img\courses\f1.jpg" />
     <Content Include="assets\img\courses\f2.jpg" />
     <Content Include="assets\img\courses\f3.jpg" />
+    <Content Include="assets\img\CTE-Venkatesham.jpeg.jpg" />
     <Content Include="assets\img\custom\1.svg" />
     <Content Include="assets\img\custom\aboubg.svg" />
     <Content Include="assets\img\custom\banner\2.svg" />

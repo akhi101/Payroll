@@ -9,6 +9,15 @@
         $scope.LanguageId = $localStorage.collegeAuthorization.LanguageId;
         $scope.ExamBatch = $localStorage.collegeAuthorization.ExamBatch;
         $scope.DataType = $localStorage.collegeAuthorization.DataType;
+        if ($scope.DataType == '0') {
+            $scope.Title ="Registered"
+        } else if ($scope.DataType == '1') {
+            $scope.Title = "Approved"
+        } else if ($scope.DataType == '2') {
+            $scope.Title = "Pending"
+        } else if ($scope.DataType == '3') {
+            $scope.Title = "Rejected"
+        }
         //$scope.UserId = "3";
         //$scope.courseId = "1";
         //$scope.GradeId = "1";

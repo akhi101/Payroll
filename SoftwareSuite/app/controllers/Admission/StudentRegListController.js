@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("StudentRegListController", function ($scope, SystemUserService, $state, $stateParams, $localStorage, AppSettings, StudentRegService, RegisterAdmittedStudentService, $uibModal, Excel, $timeout, $rootScope) {
+    app.controller("StudentRegListController", function ($scope, $crypto, SystemUserService, $state, $stateParams, $localStorage, AppSettings, StudentRegService, RegisterAdmittedStudentService, $uibModal, Excel, $timeout, $rootScope) {
         var data = {};
         $scope.Loading = false;
         $scope.$emit('showLoading', data);
