@@ -21,6 +21,19 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    button.btn.btn-success.pull-right.btn-xs {
+        margin-bottom: 5px;
+    }
+    @media print {
+        tr.cb-1 th {
+            color: #000!important;
+        }
+        .table-custom-tables-tb .table-bordered > thead > tr > th {
+            border: 1px solid #ddd !important;
+            color: #000 !important;
+            font-size: 12px !important;
+        }
+    }
 </style>
 <div ng-controller="SubBillerReportController">
     <section class="content">
@@ -39,10 +52,10 @@
 
                 </ul>
                 <!--<div class="row ">
-        <div class="cl-details">
-            <h2>Sub-Biller Report</h2>
-        </div>
-    </div>-->
+            <div class="cl-details">
+                <h2>Sub-Biller Report</h2>
+            </div>
+        </div>-->
                 <div class="tab-content">
                     <div class="tab-pane active" id="1">
                         <div class="row base-row">
@@ -118,68 +131,82 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pull-right">
+                        <div class="col-md-2 pull-right " ng-show="SubBillerCount.length>0">
                             <a class="ExportToExcel1 pointer"
-                               id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
+                               id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')">
                                 <i class="fa fa-file-excel"></i>
                                 SubBiller Count
                             </a>
                         </div>
-                        <label ng-show="SubBillerCount.length>0" class="notifylabel" for="sel1" style="color: red;">Click on Table Row to get Day Wise Report</label>
-                        <button class="btn btn-success pull-right" ng-click="printSubBillerCount()">Print</button>
 
-                        <div class="table-responsive table-custom-tables-tb" id="Details" ng-show="SubBillerCount.length>0">
-                            <table class="table table-bordered table-hover table-rounded">
-                                <thead>
-                                    <tr class="cb-1">
+                        <div class="col-md-1 pull-right " ng-show="SubBillerCount.length>0">
+                            <button class="btn btn-success pull-right btn-xs" title="Print" ng-click="printDetails('Details')">Print</button>
+                        </div>
+                        <div ng-show="SubBillerCount.length>0" class="col-md-7 notifylabel" for="sel1" style="color: red;">Click on row to view details</div>
+                        <div id="Details">
+                            <div class="col-md-12 ng-scope" ng-show="SubBillerCount.length>0">
+                                <div class="cl-details">
+                                    <h2>SubBiller Report</h2>
+                                </div>
+                            </div>
+                            <div class="col-md-12" ng-show="SubBillerCount.length>0">
+                                <div class="table-responsive table-custom-tables-tb">
+                                    <table class="table table-bordered table-hover table-rounded">
+                                        <thead>
+                                            <tr class="cb-1">
 
-                                        <th class="text-center">Sub BillerID</th>
-                                        <th class="text-center">Total Records</th>
-                                        <th class="text-center">Total Amount Payed</th>
-                                        <th class="text-center">Success</th>
-                                        <th class="text-center">Success Amount</th>
-                                        <th class="text-center">Fail</th>
-                                        <th class="text-center">Fail Amount</th>
-                                        <th class="text-center">Rejected</th>
-                                        <th class="text-center">Rejected Amount</th>
+                                                <th class="text-center">Sub BillerID</th>
+                                                <th class="text-center">Total Records</th>
+                                                <th class="text-center">Total Amount Payed</th>
+                                                <th class="text-center">Success</th>
+                                                <th class="text-center">Success Amount</th>
+                                                <th class="text-center">Fail</th>
+                                                <th class="text-center">Fail Amount</th>
+                                                <th class="text-center">Rejected</th>
+                                                <th class="text-center">Rejected Amount</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="Data in SubBillerCount">
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="Data in SubBillerCount">
 
-                                        <td class="text-center">{{Data.subbillerid}}</td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(1,Data.subbillerid)">{{Data.TotalRecords == null ?'--':Data.TotalRecords}}</a></b></td>
-                                        <td class="text-center">{{Data.TotalAmountPayed}}</td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(3,Data.subbillerid)">{{Data.Success == null ?'--':Data.Success}}</a></b></td>
-                                        <td class="text-center">{{Data.SuccessAmount}}</td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(5,Data.subbillerid)">{{Data.Fail == null ?'--':Data.Fail}}</a></b></td>
-                                        <td class="text-center">{{Data.FailAmount}}</td>
-                                        <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(7,Data.subbillerid)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
-                                        <td class="text-center">{{Data.RejectedAmount}}</td>
-                                    </tr>
-                                    <tr style="font-weight:bold">
-                                        <td colspan="1" class="text-center">Total</td>
-                                        <td class="text-center">{{TotalRecords}}</td>
-                                        <td class="text-center">{{TotalAmountPayed}}</td>
-                                        <td class="text-center">{{Success}}</td>
-                                        <td class="text-center">{{SuccessAmount}}</td>
-                                        <td class="text-center">{{Fail}}</td>
-                                        <td class="text-center">{{FailAmount}}</td>
-                                        <td class="text-center">{{Rejected}}</td>
-                                        <td class="text-center">{{RejectedAmount}}</td>
+                                                <td class="text-center">{{Data.subbillerid}}</td>
+                                                <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(1,Data.subbillerid)">{{Data.TotalRecords == null ?'--':Data.TotalRecords}}</a></b></td>
+                                                <td class="text-center">{{Data.TotalAmountPayed}}</td>
+                                                <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(3,Data.subbillerid)">{{Data.Success == null ?'--':Data.Success}}</a></b></td>
+                                                <td class="text-center">{{Data.SuccessAmount}}</td>
+                                                <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(5,Data.subbillerid)">{{Data.Fail == null ?'--':Data.Fail}}</a></b></td>
+                                                <td class="text-center">{{Data.FailAmount}}</td>
+                                                <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(7,Data.subbillerid)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                                <td class="text-center">{{Data.RejectedAmount}}</td>
+                                            </tr>
+                                            <tr style="font-weight:bold">
+                                                <td colspan="1" class="text-center">Total</td>
+                                                <td class="text-center">{{TotalRecords}}</td>
+                                                <td class="text-center">{{TotalAmountPayed}}</td>
+                                                <td class="text-center">{{Success}}</td>
+                                                <td class="text-center">{{SuccessAmount}}</td>
+                                                <td class="text-center">{{Fail}}</td>
+                                                <td class="text-center">{{FailAmount}}</td>
+                                                <td class="text-center">{{Rejected}}</td>
+                                                <td class="text-center">{{RejectedAmount}}</td>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                    <div style="width: 100%; text-align: center;">
-                        <img src="../../../contents/img/loading.gif" ng-show="LoadImg" width="100" />
-                    </div>
-                    <div class="sm-spacer"></div>
-</section>
+                <div style="width: 100%; text-align: center;">
+                    <img src="../../../contents/img/loading.gif" ng-show="LoadImg" width="100" />
+                </div>
+                <div class="sm-spacer"></div>
+
+            </div>
+        </div>
+                </section>
 </div>
 

@@ -168,7 +168,7 @@ define(['app'], function (app) {
             sensSMS.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response == "SUCCESS") {
-                    var UpdateSmsStatus = PreExaminationService.UpdateSmsStatus(9, PIN, Id);
+                    var UpdateSmsStatus = PreExaminationService.UpdateSmsStatus(10, PIN, Id);
                     UpdateSmsStatus.then(function (response) {
                         try { var response = JSON.parse(response) } catch (err) { }
                         if (response[0].ResponceCode == "200") {

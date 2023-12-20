@@ -158,14 +158,15 @@
                     $scope.pinWise = response.Table;
                     NEMarksList = response;
                     PinIdlist = response.Table.map((obj) => { return { id: obj.id } });
-                    markslist = response.Table.map((obj) => { if (obj.marks != null) { return { id: obj.id, marks: obj.marks } } });
+                    markslist = response.Table.map((obj) => { if (obj.marks != null) { return { id: obj.id, marks: obj.marks, IndustryName: obj.IndustryName } } });
                     markslist = markslist.filter(function (element) { return element !== undefined; });
-                    Induslist = response.Table.map((obj) => { if (obj.IndustryName != null) { return { id: obj.id, IndustryName: obj.IndustryName } } });
+                    Induslist = response.Table.map((obj) => { if (obj.IndustryName != null) { return { id: obj.id, marks: obj.marks, IndustryName: obj.IndustryName } } });
                     Induslist = Induslist.filter(function (element) { return element !== undefined; });
                     $scope.SubjectName = response.Table1[0].SubjectName;
                     $scope.MaxMarks = response.Table1[0].maxmarks;
+                    $scope.IndustryName = response.Table1[0].IndustryName;
                     response.Table.forEach(function (stud) {
-                        if (stud.marks != null) {
+                        if (stud.marks != null || stud.IndustryName != null) {
                             previewlist.push(stud);
                         }
 
@@ -221,16 +222,18 @@
 
         var tempId1 = [];
 
-        $scope.addData = function (id, marks) {
+        $scope.addData = function (id, marks, IndustryName) {
             return {
                 id: id,
                 marks: marks,
+                IndustryName: IndustryName,
             };
         },
 
-            $scope.addIndusData = function (id, IndustryName) {
+            $scope.addIndusData = function (id, marks, IndustryName) {
                 return {
                     id: id,
+                    marks: marks,
                     IndustryName: IndustryName,
                 };
             },
@@ -250,6 +253,7 @@
                         markslist.map((obj) => {
                             if (obj.id == data.id) {
                                 obj.marks = '';
+                                obj.IndustryName = '';
                             }
                         });
                     }
@@ -278,10 +282,11 @@
                         markslist.map((obj) => {
                             if (obj.id == data.id) {
                                 obj.marks = data.marks;
+                                obj.IndustryName = data.IndustryName;
                                 tempId.push(data.id);
                             }
                             if (obj.id != data.id && !tempId.includes(data.id)) {
-                                var marksdata = $scope.addData(data.id, data.marks);
+                                var marksdata = $scope.addData(data.id, data.marks, data.IndustryName);
                                 tempId.push(data.id);
                                 markslist.push(marksdata);
 
@@ -289,7 +294,7 @@
                         });
 
                     } else if (markslist.length == 0) {
-                        var marksdata = $scope.addData(data.id, data.marks);
+                        var marksdata = $scope.addData(data.id, data.marks, data.IndustryName);
                         markslist.push(marksdata);
 
                     }
@@ -305,11 +310,12 @@
                     if (Induslist.length > 0) {
                         Induslist.map((obj) => {
                             if (obj.id == data.id) {
+                                obj.marks = data.marks;
                                 obj.IndustryName = data.IndustryName;
                                 tempId1.push(data.id);
                             }
                             if (obj.id != data.id && !tempId1.includes(data.id)) {
-                                var Indusdata = $scope.addIndusData(data.id, data.IndustryName);
+                                var Indusdata = $scope.addIndusData(data.id,data.marks, data.IndustryName);
                                 tempId1.push(data.id);
                                 Induslist.push(Indusdata);
 
@@ -317,7 +323,7 @@
                         });
 
                     } else if (Induslist.length == 0) {
-                        var Indusdata = $scope.addIndusData(data.id, data.IndustryName);
+                        var Indusdata = $scope.addIndusData(data.id, data.marks, data.IndustryName);
                         Induslist.push(Indusdata);
 
                     }
@@ -327,37 +333,41 @@
 
 
             $scope.save = function () {
-            if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
-                    var outArr = [];
-                    PinIdlist.forEach(function (value) {
-                        var existing = Induslist.filter(function (v, i) {
-                            return (v.id == value.id);
-                        });
-                        var existing2 = markslist.filter(function (v, i) {      
-                            return (v.id == value.id);
-                        });
-                        if (existing.length && existing2.length) {
-                            value.marks = existing2[0].marks;
-                            value.IndustryName = existing[0].IndustryName;
-                            outArr.push(value)
-                        } else if (existing2.length) {
-                            value.marks = existing2[0].marks;
-                            value.IndustryName = "";
-                            outArr.push(value)
-                        } else if (existing.length) {
-                            value.marks = "";
-                            value.IndustryName = existing[0].IndustryName;
-                            outArr.push(value)
-                        } else {
-                            value.marks = "";
-                            value.IndustryName = "";
-                            outArr.push(value);
-                        }
-                    });
-                    outArr = outArr.filter(i => !(i.marks == "" && i.IndustryName == ""));
-                    markslist = outArr;
-                }
+           // if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
+            //if ($scope.IndustryName == 1) {
+            //var outArr = [];
+            //        PinIdlist.forEach(function (value) {
+            //            var existing = Induslist.filter(function (v, i) {
+            //                return (v.id == value.id);
+            //            });
+            //            var existing2 = markslist.filter(function (v, i) {      
+            //                return (v.id == value.id);
+            //            });
 
+            //            if (existing.length) {
+            //              //  value.marks = existing[0].marks;
+            //                value.IndustryName = existing[0].IndustryName;
+            //                outArr.push(value)
+            //            }
+            //             if (existing2.length) {
+            //                value.marks = existing2[0].marks;
+            //               // value.IndustryName = "";
+            //                outArr.push(value)
+            //            }
+            //            else if (existing.length) {
+            //                value.marks = existing[0].marks;
+            //                value.IndustryName = existing[0].IndustryName;
+            //                outArr.push(value)
+            //            } else {
+            //                value.marks = "";
+            //                value.IndustryName = "";
+            //                outArr.push(value);
+            //            }
+            //        });
+            //        outArr = outArr.filter(i => !(i.marks == "" && i.IndustryName == ""));
+            //        markslist = outArr;
+            //  }
+            //}
                 issaved = true;
                 if (markslist != [] && markslist != '') {
                     var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, StudentTypeId);
