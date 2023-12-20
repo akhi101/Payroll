@@ -44,7 +44,36 @@
                         console.log(err.Message);
                     });
 
+
+
+            var getticket = AdminService.GetStatuswiseReport($scope.StatusValue);
+            getticket.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch {
+
+                }
+                if (res.Table.length > 0) {
+                    $scope.TasksTableData = res.Table;
+
+                } else {
+                    $scope.TasksTableData = [];
+                }
+            },
+                function (error) {
+
+
+                });
+
         }
+
+        
+        
+   
+
+
+
 
 
     })

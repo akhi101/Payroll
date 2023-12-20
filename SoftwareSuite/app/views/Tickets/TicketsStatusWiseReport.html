@@ -331,21 +331,22 @@
 
             </div>
         </div>
-        <div class="col-md-12">
+            <div class="col-md-12">
             <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TasksTableData.length>0">
                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
-                            <th class="text-center" width="7%">S.No</th>
-                            <th class="text-center" width="20%">Date</th>
-                            <th class="text-center"> Project</th>
-                            <th class="text-center"> Task Type</th>
-                            <th class="text-center">Description</th>
-                            <th class="text-center">Active</th>
+                            <th class="text-center" width="3%">S.No</th>
+                            <th class="text-center" width="7%">Task Date</th>
+                            <th class="text-center" width="20%">UserName</th>
+                            <th class="text-center">ProjectName</th>
+                            <th class="text-center">TaskTypeName</th>
+                            <th class="text-center">TaskDescription</th>
+                            <!--<th class="text-center">Active</th>-->
                             <!--<th width="16%"></th>-->
-                            <th width="10%" class="text-center">Download</th>
-                            <th width="10%" class="text-center">Delete</th>
-                            <th width="10%" class="text-center">Action</th>
+                            <!--<th width="10%" class="text-center">Download</th>
+    <th width="10%" class="text-center">Delete</th>
+    <th width="10%" class="text-center">Action</th>-->
                             <!--<th width="10%" class="text-center">Switch</th>-->
                         </tr>
                     </thead>
@@ -353,23 +354,11 @@
                         <tr ng-repeat="data in TasksTableData">
                             <td class="text-center">{{$index+1}}</td>
                             <td width="20%" class="text-center">{{data.TaskDate | date:'dd-MM-yyyy'}}</td>
+                            <td class="text-center">{{data.UserName}}</td>
                             <td class="text-center">{{data.ProjectName}}</td>
-                            <td class="text-center">{{data.TaskType}}</td>
+                            <td class="text-center">{{data.TaskTypeName}}</td>
                             <td class="text-center">{{data.TaskDescription}}</td>
-                            <td class="text-center">{{data.Active==1 ? 'Yes' : 'No'}}</td>
-                            <td class="text-center">
-                                <a href="{{data.Url}}" download><button title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button></a>
-                            </td>
-                            <td class="text-center">
-                                <a><button title="Click here to Delete" ng-click="deleteItem(data.TaskID)" class="btn btn-xs btn_delete"> <i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
-                            </td>
-                            <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 50px;" ng-click="editTicketData(data.TaskID)">
-                                    Edit
-                                </button>
-                            </td>
-
-
+                          
                         </tr>
                     </tbody>
                 </table>
