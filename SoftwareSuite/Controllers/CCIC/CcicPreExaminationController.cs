@@ -1278,7 +1278,10 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             try
             {
-                var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CcicPhotos\";
+
+                var dir = ConfigurationManager.AppSettings["Student_Photos"];
+
+                //var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CcicPhotos\";
                 var photo_url = dir + "Photo" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
 
@@ -1318,7 +1321,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    photo_url = "";
+                    photo_url = photo_url;
                 }
 
                 if (UpdateCertificateReqAtt.StudentSign != null)
@@ -1336,7 +1339,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    sign_url = "";
+                    sign_url = sign_url;
                 }
 
                 if (UpdateCertificateReqAtt.SSCCertificate != null)
@@ -1354,7 +1357,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    ssccert_url = "";
+                    ssccert_url = ssccert_url;
                 }
 
 
@@ -1373,7 +1376,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    qualcert_url = "";
+                    qualcert_url = qualcert_url;
                 }
 
 
@@ -1392,7 +1395,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    expcert_url = "";
+                    expcert_url = expcert_url;
                 }
 
                 var dbHandler = new ccicdbHandler();

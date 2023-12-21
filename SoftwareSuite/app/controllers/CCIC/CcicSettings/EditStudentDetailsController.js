@@ -516,10 +516,10 @@
                 //$scope.SscCertificateConvert = EditData.SSCCertificate;
                 $scope.toDataURL($scope.EditData.SSCCertificate, function (res) {
                     if ($scope.EditData.SSCCertificate == "") {
-                        $scope.SscCertificateConvert = "";
+                        $scope.SSCCertificateConvert = "";
                     }
                     else {
-                        $scope.SscCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                        $scope.SSCCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
                     }
                 })
                 //$scope.QualificationCertificate = EditData.QualificationCertificate;
@@ -703,11 +703,11 @@
                 "StudentEmail": data.StudentEmail,
                 "SSCValidated": data.SSCValidated,
                 "UserName": $scope.UserName,
-                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) ? $scope.StudentPhotoConvert : $scope.StudentPhotoConvert,
-                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) ? $scope.StudentSignConvert : $scope.StudentSignConvert,
-                "SSCCertificate": ($scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) ? $scope.SscCertificateConvert : $scope.SscCertificateConvert,
-                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
-                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
+                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null || $scope.StudentPhotoConvert == "") ? null : $scope.StudentPhotoConvert,
+                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null || $scope.StudentSignConvert == "") ? null : $scope.StudentSignConvert,
+                "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? null : $scope.SSCCertificateConvert,
+                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? null : $scope.QualificationCertificateConvert,
+                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? null : $scope.ExperienceCertificateConvert,
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {

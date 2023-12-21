@@ -1440,7 +1440,6 @@
     <Content Include="app\controllers\SystemAdministration\SystemUserListController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterListController.js" />
-    <Content Include="app\controllers\TestingController.js" />
     <Content Include="app\controllers\Tickets\AddTicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
@@ -3118,7 +3117,6 @@
     <Content Include="app\views\SystemAdministration\UserGroupMaster.html" />
     <Content Include="app\views\SystemAdministration\UserGroupMasterList.html" />
     <Content Include="app\views\test.html.txt" />
-    <Content Include="app\views\Testing.html" />
     <Content Include="app\views\Tickets\AddTickets.html" />
     <Content Include="app\views\Tickets\Tickets.html" />
     <Content Include="app\views\Tickets\TicketsCountData.html" />
