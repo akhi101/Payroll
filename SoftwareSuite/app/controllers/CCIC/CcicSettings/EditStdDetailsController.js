@@ -693,11 +693,11 @@
                 "StudentEmail": $scope.StudentEmail,
                 "SSCValidated": $scope.SSCValidated,
                 "UserName": $scope.UserName,
-                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null || $scope.StudentPhotoConvert == "") ? null : $scope.StudentPhotoConvert,
-                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null || $scope.StudentSignConvert == "") ? null : $scope.StudentSignConvert,
-                "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? null : $scope.SSCCertificateConvert,
-                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? null : $scope.QualificationCertificateConvert,
-                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? null : $scope.ExperienceCertificateConvert,
+                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null || $scope.StudentPhotoConvert == "") ? $scope.StudentPhotoConvert : $scope.StudentPhotoConvert,
+                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null || $scope.StudentSignConvert == "") ? $scope.StudentSignConvert : $scope.StudentSignConvert,
+                "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? $scope.SSCCertificateConvert : $scope.SSCCertificateConvert,
+                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
+                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {
@@ -718,7 +718,8 @@
                 }
 
                 else if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription)
+                    alert(res[0].ResponseDescription);
+                    $scope.PreviewStudentDetails();
                     $scope.LoadImg = false;
                     alert(res[0].ResponseDescription);
                 }
