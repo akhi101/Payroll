@@ -226,7 +226,7 @@
                                                 <th style="width: 2%;text-align: center" ng-click="sort('pin')">Pin<i class="fa fa-fw fa-sort"></i></th>
                                                 <th style="width: 10%;text-align: center">Name</th>
                                                 <th style="width: 1%;text-align: center">Marks ({{MaxMarks}})</th>
-                                                <th ng-if="selectedsem ==6" style="width: 1%;text-align: center">Industry Name </th>
+                                                <th ng-if="IndustryName ==1" style="width: 1%;text-align: center">Industry Name </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -235,7 +235,7 @@
                                                 <td style="text-align: center">{{x.pin}} </td>
                                                 <td style="text-align: center">{{x.name}}</td>
                                                 <td style="text-align: center">{{x.marks}}</td>
-                                                <td style="text-align: center"  ng-if="selectedsem ==6">{{x.IndustryName}}</td>
+                                                <td style="text-align: center"  ng-if="IndustryName ==1">{{x.IndustryName}}</td>
                                                
                                             </tr>
                                         </tbody>
