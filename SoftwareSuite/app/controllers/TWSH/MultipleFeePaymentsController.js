@@ -23,7 +23,8 @@
 
             });
 
-        $scope.openNotPaid = function (gradeId,DataType) {
+        $scope.openNotPaid = function (gradeId, DataType) {
+            alert(DataType)
             $localStorage.gradeDetails = {
                 userId: $scope.userId,
                 gradeId: gradeId,            

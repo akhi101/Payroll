@@ -316,6 +316,7 @@
                     var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
                 }
             }
+
             var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, examdate, null,null);
             ApproveDetails.then(function (response) {
                 try {
@@ -343,6 +344,7 @@
             });
 
         }
+
 
 
         $scope.modalStyle = {}; // Object to store dynamic styles
@@ -376,6 +378,8 @@
             document.addEventListener('mousemove', mousemoveHandler);
             document.addEventListener('mouseup', mouseupHandler);
         };
+
+
 
     })
 })
