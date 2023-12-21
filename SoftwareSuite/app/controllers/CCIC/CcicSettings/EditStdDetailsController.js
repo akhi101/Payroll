@@ -527,7 +527,7 @@
                 $scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
                 //$scope.ExperienceCertificateConvert = $scope.EditData.ExperienceCertificate;
                 $scope.toDataURL($scope.EditData.ExperienceCertificate, function (res) {
-                    if ($scope.EditData.ExperienceCertificate == "") {
+                    if ($scope.EditData.ExperienceCertificate == "" || $scope.EditData.ExperienceCertificate == null) {
                         $scope.ExperienceCertificateConvert = "";
                     }
                     else {
