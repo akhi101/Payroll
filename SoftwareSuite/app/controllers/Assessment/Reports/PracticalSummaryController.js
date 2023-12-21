@@ -85,6 +85,7 @@
                      NEMarksList = response;
                      $scope.SubjectName = response.Table1[0].SubjectName;
                      $scope.MaxMarks = response.Table1[0].maxmarks;
+                     $scope.IndustryName = response.Table1[0].IndustryName;
                      response.Table.forEach(function (stud) {
                          if (stud.marks != null) {
                              previewlist.push(stud);

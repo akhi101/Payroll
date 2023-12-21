@@ -2836,7 +2836,6 @@ namespace SoftwareSuite.Controllers.TWSH
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ApprovedStatus", ApprovedStatus);
                 param[1] = new SqlParameter("@Id", Id);
