@@ -445,7 +445,7 @@
                 $scope.applicationForm = true;
                 $scope.loading = false;
                 /*$scope.EditData = editRes[0];*/
-                $scope.EditData = editRes[0];
+                $scope.EditData = editRes.Table[0];
 
 
 
@@ -482,48 +482,25 @@
                     $scope.Genderfound = false;
 
                 }
-                //$scope.StudentName = EditData.StudentName;
-                //$scope.FatherName = EditData.FatherName;
-                //$scope.MotherName = EditData.MotherName;
-                ////$scope.FatherName = EditData.FatherName;
-                //$scope.Gender = EditData.Gender;
-                //$scope.DateofBirth = EditData.DateofBirth;
-
-                //$scope.AadharNumber = ($scope.AadharNumber == null || $scope.AadharNumber == '' || $scope.AadharNumber == undefined) ? '' : EditData.AadharNumber;
-                ////$scope.AadharNumber = EditData.AadharNumber;
-                //$scope.HouseNumber = EditData.HouseNumber;
-                //$scope.Street = EditData.Street;
-                //$scope.Landmark = EditData.Landmark;
-                //$scope.Village = EditData.Village;
-                //$scope.Pincode = EditData.Pincode;
-                //$scope.District = EditData.District;
-                //$scope.AddressState = EditData.AddressState;
-                //$scope.StudentMobile = EditData.StudentMobile;
-                //$scope.StudentEmail = EditData.StudentEmail;
-
-                //$scope.StudentPhoto = EditData.StudentPhoto;
-                //$scope.StudentPhotoConvert = EditData.StudentPhoto;
+                
                 $scope.toDataURL($scope.EditData.StudentPhoto, function (res) {
                     $scope.StudentPhotoConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
                 })
-                //$scope.StudentSign = EditData.StudentSign;
-                //$scope.StudentSignConvert = EditData.StudentSign;
+
                 $scope.toDataURL($scope.EditData.StudentSign, function (res) {
                     $scope.StudentSignConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
                 })
 
-                //$scope.SSCCertificate = EditData.SSCCertificate;
-                //$scope.SscCertificateConvert = EditData.SSCCertificate;
+
                 $scope.toDataURL($scope.EditData.SSCCertificate, function (res) {
                     if ($scope.EditData.SSCCertificate == "") {
-                        $scope.SscCertificateConvert = "";
+                        $scope.SSCCertificateConvert = "";
                     }
                     else {
-                        $scope.SscCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                        $scope.SSCCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
                     }
                 })
-                //$scope.QualificationCertificate = EditData.QualificationCertificate;
-                //$scope.QualificationCertificateConvert = EditData.QualificationCertificate;
+
                 $scope.toDataURL($scope.EditData.QualificationCertificate, function (res) {
                     if ($scope.EditData.QualificationCertificate == "") {
                         $scope.QualificationCertificateConvert = "";
@@ -533,8 +510,7 @@
 
                     }
                 })
-                //$scope.ExperienceCertificate = EditData.ExperienceCertificate;
-                //$scope.ExperienceCertificateConvert = EditData.ExperienceCertificate;
+
                 $scope.toDataURL($scope.EditData.ExperienceCertificate, function (res) {
                     if ($scope.EditData.ExperienceCertificate == "") {
                         $scope.ExperienceCertificateConvert = "";
@@ -703,11 +679,11 @@
                 "StudentEmail": data.StudentEmail,
                 "SSCValidated": data.SSCValidated,
                 "UserName": $scope.UserName,
-                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null) ? $scope.StudentPhotoConvert : $scope.StudentPhotoConvert,
-                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null) ? $scope.StudentSignConvert : $scope.StudentSignConvert,
-                "SSCCertificate": ($scope.SscCertificateConvert == undefined || $scope.SscCertificateConvert == null) ? $scope.SscCertificateConvert : $scope.SscCertificateConvert,
-                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null) ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
-                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null) ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
+                "StudentPhoto": ($scope.StudentPhotoConvert == undefined || $scope.StudentPhotoConvert == null || $scope.StudentPhotoConvert == "") ? $scope.StudentPhotoConvert : $scope.StudentPhotoConvert,
+                "StudentSign": ($scope.StudentSignConvert == undefined || $scope.StudentSignConvert == null || $scope.StudentSignConvert == "") ? $scope.StudentSignConvert : $scope.StudentSignConvert,
+                "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? $scope.SSCCertificateConvert : $scope.SSCCertificateConvert,
+                "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
+                "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {

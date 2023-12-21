@@ -38,11 +38,11 @@
             //}
 
             $scope.PreviewData = [];
-            if (res.length >= 0) {
+            if (res.Table.length >= 0) {
                 $scope.loading = false;
-                $scope.PreviewData = res[0];
+                $scope.PreviewData = res.Table[0];
                 //$scope.DateofBirth = $scope.PreviewData.DateofBirth;
-                $scope.maskedAadhaar = $scope.PreviewData.AadharNumber.slice(0, 8).replace(/[0-9]/g, "X") + $scope.PreviewData.AadharNumber.slice(-4);
+                //$scope.maskedAadhaar = $scope.PreviewData.AadharNumber.slice(0, 8).replace(/[0-9]/g, "X") + $scope.PreviewData.AadharNumber.slice(-4);
                 $scope.$emit('hideLoading', data);
 
             } else {

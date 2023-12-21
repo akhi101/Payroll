@@ -451,7 +451,7 @@
 
 
                                         <div class="row">
-                                            <div class="col-md-4" ng-if="EditData.StudentPhoto">
+                                            <div class="col-md-4" ng-show="EditData.StudentPhoto">
                                                 <div class="form-group required custom-img">
                                                     <label>Upload Photo(size less than 300KB) :</label>
 
@@ -460,7 +460,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4" ng-if="EditData.StudentSign">
+                                            <div class="col-md-4" ng-show="EditData.StudentSign">
                                                 <div class="form-group required custom-img">
                                                     <label>Upload Signature(size less than 30KB) :</label>
 
@@ -482,7 +482,7 @@
                                         <div class="row">
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.SSCCertificate">
+                                                <div class="form-group required custom-img" ng-show="EditData.SSCCertificate">
                                                     <label>Upload Ssc Certificate(size less than 300KB) :</label>
 
                                                     <img ng-src="{{EditData.SSCCertificate}}" class="img img-responsive" id="stdSscCertificateImg" />
@@ -491,7 +491,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.QualificationCertificate">
+                                                <div class="form-group required custom-img" ng-show="EditData.QualificationCertificate">
                                                     <label>Upload {{EditData.Qualification}} Certificate(size less than 300KB) :</label>
 
                                                     <img ng-src="{{EditData.QualificationCertificate}}" class="img img-responsive" id="stdCertificateTypeImg" />
@@ -500,7 +500,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <div class="form-group required custom-img" ng-if="EditData.ExperienceCertificate">
+                                                <div class="form-group required custom-img" ng-show="EditData.ExperienceCertificate">
                                                     <label>Upload Experience Certificate(size less than 300KB) :</label>
 
                                                     <img ng-src="{{EditData.ExperienceCertificate}}" class="img img-responsive" id="stdExperienceCertificateImg" />

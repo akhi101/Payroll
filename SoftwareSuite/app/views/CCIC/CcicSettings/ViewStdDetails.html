@@ -229,7 +229,7 @@
 
         </div>
         <div class="container containercontent">
-            <div class="col-md-12 mtp-50 containercontent" style="padding-bottom:50px" ng-if="PreviewData">
+            <div class="col-md-12 mtp-50 containercontent" style="padding-bottom:50px" ng-show="PreviewData">
                 <fieldset class="group-border" style="border-color:black">
                     <div class="row">
                         <div class="col-md-12">
@@ -282,11 +282,11 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 pull-right">
+                                    <div class="col-md-3 pull-right" ng-show="PreviewData.StudentPhoto">
                                         <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;margin-top: 15px;" height="175" width="150" />
                                     </div>
 
-                                    <div class="col-md-3 pull-right">
+                                    <div class="col-md-3 pull-right" ng-show="PreviewData.StudentSign">
                                         <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
                                     </div>
                                 </div>
@@ -387,17 +387,17 @@
                             <hr style="border-color: #454545 ">
                             <div class="row " style="padding: 0px 15px;">
 
-                                <div class="col-md-4 text-center" ng-if="imagesrc != '' && imagesrc != null ">
+                                <div class="col-md-4 text-center" ng-show="imagesrc != '' && imagesrc != null ">
                                     <div>Click on the file to Expand</div>
                                     <img class="zoom" ng-src="{{imagesrc}}" ng-click="openImage(imagesrc)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="imagesrc1 != '' && imagesrc1 != null ">
+                                <div class="col-md-4 text-center" ng-show="imagesrc1 != '' && imagesrc1 != null ">
                                     <div>Click on the file to Expand</div>
                                     <img class="zoom" ng-src="{{imagesrc1}}" ng-click="openImage(imagesrc1)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="imagesrc2 != '' && imagesrc2 != null ">
+                                <div class="col-md-4 text-center" ng-show="imagesrc2 != '' && imagesrc2 != null ">
                                     <div>Click on the file to Expand</div>
                                     <img class="zoom" ng-src="{{imagesrc2}}" ng-click="openImage(imagesrc2)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
