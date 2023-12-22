@@ -61,6 +61,23 @@
             }
         };
 
+        $scope.printDetails = function (divName) {
+            //     $('#myModal').modal('hide')
+          
+            var printContents = document.getElementById(divName).innerHTML;
+
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+
+
+            window.print()
+        }
+
 
         $scope.GetCount = function () {
             var Date = moment($scope.Date).format("YYYY-MM-DD");

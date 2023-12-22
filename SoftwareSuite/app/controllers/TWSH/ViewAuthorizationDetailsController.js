@@ -24,6 +24,8 @@
             $scope.imagesrc2 = response[0].File2;
             $scope.IsEligible = response[0].IsEligible;
             $scope.isrejected = response[0].isrejected;
+            $scope.DateOfBirth = response[0].DateOfBirth;
+            $scope.GradeName = response[0].GradeName;
             $scope.RejectedRemarks = response[0].RejectedRemarks;
             $scope.SelectedOnlineExamDate = response[0].SelectedOnlineExamDate;
             if ($scope.ExamMode == 1) {
@@ -56,8 +58,7 @@
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
-                backdrop:'static'
-
+                backdrop: 'static'
             });
 
         }
@@ -75,7 +76,7 @@
         $scope.Reject = function (ApproveStatus) {
             $scope.remarks = '';
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/Controllers/PostExam/RejectPopup.html",
+                templateUrl: "/app/views/Popups/RejectPopup.html",
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
@@ -85,7 +86,7 @@
 
         $scope.ReleaseButton = function () {
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/Controllers/PostExam/ReleasePopup.html",
+                templateUrl: "/app/views/Popups/ReleasePopup.html",
                 size: 'xlg',
                 scope: $scope,
                 windowClass: 'modal-fit-att',
@@ -180,6 +181,27 @@
         }
 
         $scope.ApproveButton = function () {
+       
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/ApprovePopup.html",
+                    size: 'xlg',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+            
+            
+        }
+
+
+        $scope.closeModal = function () {
+            $scope.modalInstance.close();
+        }
+
+        $scope.ApprovedDetails = function (CheckBox) {
+            if (CheckBox == null || CheckBox == '' || CheckBox == undefined) {
+                alert('Please Confirm the Verification');
+                return;
+            }
             if ($scope.ExamMode == 2) {
 
                 $scope.def.exam = "";
@@ -206,23 +228,38 @@
 
             }
 
-            var ApproveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate,'','');
-            ApproveDetails.then(function (response) {
+            var approveDetails = TwshStudentRegService.approveDetails(1, $scope.Id, examdate,'','');
+            approveDetails.then(function (response) {
 
 
-                window.scroll({
-                    top: 50, // could be negative value
-                    left: 0,
-                    behavior: 'smooth'
-                });
-                $scope.showStatus = true;
-                $scope.statusclass = 'alert-success';
-                $scope.StatusMessage = "Application Verified Successfully";
-                $timeout(function () {
-                    $scope.showStatus = true;
+                //window.scroll({
+                //    top: 50, // could be negative value
+                //    left: 0,
+                //    behavior: 'smooth'
+                //});
+                //$scope.showStatus = true;
+                //$scope.statusclass = 'alert-success';
+                //$scope.StatusMessage = "Application Verified Successfully";
+                //$timeout(function () {
+                //    $scope.showStatus = true;
+                //    $state.go('TWSH.ViewAuthorization')
+                //}, 5000);
+
+                if (response[0].ResponceCode == '200') {
+                    $scope.loading = false;
+                    alert(response[0].ResponceDescription);
+
                     $state.go('TWSH.ViewAuthorization')
-                }, 5000);
-                //alert(response[0].Responce)
+                    $scope.modalInstance.close();
+                } else if (response[0].ResponceCode == '400') {
+                    $scope.loading = false;
+                    alert(response[0].ResponceDescription);
+                    $scope.modalInstance.close();
+
+                } else {
+                    $scope.loading = false;
+                    alert("No Data Found");
+                }
             },
                 function (error) {
                     $scope.showStatus = true;
@@ -279,6 +316,7 @@
                     var examdate = $scope.def.exam + " " + moment($scope.examtime).format("HH:mm");
                 }
             }
+
             var ApproveDetails = TwshStudentRegService.ApproveSubmitDetails(1, $scope.Id, examdate, null,null);
             ApproveDetails.then(function (response) {
                 try {
@@ -305,13 +343,42 @@
                 alert("Error while loading");
             });
 
-
-
-
-
-
-
         }
+
+
+
+        $scope.modalStyle = {}; // Object to store dynamic styles
+
+        $scope.startDrag = function (event) {
+            // Store initial mouse position and modal position
+            var startX = event.clientX;
+            var startY = event.clientY;
+            var modalLeft = document.querySelector('.draggable-modal').offsetLeft;
+            var modalTop = document.querySelector('.draggable-modal').offsetTop;
+
+            // Handle mousemove event to update modal position
+            var mousemoveHandler = function (e) {
+                var deltaX = e.clientX - startX;
+                var deltaY = e.clientY - startY;
+
+                // Update modal position
+                $scope.modalStyle = {
+                    'left': modalLeft + deltaX + 'px',
+                    'top': modalTop + deltaY + 'px',
+                };
+            };
+
+            // Handle mouseup event to stop dragging
+            var mouseupHandler = function () {
+                document.removeEventListener('mousemove', mousemoveHandler);
+                document.removeEventListener('mouseup', mouseupHandler);
+            };
+
+            // Attach event listeners
+            document.addEventListener('mousemove', mousemoveHandler);
+            document.addEventListener('mouseup', mouseupHandler);
+        };
+
 
 
     })

@@ -239,8 +239,8 @@
                                                 <th style="width: 2%;text-align: center" ng-click="sort('pin')">Pin<i class="fa fa-fw fa-sort"></i></th>
                                                 <th style="width: 10%;text-align: center">Name</th>
                                                 <th style="width: 1%;text-align: center">Marks ({{MaxMarks}})</th>
-                                                <th ng-if="selectedsem.semid ==6 && SchemeId == 5 && examTypeId ==4 || selectedsem.semid ==6 && SchemeId == 5 && examTypeId ==18" style="width: 1%;text-align: center">Industry Name </th>
-                                                <th style="width: 1%;text-align: center" ng-show="subbtn">Edit </th>
+                                                <th ng-if="IndustryName ==1" style="width: 1%;text-align: center">Industry Name </th>
+                                                <th style="width: 1%;text-align: center" ng-show="subbtn" ng-if="x.issubmited==true">Edit </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -249,7 +249,7 @@
                                                 <td style="width: 2%;text-align: center">{{x.pin}} </td>
                                                 <td style="width: 10%;text-align: center">{{x.name}}</td>
                                                 <td style="width: 1%;text-align: center"><input ng-model="x.marks" class='text-uppercase' ng-disabled="{{x.IsFeedBackSubmitted}}==false" id="{{x.id}}" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 50px; text-align: center" autocomplete="off" type='text' ng-maxlength="{{MaxMarks.length}}" /></td>
-                                                <td ng-if="selectedsem.semid ==6 && SchemeId == 5 && examTypeId ==4|| selectedsem.semid ==6 && SchemeId == 5 && examTypeId ==4" style="width: 10%;text-align: center"><input ng-model="x.IndustryName" class='text-uppercase' ng-disabled="{{x.issubmited}} || {{x.IsFeedBackSubmitted}}==false" value="marks{{$index+1}}" ng-change="AddIndustryNameId(x)" style="width: 100%; text-align: center" autocomplete="off" type='text' ng-maxlength="200" /></td>
+                                                <td ng-if="IndustryName ==1" style="width: 10%;text-align: center"><input ng-model="x.IndustryName" class='text-uppercase' ng-disabled="{{x.issubmited}} || {{x.IsFeedBackSubmitted}}==false" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 100%; text-align: center" autocomplete="off" type='text' ng-maxlength="200" /></td>
                                                 <td style="width: 1%;text-align: center" ng-if="x.issubmited==true"><a ng-click="editMarks(x)">Edit</a></td>
                                             </tr>
                                         </tbody>

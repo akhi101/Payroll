@@ -1278,6 +1278,9 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             try
             {
+
+                //var dir = ConfigurationManager.AppSettings["Student_Photos"];
+
                 var dir = AppDomain.CurrentDomain.BaseDirectory + @"\CcicPhotos\";
                 var photo_url = dir + "Photo" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
@@ -1303,7 +1306,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentExpCertpath = string.Empty;
 
 
-                if (UpdateCertificateReqAtt.StudentPhoto != null)
+                if (UpdateCertificateReqAtt.StudentPhoto != "" && UpdateCertificateReqAtt.StudentPhoto != null)
                 {
                     StdPhoto = "Photo_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1321,7 +1324,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     photo_url = null;
                 }
 
-                if (UpdateCertificateReqAtt.StudentSign != null)
+                if (UpdateCertificateReqAtt.StudentSign != "" && UpdateCertificateReqAtt.StudentSign != null)
                 {
                     StdSign = "Sign_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1339,7 +1342,7 @@ namespace SoftwareSuite.Controllers.CCIC
                     sign_url = null;
                 }
 
-                if (UpdateCertificateReqAtt.SSCCertificate != null)
+                if (UpdateCertificateReqAtt.SSCCertificate != "" && UpdateCertificateReqAtt.SSCCertificate != null)
                 {
                     StdSscCert = "SSCCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1358,7 +1361,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.QualificationCertificate != null)
+                if (UpdateCertificateReqAtt.QualificationCertificate != "" && UpdateCertificateReqAtt.QualificationCertificate != null)
                 {
                     StdQualCert = "QualificationCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;
@@ -1377,7 +1380,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
 
 
-                if (UpdateCertificateReqAtt.ExperienceCertificate != null)
+                if (UpdateCertificateReqAtt.ExperienceCertificate != "" && UpdateCertificateReqAtt.ExperienceCertificate != null)
                 {
                     StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                     path = dir;

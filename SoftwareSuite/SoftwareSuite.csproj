@@ -1079,9 +1079,10 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
+    <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
-    <Content Include="app\controllers\PostExam\ReleasePopup.html" />
+    <Content Include="app\views\Popups\ReleasePopup.html" />
     <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertificateController.js" />
@@ -1123,7 +1124,7 @@
     <Content Include="app\controllers\PostExam\Odc_StudentDetailsController.js" />
     <Content Include="app\controllers\PostExam\PostExamController.js" />
     <Content Include="app\controllers\PostExam\PromotionalListController.js" />
-    <Content Include="app\controllers\PostExam\RejectPopup.html" />
+    <Content Include="app\views\Popups\RejectPopup.html" />
     <Content Include="app\controllers\PostExam\ResultsReportsController.js" />
     <Content Include="app\controllers\PostExam\SeatingArrangementController.js" />
     <Content Include="app\controllers\PostExam\SemMigrationController.js" />
@@ -1439,7 +1440,6 @@
     <Content Include="app\controllers\SystemAdministration\SystemUserListController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterController.js" />
     <Content Include="app\controllers\SystemAdministration\UserGroupMasterListController.js" />
-    <Content Include="app\controllers\TestingController.js" />
     <Content Include="app\controllers\Tickets\AddTicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsController.js" />
     <Content Include="app\controllers\Tickets\TicketsCountDataController.js" />
@@ -1734,6 +1734,7 @@
     <Content Include="app\views\CCIC\PreExamination\CcicExaminationCentres.html" />
     <Content Include="app\views\ExamsSite\TwshAdmViewApplication.html" />
     <Content Include="app\views\MasterSettings\CreateUser1.html" />
+    <Content Include="app\views\newwebsite\assets\img\CTE-Venkatesham.jpg" />
     <Content Include="app\views\Popups\EditTicketsDataPopup.html" />
     <Content Include="app\views\Popups\EditTicketsPopup.html" />
     <Content Include="app\views\Popups\EditUserPopup.html" />
@@ -3117,7 +3118,6 @@
     <Content Include="app\views\SystemAdministration\UserGroupMaster.html" />
     <Content Include="app\views\SystemAdministration\UserGroupMasterList.html" />
     <Content Include="app\views\test.html.txt" />
-    <Content Include="app\views\Testing.html" />
     <Content Include="app\views\Tickets\AddTickets.html" />
     <Content Include="app\views\Tickets\Tickets.html" />
     <Content Include="app\views\Tickets\TicketsCountData.html" />
@@ -3255,6 +3255,7 @@
     <Content Include="assets\img\courses\f1.jpg" />
     <Content Include="assets\img\courses\f2.jpg" />
     <Content Include="assets\img\courses\f3.jpg" />
+    <Content Include="assets\img\CTE-Venkatesham.jpg" />
     <Content Include="assets\img\custom\1.svg" />
     <Content Include="assets\img\custom\aboubg.svg" />
     <Content Include="assets\img\custom\banner\2.svg" />

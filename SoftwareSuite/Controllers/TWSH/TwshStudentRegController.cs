@@ -2830,6 +2830,7 @@ namespace SoftwareSuite.Controllers.TWSH
 
         [HttpGet, ActionName("ApproveDetails")]
         public async Task<HttpResponseMessage> ApproveDetails(int ApprovedStatus, int Id, string examDate, string RejectedRemarks,string ReleasedRemarks)
+
         {
             try
             {
@@ -2841,7 +2842,6 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[2] = new SqlParameter("@examDate", examDate);
                 param[3] = new SqlParameter("@RejectedRemarks", RejectedRemarks);
                 param[4] = new SqlParameter("@ReleasedRemarks", ReleasedRemarks);
-
                 var ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ApproveStudentEligibility", param);
                 if (!string.IsNullOrWhiteSpace(examDate))
                 {

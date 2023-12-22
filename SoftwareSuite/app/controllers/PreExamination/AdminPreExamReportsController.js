@@ -407,6 +407,7 @@
                     }
                     $scope.OnRoll = OnRoll;
                     $scope.FeeEligible = FeeEligible;
+
                     $scope.FeePaid = FeePaid;
                     $scope.Feedbacksubmitted = Feedbacksubmitted;
                     $scope.Feedbacknotsubmitted = Feedbacknotsubmitted;

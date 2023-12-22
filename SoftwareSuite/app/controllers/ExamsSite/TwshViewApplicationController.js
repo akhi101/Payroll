@@ -319,6 +319,8 @@
 
         }
         $scope.UpdateData = function () {
+            $scope.submitbutton = true;
+            $scope.loader4 = true;
             if ($scope.tmpmode == 1) {
                 //if (arr.length < 5) {
                 //    alert("choose all exam dates");
@@ -363,7 +365,8 @@
                 $scope.Name, $scope.FatherName, $scope.MotherName, $scope.Gender, $scope.CandidateNameDOB1, $scope.IsBlind, $scope.GradeId, $scope.exambatch, $scope.ExamCenterId,
                 $scope.StudentPhoneNumber);
             UpdateData.then(function (response) {
-
+                $scope.submitbutton = false;
+                $scope.loader4 = false;
                 $scope.StatusMessage = "Student Details updated Successfully";
                 $scope.showStatus = true;
                 $scope.statusclass = "alert-success";

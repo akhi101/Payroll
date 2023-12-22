@@ -905,6 +905,7 @@
         };
 
 
+
         this.approveDetails = function (ApprovedStatus, Id, examDate, RejectedRemarks, ReleasedRemarks) {
             var paramObj = {
                 "ApprovedStatus": ApprovedStatus,
@@ -914,6 +915,7 @@
                 "ReleasedRemarks": ReleasedRemarks
             };
             //console.log(paramObj)
+
 
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/ApproveDetails', paramObj);
             return promise;
