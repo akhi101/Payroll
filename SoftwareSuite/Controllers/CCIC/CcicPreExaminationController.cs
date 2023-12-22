@@ -1318,7 +1318,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    photo_url = "";
+                    photo_url = null;
                 }
 
                 if (UpdateCertificateReqAtt.StudentSign != null)
@@ -1336,7 +1336,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    sign_url = "";
+                    sign_url = null;
                 }
 
                 if (UpdateCertificateReqAtt.SSCCertificate != null)
@@ -1354,7 +1354,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    ssccert_url = "";
+                    ssccert_url = null;
                 }
 
 
@@ -1373,7 +1373,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    qualcert_url = "";
+                    qualcert_url = null;
                 }
 
 
@@ -1392,7 +1392,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 }
                 else
                 {
-                    expcert_url = "";
+                    expcert_url = null;
                 }
 
                 var dbHandler = new ccicdbHandler();

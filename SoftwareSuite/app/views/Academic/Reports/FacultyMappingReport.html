@@ -243,6 +243,7 @@
                         <tr class="cb-1">
                             <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
                             <th style="width: 5%" ng-click="sort('Sno')">Sno</th>
+                            <th>Academic Year</th>
                             <th>College Code</th>
                             <th class="text-center">Branch</th>
                             <th class="text-center">Sem</th>
@@ -258,6 +259,7 @@
                         <tr ng-repeat="data in FacultyMappingReport1" style="background-color:#fff!important;cursor:pointer;">
                             <!-- <td style="text-align: center" class="checkboxs"><input type="checkbox" ng-model="x.isChecked" ng-class="{selected: x.isChecked}" ng-change="selectEntity(x)"></td>-->
                             <td>{{$index+1}}</td>
+                            <td>{{data.AcademicYear}}</td>
                             <td>{{data.CollegeCode}}</td>
                             <td>{{data.Branch}}</td>
                             <td>{{data.Sem}}</td>
@@ -296,6 +298,7 @@
                         <tr class="cb-1">
                             <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
                             <th style="width: 5%" ng-click="sort('Sno')">Sno</th>
+                            <th>Academic Year</th>
                             <th>College Code</th>
                             <th class="text-center">Sem</th>
                             <th class="text-center">Total Branches</th>
@@ -310,6 +313,7 @@
                             ng-click="openDetails(data.CollegeCode)">
                             <!-- <td style="text-align: center" class="checkboxs"><input type="checkbox" ng-model="x.isChecked" ng-class="{selected: x.isChecked}" ng-change="selectEntity(x)"></td>-->
                             <td>{{$index+1}}</td>
+                            <td>{{data.AcademicYear}}</td>
                             <td>{{data.CollegeCode}}</td>
                             <td class="text-center">{{data.Sem}}</td>
                             <td class="text-center">{{data.TotalBranches}}</td>
