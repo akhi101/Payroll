@@ -74,6 +74,7 @@
                 schemeStatus.then(function (response) {
                     var SchemesList = response.Table;
                     SchemesList.forEach(function (scheme) {
+                        $scope.selSession = selectedsem.AySession
                         if (selectedsem.current_schemeid === scheme.SchemeID) {
                             $scope.loadedScheme = scheme;
                             $localStorage.Academic.scheme = $scope.loadedScheme;
@@ -236,7 +237,13 @@
                 console.log($scope.finalList)
                 var PostFinaldata = ElectivesService.PostFinaldata($scope.finalList);
                 PostFinaldata.then(function (response) {
-                    alert("Updated Successfully");
+                    var response = JSON.parse(response)
+                    if (response.Table[0].Code == '200') {
+                        alert(response.Table[0].Message)
+                    } else if (response.Table[0].Code == '400') {
+                        alert(response.Table[0].Message)
+                    }
+                  //  alert("Updated Successfully");
 
                 },
                  function (error) {
