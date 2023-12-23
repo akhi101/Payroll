@@ -884,6 +884,19 @@
             return DataAccessService.getDataAll('api/PreExamination/GetExamMonthYears');
         };
 
+        this.GetExamMonthYearBySem = function (Semester, StudentTypeId) {
+            var param = {
+                "Semester": Semester,
+                "StudentTypeId": StudentTypeId,
+               
+            }
+            return DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearBySem', param);
+        };
+
+
+
+
+
         this.GetExamMonthYear = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetExamMonthYear');
         };
