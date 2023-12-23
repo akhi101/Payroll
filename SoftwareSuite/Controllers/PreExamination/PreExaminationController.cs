@@ -13906,6 +13906,29 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        
+             [HttpGet, ActionName("GetExamMonthYearBySem")]
+        public HttpResponseMessage GetExamMonthYearBySem(string Semester,int StudentTypeId)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Semester", Semester);
+                param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SFP_GET_FeeReportsExamMonthYearBySemester", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ADM_SFP_GET_FeeReportsExamMonthYearBySemester", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetTimetableDatesByExamMonthYear")]
         public HttpResponseMessage GetTimetableDatesByExamMonthYear(int StudentTypeId, int ExamMonthYearId)
         {

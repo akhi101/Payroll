@@ -128,7 +128,7 @@
                             <div class="form-group" ng-show="userTypeId == 2 || userTypeId == 3">
                                 <label class="font-weight-bold"> Exam Type:</label>
                                 <div class="">
-                                    <select class="form-control" ng-model="Student.id" name="StudentType" ng-change="SetStartDate()" required>
+                                    <select class="form-control" ng-model="Student.id" name="StudentType" ng-change="GetExamMonthYearBySem()" required>
                                         <option value="" selected>Select Exam Type</option>
                                         <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                             {{Student.type}}
@@ -141,7 +141,7 @@
                                 <label class="font-weight-bold"> Exam Type:</label>
                                 <div class=""
                         <input class="form-control" ng-disabled="true" ng-model="ExamType" />
-                        <!--<select class="form-control" ng-model="Student.id" name="StudentType" ng-change="SetStartDate()" required>
+                        <!--<select class="form-control" ng-model="Student.id" name="StudentType" ng-change="GetExamMonthYearBySem()" required>
                            <option value="" selected>Select Exam Type</option>
                            <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                {{Student.type}}
@@ -151,7 +151,7 @@
                      <!--</div>-->
                             </div>
                             </div>
-                            <div class="col-md-3 form-group" ng-show="userTypeId == 2 || userTypeId == 3">
+                            <!--<div class="col-md-3 form-group" ng-show="userTypeId == 2 || userTypeId == 3">
                                 <label for="sel1">
                                     Exam Month Year:
                                 </label>
@@ -161,7 +161,7 @@
                                         {{item.ExamYearMonth}}
                                     </option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="col-md-3 form-group" ng-show="userTypeId == 2 || userTypeId == 3">
                                 <label for="sel1">
                                     Semester:
@@ -182,6 +182,17 @@
                                         </label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-3 form-group" ng-show="userTypeId == 2 || userTypeId == 3">
+                                <label for="sel1">
+                                    Exam Month Year:
+                                </label>
+                                <select class="form-control" ng-model="ExamMonthYearId" name="ExamMonthYear">
+                                    <option value="" selected>Select Exam Month Year</option>
+                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
+                                        {{item.ExamYearMonth}}
+                                    </option>
+                                </select>
                             </div>
                             <div class="col-md-4 hidden">
                                 <div class="form-group">

@@ -39,14 +39,7 @@ define(['app'], function (app) {
             alert("Error while loading");
         });
 
-        var getExamMonthYears = PreExaminationService.GetExamMonthYear();
-        getExamMonthYears.then(function (res) {
-            var res = JSON.parse(res);
-            $scope.GetExamMonthYears = res.Table;
-        }, function (err) {
-            $scope.LoadImg = false;
-            alert("Error while loading");
-        });
+ 
 
 
         var expanded = false;
@@ -89,7 +82,17 @@ define(['app'], function (app) {
                 }
             });
 
-            
+            $scope.GetExamMonthYearBySem()
+        }
+        $scope.GetExamMonthYearBySem = function () {
+        var getExamMonthYears = PreExaminationService.GetExamMonthYearBySem(JSON.stringify($scope.semarr), $scope.Student.id);
+        getExamMonthYears.then(function (res) {
+           // var res = JSON.parse(res);
+            $scope.GetExamMonthYears = res.Table;
+        }, function (err) {
+            $scope.LoadImg = false;
+          
+        });
         }
 
         $scope.optionToggledsem = function () {
@@ -101,6 +104,7 @@ define(['app'], function (app) {
                 }
             });
             console.log($scope.semarr)
+            $scope.GetExamMonthYearBySem()
         }
 
         $scope.GetOnrole = function (data) {
