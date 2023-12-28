@@ -498,7 +498,7 @@
                                         : <span class="fail_msg" ng-show="IsRejected == true">{{RejectedRemarks}}</span>
                                         <!--<span class="fail_msg" ng-show="ReleasedRemarks == true">{{ReleasedRemarks}}</span>-->
                                     </div>
-                                    <div class="col-md-12" ng-show="getData" style="left:580px;top:67px">
+                                    <div class="col-md-12" ng-show="getData" >
                                         <div class="submit-btn" style="margin-bottom:0px;">
                                             <button type="submit" ng-click="editData()" ng-disabled="editbutton">
                                                 <span ng-show="!loader3">Edit Details</span>
@@ -524,7 +524,7 @@
         <!--<div class="row">
 
     </div>-->
-        <form name="StudentDetails" ng-submit="submitData()" ng-show="editStudentData ">
+        <form name="StudentDetails" novalidate ng-submit="submitData()" ng-show="editStudentData ">
             <div class="custom-forms">
                 <div class="col-md-12  mtp-50" style="bottom:100px">
                     <div class="card">
@@ -561,7 +561,7 @@
                                         <div class="form-group required">
                                             <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.CandidateNameDOB" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="CandidateNameDOB" is-open="showFlag1" required />
+                                                <input type="text" show-weeks="false" class="form-control" id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.CandidateNameDOB" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="CandidateNameDOB1" is-open="showFlag1" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>

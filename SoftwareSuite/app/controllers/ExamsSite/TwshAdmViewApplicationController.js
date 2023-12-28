@@ -346,16 +346,83 @@ define(['app'], function (app) {
             //    'StdinterCert = ', $scope.StdinterCert, 'SelectedDistrictId = ', $scope.SelectedDistrictId.Id, 'HnoStreet = ', $scope.HnoStreet, 'VillageTown = ', $scope.VillageTown, 'EmailId = ', $scope.EmailId, 'ExamDate = ',$scope.ExamDate,
             //    'Name = ', $scope.Name, 'FatherName = ', $scope.FatherName, 'MotherName = ', $scope.MotherName, 'Gender = ', $scope.Gender, 'CandidateNameDOB1 = ', $scope.CandidateNameDOB1, 'IsBlind = ', $scope.IsBlind, 'GradeId = ', $scope.GradeId, 'exambatch = ', $scope.exambatch, 'ExamCenterId = ', $scope.ExamCenterId,
             //    'StudentPhoneNumber = ',$scope.StudentPhoneNumber);
+            if ($scope.Name == '' || $scope.Name == undefined || $scope.Name ==null) {
+                alert('Please Enter Student Name');
+                return;
+            }
+            if ($scope.FatherName == '' || $scope.FatherName == undefined || $scope.FatherName == null) {
+                alert('Please Enter Father Name');
+                return;
+            }
+            if ($scope.MotherName == '' || $scope.MotherName == undefined || $scope.MotherName == null) {
+                alert('Please Enter Mother Name');
+                return;
+            }
+            if ($scope.Gender == '' || $scope.Gender == undefined || $scope.Gender == null) {
+                alert('Please select Gender');
+                return;
+            }
+            if ($scope.CandidateNameDOB1 == '' || $scope.CandidateNameDOB1 == undefined || $scope.CandidateNameDOB1 == null) {
+                alert('Please select Date of Birth');
+                return;
+            }
+
+            if ($scope.IsBlind == '' || $scope.IsBlind == undefined || $scope.IsBlind == null) {
+                alert('Please select IsBlind');
+                return;
+            }
+
+            if ($scope.SelectedDistrictId.Id == '' || $scope.SelectedDistrictId.Id == undefined || $scope.SelectedDistrictId.Id == null) {
+                alert('Please select Exam District');
+                return;
+            }
+
+            if ($scope.ExamCenterId == '' || $scope.ExamCenterId == undefined || $scope.ExamCenterId == null) {
+                alert('Please select Exam Center');
+                return;
+            }
+
+            if ($scope.ExamDate == '' || $scope.ExamDate == undefined || $scope.ExamDate == null) {
+                alert('Please select Exam Date');
+                return;
+            }
+
+
+            if ($scope.exambatch == '' || $scope.exambatch == undefined || $scope.exambatch == null) {
+                alert('Please select Exam Batch')
+            }
+
+            if ($scope.HnoStreet == '' || $scope.HnoStreet == undefined || $scope.HnoStreet == null) {
+                alert('Please Enter HnoStreet')
+            }
+
+
+            if ($scope.VillageTown == '' || $scope.VillageTown == undefined || $scope.VillageTown == null) {
+                alert('Please Enter Village/Town')
+            }
+
+            if ($scope.StudentPhoneNumber == '' || $scope.StudentPhoneNumber == undefined || $scope.StudentPhoneNumber == null) {
+                alert('Please Enter  StudentPhoneNumber')
+            }
+
+          
+
 
             var UpdateData = TwshStudentRegService.updatStudentDetails($scope.ApplicatioNo, $scope.userPhotos, $scope.stdSscCert,
                 $scope.StdinterCert, $scope.SelectedDistrictId.Id, $scope.HnoStreet, $scope.VillageTown, $scope.EmailId, $scope.ExamDate,
                 $scope.Name, $scope.FatherName, $scope.MotherName, $scope.Gender, $scope.CandidateNameDOB1, $scope.IsBlind, $scope.GradeId, $scope.exambatch, $scope.ExamCenterId,
                 $scope.StudentPhoneNumber);
             UpdateData.then(function (response) {
-
-                $scope.StatusMessage = "Student Details updated Successfully";
-                $scope.showStatus = true;
-                $scope.statusclass = "alert-success";
+                console.log(response)
+                if (response[0].ResponceCode == '200') {
+                    alert(response[0].ResponceDescription);
+                }
+                else if (response[0].ResponceCode == '400') {
+                    alert(response[0].ResponceDescription);
+                }
+                //$scope.StatusMessage = "Student Details updated Successfully";
+                //$scope.showStatus = true;
+                //$scope.statusclass = "alert-success";
                 $scope.getData = false;
                 $scope.editStudentData = false;
 

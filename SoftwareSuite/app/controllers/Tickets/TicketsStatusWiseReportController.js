@@ -21,32 +21,7 @@
                 return;
             }
 
-            $scope.LoadImg = true;
-            $scope.isShowResults = true;
-           
-            AdminService.GetStatusWiseTickets($scope.StatusValue)
-                .then(function (response) {
-                    if (response != null && response.length > 1) {
-                        var location = window.location.origin;
-                        $scope.LoadImg = false;
-                        window.location.href = response;
-                        $scope.NoResult = false;
-                    } else {
-                        $scope.LoadImg = false;
-                        alert("Error Generating The Report");
-                        $scope.NoResult = true;
-                    }
-                },
-                    function (error) {
-                        $scope.LoadImg = false;
-                        alert("error data is not getting");
-                        var err = JSON.parse(error);
-                        console.log(err.Message);
-                    });
-
-
-
-            var getticket = AdminService.GetStatuswiseReport($scope.StatusValue);
+            var getticket = AdminService.GetStatuswiseReport($scope.StatusValue, $scope.UserName);
             getticket.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -66,10 +41,41 @@
 
                 });
 
+            
+
         }
 
         
-        
+        $scope.DownloadtoExcel = function () {
+            if ($scope.StatusValue == '' || $scope.StatusValue == null || $scope.StatusValue == undefined) {
+                alert('Please select Status');
+                return;
+            }
+
+            $scope.LoadImg = true;
+            $scope.isShowResults = true;
+
+            AdminService.GetStatusWiseTickets($scope.StatusValue, $scope.UserName)
+                .then(function (response) {
+                    if (response != null && response.length > 1) {
+                        var location = window.location.origin;
+                        $scope.LoadImg = false;
+                        window.location.href = response;
+                        $scope.NoResult = false;
+                    } else {
+                        $scope.LoadImg = false;
+                        alert("Error Generating The Report");
+                        $scope.NoResult = true;
+                    }
+                },
+                    function (error) {
+                        $scope.LoadImg = false;
+                        alert("error data is not getting");
+                        var err = JSON.parse(error);
+                        console.log(err.Message);
+                    });
+            
+        }
    
 
 

@@ -1022,15 +1022,16 @@ namespace SoftwareSuite.Controllers.AdminServices
 
 
         [HttpGet, ActionName("GetStatusWiseTickets")]
-        public string GetStatusWiseTickets(int DataType)
+        public string GetStatusWiseTickets(int DataType,string UserName)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "SP_Get_StatusWiseTaskData ";
                 string Name ="";
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@UserName", UserName);
                 var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
                 if (DataType == 1)
                 {
@@ -1372,14 +1373,15 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
         }
         [HttpGet, ActionName("GetStatuswiseReport")]
-        public string GetStatuswiseReport(int DataType)
+        public string GetStatuswiseReport(int DataType,string UserName)
         {
             var dbHandler = new dbHandler();
 
             try
             {
-                var param = new SqlParameter[1];
+                var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@UserName", UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_StatusWiseTaskData", param);
                 return JsonConvert.SerializeObject(dt);
             }

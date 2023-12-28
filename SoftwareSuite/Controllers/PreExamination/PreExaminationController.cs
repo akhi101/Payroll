@@ -2047,14 +2047,15 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetTicketsReportExcel")]
-        public string GetTicketsReportExcel(string FromDate, string ToDate)
+        public string GetTicketsReportExcel(string FromDate, string ToDate,string UserName)
         {        
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FromDate", FromDate);
                 param[1] = new SqlParameter("@ToDate", ToDate);
+                param[2] = new SqlParameter("@UserName", UserName);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_TicketsReport", param);
                 var filename = "TicketsData_"  + ".xlsx";
                 var eh = new ExcelHelper();
