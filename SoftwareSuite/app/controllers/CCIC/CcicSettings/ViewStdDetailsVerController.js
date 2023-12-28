@@ -210,9 +210,14 @@
             }
 
 
-            $scope.Recommended = function () {
-
-                var setrecommendstatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Recommended');
+            $scope.Recommended = function (Remarks) {
+                if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                    var remarks = null;
+                }
+                else {
+                    var remarks = Remarks;
+                }
+                var setrecommendstatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Recommended',remarks);
                 setrecommendstatus.then(function (response) {
                     $scope.loading = false;
                     if (response[0].ResponseCode == '500') {

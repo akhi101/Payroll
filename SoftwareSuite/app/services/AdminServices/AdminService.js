@@ -504,8 +504,11 @@
             return promise;
         }
 
-        this.GetStatusWiseTickets = function (DataType) {
-            var paramObj = { "DataType": DataType };
+        this.GetStatusWiseTickets = function (DataType, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "UserName": UserName
+            };
             var promise = DataAccessService.getDataWithPara('api/AdminService/GetStatusWiseTickets', paramObj);
             return promise;
         }
@@ -527,10 +530,11 @@
             return promise;
         }
 
-        this.GetTicketsReportExcel = function (FromDate,ToDate) {
+        this.GetTicketsReportExcel = function (FromDate,ToDate,UserName) {
             var paramObject = {
                 "FromDate": FromDate,
-                "ToDate": ToDate
+                "ToDate": ToDate,
+                "UserName": UserName
             };
 
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTicketsReportExcel', paramObject);
@@ -538,10 +542,11 @@
         }
 
 
-        this.GetStatuswiseReport = function (DataType) {
+        this.GetStatuswiseReport = function (DataType,UserName) {
             var paramObject = {
 
-                "DataType": DataType
+                "DataType": DataType,
+                "UserName": UserName
                 
             };
 

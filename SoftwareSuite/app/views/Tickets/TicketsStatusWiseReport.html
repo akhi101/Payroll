@@ -1,4 +1,29 @@
 ﻿<style>
+    .gr-button {
+        float: none !important;
+    }
+
+    a.ExportToExcel {
+        color: #1f497d;
+        text-decoration: none;
+        font-size: 18px;
+        padding-right: 10px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .fa-file-excel:before {
+        content: "\f1c3";
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
     .download_btn, .download_btn:hover {
         background-color: #fff;
         width: 35px;
@@ -301,29 +326,35 @@
                     <form name="circularForm">
                         <div class="row">
                             <div class="col-md-3" style="left:30px">
-            <div class="form-group">
-                <label>Statuswise Report</label>
-                <select class="form-control" name="" ng-model="StatusValue">
-                    <option value="">Select Status</option>
-                    <option value="1">Pending</option>
-                    <option value="2">Approved</option>
-                    <option value="3">Under Process</option>
-                    <option value="4">Completed</option>
-                </select>
+                                <div class="form-group">
+                                    <label>Statuswise Report</label>
+                                    <select class="form-control" name="" ng-model="StatusValue">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Approved</option>
+                                        <option value="3">Under Process</option>
+                                        <option value="4">Completed</option>
+                                    </select>
 
-            </div>
-        </div>
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <button type="submit" style="margin-top: 24px;" class="btn btn-success pull-right" ng-click="getStatusWiseTickets()">Submit</button>
 
                             </div>
                         </div>
-                      
-                        
+
+
                     </form>
                 </div>
             </div>
-            <div class="sm-spacer"></div>
+        </div>
+        <div class="col-md-2 pull-right " ng-show="TasksTableData.length>0">
+            <a class="ExportToExcel1 pointer"
+               id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')" style="margin-left:45px">
+                <i class="fa fa-file-excel"></i>
+                Export to Excel
+            </a>
         </div>
         <div class="col-md-12" ng-if="data">
             <div class="cl-details">
@@ -331,7 +362,7 @@
 
             </div>
         </div>
-            <div class="col-md-12">
+        <div class="col-md-12">
             <div class="table-responsive table-custom-tables-tb scrollbox" ng-if="TasksTableData.length>0">
                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                     <thead>
@@ -345,8 +376,8 @@
                             <!--<th class="text-center">Active</th>-->
                             <!--<th width="16%"></th>-->
                             <!--<th width="10%" class="text-center">Download</th>
-    <th width="10%" class="text-center">Delete</th>
-    <th width="10%" class="text-center">Action</th>-->
+                        <th width="10%" class="text-center">Delete</th>
+                        <th width="10%" class="text-center">Action</th>-->
                             <!--<th width="10%" class="text-center">Switch</th>-->
                         </tr>
                     </thead>
@@ -358,7 +389,7 @@
                             <td class="text-center">{{data.ProjectName}}</td>
                             <td class="text-center">{{data.TaskTypeName}}</td>
                             <td class="text-center">{{data.TaskDescription}}</td>
-                          
+
                         </tr>
                     </tbody>
                 </table>
