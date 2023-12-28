@@ -65,14 +65,16 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Shift:</label>
+                            <label class="font-weight-bold">Batch:</label>
                             <div class="">
-                                <select class="form-control" ng-model="Selectedshift" name="shift"
-                                        ng-options="shift.shiftName for shift in shifts track by shift.shiftid">
-                                    <option value="" selected>Select Shift</option>
+                                <select class="form-control" ng-model="Selectedshift" disabled name="shift" required>
+                                    <option value="" selected>Select Batch</option>
+                                    <option ng-repeat="shift in shifts" ng-value="shift.shiftid">
+                                        {{shift.shiftName}}
+                                    </option>
                                 </select>
                                 <!--<select class="form-control" ng-model="Selectedshift" name="shift" required
-            ng-options="shift.shiftid as shift.shiftName for shift in shifts"></select>-->
+    ng-options="shift.shiftid as shift.shiftName for shift in shifts"></select>-->
                             </div>
                         </div>
                        
