@@ -9,7 +9,7 @@
         //    { Id: "5", Subject: "Basic Electronic components & materials " },
         //    { Id: "6", Subject: "Basic Electrical Engineering " }
         //]
-        $scope.shifts = [{ shiftid: "1", shiftName: "Shift 1" }, { shiftid: "2", shiftName: "Shift 2" }]
+        $scope.shifts = [{ shiftid: 1, shiftName: "Batch 1" }, { shiftid: 2, shiftName: "Batch 2" }]
         $scope.getActiveSchemes = [{ SchemeID: 5, Scheme: "C18" },{ SchemeID: 2, Scheme: "ER91" }]
 
         const $ctrl = this;
@@ -171,7 +171,7 @@
                 for (var i = 0; i < $scope.ActiveSemesters.length; i++) {
                     if ($scope.ActiveSemesters[i].current_schemeid == $scope.SelectedschemeId.SchemeID) {
                         $scope.ActiveSems.push($scope.ActiveSemesters[i]);
-
+                        $scope.Selectedshift = $scope.ActiveSemesters[i].AySession
                     }
                 }
                 // console.log( $scope.ActiveSems )
@@ -237,7 +237,7 @@
                 SubjectCode: SubjectCode,
                 Scheme: $scope.SelectedschemeId.Scheme,
                 Subject: $scope.Scheme,
-                ShiftId: $scope.Selectedshift.shiftid,
+               // ShiftId: $scope.Selectedshift.shiftid,
                 SubjectId: SubjectId,
                 BranchId: $scope.BranchId,
                 Branch: $scope.branchname

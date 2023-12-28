@@ -10,7 +10,7 @@
         $scope.staff = [];
         $scope.tempStaff = {};
         $scope.Table = false;
-        $scope.shifts = [{ shiftid: 1, shiftName: "Shift 1" }, { shiftid: 2, shiftName: "Shift 2" }]
+        $scope.shifts = [{ shiftid: 1, shiftName: "Batch 1" }, { shiftid: 2, shiftName: "Batch 2" }]
 
 
 
@@ -83,7 +83,7 @@
                 for (var i = 0; i < $scope.ActiveSemesters.length; i++) {
                     if ($scope.ActiveSemesters[i].current_schemeid == $scope.scheme) {
                         $scope.ActiveSems.push($scope.ActiveSemesters[i]);
-
+                        $scope.Selectedshift = $scope.ActiveSemesters[i].AySession
                     }
                 }
                 // console.log( $scope.ActiveSems )
