@@ -1079,6 +1079,7 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
+    <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
@@ -2976,6 +2977,7 @@
     <Content Include="app\views\PreExam\VocBridgePracticalAwardListAcknowledgement.html" />
     <Content Include="app\views\PreExam\VocOnTheJobTrainingMarkEntryCollege.html" />
     <Content Include="app\views\PromotionalFeePaymentPopup.html" />
+    <Content Include="app\views\Admission\Reports\ReadmissionList.html" />
     <Content Include="app\views\ReportViewer.html" />
     <Content Include="app\views\Results.html" />
     <Content Include="app\views\Results\BackLogDetailes.html" />
