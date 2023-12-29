@@ -1,5 +1,29 @@
 ﻿<style>
+    .gr-button {
+        float: none !important;
+    }
 
+    a.ExportToExcel {
+        color: #1f497d;
+        text-decoration: none;
+        font-size: 18px;
+        padding-right: 10px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .fa-file-excel:before {
+        content: "\f1c3";
+    }
+
+    .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
     .success-btn, .success-btn:hover, .success-success:focus {
         background-color: #639829 !important;
@@ -34,13 +58,20 @@
                     {{StatusMessage}}
                 </div>
             </div>
+            <div class="col-md-2 pull-right">
+                <a class="ExportToExcel1 pointer"
+                   id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')" style="margin-left:34px">
+                    <i class="fa fa-file-excel"></i>
+                    Rejected Students
+                </a>
+            </div>
             <div class="col-md-12 " ng-if="studDetailsfound">
                 <div class="cl-details">
                     <h2>Authorization Details</h2>
                 </div>
                 <!--<div style="width:100%;text-align:center;">
-                    <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
-                </div>-->
+                <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
+            </div>-->
                 <div id="attendanceReport" class="table-responsive table-custom-tables-tb scrollbox">
                     <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                         <thead class="sticky-header">
@@ -88,6 +119,18 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="loading">
+            <div class="sm-spacer"></div>
+            <div style="width:100%;text-align:center;">
+                <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="error">
+            <div class="col-md-12 no-results">
+                <h2>No Data</h2>
+                <img src="../../contents/img/Folder-Icon.svg" />
             </div>
         </div>
     </div>
