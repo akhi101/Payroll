@@ -1,8 +1,8 @@
 define(['app'], function (app) {
     app.controller("GetODCDataController", function ($scope, $q, $http, $localStorage, $state, DigitalSignatureService, $stateParams, AppSettings, $uibModal, $timeout, PreExaminationService) {
-        $scope.ApproveStatus = $localStorage.CertificateData.ApproveType;
-        //alert($scope.ApproveStatus)
-        $scope.Scheme = $localStorage.CertificateData.Scheme
+        //$scope.ApproveStatus = $localStorage.CertificateData.ApproveType;
+        ////alert($scope.ApproveStatus)
+        //$scope.Scheme = $localStorage.CertificateData.Scheme
         var authData = $localStorage.authorizationData;
         $scope.UserTypeId = authData.SystemUserTypeId
 
@@ -13,12 +13,12 @@ define(['app'], function (app) {
         var PaymentStudentList = []
         var PaymentStudent = []
         var data = {};
-        $scope.$emit('showLoading', data);
+        //$scope.$emit('showLoading', data);
         $scope.Data = false;
         $scope.Nodata = false;
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.getlist();
+          //  $scope.getlist();
             $scope.smsbtndisable = false;
         }
 
