@@ -3313,6 +3313,11 @@
                 templateUrl: 'app/views/Admission/Reports/AdmissionReports.html',
                 dependencies: ['controllers/Admission/Reports/AdmissionReportsController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Admission/AdmissionService', 'services/Results/StudentWiseService']
             },
+            'Dashboard.AdmissionDashboard.ReadmissionList': {
+                url: "/ReadmissionList",
+                templateUrl: 'app/views/Admission/Reports/ReadmissionList.html',
+                dependencies: ['controllers/Admission/Reports/ReadmissionListController', 'directives/saFileUpload', 'services/PreExamination/PreExaminationService', 'services/StudentResultService', 'services/Assessment/AssessmentService', 'services/Admission/AdmissionService', 'services/Results/StudentWiseService']
+            },
 
             'Dashboard.AdmissionDashboard.AdmissionSubReports': {
                 url: "/AdmissionReports/AdmissionSubReports",
