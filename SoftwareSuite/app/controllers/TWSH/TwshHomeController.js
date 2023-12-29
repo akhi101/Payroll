@@ -64,6 +64,7 @@
                                         UserId: response.Table1[0].UserId,
                                         UserTypeId: parseInt(response.Table1[0].UserTypeId),
                                         Username: response.Table1[0].InstitutionName,
+                                        ExamCenterID: response.Table1[0].ExamCenterID,
                                         isLogin: true
                                     }
 

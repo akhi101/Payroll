@@ -1104,6 +1104,15 @@
             var promise = DataAccessService.postData('api/TwshStudentReg/RejectorApproveorReleaseSubmitDetails', paramObj);
             return promise;
         };
+
+        this.GetStudentsRejectedExcel = function (DataType, ExamCenterID) {
+            var paramObj = {
+                "DataType": DataType,
+                "ExamCenterID": ExamCenterID
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentsRejectedExcel', paramObj);
+            return promise;
+        };
         
     });
 });

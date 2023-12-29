@@ -5,6 +5,7 @@
         $scope.failed = false;
 
         $scope.userId = authData.UserId;
+        $scope.ExamCenterID = authData.ExamCenterID;
         $scope.UserId = authData == undefined || authData == "" ? -1 : authData.UserId;
 
         var GetExamCenterApplied = TwshStudentRegService.getExamCenterApplied($scope.UserId);
@@ -68,6 +69,33 @@
             $timeout(function () {
                 $scope.showStatus = false;
             }, 5000);
+
+        }
+
+
+        $scope.DownloadtoExcel = function () {
+            var DataType = 2;
+            $scope.LoadImg = true;
+
+            TwshStudentRegService.GetStudentsRejectedExcel(DataType, $scope.ExamCenterID)
+                .then(function (response) {
+                    if (response != null && response.length > 1) {
+                        var location = window.location.origin;
+                        $scope.LoadImg = false;
+                        window.location.href = response;
+                        $scope.NoResult = false;
+                    } else {
+                        $scope.LoadImg = false;
+                        alert("Error Generating The Report");
+                        $scope.NoResult = true;
+                    }
+                },
+                    function (error) {
+                        $scope.LoadImg = false;
+                        alert("error data is not getting");
+                        var err = JSON.parse(error);
+                        console.log(err.Message);
+                    });
 
         }
 

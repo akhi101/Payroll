@@ -4188,6 +4188,36 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+        [HttpGet, ActionName("GetStudentsRejectedExcel")]
+        public string GetStudentsRejectedExcel(int DataType, int ExamCenterID)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                string StrQuery = "SP_Get_RejectedStudentDetails";
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ExamCenterID", ExamCenterID);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                var filename = "RejectedStudentsList_" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex)
+            {
+                return "Error Occured. Please Try Again";
+            }
+        }
+
         //[HttpGet, ActionName("RejectorApproveorReleaseSubmitDetails")]
         //public string RejectorApproveorReleaseSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null,string ReleasedRemarks=null)
         //{
