@@ -60,7 +60,7 @@
             </div>
             <div class="col-md-2 pull-right">
                 <a class="ExportToExcel1 pointer"
-                   id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')" style="margin-left:34px">
+                   id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')" style="margin-left:15px;font-size:16px">
                     <i class="fa fa-file-excel"></i>
                     Rejected Students
                 </a>
@@ -115,6 +115,13 @@
                                         </button>
                                     </span>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" colspan="5">Total</td>
+                                <td class="text-center"><b>{{OnRoll}}</b></td>
+                                <td class="text-center"><b>{{Approved}}</b></td>
+                                <td class="text-center"><b>{{isrejected}}</b></td>
+                                <td class="text-center"><b>{{NeedToApprove}}</b></td>
                             </tr>
                         </tbody>
                     </table>

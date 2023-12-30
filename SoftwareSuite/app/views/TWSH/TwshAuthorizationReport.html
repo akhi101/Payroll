@@ -108,11 +108,17 @@
                                 <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
                                 <th style="width: 2%" ng-click="sort('Sno')">S.No</th>
                                 <th class="" style="width: 40%" ng-click="sort('Scheme')">College</th>
-                                <th class="text-center" ng-click="sort('Scheme')">Approval Pending</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Course</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Grade Code</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Grade</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Exam Batch</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Registered</th>
                                 <th class="text-center" ng-click="sort('Semester')">Approved</th>
+                                <th class="text-center" ng-click="sort('Semester')">Rejected</th>
+                                <th class="text-center" ng-click="sort('Scheme')">Pending</th>
                                 <!--<th class="text-center" ng-click="sort('Branch')">Rejected</th>-->
                                 <!--<th class="text-center" ng-click="sort('On Roll')">Phone Number</th>
-                                <th class="text-center" ng-click="sort('On Roll')">Print</th>-->
+    <th class="text-center" ng-click="sort('On Roll')">Print</th>-->
                             </tr>
                         </thead>
 
@@ -122,20 +128,28 @@
 
                                 <td>{{$index+1}}</td>
                                 <td class="">{{data.CollegeCode}} - {{data.CollegeName}}</td>
-                                <td class="text-center" ng-click="OpenCountData(0,data)"><b><a>{{data.ApprovalPending}}</a></b></td>
+                                <td>{{data.course}}</td>
+                                <td>{{data.gradecode}}</td>
+                                <td>{{data.grade}}</td>
+                                <td>{{data.ExamBatch}}</td>
+                                <td class="text-center" ng-click="OpenCountData(0,data)"><b><a>{{data.registered}}</a></b></td>
                                 <td class="text-center" ng-click="OpenCountData(1,data)"><b><a>{{data.Approved}}</a></b></td>
-                              <!--  <td class="text-center" ng-click="OpenCountData(2,data.GradeId)"><b><a>{{data.Rejected}}</a></b></td>-->
+                                <td class="text-center" ng-click="OpenCountData(0,data)"><b><a>{{data.rejected}}</a></b></td>
+                                <td class="text-center" ng-click="OpenCountData(0,data)"><b><a>{{data.ApprovalPending}}</a></b></td>
+                                <!--  <td class="text-center" ng-click="OpenCountData(2,data.GradeId)"><b><a>{{data.Rejected}}</a></b></td>-->
                                 <!--<td class="pointer text-center">{{data.StudentPhoneNumber}}</td>
-                                <td class="pointer text-center">
-                                    <button class="btn btn-xs btn-success" ng-if="data.Print == 1">Printed</button>
-                                    <button class="btn btn-xs btn-danger" ng-if="data.Print == 0">Need to Print</button>
-                                </td>-->
+    <td class="pointer text-center">
+        <button class="btn btn-xs btn-success" ng-if="data.Print == 1">Printed</button>
+        <button class="btn btn-xs btn-danger" ng-if="data.Print == 0">Need to Print</button>
+    </td>-->
 
                             </tr>
                             <tr class="">
-                                <td colspan="2">Total</td>
-                                <td class="text-center">{{ApprovalPending}}</td>
+                                <td colspan="6">Total</td>
+                                <td class="text-center">{{Registered}}</td>
                                 <td class="text-center">{{Approved}}</td>
+                                <td class="text-center">{{Rejected}}</td>
+                                <td class="text-center">{{ApprovalPending}}</td>
                                
                             </tr>
                         </tbody>
