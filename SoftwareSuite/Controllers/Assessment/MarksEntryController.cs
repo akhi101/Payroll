@@ -20,6 +20,7 @@ namespace SoftwareSuite.Controllers.Assessment
     public class MarksEntryController : BaseController
     {
         #region Get Methods
+        
         [HttpGet, ActionName("GetDetailedReportExcel")]
         public string GetDetailedReportExcel(int examtypeid, int studentType, int AcademicYearId, string Semester, int ExamMonthYear)
         {
