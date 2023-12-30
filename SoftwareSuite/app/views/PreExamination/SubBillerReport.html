@@ -24,6 +24,7 @@
     button.btn.btn-success.pull-right.btn-xs {
         margin-bottom: 5px;
     }
+    
     @media print {
         tr.cb-1 th {
             color: #000!important;
@@ -33,6 +34,21 @@
             color: #000 !important;
             font-size: 12px !important;
         }
+        .base-row {
+            display: none;
+        }
+        .top-header{
+            display:none;
+        }
+        .bck_btn{
+            display:none;
+        }
+        .noprint{
+            display:none;
+        }
+    }
+    .footer_section {
+        display:none;
     }
 </style>
 <div ng-controller="SubBillerReportController">
@@ -43,11 +59,11 @@
             </div>
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#1" data-toggle="tab">Sub-Biller Report</a>
+                    <li class="active noprint">
+                        <a href="#1" class="noprint" data-toggle="tab">Sub-Biller Report</a>
                     </li>
-                    <li>
-                        <a href="#2" data-toggle="tab">Day Wise Abstract</a>
+                    <li class="noprint">
+                        <a href="#2" class="noprint" data-toggle="tab">Day Wise Abstract</a>
                     </li>
 
                 </ul>
@@ -131,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 pull-right " ng-show="SubBillerCount.length>0">
+                        <div class="col-md-2 pull-right noprint" ng-show="SubBillerCount.length>0">
                             <a class="ExportToExcel1 pointer"
                                id="ExportToExcel1" title="Excel Download" ng-click="DownloadtoExcel('#tblParent')">
                                 <i class="fa fa-file-excel"></i>
@@ -139,10 +155,10 @@
                             </a>
                         </div>
 
-                        <div class="col-md-1 pull-right " ng-show="SubBillerCount.length>0">
+                        <div class="col-md-1 pull-right noprint" ng-show="SubBillerCount.length>0">
                             <button class="btn btn-success pull-right btn-xs" title="Print" ng-click="printDetails('Details')">Print</button>
                         </div>
-                        <div ng-show="SubBillerCount.length>0" class="col-md-7 notifylabel" for="sel1" style="color: red;">Click on row to view details</div>
+                        <div ng-show="SubBillerCount.length>0" class="col-md-7 notifylabel noprint" for="sel1" style="color: red;">Click on row to view details</div>
                         <div id="Details">
                             <div class="col-md-12 ng-scope" ng-show="SubBillerCount.length>0">
                                 <div class="cl-details">

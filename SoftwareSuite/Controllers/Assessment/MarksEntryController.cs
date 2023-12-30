@@ -225,7 +225,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[3] = new SqlParameter("@Semester", Semester);
                 param[4] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
-                var filename = "SubBillerReportCount_" + ".xlsx";
+                var filename = "DetailedReport_" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
