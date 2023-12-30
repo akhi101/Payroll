@@ -20,6 +20,39 @@ namespace SoftwareSuite.Controllers.Assessment
     public class MarksEntryController : BaseController
     {
         #region Get Methods
+        
+        [HttpGet, ActionName("GetDetailedReportExcel")]
+        public string GetDetailedReportExcel(int examtypeid, int studentType, int AcademicYearId, string Semester, int ExamMonthYear)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "USP_GET_Assessment_AdminDetailedReportPinsExcel ";
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@examtypeid", examtypeid);
+                param[1] = new SqlParameter("@studentType", studentType);
+                param[2] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[3] = new SqlParameter("@Semester", Semester);
+                param[4] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                var filename = "DetailedReport_" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex) 
+            {
+                dbHandler.SaveErorr("USP_GET_Assessment_AdminDetailedReportPinsExcel", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
+                return "Error Occured. Please Try Again";
+            }
+        }
         [HttpGet, ActionName("getSubjectPinList")]
         public string getSubjectPinList(int AcadamicYearid, int SchemeId, string collegecode, int semid, int branchId, int subId, int examtype,int studenttypeId,int ExamMonthYearId)
         {
@@ -211,38 +244,7 @@ namespace SoftwareSuite.Controllers.Assessment
             ((Timer)sender).Dispose();
         }
 
-        [HttpPost, ActionName("GetDetailedReportExcel")]
-        public string GetDetailedReportExcel(int examtypeid, int studentType,int AcademicYearId,string Semester,int ExamMonthYear)
-        {
-            try
-            {
-                var dbHandler = new dbHandler();
-                string StrQuery = "USP_GET_Assessment_AdminDetailedReportPinsExcel ";
-                var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@examtypeid", examtypeid);
-                param[1] = new SqlParameter("@studentType", studentType);
-                param[2] = new SqlParameter("@AcademicYearId", AcademicYearId);
-                param[3] = new SqlParameter("@Semester", Semester);
-                param[4] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
-                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
-                var filename = "SubBillerReportCount_" + ".xlsx";
-                var eh = new ExcelHelper();
-                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
-                bool folderExists = Directory.Exists(path);
-                if (!folderExists)
-                    Directory.CreateDirectory(path);
-                eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(30000);
-                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
-                timer.Start();
-                return "/Downloads/" + filename;
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("USP_GET_Assessment_AdminDetailedReportPinsExcel", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
-                return "Error Occured. Please Try Again";
-            }
-        }
+        
 
         [HttpPost, ActionName("PostSemExamMarks")]
         public string PostSemExamMarks([FromBody]PostExamMarks ExamMarks)
