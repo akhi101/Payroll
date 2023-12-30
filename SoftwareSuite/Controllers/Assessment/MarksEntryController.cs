@@ -46,7 +46,7 @@ namespace SoftwareSuite.Controllers.Assessment
                 timer.Start();
                 return "/Downloads/" + filename;
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 dbHandler.SaveErorr("USP_GET_Assessment_AdminDetailedReportPinsExcel", token.UserId, ex.Message + "\n-----------\n" + ex.StackTrace);
                 return "Error Occured. Please Try Again";
