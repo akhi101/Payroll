@@ -59,6 +59,9 @@
         else if (tempData3.ApplicationStatus == 'Rejected') {
             $scope.ApplicationStatus = 3;
         }
+        else if (tempData3.ApplicationStatus == 'Recommended') {
+            $scope.ApplicationStatus = 4;
+        }
 
         $scope.ViewStudentDetails = function () {
             //$scope.loading = true;

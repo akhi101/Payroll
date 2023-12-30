@@ -22,13 +22,13 @@
 
             this.UpdateMarksEntryDatesforAdmin = function (id, fromdate, todate, finedate, fine_ammount) {
                 var paramObject = {
-                    "id": id,        
+                    "id": id,
                     "fromdate": fromdate,
                     "todate": todate,
                     "finedate": finedate,
                     "fine_ammount": fine_ammount,
-            };
-            var promise = DataAccessService.postData('Assessment/UpdateMarksEntryDatesforAdmin', paramObject);
+                };
+                var promise = DataAccessService.postData('Assessment/UpdateMarksEntryDatesforAdmin', paramObject);
                 return promise;
             },
             this.GetExamType = function (SchemeId) {
@@ -38,23 +38,23 @@
             }
 
         this.UploadSign = function (sign) {
-            var paramObject = { "sign": sign };       
+            var paramObject = { "sign": sign };
             var promise = DataAccessService.postData('api/PreExamination/UploadSign', paramObject);
             return promise;
         }
-        
+
         this.GetMarksEntryDates = function (AcademicId) {
             var paramObject = { "AcademicId": AcademicId };
             var promise = DataAccessService.getDataWithPara('Assessment/getMarksEntryDates', paramObject);
             return promise;
         },
-            this.getDatesFineAmount = function (examid, semid, AcademicId,ExamMonthYearId) {
-            var paramObject = { "examid": examid, "semid": semid, "Academicid": AcademicId, "ExamMonthYearId": ExamMonthYearId};
+            this.getDatesFineAmount = function (examid, semid, AcademicId, ExamMonthYearId) {
+                var paramObject = { "examid": examid, "semid": semid, "Academicid": AcademicId, "ExamMonthYearId": ExamMonthYearId };
                 var promise = DataAccessService.getDataWithPara('MarksEntry/getDatesFineAmount', paramObject);
                 return promise;
             },
-            this.getSubmitStatus = function (collegeCode, branchCode, AcademicId, semId, examtypeId,ExamMonthYearId) {
-            var paramObject = { "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "ExamMonthYearId": ExamMonthYearId };
+            this.getSubmitStatus = function (collegeCode, branchCode, AcademicId, semId, examtypeId, ExamMonthYearId) {
+                var paramObject = { "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "ExamMonthYearId": ExamMonthYearId };
                 var promise = DataAccessService.getDataWithPara('MarksEntry/getSubmitStatus', paramObject);
                 return promise;
             },
@@ -63,10 +63,10 @@
                 var promise = DataAccessService.postData('MarksEntry/SubmitAllMarksEntered', paramObject);
                 return promise;
             },
-            this.SubmitMarksEntered = function (collegeCode, branchCode, AcademicId, semId, examtypeId, subId,ExamMonthYearId) {
-            var paramObject = {
-                "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "subId": subId, "ExamMonthYearId": ExamMonthYearId
-            };
+            this.SubmitMarksEntered = function (collegeCode, branchCode, AcademicId, semId, examtypeId, subId, ExamMonthYearId) {
+                var paramObject = {
+                    "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "subId": subId, "ExamMonthYearId": ExamMonthYearId
+                };
                 var promise = DataAccessService.postData('MarksEntry/SubmitMarksEntered', paramObject);
                 return promise;
             },
@@ -79,7 +79,7 @@
             this.GetPresentStudentType = function () {
                 return DataAccessService.getDataAll('Assessment/GetPresentStudentType');
             },
-            this.RubricsgetSubjectPinList = function (SubjectTypeId, collegecode, SemId, BranchId, SchemeId, AcademicYearId, ExamTypeId,ExamMonthYearId) {
+            this.RubricsgetSubjectPinList = function (SubjectTypeId, collegecode, SemId, BranchId, SchemeId, AcademicYearId, ExamTypeId, ExamMonthYearId) {
                 var paramObject = {
                     "SubjectTypeId": SubjectTypeId, "collegecode": collegecode, "SemId": SemId,
                     "BranchId": BranchId, "SchemeId": SchemeId, "AcademicYearId": AcademicYearId, "ExamTypeId": ExamTypeId, "ExamMonthYearId": ExamMonthYearId
@@ -108,31 +108,47 @@
                 var paramObject = {
                     "Academicid": Academicid, "SchemeId": SchemeId, "collegecode": collegecode, "semid": semid, "branchId": branchId, "subId": subId, "examtype": examtypeid,
                     "studenttypeId": StudentTypeId, "ExamMonthYearId": ExamMonthYearId
-            };
-           
+                };
+
                 return DataAccessService.getDataWithPara('MarksEntry/getReportSubjectPinList', paramObject);
             },
-            this.editMarksEntry = function (collegecode, branchcode, semid, examtypeid, subid, pin,ExamMonthYearId) {
-            var paramObject = { "collegecode": collegecode, "branchcode": branchcode, "semid": semid, "examtypeid": examtypeid, "subid": subid, "pin": pin, "ExamMonthYearId": ExamMonthYearId };
+            this.editMarksEntry = function (collegecode, branchcode, semid, examtypeid, subid, pin, ExamMonthYearId) {
+                var paramObject = { "collegecode": collegecode, "branchcode": branchcode, "semid": semid, "examtypeid": examtypeid, "subid": subid, "pin": pin, "ExamMonthYearId": ExamMonthYearId };
                 return DataAccessService.getDataWithPara('MarksEntry/editMarksEntry', paramObject);
             },
             this.PostStudentMarks = function (examtypeId, schemeid, MarksList, studenttypeid) {
-            var paramObject = { "examtype": examtypeId, "schemeid": schemeid, "marksdata": MarksList, "studenttypeid": studenttypeid};
+                var paramObject = { "examtype": examtypeId, "schemeid": schemeid, "marksdata": MarksList, "studenttypeid": studenttypeid };
                 return DataAccessService.postData('MarksEntry/PostSemExamMarks', paramObject);
             },
             this.PostBacklogSemExamMarks = function (MarksList) {
-            var paramObject = { "marksdata": MarksList };
-            return DataAccessService.postData('MarksEntry/PostBacklogSemExamMarks', paramObject);
+                var paramObject = { "marksdata": MarksList };
+                return DataAccessService.postData('MarksEntry/PostBacklogSemExamMarks', paramObject);
             },
             this.getPaymentDetails = function (Amount, CollegeCode, BranchCode, SemId, SchemeId, Academicid, examTypeid, ExamMonthYearId) {
-            var paramObject = {
-                "Amount": Amount, "CollegeCode": CollegeCode, "BranchCode": BranchCode, "SemId": SemId, "SchemeId": SchemeId, "Academicid": Academicid, "examTypeid": examTypeid,
-                "ExamMonthYearId": ExamMonthYearId           };
+                var paramObject = {
+                    "Amount": Amount, "CollegeCode": CollegeCode, "BranchCode": BranchCode, "SemId": SemId, "SchemeId": SchemeId, "Academicid": Academicid, "examTypeid": examTypeid,
+                    "ExamMonthYearId": ExamMonthYearId
+                };
                 return DataAccessService.getDataWithPara('MarksEntryFinePayment/getPaymentDetails', paramObject);
             },
+
+            this.GetDetailedReportExcel = function (examtypeid, studentType, AcademicYearId, Semester, ExamMonthYear) {
+                var paramObject = {
+                    "examtypeid": examtypeid,
+                    "studentType": studentType,
+                    "AcademicYearId": AcademicYearId,
+                    "Semester": Semester,
+                    "ExamMonthYear": ExamMonthYear
+                };
+                return DataAccessService.postData('MarksEntry/GetDetailedReportExcel', paramObject);
+            },
+
             this.getSubjectsFaculty = function () {
                 return DataAccessService.getDataAll('Assessment/getSubjectsFaculty');
             }
+
+     
+        
 
 
 

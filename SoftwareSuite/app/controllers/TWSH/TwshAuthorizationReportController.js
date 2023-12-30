@@ -21,15 +21,18 @@
                 $scope.data = true;
 
                 $scope.QualifiedList = response;
+                var Registered = 0;
                 var ApprovalPending = 0;
                 var Approved = 0;
                 var Rejected = 0;
                 for (count = 0; count < $scope.QualifiedList.length; count++) {
+                    Registered += parseInt($scope.QualifiedList[count].registered)
                     ApprovalPending += parseInt($scope.QualifiedList[count].ApprovalPending)
                     Approved += parseInt($scope.QualifiedList[count].Approved);
-                    Rejected += parseInt($scope.QualifiedList[count].Rejected);
+                    rejected += parseInt($scope.QualifiedList[count].rejected);
                 }
 
+                $scope.Registered = Registered;
                 $scope.ApprovalPending = ApprovalPending;
                 $scope.Approved = Approved;
                 $scope.Rejected = Rejected;
@@ -78,15 +81,18 @@
                     $scope.data = true;
 
                     $scope.QualifiedList = response;
+                    var Registered = 0;
                     var ApprovalPending = 0;
                     var Approved = 0;
                     var Rejected = 0;
                     for (count = 0; count < $scope.QualifiedList.length; count++) {
+                        Registered += parseInt($scope.QualifiedList[count].registered)
                         ApprovalPending += parseInt($scope.QualifiedList[count].ApprovalPending)
                         Approved += parseInt($scope.QualifiedList[count].Approved);
-                        Rejected += parseInt($scope.QualifiedList[count].Rejected);
+                        Rejected += parseInt($scope.QualifiedList[count].rejected);
                     }
 
+                    $scope.Registered = Registered;
                     $scope.ApprovalPending = ApprovalPending;
                     $scope.Approved = Approved;
                     $scope.Rejected = Rejected;

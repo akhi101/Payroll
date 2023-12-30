@@ -57,7 +57,7 @@
                 templateUrl: "app/views/TWSH/ViewDocument.html",
                 size: 'xlg',
                 scope: $scope,
-                windowClass: 'modal-fit-att',
+                windowClass: 'custom-modal',
                 backdrop: 'static'
             });
 
@@ -378,6 +378,47 @@
             document.addEventListener('mousemove', mousemoveHandler);
             document.addEventListener('mouseup', mouseupHandler);
         };
+
+        
+
+        $scope.DownloadFile1 = function () {
+            var byteString = atob($scope.imagesrc.split(',')[1]);
+            var mimeString = $scope.imagesrc.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            var blob = new Blob([ab], { type: mimeString });
+
+            // Create a download link
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'Certificate1.png';
+
+            // Trigger the download
+            link.click();
+        }
+
+        $scope.DownloadFile2 = function () {
+            var byteString = atob($scope.imagesrc2.split(',')[1]);
+            var mimeString = $scope.imagesrc2.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            var blob = new Blob([ab], { type: mimeString });
+
+            // Create a download link
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = 'Certificate2.png';
+
+            // Trigger the download
+            link.click();
+
+        }
 
 
 

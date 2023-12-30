@@ -142,6 +142,12 @@
                 transform: scale(0.5);
             }
 
+
+    .custom-modal {
+        top: 125px; /* Adjust the top position as needed */
+        left: 543px; /* Adjust the left position as needed */
+    }
+
 </style>
 <div ng-controller="ViewAuthorizationDetailsController">
     <div class="container">
@@ -244,14 +250,27 @@
                                 <div class="col-md-3" ng-if="imagesrc != '' && imagesrc != null ">
                                     <div>Click on the file to Expand</div>
                                         <img ng-src="{{imagesrc}}" class="zoom" ng-click="openImage(imagesrc)" style="border: 2px solid #ddd;" height="200" width="150"  />
-                                 
+
                                 </div>
-                                <div class="col-md-3" ng-if="imagesrc2 != ''  && imagesrc2 != null " >
+                                <div class="col-md-3" ng-if="imagesrc2 != ''  && imagesrc2 != null ">
                                     <div>Click on the file to Expand</div>
                                     <img ng-src="{{imagesrc2}}" class="zoom" style="border: 2px solid #ddd;" ng-click="openImage(imagesrc2)" height="200" width="150" />
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-3" style="left:65px" ng-if="imagesrc != '' && imagesrc != null ">
+                                    <span class="text-muted word-break" style="font-size:20px" ng-show="imagesrc">
+                                        <button ng-click="DownloadFile1()" title="Click here to Download" class="btn btn-xs download_btn" style="color:blue"> <i class="fa fa-download" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+                                <div class="col-md-3" style="left:65px" ng-if="imagesrc2 != '' && imagesrc2 != null ">
+                                    <span class="text-muted word-break" style="font-size:20px" ng-show="imagesrc2">
+                                        <button ng-click="DownloadFile2()" title="Click here to Download" class="btn btn-xs download_btn" style="color:blue"> <i class="fa fa-download" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+
+                            </div>
+                            </div>
                     </div>
                 </div>           
         </div>

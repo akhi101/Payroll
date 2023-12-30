@@ -593,6 +593,29 @@
                     a.remove();
                 }, 100);
             }
+
+            $scope.DownloadtoExcel1 = function () {
+                MarksEntryService.GetDetailedReportExcel(Date.toString())
+                    .then(function (response) {
+                        if (response != null && response.length > 1) {
+                            var location = window.location.origin;
+                            $scope.LoadImg = false;
+                            window.location.href = response;
+                            $scope.NoResult = false;
+                        } else {
+                            $scope.LoadImg = false;
+                            alert("Error Generating The Report");
+                            $scope.NoResult = true;
+                        }
+                    },
+                        function (error) {
+                            $scope.LoadImg = false;
+                            alert("error data is not getting");
+                            var err = JSON.parse(error);
+                            console.log(err.Message);
+                        });
+            }
+
         }
         if ($scope.CollegeID == 0) {
 
