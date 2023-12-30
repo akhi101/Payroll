@@ -139,8 +139,8 @@
                     "AcademicYearId": AcademicYearId,
                     "Semester": Semester,
                     "ExamMonthYear": ExamMonthYear
-                };
-                return DataAccessService.postData('MarksEntry/GetDetailedReportExcel', paramObject);
+            };
+            return DataAccessService.getDataWithPara('MarksEntry/GetDetailedReportExcel', paramObject);
             },
 
             this.getSubjectsFaculty = function () {

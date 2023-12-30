@@ -595,7 +595,7 @@
             }
 
             $scope.DownloadtoExcel1 = function () {
-                MarksEntryService.GetDetailedReportExcel(Date.toString())
+                MarksEntryService.GetDetailedReportExcel($scope.examTypeId, parseInt($scope.studentType), parseInt($scope.years.AcademicID), JSON.stringify($scope.arr), $scope.ExamMonthYear)
                     .then(function (response) {
                         if (response != null && response.length > 1) {
                             var location = window.location.origin;
