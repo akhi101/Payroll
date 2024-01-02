@@ -140,6 +140,31 @@
         });
         }
 
+
+        $scope.DownloadtoExcelBlind = function () {
+            var DataType = 1;
+            var blndlist = TwshStudentRegService.GetStudentBlindListExcel(DataType);
+            blndlist.then(function (response) {
+                if (response != null && response.length > 1) {
+                    var location = window.location.origin;
+                    $scope.LoadImg = false;
+                    window.location.href = response;
+                    $scope.NoResult = false;
+
+                } else {
+                    alert("No Data Found")
+                    $scope.loading = false;
+                    //$scope.Data = false;
+                }
+            },
+                function (error) {
+                    //$scope.Data = false;
+                    $scope.loading = false;
+                    alert("error while loading List");
+
+                });
+        }
+
         $scope.OpenCountData = function (DataType, data) {
             $localStorage.TwshAuthListData = {
                 DataType: DataType,

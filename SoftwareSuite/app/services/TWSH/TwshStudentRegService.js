@@ -1113,6 +1113,15 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentsRejectedExcel', paramObj);
             return promise;
         };
+
+
+        this.GetStudentBlindListExcel = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentBlindListExcel', paramObj);
+            return promise;
+        };
         
     });
 });

@@ -4218,6 +4218,34 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+        [HttpGet, ActionName("GetStudentBlindListExcel")]
+        public string GetStudentBlindListExcel(int DataType)
+        {
+            try
+            {
+                var dbHandler = new Twshdbandler();
+                string StrQuery = "SP_Get_IsBlindStudentData";
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", DataType);
+                var ds = dbHandler.ReturnDataWithStoredProcedure(StrQuery, param);
+                var filename = "BlindStudentsList_" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(30000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+                return "/Downloads/" + filename;
+            }
+            catch (Exception ex)
+            {
+                return "Error Occured. Please Try Again";
+            }
+        }
+
         //[HttpGet, ActionName("RejectorApproveorReleaseSubmitDetails")]
         //public string RejectorApproveorReleaseSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null,string ReleasedRemarks=null)
         //{

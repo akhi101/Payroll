@@ -161,8 +161,13 @@
 
 
             $scope.Approved = function (Remarks) {
-
-                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID,  'Approved',Remarks);
+                if (Remarks == '' || Remarks == null || Remarks == undefined) {
+                    var remarks = null;
+                }
+                else {
+                    var remarks = Remarks;
+                }
+                var setapprovestatus = CcicPreExaminationService.SetApplicationApprovalStatus(tempData3.StudentID, $scope.UserTypeID, 'Approved', remarks);
                 setapprovestatus.then(function (response) {
                     $scope.loading = false;
                     if (response[0].ResponseCode == '500') {
