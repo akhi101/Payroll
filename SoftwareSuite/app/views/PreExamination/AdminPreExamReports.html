@@ -183,7 +183,7 @@
                                 <label for="sel1">
                                     Exam Type:
                                 </label>
-                                <select class="form-control" ng-model="StudentTypeId" name="StudentType" ng-change="changedVal()">
+                                <select class="form-control" ng-model="StudentTypeId" name="StudentType" ng-change="GetExamMonthYearBySem()">
                                     <option value="" selected>Select Exam Type</option>
                                     <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                         {{Student.type}}
@@ -191,17 +191,7 @@
                                     <!--ng-options="Student.type for Student in StudentType">-->
                                 </select>
                             </div>
-                            <div class="col-md-3 form-group">
-                                <label for="sel1">
-                                    Exam Month Year:
-                                </label>
-                                <select class="form-control" ng-model="ExamMonthYearId" name="ExamMonthYear">
-                                    <option value="" selected>Select Exam Month Year</option>
-                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
-                                        {{item.ExamYearMonth}}
-                                    </option>
-                                </select>
-                            </div>
+
 
                             <div class="col-md-3 form-group">
                                 <label for="sel1">
@@ -226,7 +216,17 @@
                                 </div>
 
                             </div>
-
+                            <div class="col-md-3 form-group">
+                                <label for="sel1">
+                                    Exam Month Year:
+                                </label>
+                                <select class="form-control" ng-model="ExamMonthYearId" name="ExamMonthYear">
+                                    <option value="" selected>Select Exam Month Year</option>
+                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
+                                        {{item.ExamYearMonth}}
+                                    </option>
+                                </select>
+                            </div>
                             <div class="col-md-3">
                                 <div class="gr-btn">
                                     <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="GetFeepaymentReport()">Get Fee payment Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
@@ -342,7 +342,7 @@
                                 <label for="sel1">
                                     Exam Type:
                                 </label>
-                                <select class="form-control" ng-model="StudentTypeID" name="StudentType" ng-change="changedVal()">
+                                <select class="form-control" ng-model="StudentTypeID" name="StudentType" ng-change="GetExamMonthYearBySem1()">
                                     <option value="" selected>Select Exam Type</option>
                                     <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                         {{Student.type}}
@@ -350,17 +350,7 @@
                                     <!--ng-options="Student.type for Student in StudentType">-->
                                 </select>
                             </div>
-                            <div class="col-md-3 form-group">
-                                <label for="sel1">
-                                    Exam Month Year:
-                                </label>
-                                <select class="form-control" ng-model="ExamMonthYearID" name="ExamMonthYear">
-                                    <option value="" selected>Select Exam Month Year</option>
-                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
-                                        {{item.ExamYearMonth}}
-                                    </option>
-                                </select>
-                            </div>
+
 
                             <div class="col-md-3 form-group">
                                 <label for="sel1">
@@ -385,7 +375,17 @@
                                 </div>
 
                             </div>
-
+                            <div class="col-md-3 form-group">
+                                <label for="sel1">
+                                    Exam Month Year:
+                                </label>
+                                <select class="form-control" ng-model="ExamMonthYearID" name="ExamMonthYear">
+                                    <option value="" selected>Select Exam Month Year</option>
+                                    <option ng-repeat="item in GetExamMonthYears1" value="{{item.Id}}">
+                                        {{item.ExamYearMonth}}
+                                    </option>
+                                </select>
+                            </div>
                             <div class="col-md-3">
                                 <div class="gr-btn">
                                     <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="getAdminFeedBackReports()">Get Feedback Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
@@ -500,7 +500,7 @@
                                 <label for="sel1">
                                     Exam Type:
                                 </label>
-                                <select class="form-control" ng-model="studenttypeid" name="StudentType" ng-change="changedVal()">
+                                <select class="form-control" ng-model="studenttypeid" name="StudentType" ng-change="GetExamMonthYearBySem">
                                     <option value="" selected>Select Exam Type</option>
                                     <option ng-repeat="Student in StudentType" value="{{Student.id}}">
                                         {{Student.type}}
@@ -508,17 +508,7 @@
                                     <!--ng-options="Student.type for Student in StudentType">-->
                                 </select>
                             </div>
-                            <div class="col-md-3 form-group">
-                                <label for="sel1">
-                                    Exam Month Year:
-                                </label>
-                                <select class="form-control" ng-model="exammonthyearid" name="ExamMonthYear">
-                                    <option value="" selected>Select Exam Month Year</option>
-                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
-                                        {{item.ExamYearMonth}}
-                                    </option>
-                                </select>
-                            </div>
+
 
                             <div class="col-md-3 form-group">
                                 <label for="sel1">
@@ -543,10 +533,20 @@
                                 </div>
 
                             </div>
-
+                            <div class="col-md-3 form-group">
+                                <label for="sel1">
+                                    Exam Month Year:
+                                </label>
+                                <select class="form-control" ng-model="exammonthyearid" name="ExamMonthYear">
+                                    <option value="" selected>Select Exam Month Year</option>
+                                    <option ng-repeat="item in GetExamMonthYears" value="{{item.Id}}">
+                                        {{item.ExamYearMonth}}
+                                    </option>
+                                </select>
+                            </div>
                             <div class="col-md-3">
                                 <div class="gr-btn">
-                                    <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="GetFeepaymentReport()">Get Hallticket Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
+                                    <button type="button" class="btn btn-sm btn-primary gr-button  pull-left" ng-click="getAdminHallTicketReports()">Get Hallticket Report<span class="fa fa-arrow-down heading_icon btn_icons"></span></button>
                                 </div>
                             </div>
 
@@ -653,7 +653,7 @@
             </div>
 
         </div>
-                </div>
+              
                 <div class="sm-spacer"></div>
 </section>
 </div>

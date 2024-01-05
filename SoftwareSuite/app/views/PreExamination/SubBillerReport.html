@@ -170,7 +170,7 @@
                                     <table class="table table-bordered table-hover table-rounded">
                                         <thead>
                                             <tr class="cb-1">
-
+                                                <th class="text-center">Date</th>
                                                 <th class="text-center">Sub BillerID</th>
                                                 <th class="text-center">Total Records</th>
                                                 <th class="text-center">Total Amount Payed</th>
@@ -185,7 +185,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="Data in SubBillerCount">
-
+                                                <td width="10%" class="text-center">{{Data.Date | date:'dd-MM-yyyy'}}</td>
                                                 <td class="text-center">{{Data.subbillerid}}</td>
                                                 <td class="text-center"><b><a class="Verify" ng-click="GetDayWiseReport(1,Data.subbillerid)">{{Data.TotalRecords == null ?'--':Data.TotalRecords}}</a></b></td>
                                                 <td class="text-center">{{Data.TotalAmountPayed}}</td>
