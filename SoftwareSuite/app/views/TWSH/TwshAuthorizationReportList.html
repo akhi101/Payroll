@@ -1,4 +1,10 @@
 ﻿<style>
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #f2f2f2;
+    }
     .arrow-up:after {
         bottom: 12px;
         border-bottom-color: #fff;
@@ -49,7 +55,7 @@
                 </div>-->
             </div>
             <div class="col-md-6 " ng-show="data && DataType =='0'">
-                <label class="notifylabel" for="sel1" style="color: red;">Click on view details for candidate info</label>
+                <label class="notifylabel" for="sel1" style="color: red;">Click on table row for candidate info</label>
             </div>
             <div class="col-md-12" ng-show="data">
                 <a class="ExportToExcel1 pointer pull-right"
@@ -65,39 +71,45 @@
                 <div style="width:100%;text-align:center;">
                     <img src="../../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" />
                 </div>
-                <div id="Table1" class="table-responsive table-custom-tables-tb ">
-                    <table class="table table-bordered  table-striped table-rounded ">
-                        <thead>
+                <div id="Table1" class="table-responsive table-custom-tables-tb scrollbox">
+                    <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                        <thead class="sticky-header">
                             <tr class="cb-1">
                                 <th style="width: 2%" ng-click="sort('$index')">S.No<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('ApplicationNumber')">Application No<i class="fa fa-fw fa-sort"></i></th>
-                                 <th class="text-center" ng-click="sort('HallTicketNumber')">HallTicket Number<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('ExaminationCenterName')">Exam Center<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('StudentName')">Name<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('GradeCode')">Grade Code<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('OnlineExamDate')" ng-show="ExamMode==1">Student Selected Dates<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('SelectedOnlineExamDate')" ng-show="ExamMode==1">Exam Date Approved By Exam Center<i class="fa fa-fw fa-sort"></i></th>
-                               
-                                <th class="text-center" ng-click="sort('ExamDate')" ng-show="ExamMode==2">Exam Date<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('IsEligible')">Is Eligible<i class="fa fa-fw fa-sort"></i></th>
-                                <th class="text-center" ng-click="sort('StudentPhoneNumber')">Student Phone Number<i class="fa fa-fw fa-sort"></i></th>
-                        </thead>
+                                <th class="text-center" ng-click="sort('ApplicationNumber')">Application No.</th>
+                                <!--<th class="text-center" ng-click="sort('HallTicketNumber')">HallTicket No.<i class="fa fa-fw fa-sort"></i></th>-->
+                                <th class="text-center" ng-click="sort('ExaminationCenterName')">Exam Center</th>
+                                <th class="text-center" ng-click="sort('ExamBatch')">Exam Batch</i></th>
+                                <th class="text-center" ng-click="sort('GradeCode')">Grade Code</th>
+                                <th class="text-center" ng-click="sort('StudentName')">Student Name</th>
+                                <th class="text-center" ng-click="sort('Gender')">Gender</th>
+                                <th class="text-center" ng-click="sort('StudentPhoneNumber')">Phone Number</i></th>
+                                <th class="text-center" ng-click="sort('OnlineExamDate')" ng-show="ExamMode==1">Student Selected Dates</th>
+                                <th class="text-center" ng-click="sort('SelectedOnlineExamDate')" ng-show="ExamMode==1">Exam Date Approved By Exam Center</th>
+
+                                <th class="text-center" ng-click="sort('ExamDate')" ng-show="ExamMode==2">Exam Date</th>
+                                <th class="text-center" ng-click="sort('IsEligible')">Status</th>
+</thead>
 
                         <tbody>
-                            <tr ng-repeat="data in QualifiedList |orderBy:sortKey:reverse|filter:search" style="background-color:#fff!important;">
+                            <tr ng-repeat="data in QualifiedList |filter:search" style="background-color:#fff!important;" ng-click="openStudentDetails(data.ApplicationNumber,data.StudentName,data.Gender,data.StudentPhoneNumber,data.StudentId)">
                                 <td>{{$index+1}}  </td>
                                 <td class="text-center">{{data.ApplicationNumber}}</td>
-                                <td class="text-center">{{data.HallTicketNumber}}</td>
-                                <td class="pointer text-center">{{data.ExaminationCenterCode}} - {{data.ExaminationCenterName}}</td>
-                                <td class="text-center">{{data.StudentName}}</td>
+                                <!--<td class="text-center">{{data.HallTicketNumber}}</td>-->
+                                <td class="text-center">{{data.ExaminationCenterCode}} - {{data.ExaminationCenterName}}</td>
+                                <td class="text-center" ng-if="data.ExamMode == 1">CBT</td>
+                                <td class="text-center" ng-if="data.ExamMode == 2">Manual</td>
                                 <td class="text-center">{{data.GradeCode}}</td>
-                                <td class="pointer text-center" ng-show="ExamMode==1">{{data.OnlineExamDate == ']' ? '-' : data.OnlineExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
-                                <td class="pointer text-center"  ng-show="ExamMode==1">{{data.SelectedOnlineExamDate == null ? '-' : data.SelectedOnlineExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
-                                <td class="pointer text-center"  ng-show="ExamMode==2">{{data.ExamDate == null ? '-' : data.ExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
-                                <td class="pointer text-center"><span ng-if="data.IsEligible==true">YES</span>
-                                    <span ng-if="data.IsEligible==false">NO</span></td>
-                                <td class="pointer text-center">{{data.StudentPhoneNumber}}</td>
-                       
+                                <td class="text-center">{{data.StudentName}}</td>
+                                <td class="text-center">{{data.Gender}}</td>
+                                <td class="text-center">{{data.StudentPhoneNumber}}</td>
+                                <td class="text-center" ng-show="ExamMode==1">{{data.OnlineExamDate == ']' ? '-' : data.OnlineExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
+                                <td class="text-center" ng-show="ExamMode==1">{{data.SelectedOnlineExamDate == null ? '-' : data.SelectedOnlineExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
+                                <td class="text-center" ng-show="ExamMode==2">{{data.ExamDate == null ? '-' : data.ExamDate|date:'dd-MMM-yyyy hh:mm:ss'}}</td>
+                                <td class="text-center" style="color: green;font-weight: 600" ng-if="data.iseligible==true &&  data.isrejected == false">Approved</td>
+                                <td class="text-center" style="color: #ef4263; font-weight: 600" ng-if="data.iseligible == false && data.isrejected == false">Pending</td>
+                                <td class="text-center" style="color: #d50b07; font-weight: 600" ng-if="data.isrejected == true && data.iseligible == false">Rejected</td>
+
                             </tr>
                            
                         </tbody>

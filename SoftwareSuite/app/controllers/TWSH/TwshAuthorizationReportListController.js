@@ -429,6 +429,19 @@
         }
 
 
+        $scope.openStudentDetails = function (ApplicationNumber, Name, Gender, PhoneNumber, Id) {
+            var ApplicationDetails = {
+                ApplicationNumber: ApplicationNumber,
+                Name: Name,
+                Gender: Gender,
+                PhoneNumber: PhoneNumber,
+                Id: Id
+            }
+            $localStorage.ApplicationDetails = ApplicationDetails;
+
+            $state.go('Dashboard.TypeWriting.TwshViewAuthorizationDetails')
+        }
+
         $scope.ApprovePin = function () {
             if (PaymentStudent != [] && PaymentStudent != '') {
                 var ApproveStatus = 1
