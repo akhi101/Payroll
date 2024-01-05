@@ -107,8 +107,9 @@
         $scope.back = function () {
             
             //var redir = $localStorage.redirecturl == undefined || $localStorage.redirecturl == null ? "TWSH.OnlineApplication" : $localStorage.redirecturl;
-              
-            $state.go("TWSH.OnlineApplication");
+            $scope.BackButton = true;
+            $state.go('TWSH.TwshReports');
+            $scope.BackButton = false;
            
         }
 

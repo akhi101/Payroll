@@ -3177,6 +3177,12 @@
                 dependencies: ['controllers/TWSH/TwshAuthorizationReportListController', 'services/TWSH/TwshStudentRegService', 'services/PreExamination/PreExaminationService', 'services/DigitalSignatureService']
             },
 
+            'Dashboard.TypeWriting.TwshViewAuthorizationDetails': {
+                url: "/TwshAuthorizationReport/TwshAuthorizationReportList/TwshViewAuthorizationDetails",
+                templateUrl: 'app/views/TWSH/TwshViewAuthorizationDetails.html',
+                dependencies: ['controllers/TWSH/TwshViewAuthorizationDetailsController', 'services/TWSH/TwshStudentRegService', 'services/PreExamination/PreExaminationService', 'services/DigitalSignatureService']
+            },
+
             'Dashboard.TypeWriting.TwshApprovalList': {
                 url: "/TwshApprovalList",
                 templateUrl: 'app/views/TWSH/TwshApprovalList.html',
