@@ -66,16 +66,38 @@
             alert("Error while loading");
         });
 
-        var getExamMonthYears = PreExaminationService.GetExamMonthYear();
-        getExamMonthYears.then(function (res) {
-            var res = JSON.parse(res);
-            $scope.GetExamMonthYears = res.Table;
-        }, function (err) {
-            $scope.LoadImg = false;
-            alert("Error while loading");
-        });
+        $scope.GetExamMonthYearBySem = function () {
+            var getExamMonthYears = PreExaminationService.GetExamMonthYearBySem(JSON.stringify($scope.semarr), $scope.StudentTypeId);
+            getExamMonthYears.then(function (res) {
+                // var res = JSON.parse(res);
+                $scope.GetExamMonthYears = res.Table;
+            }, function (err) {
+                $scope.LoadImg = false;
 
-        
+            });
+        }
+
+        $scope.GetExamMonthYearBySem1 = function () {
+            var getExamMonthYears = PreExaminationService.GetExamMonthYearBySem(JSON.stringify($scope.semarr1), $scope.StudentTypeID);
+            getExamMonthYears.then(function (res) {
+                // var res = JSON.parse(res);
+                $scope.GetExamMonthYears1 = res.Table;
+            }, function (err) {
+                $scope.LoadImg = false;
+
+            });
+        }
+
+        $scope.GetExamMonthYearBySem2 = function () {
+            var getExamMonthYears = PreExaminationService.GetExamMonthYearBySem(JSON.stringify($scope.semarr2), $scope.studenttypeid);
+            getExamMonthYears.then(function (res) {
+                // var res = JSON.parse(res);
+                $scope.GetExamMonthYears = res.Table;
+            }, function (err) {
+                $scope.LoadImg = false;
+
+            });
+        }
         var expanded = false;
         var expanded1 = false;
         var expanded2 = false;
@@ -118,6 +140,7 @@
                     $scope.semarr.push({ "semid": value.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem()
         }
 
         $scope.optionToggledsem = function () {
@@ -128,6 +151,7 @@
                     $scope.semarr.push({ "semid": value.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem()
         }
 
 
@@ -145,6 +169,7 @@
                 checkboxes1.style.display = "none";
                 expanded1 = false;
             }
+
         }
 
         $scope.closesemCheckbox1 = function () {
@@ -170,6 +195,7 @@
                     $scope.semarr1.push({ "semid": value1.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem1()
         }
 
         $scope.optionToggledsem1 = function () {
@@ -180,6 +206,7 @@
                     $scope.semarr1.push({ "semid": value1.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem1()
         }
 
 
@@ -221,6 +248,7 @@
                     $scope.semarr2.push({ "semid": value2.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem2()
         }
 
         $scope.optionToggledsem2 = function () {
@@ -231,13 +259,14 @@
                     $scope.semarr2.push({ "semid": value2.semid })
                 }
             });
+            $scope.GetExamMonthYearBySem2()
         }
 
         $scope.GetFeepaymentReport = function () {
             $scope.loading = true;
             $scope.Noreports = false;
             $scope.reports = false;
-            var AcademicYearsActive = PreExaminationService.GetAdminPreExamReports($scope.ExamMonthYearId, JSON.stringify($scope.semarr), $scope.StudentTypeId);
+            var AcademicYearsActive = PreExaminationService.GetAdminPreExamReports($scope.ExamMonthYearID, JSON.stringify($scope.semarr), $scope.StudentTypeID);
             AcademicYearsActive.then(function (response) {
                 //var response = JSON.parse(response);
                 //console.log(response);
@@ -367,7 +396,7 @@
             $scope.loading = true;
             $scope.Noreports = false;
             $scope.reports = false;
-            var AcademicYearsActive = PreExaminationService.GetAdminHallTicketReports($scope.ExamMonthYearID, JSON.stringify($scope.semarr1), $scope.StudentTypeID);
+            var AcademicYearsActive = PreExaminationService.GetAdminHallTicketReports($scope.exammonthyearid, JSON.stringify($scope.semarr2), $scope.studenttypeid);
             AcademicYearsActive.then(function (response) {
                 //var response = JSON.parse(response);
                 //console.log(response);

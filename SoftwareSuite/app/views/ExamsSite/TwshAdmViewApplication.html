@@ -622,7 +622,7 @@
                                     <div class="col-md-4" ng-show="tmpmode==2">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Examination Date</label>
-                                            <select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
+                                            <select disabled class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
                                                 <option value="" selected>Select Exam Date</option>
                                                 <option ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
                                                     {{ExamDateselect.ExamDate}}
@@ -646,7 +646,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 1):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag3" required />
+                                                <input disabled type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag3" required />
                                                 <!--<input type="date" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag3" required />-->
                                                 <!--<input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date1" ng-change="dates(date1,1)" is-open="showFlag1" required />-->
                                                 <span class="input-group-btn">
@@ -665,7 +665,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 2):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date2" ng-change="dates(date2,2)" is-open="showFlag4" required />
+                                                <input disabled type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date2" ng-change="dates(date2,2)" is-open="showFlag4" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag4 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -681,7 +681,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 3):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date3" ng-change="dates(date3,3)" is-open="showFlag5" required />
+                                                <input disabled type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date3" ng-change="dates(date3,3)" is-open="showFlag5" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag5 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -697,7 +697,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 4):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date4" ng-change="dates(date4,4)" is-open="showFlag6" required />
+                                                <input disabled type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date4" ng-change="dates(date4,4)" is-open="showFlag6" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag6 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -712,7 +712,7 @@
                                         <div class="form-group required">
                                             <label>Examination Date(option 5):</label>
                                             <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                                <input type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date5" ng-change="dates(date5,5)" is-open="showFlag7" required />
+                                                <input disabled type="text" class="form-control" placeholder="DD/MM/YYYY" autocomplete="off" name="applicationForm.Dob" datetime-picker="dd/MM/yyyy" ng-model="date5" ng-change="dates(date5,5)" is-open="showFlag7" required />
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-primary" ng-click="showFlag7 = true"><i class="fa fa-calendar"></i></button>
                                                 </span>

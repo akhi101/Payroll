@@ -128,39 +128,39 @@
                                         </select>
                                     </div>
                                     <!--<div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="ExamYear" ng-model="scheme" ng-change="loadSemInfo()">
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.SchemeId}}">
-                                                {{scheme.SchemeCode}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Sem & Year :
-                                        </label>
-                                        <select class="form-control" id="ExamYear" ng-model="sem" ng-change="loadExamTypes()">
-                                            <option value="" selected>Select Sem</option>
-                                            <option ng-repeat="sem in seminfo" value="{{sem.SemId}}">
-                                                {{sem.yearsem}}
-                                            </option>
-                                        </select>
-                                    </div>
+        <label for="sel1">
+            Scheme :
+        </label>
+        <select class="form-control" id="ExamYear" ng-model="scheme" ng-change="loadSemInfo()">
+            <option value="" selected>Select Scheme</option>
+            <option ng-repeat="scheme in schemeinfo" value="{{scheme.SchemeId}}">
+                {{scheme.SchemeCode}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label for="sel1">
+            Sem & Year :
+        </label>
+        <select class="form-control" id="ExamYear" ng-model="sem" ng-change="loadExamTypes()">
+            <option value="" selected>Select Sem</option>
+            <option ng-repeat="sem in seminfo" value="{{sem.SemId}}">
+                {{sem.yearsem}}
+            </option>
+        </select>
+    </div>
 
-                                    <div class="col-md-2 form-group">
-                                        <label for="ExamType">
-                                            Exam :
-                                        </label>
-                                        <select class="form-control" id="ExamType" ng-model="examtype" ng-change="hidePreviousResult()">
-                                            <option value="" selected>Select Exam</option>
-                                            <option ng-repeat="examtype in examtypeinfo" value="{{examtype.ID}}">
-                                                {{examtype.ExamType}}
-                                            </option>
-                                        </select>
-                                    </div>-->
+    <div class="col-md-2 form-group">
+        <label for="ExamType">
+            Exam :
+        </label>
+        <select class="form-control" id="ExamType" ng-model="examtype" ng-change="hidePreviousResult()">
+            <option value="" selected>Select Exam</option>
+            <option ng-repeat="examtype in examtypeinfo" value="{{examtype.ID}}">
+                {{examtype.ExamType}}
+            </option>
+        </select>
+    </div>-->
 
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
@@ -171,11 +171,11 @@
                                         </select>
 
                                         <!--<select class="form-control" id="ExamYear" ng-model="scheme" ng-change="loadSemExamTypes(scheme)">
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.schemeid}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>-->
+            <option value="" selected>Select Scheme</option>
+            <option ng-repeat="scheme in schemeinfo" value="{{scheme.schemeid}}">
+                {{scheme.scheme}}
+            </option>
+        </select>-->
                                     </div>
 
                                     <div class="col-md-2 form-group" ng-show="scheme.schemeid != '5' && scheme.schemeid != '9'">
@@ -189,19 +189,6 @@
                                             </option>
                                         </select>
                                     </div>
-
-                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid == '5' || scheme.schemeid == '9'">
-                                        <label for="sel1">
-                                            Exam Month/Year :
-                                        </label>
-                                        <select class="form-control" id="ExamYear" ng-model="monthyear">
-                                            <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-
 
                                     <div class="col-md-2 form-group">
                                         <label for="sel1">
@@ -227,6 +214,44 @@
                                             </option>
                                         </select>
                                     </div>
+
+                                    <div class="col-md-2 form-group" ng-show="scheme.schemeid == '5' || scheme.schemeid == '9'">
+                                        <label for="sel1">
+                                            Exam Month/Year :
+                                        </label>
+                                        <select class="form-control" id="ExamYear" ng-model="monthyear">
+                                            <option value="" selected>Select Month/Year of Exam</option>
+                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
+                                                {{monYer.ExamYearMonth}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+
+                                    <!--<div class="col-md-2 form-group">
+        <label for="sel1">
+            Sem & Year :
+        </label>
+        <select class="form-control" id="ExamYear" ng-model="sem">
+            <option value="" selected>Select Sem</option>
+            <option ng-repeat="sem in seminfo" value="{{sem.semid}}">
+                {{sem.semester}}
+            </option>
+
+        </select>
+    </div>-->
+
+                                    <!--<div class="col-md-2 form-group">
+                                        <label for="ExamType">
+                                            Exam :
+                                        </label>
+                                        <select class="form-control" id="ExamType" ng-model="examtype" ng-change="hidePreviousResult()">
+                                            <option value="" selected>Select Exam</option>
+                                            <option ng-repeat="examtype in examtypeinfo" value="{{examtype}}">
+                                                {{examtype.examname}}
+                                            </option>
+                                        </select>
+                                    </div>-->
 
 
                                     <div class="col-md-2 form-group" ng-show="UserType ==2 || UserType ==1|| UserType ==5">
