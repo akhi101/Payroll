@@ -72,11 +72,14 @@
 
             window.print();
 
+
             //document.body.innerHTML = originalContents;
 
 
             //window.print()
         }
+        window.document.close();
+
 
 
         $scope.GetCount = function () {
