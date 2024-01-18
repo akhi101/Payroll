@@ -134,6 +134,28 @@
                 $scope.error = true;
             });
 
+        
+        //var LoadExamTypeBysem = AdminService.DeleteBmaAttendee('1058-19578','TC');
+        //    LoadExamTypeBysem.then(function (response) {
+        //        var res = JSON.parse(response)
+        //        if (res.StatusCode == '200') {
+        //            $scope.LoadImg = false
+                   
+        //            var resp = JSON.parse(res.Content)
+        //            $scope.respdata = JSON.parse(resp.data)
+        //            console.log($scope.respdata)
+        //            $scope.PostAttendance()
+        //        } else {
+        //            $scope.LoadImg = false
+        //            alert("Data not Found from TSTS")
+        //        }
+        //},
+        //        function (error) {
+        //            $scope.LoadImg = false
+        //        alert("error while loading Student Types");
+        //        console.log(error);
+        //    });
+
         $scope.OpenModule = function (Module, ServiceType) {
           
             //$localStorage.selectedModule = {

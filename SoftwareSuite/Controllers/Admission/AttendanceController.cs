@@ -620,6 +620,8 @@ namespace SoftwareSuite.Controllers.Admission
         {
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 var clientUrl = ConfigurationManager.AppSettings["BMA_API_ROOT"];
                 var client = new RestClient(clientUrl);
                 string apiparams = "/getstatus?attendeeid=" + attendeeId;

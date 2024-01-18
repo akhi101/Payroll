@@ -245,8 +245,8 @@ namespace SoftwareSuite.Controllers.Assessment
         }
 
 
-        [HttpPost, ActionName("GetDetailedReportExcel")]
-        public string GetDetailedReportExcel(int examtypeid, int studentType,int AcademicYearId,string Semester,int ExamMonthYear)
+        [HttpGet, ActionName("GetDetailedAssessmentReportExcel")]
+        public string GetDetailedAssessmentReportExcel(int examtypeid, int studentType,int AcademicYearId,string Semester,int ExamMonthYear)
         {
             try
             {
