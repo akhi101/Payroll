@@ -132,7 +132,7 @@
                 return DataAccessService.getDataWithPara('MarksEntryFinePayment/getPaymentDetails', paramObject);
             },
 
-            this.GetDetailedReportExcel = function (examtypeid, studentType, AcademicYearId, Semester, ExamMonthYear) {
+            this.GetDetailedAssessmentReportExcel = function (examtypeid, studentType, AcademicYearId, Semester, ExamMonthYear) {
                 var paramObject = {
                     "examtypeid": examtypeid,
                     "studentType": studentType,
@@ -140,7 +140,7 @@
                     "Semester": Semester,
                     "ExamMonthYear": ExamMonthYear
             };
-            return DataAccessService.getDataWithPara('MarksEntry/GetDetailedReportExcel', paramObject);
+            return DataAccessService.getDataWithPara('MarksEntry/GetDetailedAssessmentReportExcel', paramObject);
             },
 
             this.getSubjectsFaculty = function () {

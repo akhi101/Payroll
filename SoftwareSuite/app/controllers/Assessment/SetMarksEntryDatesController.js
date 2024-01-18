@@ -172,17 +172,46 @@
             //    alert("Select Fine Date");
             //    return;
             //}
-           
-
             var srtdate = dat.fromdate == undefined || dat.fromdate == null || dat.fromdate == "" ? " " : dat.fromdate;
             var enddate = dat.todate == undefined || dat.todate == null || dat.todate == "" ? " " : dat.todate;
             var finedate = dat.finedate == undefined || dat.finedate == null || dat.finedate == "" ? " " : dat.finedate;
-            var updatedate = MarksEntryService.UpdateMarksEntryDatesforAdmin(dat.id, srtdate, enddate, finedate, dat.fine_ammount)
+            var srtdate1 = moment(dat.fromdate).format("DD/MM/YYYY")
+            var startTime = moment(dat.fromdate).format("HH:mm:ss")
+
+            if (startTime == '00:00:00') {
+
+                var StartDate = moment(srtdate1).format("DD/MM/YYYY HH:mm:ss");
+
+            } else {
+                var StartDate = srtdate1 + ' ' + startTime;
+            }
+            var enddate = moment(enddate).format("DD/MM/YYYY")
+            var EndTime = moment(enddate).format("HH:mm:ss")
+
+
+            if (EndTime == '00:00:00') {
+                var EndDate = moment(enddate).format("DD/MM/YYYY") + " 23:59:00";
+            } else {
+                var EndDate = enddate + ' ' + EndTime;
+            }
+
+
+            var FineDate1 = moment(finedate).format("DD/MM/YYYY")
+            var FineTime = moment(finedate).format("HH:mm:ss")
+            if (FineTime == '00:00:00') {
+                var FindDate = moment(FineDate1).format("DD/MM/YYYY") + " 23:59:00";
+            } else {
+                var FindDate = FineDate1 + ' ' + FineTime;
+            }
+
+
+
+            var updatedate = MarksEntryService.UpdateMarksEntryDatesforAdmin(dat.id, StartDate, EndDate, FindDate, dat.fine_ammount)
             updatedate.then(function (response) {
                 //var res = JSON.parse(response)
                 if (response.Table[0].ResponceCode == '200') {
                     alert(response.Table[0].ResponceDescription)
-                    $scope.GetData();
+                    $scope.GetMarksEntryDatesList();
                 } else {
                     alert('Something Went Wrong')
                 }

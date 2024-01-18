@@ -198,6 +198,12 @@
             return promise;
         }
 
+        this.DeleteBmaAttendee = function (attendeeid, remarks) {
+            var paramObject = { "attendeeid": attendeeid, "remarks": remarks };
+            var promise = DataAccessService.getDataWithPara('Admission/DeleteBmaAttendee', paramObject);
+            return promise;
+        }
+
         this.getCircularsList = function () {
             var promise = DataAccessService.getDataWithPara('api/AdminService/getCirculars');
             return promise;

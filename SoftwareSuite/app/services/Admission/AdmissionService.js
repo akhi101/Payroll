@@ -22,9 +22,9 @@
             return promise;
         }
 
-        this.GetAdmissionSubReports = function (dataType,Id) {
-            var paramObject = { "dataType": dataType,"Id":Id };
-            var promise = DataAccessService.getDataWithPara('Admission/GetAdminAdmissionSubReports', paramObject);
+        this.DeleteBmaAttendee = function (attendeeid, remarks) {
+            var paramObject = { "attendeeid": attendeeid, "remarks": remarks };
+            var promise = DataAccessService.getDataWithPara('Admission/DeleteBmaAttendee', paramObject);
             return promise;
         }
         
