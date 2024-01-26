@@ -160,8 +160,8 @@
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <span ng-show="SetDatesForm.FineDate.$dirty && SetDatesForm.FineDate.$invalid">
-                                        <span ng-show="hasError('FineDate', 'required')">Fine Date no is required</span>
+                                    <span ng-show="SetDatesForm.TatkalDate.$dirty && SetDatesForm.TatkalDate.$invalid">
+                                        <span ng-show="hasError('TatkalDate', 'required')">Tatkal Date no is required</span>
                                     </span>
                                 </div>
                             </div>
@@ -170,15 +170,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group ">
-                                    <label for="datetimepicker3" class="font-weight-bold">Premium Tatkal End Date :</label>
+                                    <label for="datetimepicker5" class="font-weight-bold">Premium Tatkal End Date :</label>
                                     <div class='input-group'>
-                                        <input type="date" class="form-control" id='datetimepicker4' ng-model="PremiumTatkalDate" min="{{premiumtatkal}}" ng-disabled="premiumtatkalDisable" name="FineDate" required />
+                                        <input type="date" class="form-control" id='datetimepicker5' ng-model="PremiumTatkalDate" min="{{premiumtatkal}}" ng-disabled="premiumtatkalDisable" name="premiumtatkalDate" required />
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </span>
                                     </div>
-                                    <span ng-show="SetDatesForm.FineDate.$dirty && SetDatesForm.FineDate.$invalid">
-                                        <span ng-show="hasError('FineDate', 'required')">Fine Date no is required</span>
+                                    <span ng-show="SetDatesForm.PremiumTatkalDate.$dirty && SetDatesForm.PremiumTatkalDate.$invalid">
+                                        <span ng-show="hasError('PremiumTatkalDate', 'required')">Premium Tatkal Date no is required</span>
                                     </span>
                                 </div>
                             </div>

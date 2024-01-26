@@ -716,6 +716,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetExamCentersController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetFeeDatesController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSubjectMasterController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicTestingExamFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicUpdateDateSheetController.js" />
     <Content Include="app\controllers\CenterManagemenet\AttachCollegeToPreZoneCenterController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationController.js" />
@@ -1081,6 +1082,9 @@
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
+    <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
