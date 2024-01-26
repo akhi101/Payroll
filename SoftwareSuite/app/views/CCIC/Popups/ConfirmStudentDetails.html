@@ -1,0 +1,48 @@
+<style>
+    .myPad {
+        padding: 10px;
+
+    }
+    .verticalcut {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-height: 1; /* fallback */
+    }
+</style>
+<div class="modal-header aadhar-modal-header">
+    <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
+    <h4 class="modal-title center-block">Students Details</h4>
+</div>
+<div class="modal-body">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6 myPad"><strong>Selected PIN/S</strong></div>
+            <div class="col-md-12 myPad">:
+            <span data-ng-repeat="data in PIN">{{data.PIN}} {{$last ? '' : ($index==PIN.length-2) ? ' and ' : ', '}}</span></div>
+            <div class="col-md-6 myPad"><strong>Number of PINS Selected</strong></div>
+            <div class="col-md-6 myPad">: {{AppCount}}</div>
+            <div class="col-md-6 myPad"><strong>Amount Payable</strong></div>
+            <div class="col-md-6 myPad">: {{AmountPayable}}</div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 pull-left">
+                <div class="back-btn pull-left btn" ng-click="closeModal()" style="margin-bottom:0px;margin-top:20px">
+                    Cancel
+                </div>
+            </div>
+
+            <div class="col-md-6 pull-right">
+                <div class="btn-success pull-right btn"  style="margin-bottom:0px;margin-top:20px" ng-click="Confirm()">
+                    Yes
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

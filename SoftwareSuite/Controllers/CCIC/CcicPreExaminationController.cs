@@ -2601,7 +2601,39 @@ namespace SoftwareSuite.Controllers.CCIC
 
         //}
 
-        
+
+        [HttpPost, ActionName("RequestLog")]
+        public HttpResponseMessage RequestLog([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[12];
+                param[0] = new SqlParameter("@marchantid", request["marchantid"]);
+                param[1] = new SqlParameter("@subMarchantid", request["subMarchantid"]);
+                param[2] = new SqlParameter("@addInfo1", request["addInfo1"]);
+                param[3] = new SqlParameter("@addInfo3", request["addInfo3"]);
+                param[4] = new SqlParameter("@addInfo4", request["addInfo4"]);
+                param[5] = new SqlParameter("@addInfo5", request["addInfo5"]);
+                param[6] = new SqlParameter("@addInfo6", request["addInfo6"]);
+                param[7] = new SqlParameter("@addInfo7", request["addInfo7"]);
+                param[8] = new SqlParameter("@challan", request["challan"]);
+                param[9] = new SqlParameter("@amount", request["amount"]);
+                param[10] = new SqlParameter("@schemeId", request["schemeId"]);
+                param[11] = new SqlParameter("@json", request["json"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SFP_SET_RequestLog", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_SET_RequestLog", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
 
     }
 

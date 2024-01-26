@@ -1,5 +1,5 @@
-﻿define(['app'], function (app) {
-    app.controller("CcicExamFeePaymentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService, CcicPreExaminationService, CcicStudentRegistrationService, $uibModal, PaymentService) {
+define(['app'], function (app) {
+    app.controller("CcicTestingExamFeePaymentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService, CcicPreExaminationService, CcicStudentRegistrationService, $uibModal, PaymentService) {
         var authData = $localStorage.authorizationData;
         if (authData == undefined) {
             $state.go('index.OfficialsLogin')
@@ -18,7 +18,7 @@
             $scope.feePaymentType();
         }
 
-        $scope.addData = function (feePaymentDataID,studentID, PIN, feeAmount) {
+        $scope.addData = function (feePaymentDataID, studentID, PIN, feeAmount) {
 
             return {
                 FeePaymentDataID: feePaymentDataID,
@@ -46,7 +46,7 @@
                     }
                     $scope.PIN.push(obj)
                 }
-               
+
 
                 $scope.feeAmount = FeeAmount;
                 if ($scope.PaymentStudentList.length > 0) {
@@ -94,7 +94,7 @@
             for (var i = 0; i < $scope.ExamPayment.length; i++) {
                 $scope.ExamPayment[i].isChecked = $scope.allItemsSelected;
                 if ($scope.ExamPayment[i].isChecked) {
-                    let list = $scope.addData($scope.ExamPayment[i].FeePaymentDataID,$scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
+                    let list = $scope.addData($scope.ExamPayment[i].FeePaymentDataID, $scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
                     PaymentStudentList.push(list);
 
 
@@ -130,7 +130,7 @@
 
         $scope.Proceed = function () {
             $scope.btndisable = true;
-            if ($scope.PIN == '' || $scope.PIN == undefined || $scope.PIN==null) {
+            if ($scope.PIN == '' || $scope.PIN == undefined || $scope.PIN == null) {
                 alert('Plese select PIN/s');
                 $scope.btndisable = false;
                 return;
@@ -145,17 +145,17 @@
             $scope.AppCount = $scope.PaymentStudentList.length;
             $scope.PINS = $scope.PIN;
             $scope.AmountPayable = $scope.feeAmount;
-           
-                    //$scope.AmountPayable = $scope.feeAmount;
-                    //$scope.AppCount = $scope.PaymentStudentList.length;
-                    //$scope.ChalanaNo = res.challanaNo;
-                    $scope.Paybtndisable = false;
-                    $scope.modalInstance = $uibModal.open({
-                        templateUrl: "app/views/CCIC/Popups/ConfirmStudentDetails.html",
-                        size: 'xlg',
-                        scope: $scope,
-                        windowClass: 'modal-fit-att',
-                    });
+
+            //$scope.AmountPayable = $scope.feeAmount;
+            //$scope.AppCount = $scope.PaymentStudentList.length;
+            //$scope.ChalanaNo = res.challanaNo;
+            $scope.Paybtndisable = false;
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "app/views/CCIC/Popups/ConfirmStudentDetails.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+            });
 
 
 
@@ -465,10 +465,10 @@
                 $scope.isShowResults = false;
             });
 
-        
-    }
 
-       
+        }
+
+
 
     })
 })

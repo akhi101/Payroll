@@ -193,17 +193,17 @@
                 alert("Select Semester");
                 return false;
             }
-            if (($scope.Selectedshift.shiftid == undefined) || ($scope.Selectedshift.shiftid == "0") || ($scope.Selectedshift.shiftid == "")) {
-                alert("Select Shift");
-                return false;
-            }
+            //if (($scope.Selectedshift.shiftid == undefined) || ($scope.Selectedshift.shiftid == "0") || ($scope.Selectedshift.shiftid == "")) {
+            //    alert("Select Shift");
+            //    return false;
+            //}
             $localStorage.authorizationData.tempsessiondata.semId = $scope.SelectedsemId.semid;
             $scope.semLabel($scope.SelectedschemeId.SchemeID, $scope.SelectedsemId.semid);
             $localStorage.authorizationData.tempsessiondata.shiftId = $scope.Selectedshift.shiftid;         
 
             //   $scope.sem = SemData.sem
             $scope.loading = true;
-            var loadData = AcademicService.getHodSubjectList($scope.College_Code, $scope.BranchId, $scope.SelectedschemeId.SchemeID, $scope.SelectedsemId.semid, $scope.Selectedshift.shiftid)
+            var loadData = AcademicService.getHodSubjectList($scope.College_Code, $scope.BranchId, $scope.SelectedschemeId.SchemeID, $scope.SelectedsemId.semid, $scope.Selectedshift)
             loadData.then(function (response) {
                 if (response.Table.length > 0) {
                     $scope.subjectList = response.Table;

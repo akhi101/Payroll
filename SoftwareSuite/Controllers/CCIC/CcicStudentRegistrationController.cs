@@ -8,11 +8,14 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using SoftwareSuite.BLL;
 using SoftwareSuite.Controllers.Common;
 using SoftwareSuite.Models.CCIC;
 using SoftwareSuite.Models.Database;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static SoftwareSuite.Controllers.Common.CommunicationController;
 
 namespace SoftwareSuite.Controllers.CCIC
@@ -258,6 +261,54 @@ namespace SoftwareSuite.Controllers.CCIC
                 dbHandler.SaveErorr("SP_Verify_RegistrationMobileOTP", 0, ex.Message);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 return response;
+            }
+        }
+
+        [HttpPost, ActionName("PostMultipleApplicationPaymentdata")]
+        public HttpResponseMessage PostMultipleApplicationPaymentdata(HttpRequestMessage request)
+        {
+
+            try
+            {
+                string Appdata = "" + request.Content.ReadAsStringAsync().Result;
+                JObject obj = JObject.Parse(Appdata);
+                int Amount = Convert.ToInt32("" + obj["TotalAmount"]);
+                int ApplicationCount = Convert.ToInt32("" + obj["ApplicationCount"]);
+                int AcademicYearID = Convert.ToInt32("" + obj["AcademicYearID"]);
+                int ExamMonthYearID = Convert.ToInt32("" + obj["ExamMonthYearID"]);
+                int FeePaymentTypeID = Convert.ToInt32("" + obj["FeePaymentTypeID"]);
+                string UserName = Convert.ToString("" + obj["UserName"]);
+                JArray dataarray = obj["AppData"].Value<JArray>();
+                var json = JsonConvert.SerializeObject(dataarray);
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@json", json);
+                param[1] = new SqlParameter("@Amount", Amount);
+                param[2] = new SqlParameter("@ApplicationCount", ApplicationCount);
+                param[3] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[4] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[5] = new SqlParameter("@FeePaymentTypeID", FeePaymentTypeID);
+                param[6] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataSet("SP_GET_FeePaymentChallanNo", param);
+                //string StatusCode = dt;
+                //string ChallanNumber = (string)dt;
+                //string AppCount = (string)dt;
+                //string FeeAmount = (string)dt;
+                //string FeeType = (string)dt;
+
+                var response = Request.CreateResponse(HttpStatusCode.OK,dt);
+                //response.Content = new StringContent(JsonConvert.SerializeObject("{\"StatusCode\":\"" + StatusCode + "\",\"ChallanNumber\":\"" + ChallanNumber + "\",\"FeeAmount\":\"" + Amount + "\",\"AppCount\":\"" + ApplicationCount + "\",\"FeeType\":\"" + FeeType + "\"}"), System.Text.Encoding.UTF8, "application/json");
+                return response;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                var response = Request.CreateResponse(HttpStatusCode.InternalServerError);
+                response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"StatusCode\",\"respdesc\" : \"Server Error\" }"), System.Text.Encoding.UTF8, "application/json");
+                return response;
+
             }
         }
 
