@@ -37,17 +37,17 @@ define(['app'], function (app) {
                 PaymentStudentList.push(list);
 
                 var FeeAmount = 0;
-                $scope.PIN = [];
+                var PIN = [];
                 $scope.PaymentStudentList = PaymentStudentList;
                 for (i = 0; i < $scope.PaymentStudentList.length; i++) {
                     FeeAmount += parseInt($scope.PaymentStudentList[i].FeeAmount)
                     var obj = {
                         PIN: $scope.PaymentStudentList[i].PIN,
                     }
-                    $scope.PIN.push(obj)
+                    PIN.push(obj)
                 }
 
-
+                $scope.PIN = PIN;
                 $scope.feeAmount = FeeAmount;
                 if ($scope.PaymentStudentList.length > 0) {
                     $scope.btndisable = false;
@@ -58,21 +58,27 @@ define(['app'], function (app) {
             if (!data.isChecked) {
                 function arrayRemove(arr, value) {
                     return arr.filter(function (ele) {
-                        return ele.Id != value;
+                        return ele.FeePaymentDataID != value;
                     });
                 }
-                PaymentStudentList = arrayRemove(PaymentStudentList, data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
+
+
+                 NewPaymentStudentList = arrayRemove(PaymentStudentList, data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
                 var FeeAmount = 0;
-                $scope.PaymentStudentList = PaymentStudentList;
-                for (i = 0; i < $scope.PaymentStudentList.length; i++) {
-                    FeeAmount += parseInt($scope.PaymentStudentList[i].FeeAmount)
+                var PIN = []
+                var FeePaymentDataID = 0;
+                $scope.NewPaymentStudentList = NewPaymentStudentList;
+                for (i = 0; i < $scope.NewPaymentStudentList.length; i++) {
+                    FeeAmount += parseInt($scope.NewPaymentStudentList[i].FeeAmount)
                     var obj = {
-                        PIN: $scope.PaymentStudentList[i].PIN,
+                        PIN: $scope.NewPaymentStudentList[i].PIN,
                     }
-                    $scope.PIN.push(obj)
+                    PIN.push(obj)
                 }
+                $scope.PIN = PIN;
                 $scope.feeAmount = FeeAmount;
-                if ($scope.PaymentStudentList.length > 0) {
+                $scope.FeePaymentDataID = FeePaymentDataID;
+                if ($scope.NewPaymentStudentList.length > 0) {
                     $scope.btndisable = false;
                 } else {
                     $scope.btndisable = true;
@@ -88,6 +94,11 @@ define(['app'], function (app) {
 
             $scope.allItemsSelected = true;
         };
+
+
+
+
+
 
         $scope.selectAll = function () {
             PaymentStudentList = [];
@@ -113,13 +124,15 @@ define(['app'], function (app) {
             $scope.PaymentStudentList = PaymentStudentList;
 
             var FeeAmount = 0;
+            var PIN = [];
             for (i = 0; i < $scope.PaymentStudentList.length; i++) {
                 FeeAmount += parseInt($scope.PaymentStudentList[i].FeeAmount)
                 var obj = {
                     PIN: $scope.PaymentStudentList[i].PIN,
                 }
-                $scope.PIN.push(obj)
+                PIN.push(obj)
             }
+            $scope.PIN = PIN;
             $scope.feeAmount = FeeAmount;
             if ($scope.PaymentStudentList.length > 0) {
                 $scope.btndisable = false;
@@ -131,7 +144,7 @@ define(['app'], function (app) {
         $scope.Proceed = function () {
             $scope.btndisable = true;
             if ($scope.PIN == '' || $scope.PIN == undefined || $scope.PIN == null) {
-                alert('Plese select PIN/s');
+                alert('Plese select Pin/s');
                 $scope.btndisable = false;
                 return;
             }
@@ -219,104 +232,45 @@ define(['app'], function (app) {
             $scope.modalInstance.close();
         };
 
-        //$scope.PayAmount = function () {
-        //    //$scope.noteChallan = false;
-        //    //$scope.secondClick = false;
-        //    //var marchantid = "TSSBTET"; // live
-        //    var marchantid = "TSSBTET"; // test
-        //    var addInfo1 = $scope.UserName;
-        //    var addInfo3 = "NA";
-        //    var addInfo4 = "NA";//$scope.loadedScheme.Scheme;
-        //    //if ($scope.Student.id == 1) {
-        //    var addInfo5 = $scope.FeeType;
-        //    //}
-        //    //var addInfo5 = $scope.current_schemeid;//Semester;
-        //    var addInfo6 = "Bulk"//$scope.Examtype;
-        //    var addInfo7 = "NA";
-        //    var amount = $scope.AmountPayable.toFixed(2) == null || $scope.AmountPayable.toFixed(2) == "" ? $scope.AmountPayable.toFixed(2) : $scope.AmountPayable.toFixed(2);
-        //    var subMarchantid = "TSCCIC";
-        //    $localStorage.PaymentGatewayResponse = {};
-        //    redirecturl = {
-        //        redirecturl: "CcicDashboard.PreExamination.FeePayment"
-        //    }
-        //    $localStorage.PaymentGatewayResponse = redirecturl;
-        //    //$localStorage.assessment.redirecturl = 'Dashboard.AssessmentDashboard.Assessment.TheorySubjectList';
-        //    //localhost:65321/Payment/BulkBillResponse
-        //    //'sbtet.telangana.gov.in/API/Payment/BulkBillResponse'
-        //    var location = window.location.origin;
-        //    CcicPreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount, $scope.Student.id, JSON.stringify(PaymentStudent));
-
-        //    var proceedfinePayment = PaymentService.getHashValue(location + "/Payment/BulkBillResponse", marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount);
-        //    proceedfinePayment.then(function (resp) {
-        //        if (resp != "" && resp != undefined) {
-        //            // var req = "https://uat.billdesk.com/pgidsk/PGIMerchantPayment?msg="
-        //            var req = "https://pgi.billdesk.com/pgidsk/PGIMerchantPayment?msg=" + resp   // live url
-        //            //var req = "https://uat.billdesk.com/pgidsk/PGIMerchantPayment?msg=KALYANTEST|429|NA|2|NA|NA|NA|INR|NA|R|kalyantest|NA|NA|F|8850062965|test-developer@candere.com|187|NA|NA|NA|NA|http://127.0.0.1/candere_repo/scheme/billdesk/response|9F4E06C08698DA6338428E2A36141826468E8E31C83F3B814F831AE6D6D27CFD";
-        //            //   var req = "https://pgi.billdesk.com/pgidsk/PGIMerchantPayment?msg=" + resp // test url
-        //            window.location.replace(req);
-        //        }
-        //    }, function (err) {
-        //        $scope.noteChallan = false;
-        //        $scope.secondClick = true;
-        //        console.log(err);
-        //    });
-        //}
 
 
         $scope.PayAmount = function () {
-            //if ($scope.Student.id == 2) {
-            //    if ($scope.UpdatedContactDetail == null || $scope.UpdatedContactDetail == "" || $scope.UpdatedContactDetail == undefined) {
-            //        alert("Please update the mobile number before you proceed.");
-            //        return;
-            //    }
-            //}
 
-            var College_Code = "admin";
             $scope.noteChallan = false;
             $scope.secondClick = false;
             //var marchantid = "TSSBTET"; // live
             var marchantid = "TSSBTET"; // test
-            //try {
-            //    College_Code = authData.College_Code == null ? "admin" : authData.College_Code;
-            //} catch (err) {
-            //}
-            var addInfo1 = $scope.UserName;
-            var addInfo3 = "NA";
-            var addInfo4 = "NA"//$scope.loadedScheme.Scheme;t
-            var addInfo5 = $scope.FeeType;//Semester;
-            var addInfo6 = "SINGLE"//PaymentType;
-            var addInfo7 = "NA";
-            var amount = "";
-            //if ($scope.Student.id == 1) {
-            //    addInfo5 = "REGULAR";
-            //    amount = $scope.AmountDB.toFixed(2) == null || $scope.AmountDB.toFixed(2) == "" ? $scope.studentTotalFee.toFixed(2) : $scope.AmountDB.toFixed(2);
 
-            //}
-            //else if ($scope.Student.id == 2) {
-            //    amount = $scope.FinalAmountDB.toFixed(2);
-            //    addInfo5 = "BACKLOG";
-            //    addInfo4 = $scope.Sems;
-            //}
-            //else if ($scope.Student.id == 999) {
-            //    var addInfo3 = $scope.Studentpin;
-            //    var addInfo4 = $scope.getUserData.CurrentSemester == null || $scope.getUserData.CurrentSemester == "" ? "NA" : $scope.getUserData.CurrentSemester;//previous sem;
-            //    var addInfo5 = "PROMOTIONAL";
-            //    var addInfo7 = $scope.getUserData.Scheme == null || $scope.getUserData.Scheme == "" ? "NA" : $scope.getUserData.Scheme;//Scheme;;
-            //    var amount = $scope.AmountDB.toFixed(2) == null || $scope.AmountDB.toFixed(2) == "" ? $scope.studentTotalFee.toFixed(2) : $scope.AmountDB.toFixed(2);
-            //    amount = $scope.FinalAmountDB.toFixed(2);
-            //}
-            var subMarchantid = "TSCCIC";
-            $localStorage.PaymentGatewayResponse = {};
-            redirecturl = {
-                redirecturl: "index.DiplomaFeePayment"
+            var addInfo1 = $scope.UserName;
+            var addInfo3 = $scope.FeeType;//PaymentType;
+            var addInfo4 = "BULK";
+            //var addInfo5 = "NA";//Semester;
+            var addInfo6 = "NA";
+            var addInfo7 = "NA";
+            var amount = $scope.AmountPayable;
+            if ($scope.FeePaymentType == 1) {
+                addInfo5 = "REGULAR"
             }
-            $localStorage.PaymentGatewayResponse = redirecturl;
+            else if ($scope.FeePaymentType == 2) {
+                addInfo5 = "BACKLOG"
+            }
+            else if ($scope.FeePaymentType == 3) {
+                addInfo5 = "REGISTRATION"
+            }
+            
+
+            var subMarchantid = "TSCCIC";
+            $localStorage.CcicPaymentGatewayResponse = {};
+            redirecturl = {
+                redirecturl: "CcicDashboard.PreExamination.TesTingFeePayment"
+            }
+            $localStorage.CcicPaymentGatewayResponse = redirecturl;
 
             var location = window.location.origin;
 
 
-            PreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.challan, amount, 0, "json");
-            var proceedfinePayment = PaymentService.getSomeValue(location + "/Payment/BulkBillResponse", $scope.challan);
+            PreExaminationService.RequestLog(marchantid, subMarchantid, addInfo1, addInfo3, addInfo4, addInfo5, addInfo6, addInfo7, $scope.ChallanNumber, amount, 0, "json");
+            var proceedfinePayment = PaymentService.getSomeValue(location + "/Payment/BulkBillResponse", $scope.ChallanNumber);
             proceedfinePayment.then(function (resp) {
                 if (resp != "" && resp != undefined) {
                     var req = "https://pgi.billdesk.com/pgidsk/PGIMerchantPayment?msg=" + resp   // live url
@@ -453,6 +407,7 @@ define(['app'], function (app) {
 
                     $scope.ExamPayment = Usersdata;
                     $scope.loading = false;
+                    $scope.NoData = false;
                 }
                 else {
                     $scope.NoData = true;

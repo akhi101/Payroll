@@ -2889,6 +2889,12 @@
                 dependencies: ['controllers/PaymentGateway/CertificateFeePaymentGatewayResponseController', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
 
             },
+            'CcicPaymentGatewayResponse': {
+                url: "/CcicPaymentGatewayResponse/:data",
+                templateUrl: 'app/views/CCIC/PaymentGateway/CcicPaymentGatewayResponse.html',
+                dependencies: ['controllers/CCIC/PaymentGateway/CcicPaymentGatewayResponseController', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
+
+            },
 
             'TwshCertificateFeePaymentRouteRedirect': {
                 url: "/TwshCertificateFeePaymentRouteRedirect/:data",

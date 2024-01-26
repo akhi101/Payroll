@@ -268,6 +268,11 @@ namespace CoreExamin.Controllers
 
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
                 }
+                else if (addtninfo2 == "TSCCIC")
+                {
+                    redirect = ConfigurationManager.AppSettings["CcicPaymentGateRouteRedirect"].ToString();
+                    return Redirect(redirect + "/" + Base64Encode(retMsg));
+                }
                 else
                 {
                     redirect = ConfigurationManager.AppSettings["PaymentGateRouteRedirect"].ToString();
@@ -288,6 +293,12 @@ namespace CoreExamin.Controllers
                 else if (addtninfo2 == "TSTWSH")
                 {
                     redirect = ConfigurationManager.AppSettings["TwshCertificateFeePaymentRouteRedirect"].ToString();
+                    retMsg = "{\"txnrefno\":\"\",\"Refno\":\"\",\"statusdesc\": \"Internal Server Error\"}";
+                    return Redirect(redirect + "/" + Base64Encode(retMsg));
+                }
+                else if (addtninfo2 == "TSCCIC")
+                {
+                    redirect = ConfigurationManager.AppSettings["CcicPaymentGateRouteRedirect"].ToString();
                     retMsg = "{\"txnrefno\":\"\",\"Refno\":\"\",\"statusdesc\": \"Internal Server Error\"}";
                     return Redirect(redirect + "/" + Base64Encode(retMsg));
                 }
