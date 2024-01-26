@@ -18,15 +18,15 @@
 </div>
 <div class="modal-body">
     <div class="card">
-        <div class="row">
-            <div class="col-md-6 myPad"><strong>Selected PIN/S</strong></div>
-            <div class="col-md-12 myPad">:
-            <span data-ng-repeat="data in PIN">{{data.PIN}} {{$last ? '' : ($index==PIN.length-2) ? ' , ' : ', '}}</span></div>
-            <div class="col-md-6 myPad"><strong>Number of PINS Selected</strong></div>
-            <div class="col-md-6 myPad">: {{AppCount}}</div>
-            <div class="col-md-6 myPad"><strong>Amount Payable</strong></div>
-            <div class="col-md-6 myPad">: {{AmountPayable}}</div>
-        </div>
+   
+            <div class="col-md-12 myPad"><strong>Selected PIN/S</strong></div>
+            <div class="col-md-12 myPad">
+                <span data-ng-repeat="data in PaymentList">{{data.PIN}} {{$last ? '' : ($index==PaymentList.length-2) ? ' , ' : ', '}}</span></div>
+            <div class="col-md-7 myPad"><strong>No of PINS Selected</strong></div>
+            <div class="col-md-3 myPad">: {{AppCount}}</div>
+            <div class="col-md-7 myPad"><strong>Amount Payable</strong></div>
+            <div class="col-md-3 myPad">: {{AmountPayable}}</div>
+        
         <div class="row">
 
             <div class="col-md-6 pull-left">
