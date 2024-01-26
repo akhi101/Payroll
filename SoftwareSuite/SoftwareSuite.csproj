@@ -689,6 +689,7 @@
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicHallTicketController.js" />
     <Content Include="app\controllers\CCIC\GetCcicDeCryptPaSSPageController.js" />
+    <Content Include="app\controllers\CCIC\PaymentGateway\CcicPaymentGatewayResponseController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicCertificatesDataController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicResultsProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicRVRCProcessingController.js" />
@@ -1082,6 +1083,7 @@
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />

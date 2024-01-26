@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-6 myPad"><strong>Selected PIN/S</strong></div>
             <div class="col-md-12 myPad">:
-            <span data-ng-repeat="data in PIN">{{data.PIN}} {{$last ? '' : ($index==PIN.length-2) ? ' and ' : ', '}}</span></div>
+            <span data-ng-repeat="data in PIN">{{data.PIN}} {{$last ? '' : ($index==PIN.length-2) ? ' , ' : ', '}}</span></div>
             <div class="col-md-6 myPad"><strong>Number of PINS Selected</strong></div>
             <div class="col-md-6 myPad">: {{AppCount}}</div>
             <div class="col-md-6 myPad"><strong>Amount Payable</strong></div>
