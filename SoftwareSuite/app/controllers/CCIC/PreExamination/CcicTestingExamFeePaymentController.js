@@ -29,121 +29,215 @@ define(['app'], function (app) {
 
         };
 
-        var PaymentStudentList = [];
+         $scope.PaymentList = [];
+         $scope.PaymentPins = [];
         $scope.selectEntity = function (data) {
-
-            if (data.isChecked) {
-                let list = $scope.addData(data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
-                PaymentStudentList.push(list);
-
-                var FeeAmount = 0;
-                var PIN = [];
-                $scope.PaymentStudentList = PaymentStudentList;
-                for (i = 0; i < $scope.PaymentStudentList.length; i++) {
-                    FeeAmount += parseInt($scope.PaymentStudentList[i].FeeAmount)
-                    var obj = {
-                        PIN: $scope.PaymentStudentList[i].PIN,
+            $scope.allItemsSelected = false;
+            if (data != null) {
+                if (!$scope.PaymentPins.includes(data.PIN)) {
+                    dataPay = {};
+                    dataPay.PIN = data.PIN
+                    dataPay.StudentID = data.StudentID
+                    dataPay.FeePaymentDataID = data.FeePaymentDataID
+                    dataPay.FeeAmount = data.FeeAmount
+                    $scope.PaymentList.push(dataPay);
+                    var FeeAmount=0
+                    $scope.PaymentPins.push(data.PIN);
+                    for (i = 0; i < $scope.PaymentList.length; i++) {
+                       FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+                    
                     }
-                    PIN.push(obj)
+                    $scope.FeeAmount = FeeAmount;
                 }
-
-                $scope.PIN = PIN;
-                $scope.feeAmount = FeeAmount;
-                if ($scope.PaymentStudentList.length > 0) {
-                    $scope.btndisable = false;
-                } else {
-                    $scope.btndisable = true;
-                }
-            }
-            if (!data.isChecked) {
-                function arrayRemove(arr, value) {
-                    return arr.filter(function (ele) {
-                        return ele.FeePaymentDataID != value;
-                    });
-                }
-
-
-                 NewPaymentStudentList = arrayRemove(PaymentStudentList, data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
-                var FeeAmount = 0;
-                var PIN = []
-                var FeePaymentDataID = 0;
-                $scope.NewPaymentStudentList = NewPaymentStudentList;
-                for (i = 0; i < $scope.NewPaymentStudentList.length; i++) {
-                    FeeAmount += parseInt($scope.NewPaymentStudentList[i].FeeAmount)
-                    var obj = {
-                        PIN: $scope.NewPaymentStudentList[i].PIN,
+                else if ($scope.PaymentPins.includes(data.PIN)) {
+                    $scope.PaymentPins.remByVal(data.PIN);
+                    $scope.PaymentList.remElementByVal(data.PIN);
+                    if ($scope.PaymentPins.length == 0) {
+                        $scope.allItemsSelectedthing = false;
                     }
-                    PIN.push(obj)
-                }
-                $scope.PIN = PIN;
-                $scope.feeAmount = FeeAmount;
-                $scope.FeePaymentDataID = FeePaymentDataID;
-                if ($scope.NewPaymentStudentList.length > 0) {
-                    $scope.btndisable = false;
-                } else {
-                    $scope.btndisable = true;
+                    var FeeAmount = 0
+                    for (i = 0; i < $scope.PaymentList.length; i++) {
+                        FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+
+                    }
+                    $scope.FeeAmount = FeeAmount;
                 }
             }
-            for (var i = 0; i < $scope.ExamPayment.length; i++) {
-                if (!$scope.ExamPayment[i].isChecked) {
-                    $scope.allItemsSelected = false;
-                    return;
+            console.log($scope.PaymentList)
+            console.log($scope.PaymentPins)
+
+            Array.prototype.remByVal = function (val) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i] === val) {
+                        this.splice(i, 1);
+                        break;
+                    }
                 }
+                return this;
             }
 
+            Array.prototype.remElementByVal = function (val) {
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i].PIN === val) {
+                        this.splice(i, 1);
+                        break;
+                    }
+                }
+                return this;
+            }
+            //if (data.isChecked) {
+            //    let list = $scope.addData(data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
+            //    $scope.PaymentPins.push(list);
 
-            $scope.allItemsSelected = true;
+            //    var FeeAmount = 0;
+            //    var PIN = [];
+            //    $scope.$scope.PaymentPins = $scope.PaymentPins;
+            //    for (i = 0; i < $scope.$scope.PaymentPins.length; i++) {
+            //        FeeAmount += parseInt($scope.$scope.PaymentPins[i].FeeAmount)
+            //        var obj = {
+            //            PIN: $scope.$scope.PaymentPins[i].PIN,
+            //        }
+            //        PIN.push(obj)
+            //    }
+
+            //    $scope.PIN = PIN;
+            //    $scope.feeAmount = FeeAmount;
+            //    if ($scope.$scope.PaymentPins.length > 0) {
+            //        $scope.btndisable = false;
+            //    } else {
+            //        $scope.btndisable = true;
+            //    }
+            //}
+            //if (!data.isChecked) {
+            //    function arrayRemove(arr, value) {
+            //        return arr.filter(function (ele) {
+            //            return ele.FeePaymentDataID != value;
+            //        });
+            //    }
+
+
+            //     New$scope.PaymentPins = arrayRemove($scope.PaymentPins, data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
+            //    var FeeAmount = 0;
+            //    var PIN = []
+            //    //var FeePaymentDataID = 0;
+            //    $scope.New$scope.PaymentPins = New$scope.PaymentPins;
+            //    for (i = 0; i < $scope.New$scope.PaymentPins.length; i++) {
+            //        FeeAmount += parseInt($scope.New$scope.PaymentPins[i].FeeAmount)
+            //        var obj = {
+            //            PIN: $scope.New$scope.PaymentPins[i].PIN,
+            //        }
+            //        PIN.push(obj)
+            //    }
+            //    $scope.PIN = PIN;
+            //    console.log($scope.PIN)
+            //    $scope.feeAmount = FeeAmount;
+            //    $scope.FeePaymentDataID = FeePaymentDataID;
+            //    if ($scope.New$scope.PaymentPins.length > 0) {
+            //        $scope.btndisable = false;
+            //    } else {
+            //        $scope.btndisable = true;
+            //    }
+            //}
+            //for (var i = 0; i < $scope.ExamPayment.length; i++) {
+            //    if (!$scope.ExamPayment[i].isChecked) {
+            //        $scope.allItemsSelected = false;
+            //        return;
+            //    }
+            //}
+
+
+            //$scope.allItemsSelected = true;
         };
+       
+       
 
 
 
 
+        //$scope.selectAll = function () {
+        //    $scope.PaymentPins = [];
+        //    for (var i = 0; i < $scope.ExamPayment.length; i++) {
+        //        $scope.ExamPayment[i].isChecked = $scope.allItemsSelected;
+        //        if ($scope.ExamPayment[i].isChecked) {
+        //            let list = $scope.addData($scope.ExamPayment[i].FeePaymentDataID, $scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
+        //            $scope.PaymentPins.push(list);
 
 
-        $scope.selectAll = function () {
-            PaymentStudentList = [];
-            for (var i = 0; i < $scope.ExamPayment.length; i++) {
-                $scope.ExamPayment[i].isChecked = $scope.allItemsSelected;
-                if ($scope.ExamPayment[i].isChecked) {
-                    let list = $scope.addData($scope.ExamPayment[i].FeePaymentDataID, $scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
-                    PaymentStudentList.push(list);
+        //        }
+        //        if (!$scope.ExamPayment[i].isChecked) {
+        //            function arrayRemove(arr, value) {
+        //                return arr.filter(function (ele) {
+        //                    return ele.Id != value;
+        //                });
 
+        //            }
+        //            $scope.PaymentPins = arrayRemove($scope.PaymentPins, $scope.ExamPayment[i].FeePaymentDataID, $scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
 
-                }
-                if (!$scope.ExamPayment[i].isChecked) {
-                    function arrayRemove(arr, value) {
-                        return arr.filter(function (ele) {
-                            return ele.Id != value;
-                        });
+        //        }
+        //    }
+        //    $scope.$scope.PaymentPins = $scope.PaymentPins;
 
+        //    var FeeAmount = 0;
+        //    var PIN = [];
+        //    for (i = 0; i < $scope.$scope.PaymentPins.length; i++) {
+        //        FeeAmount += parseInt($scope.$scope.PaymentPins[i].FeeAmount)
+        //        var obj = {
+        //            PIN: $scope.$scope.PaymentPins[i].PIN,
+        //        }
+        //        PIN.push(obj)
+        //    }
+        //    $scope.PIN = PIN;
+        //    $scope.feeAmount = FeeAmount;
+        //    if ($scope.$scope.PaymentPins.length > 0) {
+        //        $scope.btndisable = false;
+        //    } else {
+        //        $scope.btndisable = true;
+        //    }
+        //};
+
+        $scope.selectAll = function (val) {
+            $scope.PaymentList = [];
+
+            if (val == true) {
+                for (var i = 0; i < $scope.ExamPayment.length; i++) {
+
+                    $scope.ExamPayment[i].isChecked = true;
+                    if ($scope.ExamPayment[i].isChecked) {
+                        dataPay = {};
+                        dataPay.PIN = $scope.ExamPayment[i].PIN
+                        dataPay.StudentID = $scope.ExamPayment[i].StudentID
+                        dataPay.FeePaymentDataID = $scope.ExamPayment[i].FeePaymentDataID
+                        dataPay.FeeAmount = $scope.ExamPayment[i].FeeAmount
+                        $scope.PaymentList.push(dataPay);
+                        $scope.PaymentPins.push($scope.ExamPayment[i].PIN);
                     }
-                    PaymentStudentList = arrayRemove(PaymentStudentList, $scope.ExamPayment[i].FeePaymentDataID, $scope.ExamPayment[i].StudentID, $scope.ExamPayment[i].PIN, $scope.ExamPayment[i].FeeAmount);
+                }
+                var FeeAmount = 0
+                for (i = 0; i < $scope.PaymentList.length; i++) {
+                   FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
 
                 }
-            }
-            $scope.PaymentStudentList = PaymentStudentList;
+                $scope.FeeAmount = FeeAmount;
 
-            var FeeAmount = 0;
-            var PIN = [];
-            for (i = 0; i < $scope.PaymentStudentList.length; i++) {
-                FeeAmount += parseInt($scope.PaymentStudentList[i].FeeAmount)
-                var obj = {
-                    PIN: $scope.PaymentStudentList[i].PIN,
-                }
-                PIN.push(obj)
-            }
-            $scope.PIN = PIN;
-            $scope.feeAmount = FeeAmount;
-            if ($scope.PaymentStudentList.length > 0) {
-                $scope.btndisable = false;
             } else {
-                $scope.btndisable = true;
+                for (var i = 0; i < $scope.ExamPayment.length; i++) {
+                    $scope.ExamPayment[i].isChecked = false;
+                    $scope.PaymentList = [];
+                    $scope.PaymentPins = [];
+                }
+                var FeeAmount = 0
+                for (i = 0; i < $scope.PaymentList.length; i++) {
+                  FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+
+                }
+                $scope.FeeAmount = FeeAmount;
             }
+            console.log($scope.PaymentList);
         };
 
         $scope.Proceed = function () {
             $scope.btndisable = true;
-            if ($scope.PIN == '' || $scope.PIN == undefined || $scope.PIN == null) {
+            if ($scope.PaymentList == '' || $scope.PaymentList == undefined || $scope.PaymentList == null) {
                 alert('Plese select Pin/s');
                 $scope.btndisable = false;
                 return;
@@ -151,16 +245,16 @@ define(['app'], function (app) {
             var obj =
             {
                 "TotalAmount": $scope.feeAmount,
-                "ApplicationCount": $scope.PaymentStudentList.length,
-                "AppData": $scope.PaymentStudentList
+                "ApplicationCount": $scope.PaymentList.length,
+                "AppData": $scope.PaymentList
             }
 
-            $scope.AppCount = $scope.PaymentStudentList.length;
+            $scope.AppCount = $scope.PaymentList.length;
             $scope.PINS = $scope.PIN;
-            $scope.AmountPayable = $scope.feeAmount;
+            $scope.AmountPayable = $scope.FeeAmount;
 
             //$scope.AmountPayable = $scope.feeAmount;
-            //$scope.AppCount = $scope.PaymentStudentList.length;
+            //$scope.AppCount = $scope.$scope.PaymentPins.length;
             //$scope.ChalanaNo = res.challanaNo;
             $scope.Paybtndisable = false;
             $scope.modalInstance = $uibModal.open({
@@ -182,8 +276,8 @@ define(['app'], function (app) {
             var obj =
             {
                 "TotalAmount": $scope.feeAmount,
-                "ApplicationCount": $scope.PaymentStudentList.length,
-                "AppData": $scope.PaymentStudentList,
+                "ApplicationCount": $scope.$scope.PaymentPins.length,
+                "AppData": $scope.$scope.PaymentPins,
                 "AcademicYearID": $scope.AcademicYear,
                 "ExamMonthYearID": $scope.ExamMonthYear,
                 "FeePaymentTypeID": $scope.FeePaymentType,
