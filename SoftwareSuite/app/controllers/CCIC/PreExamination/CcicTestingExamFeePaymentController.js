@@ -63,8 +63,8 @@ define(['app'], function (app) {
                     $scope.FeeAmount = FeeAmount;
                 }
             }
-            console.log($scope.PaymentList)
-            console.log($scope.PaymentPins)
+            //console.log($scope.PaymentList)
+            //console.log($scope.PaymentPins)
 
             
             //if (data.isChecked) {
@@ -232,7 +232,7 @@ define(['app'], function (app) {
                 }
                 $scope.FeeAmount = FeeAmount;
             }
-            console.log($scope.PaymentList);
+            //console.log($scope.PaymentList);
         };
 
         $scope.Proceed = function () {
@@ -275,9 +275,9 @@ define(['app'], function (app) {
             $scope.btndisable = true;
             var obj =
             {
-                "TotalAmount": $scope.feeAmount,
-                "ApplicationCount": $scope.$scope.PaymentPins.length,
-                "AppData": $scope.$scope.PaymentPins,
+                "TotalAmount": $scope.FeeAmount,
+                "ApplicationCount": $scope.PaymentList.length,
+                "AppData": $scope.PaymentList,
                 "AcademicYearID": $scope.AcademicYear,
                 "ExamMonthYearID": $scope.ExamMonthYear,
                 "FeePaymentTypeID": $scope.FeePaymentType,
@@ -316,7 +316,7 @@ define(['app'], function (app) {
                     $scope.showStatus = true;
                     $scope.statusclass = "alert-danger";
                     $scope.btndisable = false;
-                    console.log(error);
+                    //console.log(error);
 
                 });
 
@@ -324,12 +324,13 @@ define(['app'], function (app) {
 
         $scope.closeModal = function () {
             $scope.modalInstance.close();
+            $scope.btndisable = false;
         };
 
 
 
         $scope.PayAmount = function () {
-
+            $scope.paymentbtn = true;
             $scope.noteChallan = false;
             $scope.secondClick = false;
             //var marchantid = "TSSBTET"; // live
@@ -374,7 +375,7 @@ define(['app'], function (app) {
             }, function (err) {
                 $scope.noteChallan = false;
                 $scope.secondClick = true;
-                console.log(err);
+                //console.log(err);
             });
         }
 
@@ -480,7 +481,7 @@ define(['app'], function (app) {
             },
                 function (error) {
                     alert("error while Data");
-                    console.log(error);
+                    //console.log(error);
                 });
 
         }
