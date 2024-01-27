@@ -66,25 +66,7 @@ define(['app'], function (app) {
             //console.log($scope.PaymentList)
             //console.log($scope.PaymentPins)
 
-            Array.prototype.remByVal = function (val) {
-                for (var i = 0; i < this.length; i++) {
-                    if (this[i] === val) {
-                        this.splice(i, 1);
-                        break;
-                    }
-                }
-                return this;
-            }
-
-            Array.prototype.remElementByVal = function (val) {
-                for (var i = 0; i < this.length; i++) {
-                    if (this[i].PIN === val) {
-                        this.splice(i, 1);
-                        break;
-                    }
-                }
-                return this;
-            }
+            
             //if (data.isChecked) {
             //    let list = $scope.addData(data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
             //    $scope.PaymentPins.push(list);
@@ -150,7 +132,25 @@ define(['app'], function (app) {
         };
        
        
+        Array.prototype.remByVal = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === val) {
+                    this.splice(i, 1);
+                    break;
+                }
+            }
+            return this;
+        }
 
+        Array.prototype.remElementByVal = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].PIN === val) {
+                    this.splice(i, 1);
+                    break;
+                }
+            }
+            return this;
+        }
 
 
 
