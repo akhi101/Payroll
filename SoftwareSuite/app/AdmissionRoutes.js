@@ -2220,11 +2220,11 @@
                 dependencies: ['controllers/PreExamination/CondonationController', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService']
             },
 
-            'Dashboard.PreExamination.PostAttendance': {
-                url: "/PostAttendance",
-                templateUrl: 'app/views/PreExamination/PostAttendance.html',
-                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
-            },
+            //'Dashboard.PreExamination.PostAttendance': {
+            //    url: "/PostAttendance",
+            //    templateUrl: 'app/views/PreExamination/PostAttendance.html',
+            //    dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
+            //},
 
             'Dashboard.PreExamination.CheckOnRole': {
                 url: "/Condonation/CheckOnRole",
@@ -2350,7 +2350,7 @@
                 dependencies: ['controllers/PreExamination/MercyListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-            'Dashboard.PreExamination.PostAttendance': {
+            'Dashboard.Academic.PostAttendance': {
                 url: "/PostAttendance",
                 templateUrl: 'app/views/PreExamination/PostAttendance.html',
                 dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
@@ -3013,7 +3013,7 @@
             'Dashboard.AssessmentDashboard.PracticalMarksEntryList': {
                 url: "/Assessment/Practicals/SubjectList/MarksEntry",
                 templateUrl: 'app/views/Assessment/PracticalMarksEntry.html',
-                dependencies: ['controllers/Assessment/PracticalMarksEntryController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/PracticalsService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/Assessment/PracticalMarksEntryController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/PracticalsService', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.AssessmentDashboard.PracticalSummary': {
                 url: "/MarksSummary/PracticalEvents/Reports/PracticalSummary",

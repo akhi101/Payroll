@@ -516,7 +516,7 @@ namespace SoftwareSuite.Controllers.Admission
                 var sem1startdate = ConfigurationManager.AppSettings["Sem_1_startDate"];
                 var semstartdatealldep = ConfigurationManager.AppSettings["All_Dep_startDate"];
                 if(sem1startdate== semstartdatealldep) {
-                var deptflag = 1;
+                var deptflag = 0;
              
                 string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
                 apistring = string.Format(apiparams, sem1startdate, deptflag);
@@ -571,7 +571,7 @@ namespace SoftwareSuite.Controllers.Admission
                     //-----------getting pharmacy 1st year college working days--------------            
                     var client1 = new RestClient(clientUrl);
                     string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
-                    var deptflag = 4;
+                    var deptflag = 1;
                      apistring = string.Format(apiparams, semstartdatepharm1styear, deptflag);
                     var req1 = new RestRequest(apistring, Method.POST);
                     req1.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);

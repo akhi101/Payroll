@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        .Hed_text{
+            color:#fff;
+            font-weight:600;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-header aadhar-modal-header">
+        <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
+        <h4 class="text-center Hed_text">SMS Sent to Faculty Mobile Number : {{Mobile}} </h4>
+    </div>
+    <div class="modal-body">
+        <form name="RejectForm">
+            <div class="form-group">
+                <label>Enter OTP</label>
+                <input type="text" class="form-control" maxlength="500" ng-model="OTP" required />
+            </div>
+            <div class="row">
+                <div class="col-md-4"><button class="btn btn-danger" ng-click="closeModal()">cancel</button></div>
+                <div class="col-md-4"><button class="btn btn-info pull-right" ng-class="{'disabled': btndisable}" ng-click="!btndisable && ReSendOtp()">Resend SMS</button></div>
+                <div class="col-md-4"><button class="btn btn-success pull-right" ng-class="{'disabled': btndisable}" ng-click="!btndisable && VerifyOtp(OTP)">Verify</button></div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
