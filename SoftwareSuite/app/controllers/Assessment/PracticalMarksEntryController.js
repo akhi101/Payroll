@@ -166,6 +166,7 @@
                     $scope.MaxMarks = response.Table1[0].maxmarks;
                     $scope.IndustryName = response.Table1[0].IndustryName;
                     $scope.Mobile = response.Table1[0].Mobile;
+                    $scope.ExamDetails = response.Table1[0].ExamDetails;
                     $scope.Subject_Code = response.Table1[0].Subject_Code;
                     response.Table.forEach(function (stud) {
                         if (stud.marks != null || stud.IndustryName != null) {
@@ -358,9 +359,9 @@
                 //} else {
                 //    var Pin = $scope.userData.Pin;
                 //}
-                $scope.Otp = true;
+                $scope.Otp = true;  
                 $scope.NoOtp = false;
-                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Subject_Code, $scope.Mobile)
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Subject_Code, $scope.Mobile, $scope.ExamDetails)
                 GenerateOtpForMobile.then(function (response) {
                     try {
                         var detail = JSON.parse(response);

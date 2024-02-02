@@ -11749,9 +11749,10 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GenerateOtpForMobileNo")]
-        public string GenerateOtpForMobileNo(string Pin, string Phone)
+        public string GenerateOtpForMobileNo(string Pin, string Phone,string ExamDetails)
         {
-            string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}, Secretary, SBTET TS";
+            string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
+                "Secretary, SBTET TS";
             DataSet dt = new DataSet();
             string Message = string.Empty;
             string resp = string.Empty;
@@ -11767,11 +11768,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                 {
                     return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
                 }
-                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"]);
+                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], ExamDetails);
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
                 if (Phone != null || Phone != string.Empty)
                 {
-                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007161786863825790";
+                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007170677994132793";
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

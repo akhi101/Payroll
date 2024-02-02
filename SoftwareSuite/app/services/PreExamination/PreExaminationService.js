@@ -662,8 +662,8 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNoUpdate', param);
         };
 
-        this.GenerateOtpForMobileNo = function (Pin, Phone) {
-            var param = { "Pin": Pin, "Phone": Phone }
+        this.GenerateOtpForMobileNo = function (Pin, Phone, ExamDetails) {
+            var param = { "Pin": Pin, "Phone": Phone, "ExamDetails": ExamDetails }
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNo', param);
         };
 
