@@ -11747,6 +11747,55 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+        [HttpGet, ActionName("GenerateOtpForMobileNo")]
+        public string GenerateOtpForMobileNo(string Pin, string Phone)
+        {
+            string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}, Secretary, SBTET TS";
+            DataSet dt = new DataSet();
+            string Message = string.Empty;
+            string resp = string.Empty;
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@PhoneNumber", Phone);
+                dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_MobileUpdate", param);
+
+                if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
+                {
+                    return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
+                }
+                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"]);
+                string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                if (Phone != null || Phone != string.Empty)
+                {
+                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007161786863825790";
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri(url);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                    resp = "OTP sent to the mobile number :" + Phone.ToString().Substring(0, 2) + "xxxxx" + Phone.ToString().Substring(7);
+                    return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
+
+                }
+                else
+                {
+                    resp = "Mobile number not valid";
+                    return "{\"status\":\"400\",\"description\" : \"" + resp + "\"}";
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("usp_SOS_GET_OTP_MobileUpdate", 0, ex.Message);
+                return ex.Message;
+            }
+        }
         [HttpGet, ActionName("GetStudentFeePaymentDetails")]
         public string GetStudentFeePaymentDetails(string Pin, int StudentTypeId,int EMYR = 0)
         {

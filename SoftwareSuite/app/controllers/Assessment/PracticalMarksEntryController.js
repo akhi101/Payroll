@@ -360,7 +360,7 @@
                 //}
                 $scope.Otp = true;
                 $scope.NoOtp = false;
-                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNoUpdate($scope.Subject_Code, $scope.Mobile)
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Subject_Code, $scope.Mobile)
                 GenerateOtpForMobile.then(function (response) {
                     try {
                         var detail = JSON.parse(response);

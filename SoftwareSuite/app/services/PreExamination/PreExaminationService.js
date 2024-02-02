@@ -661,6 +661,12 @@
             var param = { "Pin": Pin, "Phone": Phone }
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNoUpdate', param);
         };
+
+        this.GenerateOtpForMobileNo = function (Pin, Phone) {
+            var param = { "Pin": Pin, "Phone": Phone }
+            return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNo', param);
+        };
+
         this.SendEail = function (htmlString) {
             var param = { "htmlString": htmlString }
             return DataAccessService.getDataWithPara('api/PreExamination/Email', param);
