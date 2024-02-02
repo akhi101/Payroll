@@ -29,37 +29,44 @@
                                         ng-options="data.Scheme for data in schemeinf track by data.SchemeID">
                                     <option value="" selected>Select Scheme</option>
                                 </select>
-                                <!--<select class="form-control" ng-model="SelectedschemeId" ng-change="ChangeSemester(SelectedschemeId)"
-                                        ng-options="data.SchemeID as data.Scheme for data in getActiveSchemes"></select>-->
-
-                                <!--<select class="form-control" name="Scheme" ng-model="schemeId" ng-change="ChangeSemester(schemeId)">
-        <option value="" selected>Select Scheme</option>
-
-        <option ng-repeat="data in getActiveSchemes" value="{{data}}">
-            {{data.Scheme}}
-        </option>
-    </select>-->
                             </div>
                         </div>
                     </div>
+
+                    <!--<div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">
+                                Scheme :
+                            </label>
+                            <div class="">
+                                <select class="form-control" name="semister" ng-model="SelectedschemeId" ng-change="ChangeSemester()">
+                                    <option value="" selected>
+                                        Select Scheme
+                                    </option>
+                                    <option ng-repeat="scheme in schemeinf" value="{{scheme.SchemeID}}">
+                                        {{scheme.Scheme}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>-->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Semester:</label>
                             <div class="">
-                                <select class="form-control" ng-model="SelectedsemId" 
+                                <select class="form-control" ng-model="SelectedsemId"
                                         ng-options="sem.sem for sem in ActiveSems track by sem.semid">
                                     <option value="" selected>Select Semester</option>
                                 </select>
 
                                 <!--<select class="form-control" ng-model="SelectedsemId" name="semister" required
-                                        ng-options="sem.semid as sem.sem for sem in ActiveSemesters"></select>-->
-
+                        ng-options="sem.semid as sem.sem for sem in ActiveSemesters"></select>-->
                                 <!--<select class="form-control" ng-init="LoadSemisters()" name="semister" required ng-model="semId">
-        <option value="" selected>Select Semester</option>
-        <option ng-repeat="sem in ActiveSemesters" value="{{sem}}">
-            {{sem.sem}}
-        </option>
-    </select>-->
+                    <option value="" selected>Select Semester</option>
+                    <option ng-repeat="sem in ActiveSemesters" value="{{sem}}">
+                        {{sem.sem}}
+                    </option>
+                </select>-->
                             </div>
                         </div>
                     </div>
@@ -74,10 +81,10 @@
                                     </option>
                                 </select>
                                 <!--<select class="form-control" ng-model="Selectedshift" name="shift" required
-    ng-options="shift.shiftid as shift.shiftName for shift in shifts"></select>-->
+                ng-options="shift.shiftid as shift.shiftName for shift in shifts"></select>-->
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="com-md-3">
                         <button class="btn btn-success" style="margin-top:23px;" ng-click="SubmitData()">Submit</button>

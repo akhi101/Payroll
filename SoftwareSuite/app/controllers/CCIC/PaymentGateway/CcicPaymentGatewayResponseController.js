@@ -170,7 +170,7 @@ define(['app'], function (app) {
                 $state.go($localStorage.CcicPaymentGatewayResponse.redirecturl);
 
             } else {
-                $state.go('CcicDashboard.PreExamination.TesTingFeePayment');
+                $state.go('CcicDashboard.PreExamination.FeePayment');
 
             }
 

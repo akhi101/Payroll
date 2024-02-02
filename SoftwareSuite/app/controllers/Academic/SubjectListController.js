@@ -14,7 +14,7 @@
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.SelectedschemeId = { SchemeID: 5 };
+            //$scope.SelectedschemeId = { SchemeID: 5 };
            
             $scope.getSchemes();
 
@@ -55,12 +55,12 @@
 
 
             if ($localStorage.authorizationData.tempsessiondata != undefined && $localStorage.authorizationData.tempsessiondata != null && $localStorage.authorizationData.tempsessiondata != {}) {
-                $scope.SelectedschemeId = {
-                    SchemeID: $localStorage.authorizationData.tempsessiondata.SchemeID,
-                }                 
-                $scope.SelectedsemId = {
-                    semid: $localStorage.authorizationData.tempsessiondata.semId,
-                }
+                //$scope.SelectedschemeId = {
+                //    SchemeID: $localStorage.authorizationData.tempsessiondata.SchemeID,
+                //}                 
+                //$scope.SelectedsemId = {
+                //    semid: $localStorage.authorizationData.tempsessiondata.semId,
+                //}
                 $scope.Selectedshift = {
                     shiftid:$localStorage.authorizationData.tempsessiondata.shiftId,
                 }

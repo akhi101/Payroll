@@ -103,15 +103,21 @@
 
 
 
+        //$scope.OpenSubModule = function (Module) {
+        //    if (Module.ModuleRouteName == 'FeePayment') {
+        //        alert('Fee Payment will be Resumed Soon');
+        //        // $state.go("CcicDashboard.PreExamination");
+        //        return;
+        //    }
+        //    else {
+        //        $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+        //    }
+        //}
+
         $scope.OpenSubModule = function (Module) {
-            if (Module.ModuleRouteName == 'FeePayment') {
-                alert('Fee Payment will be Resumed Soon');
-                // $state.go("CcicDashboard.PreExamination");
-                return;
-            }
-            else {
-                // $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
-            }
+
+                $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+            
         }
     
 

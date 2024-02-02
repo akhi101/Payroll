@@ -418,7 +418,7 @@ font-weight:bold;
                                 <h3 class='text-center head_print'><b>State Board of Technical Education & Training, Telangana</b></h3>
                                 
                                 <h5 class='text-center'><b>TIME TABLE FOR THEORY EXAMATIONS OF CCIC AND 
- SHORT- TERM COURSES TO BE HELD DURING AUGUST-2023</b></h5>
+ SHORT- TERM COURSES TO BE HELD DURING MARCH-2023</b></h5>
                             </div>";
             #endregion
             //foreach (var bc in distinctBarcodes)
