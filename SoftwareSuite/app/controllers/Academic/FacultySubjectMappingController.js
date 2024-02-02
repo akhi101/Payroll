@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
     app.controller("FacultySubjectMapping", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, $uibModal, AcademicService, PreExaminationService, StudentWiseService) {
-
+        $scope.HideBatch = true;
         var authData = $localStorage.authorizationData;
         $scope.College_Code = authData.College_Code;
         $scope.BranchId = authData.BranchId;

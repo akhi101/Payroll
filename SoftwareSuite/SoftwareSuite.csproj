@@ -697,6 +697,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicAmountController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicExamFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicExaminationCentresController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicFeePaymentReportController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDownloadController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPaymentProcessController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
@@ -1086,6 +1087,7 @@
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />

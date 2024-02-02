@@ -489,6 +489,12 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.PreExamination.FeePaymentReport': {
+                url: "/FeePaymentReport",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicFeePaymentReport.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.PreExamination.PrinterNRDownload': {
                 url: "/PrinterNRDownload",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicPrinterNRDownload.html',
@@ -528,19 +534,19 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicAmountController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            //'CcicDashboard.PreExamination.FeePayment': {
-            //    url: "/FeePayment",
-            //    templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
-            //    dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
-            //},
-
-
-
-            'CcicDashboard.PreExamination.TesTingFeePayment': {
-                url: "/TesTingFeePayment",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicTestingExamFeePayment.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicTestingExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
+            'CcicDashboard.PreExamination.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
             },
+
+
+
+            //'CcicDashboard.PreExamination.TesTingFeePayment': {
+            //    url: "/TesTingFeePayment",
+            //    templateUrl: 'app/views/CCIC/PreExamination/CcicTestingExamFeePayment.html',
+            //    dependencies: ['controllers/CCIC/PreExamination/CcicTestingExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
+            //},
  
 
             'CcicDashboard.PreExamination.PaymentProcess': {

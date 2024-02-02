@@ -66,25 +66,7 @@
             //console.log($scope.PaymentList)
             //console.log($scope.PaymentPins)
 
-            Array.prototype.remByVal = function (val) {
-                for (var i = 0; i < this.length; i++) {
-                    if (this[i] === val) {
-                        this.splice(i, 1);
-                        break;
-                    }
-                }
-                return this;
-            }
 
-            Array.prototype.remElementByVal = function (val) {
-                for (var i = 0; i < this.length; i++) {
-                    if (this[i].PIN === val) {
-                        this.splice(i, 1);
-                        break;
-                    }
-                }
-                return this;
-            }
             //if (data.isChecked) {
             //    let list = $scope.addData(data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
             //    $scope.PaymentPins.push(list);
@@ -150,7 +132,25 @@
         };
 
 
+        Array.prototype.remByVal = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === val) {
+                    this.splice(i, 1);
+                    break;
+                }
+            }
+            return this;
+        }
 
+        Array.prototype.remElementByVal = function (val) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i].PIN === val) {
+                    this.splice(i, 1);
+                    break;
+                }
+            }
+            return this;
+        }
 
 
 
@@ -275,8 +275,8 @@
             $scope.btndisable = true;
             var obj =
             {
-                "TotalAmount": $scope.feeAmount,
-                "ApplicationCount": $scope.PaymentPins.length,
+                "TotalAmount": $scope.FeeAmount,
+                "ApplicationCount": $scope.PaymentList.length,
                 "AppData": $scope.PaymentList,
                 "AcademicYearID": $scope.AcademicYear,
                 "ExamMonthYearID": $scope.ExamMonthYear,
@@ -330,7 +330,7 @@
 
 
         $scope.PayAmount = function () {
-
+            $scope.paymentbtn = true;
             $scope.noteChallan = false;
             $scope.secondClick = false;
             //var marchantid = "TSSBTET"; // live
@@ -470,10 +470,16 @@
         }
 
         $scope.feePaymentType = function () {
-            var LoadfeepaymentType = CcicPreExaminationService.GetFeePaymentType();
+            var LoadfeepaymentType = CcicPreExaminationService.GetFeePaymentType($scope.InstitutionID);
             LoadfeepaymentType.then(function (response) {
-                if (response.Table.length > 0) {
-                    $scope.FeePaymentTypeData = response.Table;
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch {
+
+                }
+                if (Res.length > 0) {
+                    $scope.FeePaymentTypeData = Res;
 
                 } else {
                     $scope.FeePaymentTypeData = [];
@@ -488,11 +494,14 @@
 
         $scope.showPaymentDetails = function () {
             $scope.ExamPayment = null;
+            $scope.PaymentList = [];
+            $scope.PaymentPins = [];
+            $scope.allItemsSelected = false;
             $scope.loading = true;
             var getAdmissionsubmod = CcicPreExaminationService.getPayExamFee($scope.InstitutionID, $scope.AcademicYearID, $scope.ExamMonthYearID, $scope.FeePaymentTypeID, $scope.UserName);
             getAdmissionsubmod.then(function (Usersdata) {
 
-                if (Usersdata.length > 0) {
+                if (Usersdata.Table.length > 0 && Usersdata.Table1[0].StatusCode == '200') {
                     $scope.isShowResults = true;
                     $scope.dataBackLog = false;
 
@@ -500,12 +509,13 @@
                         Usersdata[i].isChecked = false;
                     }
 
-                    $scope.ExamPayment = Usersdata;
+                    $scope.ExamPayment = Usersdata.Table;
                     $scope.loading = false;
                     $scope.NoData = false;
                 }
-                else {
-                    $scope.NoData = true;
+                else if (Usersdata.Table.length <= 0 && Usersdata.Table1[0].StatusCode == '400') {
+                    alert(Usersdata.Table1[0].StatusDescription);
+                    //$scope.NoData = true;
                     $scope.loading = false;
                     $scope.AcademicModules = [];
                     //alert("No Data Found");

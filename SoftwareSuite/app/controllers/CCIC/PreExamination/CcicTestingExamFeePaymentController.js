@@ -470,10 +470,16 @@ define(['app'], function (app) {
         }
 
         $scope.feePaymentType = function () {
-            var LoadfeepaymentType = CcicPreExaminationService.GetFeePaymentType();
+            var LoadfeepaymentType = CcicPreExaminationService.GetFeePaymentType($scope.InstitutionID);
             LoadfeepaymentType.then(function (response) {
-                if (response.Table.length > 0) {
-                    $scope.FeePaymentTypeData = response.Table;
+                try {
+                    var Res = JSON.parse(response)
+                }
+                catch {
+                    
+                }
+                if (Res.length > 0) {
+                    $scope.FeePaymentTypeData = Res;
 
                 } else {
                     $scope.FeePaymentTypeData = [];
@@ -492,7 +498,7 @@ define(['app'], function (app) {
             var getAdmissionsubmod = CcicPreExaminationService.getPayExamFee($scope.InstitutionID, $scope.AcademicYearID, $scope.ExamMonthYearID, $scope.FeePaymentTypeID, $scope.UserName);
             getAdmissionsubmod.then(function (Usersdata) {
 
-                if (Usersdata.length > 0) {
+                if (Usersdata.Table.length > 0 && Usersdata.Table1[0].StatusCode=='200') {
                     $scope.isShowResults = true;
                     $scope.dataBackLog = false;
 
@@ -500,12 +506,13 @@ define(['app'], function (app) {
                         Usersdata[i].isChecked = false;
                     }
 
-                    $scope.ExamPayment = Usersdata;
+                    $scope.ExamPayment = Usersdata.Table;
                     $scope.loading = false;
                     $scope.NoData = false;
                 }
-                else {
-                    $scope.NoData = true;
+                else if (Usersdata.Table.length <= 0 && Usersdata.Table1[0].StatusCode == '400') {
+                    alert(Usersdata.Table1[0].StatusDescription);
+                    //$scope.NoData = true;
                     $scope.loading = false;
                     $scope.AcademicModules = [];
                     //alert("No Data Found");
