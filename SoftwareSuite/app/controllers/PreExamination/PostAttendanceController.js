@@ -22,7 +22,7 @@
                     $scope.PostAttendance()
                 } else {
                     $scope.LoadImg = false
-                    alert("Data not Found from TSTS")
+                    alert("No Data Found from TSTS")
                 }
         },
                 function (error) {
@@ -34,6 +34,7 @@
 
         
         $scope.PostAttendance = function () {
+            if ($scope.respdata.data) {       
             $scope.LoadImg = true
             var LoadExamTypeBysem = PreExaminationService.PostAttendance($scope.respdata);
             LoadExamTypeBysem.then(function (response) {
@@ -57,8 +58,13 @@
                     alert("Something Went Wrong");
                     console.log(error);
                 });
+            } else {
+                alert("No Data Found from TSTS")
+                return;
+            }
         }
-
+            
+       
 
     })
 })
