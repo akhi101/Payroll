@@ -2810,7 +2810,7 @@
             'Dashboard.Academic.SyllabusCoverageReport': {
                 url: "/SyllabusCoverageReport",
                 templateUrl: 'app/views/Academic/Reports/SyllabusCoverageReport.html',
-                dependencies: ['controllers/Academic/Reports/SyllabusCoverageReportController', 'services/Academic/AcademicService']
+                dependencies: ['controllers/Academic/Reports/SyllabusCoverageReportController', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.Academic.PrincipalSyllabusCoverageReport': {
                 url: "/SyllabusCoverageReport/PrincipalSyllabusCoverageReport",
@@ -4358,6 +4358,16 @@
                 templateUrl: 'app/views/Tickets/TicketsStatusWiseReport.html',
 
                 dependencies: ['controllers/Tickets/TicketsStatusWiseReportController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+            'Dashboard.FeeSettings': {
+
+                url: "/FeeSettings",
+
+                templateUrl: 'app/views/StudentServices/FeeSettings.html',
+
+                dependencies: ['controllers/StudentServices/FeeSettingsController', 'services/PreExamination/PreExaminationService']
 
             },
 
