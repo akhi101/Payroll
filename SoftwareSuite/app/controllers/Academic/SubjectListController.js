@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
     app.controller("SubjectListController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, AssessmentService, AcademicService, PreExaminationService) {
-
+        $scope.BatchHide = true;
         //$scope.subjectList = [
         //    { Id: "1", Subject: "English" },
         //    { Id: "2", Subject: "Engineering mathematics-I" },

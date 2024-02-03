@@ -252,7 +252,7 @@
                                 <label class="font-weight-bold">
                                     Village / Town / City:
                                 </label>
-                                <input class="form-control" type="text" maxlength="100" placeholder="Enter Village / Town / City" ng-model="Village">
+                                <input class="form-control" type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="100" placeholder="Enter Village / Town / City" ng-model="Village">
                             </div>
                         </div>
 
@@ -275,7 +275,7 @@
                                 <label class="font-weight-bold">
                                     Pin Code:
                                 </label>
-                                <input class="form-control" type="text" maxlength="6" placeholder="Enter Pin Code" ng-model="PinCode">
+                                <input class="form-control" type="text" minlength="6" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Pin Code" ng-model="PinCode">
                             </div>
                         </div>
 
