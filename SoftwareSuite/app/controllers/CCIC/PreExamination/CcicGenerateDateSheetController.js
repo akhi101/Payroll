@@ -466,7 +466,8 @@
                 alert("Select Time Slots");
                 return;
             }
-            var generatett = CcicPreExaminationService.GenerateTimeTable($scope.holidayarr, $scope.academicYear, $scope.monthyear, $scope.timeslotarr, $scope.StartDate, $scope.UserName);
+            var startDate = moment($scope.StartDate).format("YYYY-MM-DD")
+            var generatett = CcicPreExaminationService.GenerateTimeTable($scope.holidayarr, $scope.academicYear, $scope.monthyear, $scope.timeslotarr, startDate, $scope.UserName);
             generatett.then(function (res) {
 
                 try {
@@ -476,6 +477,8 @@
 
                 if (res[0].ResponceCode == '200') {
                     alert(res[0].ResponceDescription);
+                    $scope.pdfbutton = true;
+                    $scope.excelbutton = true;
                 }
                 else if (res[0].ResponceCode == '400') {
                     alert(res[0].ResponceDescription);

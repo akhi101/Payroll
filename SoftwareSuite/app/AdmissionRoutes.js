@@ -489,6 +489,12 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.PreExamination.FeePaymentReport': {
+                url: "/FeePaymentReport",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicFeePaymentReport.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.PreExamination.PrinterNRDownload': {
                 url: "/PrinterNRDownload",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicPrinterNRDownload.html',
@@ -531,9 +537,16 @@
             'CcicDashboard.PreExamination.FeePayment': {
                 url: "/FeePayment",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
             },
 
+
+
+            //'CcicDashboard.PreExamination.TesTingFeePayment': {
+            //    url: "/TesTingFeePayment",
+            //    templateUrl: 'app/views/CCIC/PreExamination/CcicTestingExamFeePayment.html',
+            //    dependencies: ['controllers/CCIC/PreExamination/CcicTestingExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
+            //},
  
 
             'CcicDashboard.PreExamination.PaymentProcess': {
@@ -2213,11 +2226,11 @@
                 dependencies: ['controllers/PreExamination/CondonationController', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService']
             },
 
-            'Dashboard.PreExamination.PostAttendance': {
-                url: "/PostAttendance",
-                templateUrl: 'app/views/PreExamination/PostAttendance.html',
-                dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
-            },
+            //'Dashboard.PreExamination.PostAttendance': {
+            //    url: "/PostAttendance",
+            //    templateUrl: 'app/views/PreExamination/PostAttendance.html',
+            //    dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
+            //},
 
             'Dashboard.PreExamination.CheckOnRole': {
                 url: "/Condonation/CheckOnRole",
@@ -2343,7 +2356,7 @@
                 dependencies: ['controllers/PreExamination/MercyListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-            'Dashboard.PreExamination.PostAttendance': {
+            'Dashboard.Academic.PostAttendance': {
                 url: "/PostAttendance",
                 templateUrl: 'app/views/PreExamination/PostAttendance.html',
                 dependencies: ['controllers/PreExamination/PostAttendanceController', 'services/PreExamination/PreExaminationService']
@@ -2882,6 +2895,12 @@
                 dependencies: ['controllers/PaymentGateway/CertificateFeePaymentGatewayResponseController', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
 
             },
+            'CcicPaymentGatewayResponse': {
+                url: "/CcicPaymentGatewayResponse/:data",
+                templateUrl: 'app/views/CCIC/PaymentGateway/CcicPaymentGatewayResponse.html',
+                dependencies: ['controllers/CCIC/PaymentGateway/CcicPaymentGatewayResponseController', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
+
+            },
 
             'TwshCertificateFeePaymentRouteRedirect': {
                 url: "/TwshCertificateFeePaymentRouteRedirect/:data",
@@ -3000,7 +3019,7 @@
             'Dashboard.AssessmentDashboard.PracticalMarksEntryList': {
                 url: "/Assessment/Practicals/SubjectList/MarksEntry",
                 templateUrl: 'app/views/Assessment/PracticalMarksEntry.html',
-                dependencies: ['controllers/Assessment/PracticalMarksEntryController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/PracticalsService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/Assessment/PracticalMarksEntryController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/PracticalsService', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.AssessmentDashboard.PracticalSummary': {
                 url: "/MarksSummary/PracticalEvents/Reports/PracticalSummary",

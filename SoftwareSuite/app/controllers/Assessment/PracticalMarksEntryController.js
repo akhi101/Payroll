@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("PracticalMarksEntryController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService) {
+    app.controller("PracticalMarksEntryController", function ($scope, $http, $uibModal, $localStorage, $state, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService, PreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.userName = authData.userName;
@@ -165,6 +165,8 @@
                     $scope.SubjectName = response.Table1[0].SubjectName;
                     $scope.MaxMarks = response.Table1[0].maxmarks;
                     $scope.IndustryName = response.Table1[0].IndustryName;
+                    $scope.Mobile = response.Table1[0].Mobile;
+                    $scope.Subject_Code = response.Table1[0].Subject_Code;
                     response.Table.forEach(function (stud) {
                         if (stud.marks != null || stud.IndustryName != null) {
                             previewlist.push(stud);
@@ -240,12 +242,12 @@
 
 
             $scope.AddMarksById = function (data) {
-            var isvalied = false;
-            if (data.marks.length > $scope.MaxMarks.length) {
-                alert("Marks Entered character length should not exceed maximum marks length.");
-                $('#' + data.id).val('');
-                return;
-            }
+                var isvalied = false;
+                if (data.marks.length > $scope.MaxMarks.length) {
+                    alert("Marks Entered character length should not exceed maximum marks length.");
+                    $('#' + data.id).val('');
+                    return;
+                }
                 if (data.marks > $scope.MaxMarks) {
                     alert("Marks Entered should not be greater than maximum marks.");
                     $('#' + data.id).val('');
@@ -258,12 +260,12 @@
                         });
                     }
                     return;
-            }
-            if (data.marks.includes(".")) {
-                alert('Entered marks are not valid');
-                $('#' + data.id).val('');
-                return;
-            }
+                }
+                if (data.marks.includes(".")) {
+                    alert('Entered marks are not valid');
+                    $('#' + data.id).val('');
+                    return;
+                }
                 data.marks = data.marks.trim();
                 if (data.marks != null && data.marks != "") {
                     if (isNaN(data.marks)) {
@@ -315,7 +317,7 @@
                                 tempId1.push(data.id);
                             }
                             if (obj.id != data.id && !tempId1.includes(data.id)) {
-                                var Indusdata = $scope.addIndusData(data.id,data.marks, data.IndustryName);
+                                var Indusdata = $scope.addIndusData(data.id, data.marks, data.IndustryName);
                                 tempId1.push(data.id);
                                 Induslist.push(Indusdata);
 
@@ -329,7 +331,143 @@
                     }
                 }
 
-            },
+            }
+        $scope.OpenPopup = function () {
+            if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
+                alert("Please Update Mobile Number in Affiliation Portal");
+                return;
+            }
+            $scope.SendOtp()
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/Popups/AssessmentPopup.html",
+                size: 'xs',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+            });
+             
+                $scope.closeModal = function () {
+
+                    $scope.modalInstance.close();
+                }
+        }
+
+        $scope.SendOtp = function () {
+            if ($scope.Mobile != null && $scope.Mobile != undefined && $scope.Mobile.length == '10') {
+                //if ($scope.OldSudent) {
+                //    var Pin = $scope.PinNumber;
+                //} else {
+                //    var Pin = $scope.userData.Pin;
+                //}
+                $scope.Otp = true;
+                $scope.NoOtp = false;
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNoUpdate($scope.Subject_Code, $scope.Mobile)
+                GenerateOtpForMobile.then(function (response) {
+                    try {
+                        var detail = JSON.parse(response);
+                    } catch (err) { }
+                    if (detail.status == '200') {
+                        alert(detail.description);
+                        $scope.Otp = true;
+                        $scope.NoOtp = false;
+                    } else {
+                        alert(detail.description);
+                        $scope.Otp = false;
+                        $scope.NoOtp = true;
+                    }
+                }, function (error) {
+                    alert('error occured while sending OTP');
+                    $scope.Otp = false;
+                    $scope.NoOtp = true;
+                })
+
+            } else if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
+                alert("Please Update Mobile Number in Affiliation Portal");
+                return;
+            } else if ($scope.Mobile.length != '10') {
+                alert('Enter valid Mobile number');
+            } else {
+                alert("Please Enter Mobile Number");
+            }
+
+
+        }
+        $scope.counter = 0;
+        $scope.ReSendOtp = function () {
+            $scope.counter++;
+            if ($scope.counter > 2) {
+                $scope.limitexceeded = true;
+                return;
+            } else {
+                //if ($scope.OldSudent) {
+                //    var Pin = $scope.PinNumber;
+                //} else {
+                //    var Pin = $scope.userData.Pin;
+                //}
+                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForMobileNoUpdate($scope.Subject_Code, $scope.Mobile)
+                GenerateOtpForMobileNoUpdate.then(function (response) {
+                    try {
+                        var detail = JSON.parse(response);
+                    } catch (err) { }
+                    if (detail.status == '200') {
+                        alert(detail.description);
+                        $scope.Otp = true;
+                        $scope.NoOtp = false;
+                    } else {
+                        alert(detail.description);
+                        $scope.Otp = false;
+                        $scope.NoOtp = true;
+                    }
+                }, function (error) {
+                    alert('error occured while Resending OTP');
+                    $scope.Otp = false;
+                    $scope.NoOtp = true;
+                });
+
+
+            }
+        }
+
+        $scope.VerifyOtp = function (otp) {
+            $scope.OTPdata = otp
+            if ($scope.OTPdata == null || $scope.OTPdata == "" || $scope.OTPdata == undefined) {
+                alert('Please Enter OTP.');
+                return;
+            }
+            if ($scope.OTPdata.length != '6') {
+                alert('Please Enter valid OTP.');
+                return;
+            }
+            //if ($scope.OldSudent) {
+            //    var Pin = $scope.PinNumber;
+            //} else {
+            //    var Pin = $scope.userData.Pin;
+            //}
+            var UpdateUserdata = PreExaminationService.UpdateUserdata($scope.Subject_Code, $scope.Mobile, $scope.OTPdata)
+            UpdateUserdata.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res.Table[0].StatusCode == '200') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.phonenoupdated = true;
+                    $scope.Verified = true;
+                    $scope.save()
+                    
+                    
+                } else {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.phonenoupdated = false;
+                    $scope.Verified = false;
+                }
+            }, function (error) {
+                alert('error occured while updating Mobile number.');
+                $scope.phonenoupdated = false;
+                $scope.Verified = false;
+            });
+
+
+        }
 
 
             $scope.save = function () {
@@ -374,14 +512,17 @@
                     postmarks.then(function (response) {
                         //   console.log(response);
                         alert('Marks are Saved Successfully');
+                        $scope.modalInstance.close();
                         $scope.loadPinAndMarks();
                     }, function (error) {
                         console.log(error);
                         // alert(error);
                     });
                 } else {
-                    alert('No valid data Present');
+                    $scope.modalInstance.close();
+                    alert('No valid data Present');                   
                     $scope.loadPinAndMarks();
+
                 }
 
             }

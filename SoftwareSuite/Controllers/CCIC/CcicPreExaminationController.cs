@@ -228,25 +228,26 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetFeePaymentType")]
-        public HttpResponseMessage GetFeePaymentType()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_FeePaymentTypes";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Get_FeePaymentTypes", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
+        //[HttpGet, ActionName("GetFeePaymentType")]
+        //public HttpResponseMessage GetFeePaymentType()
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        string StrQuery = "";
+        //        StrQuery = "exec SP_Get_FeePaymentTypes";
+        //        return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dbHandler.SaveErorr("SP_Get_FeePaymentTypes", 0, ex.Message);
+        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+        //    }
+        //}
 
         public class FeePaymentDataInfo
         {
+            public int DataType { get; set; }
             public int InstitutionID { get; set; }
             public int AcademicYearID { get; set; }
             public int ExamMonthYearID { get; set; }
@@ -267,9 +268,10 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[2] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
                 param[3] = new SqlParameter("@FeePaymentTypeID", data.FeePaymentTypeID);
                 param[4] = new SqlParameter("@UserName", data.UserName);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_PinListForFeePayment", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PinListForFeePayment", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
+
             }
             catch (Exception ex)
             {
@@ -279,20 +281,85 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpPost, ActionName("GetFeePaymentReport")]
+        public HttpResponseMessage GetFeePaymentReport([FromBody] FeePaymentDataInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@InstitutionID", data.InstitutionID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@FeePaymentTypeID", data.FeePaymentTypeID);
+                param[5] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PinListForFeePaymentReport", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_PinListForFeePaymentReport", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        //[HttpGet, ActionName("GetAffiliatedInstitutions")]
+        //public HttpResponseMessage GetAffiliatedInstitutions()
+        //{
+        //    try
+        //    {
+        //        var dbHandler = new ccicdbHandler();
+        //        string StrQuery = "";
+        //        StrQuery = "exec SP_Get_AffiliatedInsttitutions";
+        //        return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutions", 0, ex.Message);
+        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+        //    }
+        //}
+
         [HttpGet, ActionName("GetAffiliatedInstitutions")]
-        public HttpResponseMessage GetAffiliatedInstitutions()
+        public string GetAffiliatedInstitutions(int AcademicYearID,int ExamMonthYearID,int CourseID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_AffiliatedInsttitutions";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@CourseID", CourseID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AffiliatedInsttitutions", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_AffiliatedInsttitutions", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetFeePaymentType")]
+        public string GetFeePaymentType(int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_FeePaymentTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
 
@@ -2237,6 +2304,32 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+
+        [HttpPost, ActionName("GetorEditExamCentresMappingData")]
+        public HttpResponseMessage GetorEditExamCentresMappingData([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataType", request["DataType"].ToString());
+                param[1] = new SqlParameter("@AcademicYearID", request["AcademicYearID"].ToString());
+                param[2] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"].ToString());
+                param[3] = new SqlParameter("@CourseID", request["CourseID"].ToString());
+                param[4] = new SqlParameter("@InstitutionExamCenterMappingId", request["InstitutionExamCenterMappingId"].ToString());
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_ExamCenterMappings", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_ExamCenterMappings", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpPost, ActionName("SetAdminExamCentersList")]
         public HttpResponseMessage SetAdminExamCentersList([FromBody] JsonObject request)
         {
@@ -2260,6 +2353,58 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+
+        [HttpPost, ActionName("AddMappingExamCentres")]
+        public HttpResponseMessage AddMappingExamCentres([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@AcademicYearID", request["AcademicYearID"]);
+                param[1] = new SqlParameter("@ExamMonthYearID", request["ExamMonthYearID"]);
+                param[2] = new SqlParameter("@CourseID", request["CourseID"]);
+                param[3] = new SqlParameter("@ExaminationCentreID", request["ExaminationCentreID"]);
+                param[4] = new SqlParameter("@InstitutionIDJson", request["InstitutionIDJson"]);
+                param[5] = new SqlParameter("@UserName", request["UserName"]);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_InstitutionExamCenterMapping", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_InstitutionExamCenterMapping", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("UpdateMappingExamCentres")]
+        public HttpResponseMessage UpdateMappingExamCentres([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@InstitutionExamCenterMappingId", request["InstitutionExamCenterMappingId"]);
+                param[1] = new SqlParameter("@ExaminationCentreID", request["ExaminationCentreID"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[3] = new SqlParameter("@UserName", request["UserName"]);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ExamCenterMappings", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Update_ExamCenterMappings", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
 
         public class NRData
         {
@@ -2601,7 +2746,122 @@ namespace SoftwareSuite.Controllers.CCIC
 
         //}
 
-        
+
+
+
+        [HttpGet, ActionName("GetFeePaymentReportExcel")]
+        public string GetFeePaymentReportExcel(int DataType, int InstitutionID, int AcademicYearID, int ExamMonthYearID,int FeePaymentTypeID,string UserName)
+        {
+             List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[4] = new SqlParameter("@FeePaymentTypeID", FeePaymentTypeID);
+                param[5] = new SqlParameter("@UserName", UserName);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PinListForFeePaymentReport", param);
+                var filename = "FeePaymentReport" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetExamCentreMappingExcel")]
+        public string GetExamCentreMappingExcel(int DataType, int AcademicYearID, int ExamMonthYearID, int CourseID, int InstitutionExamCenterMappingId)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[3] = new SqlParameter("@CourseID", CourseID);
+                param[4] = new SqlParameter("@InstitutionExamCenterMappingId", InstitutionExamCenterMappingId);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_ExamCenterMappings", param);
+                var filename = "ExamCentresMapping_Report" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("RequestLog")]
+        public HttpResponseMessage RequestLog([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[12];
+                param[0] = new SqlParameter("@marchantid", request["marchantid"]);
+                param[1] = new SqlParameter("@subMarchantid", request["subMarchantid"]);
+                param[2] = new SqlParameter("@addInfo1", request["addInfo1"]);
+                param[3] = new SqlParameter("@addInfo3", request["addInfo3"]);
+                param[4] = new SqlParameter("@addInfo4", request["addInfo4"]);
+                param[5] = new SqlParameter("@addInfo5", request["addInfo5"]);
+                param[6] = new SqlParameter("@addInfo6", request["addInfo6"]);
+                param[7] = new SqlParameter("@addInfo7", request["addInfo7"]);
+                param[8] = new SqlParameter("@challan", request["challan"]);
+                param[9] = new SqlParameter("@amount", request["amount"]);
+                param[10] = new SqlParameter("@schemeId", request["schemeId"]);
+                param[11] = new SqlParameter("@json", request["json"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SFP_SET_RequestLog", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_SFP_SET_RequestLog", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
 
     }
 

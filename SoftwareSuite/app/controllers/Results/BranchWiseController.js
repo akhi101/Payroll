@@ -853,7 +853,20 @@
             // alert(AppSettings.ExportToExcelUrl);
             //alert("Excel : "+tableId);
             var exportHref = Excel.tableToExcel(tableId, 'idtoDivPrintAdmin');
-            $timeout(function () { location.href = exportHref; }, 100);
+      //      var exportHref = Excel.tableToExcel(tableid, 'AdminReports');
+            $timeout(function () {
+                var a = document.createElement('a');
+                a.href = exportHref;
+                a.remove();
+                a.download = "BranchwiseResults.xls";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+
+            }, 100);
+         //   $timeout(function () { location.href = exportHref; }, 100);
+
+          //  window.open(exportHref, null, 'left=50,top=50,width=700,height=500,toolbar=1,location=0,resizable=1,scrollbars=1')
         }
         $scope.PrintDashBoard = function () {
 

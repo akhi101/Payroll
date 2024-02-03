@@ -438,5 +438,77 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
         }
+
+        public DataSet ReturnDataWithStoredProcedure(string strProcedureName, SqlParameter[] param)
+        {
+
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            string paramTextCollection = string.Empty;
+            string spQuery = $"exec {strProcedureName} ";
+            DateTime callStartTime = DateTime.Now;
+            var dbgStr = "";
+            try
+            {
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    dbgStr += "----------------------------------------------------------------------------------------------------------------------" + Environment.NewLine; ;
+
+                    if (param != null)
+                    {
+                        for (int i = 0; i < param.Length; i++)
+                        {
+                            paramTextCollection += param[i].ParameterName + ":" + param[i].Value;
+                            if (param[i].SqlDbType == SqlDbType.VarChar)
+                                spQuery += $"'{param[i].Value}',";
+                            else
+                                spQuery += $"{param[i].Value},";
+                        }
+
+                    }
+                }
+
+
+
+                sqlCmd = new SqlCommand(strProcedureName, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.CommandTimeout = intTimeOutPeriod * 100;
+                if (param != null)
+                    sqlCmd.Parameters.AddRange(param);
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(ds);
+
+                if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    DateTime callendTime = DateTime.Now;
+                    dbgStr += (strProcedureName + " " + paramTextCollection + DateTime.Now + "Duration : " + (callendTime - callStartTime).ToString()) + Environment.NewLine;
+                    dbgStr += (spQuery) + Environment.NewLine;
+                    dbgStr += ("----------------------------------------------------------------------------------------------------------------------") + Environment.NewLine;
+                    Debug.WriteLine(dbgStr);
+
+                    var t = Task.Run(() => AppendLog(dbgStr));
+                }
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
+                //ErorrFindBLL.SaveErorr(this.GetType().BaseType.Name, ex.Message.ToString().Replace("'", ""));
+                RollBack();
+                createlog(ex.Message.ToString(), "Stored Procedure " + strProcedureName + " Problem");
+                throw ex;
+            }
+        }
+
     }
 }

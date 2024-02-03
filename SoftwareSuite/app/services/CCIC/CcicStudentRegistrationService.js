@@ -55,6 +55,10 @@
             return DataAccessService.postData('api/CcicStudentRegistration/VerifyMobileOtp', paramObject);
         };
 
+        this.PostMultiplePaymentData = function (ReqData) {
+            var promise = DataAccessService.postData('api/CcicStudentRegistration/PostMultipleApplicationPaymentdata', ReqData);
+            return promise;
+        };
 
        
       

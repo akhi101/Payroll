@@ -11,8 +11,8 @@
         var submodules = [];
         var UserTypeID = authData.UserTypeID;
         var ModuleID = parseInt($localStorage.selectedModule.ModuleID);
-      
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID,ModuleID);
+
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserSubModules(UserTypeID, ModuleID);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             var moduleroutename = "";
@@ -100,9 +100,26 @@
 
         $scope.submodules = submodules;
 
+
+
+
+        //$scope.OpenSubModule = function (Module) {
+        //    if (Module.ModuleRouteName == 'FeePayment') {
+        //        alert('Fee Payment will be Resumed Soon');
+        //        // $state.go("CcicDashboard.PreExamination");
+        //        return;
+        //    }
+        //    else {
+        //        $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+        //    }
+        //}
+
         $scope.OpenSubModule = function (Module) {
-            $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+
+                $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+            
         }
+    
 
         $scope.OpenCcicDashboard = function () {
             $state.go('CcicDashboard')

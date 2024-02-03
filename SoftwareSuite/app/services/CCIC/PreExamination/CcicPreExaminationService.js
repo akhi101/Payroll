@@ -9,9 +9,9 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentType');
         };
 
-        this.GetFeePaymentType = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentType');
-        };
+        //this.GetFeePaymentType = function () {
+        //    return DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentType');
+        //};
 
         this.GetCourseDurations = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCourseDurations');
@@ -51,6 +51,24 @@
 
         this.GetDistricts = function () {
             return DataAccessService.postData('api/CcicPreExamination/GetDistricts');
+        };
+
+
+        this.GetAffiliatedInstitutions = function (AcademicYearID, ExamMonthYearID, CourseID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAffiliatedInstitutions', paramObj);
+            return promise;
+        };
+        this.GetFeePaymentType = function (InstitutionID) {
+            var paramObj = {
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentType', paramObj);
+            return promise;
         };
 
         this.GetCcicAcademicYearCurrentBatch = function (AcademicYearID) {
@@ -222,6 +240,43 @@
             return promise;
         };
 
+        this.GetExamCentresMappingData = function (DataType, AcademicYearID, ExamMonthYearID, CourseID, InstitutionExamCenterMappingId) {
+            var paramObj = {
+                "DataType": DataType,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID,
+                "InstitutionExamCenterMappingId": InstitutionExamCenterMappingId
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetorEditExamCentresMappingData', paramObj);
+            return promise;
+        };
+
+        this.EditExamCentresMappingData = function (DataType, AcademicYearID, ExamMonthYearID, CourseID, InstitutionExamCenterMappingId) {
+            var paramObj = {
+                "DataType": DataType,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID,
+                "InstitutionExamCenterMappingId": InstitutionExamCenterMappingId
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/GetorEditExamCentresMappingData', paramObj);
+            return promise;
+        };
+
+
+        this.GetExamCentreMappingExcel = function (DataType, AcademicYearID, ExamMonthYearID, CourseID, InstitutionExamCenterMappingId) {
+            var paramObj = {
+                "DataType": DataType,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID,
+                "InstitutionExamCenterMappingId": InstitutionExamCenterMappingId
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetExamCentreMappingExcel', paramObj);
+            return promise;
+        };
+
         this.SetAdminExamCentersList = function (Json,ExamMonthYearID) {
             var paramObj = {
                 "Json": Json, "ExamMonthYearID": ExamMonthYearID
@@ -230,6 +285,30 @@
             return promise;
         };
 
+
+        this.AddMappingExamCentres = function (AcademicYearID, ExamMonthYearID, CourseID, ExaminationCentreID, InstitutionIDJson, UserName) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID,
+                "ExaminationCentreID": ExaminationCentreID,
+                "InstitutionIDJson": InstitutionIDJson,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddMappingExamCentres', paramObj);
+            return promise;
+        };
+
+        this.UpdateMappingExamCentres = function (InstitutionExamCenterMappingId, ExaminationCentreID, Active, UserName) {
+            var paramObj = {
+                "InstitutionExamCenterMappingId": InstitutionExamCenterMappingId,
+                "ExaminationCentreID": ExaminationCentreID,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/UpdateMappingExamCentres', paramObj);
+            return promise;
+        };
         this.GetAdminEnrollmentReportInsCount = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportInsCount');
         };
@@ -592,6 +671,18 @@
             return DataAccessService.postData('api/CcicPreExamination/getPayExamFee', paramObject);
         }
 
+        this.GetFeePaymentReport = function (DataType,InstitutionID, AcademicYearID, ExamMonthYearID, FeePaymentTypeID, UserName) {
+            var paramObject = {
+                "DataType": DataType,
+                "InstitutionID": InstitutionID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "FeePaymentTypeID": FeePaymentTypeID,
+                "UserName": UserName
+            };
+            return DataAccessService.postData('api/CcicPreExamination/GetFeePaymentReport', paramObject);
+        }
+
         this.SetHolidayDates = function (Json, AcademicYearId, ExamMonthYearId) {
             var paramObj = {
                 "Json": Json,
@@ -629,6 +720,23 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicTimeTableExcel', paramObj);
             return promise;
         };
+
+        this.GetFeePaymentReportExcel = function (DataType,InstitutionID, AcademicYearID, ExamMonthYearID, FeePaymentTypeID, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "InstitutionID": InstitutionID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "FeePaymentTypeID": FeePaymentTypeID,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeePaymentReportExcel', paramObj);
+            return promise;
+        };
+
+
+
+
 
        
 

@@ -657,6 +657,8 @@ namespace SoftwareSuite.Controllers.Admission
 
         }
 
+     
+
 
 
         [HttpGet, ActionName("GetReleaseAttendeeIdBypin")]

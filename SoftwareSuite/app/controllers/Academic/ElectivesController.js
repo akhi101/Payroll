@@ -1,5 +1,6 @@
 ﻿define(['app'], function (app) {
     app.controller("ElectivesController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, MarksEntryService, ElectivesService, MenuService, AssessmentService) {
+        $scope.HideSession = true;
         var authData = $localStorage.authorizationData;
         $scope.userName = authData.userName;
         $scope.College_Code = authData.College_Code;

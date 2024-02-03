@@ -124,7 +124,8 @@
                 ApplicationNumber: ApplicationNumber,
                 StudentID: StudentID,
                 isSubmitted: isSubmitted,
-                ApplicationStatus: ApplicationStatus
+                ApplicationStatus: ApplicationStatus,
+                CourseID: tempData2.CourseID
                
 
             };

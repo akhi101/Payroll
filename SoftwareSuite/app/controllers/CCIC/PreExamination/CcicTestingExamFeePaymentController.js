@@ -1,5 +1,5 @@
-﻿define(['app'], function (app) {
-    app.controller("CcicExamFeePaymentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService, CcicPreExaminationService, CcicStudentRegistrationService, $uibModal, PaymentService) {
+define(['app'], function (app) {
+    app.controller("CcicTestingExamFeePaymentController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, PreExaminationService, CcicPreExaminationService, CcicStudentRegistrationService, $uibModal, PaymentService) {
         var authData = $localStorage.authorizationData;
         if (authData == undefined) {
             $state.go('index.OfficialsLogin')
@@ -29,8 +29,8 @@
 
         };
 
-        $scope.PaymentList = [];
-        $scope.PaymentPins = [];
+         $scope.PaymentList = [];
+         $scope.PaymentPins = [];
         $scope.selectEntity = function (data) {
             $scope.allItemsSelected = false;
             if (data != null) {
@@ -41,11 +41,11 @@
                     dataPay.FeePaymentDataID = data.FeePaymentDataID
                     dataPay.FeeAmount = data.FeeAmount
                     $scope.PaymentList.push(dataPay);
-                    var FeeAmount = 0
+                    var FeeAmount=0
                     $scope.PaymentPins.push(data.PIN);
                     for (i = 0; i < $scope.PaymentList.length; i++) {
-                        FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
-
+                       FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+                    
                     }
                     $scope.FeeAmount = FeeAmount;
                 }
@@ -66,7 +66,7 @@
             //console.log($scope.PaymentList)
             //console.log($scope.PaymentPins)
 
-
+            
             //if (data.isChecked) {
             //    let list = $scope.addData(data.FeePaymentDataID, data.StudentID, data.PIN, data.FeeAmount);
             //    $scope.PaymentPins.push(list);
@@ -130,8 +130,8 @@
 
             //$scope.allItemsSelected = true;
         };
-
-
+       
+       
         Array.prototype.remByVal = function (val) {
             for (var i = 0; i < this.length; i++) {
                 if (this[i] === val) {
@@ -214,7 +214,7 @@
                 }
                 var FeeAmount = 0
                 for (i = 0; i < $scope.PaymentList.length; i++) {
-                    FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+                   FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
 
                 }
                 $scope.FeeAmount = FeeAmount;
@@ -227,7 +227,7 @@
                 }
                 var FeeAmount = 0
                 for (i = 0; i < $scope.PaymentList.length; i++) {
-                    FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
+                  FeeAmount += parseInt($scope.PaymentList[i].FeeAmount)
 
                 }
                 $scope.FeeAmount = FeeAmount;
@@ -352,12 +352,12 @@
             else if ($scope.FeePaymentType == 3) {
                 addInfo5 = "REGISTRATION"
             }
-
+            
 
             var subMarchantid = "TSCCIC";
             $localStorage.CcicPaymentGatewayResponse = {};
             redirecturl = {
-                redirecturl: "CcicDashboard.PreExamination.FeePayment"
+                redirecturl: "CcicDashboard.PreExamination.TesTingFeePayment"
             }
             $localStorage.CcicPaymentGatewayResponse = redirecturl;
 
@@ -476,7 +476,7 @@
                     var Res = JSON.parse(response)
                 }
                 catch {
-
+                    
                 }
                 if (Res.length > 0) {
                     $scope.FeePaymentTypeData = Res;
@@ -494,14 +494,11 @@
 
         $scope.showPaymentDetails = function () {
             $scope.ExamPayment = null;
-            $scope.PaymentList = [];
-            $scope.PaymentPins = [];
-            $scope.allItemsSelected = false;
             $scope.loading = true;
             var getAdmissionsubmod = CcicPreExaminationService.getPayExamFee($scope.InstitutionID, $scope.AcademicYearID, $scope.ExamMonthYearID, $scope.FeePaymentTypeID, $scope.UserName);
             getAdmissionsubmod.then(function (Usersdata) {
 
-                if (Usersdata.Table.length > 0 && Usersdata.Table1[0].StatusCode == '200') {
+                if (Usersdata.Table.length > 0 && Usersdata.Table1[0].StatusCode=='200') {
                     $scope.isShowResults = true;
                     $scope.dataBackLog = false;
 

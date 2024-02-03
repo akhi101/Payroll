@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     input[type=checkbox] {
         display: block;
         width: 25px;
@@ -52,7 +52,7 @@
         height: 50px !important;
     }
 </style>
-<div ng-controller="CcicExamFeePaymentController">
+<div ng-controller="CcicTestingExamFeePaymentController">
     <section class="content">
         <div class="container">
             <div class="col-md-12">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 form-group">
-                        <label class="font-weight-bold" for="ExamMonthYear">
+                        <label for="ExamMonthYear">
                             Exam Month/Year :
                         </label>
                         <select class="form-control" name="ExamMonthYear" required ng-model="ExamMonthYear" ng-change="ChangeExmmonthYr(ExamMonthYear)">
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="col-md-3 form-group">
-                        <label class="font-weight-bold" for="StudentType">
+                        <label for="StudentType">
                             Fee Payment Type :
                         </label>
                         <select class="form-control" name="FeePaymentType" required ng-model="FeePaymentType"

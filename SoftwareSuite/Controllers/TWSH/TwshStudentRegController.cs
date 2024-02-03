@@ -966,6 +966,7 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[3] = new SqlParameter("@ExamDate", ExamDate);
                 param[4] = new SqlParameter("@ExamBatch", ExamBatch);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TwshBarCodeNR", param);
+              //  GetTwshPrinterNrDownload(ExamMonthYearId);
                 GenerateTwshNR GenerateTwshNR = new GenerateTwshNR();
                 var pdf = GenerateTwshNR.GetTwshNrPdf(ds, NRReportDir);
                 return pdf;
@@ -3105,8 +3106,8 @@ namespace SoftwareSuite.Controllers.TWSH
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("ADM_Genereate_TWSH_NR", param);
                 var path = ConfigurationManager.AppSettings["TwshStudentPhotos"].ToString();
                 CreateIfMissing(path);
-
-                var TwshNRData = DataTableHelper.ConvertDataTable<PrinterNrData>(ds.Tables[0]);
+                if (ds.Tables[0] != null &&  ds.Tables[0].Rows.Count > 0) { 
+                    var TwshNRData = DataTableHelper.ConvertDataTable<PrinterNrData>(ds.Tables[0]);
                 var Photos = TwshNRData.Select(x => new { x.ApplicationNumber }).Distinct().ToList();
                 foreach (var stu in Photos)
                 {
@@ -3115,14 +3116,20 @@ namespace SoftwareSuite.Controllers.TWSH
                         var param1 = new SqlParameter[1];
                         param1[0] = new SqlParameter("@ApplicationNo", stu.ApplicationNumber);
                         DataSet ds1 = dbHandler.ReturnDataWithStoredProcedure("USP_GET_PhotoForTWSHPrinterNr", param1);
-                        if (ds1.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                            if (ds1.Tables[0] != null &&  ds1.Tables[0].Rows.Count > 0)
+                            {
+                                if (ds1.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                         {
-                            var base64photo = ds1.Tables[1].Rows[0]["Photo"].ToString().Replace("data:image/png;base64,", "").Replace("data:image/jpeg;base64,", "");
-                            byte[] imageBytes = Convert.FromBase64String(base64photo);
-                            File.WriteAllBytes(path + "\\" + stu.ApplicationNumber + ".jpg", imageBytes);
-
+                           
+                                if (ds1.Tables[1] != null &&  ds1.Tables[1].Rows.Count > 0) {
+                                var base64photo = ds1.Tables[1].Rows[0]["Photo"].ToString().Replace("data:image/png;base64,", "").Replace("data:image/jpeg;base64,", "");
+                                byte[] imageBytes = Convert.FromBase64String(base64photo);
+                                File.WriteAllBytes(path + "\\" + stu.ApplicationNumber + ".jpg", imageBytes);
+                                    }
+                                }
                         }
                     }
+                }
                 }
                 GenerateTwshPrinterNr GenerateTwshPrinterNrData = new GenerateTwshPrinterNr();
                 return GenerateTwshPrinterNrData.GeneratePrinterNr(ds);
