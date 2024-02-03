@@ -5,6 +5,10 @@
         var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
         $scope.UserName = authData.UserName;
+
+        $scope.Institution = tempData2.Institution;
+        $scope.Course = tempData2.Course;
+
         const $ctrl = this;
         $ctrl.$onInit = () => {
 

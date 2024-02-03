@@ -206,10 +206,21 @@
                 alert('Please select Exam Centre');
                 return;
             }
+            if ($scope.institutionarr == '' && $scope.isAllSelectedinstitutions == null || $scope.institutionarr == null && $scope.isAllSelectedinstitutions == null || $scope.institutionarr == undefined && $scope.isAllSelectedinstitutions == null) {
+                alert('Please select Institution');
+                return;
+            }
+
+            if ($scope.institutionarr == '' && $scope.isAllSelectedinstitutions == true || $scope.institutionarr == null && $scope.isAllSelectedinstitutions == true || $scope.institutionarr == undefined && $scope.isAllSelectedinstitutions == true) {
+                alert('Please select Different Course');
+                return;
+            }
+
             if ($scope.institutionarr == '' || $scope.institutionarr == null || $scope.institutionarr == undefined) {
                 alert('Please select Institution');
                 return;
             }
+
             $scope.GetButton = false;
             $scope.AcademicYearDisable = true;
             $scope.monthyearDisable = true;

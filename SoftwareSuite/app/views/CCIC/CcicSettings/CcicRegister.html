@@ -265,8 +265,8 @@
                             <thead>
                                 <tr class="cb-1">
 
-                                    <th>InstitutionCode</th>
-                                    <th>InstitutionName</th>
+                                    <!--<th>InstitutionCode</th>-->
+                                    <th>Institution</th>
                                     <th>Enrolled</th>
                                     <th>Submitted</th>
                                     <th>Approved</th>
@@ -277,10 +277,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="Data in AdmRegisterReportInsCountTable|orderBy:sortKey:reverse|filter:search" ng-dblclick="showAdminRegisterCoursesCount(Data.InstitutionID,academicYear,batch)">
+                                <tr ng-repeat="Data in AdmRegisterReportInsCountTable|orderBy:sortKey:reverse|filter:search" ng-dblclick="showAdminRegisterCoursesCount(Data.InstitutionID,academicYear,batch,Data.Institution)">
 
-                                    <td>{{Data.InstitutionCode}}</td>
-                                    <td>{{Data.InstitutionName}}</td>
+                                    <!--<td>{{Data.InstitutionCode}}</td>-->
+                                    <td>{{Data.Institution}}</td>
                                     <td><b>{{Data.Enrolled}}</></b></td>
                                     <td><b>{{Data.Submitted}}</b></td>
                                     <td><b>{{Data.Approved}}</b></td>
@@ -289,7 +289,7 @@
                                     <td><b>{{Data.Rejected}}</b></td>
                                 </tr>
                                 <tr style="font-weight:bold">
-                                    <td colspan="2" class="text-centre" style="padding-left:300px">Total</td>
+                                    <td colspan="1" class="text-centre" style="padding-left:300px">Total</td>
                                     <td>{{Enrolled}}</td>
                                     <td>{{Submitted}}</td>
                                     <td>{{Approved}}</td>

@@ -25,6 +25,12 @@
         font-size: 14px !important;
     }
 
+        label.notifylabel {
+            position: absolute;
+            right: 19px;
+            top: 0px;
+        }
+
     .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
         border: 1px solid #ddd !important;
         color: #337ab7;
@@ -186,9 +192,14 @@
                     </div>-->
 
                                             <form class="form-inline" ng-if="RegisterReportCoursesTable.length>0">
-                                                <div class="form-group">
+                                                <!--<div class="form-group">
                                                     <label>Search</label>
                                                     <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                                                </div>-->
+                                                <div>
+                                                    <ol class="breadcrumb">
+                                                        <li style="margin-left:10px"> {{Institution}}</li>
+                                                    </ol>
                                                 </div>
                                             </form>
                                             <label class="notifylabel" ng-if="RegisterReportCoursesTable.length>0" for="sel1" style="color: red;"> Click on Link to get Student Details</label>
@@ -196,7 +207,7 @@
                                                 <table class="table table-bordered table-rounded">
                                                     <thead>
                                                         <tr class="cb-1">
-                                                            <th>CourseCode</th>
+                                                            <th>Course</th>
                                                             <th>Intake</th>
                                                             <th>Enrolled</th>
                                                             <th>Submitted</th>
@@ -210,14 +221,14 @@
                                                     <tbody>
                                                         <tr ng-repeat="Data in RegisterReportCoursesTable|orderBy:sortKey:reverse|filter:search">
 
-                                                            <td>{{Data.CourseCode}}</td>
+                                                            <td>{{Data.Course}}</td>
                                                             <td>{{Data.Intake}}</td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,1,academicYear,batch)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,2,academicYear,batch)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,3,academicYear,batch)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4,academicYear,batch)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,5,academicYear,batch)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
-                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,6,academicYear,batch)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,1,academicYear,batch,Data.Course)">{{Data.Enrolled == null ?'--':Data.Enrolled}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,2,academicYear,batch,Data.Course)">{{Data.Submitted == null ?'--':Data.Submitted}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,3,academicYear,batch,Data.Course)">{{Data.Approved == null ?'--':Data.Approved}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4,academicYear,batch,Data.Course)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,5,academicYear,batch,Data.Course)">{{Data.Revised == null ?'--':Data.Revised}}</a></b></td>
+                                                            <td><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,6,academicYear,batch,Data.Course)">{{Data.Rejected == null ?'--':Data.Rejected}}</a></b></td>
                                                         </tr>
 
                                                     </tbody>
