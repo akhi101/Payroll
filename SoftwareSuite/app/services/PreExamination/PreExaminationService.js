@@ -3460,5 +3460,26 @@
         
         }
 
+
+
+        this.AddFeeSettings = function (DataTypeId, ID, Name, Is_Active, Price, ServiceType, ChallanPrefix,UserName) {
+            var paramObj = {
+
+                "DataTypeId": DataTypeId,
+                "ID": ID,
+                "Name": Name,
+                "Is_Active": Is_Active,
+                "Price": Price,
+                "ServiceType": ServiceType,
+                "ChallanPrefix": ChallanPrefix,
+                "UserName": UserName
+
+
+            };
+            var promise = DataAccessService.postData('PreExaminationReport/AddorUpdateFeeSetting', paramObj);
+            return promise;
+        };
+
+
     });
 });

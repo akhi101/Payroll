@@ -31,9 +31,15 @@
             return DataAccessService.getDataAll('api/PreExamination/get6thSemStudiedReport');
         };
 
-        this.getSyllabusReportExcel = function (DataTypeId, CollegeCode, BranchCode) {
+        this.getSyllabusReportExcel = function (DataTypeId, AcademicYearId,Json, CollegeCode, BranchCode) {
 
-            var ParamObj = { "DataTypeId": DataTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode }
+            var ParamObj = {
+                "DataTypeId": DataTypeId,
+                "AcademicYearId": AcademicYearId,
+                "Json": Json,
+                "CollegeCode": CollegeCode,
+                "BranchCode": BranchCode
+            }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getSyllabusReportExcel', ParamObj);
             return promise;
 
@@ -139,9 +145,15 @@
 
 
 
-        this.getAdminSyllabusCoverageReport = function (DataTypeId, CollegeCode, BranchCode) {
-           
-            var ParamObj = { "DataTypeId": DataTypeId, "CollegeCode": CollegeCode, "BranchCode": BranchCode }
+        this.getAdminSyllabusCoverageReport = function (DataTypeId, AcademicYearId,Json, CollegeCode, BranchCode) {
+
+            var ParamObj = {
+                "DataTypeId": DataTypeId,
+                "AcademicYearId": AcademicYearId,
+                "Json": Json,
+                "CollegeCode": CollegeCode,
+                "BranchCode": BranchCode
+            }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/getAdminSyllabusCoverageReport', ParamObj);
                     return promise;
                  

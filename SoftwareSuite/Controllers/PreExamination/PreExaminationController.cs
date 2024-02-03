@@ -3366,6 +3366,33 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+
+        [HttpPost, ActionName("AddorUpdateFeeSetting")]
+        public string AddorUpdateFeeSetting(int DataType, int ID, string Name, bool Is_Active, int Price, int ServiceType, string ChallanPrefix, string UserName)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ID", ID);
+                param[2] = new SqlParameter("@Name", Name);
+                param[3] = new SqlParameter("@Is_Active", Is_Active);
+                param[4] = new SqlParameter("@Price", Price);
+                param[5] = new SqlParameter("@ServiceType", ServiceType);
+                param[6] = new SqlParameter("@ChallanPrefix", ChallanPrefix);
+                param[7] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CertificateTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Add_Update_CertificateTypes", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("getAdminTransferReportExcel")]
         public string getAdminTransferReportExcel(int AcademicYearId)
         {
@@ -3563,16 +3590,18 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getAdminSyllabusCoverageReport")]
-        public string getAdminSyllabusCoverageReport(int DataTypeId,string CollegeCode= null,string BranchCode= null)
+        public string getAdminSyllabusCoverageReport(int DataTypeId,int AcademicYearId, string Json,string CollegeCode = null,string BranchCode= null)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
-                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[2] = new SqlParameter("@BranchCode", BranchCode);
+                param[1] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[2] = new SqlParameter("@Json", Json);
+                param[3] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[4] = new SqlParameter("@BranchCode", BranchCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SyllabusCoverageReportsforAdmin", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -3700,15 +3729,17 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("getSyllabusReportExcel")]
-        public string getSyllabusReportExcel(int DataTypeId,string CollegeCode=null,string BranchCode=null)
+        public string getSyllabusReportExcel(int DataTypeId,int AcademicYearId,string Json, string CollegeCode=null,string BranchCode=null)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
-                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[2] = new SqlParameter("@BranchCode", BranchCode);
+                param[1] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[2] = new SqlParameter("@Json", Json);
+                param[3] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[4] = new SqlParameter("@BranchCode", BranchCode);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SyllabusCoverageReportsforAdmin", param);              
                 var filename = "Syllabus_Report" + ".xlsx";
                 var eh = new ExcelHelper();
@@ -14290,6 +14321,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             return file;
         }
 
+        
+
 
 
         [HttpPost, ActionName("GetSeatingData")]
@@ -14445,6 +14478,20 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
 
 
 

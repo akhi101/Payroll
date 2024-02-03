@@ -1080,6 +1080,7 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
+    <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
@@ -3108,6 +3109,7 @@
     <Content Include="app\views\StudentResult.html" />
     <Content Include="app\views\StudentServices\AdministrationServices.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveList.html" />
+    <Content Include="app\views\StudentServices\FeeSettings.html" />
     <Content Include="app\views\StudentServices\StudentDetailsPopup.html" />
     <Content Include="app\views\StudentServices\StudentServices.html" />
     <Content Include="app\views\StudentServices\TcApplicationForm.html" />
