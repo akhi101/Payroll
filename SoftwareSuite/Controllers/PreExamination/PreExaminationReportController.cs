@@ -188,30 +188,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        [HttpPost, ActionName("AddorUpdateFeeSettings")]
-        public string AddorUpdateFeeSettings(int DataType, int ID, string Name, bool Is_Active, int Price, int ServiceType, string ChallanPrefix, string UserName)
-        {
-            try
-            {
-                var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataType", DataType);
-                param[1] = new SqlParameter("@ID", ID);
-                param[2] = new SqlParameter("@Name", Name);
-                param[3] = new SqlParameter("@Is_Active", Is_Active);
-                param[4] = new SqlParameter("@Price", Price);
-                param[5] = new SqlParameter("@ServiceType", ServiceType);
-                param[6] = new SqlParameter("@ChallanPrefix", ChallanPrefix);
-                param[7] = new SqlParameter("@UserName", UserName);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CertificateTypes", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Add_Update_CertificateTypes", 0, ex.Message);
-                return ex.Message;
-            }
-        }
+        
 
         [HttpPost, ActionName("ThreeBacklogODCByPin")]
         public string ThreeBacklogODCByPin(string fromdate, string todate, string PIN)
@@ -707,5 +684,32 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
+
+        [HttpGet, ActionName("addorUpdateFeeSettings")]
+        public string addorUpdateFeeSettings(int DataType, int ID, string Name, bool Is_Active, int Price, int ServiceType, string ChallanPrefix, string UserName)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@ID", ID);
+                param[2] = new SqlParameter("@Name", Name);
+                param[3] = new SqlParameter("@Is_Active", Is_Active);
+                param[4] = new SqlParameter("@Price", Price);
+                param[5] = new SqlParameter("@ServiceType", ServiceType);
+                param[6] = new SqlParameter("@ChallanPrefix", ChallanPrefix);
+                param[7] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CertificateTypes", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Add_Update_CertificateTypes", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
     }
 }
