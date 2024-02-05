@@ -54,7 +54,7 @@
             }
         }, function (error) {
             $scope.GetFeeSettings = [];
-            $scope.ReportFound = fale;
+            //$scope.ReportFound = fale;
             $scope.Noreports = true;
         });
 
@@ -91,7 +91,7 @@
 
             
             var datatypeid = 1
-            var AddFeeSettings = PreExaminationService.AddFeeSettings(datatypeid, '', $scope.ServiceName, 1, $scope.Amount,$scope.ServiceType, $scope.ChallanPrefix,$scope.UserName)
+            var AddFeeSettings = PreExaminationService.AddFeeSettings(datatypeid, 0, $scope.ServiceName, 1, $scope.Amount,$scope.ServiceType, $scope.ChallanPrefix,$scope.UserName)
             AddFeeSettings.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].ResponceCode == '200') {
