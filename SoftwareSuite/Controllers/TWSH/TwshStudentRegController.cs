@@ -57,7 +57,7 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var db = new Twshdbandler();
-                var res = db.ReturnData("USP_GET_Courses");
+                var res = db.ReturnData("SP_GET_Courses");
                 return res;
             }
             catch (Exception ex)
@@ -1742,6 +1742,27 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[0] = new SqlParameter("@CourseId", CourseId);
                 param[1] = new SqlParameter("@LanguageId", language);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_Grades", param);
+
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetQualificationList")]
+        public HttpResponseMessage GetQualificationList(int GradeId)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@GradeId", GradeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_Qualifications", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
