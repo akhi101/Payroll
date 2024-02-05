@@ -654,6 +654,14 @@
             return promise;
         };
 
+        this.getQualifications = function (GradeId) {
+            var paramObj = {
+                "GradeId": GradeId
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetQualificationList', paramObj);
+            return promise;
+        };
+
         //------Offline exam centers----------
         this.getExaminationCenters = function (UserId, DistrictId, CourseId, GradeId) {
             var paramObj = { "UserId": UserId, "DistrictId": DistrictId, "CourseId": CourseId, "GradeId": GradeId };
