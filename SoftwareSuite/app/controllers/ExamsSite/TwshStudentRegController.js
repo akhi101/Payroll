@@ -1051,9 +1051,9 @@
                         $scope.QualifiedExam = true;
                         $scope.CandidateName = res[0].StudentName;
                         $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
-                        $scope.ShowAadhaarDetail = true;
-                        $scope.applicationForm = false;
-                        $scope.ExamAppearDetails = false;
+                        $scope.ShowAadhaarDetail = false;
+                        $scope.applicationForm = true;
+                        $scope.ExamAppearDetails = true;
                         $scope.oldUser2 = false;
                         $scope.sscForm = false;
                         $scope.isqualified1 = false;
@@ -1068,10 +1068,10 @@
                     }
                 } else {
                     alert("Details Not found, Continue with filling the Application");
-                    $scope.ShowAadhaarDetail = true;
-                    $scope.applicationForm = false;
+                    $scope.ShowAadhaarDetail = false;
+                    $scope.applicationForm = true;
                     $scope.oldUser2 = false;
-                    $scope.ExamAppearDetails = false;
+                    $scope.ExamAppearDetails = true;
                     $scope.isqualified1 = false;
                     $scope.isqualified2 = false;
                     $scope.isqualified3 = true;
