@@ -1660,7 +1660,7 @@ namespace SoftwareSuite.Controllers.TWSH
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@CoursesType", CoursesType);
                 param[1] = new SqlParameter("@DistrictId", DistrictId);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TWSH_ExaminationCenter_MonthDates", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_TWSH_ExaminationCenters_Dates", param);
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
             catch (Exception ex)

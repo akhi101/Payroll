@@ -13,7 +13,7 @@ using RestSharp;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
 using System.Collections;
-using System.Net.Http.Headers; 
+using System.Net.Http.Headers;
 using System.Data;
 using SoftwareSuite.Models.Database;
 using System.IO;
@@ -48,7 +48,7 @@ namespace SoftwareSuite.Controllers.PreExamination
     //[Authorize]
     public class PreExaminationController : ApiController
     {
-       
+
         public static T? GetValueOrNull<T>(string valueAsString) where T : struct
         {
             if (string.IsNullOrEmpty(valueAsString))
@@ -67,7 +67,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public double LateFee { get; set; }
             public DateTime TatkalDate { get; set; }
             public double TatkalFee { get; set; }
-            public double PremiumTatkalFee { get; set; }            
+            public double PremiumTatkalFee { get; set; }
             public double CondonationFee { get; set; }
             public int PresemptiveAttendedDays { get; set; }
             public int MaxWorkingDays { get; set; }
@@ -160,7 +160,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@StudentTypeId", Convert.ToInt32(queryParams["StudentTypeId"]));
                 param[2] = new SqlParameter("@CollegeCode", queryParams["CollegeCode"]);
                 param[3] = new SqlParameter("@ExamDate", queryParams["ExamDate"]);
-                param[4] = new SqlParameter("@ExamType", Convert.ToInt32(queryParams["ExamTypeId"]));              
+                param[4] = new SqlParameter("@ExamType", Convert.ToInt32(queryParams["ExamTypeId"]));
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_NR_BAC_Test", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ds);
                 return response;
@@ -179,7 +179,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             if (!folderExists)
                 Directory.CreateDirectory(path);
         }
-        
+
         [HttpGet, ActionName("GetExpenditure")]
         public HttpResponseMessage GetExpenditure(int ExamMonthYearId)
         {
@@ -189,7 +189,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 DataSet DS = dbHandler.ReturnDataWithStoredProcedure("USP_GET_DCBillsExamcharges", param);
-             
+
                 List<ExamSessionalExpenditureCharges> ExamSessionalExpenditureCharges = DS.Tables[0].DataTableToList<ExamSessionalExpenditureCharges>();
                 List<ExamEventExpenditureCharges> ExamEventExpenditureCharges = DS.Tables[0].DataTableToList<ExamEventExpenditureCharges>();
                 ExamExpenditureCharges ExamExpenditureCharges = new ExamExpenditureCharges()
@@ -206,7 +206,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var retMsg = "{\"status\":\"400\",\"statusdesc\": \"" + ex.Message + "\"}";
                 return Request.CreateResponse(HttpStatusCode.OK, retMsg);
             }
-           
+
         }
 
 
@@ -228,7 +228,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
+
         [HttpGet, ActionName("getBranchsByCollegeCode")]
         public string getBranchsByCollegeCode(string CollegeCode)
         {
@@ -258,7 +258,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_S2SReceipt", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
-              
+
             }
             catch (Exception ex)
             {
@@ -302,7 +302,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-    
+
 
         [HttpGet, ActionName("ResetCertificateStatus")]
         public string ResetCertificateStatus(int CertificateTypeId, string Pin, string certifictepath)
@@ -339,11 +339,11 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("ResetNameCorrectionToDs")]
-        public string ResetNameCorrectionToDs( string Pin)
+        public string ResetNameCorrectionToDs(string Pin)
         {
             try
             {
-                
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Pin", Pin);
@@ -359,7 +359,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ReleaseMarksEntry")]
-        public string ReleaseMarksEntry(string CollegeCode,int BranchId,int SemId,int SchemeId,int ExamTypeId)
+        public string ReleaseMarksEntry(string CollegeCode, int BranchId, int SemId, int SchemeId, int ExamTypeId)
         {
             try
             {
@@ -381,7 +381,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetChallanNumbers")]
-        public string GetChallanNumbers(int PaymentTypeID,int PaymentSubTypeID,string PIN,int ExamMonthYearID=0)
+        public string GetChallanNumbers(int PaymentTypeID, int PaymentSubTypeID, string PIN, int ExamMonthYearID = 0)
         {
             try
             {
@@ -403,7 +403,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetAsssessmentConsolidatedReport")]
-        public string GetAsssessmentConsolidatedReport(int AcademicyearId,string collegecode,int branchId,int  schemeid,int semid,int ExamType)
+        public string GetAsssessmentConsolidatedReport(int AcademicyearId, string collegecode, int branchId, int schemeid, int semid, int ExamType)
         {
             List<person> p = new List<person>();
             person p1 = new person();
@@ -432,7 +432,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
-                    var file = "/Downloads/" + filename;                   
+                    var file = "/Downloads/" + filename;
                     p1.file = file;
                     p1.ResponceCode = "200";
                     p1.ResponceDescription = "";
@@ -444,14 +444,14 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 else
                 {
-                   
+
                     p1.file = "";
                     p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
-              
+
             }
             catch (Exception ex)
             {
@@ -467,7 +467,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GenerateC18MemosData")]
-        public string GenerateC18MemosData(int ExamMonthYearId,int MinCredits,string Day,string Month,string Year)
+        public string GenerateC18MemosData(int ExamMonthYearId, int MinCredits, string Day, string Month, string Year)
         {
             try
             {
@@ -481,9 +481,9 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_GenerateC18ConsolidatedMemo", param);
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
-                  
+
                     //var Date = DateTime.Now.ToString("dd-MM-yyyy_hh:mm:ss");
-                    var filename =  "C18_Consolidated_Memo"+".xlsx";
+                    var filename = "C18_Consolidated_Memo" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -525,7 +525,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetTwoYearsOdcData")]
-        public string GetTwoYearsOdcData( string FromDate, string todate)
+        public string GetTwoYearsOdcData(string FromDate, string todate)
         {
             try
             {
@@ -702,7 +702,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         public string ReleaseBonafidePin(string Pin)
         {
             try
-            {        
+            {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@Pin", Pin);
@@ -750,7 +750,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_GenerateOdcByPin", param);
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
-                  
+
                     var filename = pin + '_' + "ODC_Data" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -814,7 +814,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetDaywisePcodeReport")]
-        public string GetDaywisePcodeReport(int AcademicYearId,int ExamMonthYearId,int StudentTypeId,int Schemeid,int ExamTypeId)
+        public string GetDaywisePcodeReport(int AcademicYearId, int ExamMonthYearId, int StudentTypeId, int Schemeid, int ExamTypeId)
         {
             try
             {
@@ -835,7 +835,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        public string GetDaywisePcodeExcel(int AcademicYearId,int ExamMonthYearId, int StudentTypeId, int Schemeid, int ExamTypeId)
+        public string GetDaywisePcodeExcel(int AcademicYearId, int ExamMonthYearId, int StudentTypeId, int Schemeid, int ExamTypeId)
         {
             try
             {
@@ -923,7 +923,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-     
+
 
 
         [HttpGet, ActionName("ResetTwshCertificateStatus")]
@@ -945,7 +945,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     }
                 }
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[1];   
+                var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@RegistrationNo", RegistrationNo);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_ResetTwshCertificateStatus", param);
                 return JsonConvert.SerializeObject(dt);
@@ -981,10 +981,10 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-       
+
 
         [HttpGet, ActionName("SetEventExpenditure")]
-        public string SetEventExpenditure(int AoNotification, string Superintendent, int SeatingArrangement,int ExamMonthYearId)
+        public string SetEventExpenditure(int AoNotification, string Superintendent, int SeatingArrangement, int ExamMonthYearId)
         {
             try
             {
@@ -1005,15 +1005,15 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-     
+
 
         [HttpPost, ActionName("SetSessionalExpenditure")]
         public HttpResponseMessage SetSessionalExpenditure([FromBody] ExamExpenditureCharges Examcharge)
- 
+
         {
             try
             {
-                var dbHandler = new dbHandler();               
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[29];
                 param[0] = new SqlParameter("@Invigilatorcharges", Examcharge.ExamSessionalExpenditureCharges[0].Invigilatorcharges);
                 param[1] = new SqlParameter("@NumberOfStudentsPerInvigilator", Examcharge.ExamSessionalExpenditureCharges[0].NumberOfStudentsPerInvigilator);
@@ -1041,12 +1041,12 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[23] = new SqlParameter("@PracticalAttenderChargesPerSubject", Examcharge.ExamSessionalExpenditureCharges[0].PracticalAttenderChargesPerSubject);
                 param[24] = new SqlParameter("@AoNotification", Examcharge.ExamEventExpenditureCharges[0].AoNotification);
                 param[25] = new SqlParameter("@Superintendent", Examcharge.ExamEventExpenditureCharges[0].Superintendent);
-                param[26] = new SqlParameter("@SeatclerkCharges", Examcharge.ExamEventExpenditureCharges[0].SeatclerkCharges);                         
+                param[26] = new SqlParameter("@SeatclerkCharges", Examcharge.ExamEventExpenditureCharges[0].SeatclerkCharges);
                 param[27] = new SqlParameter("@ExamMonthYearId", Examcharge.ExamSessionalExpenditureCharges[0].ExamMonthYearId);
                 param[28] = new SqlParameter("@PracticalVivaChargesforSixthSem", Examcharge.ExamSessionalExpenditureCharges[0].PracticalVivaChargesforSixthSem);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SFP_SET_SessionalExpenditure", param);
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
-               
+
             }
             catch (Exception ex)
             {
@@ -1058,7 +1058,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ResultsProcessing")]
-        public string ResultsProcessing(int ExamMonthYearId,int StudentTypeId, string scheme, int ExamTypeId,int academicyearid, string username)
+        public string ResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, int ExamTypeId, int academicyearid, string username)
         {
             try
             {
@@ -1070,7 +1070,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 param[4] = new SqlParameter("@academicyearid", academicyearid);
                 param[5] = new SqlParameter("@username", username);
-                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_4_1_ResultsProcessing", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_4_1_ResultsProcessing", param);
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
                     var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
@@ -1117,7 +1117,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("RVRCResultsProcessing")]
-        public string RVRCResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, string username,int ExamTypeId= 0)
+        public string RVRCResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, string username, int ExamTypeId = 0)
         {
             try
             {
@@ -1132,13 +1132,15 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var ExamMonthYear = string.Empty;
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
-                    if (dt.Tables[1].Rows.Count > 0) {
-                         ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString().Replace("/", "_");
-                    }else
+                    if (dt.Tables[1].Rows.Count > 0)
+                    {
+                        ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString().Replace("/", "_");
+                    }
+                    else
                     {
                         ExamMonthYear = "";
                     }
-                    
+
                     var filename = ExamMonthYear + '_' + scheme + '_' + "RVRC_Results" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -1208,7 +1210,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 {
                     var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
                     var filename = ExamMonthYear + '_' + scheme + '_' + "ResultsLogicReports" + ".xlsx";
-                   
+
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -1254,7 +1256,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         public string ResultsDeployTables(int ExamMonthYearId, int StudentTypeId, string scheme, int ExamTypeId, string username)
         {
             try
-            {     
+            {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
@@ -1276,7 +1278,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("RVRCResultsDeployTables")]
-        public string RVRCResultsDeployTables(int ExamMonthYearId, int StudentTypeId, string Scheme, string UserName,int ExamTypeId = 0)
+        public string RVRCResultsDeployTables(int ExamMonthYearId, int StudentTypeId, string Scheme, string UserName, int ExamTypeId = 0)
         {
             try
             {
@@ -1313,7 +1315,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
 
-                    var filename = day + "-" + month+"-"+ year+"-" + "MemosData" + ".xlsx";
+                    var filename = day + "-" + month + "-" + year + "-" + "MemosData" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     DataSet excelds = new DataSet();
@@ -1332,7 +1334,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     var response = "err";
                     return response;
                 }
-              
+
             }
             catch (Exception ex)
             {
@@ -1369,7 +1371,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Start();
                     var file = "/Downloads/" + filename;
 
-                 
+
                     p1.file = file;
 
                     p.Add(p1);
@@ -1380,7 +1382,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 else
                 {
-               
+
                     p1.file = "";
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
@@ -1398,7 +1400,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 p1.ResponceDescription = ex.Message;
                 p.Add(p1);
                 return JsonConvert.SerializeObject(p);
-               
+
             }
 
         }
@@ -1414,10 +1416,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@SemId", data["SemId"].ToString());
                 param[2] = new SqlParameter("@CollegeCode", data["CollegeCode"].ToString());
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AcademicFacultyMappingStatus", param);
-                if (ds.Tables[0].Rows.Count>0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                  
-                    var filename =  "Collegewise_Faculty_Mapping_Report" + ".xlsx";
+
+                    var filename = "Collegewise_Faculty_Mapping_Report" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -1496,8 +1498,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     Timer timer = new Timer(200000);
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
-                   
-                  
+
+
                     var file = "/Downloads/" + filename;
 
                     List<person> p = new List<person>();
@@ -1540,10 +1542,10 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GenerateNrData")]
-        public string GenerateNrData(int ExamMonthYearId, int StudentTypeId, string Scheme, int ExamTypeId,string UserName)
+        public string GenerateNrData(int ExamMonthYearId, int StudentTypeId, string Scheme, int ExamTypeId, string UserName)
         {
             try
-            {               
+            {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
@@ -1556,7 +1558,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 {
                     var ExamMonthYear = ds.Tables[1].Rows[0]["ExamMonthYear"].ToString();
 
-                       var filename = ExamMonthYear+'_'+Scheme +'_'+ "GenerateNrData" + ".xlsx";
+                    var filename = ExamMonthYear + '_' + Scheme + '_' + "GenerateNrData" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     DataSet excelds = new DataSet();
@@ -1575,11 +1577,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
                     p.Add(p1);
-                   
+
                     return JsonConvert.SerializeObject(p);
                     //return ;
-                   
-            }
+
+                }
                 else
                 {
                     List<person> p = new List<person>();
@@ -1612,19 +1614,19 @@ namespace SoftwareSuite.Controllers.PreExamination
                 string StrQuery = "";
                 StrQuery = "exec USP_GET_NBAReports@1";
                 DataSet ds = dbHandler.ReturnDataSet(StrQuery);
-                if (ds.Tables[0].Rows.Count>0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     var filename = "NBA-Reports-1" + Guid.NewGuid() + ".xlsx";
-                var eh = new ExcelHelper();
-                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
-                bool folderExists = Directory.Exists(path);
-                if (!folderExists)
-                    Directory.CreateDirectory(path);
-                eh.ExportDataSet(ds, path + filename);
-                Timer timer = new Timer(200000);
-                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
-                timer.Start();
-               
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+
                     var file = "/Downloads/" + filename;
                     List<person> p = new List<person>();
                     person p1 = new person();
@@ -1653,12 +1655,12 @@ namespace SoftwareSuite.Controllers.PreExamination
                 dbHandler.SaveErorr("USP_GET_NBAReports@1", 0, ex.Message);
                 return ex.Message;
             }
-           
+
         }
 
 
-        
-            [HttpGet, ActionName("GetNICData")]
+
+        [HttpGet, ActionName("GetNICData")]
         public string GetNICData()
         {
             try
@@ -1670,7 +1672,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     var PolycetYear = ds.Tables[1].Rows[0]["PolycetYear"].ToString();
-                    var filename = PolycetYear +"-"+"NIC_DATA"+ ".xlsx";
+                    var filename = PolycetYear + "-" + "NIC_DATA" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -1934,7 +1936,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@scheme", scheme);             
+                param[0] = new SqlParameter("@scheme", scheme);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AmbedkarResultsReports", param);
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
@@ -1949,7 +1951,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     var file = "/Downloads/" + filename;
-                  
+
                     p1.file = file;
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
@@ -1961,7 +1963,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 else
                 {
-                   
+
                     p1.file = "";
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
@@ -1974,7 +1976,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("USP_GET_AmbedkarResultsReports", 0, ex.Message);
-               
+
                 p1.file = "";
                 p1.ResponceCode = "400";
                 p1.ResponceDescription = ex.Message;
@@ -2047,8 +2049,8 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetTicketsReportExcel")]
-        public string GetTicketsReportExcel(string FromDate, string ToDate,string UserName)
-        {        
+        public string GetTicketsReportExcel(string FromDate, string ToDate, string UserName)
+        {
             try
             {
                 var dbHandler = new dbHandler();
@@ -2057,7 +2059,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@ToDate", ToDate);
                 param[2] = new SqlParameter("@UserName", UserName);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_TicketsReport", param);
-                var filename = "TicketsData_"  + ".xlsx";
+                var filename = "TicketsData_" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
@@ -2154,7 +2156,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ResultsReoprtsByScheme", param);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    var filename = data["Scheme"]+"_Results_Reports" + ".xlsx";
+                    var filename = data["Scheme"] + "_Results_Reports" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -2176,7 +2178,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 else
                 {
-                   
+
                     p1.file = "";
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
@@ -2189,7 +2191,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("USP_GET_ResultsReoprtsByScheme", 0, ex.Message);
-               
+
                 p1.file = "";
                 p1.ResponceCode = "400";
                 p1.ResponceDescription = ex.Message;
@@ -2234,7 +2236,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
                 else
                 {
-                 
+
                     p1.file = "";
                     p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
                     p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
@@ -2248,7 +2250,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                 dbHandler.SaveErorr("USP_GET_BacklogSubjectsForAllPinsReports", 0, ex.Message);
                 //return ex.Message;
-               
+
                 p1.file = "";
                 p1.ResponceCode = "400";
                 p1.ResponceDescription = ex.Message;
@@ -2317,7 +2319,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetFeeEligibelList")]
-        public string GetFeeEligibelList(int ExamMonthYearId,int StudentTypeId)
+        public string GetFeeEligibelList(int ExamMonthYearId, int StudentTypeId)
         {
             try
             {
@@ -2374,12 +2376,12 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        public class person  
-    {  
-        public string file { get; set; }
+        public class person
+        {
+            public string file { get; set; }
             public string ResponceCode { get; set; }
             public string ResponceDescription { get; set; }
-        }  
+        }
 
         [HttpGet, ActionName("GenerateWantings")]
         public string GenerateWantings(int ExamMonthYearId, int StudentTypeId, string Scheme, int ExamTypeId)
@@ -2503,7 +2505,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 if (ds.Tables[1].Rows[0]["ResponceCode"].ToString() == "200")
                 {
 
-                    var filename = Scheme+"-"+"MemosData" + ".xlsx";
+                    var filename = Scheme + "-" + "MemosData" + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     DataSet excelds = new DataSet();
@@ -2531,7 +2533,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-      
+
 
         [HttpGet, ActionName("GetBonafideTypes")]
         public HttpResponseMessage GetBonafideTypes()
@@ -2596,7 +2598,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_RegularBacklogByExamMonthYear", param);
                 return JsonConvert.SerializeObject(dt);
-            } 
+            }
             catch (Exception ex)
             {
 
@@ -2607,30 +2609,30 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-      
-            [HttpGet, ActionName("SetHomePageSlidesStatus")]
-            public string SetHomePageSlidesStatus(int Id,int status)
+
+        [HttpGet, ActionName("SetHomePageSlidesStatus")]
+        public string SetHomePageSlidesStatus(int Id, int status)
+        {
+            try
             {
-                try
-                {
-                    var dbHandler = new dbHandler();
-                    var param = new SqlParameter[2];
-                    param[0] = new SqlParameter("@Id", Id);
-                    param[1] = new SqlParameter("@status", status);
-                    var dt = dbHandler.ReturnDataWithStoredProcedureTable("usp_set_HomePageSlidesStatus", param);
-                    return JsonConvert.SerializeObject(dt);
-                }
-                catch (Exception ex)
-                {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Id", Id);
+                param[1] = new SqlParameter("@status", status);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("usp_set_HomePageSlidesStatus", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
 
-                    dbHandler.SaveErorr("usp_set_HomePageSlidesStatus", 0, ex.Message);
-                    return ex.Message;
-                }
-
+                dbHandler.SaveErorr("usp_set_HomePageSlidesStatus", 0, ex.Message);
+                return ex.Message;
             }
 
+        }
 
-            [HttpGet, ActionName("GetSchemeByPin")]
+
+        [HttpGet, ActionName("GetSchemeByPin")]
         public string GetSchemeByPin(string pin)
         {
             try
@@ -2651,10 +2653,10 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("SetSemester")]
-        public string SetSemester(int DataTypeId, string Semester, string UserName, string scheme, int schemeid,bool IsSession1, bool IsSession2,int SequenceId, int semid, bool IsActive)
+        public string SetSemester(int DataTypeId, string Semester, string UserName, string scheme, int schemeid, bool IsSession1, bool IsSession2, int SequenceId, int semid, bool IsActive)
         {
             try
-            {            
+            {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[10];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
@@ -2680,11 +2682,11 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("SetAcademicYear")]
-        public string SetAcademicYear(int DataTypeId, string AcademicYear, int AcademicStartYear, DateTime StartDate, DateTime EndDate, string UserName,bool IsCurrentAcademicYear,int AcademicID, int ActiveFlag)
+        public string SetAcademicYear(int DataTypeId, string AcademicYear, int AcademicStartYear, DateTime StartDate, DateTime EndDate, string UserName, bool IsCurrentAcademicYear, int AcademicID, int ActiveFlag)
         {
             try
             {
-                var dbHandler = new dbHandler();              
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
                 param[1] = new SqlParameter("@AcademicYear", AcademicYear);
@@ -2694,8 +2696,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[5] = new SqlParameter("@UserName", UserName);
                 param[6] = new SqlParameter("@IsCurrentAcademicYear", IsCurrentAcademicYear);
                 param[7] = new SqlParameter("@AcademicID", AcademicID);
-                param[8] = new SqlParameter("@ActiveFlag", ActiveFlag);           
-              param[8] = new SqlParameter("@ActiveFlag", ActiveFlag);
+                param[8] = new SqlParameter("@ActiveFlag", ActiveFlag);
+                param[8] = new SqlParameter("@ActiveFlag", ActiveFlag);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("ADM_SET_CreateOrUpdateAcademicYears", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -2736,12 +2738,12 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
             catch (Exception ex)
             {
-              
+
                 return ex.Message;
             }
         }
 
-       
+
 
         [HttpPost, ActionName("UploadHomePageSlides")]
         public string UploadHomePageSlides([FromBody] JsonObject data)
@@ -2753,7 +2755,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 string relativePath = string.Empty;
                 var path = ConfigurationManager.AppSettings["HomeSlidesPath"];
                 var Name = data["FileName"];
-                 var CircularName = Name+".Png";
+                var CircularName = Name + ".Png";
                 bool folder = Directory.Exists(path);
                 if (!folder)
                     Directory.CreateDirectory(path);
@@ -2767,8 +2769,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@photoPath", CircularUrl);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("usp_set_HomePageSlides", param);
-               
-               
+
+
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -2811,8 +2813,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-            [HttpPost, ActionName("SubmitFeedback")]
+
+        [HttpPost, ActionName("SubmitFeedback")]
         public string SubmitFeedback([FromBody] JsonObject data)
         {
             try
@@ -2825,7 +2827,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[2] = new SqlParameter("@Mobile", data["Mobile"]);
                 param[3] = new SqlParameter("@Message", data["Message"]);
                 param[4] = new SqlParameter("@IpAddress", clientIpAddress);
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_Set_Feedback", param);
 
                 return JsonConvert.SerializeObject(dt);
@@ -2923,11 +2925,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Start();
 
 
-                    var file= "/Downloads/" + filename;
+                    var file = "/Downloads/" + filename;
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = file;
-                   
+
                     p.Add(p1);
 
                     return JsonConvert.SerializeObject(p);
@@ -2939,7 +2941,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     List<person> p = new List<person>();
                     person p1 = new person();
                     p1.file = "";
-                  
+
                     p.Add(p1);
                     return JsonConvert.SerializeObject(p);
                 }
@@ -3232,7 +3234,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param2[1] = new SqlParameter("@deptType", deptflag);
                 param2[2] = new SqlParameter("@startdate", semstartdatepharm2ndyear);
                 db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param2);
-                
+
                 //Dataset res= new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"200\",\"respdesc\" : \"Attendance Data Pushed \" }"), System.Text.Encoding.UTF8, "application/json");
                 //var response = Request.CreateResponse(HttpStatusCode.OK);
                 // response.Content = new StringContent(JsonConvert.SerializeObject("{\"respcode\":\"" +" \"200\" "+ "\",\"respdesc\" : \"" +"\" Attendance Data Pushed\""+ "\" }"), System.Text.Encoding.UTF8, "application/json");
@@ -3366,10 +3368,6 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-
-
-       
-
         [HttpGet, ActionName("getAdminTransferReportExcel")]
         public string getAdminTransferReportExcel(int AcademicYearId)
         {
@@ -3469,18 +3467,18 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("EnableFeePayment")]
-        public string EnableFeePayment(int ExamMonthYear,string Pin, int studenttypeid, float ExamFee, float LateFee, float TatkalFee,float PremiumTatkalFee,int Semid = 0)
+        public string EnableFeePayment(int ExamMonthYear, string Pin, int studenttypeid, float ExamFee, float LateFee, float TatkalFee, float PremiumTatkalFee, int Semid = 0)
         {
             try
             {
-         
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 param[1] = new SqlParameter("@Pin", Pin);
                 param[2] = new SqlParameter("@studenttypeid", studenttypeid);
                 param[3] = new SqlParameter("@ExamFee", ExamFee);
-                param[4] = new SqlParameter("@LateFee", LateFee); 
+                param[4] = new SqlParameter("@LateFee", LateFee);
                 param[5] = new SqlParameter("@TatkalFee", TatkalFee);
                 param[6] = new SqlParameter("@PremiumTatkalFee", PremiumTatkalFee);
                 param[7] = new SqlParameter("@Semid", Semid);
@@ -3518,7 +3516,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpGet, ActionName("GetScheme")]
         public HttpResponseMessage GetScheme()
         {
-            try       
+            try
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
@@ -3567,18 +3565,16 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getAdminSyllabusCoverageReport")]
-        public string getAdminSyllabusCoverageReport(int DataTypeId,int AcademicYearId, string Json,string CollegeCode = null,string BranchCode= null)
+        public string getAdminSyllabusCoverageReport(int DataTypeId, string CollegeCode = null, string BranchCode = null)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
-                param[1] = new SqlParameter("@AcademicYearId", AcademicYearId);
-                param[2] = new SqlParameter("@Json", Json);
-                param[3] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[4] = new SqlParameter("@BranchCode", BranchCode);
+                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[2] = new SqlParameter("@BranchCode", BranchCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SyllabusCoverageReportsforAdmin", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -3589,9 +3585,9 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-       
 
-        
+
+
 
 
         [HttpGet, ActionName("getSubjectList")]
@@ -3613,10 +3609,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                 Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
-                
+
                 //return filename;
                 return "/Downloads/" + filename;
-               //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
 
             }
             catch (Exception ex)
@@ -3656,23 +3652,23 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
-        
 
 
-[HttpGet, ActionName("GetPromotionalList")]
+
+        [HttpGet, ActionName("GetPromotionalList")]
         public string GetPromotionalList()
         {
 
-    List<person> p = new List<person>();
-    person p1 = new person();
+            List<person> p = new List<person>();
+            person p1 = new person();
 
-    try
+            try
             {
                 var dbHandler = new dbHandler();
                 string StrQuery = "";
                 StrQuery = "exec USP_GET_PromotionalEligibleStudentsList";
                 DataSet ds = dbHandler.ReturnDataSet(StrQuery);
-        var filename = "Promotional_List" + "_" + Guid.NewGuid() + ".xlsx";
+                var filename = "Promotional_List" + "_" + Guid.NewGuid() + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
@@ -3683,15 +3679,15 @@ namespace SoftwareSuite.Controllers.PreExamination
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
                 var file = "/Downloads/" + filename;
-        p1.file = file;
-        p1.ResponceCode = "200";
-        p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
-        p.Add(p1);
+                p1.file = file;
+                p1.ResponceCode = "200";
+                p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                p.Add(p1);
 
-        return JsonConvert.SerializeObject(p);
-        //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+                return JsonConvert.SerializeObject(p);
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
 
-    }
+            }
             catch (Exception ex)
             {
                 p1.file = "";
@@ -3700,24 +3696,22 @@ namespace SoftwareSuite.Controllers.PreExamination
                 p.Add(p1);
 
                 return JsonConvert.SerializeObject(p);
-               
+
             }
         }
 
 
         [HttpGet, ActionName("getSyllabusReportExcel")]
-        public string getSyllabusReportExcel(int DataTypeId,int AcademicYearId,string Json, string CollegeCode=null,string BranchCode=null)
+        public string getSyllabusReportExcel(int DataTypeId, string CollegeCode = null, string BranchCode = null)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeId", DataTypeId);
-                param[1] = new SqlParameter("@AcademicYearId", AcademicYearId);
-                param[2] = new SqlParameter("@Json", Json);
-                param[3] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[4] = new SqlParameter("@BranchCode", BranchCode);
-                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SyllabusCoverageReportsforAdmin", param);              
+                param[1] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[2] = new SqlParameter("@BranchCode", BranchCode);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SyllabusCoverageReportsforAdmin", param);
                 var filename = "Syllabus_Report" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -3813,7 +3807,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@scheme", scheme);
-                param[1] = new SqlParameter("@SubjectCode", SubjectCode);              
+                param[1] = new SqlParameter("@SubjectCode", SubjectCode);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SubjectMasterDetailsUpdation", param);
                 return Request.CreateResponse(HttpStatusCode.OK, ds);
             }
@@ -3825,54 +3819,26 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        [HttpGet, ActionName("addorUpdateFeeSettings")]
-        public string addorUpdateFeeSettings(int DataType, int ID, string Name, bool Is_Active, int Price, int ServiceType, string ChallanPrefix, string UserName)
-        {
-            try
-            {
-                var dbHandler = new dbHandler();
-                var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataType", DataType);
-                param[1] = new SqlParameter("@ID", ID);
-                param[2] = new SqlParameter("@Name", Name);
-                param[3] = new SqlParameter("@Is_Active", Is_Active);
-                param[4] = new SqlParameter("@Price", Price);
-                param[5] = new SqlParameter("@ServiceType", ServiceType);
-                param[6] = new SqlParameter("@ChallanPrefix", ChallanPrefix);
-                param[7] = new SqlParameter("@UserName", UserName);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CertificateTypes", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Add_Update_CertificateTypes", 0, ex.Message);
-                return ex.Message;
-            }
-        }
-
-
-
-
         [HttpGet, ActionName("UpdateSubjectMasterDetails")]
-        public HttpResponseMessage UpdateSubjectMasterDetails(int SubId,string Subject_Code,string SubjectName,bool iselective,bool BoardQuestionPaper,bool AnswerBookLet, string Mid1Max_Marks = null, string Mid2Max_Marks = null, string Mid3Max_Marks = null, string InternalMax_Marks = null, string end_exam_max_marks = null, string Credits = null, string PCode= null)
+        public HttpResponseMessage UpdateSubjectMasterDetails(int SubId, string Subject_Code, string SubjectName, bool iselective, bool BoardQuestionPaper, bool AnswerBookLet, string Mid1Max_Marks = null, string Mid2Max_Marks = null, string Mid3Max_Marks = null, string InternalMax_Marks = null, string end_exam_max_marks = null, string Credits = null, string PCode = null)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[13];
-                param[0] = new SqlParameter("@SubId",  SubId);
-                param[1] = new SqlParameter("@Subject_Code",  Subject_Code);
-                param[2] = new SqlParameter("@SubjectName",  SubjectName);
-                param[3] = new SqlParameter("@iselective",  iselective);
-                param[4] = new SqlParameter("@BoardQuestionPaper",  BoardQuestionPaper);
-                param[5] = new SqlParameter("AnswerBookLet",  AnswerBookLet);
-                param[6] = new SqlParameter("@Mid1Max_Marks", GetValueOrNull<float>(Mid1Max_Marks));              
+                param[0] = new SqlParameter("@SubId", SubId);
+                param[1] = new SqlParameter("@Subject_Code", Subject_Code);
+                param[2] = new SqlParameter("@SubjectName", SubjectName);
+                param[3] = new SqlParameter("@iselective", iselective);
+                param[4] = new SqlParameter("@BoardQuestionPaper", BoardQuestionPaper);
+                param[5] = new SqlParameter("AnswerBookLet", AnswerBookLet);
+                param[6] = new SqlParameter("@Mid1Max_Marks", GetValueOrNull<float>(Mid1Max_Marks));
                 param[7] = new SqlParameter("@Mid2Max_Marks", GetValueOrNull<float>(Mid2Max_Marks));
                 param[8] = new SqlParameter("@Mid3Max_Marks", GetValueOrNull<float>(Mid3Max_Marks));
                 param[9] = new SqlParameter("@InternalMax_Marks", GetValueOrNull<float>(InternalMax_Marks));
                 param[10] = new SqlParameter("@end_exam_max_marks", GetValueOrNull<float>(end_exam_max_marks));
-                param[11] = new SqlParameter("@Credits", GetValueOrNull<float>(Credits));               
-                param[12] = new SqlParameter("@PCode",  PCode);              
+                param[11] = new SqlParameter("@Credits", GetValueOrNull<float>(Credits));
+                param[12] = new SqlParameter("@PCode", PCode);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SET_SubjectMasterDetailsUpdation", param);
                 return Request.CreateResponse(HttpStatusCode.OK, ds);
             }
@@ -3883,14 +3849,14 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-       
+
         [HttpGet, ActionName("getElectiveMappedReport")]
         public string getElectiveMappedReport(int UserTypeId, String CollegeCode = null, String BranchCode = null)
         {
             try
             {
 
-                var dbHandler = new dbHandler(); 
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@UserTypeId", UserTypeId);
                 param[1] = new SqlParameter("@CollegeCode", CollegeCode);
@@ -3919,7 +3885,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ElectiveMappedReportsCounts", param);
                 if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
-                  
+
                     var filename = "ElectiveMappedReport" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -4106,8 +4072,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("GetOrganizationTypes")]
+
+        [HttpGet, ActionName("GetOrganizationTypes")]
         public HttpResponseMessage GetOrganizationTypes()
         {
             try
@@ -4272,7 +4238,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafiedRequestedDetailsByPin")]
-        public string getBonafiedRequestedDetailsByPin(string pin,int Id)
+        public string getBonafiedRequestedDetailsByPin(string pin, int Id)
         {
             try
             {
@@ -4332,7 +4298,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        
+
 
         [HttpGet, ActionName("getMarksMemoDetailsByPin")]
         public string getMarksMemoDetailsByPin(string pin)
@@ -4358,8 +4324,8 @@ namespace SoftwareSuite.Controllers.PreExamination
         public string GetDayWiseNrReports(int ExamMonthYearId, int AcademicID, int StudentTypeId)
         {
             try
-            {           
-                  var dbHandler = new dbHandler();
+            {
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@AcademicID", AcademicID);
@@ -4375,7 +4341,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetBranchSemFeeReports")]
-        public string GetBranchSemFeeReports(int dataType,int StudentTypeId,int emy)
+        public string GetBranchSemFeeReports(int dataType, int StudentTypeId, int emy)
         {
             try
             {
@@ -4396,7 +4362,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetBranchSemSubFeeReports")]
-        public string GetBranchSemSubFeeReports(int dataType, int StudentTypeId, int emy,int Id)
+        public string GetBranchSemSubFeeReports(int dataType, int StudentTypeId, int emy, int Id)
         {
             try
             {
@@ -4438,7 +4404,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-       
+
 
         [HttpGet, ActionName("getTcData")]
         public string getTcData(string pin)
@@ -4461,7 +4427,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getBonafideData")]
-        public string getBonafideData(string pin,int Id)
+        public string getBonafideData(string pin, int Id)
         {
             try
             {
@@ -4563,7 +4529,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-       
+
 
         [HttpGet, ActionName("getTranscriptODCDetailsByPin")]
         public string getTranscriptODCDetailsByPin(string pin)
@@ -4585,7 +4551,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getMarksMemoDataByPin")]
-        public string getMarksMemoDataByPin(string pin,string Semester)
+        public string getMarksMemoDataByPin(string pin, string Semester)
         {
             try
             {
@@ -4625,7 +4591,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("SetSmsStatus")]
-        public string SetSmsStatus(string pin,string semester)
+        public string SetSmsStatus(string pin, string semester)
         {
             try
             {
@@ -4643,7 +4609,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-        
+
 
         [HttpGet, ActionName("sendcertSMS")]
         public string sendcertSMS(string pin, string mobile, string CertificatePath, string CertificateName)
@@ -4667,7 +4633,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-                    return "SUCCESS";     
+                    return "SUCCESS";
                 }
                 else
                 {
@@ -4714,13 +4680,13 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("sendGenuinenessSMS")]
-        public string sendGenuinenessSMS(string pin, string mobile, string CertificateName,string ReferenceNo)
+        public string sendGenuinenessSMS(string pin, string mobile, string CertificateName, string ReferenceNo)
         {
             try
             {
                 string Msg = "PIN : {0}, Your Application for {1}  Verification submitted Successfully with Reference Number : {2}. Secretary, SBTET TS.";
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
-                var Message = string.Format(Msg, pin,CertificateName.ToString(), ReferenceNo.ToString());
+                var Message = string.Format(Msg, pin, CertificateName.ToString(), ReferenceNo.ToString());
                 if (mobile.ToString() != null || mobile.ToString() != string.Empty)
                 {
                     string urlParameters = "?mobile=" + mobile.ToString() + "&message=" + Message + "&templateid=1007161786832490552";
@@ -4746,12 +4712,13 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("sendMemoSMS")]
-        public string sendMemoSMS(string pin, string mobile, string CertificateName,string Semester,string Scheme)
+        public string sendMemoSMS(string pin, string mobile, string CertificateName, string Semester, string Scheme)
         {
             try
             {
-                if (Scheme == "C-00"||Scheme == "C-96"||Scheme == "C-90"||Scheme == "NA"){
-                    
+                if (Scheme == "C-00" || Scheme == "C-96" || Scheme == "C-90" || Scheme == "NA")
+                {
+
                     string Msg = "PIN : {0}, Your application request for {2} {1} is Approved. Please Collect Duplicate Marks Memo from SBTET after 9 working days. Secretary, SBTET TS.";
                     string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
                     var Message = string.Format(Msg, pin, CertificateName.ToString(), Semester);
@@ -4769,7 +4736,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     {
                         return "Mobileno not valid";
                     }
-                } else
+                }
+                else
                 {
                     string Msg = "PIN : {0}, Your application request for {2} {1} is Approved. Please Collect Duplicate Marks Memo from SBTET after 5 working days. Secretary, SBTET TS.";
 
@@ -4790,9 +4758,9 @@ namespace SoftwareSuite.Controllers.PreExamination
                         return "Mobileno not valid";
                     }
                 }
-                
-                
-              
+
+
+
 
 
             }
@@ -4828,7 +4796,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public string CollegeCode { get; set; }
             public string ExamCenter { get; set; }
             public string Subject_Code { get; set; }
-            public string SubjectName { get; set; }           
+            public string SubjectName { get; set; }
             public string ExamDate { get; set; }
             public string SessionTime { get; set; }
             public string Pin { get; set; }
@@ -4839,12 +4807,12 @@ namespace SoftwareSuite.Controllers.PreExamination
             public string ExamType { get; set; }
             public string Semester { get; set; }
             public string BarcodeUID { get; set; }
-            public string ExamMonthYear { get; set; } 
+            public string ExamMonthYear { get; set; }
 
         }
 
         [HttpPost, ActionName("PostOsdesNRdata")]
-        public async Task<string> PostOsdesNRdata(int ExamMonthYearId, int StudentTypeId,string CollegeCode,string ExamDate)
+        public async Task<string> PostOsdesNRdata(int ExamMonthYearId, int StudentTypeId, string CollegeCode, string ExamDate)
         {
             try
             {
@@ -4857,7 +4825,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[3] = new SqlParameter("@ExamDate", ExamDate);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_OSDES_NR_BAC_test", param);
                 var NrData = DataTableHelper.ConvertDataTable<OsdesNrData>(ds.Tables[1]);
-                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200" && NrData.Count>0)
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200" && NrData.Count > 0)
                 {
 #pragma warning disable CS0162 // Unreachable code detected
                     for (var i = 0; i < NrData.Count; i++)
@@ -4880,7 +4848,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                         }
                     }
-                  
+
                 }
                 else
                 {
@@ -4926,9 +4894,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Start();
                     return "/Downloads/" + filename;
                 }
-                else {
+                else
+                {
                     return "";
-                }                            
+                }
 
             }
             catch (Exception ex)
@@ -5000,11 +4969,11 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetChallanData")]
-        public string GetChallanData(string pin, int CertificateTypeId,string ApplicationNumber = null )
+        public string GetChallanData(string pin, int CertificateTypeId, string ApplicationNumber = null)
         {
             try
             {
-                if(CertificateTypeId == 4|| CertificateTypeId == 3)
+                if (CertificateTypeId == 4 || CertificateTypeId == 3)
                 {
                     var dbHandler = new dbHandler();
                     var param = new SqlParameter[3];
@@ -5023,7 +4992,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_StudentServicesChallanNumber", param);
                     return JsonConvert.SerializeObject(dt);
                 }
-  
+
             }
             catch (Exception ex)
             {
@@ -5239,7 +5208,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("SetMemoSignedDate")]
-        public string SetMemoSignedDate(string Pin,string Semester, string ExamMonthYear)
+        public string SetMemoSignedDate(string Pin, string Semester, string ExamMonthYear)
         {
             try
             {
@@ -5259,10 +5228,10 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        
+
 
         [HttpGet, ActionName("GetTcApprovalListByScheme")]
-        public string GetTcApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode,string BranchCode= null)
+        public string GetTcApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode, string BranchCode = null)
         {
             try
             {
@@ -5393,7 +5362,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetAttendanceApprovalDetails")]
-        public string GetAttendanceApprovalDetails(int UserId,string CollegeCode,int DataType)
+        public string GetAttendanceApprovalDetails(int UserId, string CollegeCode, int DataType)
         {
             try
             {
@@ -5549,17 +5518,17 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpPost, ActionName("Odc_Set_UpdateAffidavit")]
         public string Odc_Set_UpdateAffidavit([FromBody] JsonObject request)
         {
-         
+
             try
             {
-             
+
                 //var fileDat = new List<filetranlist>();
                 //int size = request.filedata.Count;
                 var Memos = string.Empty;
                 var WESCertificate = string.Empty;
                 string relativePath = string.Empty;
                 var fileDat = new List<filelist>();
-               
+
                 var file = string.Empty;
                 var Fir = string.Empty;
                 var Prince = string.Empty;
@@ -5568,7 +5537,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var AffidavitData = string.Empty;
                 var path = ConfigurationManager.AppSettings["certFolderPath"];
                 var Pin = request["Pin"];
-              
+
                 var Affidavitpath = ConfigurationManager.AppSettings["certFolderPath"];
                 var Affidavit = Pin + "_" + Guid.NewGuid() + ".jpg";
                 bool folders = Directory.Exists(Affidavitpath);
@@ -5581,7 +5550,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 AffidavitData = relativePath;
                 //AffidavitData = Affidavit;
 
-               
+
 
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
@@ -5618,7 +5587,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        
+
 
         [HttpGet, ActionName("DMM_SetVerifyStatus")]
         public string DMM_SetVerifyStatus(string Pin, int userType, string Semester, string ExamMonthYear)
@@ -5644,7 +5613,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("Genuineness_SetVerifyStatus")]
-        public string Genuineness_SetVerifyStatus(int Id,string Pin, int userType,int Status)
+        public string Genuineness_SetVerifyStatus(int Id, string Pin, int userType, int Status)
         {
             try
             {
@@ -5666,7 +5635,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("Genuineness_SetVerifyStatusRemarks")]
-        public string Genuineness_SetVerifyStatusRemarks(int Id,string Pin, int userType,int Status,string Remarks)
+        public string Genuineness_SetVerifyStatusRemarks(int Id, string Pin, int userType, int Status, string Remarks)
         {
             try
             {
@@ -5731,7 +5700,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("SetAttendanceVerificationStatus")]
-        public string SetAttendanceVerificationStatus(int UserId,string AttendeeId,string Pin)
+        public string SetAttendanceVerificationStatus(int UserId, string AttendeeId, string Pin)
         {
 
             try
@@ -5817,7 +5786,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpPost, ActionName("GetAttendance")]
         public IDictionary<String, string> GetAttendance([FromBody] JsonObject request)
         {
-          
+
             try
             {
                 var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["JSON"]));
@@ -5826,7 +5795,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var tmp = new Dictionary<String, string>();
                 for (int i = 0; i < js.Count; i++)
                 {
-                  
+
 
                     //var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
                     //jsonArray.Add(jobject);
@@ -5835,9 +5804,9 @@ namespace SoftwareSuite.Controllers.PreExamination
                     string apiparams = "/getstatus?attendeeid=" + js[i];
                     var req = new RestRequest(apiparams, Method.POST);
                     req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
-                     var data = client.Post(req);
+                    var data = client.Post(req);
                     tmp.Add(js[i].ToString(), JsonConvert.SerializeObject(data.Content));
-                   
+
                 }
 
                 return tmp;
@@ -5985,7 +5954,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Bonafide_ApproveStatus", param);               
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Bonafide_ApproveStatus", param);
                 //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
                 //{
                 //    //for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
@@ -6159,10 +6128,10 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
-                
-          
 
-                    var dbHandler = new dbHandler();
+
+
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@SNO", request["SNO"]);
                 param[1] = new SqlParameter("@UserName", request["UserName"]);
@@ -6196,8 +6165,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[29] = new SqlParameter("@TOTAL1S_25", request["TOTAL1S_25"]);
                 param[30] = new SqlParameter("@MAX_MARKS_2SEM", request["MAX_MARKS_2SEM"]);
                 param[31] = new SqlParameter("@TOTAL2S", request["TOTAL2S"]);
-                param[32] = new SqlParameter("@TOTAL2S_25", request["TOTAL2S_25"]); 
-               param[33] = new SqlParameter("@MONTH_YEAR", request["MONTH_YEAR"]);
+                param[32] = new SqlParameter("@TOTAL2S_25", request["TOTAL2S_25"]);
+                param[33] = new SqlParameter("@MONTH_YEAR", request["MONTH_YEAR"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_UpdateStudentODCDetailsByPin", param);
 
                 return JsonConvert.SerializeObject(dt);
@@ -6297,7 +6266,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-        
+
 
         [HttpPost, ActionName("TcSetApproveStatus")]
         public string TcSetApproveStatus([FromBody] JsonObject request)
@@ -6318,8 +6287,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@admittedDate", request["admittedDate"]);
                 param[3] = new SqlParameter("@LeftDate", request["LeftDate"]);
-                param[4] = new SqlParameter("@CollegeDuesPaid", request["CollegeDuesPaid"]); 
-                 param[5] = new SqlParameter("@Religion", request["Religion"]);
+                param[4] = new SqlParameter("@CollegeDuesPaid", request["CollegeDuesPaid"]);
+                param[5] = new SqlParameter("@Religion", request["Religion"]);
                 param[6] = new SqlParameter("@Nationality", request["Nationality"]);
                 param[7] = new SqlParameter("@Caste", request["Caste"]);
                 param[8] = new SqlParameter("@DateOfBirth", request["DateOfBirth"]);
@@ -6487,15 +6456,16 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@PINjson", JsonConvert.SerializeObject(jsonArray));
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_IC_Admin_ApproveStatus", param);             
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_IC_Admin_ApproveStatus", param);
                 if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "1009")
                 {
                     for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
-                    {                     
+                    {
                         if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
                         {
                             var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Interim");
-                            if (status.ToString() == "SUCCESS") {
+                            if (status.ToString() == "SUCCESS")
+                            {
                                 UpdateSmsStatus(2, dt.Tables[1].Rows[i]["Pin"].ToString());
                             }
 
@@ -6543,7 +6513,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                         var Message = string.Format(Msg, "Rejected", request["Remarks"].ToString(), dt.Tables[1].Rows[i]["Pin"].ToString());
                         if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
                         {
-                            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message+ "&templateid=1007161786852990603";
+                            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161786852990603";
                             HttpClient client = new HttpClient();
                             client.BaseAddress = new Uri(url);
                             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -6980,7 +6950,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                         var Message = string.Format(Msg, dt.Tables[1].Rows[i]["Pin"].ToString());
                         if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
                         {
-                            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message+ "&templateid=1007161916695496584";
+                            string urlParameters = "?mobile=" + dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() + "&message=" + Message + "&templateid=1007161916695496584";
                             HttpClient client = new HttpClient();
                             client.BaseAddress = new Uri(url);
                             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -7396,7 +7366,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("getGenuinenessCheckdetails")]
-        public string getGenuinenessCheckdetails(string Pin,int Id)
+        public string getGenuinenessCheckdetails(string Pin, int Id)
         {
             try
             {
@@ -7422,7 +7392,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Pin", Pin);
                 param[1] = new SqlParameter("@Semester", Semester);
-                param[2] = new SqlParameter("@ExamMonthYear", ExamMonthYear); 
+                param[2] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 param[3] = new SqlParameter("@Scheme", Scheme);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_GET_DMMertificateDetailsForOfficials", param);
                 return JsonConvert.SerializeObject(dt);
@@ -7435,7 +7405,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getTranscriptsdetails")]
-        public string getTranscriptsdetails(string Pin,string ApplicationNumber)
+        public string getTranscriptsdetails(string Pin, string ApplicationNumber)
         {
             try
             {
@@ -7825,7 +7795,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-     
+
 
         [HttpGet, ActionName("GetBonafideApprovalList")]
         public string GetBonafideApprovalList(string CollegeCode, int userType, string BranchCode = null)
@@ -8027,7 +7997,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("CertificateFeePaymentChallanNumber")]
-        public HttpResponseMessage CertificateFeePaymentChallanNumber(string pin,int CertificateType=0)
+        public HttpResponseMessage CertificateFeePaymentChallanNumber(string pin, int CertificateType = 0)
         {
             try
             {
@@ -8126,12 +8096,12 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetExamMonthYearByAcademicYear")]
-        public HttpResponseMessage GetExamMonthYearByAcademicYear(int Academicyearid,int SessionId)
+        public HttpResponseMessage GetExamMonthYearByAcademicYear(int Academicyearid, int SessionId)
         {
             try
             {
-              
-                    var dbHandler = new dbHandler();
+
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@Academicyearid", Academicyearid);
                 param[1] = new SqlParameter("@SessionId", SessionId);
@@ -8165,9 +8135,9 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("getMercyData")]
-        public HttpResponseMessage getMercyData(int Id,int DataType)
+
+        [HttpGet, ActionName("getMercyData")]
+        public HttpResponseMessage getMercyData(int Id, int DataType)
         {
             try
             {
@@ -8196,7 +8166,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@Academicyearid", Academicyearid);           
+                param[0] = new SqlParameter("@Academicyearid", Academicyearid);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_ExamMonthYearByAcademicYearSession", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -8245,6 +8215,32 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
+
+        [HttpPost, ActionName("AddFeeSettings")]
+        public string AddFeeSettings([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataType", request["DataType"]);
+                param[1] = new SqlParameter("@ID", request["ID"]);
+                param[2] = new SqlParameter("@Name", request["Name"]);
+                param[3] = new SqlParameter("@Is_Active", request["Is_Active"]);
+                param[4] = new SqlParameter("@Price", request["Price"]);
+                param[5] = new SqlParameter("@ServiceType", request["ServiceType"]);
+                param[6] = new SqlParameter("@ChallanPrefix", request["ChallanPrefix"]);
+                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
 
         [HttpPost, ActionName("AddOldStudentData")]
         public HttpResponseMessage AddOldStudentData([FromBody] CertificateReqAtt CertificateReqAtt)
@@ -8402,8 +8398,8 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-         [HttpGet, ActionName("GetDayWiseNrReportsExcel")]
-        public string GetDayWiseNrReportsExcel(int ExamMonthYearId, int AcademicID,int StudentTypeId)
+        [HttpGet, ActionName("GetDayWiseNrReportsExcel")]
+        public string GetDayWiseNrReportsExcel(int ExamMonthYearId, int AcademicID, int StudentTypeId)
         {
             try
             {
@@ -8413,7 +8409,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@AcademicID", AcademicID);
                 param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 var ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_NrDayWiseCountReports_New", param);
-                var filename =  "DaywiseNrCounts" + ".xlsx";
+                var filename = "DaywiseNrCounts" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
@@ -8464,7 +8460,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("TwoYearsFeePaymentReports")]
-        public string TwoYearsFeePaymentReports(string Scheme, int datatype,int userType)
+        public string TwoYearsFeePaymentReports(string Scheme, int datatype, int userType)
         {
             try
             {
@@ -8511,7 +8507,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     {
                         scheme = "Overall";
                     }
-                    var filename = scheme + "_"+"WantingsReport" + "_" + Guid.NewGuid() + ".xlsx";
+                    var filename = scheme + "_" + "WantingsReport" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     DataSet excelds = new DataSet();
@@ -8539,7 +8535,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getWantingsReport")]
-        public string getWantingsReport(string Exam_MonthYear,int studentType,string Scheme)
+        public string getWantingsReport(string Exam_MonthYear, int studentType, string Scheme)
         {
             try
             {
@@ -8549,7 +8545,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@studentType", studentType);
                 param[2] = new SqlParameter("@Scheme", Scheme);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("sbp_adm_Result_CheckNulls", param);
-                     if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
                     var filename = Scheme + "WantingsReport" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
@@ -8564,7 +8560,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
-                }else
+                }
+                else
                 {
                     return JsonConvert.SerializeObject(ds);
                 }
@@ -8732,7 +8729,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public string CircularFileName { get; set; }
             public int CircularTypeId { get; set; }
             public DateTime NotificationDate { get; set; }
-        
+
         }
 
         public class DownloadData
@@ -8746,7 +8743,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public DateTime NotificationDate { get; set; }
 
         }
-        
+
 
         public class StaffData
         {
@@ -8755,7 +8752,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             public string Photo { get; set; }
             public string Designation { get; set; }
             public string MobileNumber { get; set; }
-            public string FileName {get;set;}
+            public string FileName { get; set; }
             public string Subject { get; set; }
             public string SectionId { get; set; }
             public string email { get; set; }
@@ -8797,7 +8794,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         public class CertificateReqAtt
         {
-            
+
             public string CourseType { get; set; }
             public string PIN { get; set; }
             public string first_Name { get; set; }
@@ -8844,7 +8841,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-     
+
 
         [HttpGet, ActionName("get_StudentTypes")]
         public HttpResponseMessage get_StudentTypes()
@@ -8926,11 +8923,11 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("getAdminCollegePreExamReports")]
-        public HttpResponseMessage getAdminCollegePreExamReports(int UserId, string CollegeCode,int ExamMonthYearId,string Semester,int StudentTypeId)
+        public HttpResponseMessage getAdminCollegePreExamReports(int UserId, string CollegeCode, int ExamMonthYearId, string Semester, int StudentTypeId)
         {
             try
             {
-           
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@UserId ", UserId);
@@ -9059,7 +9056,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@ReasonForTC", request["ReasonForTC"]);
                 param[2] = new SqlParameter("@IdMark1", request["IdMark1"]);
                 param[3] = new SqlParameter("@IdMark2", request["IdMark2"]);
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_Update_TcData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -9178,7 +9175,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@UserId", request["UserId"]);
-                param[1] = new SqlParameter("@StudentTypeId", request["StudentTypeId"]); 
+                param[1] = new SqlParameter("@StudentTypeId", request["StudentTypeId"]);
                 param[2] = new SqlParameter("@Semid", request["Semid"]);
                 param[3] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_PinListForFeePayment", param);
@@ -9401,12 +9398,12 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         [HttpPost, ActionName("uploadFile")]
         public HttpResponseMessage uploadFile([FromBody] CircularData CircularData)
-        {         
+        {
             try
             {
-             
+
                 var CircularUrl = string.Empty;
-                string relativePath = string.Empty;               
+                string relativePath = string.Empty;
                 var path = ConfigurationManager.AppSettings["circularPath"];
                 var CircularName = CircularData.CircularFileName;
                 bool folder = Directory.Exists(path);
@@ -9418,17 +9415,17 @@ namespace SoftwareSuite.Controllers.PreExamination
                 File.WriteAllBytes(CircularPath, PrincipalimageBytes);
                 relativePath = CircularPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
                 CircularUrl = relativePath;
-              
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Title", CircularData.Title);
                 param[1] = new SqlParameter("@Url", CircularUrl);
                 param[2] = new SqlParameter("@CircularTypeId", CircularData.CircularTypeId);
-                param[3] = new SqlParameter("@NotificationDate", CircularData.NotificationDate); 
+                param[3] = new SqlParameter("@NotificationDate", CircularData.NotificationDate);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("ADM_SET_Circular", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
-               
+
             }
             catch (Exception ex)
             {
@@ -9457,7 +9454,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 File.WriteAllBytes(CircularPath, PrincipalimageBytes);
                 relativePath = CircularPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
                 CircularUrl = relativePath;
-               var dbHandler = new dbHandler();
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@Url", CircularUrl);
                 param[1] = new SqlParameter("@CircularTypeId", CircularData.CircularTypeId);
@@ -9540,7 +9537,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                     File.WriteAllBytes(StaffPath, PrincipalimageBytes);
                     relativePath = StaffPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
                     PhotoUrl = relativePath;
-                }else
+                }
+                else
                 {
                     PhotoUrl = StaffData.Photo;
                 }
@@ -9571,8 +9569,8 @@ namespace SoftwareSuite.Controllers.PreExamination
         [HttpPost, ActionName("UpdateTender")]
         public HttpResponseMessage UpdateTender([FromBody] TenderData TenderData)
 
-        { 
-             var TenderUrl = string.Empty;
+        {
+            var TenderUrl = string.Empty;
             try
             {
 
@@ -9600,7 +9598,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                     var param = new SqlParameter[5];
                     param[0] = new SqlParameter("@Title", TenderData.Title);
                     param[1] = new SqlParameter("@Url", TenderUrl);
-                    param[2] = new SqlParameter("@TenderDate", TenderData.TenderDate); 
+                    param[2] = new SqlParameter("@TenderDate", TenderData.TenderDate);
                     param[3] = new SqlParameter("@EndDate", TenderData.EndDate);
                     param[4] = new SqlParameter("@Id", TenderData.Id);
                     var dt = dbHandler.ReturnDataWithStoredProcedureTable("ADM_Update_Tender", param);
@@ -9622,21 +9620,23 @@ namespace SoftwareSuite.Controllers.PreExamination
             var CircularUrl = string.Empty;
             try
             {
-                if (CircularData.Url != "Empty") { 
-              
-                string relativePath = string.Empty;
-                var path = ConfigurationManager.AppSettings["circularPath"];
-                var CircularName = CircularData.CircularFileName ;
-                bool folder = Directory.Exists(path);
-                if (!folder)
-                    Directory.CreateDirectory(path);
-                string CircularPath = Path.Combine(path, CircularName);
+                if (CircularData.Url != "Empty")
+                {
 
-                byte[] PrincipalimageBytes = Convert.FromBase64String(CircularData.Url);
-                File.WriteAllBytes(CircularPath, PrincipalimageBytes);
-                relativePath = CircularPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
-                CircularUrl = relativePath;
-                }else
+                    string relativePath = string.Empty;
+                    var path = ConfigurationManager.AppSettings["circularPath"];
+                    var CircularName = CircularData.CircularFileName;
+                    bool folder = Directory.Exists(path);
+                    if (!folder)
+                        Directory.CreateDirectory(path);
+                    string CircularPath = Path.Combine(path, CircularName);
+
+                    byte[] PrincipalimageBytes = Convert.FromBase64String(CircularData.Url);
+                    File.WriteAllBytes(CircularPath, PrincipalimageBytes);
+                    relativePath = CircularPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    CircularUrl = relativePath;
+                }
+                else
                 {
                     CircularUrl = CircularData.Url;
                 }
@@ -9935,12 +9935,12 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[11] = new SqlParameter("@OdcMemos", file);
                 param[12] = new SqlParameter("@OdcReason", OdCRequest.OdcReason);
                 param[13] = new SqlParameter("@PoliceFir", Fir);
-                param[14] = new SqlParameter("@MegistrateAffidavit", AffidavitData);              
+                param[14] = new SqlParameter("@MegistrateAffidavit", AffidavitData);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_Insert_DamagedDDCData", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
             }
-          
+
             catch (Exception ex)
             {
 
@@ -9948,8 +9948,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        
-            [HttpPost, ActionName("SetOldStudentsDamagedDdcDataPayment")]
+
+        [HttpPost, ActionName("SetOldStudentsDamagedDdcDataPayment")]
         public HttpResponseMessage SetOldStudentsDamagedDdcDataPayment([FromBody] OdCRequest OdCRequest)
         {
             try
@@ -10020,7 +10020,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[6] = new SqlParameter("@Gender", OdCRequest.Gender);
                 param[7] = new SqlParameter("@AadharNo", OdCRequest.AadharNo);
                 param[8] = new SqlParameter("@OdcNo", OdCRequest.OdcNo);
-               
+
                 param[9] = new SqlParameter("@PrincipalCoveringLetter", PrinceData);
                 param[10] = new SqlParameter("@AadharCopy", AadharData);
                 param[11] = new SqlParameter("@OdcMemos", file);
@@ -10075,7 +10075,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 }
 
 
-               
+
                 //  Fir = PoliceFir;
 
                 var Principalpath = ConfigurationManager.AppSettings["certFolderPath"];
@@ -10090,7 +10090,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 PrinceData = relativePath;
                 // PrinceData = Principal;
 
-                
+
                 //AffidavitData = Affidavit;
 
                 var Aadharpath = ConfigurationManager.AppSettings["certFolderPath"];
@@ -10164,7 +10164,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var WESCertificate = string.Empty;
                 string relativePath = string.Empty;
                 string relatePath = string.Empty;
-               string  ApplicationCert = string.Empty;
+                string ApplicationCert = string.Empty;
                 //var path = string.Empty;
 
                 var ODC = string.Empty;
@@ -10208,7 +10208,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[10] = new SqlParameter("@ApplyingOfficer", GenuineRequest.ApplyingOfficer);
                 param[11] = new SqlParameter("@CertificateApplication", Authorization);
                 param[12] = new SqlParameter("@OfficerDesignation", GenuineRequest.OfficerDesignation);
-                
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_SET_GenuinenessCheckDetails", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -10277,7 +10277,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[10] = new SqlParameter("@ApplyingOfficer", GenuineRequest.ApplyingOfficer);
                 param[11] = new SqlParameter("@CertificateApplication", Authorization);
                 param[12] = new SqlParameter("@OfficerDesignation", GenuineRequest.OfficerDesignation);
-       
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SS_SET_GenuinenessCheckPaymentDetails", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -10618,7 +10618,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
+
 
         [HttpPost, ActionName("SetNoDataTranscriptData")]
         public HttpResponseMessage SetNoDataTranscriptData([FromBody] transcriptreqData request)
@@ -10906,7 +10906,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ReleaseStudentServicesPin")]
-        public HttpResponseMessage ReleaseStudentServicesPin(String Pin,int CertificateTypeId,int Id=0)
+        public HttpResponseMessage ReleaseStudentServicesPin(String Pin, int CertificateTypeId, int Id = 0)
         {
             try
             {
@@ -11052,7 +11052,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getApproveExamFees")]
-        public HttpResponseMessage getApproveExamFees(int UserId,int StudentTypeId,int ExamMonthYearId,string Semester)
+        public HttpResponseMessage getApproveExamFees(int UserId, int StudentTypeId, int ExamMonthYearId, string Semester)
         {
             try
             {
@@ -11060,7 +11060,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@UserId", UserId);
-                param[1] = new SqlParameter("@StudentTypeId", StudentTypeId); 
+                param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[3] = new SqlParameter("@Semester", Semester);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_Reports", param);
@@ -11099,7 +11099,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetAdminPreExamReports")]
-        public HttpResponseMessage GetAdminPreExamReports(int ExamMonthYearId,string Semester,int StudentTypeId)
+        public HttpResponseMessage GetAdminPreExamReports(int ExamMonthYearId, string Semester, int StudentTypeId)
         {
             try
             {
@@ -11206,8 +11206,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[0] = new SqlParameter("@DataFormatTypeId", request["type"]);
                 param[1] = new SqlParameter("@UserTypeId", request["StudentTypeId"]);
                 param[2] = new SqlParameter("@CollegeCode", request["collegeCode"]);
-                param[3] = new SqlParameter("@BranchCode", request["branchcode"]); 
-               param[4] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
+                param[3] = new SqlParameter("@BranchCode", request["branchcode"]);
+                param[4] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
                 param[5] = new SqlParameter("@Semester", request["semester"]);
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SFP_GETnew_StudentReportLists", param);
@@ -11352,20 +11352,20 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetRegularHallticket")]
-        public string GetRegularHallticket(string Pin, string DateOfBirth, int StudentTypeId,int EMYR)
+        public string GetRegularHallticket(string Pin, string DateOfBirth, int StudentTypeId, int EMYR)
         {
             try
             {
-                    var dbHandler = new dbHandler();
-                    var param = new SqlParameter[4];
-                    param[0] = new SqlParameter("@Pin", Pin);
-                    param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
-                    param[2] = new SqlParameter("@StudentTypeId", StudentTypeId); 
-                    param[3] = new SqlParameter("@EMYR", EMYR);
-                    var dt = new DataSet();
-                    dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin", param);//USP_SFP_GET_HallTicketDetailsByPin  USP_SFP_GET_HallTicketDetailsByPin_TEST
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@EMYR", EMYR);
+                var dt = new DataSet();
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin", param);//USP_SFP_GET_HallTicketDetailsByPin  USP_SFP_GET_HallTicketDetailsByPin_TEST
                 return JsonConvert.SerializeObject(dt);
-               
+
             }
             catch (Exception ex)
             {
@@ -11398,19 +11398,19 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetBacklogHallticket")]
-        public string GetBacklogHallticket(string Pin, string DateOfBirth, int StudentTypeId,string Exammonthyearid)
+        public string GetBacklogHallticket(string Pin, string DateOfBirth, int StudentTypeId, string Exammonthyearid)
         {
             try
             {
-                    var dbHandler = new dbHandler();
-                    var param = new SqlParameter[4];
-                    param[0] = new SqlParameter("@Pin", Pin);
-                    param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
-                    param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
-                    param[3] = new SqlParameter("@Exammonthyearid", Exammonthyearid);
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@Exammonthyearid", Exammonthyearid);
                 var dt = new DataSet();
-                    dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin_bac", param);
-                    return JsonConvert.SerializeObject(dt);
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin_bac", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
@@ -11458,9 +11458,9 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
+
         [HttpGet, ActionName("Verify_GenuinenessEmailLog")]
-        public HttpResponseMessage Verify_GenuinenessEmailLog(string Pin,string Email,string OTP)
+        public HttpResponseMessage Verify_GenuinenessEmailLog(string Pin, string Email, string OTP)
         {
             try
             {
@@ -11481,12 +11481,12 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("getAdminExamCentersList")]
-        public HttpResponseMessage getAdminExamCentersList(int ExamMonthYearId,int StudentTypeId,int ExamTypeID=0)
+        public HttpResponseMessage getAdminExamCentersList(int ExamMonthYearId, int StudentTypeId, int ExamTypeID = 0)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];               
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@ExamTypeID", ExamTypeID);
@@ -11523,7 +11523,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("getExamCentersList")]
-        public HttpResponseMessage getExamCentersList(int Examyearid,int studentTypeId,int ExamTypeID =0)
+        public HttpResponseMessage getExamCentersList(int Examyearid, int studentTypeId, int ExamTypeID = 0)
         {
             try
             {
@@ -11783,8 +11783,58 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+        [HttpGet, ActionName("GenerateOtpForMobileNo")]
+        public string GenerateOtpForMobileNo(string Pin, string Phone, string ExamDetails)
+        {
+            string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
+                " Secretary," + " SBTET" + " " + "TS";
+            DataSet dt = new DataSet();
+            string Message = string.Empty;
+            string resp = string.Empty;
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@PhoneNumber", Phone);
+                dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_MobileUpdate", param);
+
+                if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
+                {
+                    return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
+                }
+                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], ExamDetails);
+                string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                if (Phone != null || Phone != string.Empty)
+                {
+                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007170677994132793";
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri(url);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                    resp = "OTP sent to the mobile number :" + Phone.ToString().Substring(0, 2) + "xxxxx" + Phone.ToString().Substring(7);
+                    return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
+
+                }
+                else
+                {
+                    resp = "Mobile number not valid";
+                    return "{\"status\":\"400\",\"description\" : \"" + resp + "\"}";
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("usp_SOS_GET_OTP_MobileUpdate", 0, ex.Message);
+                return ex.Message;
+            }
+        }
         [HttpGet, ActionName("GetStudentFeePaymentDetails")]
-        public string GetStudentFeePaymentDetails(string Pin, int StudentTypeId,int EMYR = 0)
+        public string GetStudentFeePaymentDetails(string Pin, int StudentTypeId, int EMYR = 0)
         {
             try
             {
@@ -11832,7 +11882,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-        
+
         [HttpGet, ActionName("getFeeTypes")]
         public string getFeeTypes(int ExamMonthYearId, int StudentTypeId)
         {
@@ -11991,7 +12041,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
+
 
 
         [HttpPost, ActionName("getChanllanForExamFee")]
@@ -12003,7 +12053,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 string studentTypeId = "";
                 var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(JsonObj["json"]));
                 var finalJsonArray = new ArrayList();
-                var ExamMonthYearId = Convert.ToInt32(JsonObj["ExamMonthYearId"]?? 0);
+                var ExamMonthYearId = Convert.ToInt32(JsonObj["ExamMonthYearId"] ?? 0);
                 var jsonArray = new JsonArray();
                 for (int i = 0; i < js.Count; i++)
                 {
@@ -12015,7 +12065,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@Json", JsonConvert.SerializeObject(jsonArray));
-                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId );
+                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 DataSet ds = null;
                 if (studentTypeId == "1")
                     ds = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_SET_GenerateChalanaNumber_RequestLog", param);
@@ -12082,7 +12132,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[6] = new SqlParameter("@LateFee", request.LateFee);
                 param[7] = new SqlParameter("@TatkalDate", request.TatkalDate);
                 param[8] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[9] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);                
+                param[9] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
                 param[10] = new SqlParameter("@CondonationFee", request.CondonationFee);
                 param[11] = new SqlParameter("@PresemptiveAttendedDays", request.PresemptiveAttendedDays);
                 param[12] = new SqlParameter("@MaxWorkingDays", request.MaxWorkingDays);
@@ -12264,19 +12314,19 @@ namespace SoftwareSuite.Controllers.PreExamination
                     {
 
                         Message = string.Format(msgbelowStanderd, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"]);
-                         urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087135060103";
+                        urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087135060103";
                     }
                     else if (StudentTyepId == 1)
                     {
                         if (percentage >= 75)
                         {
                             Message = string.Format(msgAbove75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"], dt.Rows[i]["MMYY_Exam"]);
-                             urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087071082321";
+                            urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087071082321";
                         }
                         else
                         {
                             Message = string.Format(msgbelow75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"], "02-11-2019");
-                             urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087123571784";
+                            urlParameters = "?mobile=" + StudentContact + "&message=" + Message + "&templateid=1007165087123571784";
                         }
                     }
                     //Message = string.Format(msgAbove75, dt.Rows[i]["StudentName"], dt.Rows[i]["Pin"], dt.Rows[i]["AmountPaid"],"02-11-2019");
@@ -12422,7 +12472,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetMonthYearBySemSchemePin")]
-        public HttpResponseMessage GetMonthYearBySemSchemePin(string pin, string Scheme,string Semester)
+        public HttpResponseMessage GetMonthYearBySemSchemePin(string pin, string Scheme, string Semester)
         {
             try
             {
@@ -12465,13 +12515,13 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("TimeTableExistingHolidays")]
-        public HttpResponseMessage TimeTableExistingHolidays(int AcademicYearId,int SessionId,int ExamMonthYearId,int StudentTypeId,int ExamTypeId)
+        public HttpResponseMessage TimeTableExistingHolidays(int AcademicYearId, int SessionId, int ExamMonthYearId, int StudentTypeId, int ExamTypeId)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];               
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
                 param[1] = new SqlParameter("@SessionId", SessionId);
                 param[2] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
@@ -12603,14 +12653,14 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 //string tinyUrl = "https://sbtet.telangana.gov.in/Reports/SignedCert/a8d4b9f7-ce57-4872-9524-45bc14af02d1.pdf";
                 //string api = "https://sbtet.telangana.gov.in";
-               
+
                 //    var request = WebRequest.Create(api + tinyUrl);
                 //    var res = request.GetResponse();
                 //    using (var reader = new StreamReader(res.GetResponseStream()))
                 //    {
                 //        tinyUrl = reader.ReadToEnd();
                 //    }
-                
+
 
                 //System.Uri address = new System.Uri("http://tinyurl.com/api-create.php?url=" + "https://sbtet.telangana.gov.in/Reports/SignedCert/a8d4b9f7-ce57-4872-9524-45bc14af02d1.pdf");
                 //System.Net.WebClient client1 = new System.Net.WebClient();
@@ -12649,15 +12699,15 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("GetPrincipalTimetable")]
+
+        [HttpGet, ActionName("GetPrincipalTimetable")]
         public HttpResponseMessage GetPrincipalTimetable(int ExamMonthYearId)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);          
+                param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TimeTableByExamMonthYr ", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -12694,7 +12744,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         //    try
         //    {
 
-               
+
         //        var dbHandler = new dbHandler();
         //        var param = new SqlParameter[1];
         //        param[0] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
@@ -12727,11 +12777,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@ExamMonthYearId", request["ExamMonthYearId"]);
-               
+
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TimeTableByExamMonthYr", param);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                   
+
                     string filename = "Backlog" + "-" + "TimeTable" + "_" + Guid.NewGuid() + ".xlsx";
 
                     var eh = new ExcelHelper();
@@ -12801,11 +12851,11 @@ namespace SoftwareSuite.Controllers.PreExamination
         //        return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
         //    }
         //}
-          
-        
 
 
-[HttpGet, ActionName("GetBacklogStudentDetails")]
+
+
+        [HttpGet, ActionName("GetBacklogStudentDetails")]
         public HttpResponseMessage GetBacklogStudentDetails(string pin, int userTypeId)
         {
             try
@@ -12850,7 +12900,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-      
+
 
 
         [HttpGet, ActionName("getChallanData")]
@@ -13086,7 +13136,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[2] = new SqlParameter("@Scheme", json["Scheme"]);
                 param[3] = new SqlParameter("@UserName", json["UserName"]);
                 param[4] = new SqlParameter("@Json", json["Json"].ToString());
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_7_1_RVRCResultsUpdationsFromExcel", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -13112,7 +13162,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[3] = new SqlParameter("@ExamTypeId", json["ExamTypeId"]);
                 param[4] = new SqlParameter("@DataTypeId", json["DataTypeId"]);
                 param[5] = new SqlParameter("@UserName", json["UserName"]);
-                param[6] = new SqlParameter("@Json", json["Json"].ToString());             
+                param[6] = new SqlParameter("@Json", json["Json"].ToString());
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_3_2_ResultsAutomationWantingsUpdations", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -13182,13 +13232,13 @@ namespace SoftwareSuite.Controllers.PreExamination
                 //    Timer timer = new Timer(200000);
                 //    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 //    timer.Start();
-                    
-                  
-                   
+
+
+
                 //    return "{\"ResponceCode\":\"400\",\"ResponceDescription\" : \"" + "/Downloads/" + filename + "\"}";
                 //}else
                 //{
-                    return JsonConvert.SerializeObject(dt);
+                return JsonConvert.SerializeObject(dt);
                 //}
 
 
@@ -13272,17 +13322,17 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             List<person> p = new List<person>();
             person p1 = new person();
-          
-         
+
+
 
             try
             {
-                  var dbHandler = new dbHandler();
+                var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@AcademicYearId", json["AcademicYearId"].ToString());
                 param[1] = new SqlParameter("@AdmissionType", json["AdmissionType"].ToString());
                 param[2] = new SqlParameter("@json", json["json"].ToString());
-               
+
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_UploadPolycetStudentsDataInMasterTables", param);
 
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "400")
@@ -13328,7 +13378,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 p1.ResponceCode = "400";
                 p1.ResponceDescription = ex.Message;
                 p.Add(p1);
-                 return JsonConvert.SerializeObject(p);
+                return JsonConvert.SerializeObject(p);
             }
 
         }
@@ -13547,8 +13597,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("GetCollegeWiseExpenditure")]
+
+        [HttpGet, ActionName("GetCollegeWiseExpenditure")]
         public string GetCollegeWiseExpenditure()
         {
             try
@@ -13584,8 +13634,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("GetExpenditureById")]
+
+        [HttpGet, ActionName("GetExpenditureById")]
         public string GetExpenditureById(int Id)
         {
             try
@@ -13726,7 +13776,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("UpdateSmsStatus")]
-        public string UpdateSmsStatus(int CertificateTypeId, string Pin,int Id=0)
+        public string UpdateSmsStatus(int CertificateTypeId, string Pin, int Id = 0)
         {
             try
             {
@@ -13788,15 +13838,15 @@ namespace SoftwareSuite.Controllers.PreExamination
 
         }
 
-        
-            [HttpPost, ActionName("UpdateExpenditureData")]
+
+        [HttpPost, ActionName("UpdateExpenditureData")]
         public string UpdateExpenditureData([FromBody] JsonObject data)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-              
+
                 param[0] = new SqlParameter("@ExpenditureAmount", data["ExpenditureAmount"]);
                 param[1] = new SqlParameter("@Description", data["Description"]);
                 param[2] = new SqlParameter("@Id", data["Id"]);
@@ -13837,10 +13887,10 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
 
         }
-        
+
 
         [HttpGet, ActionName("GetTimeTableUpdateData")]
-        public string GetTimeTableUpdateData(int AcademicYearId,int ExamMonthYearId,int StudentTypeId,int ExamTypeId,int Schemeid,int branchid,int semid)
+        public string GetTimeTableUpdateData(int AcademicYearId, int ExamMonthYearId, int StudentTypeId, int ExamTypeId, int Schemeid, int branchid, int semid)
         {
             try
             {
@@ -13870,7 +13920,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         {
             try
             {
-         
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
@@ -13896,19 +13946,19 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetTimeTableUpdateDataByPcode")]
-        public string GetTimeTableUpdateDataByPcode(int ExamMonthYearId, int AcademicYearId, int StudentTypeId, int ExamTypeId,int pcode)
+        public string GetTimeTableUpdateDataByPcode(int ExamMonthYearId, int AcademicYearId, int StudentTypeId, int ExamTypeId, int pcode)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[5];
-               
+
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@AcademicYearId", AcademicYearId);
                 param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 param[4] = new SqlParameter("@pcode", pcode);
-              
+
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_TimeTableByPcode", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -13943,9 +13993,9 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
-             [HttpGet, ActionName("GetExamMonthYearBySem")]
-        public HttpResponseMessage GetExamMonthYearBySem(string Semester,int StudentTypeId)
+
+        [HttpGet, ActionName("GetExamMonthYearBySem")]
+        public HttpResponseMessage GetExamMonthYearBySem(string Semester, int StudentTypeId)
         {
             try
             {
@@ -13987,10 +14037,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
-        
+
 
         [HttpGet, ActionName("GetExamMonthYearForHallticketandFeepayment")]
-        public HttpResponseMessage GetExamMonthYearForHallticketandFeepayment(int DataTypeId,int StudentTypeId)
+        public HttpResponseMessage GetExamMonthYearForHallticketandFeepayment(int DataTypeId, int StudentTypeId)
         {
             try
             {
@@ -14010,7 +14060,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
-        
+
 
         [HttpGet, ActionName("GetExamSessionDates")]
         public string GetExamSessionDates(int ExamMonthYearId, int AcademicYearId, int StudentTypeId, int ExamTypeId, int schemeid)
@@ -14046,8 +14096,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];             
-                param[0] = new SqlParameter("@CollegeCode", CollegeCode); 
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@CollegeCode", CollegeCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SeatingPlanCollegeExamRooms", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -14067,8 +14117,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@datatypeid", data["datatypeid"]);             
-                param[1] = new SqlParameter("@CollegeCode", data["CollegeCode"]);              
+                param[0] = new SqlParameter("@datatypeid", data["datatypeid"]);
+                param[1] = new SqlParameter("@CollegeCode", data["CollegeCode"]);
                 param[2] = new SqlParameter("@Json", data["Json"].ToString());
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_SeatingPlanCollegeExamRooms", param);
                 return JsonConvert.SerializeObject(dt);
@@ -14092,7 +14142,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@StudentTypeId", data["StudentTypeId"]);
                 param[2] = new SqlParameter("@CollegeCode", data["CollegeCode"]);
                 param[3] = new SqlParameter("@ExamMonthYearId", data["ExamMonthYearId"]);
-                param[4] = new SqlParameter("@ExamTypeId", data["ExamTypeId"]);             
+                param[4] = new SqlParameter("@ExamTypeId", data["ExamTypeId"]);
                 param[5] = new SqlParameter("@Json", data["Json"].ToString());
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_SeatingPlanExamRooms", param);
                 return JsonConvert.SerializeObject(dt);
@@ -14109,7 +14159,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         public string GetSeatingPlan([FromBody] JsonObject data)
         {
             try
-            {             
+            {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@StudentTypeId", data["StudentTypeId"]);
@@ -14130,13 +14180,13 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("SeatingPlanPdf")]
-        public string SeatingPlanPdf(int StudentTypeId, string CollegeCode, string ExamDate,string timeSlot,int ExamMonthYearId,int ExamTypeId)
+        public string SeatingPlanPdf(int StudentTypeId, string CollegeCode, string ExamDate, string timeSlot, int ExamMonthYearId, int ExamTypeId)
         {
             var res = string.Empty;
             var ResponseDescription = string.Empty;
             try
             {
-             
+
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@StudentTypeId", StudentTypeId);
@@ -14152,10 +14202,10 @@ namespace SoftwareSuite.Controllers.PreExamination
                 var BranchData = DataTableHelper.ConvertDataTable<BranchData>(ds?.Tables[3]);
                 var pdf = SeatingPlan.SeatingPlanPdf(SeatingData, BranchData);
                 var excelpath = SeatingPlanAbtract(StudentTypeId, CollegeCode, ExamDate, timeSlot, ExamMonthYearId, ExamTypeId);
-               
+
 
                 res = JsonConvert.SerializeObject("{\"Status\" : \"200\",\"seatingpdf\" : \"" + pdf + "\",\"excelpath\" : \"" + excelpath + "\",\"ResponseDescription\" : \"" + ResponseDescription + "\" }");
-                return res;             
+                return res;
             }
             catch (Exception ex)
             {
@@ -14226,10 +14276,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[2] = new SqlParameter("@ExamDate", ExamDate);
                 param[3] = new SqlParameter("@timeSlot", timeSlot);
                 param[4] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
-                param[5] = new SqlParameter("@ExamTypeId", ExamTypeId);               
+                param[5] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_Get_SeatingplanReportCounts", param);
-                if (ds.Tables[0].Rows.Count > 0) {
-                    var filename =  "SeatingPlanAbtract" + "_" + Guid.NewGuid() + ".xlsx";
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    var filename = "SeatingPlanAbtract" + "_" + Guid.NewGuid() + ".xlsx";
                     var eh = new ExcelHelper();
                     var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                     bool folderExists = Directory.Exists(path);
@@ -14240,12 +14291,14 @@ namespace SoftwareSuite.Controllers.PreExamination
                     timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                     timer.Start();
                     return "/Downloads/" + filename;
-                } else {
+                }
+                else
+                {
 
                     return "400";
                 }
-             
-            }         
+
+            }
             catch (Exception ex)
             {
                 return "FAILED" + ex.Message;
@@ -14267,10 +14320,10 @@ namespace SoftwareSuite.Controllers.PreExamination
             var filepath = @"D:\svn\filelog.txt";
             var dbHandler = new dbHandler();
             DataTable tblSystemUser = new DataTable();
-            var StrQuery = "exec AttendeeToDeactivate";           
+            var StrQuery = "exec AttendeeToDeactivate";
             tblSystemUser = dbHandler.ReturnData(StrQuery);
             List<DeactAttendeeId> attendeelst = tblSystemUser.DataTableToList<DeactAttendeeId>().ToList();
-          
+
             int size = tblSystemUser.Rows.Count;
             var length = attendeelst.Count;
             for (int i = 0; i < length; i++)
@@ -14308,11 +14361,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                         try
                         {
                             var res = JsonConvert.DeserializeObject(content);
-                            System.IO.File.WriteAllText(filepath, "Response Message" + res + "\n");                          
+                            System.IO.File.WriteAllText(filepath, "Response Message" + res + "\n");
                         }
                         catch (Exception ex)
                         {
-                            System.IO.File.WriteAllText(filepath, "Response Message" + ex.Message + "\n");                         
+                            System.IO.File.WriteAllText(filepath, "Response Message" + ex.Message + "\n");
                         }
                     }
                     catch (Exception ex)//HttpRequestException e
@@ -14320,13 +14373,11 @@ namespace SoftwareSuite.Controllers.PreExamination
                         System.IO.File.WriteAllText(filepath, "Response Message" + ex.Message + "\n");
 
                     }
-                  
+
                 }
-            }          
+            }
             return file;
         }
-
-        
 
 
 
@@ -14361,7 +14412,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 for (var i = 0; i < examHalls.Count; i++)
                 {
                     examHalls[i].Id = i + 1;
-                    currentCapacity += examHalls[i].Rows * examHalls[i].Columns *examHalls[i].SeatingPerBench;
+                    currentCapacity += examHalls[i].Rows * examHalls[i].Columns * examHalls[i].SeatingPerBench;
                 }
                 if (currentCapacity < noOfStudents)
                 {
@@ -14464,7 +14515,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 dbHandler.SaveErorr("USP_SFP_GET_Seating_Plan_Data", 0, ex.Message);
                 return "ERROR: " + ex.Message;
             }
-          
+
         }
 
         [HttpGet, ActionName("GetMercyList")]
@@ -14483,20 +14534,6 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
 
 
 

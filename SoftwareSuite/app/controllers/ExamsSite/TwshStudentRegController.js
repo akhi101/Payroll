@@ -63,8 +63,20 @@
             $scope.LoadGrades($scope.SelectedCourseId, $scope.sellanguage);
             //$scope.Selgrade = { GradeId: 23 };
             $scope.LoadOnlineDist();
+            $scope.ShowisSSC = false;
+        }
+
+        $scope.IsSsc = function (ISSSC) {
+            if (ISSSC==1) {
+                $scope.SscForm = true;
+            }
+            else {
+                $scope.SscForm = false;
+            }
+
 
         }
+
 
 
         var eKey = SystemUserService.GetEKey();
@@ -136,6 +148,26 @@
                 $scope.GradeBatchTimings = [];
             });
         }
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $scope.Blind = function (IsBlind) {
             if (IsBlind == 0) {
@@ -223,13 +255,14 @@
                 $scope.mode = 1;  // by default online mode is selected for english
                 $scope.ExamModeName = 'Computer Based Test (CBT)';
             }
-            else if ($scope.selectedlanguage.Id != 1 && $scope.selectedcourse.Id == 1) {
-                $scope.tmpmode = 2;
-                //$scope.showmodeofexam = true;
-                $scope.ExamAppearDetails = true;
-                $scope.mode = 2;
+            //else if ($scope.selectedlanguage.Id != 1 && $scope.selectedcourse.Id == 1) {
+            //    $scope.tmpmode = 2;
+            //    //$scope.showmodeofexam = true;
+            //    $scope.ExamAppearDetails = true;
+            //    $scope.mode = 2;
 
-            } else {
+            //} 
+            else {
                 $scope.mode = 2;
                 //$scope.showmodeofexam = false;
                 $scope.ExamAppearDetails = true;
@@ -470,7 +503,8 @@
                 //$scope.oldUser = true;
                 $scope.oldUser2 = false;
                 $scope.sscForm = false;
-                $scope.applicationForm = true;
+                $scope.ShowisSSC = true;
+                $scope.applicationForm = false;
                 if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
                     $scope.isqualified1 = false;
 
@@ -1101,18 +1135,18 @@
 
 
 
-        $scope.LoadExamCenters = function (DistrictId) {
+        $scope.LoadExamCenters = function (DistrictID) {
 
             $scope.examCenterList = [];
             try {
-                $scope.SelectedDistrictId = JSON.parse(DistrictId);
+                $scope.SelectedDistrictId = JSON.parse(DistrictID);
                 // var course = JSON.parse($scope.course); 
             } catch (er) { }
 
 
             if ($scope.mode == 1) {
                 //-------------------Load online exam Centers-----------------------
-                var ExamCenters = TwshStudentRegService.getonlineExaminationCenters($scope.selectedcourse.Id, $scope.SelectedDistrictId.Id);
+                var ExamCenters = TwshStudentRegService.getonlineExaminationCenters($scope.SelectedCourseId.CourseID, $scope.SelectedDistrictId.DistrictID);
                 ExamCenters.then(function (res) {
                     $scope.availableDates = [];
                     $scope.examCenterList = res.Table;

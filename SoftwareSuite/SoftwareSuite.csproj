@@ -645,6 +645,7 @@
     <Content Include="app\controllers\BillDesk\BillDeskController.js" />
     <Content Include="app\controllers\BoardReportListController.js" />
     <Content Include="app\controllers\BranchWiseController.js" />
+    <Content Include="app\controllers\CBT\CbtRegistrationController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
@@ -1085,6 +1086,7 @@
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
