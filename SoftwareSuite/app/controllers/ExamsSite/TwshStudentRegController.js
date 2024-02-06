@@ -454,6 +454,7 @@
 
 
         $scope.VerifyOtp = function () {
+
             if ($scope.Selgrade.GradeQualificationID == undefined || $scope.Selgrade.GradeQualificationID == null) {
                 $scope.ExamAppearDetails = false;
                 $scope.oldUser = false;

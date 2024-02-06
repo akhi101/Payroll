@@ -193,6 +193,17 @@
             font-size: auto !important;
         }
 
+        .cancel-btn button {
+            background: #e51313;
+            padding: 5px 20px;
+            color: #fff;
+            float: right;
+            border: none;
+            box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+            border-radius: 2px;
+            font-size: 14px;
+            font-family: 'Open Sans';
+        }
        
     </style>
 
@@ -253,7 +264,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group required">
-                                                <label>Language </label>
+                                                <label>Language</label>
                                                 <select class="form-control" id="language" ng-disabled="DisableLanguage" ng-model="sellanguage" ng-change="LoadGrades(SelectedCourseId,sellanguage) " required
                                                         ng-options="language.LanguageName for language in languageinfo track by language.LanguageId">
                                                     <option value="" selected>Select Language</option>
@@ -270,8 +281,14 @@
 
                                         <div class="col-md-3">
                                             <div class="form-group required">
-                                                <label>Grade</label>
+                                                
+                                                <label>
+Grade
+                                                
+                                                </label>
 
+                                                
+
                                                 <select class="form-control" id="Grade" ng-disabled="DisableGrade" ng-model="Selgrade" required ng-change="LoadQualifications(Selgrade)"
                                                         ng-options="grade.GradeName for grade in LoadGradeinfo track by grade.GradeId">
                                                     <option value="" selected>Select Grade</option>
@@ -299,6 +316,12 @@
                                         <div class="col-md-12 pull-right mtp-50">
                                             <div class="submit-btn" ng-disabled="DisableSubmit" style="margin-bottom:0px;">
                                                 <button type="submit">Submit</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 pull-right mtp-50">
+                                            <div class="cancel-btn" style="margin-bottom:0px;">
+                                                <button type="button" ng-model="Reset1" ng-disabled="DisableReset" ng-click="Reset1()">Reset</button>
                                             </div>
                                         </div>
 
@@ -382,7 +405,7 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <div class="col-md-7">
-                                        <label>Did you appear for <b>{{Grade}}</b> in any of the last sessions ?</label>
+                                        <label>Did you appear for <b>{{Selgrade.GradeName}}</b> in any of the last sessions ?</label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="rdo-grp">
@@ -718,7 +741,7 @@
                                 <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
                             </div>
                         </div>-->
-                                            <div class="col-md-4 ">
+                                            <!--<div class="col-md-4 ">
                                                 <div class="form-group required">
                                                     <label>Examination Appearing </label>
                                                     <input type="text" id="appearingExam" disabled class="form-control" autocomplete="off" ng-model="TwshCourse" required />
@@ -735,7 +758,7 @@
                                                     <label>Grade</label>
                                                     <input type="text" id="examgrade" disabled class="form-control" autocomplete="off" ng-model="TwshGrade" required />
                                                 </div>
-                                            </div>
+                                            </div>-->
 
                                             <div class="col-md-4 ">
                                                 <div class="form-group required">
