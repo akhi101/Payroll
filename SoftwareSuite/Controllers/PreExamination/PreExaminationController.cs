@@ -8223,7 +8223,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataType", request["DataType"]);
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
                 param[1] = new SqlParameter("@ID", request["ID"]);
                 param[2] = new SqlParameter("@Name", request["Name"]);
                 param[3] = new SqlParameter("@Is_Active", request["Is_Active"]);

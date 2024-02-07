@@ -1657,7 +1657,7 @@ namespace SoftwareSuite.Controllers.TWSH
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[2]; 
                 param[0] = new SqlParameter("@CoursesType", CoursesType);
                 param[1] = new SqlParameter("@DistrictId", DistrictId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_TWSH_ExaminationCenters_Dates", param);
