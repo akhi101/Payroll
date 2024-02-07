@@ -645,6 +645,7 @@
     <Content Include="app\controllers\BillDesk\BillDeskController.js" />
     <Content Include="app\controllers\BoardReportListController.js" />
     <Content Include="app\controllers\BranchWiseController.js" />
+    <Content Include="app\controllers\CBT\CbtRegistrationController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
@@ -902,6 +903,7 @@
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
     <Content Include="app\controllers\ExamsSite\TwshAdmViewApplicationController.js" />
+    <Content Include="app\controllers\ExamsSite\TestingTwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TypingCumShorthandResultsController.js" />
@@ -1085,11 +1087,13 @@
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
+    <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
@@ -2369,7 +2373,7 @@
     <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />
     <Content Include="app\views\ExamsSite\StudentFeedback.html" />
     <Content Include="app\views\ExamsSite\StudentOnlineRequest.html" />
-    <Content Include="app\views\ExamsSite\StudentReg.html" />
+    <Content Include="app\views\ExamsSite\TestingStudentReg.html" />
     <Content Include="app\views\ExamsSite\StudentRequestForm.html" />
     <Content Include="app\views\ExamsSite\TwshViewApplication.html" />
     <Content Include="app\views\ExamsSite\TypingCumShorthand.html" />

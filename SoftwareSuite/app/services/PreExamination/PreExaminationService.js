@@ -3473,7 +3473,7 @@
                 "ChallanPrefix": ChallanPrefix,
                 "UserName": UserName
             };
-            var promise = DataAccessService.getDataWithPara('Academic/addorUpdateFeeSettings', paramObject);
+            var promise = DataAccessService.postData('api/PreExamination/AddFeeSettings', paramObject);
             return promise;
         };
 

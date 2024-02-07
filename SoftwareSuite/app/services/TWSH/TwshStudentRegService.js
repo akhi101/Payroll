@@ -171,6 +171,12 @@
             return promise;
         };
 
+        this.GetCBTCourses = function () {
+            // var paramObj = { "ReqData": ReqData };SP_GET_Category
+            var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetCBTCourses');
+            return promise;
+        };
+
         this.TwshCertificate = function () {
             // var paramObj = { "ReqData": ReqData };SP_GET_Category
             var promise = DataAccessService.getDataAll('api/TwshCertificate/GetTypeWritingCertificate');
@@ -674,6 +680,12 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getonlineExamcentersAndDates', paramObj);
             return promise;
         };
+
+        this.GetCBTExamcentersAndDates = function (CourseId, DistrictId) {
+            var paramObj = { "CoursesType": CourseId, "DistrictId": DistrictId };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetCBTExamcentersAndDates', paramObj);
+            return promise;
+        };
         this.SubmitApplication = function (object) {
             var promise = DataAccessService.postData('api/TwshStudentReg/SubmitTwshApplication', object);
             return promise;
@@ -1130,6 +1142,7 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentBlindListExcel', paramObj);
             return promise;
         };
+
         
     });
 });
