@@ -57,6 +57,21 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var db = new Twshdbandler();
+                var res = db.ReturnData("USP_GET_Courses");
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetCBTCourses")]
+        public object GetCBTCourses()
+        {
+            try
+            {
+                var db = new Twshdbandler();
                 var res = db.ReturnData("SP_GET_Courses");
                 return res;
             }
@@ -66,9 +81,9 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-      
-            // GET: TwshStudentReg
-            [HttpGet, ActionName("GetAllGrades")]
+
+        // GET: TwshStudentReg
+        [HttpGet, ActionName("GetAllGrades")]
             public object GetAllGrades()
             {
                 try
@@ -1652,6 +1667,25 @@ namespace SoftwareSuite.Controllers.TWSH
 
         [HttpGet, ActionName("getonlineExamcentersAndDates")]
         public HttpResponseMessage getonlineExamcentersAndDates(int CoursesType, int DistrictId)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@CoursesType", CoursesType);
+                param[1] = new SqlParameter("@DistrictId", DistrictId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TWSH_ExaminationCenter_MonthDates", param);
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetCBTExamcentersAndDates")]
+        public HttpResponseMessage GetCBTExamcentersAndDates(int CoursesType, int DistrictId)
         {
             try
             {
@@ -4274,6 +4308,9 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+
+
         //[HttpGet, ActionName("RejectorApproveorReleaseSubmitDetails")]
         //public string RejectorApproveorReleaseSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null,string ReleasedRemarks=null)
         //{
@@ -4365,5 +4402,9 @@ namespace SoftwareSuite.Controllers.TWSH
         public string ExamDate { get; set; }
         public string GradeCode { get; set; }
     }
+
+
+
+
 
 }
