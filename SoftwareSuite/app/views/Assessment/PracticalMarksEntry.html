@@ -143,6 +143,41 @@
             font-weight: bold !important;
         }
     }
+    .text-red {
+        color: red;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+    .loader {
+        border: 4px solid #5cb85c;
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 4s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 <!DOCTYPE html>
 <html>
@@ -184,6 +219,18 @@
                         <div class="row ">
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <div class="col-md-5">
+                                        <label class="label" for="collegSelect">Status :</label>
+                                    </div>
+                                    <span class="text-success" ng-show="pinWise[0].issubmited==true"><b>Submitted</b></span>
+                                    <span class="text-red" ng-show="pinWise[0].issubmited==false"><b>Not Submitted</b></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     <div class="col-md-7">
                                         <label class="label" for="collegSelect">Academic Year :</label>
                                     </div>
@@ -219,6 +266,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12 text-red">
+                                    Note : Awarded Marks will be considered only
+                                    after submission of marks with in the stipulated time
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12 text-red">
+                                    Note : Please Submit the marks to take Print
+                                </div>
+                            </div>
+                        </div>
                         <!--subject Details -->
                         <div>
                             <div class="col-md-12" ng-show="subjectDetailsView">
@@ -240,7 +302,7 @@
                                                 <th style="width: 10%;text-align: center">Name</th>
                                                 <th style="width: 1%;text-align: center">Marks ({{MaxMarks}})</th>
                                                 <th ng-if="IndustryName ==1" style="width: 1%;text-align: center">Industry Name </th>
-                                                <th style="width: 1%;text-align: center" ng-show="subbtn" ng-if="x.issubmited==true">Edit </th>
+                                                <!--   <th style="width: 1%;text-align: center" ng-show="subbtn" ng-if="x.issubmited==true">Edit </th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -248,9 +310,9 @@
                                                 <td style="width: 1%;text-align: center">{{$index+1}}</td>
                                                 <td style="width: 2%;text-align: center">{{x.pin}} </td>
                                                 <td style="width: 10%;text-align: center">{{x.name}}</td>
-                                                <td style="width: 1%;text-align: center"><input ng-model="x.marks" class='text-uppercase' ng-disabled="{{x.IsFeedBackSubmitted}}==false" id="{{x.id}}" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 50px; text-align: center" autocomplete="off" type='text' ng-maxlength="{{MaxMarks.length}}" /></td>
+                                                <td style="width: 1%;text-align: center"><input ng-model="x.marks" class='text-uppercase' ng-disabled="{{x.IsFeedBackSubmitted}}==false || {{x.issubmited}}==true" id="{{x.id}}" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 50px; text-align: center" autocomplete="off" type='text' ng-maxlength="{{MaxMarks.length}}" /></td>
                                                 <td ng-if="IndustryName ==1" style="width: 10%;text-align: center"><input ng-model="x.IndustryName" class='text-uppercase' ng-disabled="{{x.issubmited}} || {{x.IsFeedBackSubmitted}}==false" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 100%; text-align: center" autocomplete="off" type='text' ng-maxlength="200" /></td>
-                                                <td style="width: 1%;text-align: center" ng-if="x.issubmited==true"><a ng-click="editMarks(x)">Edit</a></td>
+                                                <!--    <td style="width: 1%;text-align: center" ng-if="x.issubmited==true"><a ng-click="editMarks(x)">Edit</a></td>-->
                                             </tr>
                                         </tbody>
                                     </table>
@@ -266,31 +328,37 @@
 
                                 <div class="row" style="position: fixed; z-index: 100;bottom: 0px;width: 100%;padding-bottom: 5px;padding-top: 5px;">
                                     <div class="col-md-6">
-                                        <div class="pull-left">
-                                            <button class="btn btn-default" ng-click="back()">
-                                                Back
-                                            </button>
-                                        </div>
+                                        <!--<div class="pull-left">
+                        <button class="btn btn-default" ng-click="back()">
+                            Back
+                        </button>
+                    </div>-->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="pull-left">
-                                            <button class="btn btn-primary" ng-click="OpenPopup()">
+                                            <button class="btn btn-primary" ng-hide="pinWise[0].issubmited==true" ng-disabled="SaveDisable" ng-click="save(0)">
                                                 Save
                                             </button>
                                             <!--<button type="button" class="btn btn-info" ng-click="preview()">preview</button> ng-show="submitHide"-->
-                                            <button class="btn btn-success" ng-show="subbtn" ng-click="submit()">Submit</button>
-                                            <button class="btn btn-info" ng-disabled="printDisable" ng-click="printMarksEntered()">Print</button>
+                                            <button class="btn btn-success" ng-hide="pinWise[0].issubmited==true" ng-disabled="SaveDisable" ng-show="subbtn" ng-click="submit()">Submit</button>
+                                            <button class="btn btn-info" ng-show="pinWise[0].issubmited==true" ng-disabled="printDisable" ng-click="printMarksEntered()">Print</button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-12" ng-show="pinWise[0].issubmited==true">
+                                    <div class="col-md-4"><b>Total Students </b>: {{TotalStudents}} </div>
+                                    <div class="col-md-4"><b>Absent Students </b>: {{AbsentStudents}}  </div>
+                                    <div class="col-md-4"><b>Others Students </b>: {{OtherStudents}}  </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            </div>
+                    </section>
+                        </div>
 
 
-        </div>
-    </div>
+                    </div>
+</div>
 
 
 </body>

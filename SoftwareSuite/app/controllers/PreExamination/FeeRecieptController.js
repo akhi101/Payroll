@@ -23,12 +23,20 @@
             $scope.CertificateTypes.push(data);
             var data1 = {
                 ChallanPrefix: "",
+                Id: 9,
+                Is_Active: true,
+                Name: "2 Years Certificate",
+                Price: ""
+            }
+            $scope.CertificateTypes.push(data1);
+            var data2 = {
+                ChallanPrefix: "",
                 Id: 10,
                 Is_Active: true,
                 Name: "3 Backlog Exemption",
                 Price: ""
             }
-            $scope.CertificateTypes.push(data1)
+            $scope.CertificateTypes.push(data2)
             //$scope.CertificateTypes.splice(7, 1);                       
             $scope.Service = false;
         }, function (error) {

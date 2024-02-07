@@ -3006,7 +3006,7 @@
 
             'Dashboard.AssessmentDashboard.PracticalSubjectList': {
                 url: "/Assessment/Practicals/SubjectList", templateUrl: 'app/views/Assessment/PracticalMarksEntrySubjectList.html',
-                dependencies: ['controllers/Assessment/PracticalMarksEntrySubjectListController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/PracticalsService', 'services/Assessment/MarksEntryService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/Assessment/PracticalMarksEntrySubjectListController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/PracticalsService', 'services/Assessment/MarksEntryService', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
 
             },
 
@@ -3069,7 +3069,7 @@
             'Dashboard.AssessmentDashboard.TheorySubjectList': {
                 url: "/Assessment/Theory/SubjectList",
                 templateUrl: 'app/views/Assessment/TheoryMarksEntrySubjectList.html',
-                dependencies: ['controllers/Assessment/TheoryMarksEntrySubjectListController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/SessionalsService', 'services/BillDesk/paymentService']
+                dependencies: ['controllers/Assessment/TheoryMarksEntrySubjectListController', 'services/MenuService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/SessionalsService', 'services/BillDesk/paymentService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.AssessmentDashboard.TheoryMarksEntryList': {
                 url: "/Assessment/Theory/SubjectList/MarksEntry",
@@ -3080,7 +3080,7 @@
             'Dashboard.AssessmentDashboard.ReleaseMarksEntry': {
                 url: "/ReleaseMarksEntry",
                 templateUrl: 'app/views/Assessment/ReleaseMarksEntry.html',
-                dependencies: ['controllers/Assessment/ReleaseMarksEntryController', 'services/Admission/StudentRegService', 'services/PreExamination/PreExaminationService']
+                dependencies: ['controllers/Assessment/ReleaseMarksEntryController', 'services/Admission/StudentRegService', 'services/PreExamination/PreExaminationService', 'services/Assessment/AssessmentService', 'services/Assessment/MarksEntryService', 'services/Assessment/PracticalsService']
             },
 
             'Dashboard.AdminServices': {

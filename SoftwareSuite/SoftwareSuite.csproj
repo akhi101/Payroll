@@ -1082,6 +1082,7 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
+    <Content Include="app\controllers\PostExam\RejectPopup.html" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
@@ -1091,6 +1092,7 @@
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
     <Content Include="app\views\Popups\AssessmentPopup.html" />
+    <Content Include="app\views\Popups\AssessmentSubmitPopup.html" />
     <Content Include="app\views\Popups\ReleasePopup.html" />
     <Content Include="app\controllers\PostExam\StudyCertificateApproveListController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListDetailsController.js" />

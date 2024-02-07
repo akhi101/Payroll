@@ -78,6 +78,13 @@
             return DataAccessService.getDataWithPara('Assessment/getCollegeAssessmentReports', paramObject);
         };
 
+
+        this.getSubjectsReport = function (CollegeId,  SchemeId,  SemId,  ExamTypeId,  BranchId,  ExamMonthYearId) {
+            var paramObject = {
+                "CollegeId": CollegeId, "SchemeId": SchemeId, "SemId": SemId, "ExamTypeId": ExamTypeId, "BranchId": BranchId, "ExamMonthYearId": ExamMonthYearId
+            };
+            return DataAccessService.getDataWithPara('Assessment/getSubjectsReport', paramObject);
+        };
         
         this.getExamTypesBySem = function (StudentTypeId,Schemeid) {
             var paramObject = { "StudentTypeId": StudentTypeId, "Schemeid": Schemeid };

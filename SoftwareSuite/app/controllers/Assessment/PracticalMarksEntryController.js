@@ -168,6 +168,10 @@
                     $scope.Mobile = response.Table1[0].Mobile;
                     $scope.ExamDetails = response.Table1[0].ExamDetails;
                     $scope.Subject_Code = response.Table1[0].Subject_Code;
+                    $scope.AbsentStudents = response.Table1[0].AbsentCount;
+                    $scope.OtherStudents = response.Table1[0].OtherCount;
+                    $scope.TotalStudents = response.Table1[0].Total;
+                    
                     response.Table.forEach(function (stud) {
                         if (stud.marks != null || stud.IndustryName != null) {
                             previewlist.push(stud);
@@ -333,7 +337,16 @@
                 }
 
             }
-        $scope.OpenPopup = function () {
+        $scope.OpenPopup = function (type) {
+          
+            if (markslist.length != $scope.pinWise.length) {
+                alert("Please Enter All Students Marks for Submit")
+                return;
+                $scope.modalInstance.close();
+            }
+            if (type == 1) {
+                $scope.modalInstance.close();
+            }
             if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
                 alert("Please Update Mobile Number in Affiliation Portal");
                 return;
@@ -361,7 +374,9 @@
                 //}
                 $scope.Otp = true;  
                 $scope.NoOtp = false;
-                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Subject_Code, $scope.Mobile, $scope.ExamDetails)
+                $scope.loader = true
+                $scope.Otpdisable = true;
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile, $scope.ExamDetails)
                 GenerateOtpForMobile.then(function (response) {
                     try {
                         var detail = JSON.parse(response);
@@ -370,15 +385,21 @@
                         alert(detail.description);
                         $scope.Otp = true;
                         $scope.NoOtp = false;
+                        $scope.loader = false
+                        $scope.Otpdisable = false;
                     } else {
                         alert(detail.description);
                         $scope.Otp = false;
                         $scope.NoOtp = true;
+                        $scope.loader = false
+                        $scope.Otpdisable = false;
                     }
                 }, function (error) {
                     alert('error occured while sending OTP');
                     $scope.Otp = false;
                     $scope.NoOtp = true;
+                    $scope.loader = false
+                    $scope.Otpdisable = false;
                 })
 
             } else if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
@@ -404,7 +425,7 @@
                 //} else {
                 //    var Pin = $scope.userData.Pin;
                 //}
-                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForMobileNoUpdate($scope.Subject_Code, $scope.Mobile)
+                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile)
                 GenerateOtpForMobileNoUpdate.then(function (response) {
                     try {
                         var detail = JSON.parse(response);
@@ -443,7 +464,7 @@
             //} else {
             //    var Pin = $scope.userData.Pin;
             //}
-            var UpdateUserdata = PreExaminationService.UpdateUserdata($scope.Subject_Code, $scope.Mobile, $scope.OTPdata)
+            var UpdateUserdata = PreExaminationService.UpdateUserdata($scope.Mobile, $scope.Mobile, $scope.OTPdata)
             UpdateUserdata.then(function (response) {
 
                 try {
@@ -451,10 +472,9 @@
                 } catch (err) { }
                 if (res.Table[0].StatusCode == '200') {
                     alert(res.Table[0].StatusDescription);
+                    $scope.submit(1)
                     $scope.phonenoupdated = true;
-                    $scope.Verified = true;
-                    $scope.save()
-                    
+                    $scope.Verified = true;   
                     
                 } else {
                     alert(res.Table[0].StatusDescription);
@@ -470,8 +490,28 @@
 
         }
 
+        $scope.DataSaved = function (type) {
+            if (type == 0) {
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/AssessmentSubmitPopup.html",
+                    size: 'xs',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+                $scope.closeModal = function () {
 
-            $scope.save = function () {
+                    $scope.modalInstance.close();
+                }
+            } else  {
+                $scope.OpenPopup()
+            }
+           
+
+           
+        }
+
+        $scope.save = function (type) {
+            $scope.SaveDisable = true;
            // if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
             //if ($scope.IndustryName == 1) {
             //var outArr = [];
@@ -507,19 +547,26 @@
             //        markslist = outArr;
             //  }
             //}
-                issaved = true;
+              
                 if (markslist != [] && markslist != '') {
+                   
+
                     var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, StudentTypeId);
                     postmarks.then(function (response) {
+                        $scope.SaveDisable = false;
                         //   console.log(response);
-                        alert('Marks are Saved Successfully');
-                        $scope.modalInstance.close();
+                        //alert('Marks are Saved Successfully');
+                        issaved = true;
+                        $scope.DataSaved(type)
+                        //$scope.modalInstance.close();
                         $scope.loadPinAndMarks();
                     }, function (error) {
+                        $scope.SaveDisable = false;
                         console.log(error);
                         // alert(error);
                     });
                 } else {
+                    $scope.SaveDisable = false;
                     $scope.modalInstance.close();
                     alert('No valid data Present');                   
                     $scope.loadPinAndMarks();
@@ -531,23 +578,35 @@
             $state.go("Dashboard.AssessmentDashboard.Assessment.PracticalSubjectList");
         }
 
-        $scope.submit = function () {
-            var conf = confirm("Are you sure you want to submit the marks");
-            if (conf) {
+        $scope.submit = function (type) {
+            $scope.SaveDisable = true;
+            //var conf = confirm("Are you sure you want to submit the marks");
+            //if (conf) {
+            if (type == 1) {
+                $scope.SaveDisable = false;
+                $scope.modalInstance.close();
+            } else {
+                $scope.save(1)
+                return;
+            }
+
                 subid = $localStorage.assessment.selectSubjectDetails.subid;
                 let collegeCode = authData.College_Code;
               
                 var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear);
                 submitMarks.then(function (response) {
                     //   console.log(response);
+                    $scope.SaveDisable = false;
                     alert('Marks are Submited Successfully');
+                    $scope.modalInstance.close();
                     $scope.loadPinAndMarks();
                 }, function (error) {
+                    $scope.SaveDisable = false;
                     console.log(error);
                 });
-            }
+            //}
 
-        },
+        }
 
 
             $scope.printMarksEntered = function () {
@@ -559,7 +618,6 @@
                 var $markstable = document.createElement("div");
                 $markstable.innerHTML = '';
                 $markstable.className = "table";
-
                 var parsent = new DOMParser();
                 var bl = parsent.parseFromString('<div id="divtitle">STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA</div>', "text/html");
 
@@ -568,8 +626,12 @@
                 var al = parse.parseFromString('<div id="divtop" ><span id="text-left"><label class="label-pad">College : </label>' + collegeName + '</span><span id="text-right"><label class="label-pad">Branch :</label>' + branchName + "(" + BranchCode + ")" + ' </span> </div>', "text/html");
                 var parser = new DOMParser();
                 var el = parser.parseFromString('<div id="divtoadd" ><span id="text-left"><label class="label-pad">Scheme : </label>' + $scope.loadedScheme.Scheme + '</span><span id="text-center"><label class="label-pad sem-pad"> Semester :</label>' + semName + "     " + '</span><span id="text-right"><label class="label-pad">Subject Code :</label>' + SubjectCode + '</span></div>', "text/html");
-                var divToPrint = document.getElementById(divName);
-                var temp = document.body.innerHTML;
+            var parser = new DOMParser();
+            var ela = parser.parseFromString('<div id="prntdiv"  ><span id="text-left"><label class="label-pad">Total Students </label>:' + $scope.TotalStudents + '</span><span id="text-center"><label class="label-pad sem-pad"> Absent Students </label>: ' + $scope.AbsentStudents + '  </span><span id="text-right"><label class="label-pad">Others Students </label>: ' + $scope.OtherStudents + '</span></div></div >', "text/html");
+        
+            var divToPrint = document.getElementById(divName);
+            var temp = document.body.innerHTML;
+      
                 $("#markslist").hide();
                 var domClone = divToPrint.cloneNode(true);
                 var $printSection = document.getElementById("printSection");
@@ -581,13 +643,15 @@
                     var divToPrintheads = bl.getElementById("divtitle");
                     var divToPrintheaded = al.getElementById("divtop");
                     var divToPrinthead = el.getElementById("divtoadd");
+                    var divToPrinthead1 = ela.getElementById("prntdiv");
+
                     $markstable.appendChild(divToPrintheads);
                     $markstable.appendChild(divToPrintheaded);
                     $markstable.appendChild(divToPrinthead);
 
-
+                    $markstable.appendChild(divToPrinthead1);
                     document.body.appendChild($printSection);
-
+                 
                     var $ele1 = document.createElement("div");
                     $ele1.className = "row";
 

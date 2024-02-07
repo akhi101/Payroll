@@ -292,9 +292,10 @@ namespace SoftwareSuite.Controllers.Assessment
 
         }
 
+        
 
         [HttpGet, ActionName("getExamTypesBySem")]
-        public string getExamTypesBySem(int @StudentTypeId,int Schemeid)
+        public string getExamTypesBySem(int StudentTypeId,int Schemeid)
         {
          
             try
@@ -515,6 +516,59 @@ namespace SoftwareSuite.Controllers.Assessment
             }
 
         }
+
+
+        [HttpGet, ActionName("getSubjectsReport")]
+        public string getSubjectsReport(int CollegeId, int SchemeId, string SemId, int ExamTypeId, int BranchId, int ExamMonthYearId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@CollegeId", CollegeId);
+                param[1] = new SqlParameter("@SchemeId", SchemeId);
+                param[2] = new SqlParameter("@SemId", SemId);
+                param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[4] = new SqlParameter("@BranchId", BranchId);
+                param[5] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_MarksEntry_ConsolidatedReport", param);
+                return JsonConvert.SerializeObject(dt);     
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_AssessmentConsolidatedReports", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        //[HttpGet, ActionName("getSemSubjects1")]
+        //public string getSemSubjects1(int AcademicyearId,int ExamMonthYearId,string collegecode,int branchId,int schemeid,int semid,int ExamType)
+        //{
+
+        //    try
+        //    {
+        //        var dbHandler = new dbHandler();
+        //        var param = new SqlParameter[7];
+        //        param[0] = new SqlParameter("@AcademicyearId", AcademicyearId);
+        //        param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+        //        param[2] = new SqlParameter("@collegecode", collegecode);
+        //        param[3] = new SqlParameter("@branchId", branchId);
+        //        param[4] = new SqlParameter("@schemeid", schemeid);
+        //        param[5] = new SqlParameter("@semid", semid);
+        //        param[6] = new SqlParameter("@ExamType", ExamType);
+        //        var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AssessmentConsolidatedReports", param);
+        //        return JsonConvert.SerializeObject(dt);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        dbHandler.SaveErorr("USP_GET_AssessmentConsolidatedReports", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+        //}
+
 
         [HttpGet, ActionName("getSchemeWiseExamTypes")]
         public string getSchemeWiseExamTypes(int AcademicYearId,int StudentTypeId, int SchemeId, int SemId,int ExamMonthYearId)
