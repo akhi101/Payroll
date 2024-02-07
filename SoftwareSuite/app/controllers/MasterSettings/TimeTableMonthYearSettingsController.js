@@ -23,7 +23,7 @@
             { id: 3, daylbl: "Day 3" }
         ];
 
-        $scope.timeslotlist = [{ val: 'AN' }, { val: 'F1' }, { val: 'FN' }];
+        $scope.timeslotlist = [{ val: 'A1' },{ val: 'AN' }, { val: 'F1' }, { val: 'FN' }];
         const $ctrl = this;
         $ctrl.$onInit = () => {
             $scope.GetAcademicData();
@@ -160,7 +160,26 @@
                 $scope.Toamorpm({ value: "AM" }, ind);
                 $scope.changSequenceId({ value: 1 }, ind); 
               
-            } else if (ele.value == "F1") {
+            } else if (ele.value == "A1") {
+
+                $("#Sthh" + ind).val("03");
+                $("#Stmm" + ind).val("30");
+                $("#Stamorpm" + ind).val("PM");
+                $("#Edhh" + ind).val("04");
+                $("#Edmm" + ind).val("30");
+                $("#Edamorpm" + ind).val("PM");
+                $("#order" + ind).val(1);
+
+                $scope.Fromhh({ value: "03" }, ind);
+                $scope.Frommm({ value: "30" }, ind);
+                $scope.Fromamorpm({ value: "PM" }, ind);
+                $scope.Tohh({ value: "04" }, ind);
+                $scope.Tomm({ value: "30" }, ind);
+                $scope.Toamorpm({ value: "PM" }, ind);
+                $scope.changSequenceId({ value: 1 }, ind);
+
+            }
+            else if (ele.value == "F1") {
 
                 $("#Sthh" + ind).val("12");
                 $("#Stmm" + ind).val("00");

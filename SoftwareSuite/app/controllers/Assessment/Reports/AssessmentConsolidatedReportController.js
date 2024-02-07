@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("AssessmentConsolidatedReportController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings,  StudentResultService,StudentRegService , PreExaminationService, AssessmentService, StudentWiseService) {
+    app.controller("AssessmentConsolidatedReportController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, StudentResultService, StudentRegService, PreExaminationService, AssessmentService, StudentWiseService) {
         var authData = $localStorage.authorizationData;
 
         if (authData == undefined) {
@@ -10,7 +10,7 @@
         }
 
         $scope.UserTypeId = authData.SystemUserTypeId;
-        if ($scope.UserTypeId==3) {
+        if ($scope.UserTypeId == 3) {
             $scope.SelBranch = authData.BranchId
             $scope.SelectedCollege = authData.College_Code;
         }
@@ -34,7 +34,7 @@
 
             $scope.Schemeid = res.schemeid
             //if (dataType == 1) {
-              $scope.Scheme = res.scheme
+            $scope.Scheme = res.scheme
             //} else if (dataType == 2) {
             //    $scope.NrScheme1 = res.scheme
             //} else if (dataType == 3) {
@@ -52,7 +52,7 @@
             //} else if (dataType == 8) {
             //    $scope.Deployscheme1 = res.scheme
             //}
-              var getExamType = PreExaminationService.getActiveExamTypesByScheme($scope.Scheme);
+            var getExamType = PreExaminationService.getActiveExamTypesByScheme($scope.Scheme);
             getExamType.then(function (response) {
                 var response = JSON.parse(response);
                 if (response.Table.length > 0) {
@@ -69,8 +69,22 @@
 
         }
 
+        $scope.GetExamMonthYearsData = function (AcademicYear) {
+           // let academicId = $scope.years.AcademicID;
+            var EmYears = AssessmentService.GetExamMonthYearAcademicYear(AcademicYear);
+            EmYears.then(function (response) {
+                console.log(response)
+                $scope.ExamMonthYears = response.Table;
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+        }
+
         $scope.sems = [];
-      
+
         var loadActiveSemister = PreExaminationService.getAllSemester();
         loadActiveSemister.then(function (response) {
             if (response.Table.length > 0) {
@@ -136,10 +150,11 @@
         }
 
         $scope.GetReport = function () {
-           
+
             $scope.loading = true;
             $scope.Noresult = false
-            var loadData1 = PreExaminationService.GetAsssessmentConsolidatedReport($scope.AcademicYear, $scope.SelectedCollege, $scope.SelBranch, $scope.Schemeid, $scope.SelSem, $scope.ExamTypeId)
+           
+            var loadData1 = PreExaminationService.GetAsssessmentConsolidatedReport($scope.AcademicYear, $scope.ExamMonthYear ,$scope.SelectedCollege, $scope.SelBranch, $scope.Schemeid, $scope.SelSem, $scope.ExamTypeId)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -149,19 +164,19 @@
                     window.location.href = location;
 
                 } else if (data[0].ResponceCode == '404') {
-                        $scope.Noresult = true
-                        $scope.loading = false;
-                        alert(data[0].ResponceDescription);
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert(data[0].ResponceDescription);
                 }
                 else if (data[0].ResponceCode == '400') {
                     $scope.Noresult = true
                     $scope.loading = false;
                     alert(data[0].ResponceDescription);
-                }else {
-                        $scope.Noresult = true
-                        $scope.loading = false;
-                        alert('Something Went Wrong')
-                    }
+                } else {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert('Something Went Wrong')
+                }
 
             }, function (error) {
                 $scope.Noresult = true

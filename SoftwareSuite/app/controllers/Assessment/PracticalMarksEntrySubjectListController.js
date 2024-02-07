@@ -1,10 +1,11 @@
 ﻿define(['app'], function (app) {
 
-    app.controller("PracticalMarksEntrySubjectListController", function ($scope, $http, $localStorage, $state, $uibModal, $stateParams, $location, AppSettings, PaymentService, MarksEntryService, MenuService, AssessmentService, PracticalsService) {
+    app.controller("PracticalMarksEntrySubjectListController", function ($scope, $http, $localStorage, $state, $uibModal, $stateParams, $location, AppSettings, PaymentService, PreExaminationService, MarksEntryService, MenuService, AssessmentService, PracticalsService) {
 
         var authData = $localStorage.authorizationData;
         $scope.BranchId = authData.BranchId;
         $scope.College_Code = authData.College_Code;
+        $scope.CollegeId = authData.CollegeID
         $scope.subjectDetailsView = false;
         $scope.LoadImgForSubject = true;
         $scope.exams = [];
@@ -162,6 +163,12 @@
                 $scope.LoadImgForSubject = false;
                 $scope.subjectDetailsView = true;
                 $scope.getSemSubjectsResponse = response.Table;
+                $scope.DataSubmitted = 1
+                for (var i = 0; $scope.getSemSubjectsResponse.length; i++) {
+                    if ($scope.getSemSubjectsResponse[i].Submitted == 0) {
+                        $scope.DataSubmitted = 0
+                    } 
+                }
             }
             else {
                 $scope.LoadImgForSubject = false;
@@ -207,6 +214,14 @@
             $state.go("Dashboard");
         }
 
+        $scope.ReleaseButton = function (Submitted) {
+            if (Submitted != 0) {
+            alert("Release Option will be Availabe only once in Principal Login")
+                return;
+            }
+           
+        }
+
 
         $scope.selectSubjectDetails = function (subject) {
             if ($scope.payfine == true) {
@@ -231,5 +246,85 @@
             };
 
         }
+
+        $scope.GetReport = function () {
+            if ($scope.DataSubmitted == 0) {
+                alert("Please Submit All Subjects Marks to get Report")
+                return;
+            }
+            $scope.loading = true;
+            $scope.Noresult = false
+           //  CollegeId, SchemeId, SemId, ExamTypeId, BranchId, ExamMonthYearId
+            var loadData1 = AssessmentService.getSubjectsReport($scope.CollegeId, $scope.SelectedScheme, semId, examTypeid, $scope.BranchId, $scope.ExamMonthYear)
+            loadData1.then(function (res) {
+                var data = res;
+                if (data.Table.length>0) {
+                    $scope.Noresult = false
+                    $scope.loading = false;
+                    $scope.SubjectsList = [];
+                    $scope.CollegeCode = data.Table1[0].CollegeCode;
+                    $scope.CollegeName = data.Table1[0].CollegeName;
+                    $scope.Scheme_Code = data.Table1[0].Scheme_Code
+                    $scope.Semister = data.Table1[0].Semister
+                    $scope.ExamType = data.Table1[0].ExamType
+                    data.Table.forEach(function (student) {
+                        if (!$scope.SubjectsList.includes(student.Subject_Code))
+                            $scope.SubjectsList.push(student.Subject_Code);
+                    });
+                    $scope.StudentDetails = data.Table1;
+                    $scope.AllStudentDetails = data.Table2;
+
+                } else if (data[0].ResponceCode == '404') {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert(data[0].ResponceDescription);
+                }
+                else if (data[0].ResponceCode == '400') {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert(data[0].ResponceDescription);
+                } else {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert('Something Went Wrong')
+                }
+
+            }, function (error) {
+                $scope.Noresult = true
+                $scope.loading = false;
+            });
+        }
+
+        $scope.PrintStudentResult = function (divName) {
+
+            //var printContents = document.getElementById(divName).innerHTML;
+            //var originalContents = document.body.innerHTML;
+
+            //document.body.innerHTML = printContents;
+
+            window.print();
+
+            //document.body.innerHTML = originalContents;
+
+        };
+
+        $scope.getOldChildren = function (student) {
+            var Report = [];
+            var arr = $scope.StudentDetails;
+            var rem = [];
+            var temparr = [];
+            var temparr2 = [];
+            var tempsub = [];
+            var subjectcodes = $scope.SubjectsList;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].pin == student.pin) {
+                    Report.push(arr[i]);
+                    temparr.push(arr[i]);
+                    //  tempsub.push(arr[i].code);
+                }
+            }
+            console.log(Report)
+            return Report;
+        };
     });
 });

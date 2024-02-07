@@ -359,17 +359,22 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ReleaseMarksEntry")]
-        public string ReleaseMarksEntry(string CollegeCode, int BranchId, int SemId, int SchemeId, int ExamTypeId)
+        public string ReleaseMarksEntry(string CollegeCode,int SemId, int SchemeId, int ExamTypeId, int AcademicYearId,int subid,int ExamMonthYearId,string UserName,int UserTypeId)
+
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[5];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@CollegeCode", CollegeCode);
-                param[1] = new SqlParameter("@BranchId", BranchId);
-                param[2] = new SqlParameter("@SemId", SemId);
-                param[3] = new SqlParameter("@SchemeId", SchemeId);
-                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[1] = new SqlParameter("@SemId", SemId);
+                param[2] = new SqlParameter("@SchemeId", SchemeId);
+                param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[4] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[5] = new SqlParameter("@subid", subid);
+                param[6] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId); 
+                param[7] = new SqlParameter("@UserName", UserName); 
+                param[8] = new SqlParameter("@UserTypeId", UserTypeId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SBP_ADM_ReleaseMarksEntry", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -379,6 +384,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
+
+       
 
         [HttpGet, ActionName("GetChallanNumbers")]
         public string GetChallanNumbers(int PaymentTypeID, int PaymentSubTypeID, string PIN, int ExamMonthYearID = 0)
@@ -403,20 +410,21 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetAsssessmentConsolidatedReport")]
-        public string GetAsssessmentConsolidatedReport(int AcademicyearId, string collegecode, int branchId, int schemeid, int semid, int ExamType)
+        public string GetAsssessmentConsolidatedReport(int AcademicyearId,int ExamMonthYearId,string collegecode,int branchId,int  schemeid,int semid,int ExamType)
         {
             List<person> p = new List<person>();
             person p1 = new person();
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[6];
+                var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@AcademicyearId", AcademicyearId);
-                param[1] = new SqlParameter("@collegecode", collegecode);
-                param[2] = new SqlParameter("@branchId", branchId);
-                param[3] = new SqlParameter("@schemeid", schemeid);
-                param[4] = new SqlParameter("@semid", semid);
-                param[5] = new SqlParameter("@ExamType", ExamType);
+                param[1] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[2] = new SqlParameter("@collegecode", collegecode);
+                param[3] = new SqlParameter("@branchId", branchId);
+                param[4] = new SqlParameter("@schemeid", schemeid);
+                param[5] = new SqlParameter("@semid", semid);
+                param[6] = new SqlParameter("@ExamType", ExamType);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_AssessmentConsolidatedReports", param);
                 if (dt.Tables[0].Rows.Count > 0)
                 {
@@ -465,6 +473,8 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+
+      
 
         [HttpGet, ActionName("GenerateC18MemosData")]
         public string GenerateC18MemosData(int ExamMonthYearId, int MinCredits, string Day, string Month, string Year)
@@ -11785,10 +11795,12 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GenerateOtpForMobileNo")]
-        public string GenerateOtpForMobileNo(string Pin, string Phone, string ExamDetails)
+
+        public string GenerateOtpForMobileNo(string Pin, string Phone,string ExamDetails)
         {
             string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
-                " Secretary," + " SBTET" + " " + "TS";
+                " Secretary,"+ " SBTET"+ " " + "TS";
+
             DataSet dt = new DataSet();
             string Message = string.Empty;
             string resp = string.Empty;
@@ -14015,6 +14027,30 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
+
+        [HttpGet, ActionName("GetExamMonthYearBySemId")]
+        public HttpResponseMessage GetExamMonthYearBySem(int Semid, int StudentTypeId)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Semid", Semid);
+                param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SFP_GET_ExamMonthYearBySemester", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ADM_SFP_GET_ExamMonthYearBySemester", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        
 
         [HttpGet, ActionName("GetTimetableDatesByExamMonthYear")]
         public HttpResponseMessage GetTimetableDatesByExamMonthYear(int StudentTypeId, int ExamMonthYearId)

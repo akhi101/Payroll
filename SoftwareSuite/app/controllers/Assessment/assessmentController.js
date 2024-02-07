@@ -16,8 +16,8 @@
         $scope.clg_reports = false;
         $scope.NoResult = false;
         $scope.responseData = false;
-
-
+        //alert("Under Construction will be Resumed Soon")
+        //$state.go("Dashboard.AssessmentDashboard")
         var selectedsemister = '';
         $scope.exams = [];
         if ($scope.userType == "1") {

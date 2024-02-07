@@ -37,6 +37,13 @@
             return DataAccessService.getDataAll('api/PreExamination/getExamTypesForExamCenters');
         };
 
+        this.GetExamType = function (SchemeId) {
+            var paramObject = { "schemeid": SchemeId };
+            var promise = DataAccessService.getDataWithPara('Assessment/getExamTypes', paramObject);
+            return promise;
+        }
+
+
         this.GetCategory = function () {
             return DataAccessService.getDataAll('Admission/GetCategory');
         };
@@ -148,13 +155,14 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetAttendanceReportData', paramObject);
         };
 
-        this.GetAsssessmentConsolidatedReport = function (AcademicyearId, collegecode, branchId, schemeid, semid, ExamType) {
+        this.GetAsssessmentConsolidatedReport = function (AcademicyearId, ExamMonthYearId, collegecode, branchId, schemeid, semid, ExamType) {
             var paramObject = {
-                "AcademicyearId": AcademicyearId, "collegecode": collegecode, "branchId": branchId, "schemeid": schemeid, "semid": semid, "ExamType": ExamType
+                "AcademicyearId": AcademicyearId, "ExamMonthYearId": ExamMonthYearId,"collegecode": collegecode, "branchId": branchId, "schemeid": schemeid, "semid": semid, "ExamType": ExamType
             };
             return DataAccessService.getDataWithPara('api/PreExamination/GetAsssessmentConsolidatedReport', paramObject);
         };
 
+      
 
         this.GetBackolgSubjects = function (scheme) {
             var paramObject = {
@@ -661,6 +669,12 @@
             var param = { "Pin": Pin, "Phone": Phone }
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNoUpdate', param);
         };
+
+        this.GenerateOtpForMobileNo = function (Pin, Phone, ExamDetails) {
+            var param = { "Pin": Pin, "Phone": Phone, "ExamDetails": ExamDetails }
+            return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNo', param);
+        };
+
         this.SendEail = function (htmlString) {
             var param = { "htmlString": htmlString }
             return DataAccessService.getDataWithPara('api/PreExamination/Email', param);
@@ -893,7 +907,14 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearBySem', param);
         };
 
+        this.GetExamMonthYearBySemId = function (Semid, StudentTypeId) {
+            var param = {
+                "Semid": Semid,
+                "StudentTypeId": StudentTypeId,
 
+            }
+            return DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearBySemId', param);
+        };
 
 
 
@@ -1441,15 +1462,18 @@
             return promise;
         };
 
-        this.ReleaseMarksEntry = function (CollegeCode, BranchId, SemId, SchemeId, ExamTypeId) {
+        this.ReleaseMarksEntry = function (CollegeCode, SemId, SchemeId, ExamTypeId, AcademicYearId, subid, ExamMonthYearId, UserName, UserTypeId) {
             var paramObj = {
                 "CollegeCode": CollegeCode,
-                "BranchId": BranchId,
                 "SemId": SemId,
                 "SchemeId": SchemeId,
-                "ExamTypeId": ExamTypeId
+                "ExamTypeId": ExamTypeId,
+                "AcademicYearId": AcademicYearId,
+                "subid": subid,
+                "ExamMonthYearId": ExamMonthYearId,
+                "UserName": UserName,
+                "UserTypeId": UserTypeId
             }
-
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseMarksEntry', paramObj);
             return promise;
         };
