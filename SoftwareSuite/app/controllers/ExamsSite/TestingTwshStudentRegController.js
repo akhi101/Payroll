@@ -172,6 +172,62 @@
 
         }
 
+        $scope.Reset3 = function () {
+
+            $scope.oldUser = true;
+            $scope.ExamAppearDetails = true;
+            $scope.ShowPreviousHallTick = true;
+            $scope.DisablePreHallTicket = false;
+            $scope.preHallTicket = '';
+            $scope.DisablePreviousButton = false;
+            $scope.ShowResetButton3 = false;
+            $scope.DisableReset3 = false;
+            $scope.ShowAadhaarDetail = false;
+            $scope.adhaarno = '';
+            $scope.DisableAadhar = false;
+            $scope.SendOTPButton = true;
+            $scope.EnterOTPBox = false;
+            $scope.adhaarOtp = '';
+            $scope.VerifyOTPButton = false;
+            $scope.verifybtndisable = false;
+            $scope.OtpVerified = false;
+            $scope.ShowisSSC = false;
+            $scope.ISSSC = '';
+            $scope.SscForm = false;
+            $scope.sscHallticket = '';
+            $scope.passedoutYear = '';
+            $scope.sscType = null;
+            $scope.SSCDetails = false;
+            $scope.ShowGetSSCButton = false;
+            $scope.DisableGetSSCButton = false;
+            $scope.applicationForm = false;
+            $scope.CandidateName = '';
+            $scope.CandidateNamefound = false;
+            $scope.FatherName = '';
+            $scope.FatherNamefound = false;
+            $scope.MotherName = '';
+            $scope.MotherNamefound = false;
+            $scope.CandidateNameDOB = null;
+            $scope.Gender = null;
+            $scope.Genderfound = false;
+            $scope.District = null;
+            $scope.examCenter = null;
+            $scope.examCenterList = [];
+            $scope.date1 = null;
+            $scope.date2 = null;
+            $scope.date3 = null;
+            $scope.date4 = null;
+            $scope.date5 = null;
+            $scope.houseNo = '';
+            $scope.street = '';
+            $scope.village = '';
+            $scope.mandal = '';
+            $scope.district = '';
+            $scope.pincode = '';
+            $scope.mobileNO = '';
+            $scope.email = '';
+        }
+
         $scope.IsSsc = function (ISSSC) {
             if (ISSSC==1) {
                 $scope.SscForm = true;
@@ -757,45 +813,15 @@
                 $scope.EnterOTPBox = false;
                 $scope.VerifyOTPButton = false;
                 $scope.OtpVerified = true;
-
-                $scope.ShowisSSC = true;
-
-
-                if ($scope.Selgrade.GradeQualificationID == undefined || $scope.Selgrade.GradeQualificationID == null) {
-                    $scope.ExamAppearDetails = false;
-                    $scope.SscForm = false;
-                    $scope.ShowAadhaarDetail = false;
-                    $scope.applicationForm = true;
-                    $scope.isqualified1 = false;
-                    $scope.isqualified2 = false;
-                    $scope.isqualified3 = false;
-                }
+                $scope.ShowisSSC = true;  
             }
-
             else {
                 alert('OTP MISMATCHED or NOT SENT')
-
-                        $scope.ShowAadhaarDetail = true;
-                        $scope.ExamAppearDetails = true;
-                        $scope.SscForm = false;
-                        $scope.ShowisSSC = true;
-                        $scope.applicationForm = false;
-                        //if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
-                        //    $scope.isqualified1 = false;
-
-                        //} else {
-                        //    $scope.isqualified1 = true;
-
-                        //}
-                        //$scope.isqualified2 = false;
-                        //if ($scope.QualifiedExam == true) {
-                        //    $scope.isqualified3 = false;
-
-                        //} else {
-                        //    $scope.isqualified3 = true;
-
-                        //}
-
+                $scope.ShowAadhaarDetail = true;
+                $scope.ExamAppearDetails = true;
+                $scope.SscForm = false;
+                $scope.ShowisSSC = true;
+                $scope.applicationForm = false;
             }
         }
 
@@ -1184,8 +1210,12 @@
 
         }
         $scope.GetPreviousExamDetails = function (preHallTicket, Selgrade) {
+            $scope.DisablePreHallTicket = true;
+            $scope.DisablePreviousButton = true;
             if (preHallTicket == '' || preHallTicket == null) {
                 alert("HallTicket number can't be Empty");
+                $scope.DisablePreHallTicket = false;
+                $scope.DisablePreviousButton = false;
                 return;
             }
             // $scope.selectedgrade = JSON.parse(grade);
@@ -1194,6 +1224,7 @@
                 var gradeinfo = $scope.selectedgrade;
                 if (res.length > 0) {
                     if (res[0].Result == "Fail") {
+                        $scope.ShowResetButton3 = true;
                         $scope.PreviousExam = false;
                         $scope.CandidateName = res[0].StudentName;
                         $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
@@ -1208,33 +1239,17 @@
                         $scope.isqualified3 = false;
                     } else if (res[0].Result == "Pass") {
                         $scope.PreviousExam = true;
+                        $scope.ShowResetButton3 = false;
                         alert("Please Check your Hallticket No.");
                         $state.go("TWSH.OnlineApplication");
                     }
 
-                } else {
-                  if (gradeinfo.CriteriaTypeId == 4 && (gradeinfo.QualificationGradeId == undefined || gradeinfo.QualificationGradeId == null)) {
-                        $scope.ShowAadhaarDetail = false;
-                        $scope.ExamAppearDetails = true;
-                        $scope.oldUser = true;
-                        $scope.oldUser2 = false;
-                        $scope.sscForm = false;
-                        $scope.applicationForm = true;
-                        $scope.isqualified1 = false;
-                        $scope.isqualified2 = false;
-                        $scope.isqualified3 = false;
-                    } else {
-                        alert("Details Not found, Try to get details using Lower Exam HallTicket No");
-                        $scope.oldUser = true;
-                        $scope.oldUser2 = true;
-                        $scope.sscForm = false;
-                        $scope.isqualified1 = false;
-                        $scope.isqualified2 = true;
-                        $scope.isqualified3 = false;
-                        $scope.applicationForm = false;
-                        $scope.ShowAadhaarDetail = false;
-                        $scope.ExamAppearDetails = true;
-                    }
+                }
+                else if (res.length <= 0) {
+                    $scope.ShowResetButton3 = true;
+                    $scope.oldUser = true;
+                    $scope.ShowAadhaarDetail = true;
+
                 }
             }, function (err) {
 

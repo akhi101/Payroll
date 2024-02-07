@@ -171,6 +171,20 @@
             font-family: 'Open Sans';
         }
 
+
+        .submit1-btn button {
+            background: #913831;
+            padding: 5px 20px;
+            color: #fff;
+            float: right;
+            border: none;
+            font-size: 14px;
+            box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+            border-radius: 2px;
+            font-size: 14px;
+            font-family: 'Open Sans';
+        }
+
         .verify_margin {
             margin-top: 40px;
             margin-bottom: 25px;
@@ -392,12 +406,17 @@ Grade
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Enter Hallticket No</label>
-                                            <input type="text" placeholder="" maxlength="20" ng-model="preHallTicket" class="form-control" />
+                                            <input type="text" placeholder="" minlength="5" ng-disabled="DisablePreHallTicket" maxlength="20" ng-model="preHallTicket" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="submit-btn sub_btn">
                                             <button type="button" ng-disabled="DisablePreviousButton" ng-click="GetPreviousExamDetails(preHallTicket,Selgrade)">Get Details</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="top:42px;right:560px" ng-show="ShowResetButton3">
+                                        <div class="cancel-btn" style="margin-bottom:0px;">
+                                            <button type="button" ng-model="Reset3" ng-disabled="DisableReset3" ng-click="Reset3()">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -408,105 +427,6 @@ Grade
                     </div>
                 </div>
 
-                <!--<div class="col-md-12  mtp-50" ng-show="oldUser2">
-                    <div class="card">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="offer-custom-style">
-                                    <h2>Qualified Exam Details</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <form name="qualifyingExamForm">
-                                <div class="custom-forms">
-                                    <div class="row" ng-show="oldUser2">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Enter Previous Qualifying Exam Hallticket No</label>
-                                                <input type="text" placeholder="" ng-model="preHallTicket2" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="submit-btn sub_btn">
-                                                <button type="button" ng-click="GetQualificationExamDetails(preHallTicket2,Selgrade)">Get Details</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div><strong> Other Qualified Exam </strong></div>
-                                        <div class="col-md-2 pull-left">
-                                            <div class="submit-btn" style="margin:0px;">
-                                                <button type="button" ng-click="ShowLowerApplication()"> Click Here</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
-
-                <!--<div class="col-md-12  mtp-50" ng-show="sscForm">
-                    <div class="card">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="offer-custom-style">
-                                    <h2>SSC/10th Details</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <form name="sscdetailsForm">
-                                <div class="custom-forms">
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group required">
-                                                <label>SSC Hallticket Number</label>
-                                                <input type="text" ng-model="sscHallticket" autocomplete="off" name="hallticket" placeholder="Hallticket No" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group required">
-                                                <label>Passedout Year</label>
-                                                <input type="text" ng-model="passedoutYear" maxlength="4" placeholder=" YYYY eg.(1990)" class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group required">
-                                                <label for="date-picker-example">Examination Pass Type</label>
-                                                <select class="form-control" ng-model="sscType">
-                                                    <option value="">Select Pass Type</option>
-                                                    <option value="R">Regular</option>
-                                                    <option value="A">Supplmentary</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="submit-btn " style="margin:0px;">
-                                                <button type="submit" ng-disabled="DisableGetSSCButton" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">GetDetails</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div><b> (OR) Other than SSC/10<sup>Th</sup> Board</b></div>
-                                        <div class="col-md-2 pull-left">
-                                            <div class="submit-btn" style="margin:0px;">
-                                                <button type="button" ng-click="ShowApplication()"> Click Here</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>-->
 
                 <div class="col-md-12  mtp-50" ng-show="ShowAadhaarDetail">
                     <!--KycForm">-->
@@ -533,7 +453,7 @@ Grade
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 pull-left" ng-show="SendOTPButton">
+                                        <div class="col-md-3 pull-left" style="top:6px" ng-show="SendOTPButton">
                                             <div style="margin-top: 2.5em;">
                                                 <button type="submit" class="btn btn-default " ng-class="{'disabled': otpbtndisable}" ng-click="SendOtp(adhaarno)">Send OTP</button>
                                             </div>
@@ -547,7 +467,7 @@ Grade
                                         </div>
                                         <div class="col-md-3 pull-left" ng-show="VerifyOTPButton" style="top:40px;right:173px">
                                             <div class="submit-btn">
-                                                <button type="submit" ng-class="{'disabled': verifybtndisable}" ng-click=" VerifyOtp(adhaarno,adhaarOtp)">Verify</button>
+                                                <button type="submit" ng-class="{'disabled': verifybtndisable}" ng-click="VerifyOtp(adhaarno,adhaarOtp)">Verify</button>
                                             </div>
                                         </div>
                                         <div class="cls_verified1 verify_margin" style="color: #5cb85c;margin-left:20px;margin-top:44px; font-weight: bold;" ng-show="OtpVerified"><i class="fa fa-check" style="display: inline-block; font-size: inherit; font: normal normal normal 14px/1 FontAwesome;" aria-hidden="true"></i> Verified</div>
