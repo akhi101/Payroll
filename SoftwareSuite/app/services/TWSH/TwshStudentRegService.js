@@ -686,6 +686,12 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetCBTExamcentersAndDates', paramObj);
             return promise;
         };
+
+        this.TempGetSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAMS) {
+            var paramObject = { "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAMS": STREAMS };
+            return DataAccessService.postData('api/TwshStudentReg/TempGetSSCDetails', paramObject);
+        };
+
         this.SubmitApplication = function (object) {
             var promise = DataAccessService.postData('api/TwshStudentReg/SubmitTwshApplication', object);
             return promise;

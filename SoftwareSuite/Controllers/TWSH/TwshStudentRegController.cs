@@ -1703,6 +1703,41 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+        public class SscDetails
+        {
+            public string RollNo { get; set; }
+            public string Year { get; set; }
+            public string Stream { get; set; }
+            public string TENTH_HT_NO { get; set; }
+            public string TENTH_YEAR { get; set; }
+            public string STREAMS { get; set; }
+        }
+
+        [HttpPost, ActionName("TempGetSSCDetails")]
+        public HttpResponseMessage TempGetSSCDetails([FromBody] SscDetails data)
+        {
+            var dbHandler = new Twshdbandler();
+
+            try
+            {
+
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@TENTH_HT_NO", data.TENTH_HT_NO);
+                param[1] = new SqlParameter("@TENTH_YEAR", data.TENTH_YEAR);
+                param[2] = new SqlParameter("@STREAMS", data.STREAMS);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Temp_SSCData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Temp_SSCData", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("AddInstitute")]
         public HttpResponseMessage AddInstitute(int ExaminationCenterId, string InstitutionCode, string InstitutionName, string InstitutionAddress,
             string MailId, int DistrictId, string Pincode, string ContactPerson, string ContactNumber)

@@ -13,7 +13,7 @@
         var availableDates = [];
         $.ajax({
             type: 'GET',
-            url: location + '/api/TwshStudentReg/getonlineExamcentersAndDates?CoursesType=1&DistrictId=3',
+            url: location + '/api/TwshStudentReg/GetCBTExamcentersAndDates?CoursesType=1&DistrictId=3',
             async: false,
             //success: myCallback
         }).done(function (data) {
@@ -542,18 +542,19 @@ Grade
                                         <div class="col-md-3 pull-left" ng-show="EnterOTPBox">
                                             <div class="form-group required">
                                                 <label>Enter OTP</label>
-                                                <input type="text" ng-model="adhaarOtp"  minlength="6" maxlength="6" placeholder="Enter OTP" autocomplete="off" name="aadhaarOtp" class="form-control" />
+                                                <input type="text" ng-model="adhaarOtp" minlength="6" maxlength="6" placeholder="Enter OTP" autocomplete="off" name="aadhaarOtp" class="form-control" />
                                             </div>
                                         </div>
-                                        <div class="col-md-3 pull-left" ng-show="VerifyOTPButton">
-                                            <div class="submit-btn" style="margin-bottom:0px;">
+                                        <div class="col-md-3 pull-left" ng-show="VerifyOTPButton" style="top:40px;right:173px">
+                                            <div class="submit-btn">
                                                 <button type="submit" ng-class="{'disabled': verifybtndisable}" ng-click=" VerifyOtp(adhaarno,adhaarOtp)">Verify</button>
-                                                <div class="cls_verified1 verify_margin" style="color: #5cb85c; font-weight: bold;" ng-show="OtpVerified"><i class="fa fa-check" style="display: inline-block; font-size: inherit; font: normal normal normal 14px/1 FontAwesome;" aria-hidden="true"></i> Verified</div>
                                             </div>
                                         </div>
+                                        <div class="cls_verified1 verify_margin" style="color: #5cb85c;margin-left:20px;margin-top:44px; font-weight: bold;" ng-show="OtpVerified"><i class="fa fa-check" style="display: inline-block; font-size: inherit; font: normal normal normal 14px/1 FontAwesome;" aria-hidden="true"></i> Verified</div>
 
                                     </div>
 
+                                    <div class="row">
                                     <div class="col-md-4" ng-show="ShowisSSC">
                                         <label>Are you Appeared for SSC in Telangana</label>
                                         <select class="form-control" name="applicationForm.ISSSC" ng-model="ISSSC" ng-change="IsSsc(ISSSC)">
@@ -561,6 +562,7 @@ Grade
                                             <option value=0>No</option>
                                             <option value=1>Yes</option>
                                         </select>
+                                    </div>
                                     </div>
 
                                 </div>
@@ -581,22 +583,6 @@ Grade
                         <div class="body">
                             <div class="custom-forms">
                                 <div class="row">
-                                    <!--<div class="col-md-12">
-                                        <div class="col-md-4">
-                                            <label>Mode of Education :</label>
-                                        </div>
-                                        <div class="col-md-8 pull-left">
-                                            <div class="rdo-grp">
-                                                <input id="rdo1" type="radio" name="radio" ng-value=1 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
-                                                <label for="rdo1"><span class="new"></span><span class="new">SSC in Telangana</span></label>
-                                                <input id="rdo2" type="radio" name="radio" ng-value=2 ng-model="mode" ng-disabled="radiodisable" ng-click="Mode()" />
-                                                <label for="rdo2"><span class="new"></span><span class="new">Others(CBSE,ICSE,etc..)</span></label>
-
-                                            </div>
-                                        </div>
-                                    </div>-->
-
-
                                     <form name="SSC">
                                         <div class="custom-forms">
                                             <div class="col-md-4">
@@ -617,26 +603,21 @@ Grade
                                                     <label for="date-picker-example">Examination Pass Type</label>
                                                     <select class="form-control" ng-disabled="SSCDetails" ng-model="sscType">
                                                         <option value="">Select Pass Type</option>
-                                                        <option value="Regular">Regular</option>
-                                                        <option value="Supplementary">Supplmentary</option>
+                                                        <option value="R">Regular</option>
+                                                        <option value="S">Supplmentary</option>
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-1 pull-right mtp-50">
+                                            <div class="col-md-9 pull-right">
                                                 <div class="cancel-btn" style="margin-bottom:0px;">
-                                                    <button type="button" ng-model="CANcel" ng-disabled="Cancel2" ng-click="Cancel()">Cancel</button>
+                                                    <button type="button" ng-model="Reset2" ng-disabled="DisableReset2" ng-click="Reset2()">Cancel</button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2" ng-show="ShowGetSSCButton">
+                                            <div class="col-md-3 pull-right" ng-show="ShowGetSSCButton">
                                                 <div class="submit-btn" style="margin:0px;">
                                                     <button type="submit" ng-disabled="DisableGetSSCButton" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
                                                 </div>
-                                            </div>
-
-
-                                            <div class="col-md-1 pull-right mtp-50">
-
                                             </div>
 
 
