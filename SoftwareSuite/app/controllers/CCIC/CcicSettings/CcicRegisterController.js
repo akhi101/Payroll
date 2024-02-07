@@ -264,12 +264,13 @@
 
         if ($scope.UserTypeID == 1 || $scope.UserTypeID == 4 || $scope.UserTypeID == 5 || $scope.UserTypeID == 6 ||
             $scope.UserTypeID == 7 || $scope.UserTypeID == 8 || $scope.UserTypeID == 9 || $scope.UserTypeID==10) {
-            $scope.showAdminRegisterCoursesCount = function (InstitutionID, academicYear, batch) {
+            $scope.showAdminRegisterCoursesCount = function (InstitutionID, academicYear, batch, Institution) {
 
                 $localStorage.TempData = {
                     InstitutionID: InstitutionID,
                     academicYear: academicYear,
                     batch: batch,
+                    Institution: Institution
                 };
 
                 $state.go('CcicDashboard.Academic.CcicAdmRegisterReportCourses');

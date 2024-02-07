@@ -9,11 +9,33 @@
         //$scope.ReportTypeID = tempData2.ReportTypeID;
         $scope.isSubmitted = tempData3.Submitted;
         $scope.ApplicationStatus = tempData3.ApplicationStatus;
-
+        $scope.CourseID = tempData3.CourseID;
         $scope.Submitted = tempData3.ApplicationStatus;
         const $ctrl = this;
         $ctrl.$onInit = () => {
             if (tempData3.ApplicationStatus == 'Pending') {
+                var VerifyDate = CcicPreExaminationService.VerifyEnrollmentDate($scope.CourseID);
+                VerifyDate.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    }
+                    catch { err }
+                    if (res[0].ResponseCode == '200') {
+                        $scope.DatesFound = true;
+                    }
+                    if (res[0].ResponseCode == '400') {
+                        $scope.DatesNotFound = true;
+                    }
+                    else {
+                        $scope.DatesFound = false;
+                        return;
+                    }
+
+                },
+                    function (error) {
+
+                        var err = JSON.parse(error);
+                    })
                 $scope.ApplicationStatus = 0;
             }
             else if (tempData3.ApplicationStatus == 'Approved') {
@@ -69,6 +91,11 @@
         $scope.Close = function () {
             $state.go('CcicDashboard.Academic.EnrollmentReport')
         }
+
+        $scope.Cancel = function () {
+            $state.go('CcicDashboard.Academic.CcicEnrollmentReportData')
+        }
+
 
         
 

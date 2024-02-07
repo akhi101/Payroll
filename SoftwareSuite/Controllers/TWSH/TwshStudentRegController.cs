@@ -66,9 +66,24 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-      
-            // GET: TwshStudentReg
-            [HttpGet, ActionName("GetAllGrades")]
+        [HttpGet, ActionName("GetCBTCourses")]
+        public object GetCBTCourses()
+        {
+            try
+            {
+                var db = new Twshdbandler();
+                var res = db.ReturnData("SP_GET_Courses");
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        // GET: TwshStudentReg
+        [HttpGet, ActionName("GetAllGrades")]
             public object GetAllGrades()
             {
                 try
@@ -1657,7 +1672,7 @@ namespace SoftwareSuite.Controllers.TWSH
             {
                 HttpResponseMessage response = new HttpResponseMessage();
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[2]; 
                 param[0] = new SqlParameter("@CoursesType", CoursesType);
                 param[1] = new SqlParameter("@DistrictId", DistrictId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_GET_TWSH_ExaminationCenter_MonthDates", param);
@@ -1665,6 +1680,60 @@ namespace SoftwareSuite.Controllers.TWSH
             }
             catch (Exception ex)
             {
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetCBTExamcentersAndDates")]
+        public HttpResponseMessage GetCBTExamcentersAndDates(int CoursesType, int DistrictId)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@CoursesType", CoursesType);
+                param[1] = new SqlParameter("@DistrictId", DistrictId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_TWSH_ExaminationCenters_Dates", param);
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        public class SscDetails
+        {
+            public string RollNo { get; set; }
+            public string Year { get; set; }
+            public string Stream { get; set; }
+            public string TENTH_HT_NO { get; set; }
+            public string TENTH_YEAR { get; set; }
+            public string STREAMS { get; set; }
+        }
+
+        [HttpPost, ActionName("TempGetSSCDetails")]
+        public HttpResponseMessage TempGetSSCDetails([FromBody] SscDetails data)
+        {
+            var dbHandler = new Twshdbandler();
+
+            try
+            {
+
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@TENTH_HT_NO", data.TENTH_HT_NO);
+                param[1] = new SqlParameter("@TENTH_YEAR", data.TENTH_YEAR);
+                param[2] = new SqlParameter("@STREAMS", data.STREAMS);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Temp_SSCData", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Temp_SSCData", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
@@ -1742,6 +1811,27 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[0] = new SqlParameter("@CourseId", CourseId);
                 param[1] = new SqlParameter("@LanguageId", language);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_Grades", param);
+
+                return Request.CreateResponse(HttpStatusCode.OK, dt);
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetQualificationList")]
+        public HttpResponseMessage GetQualificationList(int GradeId)
+        {
+            try
+            {
+                HttpResponseMessage response = new HttpResponseMessage();
+                var dbHandler = new Twshdbandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@GradeId", GradeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_GET_Qualifications", param);
 
                 return Request.CreateResponse(HttpStatusCode.OK, dt);
             }
@@ -4253,6 +4343,9 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
+
+
+
         //[HttpGet, ActionName("RejectorApproveorReleaseSubmitDetails")]
         //public string RejectorApproveorReleaseSubmitDetails(int ApprovedStatus, int Id,string examDate = null, string RejectedRemarks= null,string ReleasedRemarks=null)
         //{
@@ -4344,5 +4437,9 @@ namespace SoftwareSuite.Controllers.TWSH
         public string ExamDate { get; set; }
         public string GradeCode { get; set; }
     }
+
+
+
+
 
 }

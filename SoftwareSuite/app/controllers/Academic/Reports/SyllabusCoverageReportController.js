@@ -14,7 +14,8 @@
             }
         };
     });
-    app.controller("SyllabusCoverageReportController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, AcademicService, $timeout, Excel) {
+
+    app.controller("SyllabusCoverageReportController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, AcademicService, $timeout, Excel, PreExaminationService) {
         var authData = $localStorage.authorizationData;
 
         $scope.Data = false;
@@ -41,7 +42,80 @@
                 var err = JSON.parse(error);
                 console.log(err.Message);
             });
+        var GetMonthYear = PreExaminationService.GetMonthYear()
+        GetMonthYear.then(function (response) {
 
+            $scope.GetExamMonthYear = response.Table;
+
+
+        },
+            function (error) {
+                alert("data is not loaded");
+
+            });
+
+        var getsems = PreExaminationService.GetAllSemesters();
+        getsems.then(function (res) {
+            //var res = JSON.parse(res);
+            $scope.semestersData = res.Table;
+
+        }, function (err) {
+            $scope.LoadImg = false;
+            alert("Error while loading");
+        });
+
+        //----------------------semester Multi Select Start--------------------------------//
+        var semesterexpand = false;
+        $scope.showsemesterCheckboxes = function () {
+            var checkboxes = document.getElementById("checkboxessemester");
+            if (!semesterexpand) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                checkboxes.style['z-index'] = 99;
+                semesterexpand = true;
+            } else {
+                checkboxes.style.display = "none";
+                semesterexpand = false;
+            }
+        }
+
+        $scope.closesemesterCheckbox = function () {
+            var checkboxes = document.getElementById("checkboxessemester");
+            if (!semesterexpand) {
+                checkboxes.style.display = "block";
+                checkboxes.style.position = "absolute";
+                checkboxes.style.width = "92%";
+                checkboxes.style.backgroundColor = "white";
+                semesterexpand = true;
+            } else {
+                checkboxes.style.display = "none";
+                semesterexpand = false;
+            }
+        }
+
+        $scope.toggleAllsemester = function () {
+            var toggleStatus = $scope.isAllSelectedsemesters;
+            angular.forEach($scope.semestersData, function (itm) { itm.selected = toggleStatus; });
+            $scope.semesterarr = [];
+            angular.forEach($scope.semestersData, function (value, key) {
+                if (value.selected === true) {
+                    $scope.semesterarr.push({ "SemId": value.SemId })
+                }
+            });
+        }
+
+        $scope.optionToggledsemester = function () {
+            $scope.isAllSelectedsemesters = $scope.semestersData.every(function (itm) { return itm.selected; })
+            $scope.semesterarr = [];
+            angular.forEach($scope.semestersData, function (value, key) {
+                if (value.selected === true) {
+                    $scope.semesterarr.push({ "SemId": value.SemId })
+                }
+            });
+            console.log($scope.semesterarr)
+        }
 
 
         $scope.Shifts = [
@@ -51,7 +125,7 @@
 
 
         $scope.DownloadExcel = function () {
-            var getExcelDta = AcademicService.getSyllabusReportExcel($scope.UserTypeId, $scope.CollegeCode, branchCode);
+            var getExcelDta = AcademicService.getSyllabusReportExcel($scope.UserTypeId, $scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode, branchCode);
             getExcelDta.then(function (data) {
                 $scope.gentmetbl = false;
 
@@ -96,7 +170,7 @@
         $scope.submit = function () {
 
             $scope.loading = true;
-            var getData = AcademicService.getAdminSyllabusCoverageReport($scope.UserTypeId, $scope.CollegeCode, branchCode);
+            var getData = AcademicService.getAdminSyllabusCoverageReport($scope.UserTypeId, $scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode, branchCode);
             getData.then(function (response) {
                 var response = JSON.parse(response)
                 if (response.Table.length > 0) {

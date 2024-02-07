@@ -6,6 +6,8 @@
         $scope.UserTypeID = authData.UserTypeID;
         var tmp = $localStorage.TempData;
 
+        $scope.Institution = tmp.Institution;
+
 
 
         const $ctrl = this;
@@ -70,12 +72,14 @@
 
     
 
-            $scope.ShowDetails = function (InstitutionID,CourseID, ReportTypeID) {
+        $scope.ShowDetails = function (InstitutionID, CourseID, ReportTypeID, Course) {
 
             $localStorage.TempData2 = {
                 InstitutionID: InstitutionID,
                 CourseID: CourseID,
                 ReportTypeID: ReportTypeID,
+                Course: Course,
+                Institution: $scope.Institution
 
             };
 

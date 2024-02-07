@@ -3481,8 +3481,46 @@
             };
             var promise = DataAccessService.getDataWithPara('PreExaminationReport/GetSubBillerDayWiseCount', paramObj);
             return promise;
-        
-        }
+
+        };
+
+
+
+        this.AddFeeSettings = function (DataTypeId, ID, Name, Is_Active, Price, ServiceType, ChallanPrefix, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "ID": ID,
+                "Name": Name,
+                "Is_Active": Is_Active,
+                "Price": Price,
+                "ServiceType": ServiceType,
+                "ChallanPrefix": ChallanPrefix,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PreExamination/AddFeeSettings', paramObject);
+            return promise;
+        };
+
+
+
+        //this.AddFeeSettings = function (DataTypeId, ID, Name, Is_Active, Price, ServiceType, ChallanPrefix, UserName) {
+        //    var paramObj = {
+
+        //        "DataTypeId": DataTypeId,
+        //        "ID": ID,
+        //        "Name": Name,
+        //        "Is_Active": Is_Active,
+        //        "Price": Price,
+        //        "ServiceType": ServiceType,
+        //        "ChallanPrefix": ChallanPrefix,
+        //        "UserName": UserName
+
+
+        //    };
+        //    var promise = DataAccessService.postData('api/PreExamination/AddorUpdateFeeSettings', paramObj);
+        //    return promise;
+        //};
+
 
     });
 });

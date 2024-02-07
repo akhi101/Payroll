@@ -171,6 +171,12 @@
             return promise;
         };
 
+        this.GetCBTCourses = function () {
+            // var paramObj = { "ReqData": ReqData };SP_GET_Category
+            var promise = DataAccessService.getDataAll('api/TwshStudentReg/GetCBTCourses');
+            return promise;
+        };
+
         this.TwshCertificate = function () {
             // var paramObj = { "ReqData": ReqData };SP_GET_Category
             var promise = DataAccessService.getDataAll('api/TwshCertificate/GetTypeWritingCertificate');
@@ -654,6 +660,14 @@
             return promise;
         };
 
+        this.getQualifications = function (GradeId) {
+            var paramObj = {
+                "GradeId": GradeId
+            };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetQualificationList', paramObj);
+            return promise;
+        };
+
         //------Offline exam centers----------
         this.getExaminationCenters = function (UserId, DistrictId, CourseId, GradeId) {
             var paramObj = { "UserId": UserId, "DistrictId": DistrictId, "CourseId": CourseId, "GradeId": GradeId };
@@ -666,6 +680,18 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/getonlineExamcentersAndDates', paramObj);
             return promise;
         };
+
+        this.GetCBTExamcentersAndDates = function (CourseId, DistrictId) {
+            var paramObj = { "CoursesType": CourseId, "DistrictId": DistrictId };
+            var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetCBTExamcentersAndDates', paramObj);
+            return promise;
+        };
+
+        this.TempGetSSCDetails = function (TENTH_HT_NO, TENTH_YEAR, STREAMS) {
+            var paramObject = { "TENTH_HT_NO": TENTH_HT_NO, "TENTH_YEAR": TENTH_YEAR, "STREAMS": STREAMS };
+            return DataAccessService.postData('api/TwshStudentReg/TempGetSSCDetails', paramObject);
+        };
+
         this.SubmitApplication = function (object) {
             var promise = DataAccessService.postData('api/TwshStudentReg/SubmitTwshApplication', object);
             return promise;
@@ -1122,6 +1148,7 @@
             var promise = DataAccessService.getDataWithPara('api/TwshStudentReg/GetStudentBlindListExcel', paramObj);
             return promise;
         };
+
         
     });
 });

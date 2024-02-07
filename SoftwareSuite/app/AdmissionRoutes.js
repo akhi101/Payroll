@@ -489,6 +489,12 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.PreExamination.FeePaymentReport': {
+                url: "/FeePaymentReport",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicFeePaymentReport.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.PreExamination.PrinterNRDownload': {
                 url: "/PrinterNRDownload",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicPrinterNRDownload.html',
@@ -528,19 +534,19 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicAmountController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            //'CcicDashboard.PreExamination.FeePayment': {
-            //    url: "/FeePayment",
-            //    templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
-            //    dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
-            //},
-
-
-
-            'CcicDashboard.PreExamination.TesTingFeePayment': {
-                url: "/TesTingFeePayment",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicTestingExamFeePayment.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicTestingExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
+            'CcicDashboard.PreExamination.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicExamFeePayment.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
             },
+
+
+
+            //'CcicDashboard.PreExamination.TesTingFeePayment': {
+            //    url: "/TesTingFeePayment",
+            //    templateUrl: 'app/views/CCIC/PreExamination/CcicTestingExamFeePayment.html',
+            //    dependencies: ['controllers/CCIC/PreExamination/CcicTestingExamFeePaymentController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/BillDesk/paymentService', 'services/CCIC/CcicStudentRegistrationService', 'services/PreExamination/PreExaminationService']
+            //},
  
 
             'CcicDashboard.PreExamination.PaymentProcess': {
@@ -767,6 +773,12 @@
                 url: "/OnlineApplication",
                 templateUrl: 'app/views/Examssite/StudentReg.html',
                 dependencies: ['controllers/Examssite/TwshStudentRegController', 'services/TWSH/TwshStudentRegService', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'index.TestingCBTPAGE': {
+                url: "/TestingCBTPAGE",
+                templateUrl: 'app/views/Examssite/TestingStudentReg.html',
+                dependencies: ['controllers/Examssite/TestingTwshStudentRegController', 'services/TWSH/TwshStudentRegService', 'services/SystemAdministration/SystemUserService']
             },
             'index.TwshFeePayment': {
                 url: "/FeePayment",
@@ -2804,7 +2816,7 @@
             'Dashboard.Academic.SyllabusCoverageReport': {
                 url: "/SyllabusCoverageReport",
                 templateUrl: 'app/views/Academic/Reports/SyllabusCoverageReport.html',
-                dependencies: ['controllers/Academic/Reports/SyllabusCoverageReportController', 'services/Academic/AcademicService']
+                dependencies: ['controllers/Academic/Reports/SyllabusCoverageReportController', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.Academic.PrincipalSyllabusCoverageReport': {
                 url: "/SyllabusCoverageReport/PrincipalSyllabusCoverageReport",
@@ -4352,6 +4364,16 @@
                 templateUrl: 'app/views/Tickets/TicketsStatusWiseReport.html',
 
                 dependencies: ['controllers/Tickets/TicketsStatusWiseReportController', 'services/PreExamination/PreExaminationService']
+
+            },
+
+            'Dashboard.FeeSettings': {
+
+                url: "/FeeSettings",
+
+                templateUrl: 'app/views/StudentServices/FeeSettings.html',
+
+                dependencies: ['controllers/StudentServices/FeeSettingsController', 'services/PreExamination/PreExaminationService']
 
             },
 

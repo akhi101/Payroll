@@ -25,10 +25,11 @@
 
 
 
-            $scope.showAdminEnrollmentInsCount = function (InstitutionID) {
+            $scope.showAdminEnrollmentInsCount = function (InstitutionID, Institution) {
 
                 $localStorage.TempData = {
                     InstitutionID: InstitutionID,
+                    Institution: Institution
                 };
 
                 $state.go('CcicDashboard.Academic.CcicAdmEnrollReportCourses');

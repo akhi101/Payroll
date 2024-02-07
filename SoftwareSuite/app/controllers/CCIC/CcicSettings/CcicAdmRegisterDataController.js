@@ -5,6 +5,12 @@
         var tmp = $localStorage.TempData;
         var tempData2 = $localStorage.TempData2;
         $scope.UserName = authData.UserName;
+
+
+
+        $scope.Institution = tempData2.Institution;
+        $scope.Course = tempData2.Course;
+
         const $ctrl = this;
         $ctrl.$onInit = () => {
             //$scope.ShowStudentDetails = false;
@@ -154,11 +160,22 @@
                 $localStorage.TempData3 = {
                     ApplicationNumber: ApplicationNumber,
                     StudentID: StudentID,
+                    ApplicationStatus: 0
+
+                };
+
+                //    $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            }
+
+            else if (ApplicationStatus == 'Approved') {
+                $localStorage.TempData3 = {
+                    ApplicationNumber: ApplicationNumber,
+                    StudentID: StudentID,
                     ApplicationStatus: 1
 
                 };
 
-                $state.go('CcicDashboard.Academic.ViewStuDetails');
+                //    $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
             }
             else if (ApplicationStatus == 'Revised') {
                 $localStorage.TempData3 = {
@@ -168,7 +185,7 @@
 
                 };
 
-                $state.go('CcicDashboard.Academic.ViewStuDetails');
+                //    $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
             }
             else if (ApplicationStatus == 'Rejected') {
                 $localStorage.TempData3 = {
@@ -178,9 +195,20 @@
 
                 };
 
-                $state.go('CcicDashboard.Academic.ViewStuDetails');
+                $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
+            }
+            else if (ApplicationStatus == 'Recommended') {
+                $localStorage.TempData3 = {
+                    ApplicationNumber: ApplicationNumber,
+                    StudentID: StudentID,
+                    ApplicationStatus: 4
+
+                };
+
+                //    $state.go('CcicDashboard.Academic.ViewStdDetailsVerification');
             }
 
+            $state.go('CcicDashboard.Academic.ViewStuDetails');
 
         }
     });

@@ -645,6 +645,7 @@
     <Content Include="app\controllers\BillDesk\BillDeskController.js" />
     <Content Include="app\controllers\BoardReportListController.js" />
     <Content Include="app\controllers\BranchWiseController.js" />
+    <Content Include="app\controllers\CBT\CbtRegistrationController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
@@ -697,6 +698,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicAmountController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicExamFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicExaminationCentresController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicFeePaymentReportController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDownloadController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPaymentProcessController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
@@ -901,6 +903,7 @@
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
     <Content Include="app\controllers\ExamsSite\TwshAdmViewApplicationController.js" />
+    <Content Include="app\controllers\ExamsSite\TestingTwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TypingCumShorthandResultsController.js" />
@@ -1082,12 +1085,19 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
+
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
+
+    <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
+
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
+    <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
@@ -2368,7 +2378,7 @@
     <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />
     <Content Include="app\views\ExamsSite\StudentFeedback.html" />
     <Content Include="app\views\ExamsSite\StudentOnlineRequest.html" />
-    <Content Include="app\views\ExamsSite\StudentReg.html" />
+    <Content Include="app\views\ExamsSite\TestingStudentReg.html" />
     <Content Include="app\views\ExamsSite\StudentRequestForm.html" />
     <Content Include="app\views\ExamsSite\TwshViewApplication.html" />
     <Content Include="app\views\ExamsSite\TypingCumShorthand.html" />
@@ -3117,6 +3127,7 @@
     <Content Include="app\views\StudentResult.html" />
     <Content Include="app\views\StudentServices\AdministrationServices.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveList.html" />
+    <Content Include="app\views\StudentServices\FeeSettings.html" />
     <Content Include="app\views\StudentServices\StudentDetailsPopup.html" />
     <Content Include="app\views\StudentServices\StudentServices.html" />
     <Content Include="app\views\StudentServices\TcApplicationForm.html" />

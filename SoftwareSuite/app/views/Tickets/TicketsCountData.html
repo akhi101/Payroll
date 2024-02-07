@@ -344,7 +344,7 @@
                             <td class="text-center">{{data.TaskType}}</td>
                             <td class="text-center">{{data.TaskDescription}}</td>
                             <td class="text-center" ng-show="ActiveData">{{data.Active==1 ? 'Yes' : 'No'}}</td>
-                            <td class="text-center" ng-show="DownloadButton">
+                            <td class="text-center" ng-show="data.Url && DownloadButton">
                                 <a href="{{data.Url}}" target="_blank" download><button title="Click here to Download" class="btn btn-xs download_btn"> <i class="fa fa-download" aria-hidden="true"></i></button></a>
                             </td>
                             <td class="text-center" ng-show="DeleteButton">

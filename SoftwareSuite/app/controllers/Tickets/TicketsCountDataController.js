@@ -260,7 +260,13 @@ define(['app'], function (app) {
                 if (res.Table.length > 0) {
                     $scope.loading = false;
                     $scope.TasksData = res.Table;
-
+                    //$scope.File = res.Table[0].Url;
+                    //if ($scope.File != "") {
+                    //    $scope.DownloadButton = true;
+                    //}
+                    //else {
+                    //    $scope.DownloadButton = false;
+                    //}
                 } else {
                     $scope.loading = false;
 

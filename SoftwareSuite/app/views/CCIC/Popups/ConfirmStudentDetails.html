@@ -14,7 +14,7 @@
 </style>
 <div class="modal-header aadhar-modal-header">
     <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
-    <h4 class="modal-title center-block">Students Details</h4>
+    <h4 class="modal-title center-block">Confirm Student Fee Payment Details</h4>
 </div>
 <div class="modal-body">
     <div class="card">
@@ -24,7 +24,7 @@
                 <span data-ng-repeat="data in PaymentList">{{data.PIN}} {{$last ? '' : ($index==PaymentList.length-2) ? ' , ' : ', '}}</span></div>
             <div class="col-md-7 myPad"><strong>No of PINS Selected</strong></div>
             <div class="col-md-3 myPad">: {{AppCount}}</div>
-            <div class="col-md-7 myPad"><strong>Amount Payable</strong></div>
+            <div class="col-md-7 myPad"><strong>Amount Payable (Rs)</strong></div>
             <div class="col-md-3 myPad">: {{AmountPayable}}</div>
         
         <div class="row">

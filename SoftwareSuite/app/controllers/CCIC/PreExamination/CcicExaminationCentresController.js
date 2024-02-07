@@ -77,62 +77,62 @@ define(['app'], function (app) {
 
         $scope.Submit = function () {
 
-            //if ($scope.ExaminationCentreCode == null || $scope.ExaminationCentreCode == undefined || $scope.ExaminationCentreCode == "") {
-            //    alert("Please Enter Examination Centre Code");
-            //    return;
-            //}
+            if ($scope.ExaminationCentreCode == null || $scope.ExaminationCentreCode == undefined || $scope.ExaminationCentreCode == "") {
+                alert("Please Enter Examination Centre Code");
+                return;
+            }
             
-            //if ($scope.ExaminationCentreName == null || $scope.ExaminationCentreName == undefined || $scope.ExaminationCentreName == "") {
-            //    alert("Please Enter Coordinating Centre Name");
-            //    return;
-            //}
-            //if ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == "") {
-            //    alert("Please Enter House Number");
-            //    return;
-            //}
-            //if ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == "") {
-            //    alert("Please Enter Street Number / Name");
-            //    return;
-            //}
-            //if ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == "") {
-            //    alert("Please Enter Locality");
+            if ($scope.ExaminationCentreName == null || $scope.ExaminationCentreName == undefined || $scope.ExaminationCentreName == "") {
+                alert("Please Enter Examination Centre Name");
+                return;
+            }
+            if ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == "") {
+                alert("Please Enter House Number");
+                return;
+            }
+            if ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == "") {
+                alert("Please Enter Street Number / Name");
+                return;
+            }
+            if ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == "") {
+                alert("Please Enter Locality");
+                return;
+            }
+
+            //if ($scope.Landmark == null || $scope.Landmark == undefined || $scope.Landmark == "") {
+            //    alert("Please Enter Landmark");
             //    return;
             //}
 
-            ////if ($scope.Landmark == null || $scope.Landmark == undefined || $scope.Landmark == "") {
-            ////    alert("Please Enter Landmark");
-            ////    return;
-            ////}
-
-            //if ($scope.Village == null || $scope.Village == undefined || $scope.Village == "") {
-            //    alert("Please Enter Village / Town / City");
-            //    return;
-            //}
+            if ($scope.Village == null || $scope.Village == undefined || $scope.Village == "") {
+                alert("Please Enter Village / Town / City");
+                return;
+            }
 
 
-            //if ($scope.District == null || $scope.District == undefined || $scope.District == "") {
-            //    alert("Please Select District");
-            //    return;
-            //}
+            if ($scope.District == null || $scope.District == undefined || $scope.District == "") {
+                alert("Please Select District");
+                return;
+            }
     
-            //if ($scope.PinCode == null || $scope.PinCode == undefined || $scope.PinCode == "") {
-            //    alert("Please Enter PinCode");
-            //    return;
-            //}
+            if ($scope.PinCode == null || $scope.PinCode == undefined || $scope.PinCode == "") {
+                alert("Please Enter PinCode");
+                return;
+            }
 
             
-            //if ($scope.PrincipalName == null || $scope.PrincipalName == undefined || $scope.PrincipalName == "") {
-            //    alert("Please Enter Principal Name");
-            //    return;
-            //}
-            //if ($scope.PrincipalMobile == null || $scope.PrincipalMobile == undefined || $scope.PrincipalMobile == "") {
-            //    alert("Please Enter Principal Mobile");
-            //    return;
-            //}
-            //if ($scope.PrincipalEmail == null || $scope.PrincipalEmail == undefined || $scope.PrincipalEmail == "") {
-            //    alert("Please Enter Principal Email");
-            //    return;
-            //}
+            if ($scope.PrincipalName == null || $scope.PrincipalName == undefined || $scope.PrincipalName == "") {
+                alert("Please Enter Principal Name");
+                return;
+            }
+            if ($scope.PrincipalMobile == null || $scope.PrincipalMobile == undefined || $scope.PrincipalMobile == "") {
+                alert("Please Enter Principal Mobile");
+                return;
+            }
+            if ($scope.PrincipalEmail == null || $scope.PrincipalEmail == undefined || $scope.PrincipalEmail == "") {
+                alert("Please Enter Principal Email");
+                return;
+            }
             let HouseNo = ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == '') ? '' : $scope.HouseNumber;
             let StreetNo = ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == '') ? '' : $scope.StreetName;
             let Locality = ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == '') ? '' : $scope.Locality;
@@ -186,10 +186,10 @@ define(['app'], function (app) {
 
         $scope.UpdateDetails = function (data) {
 
-            if (data[0].ExaminationCentreCode == null || data[0].ExaminationCentreCode == undefined || data[0].ExaminationCentreCode == "") {
-                alert("Please Enter Examination Centre Code");
-                return;
-            }
+            //if (data[0].ExaminationCentreCode == null || data[0].ExaminationCentreCode == undefined || data[0].ExaminationCentreCode == "") {
+            //    alert("Please Enter Examination Centre Code");
+            //    return;
+            //}
 
             if (data[0].ExaminationCentreName == null || data[0].ExaminationCentreName == undefined || data[0].ExaminationCentreName == "") {
                 alert("Please Enter Coordinating Centre Name");
@@ -219,7 +219,7 @@ define(['app'], function (app) {
             }
 
 
-            if (data[0].District == null || data[0].District == undefined || data[0].District == "") {
+            if (data[0].DistrictID == null || data[0].DistrictID == undefined || data[0].DistrictID == "") {
                 alert("Please Select District");
                 return;
             }
