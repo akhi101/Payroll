@@ -777,9 +777,10 @@
 
             'index.TestingCBTPAGE': {
                 url: "/TestingCBTPAGE",
-                templateUrl: 'app/views/Examssite/TestingStudentReg.html',
-                dependencies: ['controllers/Examssite/TestingTwshStudentRegController', 'services/TWSH/TwshStudentRegService', 'services/SystemAdministration/SystemUserService']
+                templateUrl: 'app/views/CBT/TestingStudentReg.html',
+                dependencies: ['controllers/CBT/TestingTwshStudentRegController', 'services/CBT/CbtStudentRegService', 'services/SystemAdministration/SystemUserService']
             },
+
             'index.TwshFeePayment': {
                 url: "/FeePayment",
                 templateUrl: 'app/views/Examssite/FeePayment.html',
