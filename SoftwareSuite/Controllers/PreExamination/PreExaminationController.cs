@@ -8179,6 +8179,28 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("GetorEditFeeSettingsData")]
+        public HttpResponseMessage GetorEditFeeSettingsData(int DataTypeID, int ID)
+        {
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataTypeID", DataTypeID);
+                param[1] = new SqlParameter("@ID", ID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_CertificateTypes", param);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_CertificateTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+            }
+        }
+
 
         [HttpGet, ActionName("GetExamMonthYears")]
         public HttpResponseMessage GetExamMonthYears()
@@ -8216,14 +8238,14 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        [HttpPost, ActionName("AddFeeSettings")]
-        public string AddFeeSettings([FromBody] JsonObject request)
+        [HttpPost, ActionName("AddorUpdateFeeSettings")]
+        public string AddorUpdateFeeSettings([FromBody] JsonObject request)
         {
             try
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@ID", request["ID"]);
                 param[2] = new SqlParameter("@Name", request["Name"]);
                 param[3] = new SqlParameter("@Is_Active", request["Is_Active"]);
@@ -8231,7 +8253,7 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[5] = new SqlParameter("@ServiceType", request["ServiceType"]);
                 param[6] = new SqlParameter("@ChallanPrefix", request["ChallanPrefix"]);
                 param[7] = new SqlParameter("@UserName", request["UserName"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CertificateTypes", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
