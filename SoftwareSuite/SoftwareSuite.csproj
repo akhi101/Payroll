@@ -341,6 +341,7 @@
     <Compile Include="Controllers\Assessment\AssessmentReportsController.cs" />
     <Compile Include="Controllers\Assessment\MarksEntryController.cs" />
     <Compile Include="Controllers\Assessment\MarksEntryFinePaymentController.cs" />
+    <Compile Include="Controllers\CBT\CbtStudentRegController.cs" />
     <Compile Include="Controllers\CCIC\CcicAdminServiceController.cs" />
     <Compile Include="Controllers\CCIC\CcicAssessmentController.cs" />
     <Compile Include="Controllers\CCIC\CcicGenerateTimeTable.cs" />
@@ -403,8 +404,14 @@
     <Compile Include="Models\Academic\Academic.cs" />
     <Compile Include="Models\Admission\StudentReg.cs" />
     <Compile Include="Models\Assessment\PostExamMarks.cs" />
+    <Compile Include="Models\CBT\AuaKuaHelper.cs" />
+    <Compile Include="Models\CBT\KycReq.cs" />
+    <Compile Include="Models\CBT\KycRes.cs" />
+    <Compile Include="Models\CBT\StringUtilities.cs" />
+    <Compile Include="Models\CBT\TwshModels.cs" />
     <Compile Include="Models\CCIC\CcicAuthToken.cs" />
     <Compile Include="Models\CCIC\CcicCrypt.cs" />
+    <Compile Include="Models\Database\CbtdbHandler.cs" />
     <Compile Include="Models\Database\ccicdbHandler.cs" />
     <Compile Include="Models\CCIC\CcicModels.cs" />
     <Compile Include="Models\CCIC\CcicSystemModules.cs" />
@@ -473,6 +480,7 @@
     <Compile Include="Services\SchedulerService.cs" />
     <Compile Include="Services\SmsService.cs" />
     <Compile Include="Services\SystemUserService.cs" />
+    <Compile Include="Services\CbtServices.cs" />
     <Compile Include="Services\TwshServices.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -903,7 +911,7 @@
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
     <Content Include="app\controllers\ExamsSite\TwshAdmViewApplicationController.js" />
-    <Content Include="app\controllers\ExamsSite\TestingTwshStudentRegController.js" />
+    <Content Include="app\controllers\CBT\TestingTwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TypingCumShorthandResultsController.js" />
@@ -1091,6 +1099,7 @@
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
 
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
+    <Content Include="app\services\CBT\CbtStudentRegService.js" />
     <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
@@ -2378,7 +2387,7 @@
     <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />
     <Content Include="app\views\ExamsSite\StudentFeedback.html" />
     <Content Include="app\views\ExamsSite\StudentOnlineRequest.html" />
-    <Content Include="app\views\ExamsSite\TestingStudentReg.html" />
+    <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\ExamsSite\StudentRequestForm.html" />
     <Content Include="app\views\ExamsSite\TwshViewApplication.html" />
     <Content Include="app\views\ExamsSite\TypingCumShorthand.html" />

@@ -1,8 +1,8 @@
 ﻿define(['app'], function (app) {
-    app.controller("TestingTwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
+    app.controller("TestingTwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, CbtStudentRegService) {
 
 
-       
+        $scope.ShowSubmitButton = true;
         $scope.isChecked = true;
         $scope.instructions = false;
         $scope.courseDetails = true;
@@ -66,12 +66,15 @@
             $scope.sellanguage = { LanguageId: 1 };
             $scope.LoadGrades($scope.SelectedCourseId, $scope.sellanguage);
             //$scope.Selgrade = { GradeId: 23 };
-            $scope.LoadOnlineDist();
+            //$scope.LoadOnlineDist();
             $scope.ShowisSSC = false;
+            $scope.ShowReset1Button = false;
         }
 
 
         $scope.Reset1 = function () {
+            $scope.ShowSubmitButton = true;
+            $scope.ShowReset1Button = false;
             $scope.DisableCourse = false;
             $scope.DisableLanguage = false;
             $scope.DisableGrade = false;
@@ -134,7 +137,9 @@
         }
 
         $scope.Reset2 = function () {
-
+            $scope.DisableisSSC = false;
+            $scope.SSCDetails = false;
+            $scope.ShowReset2Button=false
             $scope.SscForm = true;
             $scope.sscHallticket = '';
             $scope.passedoutYear = '';
@@ -229,10 +234,12 @@
         }
 
         $scope.IsSsc = function (ISSSC) {
-            if (ISSSC==1) {
+            if (ISSSC == 1) {
+                $scope.ISSSC = ISSSC;
                 $scope.SscForm = true;
                 $scope.applicationForm = false;
                 $scope.ShowGetSSCButton = true;
+                $scope.ShowReset2Button = false;
             }
             else if (ISSSC == 0) {
                 $scope.SscForm = false;
@@ -267,22 +274,22 @@
             $scope.eyeIcon = ($scope.inputType === 'password') ? '👁️' : '👀';
         };
 
-        $scope.LoadOnlineDist = function () {
-            //--------Online Districts -----------
-            var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
-            GetOnlineExamDist.then(function (res) {
-                $scope.onlineDistricts = res;
-                //  $scope.Districts = $scope.onlineDistricts;
-            }, function (err) {
-                $scope.onlineDistricts = [];
-            });
-        }
+        //$scope.LoadOnlineDist = function () {
+        //    //--------Online Districts -----------
+        //    var GetOnlineExamDist = CbtStudentRegService.GetOnlineExamDist();
+        //    GetOnlineExamDist.then(function (res) {
+        //        $scope.onlineDistricts = res;
+        //        //  $scope.Districts = $scope.onlineDistricts;
+        //    }, function (err) {
+        //        $scope.onlineDistricts = [];
+        //    });
+        //}
 
         if ($localStorage.Twsh != "" && $localStorage.Twsh != undefined && $localStorage.Twsh != null) {
 
             $scope.usertype = $localStorage.Twsh.UserTypeId;
         }
-        var GetExamMonthYear = TwshStudentRegService.GetExamMonthYear();
+        var GetExamMonthYear = CbtStudentRegService.GetExamMonthYear();
         GetExamMonthYear.then(function (res) {
             if (res.length > 0) {
                 $scope.MonthYearId = res[0].Id;
@@ -303,60 +310,13 @@
         //        $scope.instructions = true;
         //    },
 
-        $scope.getbatchtimings = function (BatchNumber) {
-            var gettimings = TwshStudentRegService.GetGradeWiseBatchTimings($scope.Selgrade.Id, $scope.exambatch);
-            gettimings.then(function (res) {
-                try {
-                    var Res = JSON.parse(res)
-                }
-                catch { error }
-                $scope.GradeBatchTimings = Res.Table;
-                $scope.Paper1Time = $scope.GradeBatchTimings[0].Paper1Time
-                $scope.Paper2Time = $scope.GradeBatchTimings[0].Paper2Time
-            }, function (err) {
-                $scope.GradeBatchTimings = [];
-            });
-        }
-
-
-
        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $scope.Blind = function (IsBlind) {
-            if (IsBlind == 0) {
-                $('#stdMedicalCertFile').val(null);
-
-                $scope.stdMedicalCert = '';
-                $scope.stdMedicalCert = null;
-                $scope.IsBlind = IsBlind;
-                $scope.CheckBox = false;
-            }
-            else if (IsBlind == 1) {
-                $scope.IsBlind = IsBlind;
-                $scope.CheckBox = true;
-            }
-            else {
-                $scope.CheckBox = false;
-            }
-        }
+      
         $scope.submitCourse = function (courseId, languageId, gradeId) {
             //$scope.tmpmode = '';
+            $scope.ShowSubmitButton = false;
+            $scope.ShowReset1Button = true;
 
             $scope.DisableCourse = true;
             $scope.DisableLanguage = true;
@@ -394,8 +354,8 @@
             $scope.ExamAppearDetails = true;
             //--------------offline districts------
             $scope.Districts = [];
-            //var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
-            var ExamDistricts = TwshStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.Selgrade.GradeId);
+            //var ExamDistricts = CbtStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
+            var ExamDistricts = CbtStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.Selgrade.GradeId);
             ExamDistricts.then(function (res) {
                 $scope.offlineDistricts = res;
 
@@ -404,17 +364,17 @@
             }, function (err) {
                 $scope.offlineDistricts = [];
             });
-            // ----------------- Dates-------------
+            //// ----------------- Dates-------------
 
-            $scope.offlineExamDates = [];
-            var getexamdates = TwshStudentRegService.getExamDates($scope.SelectedCourseId.CourseID, $scope.Selgrade.GradeId)
-            getexamdates.then(function (resp) {
-                $scope.ExamDates = resp;
-                $scope.loader1 = false
-                $scope.submitbutton1 = false
-            }, function (err) {
-                $scope.ExamDates = []
-            });
+            //$scope.offlineExamDates = [];
+            //var getexamdates = CbtStudentRegService.getExamDates($scope.SelectedCourseId.CourseID, $scope.Selgrade.GradeId)
+            //getexamdates.then(function (resp) {
+            //    $scope.ExamDates = resp;
+            //    $scope.loader1 = false
+            //    $scope.submitbutton1 = false
+            //}, function (err) {
+            //    $scope.ExamDates = []
+            //});
 
 
             //if ($scope.sellanguage.LanguageId == 1 && $scope.SelectedCourseId.CourseID == 1) {
@@ -448,71 +408,71 @@
             $scope.noBtn = null;
         }
 
-        $scope.submitmode = function () {
+        //$scope.submitmode = function () {
           
-            $scope.Districts = [];
-            if ($scope.mode == 1) {
-                $scope.ExamAppearDetails = true;
-                $scope.courseDetails = false;
-                //$scope.showmodeofexam = false;
-                //$scope.ExamAppearDetails = true;
-                $scope.oldUser = false;
-                $scope.oldUser2 = false;
-                $scope.sscForm = false;
-                $scope.applicationForm = false;
+        //    $scope.Districts = [];
+        //    if ($scope.mode == 1) {
+        //        $scope.ExamAppearDetails = true;
+        //        $scope.courseDetails = false;
+        //        //$scope.showmodeofexam = false;
+        //        //$scope.ExamAppearDetails = true;
+        //        $scope.oldUser = false;
+        //        $scope.oldUser2 = false;
+        //        $scope.sscForm = false;
+        //        $scope.applicationForm = false;
 
-                //$scope.tmpmode = 1;
-                $scope.ExamModeName = 'Computer Based Test (CBT)';
-                var GetOnlineExamDist = TwshStudentRegService.GetOnlineExamDist();
-                GetOnlineExamDist.then(function (res) {
-                    $scope.onlineDistricts = res;
-                    //  $scope.Districts = $scope.onlineDistricts;
-                }, function (err) {
-                    $scope.onlineDistricts = [];
-                });
+        //        //$scope.tmpmode = 1;
+        //        $scope.ExamModeName = 'Computer Based Test (CBT)';
+        //        var GetOnlineExamDist = CbtStudentRegService.GetOnlineExamDist();
+        //        GetOnlineExamDist.then(function (res) {
+        //            $scope.onlineDistricts = res;
+        //            //  $scope.Districts = $scope.onlineDistricts;
+        //        }, function (err) {
+        //            $scope.onlineDistricts = [];
+        //        });
 
-                $scope.Districts = $scope.onlineDistricts;
+        //        $scope.Districts = $scope.onlineDistricts;
 
-            } else if ($scope.mode == 2) {
-                //$scope.tmpmode = 2;
+        //    } else if ($scope.mode == 2) {
+        //        //$scope.tmpmode = 2;
 
-                var date = TwshStudentRegService.VerifyApplicationDates($scope.mode);
-                date.then(function (response) {
+        //        var date = CbtStudentRegService.VerifyApplicationDates($scope.mode);
+        //        date.then(function (response) {
 
-                    try {
-                        var res = JSON.parse(response)
+        //            try {
+        //                var res = JSON.parse(response)
 
-                    }
-                    catch (err) { }
-                    if (res.Table[0].ResponseCode == '200') {
-                        $scope.ExamAppearDetails = true;
-                        $scope.courseDetails = false;
-                        //$scope.showmodeofexam = false;
-                        //$scope.ExamAppearDetails = true;
-                        $scope.oldUser = false;
-                        $scope.oldUser2 = false;
-                        $scope.sscForm = false;
-                        $scope.applicationForm = false;
+        //            }
+        //            catch (err) { }
+        //            if (res.Table[0].ResponseCode == '200') {
+        //                $scope.ExamAppearDetails = true;
+        //                $scope.courseDetails = false;
+        //                //$scope.showmodeofexam = false;
+        //                //$scope.ExamAppearDetails = true;
+        //                $scope.oldUser = false;
+        //                $scope.oldUser2 = false;
+        //                $scope.sscForm = false;
+        //                $scope.applicationForm = false;
 
-                    }
-                    else if (res.Table[0].ResponseCode == '400') {
-                        alert(res.Table[0].ResponseDescription);
-                        return;
-                        //$scope.ExamAppearDetails = false;
-                    }
+        //            }
+        //            else if (res.Table[0].ResponseCode == '400') {
+        //                alert(res.Table[0].ResponseDescription);
+        //                return;
+        //                //$scope.ExamAppearDetails = false;
+        //            }
 
-                },
-                    function (error) {
-                        alert("error while Verifying Dates")
-                        //var err = JSON.parse(error);
+        //        },
+        //            function (error) {
+        //                alert("error while Verifying Dates")
+        //                //var err = JSON.parse(error);
 
-                    });
+        //            });
             
-                $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
-                $scope.Districts = $scope.offlineDistricts;
-            }
+        //        $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
+        //        $scope.Districts = $scope.offlineDistricts;
+        //    }
 
-        }
+        //}
 
 
         
@@ -520,6 +480,8 @@
 
         $scope.clickRadio = function (twsh) {
             if (twsh === 'Yes') {
+                $scope.DisablePreHallTicket = false;
+                $scope.ShowResetButton3 = false;
                 $scope.oldUser = true;
                 $scope.ExamAppearDetails = true;
                 $scope.ShowPreviousHallTick = true;
@@ -617,33 +579,6 @@
 
 
             }
-            else {
-                    //$scope.oldUser = false;
-                    //$scope.oldUser2 = false;
-                    //$scope.ShowAadhaarDetail = true;
-                    //$scope.applicationForm = false;
-                if ($scope.Selgrade.GradeQualificationID == undefined || $scope.Selgrade.GradeQualificationID == null) {
-                    $scope.ShowAadhaarDetail = true;
-                    //$scope.ExamAppearDetails = false;
-                    $scope.oldUser = false;
-                    $scope.oldUser2 = false;
-                    $scope.sscForm = false;
-                    $scope.applicationForm = false;
-                    $scope.isqualified1 = false;
-                    $scope.isqualified2 = false;
-                    $scope.isqualified3 = false;
-                    $scope.ShowPreviousHallTick = true;
-                } else {
-                    $scope.ShowAadhaarDetail = true;
-                    //$scope.ExamAppearDetails = false;
-                    $scope.oldUser = false;
-                    $scope.oldUser2 = false;
-                    $scope.sscForm = false;
-                    $scope.applicationForm = false;
-                    $scope.ShowPreviousHallTick = false;
-                }
-
-            }
 
 
         }
@@ -663,7 +598,7 @@
             $scope.SendOTPButton = false;
             $scope.VerifyOTPButton = true;
             var aadhaarenc = btoa(aadhaar);
-            var sendotp = TwshStudentRegService.SendAadhaarOtp(aadhaarenc);
+            var sendotp = CbtStudentRegService.SendAadhaarOtp(aadhaarenc);
             sendotp.then(function (res) {
                 try { var res = JSON.parse(res) } catch (err) { }
 
@@ -742,7 +677,7 @@
         //    $scope.verifybtndisable = true;
         //    if ($scope.Txnid != "" && $scope.Txnid != undefined && $scope.Txnid != null) {
         //        var aadhaarenc = btoa(aadhaar);
-        //        var VerifyOtp = TwshStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
+        //        var VerifyOtp = CbtStudentRegService.VerifyAadhaarOtp(aadhaarenc, aadharotp, $scope.Txnid);
         //        VerifyOtp.then(function (res) {
         //            if (res == true) {
         //                $scope.adhaarOtp = '';
@@ -916,7 +851,7 @@
         $scope.getBatches = function (ExamDateselect) {
             $scope.exambatchList = [];
             $scope.ExamDateselected = JSON.parse(ExamDateselect);
-            var getBatches = TwshStudentRegService.getBatches($scope.ExamDateselected.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
+            var getBatches = CbtStudentRegService.getBatches($scope.ExamDateselected.Id, $scope.selectedcourse.Id, $scope.selectedgrade.Id);
             getBatches.then(function (res) {
                 $scope.exambatchList = res;
             }, function (err) {
@@ -964,21 +899,7 @@
                 return;
             }
 
-            if (($scope.TwshCourse == undefined || $scope.TwshCourse == "" || $scope.TwshCourse == null)) {
-                alert("Please Enter Examination Appearing .");
-                return;
-            }
 
-
-            if (($scope.TwshLanguage == undefined || $scope.TwshLanguage == "" || $scope.TwshLanguage == null)) {
-                alert("Please Enter Language .");
-                return;
-            }
-
-            if (($scope.TwshGrade == undefined || $scope.TwshGrade == "" || $scope.TwshGrade == null)) {
-                alert("Please Enter Grade .");
-                return;
-            }
 
             if (($scope.District == undefined || $scope.District == "" || $scope.District == null)) {
                 alert("Please Enter District .");
@@ -991,36 +912,32 @@
             }
 
 
-            //if (($scope.ExamDateselected.ExamDate == undefined || $scope.ExamDateselected.ExamDate == "" || $scope.ExamDateselected.ExamDate == null)) {
-            //    alert("Please Enter ExamDateselect .");
-            //    return;
-            //}
 
-            //if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
-            //    alert("Please Enter date1 .");
-            //    return;
-            //}
+            if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
+                alert("Please Enter date1 .");
+                return;
+            }
 
-            //if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
-            //    alert("Please Enter date2 .");
-            //    return;
-            //}
+            if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
+                alert("Please Enter date2 .");
+                return;
+            }
 
-            //if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
-            //    alert("Please Enter date3 .");
-            //    return;
-            //}
+            if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
+                alert("Please Enter date3 .");
+                return;
+            }
 
-            //if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
-            //    alert("Please Enter date4 .");
-            //    return;
-            //}
+            if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
+                alert("Please Enter date4 .");
+                return;
+            }
 
 
-            //if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
-            //    alert("Please Enter date5 .");
-            //    return;
-            //}
+            if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
+                alert("Please Enter date5 .");
+                return;
+            }
 
 
             if (($scope.houseNo == undefined || $scope.houseNo == "" || $scope.houseNo == null)) {
@@ -1063,32 +980,6 @@
 
 
 
-            if ((angular.isUndefined($scope.exambatch) || $scope.exambatch == "") && $scope.tmpmode == 2) {
-                alert('Please choose examination batch');
-                return;
-            }
-            if ((angular.isUndefined($scope.IsBlind) || $scope.IsBlind == "") && $scope.tmpmode == 2) {
-                alert("Please choose Isblind field.");
-                return;
-            }
-
-            if (($scope.stdMedicalCert == undefined || $scope.stdMedicalCert == "" || $scope.stdMedicalCert == null) && $scope.IsBlind == 1) {
-                alert("Please Upload Medical Certificate");
-                return;
-            }
-
-            if ($scope.IsBlind == 1) {
-                $scope.CheckBox = true;
-            }
-            else {
-                $scope.CheckBox = false;
-            }
-
-            if ($scope.IsBlind == 1 && ($scope.Checkbox == undefined || $scope.Checkbox == "" || $scope.Checkbox == null)) {
-                alert("Please agree terms and conditions .");
-                return;
-            }
-
           
 
 
@@ -1100,10 +991,10 @@
                     $scope.CandidateNameDOBchange = d[0] + "/" + d[1] + "/" + d[2];
                 }
             }
-            try {
-                $scope.selectedCommunity = JSON.parse($scope.community);
-                $scope.selectedCommunityname = $scope.selectedCommunity.CategoryCode;
-            } catch (err) { };
+            //try {
+            //    $scope.selectedCommunity = JSON.parse($scope.community);
+            //    $scope.selectedCommunityname = $scope.selectedCommunity.CategoryCode;
+            //} catch (err) { };
             var selectedDist = JSON.parse($scope.District);
             $scope.examCenterDistrict = selectedDist.DistrictName;
             $scope.selectedexamCenter = JSON.parse($scope.examCenter);
@@ -1121,12 +1012,12 @@
                 });
                 $scope.ExamDateSel = JSON.stringify($scope.finalArray).replace("/", "-");;
             
-
+            $scope.courseDetails = false;
+            $scope.ExamAppearDetails = false
+            $scope.ShowAadhaarDetail = false
+            $scope.SscForm = false
             $scope.applicationForm = false;
             $scope.previewData = true;
-            $scope.CheckBox = false;
-            $scope.sscForm = false;
-            $scope.ExamAppearDetails = false;
         }
         $scope.editData = function () {
             $scope.previewData = false;
@@ -1147,7 +1038,7 @@
         $scope.loadCourse = function () {
             $scope.courseinfo = [];
             $scope.languageinfo = [];
-            var coursedetail = TwshStudentRegService.GetCBTCourses();
+            var coursedetail = CbtStudentRegService.GetCBTCourses();
             coursedetail.then(function (req) {
                 $scope.courseinfo = req
             }, function (err) {
@@ -1160,7 +1051,7 @@
             $scope.languageinfo = [];
             // course = JSON.parse(course);
             $scope.course_id = courseId.CourseID;
-            var coursedetail = TwshStudentRegService.getlanguages(courseId.CourseID);
+            var coursedetail = CbtStudentRegService.getlanguages(courseId.CourseID);
             coursedetail.then(function (req) {
                 $scope.languageinfo = req
             }, function (err) {
@@ -1180,7 +1071,7 @@
             }
 
             if (!angular.isUndefined(courseId) && !angular.isUndefined(languageId)) {
-                var coursedetail = TwshStudentRegService.getGrades(courseId.CourseID, languageId.LanguageId);
+                var coursedetail = CbtStudentRegService.getGrades(courseId.CourseID, languageId.LanguageId);
                 coursedetail.then(function (req) {
                     $scope.LoadGradeinfo = req
                 }, function (err) {
@@ -1197,18 +1088,21 @@
         $scope.LoadQualifications = function (SelGrade) {
             $scope.LoadQualificationinfo = [];         
             if (!angular.isUndefined(SelGrade.GradeId)) {
-                var coursedetail = TwshStudentRegService.getQualifications(SelGrade.GradeId);
+                var coursedetail = CbtStudentRegService.getQualifications(SelGrade.GradeId);
                 coursedetail.then(function (req) {
-                    $scope.LoadQualificationinfo = req
+                    $scope.LoadQualificationinfo = req;                    
                 }, function (err) {
                     $scope.LoadQualificationinfo = [];
                     alert("no data found");
                 });
             }
-
-
-
         }
+
+
+        $scope.SelectedQualification = function (SelQualification) {
+            $scope.GradeQualificationID = SelQualification.GradeQualificationID
+        }
+
         $scope.GetPreviousExamDetails = function (preHallTicket, Selgrade) {
             $scope.DisablePreHallTicket = true;
             $scope.DisablePreviousButton = true;
@@ -1219,7 +1113,7 @@
                 return;
             }
             // $scope.selectedgrade = JSON.parse(grade);
-            var previousDetails = TwshStudentRegService.GetPreviousExamData(preHallTicket, Selgrade.GradeId);
+            var previousDetails = CbtStudentRegService.GetPreviousExamData(preHallTicket, Selgrade.GradeId);
             previousDetails.then(function (res) {
                 var gradeinfo = $scope.selectedgrade;
                 if (res.length > 0) {
@@ -1262,7 +1156,7 @@
                 return;
             }
             // $scope.selectedgrade = JSON.parse(grade);
-            var previousDetails = TwshStudentRegService.GetQualifiedExamData(preHallTicket, $scope.selectedgrade.QualificationGradeId);
+            var previousDetails = CbtStudentRegService.GetQualifiedExamData(preHallTicket, $scope.selectedgrade.QualificationGradeId);
             previousDetails.then(function (res) {
                 if (res.length > 0) {
                     if (res[0].Result == "Pass") {
@@ -1300,7 +1194,7 @@
             });
         }
 
-        //var ExamCenters = TwshStudentRegService.getonlineExaminationCenters(1, 3);
+        //var ExamCenters = CbtStudentRegService.getonlineExaminationCenters(1, 3);
         //ExamCenters.then(function (res) {
         //    $scope.availableDates = [];
         //    $scope.examCenterList = res.Table;
@@ -1330,7 +1224,7 @@
 
            
                 //-------------------Load online exam Centers-----------------------
-            var ExamCenters = TwshStudentRegService.GetCBTExamcentersAndDates($scope.SelectedCourseId.CourseID, $scope.SelectedDistrictId.DistrictID);
+            var ExamCenters = CbtStudentRegService.GetCBTExamcentersAndDates($scope.SelectedCourseId.CourseID, $scope.SelectedDistrictId.DistrictID);
                 ExamCenters.then(function (res) {
                     $scope.availableDates = [];
                     $scope.examCenterList = res.Table;
@@ -1371,7 +1265,7 @@
         //        Year: passedoutYear,
         //        Stream: sscType
         //    };
-        //    var sscdetails = TwshStudentRegService.getSSCDetails(reqData);
+        //    var sscdetails = CbtStudentRegService.getSSCDetails(reqData);
         //    sscdetails.then(function (res) {
         //        if (res) {
 
@@ -1442,6 +1336,8 @@
         $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
 
             $scope.DisableGetSSCButton = true;
+            $scope.SSCDetails = true;
+            $scope.DisableisSSC = true;
             if (sscHallticket == '' || sscHallticket == null) {
                 alert("SSC HallTicket number can't be Empty");
                 return;
@@ -1457,7 +1353,7 @@
             //    Year: passedoutYear,
             //    Stream: sscType
             //};
-            var sscdetails = TwshStudentRegService.TempGetSSCDetails($scope.sscHallticket, $scope.passedoutYear, $scope.sscType);
+            var sscdetails = CbtStudentRegService.TempGetSSCDetails($scope.sscHallticket, $scope.passedoutYear, $scope.sscType);
             sscdetails.then(function (resdata) {
                 if (resdata.length > 0) {
 
@@ -1478,12 +1374,35 @@
                     //let ch = date1.split('');
                     //var datelength = ch.length;
                     $scope.SscForm = true;
+                    $scope.ShowReset2Button = true;
+                    $scope.ShowGetSSCButton = false;
+                    $scope.SSCDetails = true;
+                    $scope.DisableisSSC = true;
+
                 }
+                else if (resdata.length=0) {
+                    $scope.applicationForm = true;
+                    $scope.SscForm = true;
+                    $scope.isqualified1 = true;
+                    $scope.ShowReset2Button = true;
+                    $scope.ShowGetSSCButton = false;
+                    $scope.SSCDetails = true;
+                    $scope.DisableisSSC = true;
+
+
+                }
+
                    else {
                         alert("Details not found, Continue to fillApplication");
                         $scope.applicationForm = true;
                         $scope.SscForm = true;
                         $scope.isqualified1 = true;
+                        $scope.ShowReset2Button = true;
+                        $scope.ShowGetSSCButton = false;
+                        $scope.SSCDetails = true;
+                        $scope.DisableisSSC = true;
+
+
                     }
                
 
@@ -1492,19 +1411,17 @@
                 $scope.applicationForm = true;
                 $scope.SscForm = false;
                 $scope.isqualified1 = true;
+                $scope.ShowReset2Button = true;
+                $scope.ShowGetSSCButton = false;
+                $scope.SSCDetails = true;
+                $scope.DisableisSSC = true;
+
             })
 
 
 
         }
-        var communitylist = TwshStudentRegService.getCategory()
-        communitylist.then(function (res) {
-            $scope.communities = res;
-        }, function (err) {
-
-        });
-
-
+       
         //$scope.uploadPhoto = function () {
         //    var input = document.getElementById("stdPhotoFile");
         //    var fileSize = input.files[0].size;
@@ -1873,7 +1790,7 @@
             $scope.selectedcourse.CourseName;
             $scope.TwshLanguage = $scope.selectedlanguage.LanguageName;
             $scope.TwshGrade = $scope.selectedgrade.GradeName;
-            var regstudent = TwshStudentRegService.SubmitApplication(req);
+            var regstudent = CbtStudentRegService.SubmitApplication(req);
             regstudent.then(function (res) {
                 res = JSON.parse(res);
                 if (res.Status == "200") {
