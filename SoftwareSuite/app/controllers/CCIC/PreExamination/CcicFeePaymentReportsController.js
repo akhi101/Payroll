@@ -14,7 +14,17 @@
         }
 
 
+        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+        getCcicCurrentAcademicYear.then(function (response) {
 
+            $scope.GetCcicCurrentAcademicYear = response;
+
+        },
+            function (error) {
+                alert("error while loading CurrentAcademicYear");
+                var err = JSON.parse(error);
+
+            });
 
 
 
@@ -84,100 +94,96 @@
 
 
 
-        $scope.getExamCentresMappingData = function () {
 
 
-            if (($scope.Academicyear == undefined) || ($scope.Academicyear == null) || ($scope.Academicyear == "")) {
+
+        $scope.getAdminFeePaymentCount = function () {
+            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
                 alert("Select Academic Year");
                 return false;
             }
-            if (($scope.Monthyear == undefined) || ($scope.Monthyear == null) || ($scope.Monthyear == "")) {
+            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
                 alert("Select Exam Month/Year");
                 return false;
             }
-            if (($scope.course == undefined) || ($scope.course == null) || ($scope.course == "")) {
-                alert("Select Course");
-                return false;
-            }
-
-            var DataType = 1;
-            $scope.loading = true;
-            $scope.result = false;
-            var getadmexmcenters = CcicPreExaminationService.GetExamCentresMappingData(DataType, parseInt($scope.Academicyear), parseInt($scope.Monthyear), parseInt($scope.course), '')
-            getadmexmcenters.then(function (response) {
-                if (response.length > 0 && response[0].StatusCode != '400') {
-                    $scope.GetMappingData2 = response;
-                    $scope.NoResult = false;
-                    $scope.result = true;
-                    $scope.loading = false;
-
+            var Count = CcicPreExaminationService.GetAdminFeePaymentInstituteCount($scope.AcademicYear, $scope.monthyear);
+            Count.then(function (response) {
+                try {
+                    var Res = JSON.parse(response);
                 }
-                else if (response[0].StatusCode == '400') {
-                    alert(response[0].StatusDescription);
+                catch (err) { }
+                $scope.AdminFeePaymentInstituteCount = [];
+                var Regular = 0;
+                var RegularFeePaid = 0;
+                var Backlog = 0;
+                var BacklogFeePaid = 0;
+                var Registration = 0;
+                var RegistrationFeePaid = 0;
+                if (Res.Table.length > 0) {
                     $scope.loading = false;
-                    $scope.NoResult = true;
-                    $scope.result = false;
+                    $scope.AdminFeePaymentInstituteCount = Res.Table;
+                    for (var i = 0; i < Res.Table.length; i++) {
+                        if (Res.Table[i].Regular != null)
+                            Regular = Regular + Res.Table[i].Regular;
+                        if (Res.Table[i].RegularFeePaid != null)
+                            RegularFeePaid = RegularFeePaid + Res.Table[i].RegularFeePaid;
+                        if (Res.Table[i].Backlog != null)
+                            Backlog = Backlog + Res.Table[i].Backlog;
+                        if (Res.Table[i].BacklogFeePaid != null)
+                            BacklogFeePaid = BacklogFeePaid + Res.Table[i].BacklogFeePaid;
+                        if (Res.Table[i].Registration != null)
+                            Registration = Registration + Res.Table[i].Registration;
+                        if (Res.Table[i].RegistrationFeePaid != null)
+                            RegistrationFeePaid = RegistrationFeePaid + Res.Table[i].RegistrationFeePaid;
+                    }
+                    $scope.Regular = Regular;
+                    $scope.RegularFeePaid = RegularFeePaid;
+                    $scope.Backlog = Backlog;
+                    $scope.BacklogFeePaid = BacklogFeePaid;
+                    $scope.Registration = Registration;
+                    $scope.RegistrationFeePaid = RegistrationFeePaid;
+                    $scope.loading = false;
+
                 }
                 else {
-                    alert("No Data Found");
                     $scope.loading = false;
-                    $scope.NoResult = true;
-                    $scope.result = false;
+
+                    $scope.loading = false;
+                    $scope.AdminFeePaymentInstituteCount = [];
+
+                    $scope.NoData = true;
                 }
             },
                 function (error) {
+                    //   alert("error while loading Notification");
                     var err = JSON.parse(error);
-                    $scope.loading = false;
-                    $scope.NoResult = true;
-                    $scope.result = false;
                 });
-
-
         }
 
 
 
-        $scope.getExamCentres = function () {
-            var DataType = 1;
-            var ExaminationCentreID = 0;
-            var getcentres = CcicPreExaminationService.GetExaminationCentres(DataType, ExaminationCentreID);
-            getcentres.then(function (res) {
-                try {
-                    var Res = JSON.parse(res)
-                }
-                catch (error) {
 
-                }
-                $scope.GetExaminationCentresTable = Res.Table;
-
-            }, function (err) {
-                $scope.LoadImg = false;
-                alert("Error while loading");
-            });
-        }
-
-        $scope.examCentreMappingExcel = function () {
+        $scope.getAdmFeePaymentInstituteCountExcel = function () {
             $scope.loading = true;
-            var DataType = 3;
-            if (($scope.academicyear == undefined) || ($scope.academicyear == null) || ($scope.academicyear == "")) {
+            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
                 alert("Select Academic Year");
                 return false;
             }
-            if (($scope.MonthYear == undefined) || ($scope.MonthYear == null) || ($scope.MonthYear == "")) {
+            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
                 alert("Select Exam Month/Year");
                 return false;
             }
-            var mappingReportExcel = CcicPreExaminationService.GetExamCentreMappingExcel(DataType, parseInt($scope.academicyear), parseInt($scope.MonthYear), 0, 0);
-            mappingReportExcel.then(function (res) {
+            var ReportExcel = CcicPreExaminationService.GetAdmFeePaymentInstituteCountExcel(parseInt($scope.AcademicYear), parseInt($scope.monthyear));
+            ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
                     if (res.length > 4) {
                         window.location.href = res;
                     } else {
-                        alert("No ExamCentre Mapping Excel Report Present")
+                        alert("No  Excel Report Present")
                     }
                 } else {
-                    alert("No ExamCentre Mapping Report Present")
+                    alert("No Excel Report Present")
                 }
             }, function (err) {
                 $scope.LoadImg = false;

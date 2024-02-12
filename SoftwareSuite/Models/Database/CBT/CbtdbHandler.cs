@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoftwareSuite.Models.Database
+namespace SoftwareSuite.Models.Database.CBT
 {
     public class CbtdbHandler
     {
@@ -347,6 +347,131 @@ namespace SoftwareSuite.Models.Database
 
             }
         }
+
+        public DataTable ReturnDataSet(string strQuery)
+        {
+            if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+            {
+                var dbgStr = "";
+                DateTime callendTime = DateTime.Now;
+                dbgStr += (strQuery) + Environment.NewLine;
+                dbgStr += ("----------------------------------------------------------------------------------------------------------------------") + Environment.NewLine;
+                Debug.WriteLine(dbgStr);
+
+                var t = Task.Run(() => AppendLog(dbgStr));
+            }
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataTable tbl = new DataTable();
+            try
+            {
+                sqlCmd = new SqlCommand(strQuery, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandTimeout = intTimeOutPeriod;
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(tbl);
+                if (ExecuteWithTransaction == false)
+                {
+                    if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+                }
+
+                return tbl;
+            }
+            catch (Exception ex)
+            {
+                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
+                //ErorrFindBLL.SaveErorr("SystemProgram", 0, ex.Message);
+                //string table = strQuery.ToLower().Substring(strQuery.IndexOf("from")).Split(' ')[1];
+                createlog(ex.Message.ToString(), strQuery);
+                RollBack();
+                throw ex;
+            }
+        }
+
+
+
+
+        public DataSet ReturnDataSet(string strProcedureName, SqlParameter[] param)
+        {
+
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            string paramTextCollection = string.Empty;
+            string spQuery = $"exec {strProcedureName} ";
+            DateTime callStartTime = DateTime.Now;
+            var dbgStr = "";
+            try
+            {
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    dbgStr += "----------------------------------------------------------------------------------------------------------------------" + Environment.NewLine; ;
+
+                    if (param != null)
+                    {
+                        for (int i = 0; i < param.Length; i++)
+                        {
+                            paramTextCollection += param[i].ParameterName + ":" + param[i].Value;
+                            if (param[i].SqlDbType == SqlDbType.VarChar)
+                                spQuery += $"'{param[i].Value}',";
+                            else
+                                spQuery += $"{param[i].Value},";
+                        }
+
+                    }
+                }
+
+
+
+                sqlCmd = new SqlCommand(strProcedureName, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.CommandTimeout = intTimeOutPeriod * 100;
+                if (param != null)
+                    sqlCmd.Parameters.AddRange(param);
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(ds);
+
+                if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    DateTime callendTime = DateTime.Now;
+                    dbgStr += (strProcedureName + " " + paramTextCollection + DateTime.Now + "Duration : " + (callendTime - callStartTime).ToString()) + Environment.NewLine;
+                    dbgStr += (spQuery) + Environment.NewLine;
+                    dbgStr += ("----------------------------------------------------------------------------------------------------------------------") + Environment.NewLine;
+                    Debug.WriteLine(dbgStr);
+
+                    var t = Task.Run(() => AppendLog(dbgStr));
+                }
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
+                //ErorrFindBLL.SaveErorr(this.GetType().BaseType.Name, ex.Message.ToString().Replace("'", ""));
+                RollBack();
+                createlog(ex.Message.ToString(), "Stored Procedure " + strProcedureName + " Problem");
+                throw ex;
+            }
+        }
+
+
+
+
+
+
+
+
         public object ExcutiveScalarWithStoreProcedure(string strProcedureName, SqlParameter[] param)
         {
             object ReturnValue;
@@ -403,33 +528,6 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
 
-        }
-        public DataSet ReturnDataSet(string strQuery)
-        {
-            SqlDataAdapter daFill = new SqlDataAdapter();
-            SqlCommand sqlCmd = new SqlCommand();
-            DataSet ds = new DataSet();
-            try
-            {
-                sqlCmd = new SqlCommand(strQuery, sqlCnn);
-                if (ExecuteWithTransaction == true)
-                {
-                    sqlCmd.Transaction = sqlTrn;
-                }
-                sqlCmd.CommandTimeout = intTimeOutPeriod;
-                daFill = new SqlDataAdapter(sqlCmd);
-                daFill.Fill(ds);
-                if (ExecuteWithTransaction == false)
-                {
-                    if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
-                }
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                RollBack();
-                throw ex;
-            }
         }
 
         internal void SaveErorr(string v1, int v2, string message)

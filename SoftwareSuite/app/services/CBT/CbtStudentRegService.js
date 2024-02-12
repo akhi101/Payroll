@@ -611,10 +611,48 @@
             return DataAccessService.postData('api/CbtStudentReg/TempGetSSCDetails', paramObject);
         };
 
-        this.SubmitApplication = function (object) {
-            var promise = DataAccessService.postData('api/CbtStudentReg/SubmitTwshApplication', object);
+        this.GetApplicationNumber = function () {
+            return DataAccessService.getDataAll('api/CbtStudentReg/GetApplicationNumber');
+        };
+
+        this.AddCandidateDetails = function (object) {
+            var promise = DataAccessService.postData('api/CbtStudentReg/AddCandidateDetails', object);
             return promise;
         };
+
+        this.UpdateCandidateDetails = function (object) {
+            var promise = DataAccessService.postData('api/CbtStudentReg/UpdateCandidateDetails', object);
+            return promise;
+        };
+
+
+        this.GetViewCandidateDetails = function (ApplicationNumber, CandidateID, ApplicationStatus) {
+            var paramObj = {
+                "ApplicationNumber": ApplicationNumber,
+                "CandidateID": CandidateID,
+                "ApplicationStatus": ApplicationStatus
+            };
+            var promise = DataAccessService.getDataWithPara('api/CbtStudentReg/GetViewCandidateDetails', paramObj);
+            return promise;
+        }
+
+        this.GetCandidateDetails = function (ApplicationNumber, CandidateID) {
+            var paramObj = {
+                "ApplicationNumber": ApplicationNumber,
+                "CandidateID": CandidateID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CbtStudentReg/GetCandidateDetails', paramObj);
+            return promise;
+        }
+
+
+        this.SubmitCandidateDetails = function (ApplicationNumber, CandidateID) {
+            var paramObj = {
+                "ApplicationNumber": ApplicationNumber, "CandidateID": CandidateID
+            };
+            var promise = DataAccessService.postData('api/CbtStudentReg/SubmitCandidateDetails', paramObj);
+            return promise;
+        }
 
         this.UpdateTwshExamDates = function (ExamDate, ExamMonthYearId, CourseId,BatchNumber, BatchId, Id) {
             var object = {
