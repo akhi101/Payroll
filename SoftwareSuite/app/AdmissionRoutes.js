@@ -781,6 +781,18 @@
                 dependencies: ['controllers/CBT/TestingTwshStudentRegController', 'services/CBT/CbtStudentRegService', 'services/SystemAdministration/SystemUserService']
             },
 
+            //'index.ViewCandidateDetails': {
+            //    url: "/ViewCandidateDetails",
+            //    templateUrl: 'app/views/CBT/ViewCandidateDetails.html',
+            //    dependencies: ['controllers/CBT/ViewCandidateDetailsController', 'services/CBT/CbtStudentRegService']
+            //},
+
+            //'index.EditCandidateDetails': {
+            //    url: "/TestingCBTPAGE/EditCandidateDetails",
+            //    templateUrl: 'app/views/CBT/EditCandidateDetails.html',
+            //    dependencies: ['controllers/CBT/EditCandidateDetailsController', 'services/CBT/CbtStudentRegService']
+            //},
+
             'index.TwshFeePayment': {
                 url: "/FeePayment",
                 templateUrl: 'app/views/Examssite/FeePayment.html',

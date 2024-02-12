@@ -1,7 +1,8 @@
 ﻿define(['app'], function (app) {
     app.controller("TestingTwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, CbtStudentRegService) {
 
-
+        $scope.PreviewData = false;
+        $scope.EditData = false;
         $scope.ShowSubmitButton = true;
         $scope.isChecked = true;
         $scope.instructions = false;
@@ -20,55 +21,26 @@
         $scope.isqualified3 = false;
         $scope.applicationsuccess = false;
         $scope.ApplicationNo = "";
-        //$scope.otpsent = false;
         $scope.SendOTPButton = true;
         $scope.EnterOTPButton = false;
         $scope.VerifyOTPButton = false;
         $scope.OtpVerified = false;
         $scope.ShowAadhaarDetail = false;
         $scope.verifybtndisable = false;
-        //$scope.OnlineExamDates = [];
         $scope.QualifiedExam = false;
         $scope.PreviousExam = false;
         $scope.CheckBox = false;
 
-        //$scope.exammode = [                                      // ----------exam modes-----
-        //    { "name": "Online", "Id": 1 },
-        //    { "name": "Offline", "Id": 2 }
-        //]
-
-        $scope.UserId = $localStorage.Twsh == undefined || $localStorage.Twsh == "" ? -1 : $localStorage.Twsh.UserId; //---- for private candidate  UserId = -1
-
-
-        //if ($scope.UserId == -1) {
-        //    $scope.modalInstance = $uibModal.open({
-        //        templateUrl: "app/views/TWSH/TwshPrivatestudentPopup.html",
-        //        size: 'xlg',
-        //        scope: $scope,
-        //        windowClass: 'modal-fit-att',
-        //    });
-
-
-        //    $scope.closeModal = function () {
-        //        $scope.modalInstance.close();
-        //    };
-        //    $scope.goHome = function () {
-        //        $state.go("TWSH.Home");
-        //        $scope.modalInstance.close();
-        //    }
-
-        //};
+ 
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.SelectedCourseId = { CourseID: 1 };
-            $scope.LoadLanguage($scope.SelectedCourseId);
+            $scope.SelectedCourse = { CourseID: 1 };
+            $scope.LoadLanguage($scope.SelectedCourse);
             $scope.sellanguage = { LanguageId: 1 };
-            $scope.LoadGrades($scope.SelectedCourseId, $scope.sellanguage);
-            //$scope.Selgrade = { GradeId: 23 };
-            //$scope.LoadOnlineDist();
+            $scope.LoadGrades($scope.SelectedCourse, $scope.sellanguage);
             $scope.ShowisSSC = false;
-            $scope.ShowReset1Button = false;
+            //$scope.ShowReset1Button = false;
         }
 
 
@@ -289,17 +261,7 @@
 
             $scope.usertype = $localStorage.Twsh.UserTypeId;
         }
-        var GetExamMonthYear = CbtStudentRegService.GetExamMonthYear();
-        GetExamMonthYear.then(function (res) {
-            if (res.length > 0) {
-                $scope.MonthYearId = res[0].Id;
-            } else {
-                $scope.MonthYearId = "";
-            }
 
-        }, function (err) {
-
-        });
 
         //$scope.fillApplication = function () {
         //    $scope.instructions = false;
@@ -352,10 +314,8 @@
 
 
             $scope.ExamAppearDetails = true;
-            //--------------offline districts------
             $scope.Districts = [];
-            //var ExamDistricts = CbtStudentRegService.getExaminationDistricts($scope.course_id, parseInt($scope.UserId), $scope.selectedgrade.Id);
-            var ExamDistricts = CbtStudentRegService.getExaminationDistricts($scope.course_id, -1, $scope.Selgrade.GradeId);
+            var ExamDistricts = CbtStudentRegService.getExaminationDistricts($scope.CourseID, -1, $scope.GradeID);
             ExamDistricts.then(function (res) {
                 $scope.offlineDistricts = res;
 
@@ -364,122 +324,18 @@
             }, function (err) {
                 $scope.offlineDistricts = [];
             });
-            //// ----------------- Dates-------------
-
-            //$scope.offlineExamDates = [];
-            //var getexamdates = CbtStudentRegService.getExamDates($scope.SelectedCourseId.CourseID, $scope.Selgrade.GradeId)
-            //getexamdates.then(function (resp) {
-            //    $scope.ExamDates = resp;
-            //    $scope.loader1 = false
-            //    $scope.submitbutton1 = false
-            //}, function (err) {
-            //    $scope.ExamDates = []
-            //});
-
-
-            //if ($scope.sellanguage.LanguageId == 1 && $scope.SelectedCourseId.CourseID == 1) {
-            //    //$scope.tmpmode = 1;
-            //    //$scope.showmodeofexam = true;
-            //    $scope.ExamAppearDetails = true;
-            //    $scope.mode = 1;  // by default online mode is selected for english
-            //    $scope.ExamModeName = 'Computer Based Test (CBT)';
-            //}
+           
         }
 
-        $scope.backAtMode = function () {
-            $scope.courseDetails = true;
-            //$scope.showmodeofexam = false;
-            $scope.ExamAppearDetails = false;
-            $scope.oldUser = false;
-            $scope.oldUser2 = false;
-            $scope.sscForm = false;
-            $scope.applicationForm = false;
-        }
-
-        $scope.backAtMode1 = function () {
-            $scope.courseDetails = false;
-            //$scope.showmodeofexam = true;
-            $scope.ExamAppearDetails = false;
-            $scope.oldUser = false;
-            $scope.oldUser2 = false;
-            $scope.sscForm = false;
-            $scope.applicationForm = false;
-            $scope.yesBtn = null;
-            $scope.noBtn = null;
-        }
-
-        //$scope.submitmode = function () {
-          
-        //    $scope.Districts = [];
-        //    if ($scope.mode == 1) {
-        //        $scope.ExamAppearDetails = true;
-        //        $scope.courseDetails = false;
-        //        //$scope.showmodeofexam = false;
-        //        //$scope.ExamAppearDetails = true;
-        //        $scope.oldUser = false;
-        //        $scope.oldUser2 = false;
-        //        $scope.sscForm = false;
-        //        $scope.applicationForm = false;
-
-        //        //$scope.tmpmode = 1;
-        //        $scope.ExamModeName = 'Computer Based Test (CBT)';
-        //        var GetOnlineExamDist = CbtStudentRegService.GetOnlineExamDist();
-        //        GetOnlineExamDist.then(function (res) {
-        //            $scope.onlineDistricts = res;
-        //            //  $scope.Districts = $scope.onlineDistricts;
-        //        }, function (err) {
-        //            $scope.onlineDistricts = [];
-        //        });
-
-        //        $scope.Districts = $scope.onlineDistricts;
-
-        //    } else if ($scope.mode == 2) {
-        //        //$scope.tmpmode = 2;
-
-        //        var date = CbtStudentRegService.VerifyApplicationDates($scope.mode);
-        //        date.then(function (response) {
-
-        //            try {
-        //                var res = JSON.parse(response)
-
-        //            }
-        //            catch (err) { }
-        //            if (res.Table[0].ResponseCode == '200') {
-        //                $scope.ExamAppearDetails = true;
-        //                $scope.courseDetails = false;
-        //                //$scope.showmodeofexam = false;
-        //                //$scope.ExamAppearDetails = true;
-        //                $scope.oldUser = false;
-        //                $scope.oldUser2 = false;
-        //                $scope.sscForm = false;
-        //                $scope.applicationForm = false;
-
-        //            }
-        //            else if (res.Table[0].ResponseCode == '400') {
-        //                alert(res.Table[0].ResponseDescription);
-        //                return;
-        //                //$scope.ExamAppearDetails = false;
-        //            }
-
-        //        },
-        //            function (error) {
-        //                alert("error while Verifying Dates")
-        //                //var err = JSON.parse(error);
-
-        //            });
-            
-        //        $scope.ExamModeName = 'Type Machine Based Test (TMBT)';
-        //        $scope.Districts = $scope.offlineDistricts;
-        //    }
-
-        //}
-
+        
 
         
 
 
         $scope.clickRadio = function (twsh) {
             if (twsh === 'Yes') {
+                $scope.AppearLastSession = 1;
+
                 $scope.DisablePreHallTicket = false;
                 $scope.ShowResetButton3 = false;
                 $scope.oldUser = true;
@@ -533,6 +389,8 @@
                 $scope.email = '';
             }
             else if (twsh === 'No') {
+                $scope.AppearLastSession = 0;
+
                 $scope.oldUser = false;
                 $scope.SscForm = false;
                 $scope.ExamAppearDetails = true;
@@ -623,53 +481,10 @@
         }
 
 
-        //$scope.VerifyOtp = function () {
-
-        //    if ($scope.Selgrade.GradeQualificationID == undefined || $scope.Selgrade.GradeQualificationID == null) {
-        //        $scope.ExamAppearDetails = false;
-        //        $scope.oldUser = false;
-        //        $scope.oldUser2 = false;
-        //        $scope.sscForm = false;
-        //        $scope.ShowAadhaarDetail = false;
-        //        $scope.applicationForm = true;
-        //        $scope.isqualified1 = false;
-        //        $scope.isqualified2 = false;
-        //        $scope.isqualified3 = false;
-        //    } else {
-        //        $scope.ShowAadhaarDetail = true;
-        //        $scope.ExamAppearDetails = true;
-        //        //$scope.oldUser = true;
-        //        $scope.oldUser2 = false;
-        //        $scope.sscForm = false;
-        //        $scope.ShowisSSC = true;
-        //        $scope.applicationForm = false;
-        //        if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
-        //            $scope.isqualified1 = false;
-
-        //        } else {
-        //            $scope.isqualified1 = true;
-
-        //        }
-        //        $scope.isqualified2 = false;
-        //        if ($scope.QualifiedExam == true) {
-        //            $scope.isqualified3 = false;
-
-        //        } else {
-        //            $scope.isqualified3 = true;
-
-        //        }
-        //    }
-        //}
+       
 
         //$scope.VerifyOtp = function (aadhaar, aadharotp) {
-        //    //--------------------
-        //    //$scope.ExamAppearDetails = false;
-        //    //$scope.oldUser = false;
-        //    //$scope.oldUser2 = false;
-        //    //$scope.sscForm = true;
-        //    //$scope.ShowAadhaarDetail = false;
-        //    //$scope.applicationForm = false;
-        //    //---------------------
+     
         //    if (aadharotp == '' || aadharotp == null) {
         //        alert("OTP Can't be Empty");
         //        return;
@@ -685,48 +500,21 @@
         //                alert("Verfication success.");
         //                $scope.verifybtndisable = false;
 
-        //                if ($scope.selectedgrade.QualificationGradeId == undefined || $scope.selectedgrade.QualificationGradeId == null) {
-        //                    $scope.ExamAppearDetails = false;
-        //                    $scope.oldUser = false;
-        //                    $scope.oldUser2 = false;
-        //                    $scope.sscForm = false;
-        //                    $scope.ShowAadhaarDetail = false;
-        //                    $scope.applicationForm = true;
-        //                    $scope.isqualified1 = false;
-        //                    $scope.isqualified2 = false;
-        //                    $scope.isqualified3 = false;
-        //                } else {
-        //                    $scope.ShowAadhaarDetail = false;
-        //                    $scope.ExamAppearDetails = false;
-        //                    $scope.oldUser = false;
-        //                    $scope.oldUser2 = false;
-        //                    $scope.sscForm = false;
-        //                    $scope.applicationForm = true;
-        //                    if ($scope.PreviousExam == true || $scope.QualifiedExam == true) {
-        //                        $scope.isqualified1 = false;
-
-        //                    } else {
-        //                        $scope.isqualified1 = true;
-
-        //                    }
-        //                    $scope.isqualified2 = false;
-        //                    if ($scope.QualifiedExam == true) {
-        //                        $scope.isqualified3 = false;
-
-        //                    } else {
-        //                        $scope.isqualified3 = true;
-
-        //                    }
-        //                }
-        //            } else {
-        //                $scope.adhaarOtp = '';
-        //                $scope.ShowAadhaarDetail = false;
+                       
+        //                $scope.DisableAadhar = true;
         //                $scope.verifybtndisable = false;
-        //                alert("Verfication fail, try again after sometime.");
-        //                $scope.ExamAppearDetails = false;
-        //                $scope.oldUser = false;
-        //                $scope.oldUser2 = true;
-        //                $scope.sscForm = false;
+        //                $scope.OtpVerified = true;
+        //                $scope.EnterOTPBox = false;
+        //                $scope.VerifyOTPButton = false;
+        //                $scope.OtpVerified = true;
+        //                $scope.ShowisSSC = true;  
+                        
+        //            } else {
+        //                alert('OTP MISMATCHED or NOT SENT')
+        //                $scope.ShowAadhaarDetail = true;
+        //                $scope.ExamAppearDetails = true;
+        //                $scope.SscForm = false;
+        //                $scope.ShowisSSC = true;
         //                $scope.applicationForm = false;
         //            }
 
@@ -870,7 +658,36 @@
                 $scope.CandidateNameDOB = CandidateNameDOB;
             }
         }
-        $scope.submitData = function () {
+
+
+        $scope.getData = function () {
+            var getappnumber = CbtStudentRegService.GetApplicationNumber();
+            getappnumber.then(function (resp) {
+                try {
+                    var res = JSON.parse(resp);
+                }
+                catch (err) { }
+
+                if (res.length > 0) {
+                    $scope.ApplicationData = res[0];
+                    $scope.ApplicationNumber = $scope.ApplicationData.ApplicationNumber;
+                    $scope.SaveData();
+                }
+                else {
+                    $scope.ApplicationData = [];
+                }
+
+            },
+                function (error) {
+                    //alert("data is not loaded");
+                    //    var err = JSON.parse(error);
+                });
+        }
+        
+ 
+        $scope.SaveData = function () {
+           
+
             $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
 
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
@@ -894,7 +711,7 @@
                 return;
             }
 
-            if (($scope.userPhoto == undefined || $scope.userPhoto == "" || $scope.userPhoto == null)) {
+            if (($scope.PhotoPath == undefined || $scope.PhotoPath == "" || $scope.PhotoPath == null)) {
                 alert("Please Upload Photo.");
                 return;
             }
@@ -913,31 +730,7 @@
 
 
 
-            if (($scope.date1 == undefined || $scope.date1 == "" || $scope.date1 == null)) {
-                alert("Please Enter date1 .");
-                return;
-            }
-
-            if (($scope.date2 == undefined || $scope.date2 == "" || $scope.date2 == null)) {
-                alert("Please Enter date2 .");
-                return;
-            }
-
-            if (($scope.date3 == undefined || $scope.date3 == "" || $scope.date3 == null)) {
-                alert("Please Enter date3 .");
-                return;
-            }
-
-            if (($scope.date4 == undefined || $scope.date4 == "" || $scope.date4 == null)) {
-                alert("Please Enter date4 .");
-                return;
-            }
-
-
-            if (($scope.date5 == undefined || $scope.date5 == "" || $scope.date5 == null)) {
-                alert("Please Enter date5 .");
-                return;
-            }
+            
 
 
             if (($scope.houseNo == undefined || $scope.houseNo == "" || $scope.houseNo == null)) {
@@ -979,10 +772,6 @@
 
 
 
-
-          
-
-
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
             if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined) {
                 var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
@@ -991,10 +780,7 @@
                     $scope.CandidateNameDOBchange = d[0] + "/" + d[1] + "/" + d[2];
                 }
             }
-            //try {
-            //    $scope.selectedCommunity = JSON.parse($scope.community);
-            //    $scope.selectedCommunityname = $scope.selectedCommunity.CategoryCode;
-            //} catch (err) { };
+
             var selectedDist = JSON.parse($scope.District);
             $scope.examCenterDistrict = selectedDist.DistrictName;
             $scope.selectedexamCenter = JSON.parse($scope.examCenter);
@@ -1012,13 +798,360 @@
                 });
                 $scope.ExamDateSel = JSON.stringify($scope.finalArray).replace("/", "-");;
             
-            $scope.courseDetails = false;
-            $scope.ExamAppearDetails = false
-            $scope.ShowAadhaarDetail = false
-            $scope.SscForm = false
-            $scope.applicationForm = false;
-            $scope.previewData = true;
+            
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+            var req = {
+                "ApplicationNumber": $scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined ? "" : $scope.ApplicationNumber,
+                "CourseID": $scope.CourseID == null || $scope.CourseID == undefined ? "" : $scope.CourseID,
+                "LanguageID": $scope.LanguageID == null || $scope.LanguageID == undefined ? "" : $scope.LanguageID,
+                "GradeID": $scope.GradeID == null || $scope.GradeID == undefined ? "" : $scope.GradeID,
+                "QualificationID": $scope.QualificationID == null || $scope.QualificationID == undefined ? "" : $scope.QualificationID,
+                "AppearLastSession": $scope.AppearLastSession == null || $scope.AppearLastSession == undefined ? "" : $scope.AppearLastSession,
+                "LastSessionHallticket": $scope.preHallTicket == null || $scope.preHallTicket == undefined ? "" : $scope.preHallTicket,
+                "AadhaarNumber": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
+                "SSCAppeared": $scope.ISSSC == null || $scope.ISSSC == undefined ? "" : $scope.ISSSC,
+                "SSCHallticketNo": $scope.sscHallticket == null || $scope.sscHallticket == undefined ? "" : $scope.sscHallticket,
+                "SSCPassedYear": $scope.passedoutYear == null || $scope.passedoutYear == undefined ? null : $scope.passedoutYear,
+                "SSCPassedType": $scope.sscType == null || $scope.sscType == undefined ? "" : $scope.sscType,
+                "SSCVerified": $scope.SSCVerified == null || $scope.SSCVerified == undefined ? "" : $scope.SSCVerified,
+                "CandidateName": $scope.CandidateName == null || $scope.CandidateName == undefined ? "" : $scope.CandidateName,
+                "FatherName": $scope.FatherName == null || $scope.FatherName == undefined ? "" : $scope.FatherName,
+                "MotherName": $scope.MotherName == null || $scope.MotherName == undefined ? "" : $scope.MotherName,
+                "DateOfBirth": $scope.CandidateNameDOBchange == null || $scope.CandidateNameDOBchange == undefined ? "" : $scope.CandidateNameDOBchange,
+                "Gender": $scope.Gender == null || $scope.Gender == undefined ? "" : $scope.Gender,
+                "ExamDistrictID": $scope.SelectedDistrictId == null || $scope.SelectedDistrictId == undefined ? "" : $scope.SelectedDistrictId,
+                "ExamCenterID": $scope.SelectedExamCentreID == null || $scope.SelectedExamCentreID == undefined ? "" : $scope.SelectedExamCentreID,
+                "ExamDateOption1": $scope.date1 == null || $scope.date1 == undefined ? "" : $scope.date1,
+                "ExamDateOption2": $scope.date2 == null || $scope.date2 == undefined ? "" : $scope.date2,
+                "ExamDateOption3": $scope.date3 == null || $scope.date3 == undefined ? "" : $scope.date3,
+                "ExamDateOption4": $scope.date4 == null || $scope.date4 == undefined ? "" : $scope.date4,
+                "ExamDateOption5": $scope.date5 == null || $scope.date5 == undefined ? "" : $scope.date5,
+                "SelectedExamDate": $scope.SelectedExamDate == null || $scope.SelectedExamDate == undefined ? null : null,
+                "HouseNumber": $scope.houseNo == null || $scope.houseNo == undefined ? "" : $scope.houseNo,
+                "Street": $scope.street == null || $scope.street == undefined ? "" : $scope.street,
+                "VillageTown": $scope.village == null || $scope.village == undefined ? "" : $scope.village,
+                "Mandal": $scope.mandal == null || $scope.mandal == undefined ? "" : $scope.mandal,
+                "District": $scope.district == null || $scope.district == undefined ? "" : $scope.district,
+                "Pincode": $scope.pincode == null || $scope.pincode == undefined ? "" : $scope.pincode,
+                "CandidateMobile": $scope.mobileNO == null || $scope.mobileNO == undefined ? "" : $scope.mobileNO,
+                "CandidateEmail": $scope.email == null || $scope.email == undefined ? "" : $scope.email,
+                "PhotoPath": ($scope.PhotoPathConvert == undefined || $scope.PhotoPathConvert == null) ? null : $scope.PhotoPathConvert,
+                "Qualification1": ($scope.Qualification1Convert == undefined || $scope.Qualification1Convert == null) ? null : $scope.Qualification1Convert,
+                "Qualification2": ($scope.Qualification2Convert == undefined || $scope.Qualification2Convert == null) ? null : $scope.Qualification2Convert,
+                "ApplicationStatus": $scope.ApplicationStatus == null || $scope.ApplicationStatus == undefined ? 0 : $scope.ApplicationStatus,
+                "HallTicketNumber": $scope.HallTicketNumber == null || $scope.HallTicketNumber == undefined ? null : $scope.HallTicketNumber,
+                "Submitted": $scope.Submitted == null || $scope.Submitted == undefined ? 0 : $scope.Submitted
+            }
+            $scope.btndisable = true;
+            var regstudent = CbtStudentRegService.AddCandidateDetails(req);
+            regstudent.then(function (response) {
+                var res = JSON.parse(response);
+                if (res[0].ResponseCode == "200") {
+                    alert(res[0].ResponseDescription);
+                    //$scope.LoadImg = true;
+                    //$scope.ShowCandidateDetails = false;
+                    $scope.ApplicationNumber = res[0].ApplicationNumber;
+                    $scope.CandidateID = res[0].CandidateID;
+                    $scope.ApplicationStatus = res[0].ApplicationStatus;
+                    $scope.ViewCandidateDetails();
+                    //$localStorage.TempData1 = {
+                    //    ApplicationNumber: $scope.ApplicationNumber,
+                    //    CandidateID: $scope.CandidateID,
+                    //    ApplicationStatus: $scope.ApplicationStatus
+
+                    //};
+                    //$state.go('index.ViewCandidateDetails');
+                    //$scope.LoadImg = false;
+                   
+
+                } else if (res[0].ResponseCode == "400") {
+                    alert(res[0].ResponseDescription);
+                    $state.go('index.ViewCandidateDetails');
+
+                }
+            }, function (err) {
+                $scope.btndisable = false;
+            });
         }
+
+
+
+
+
+
+        $scope.UpdateData = function () {
+
+
+            $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
+
+            if (($scope.EditCandidateName == undefined || $scope.EditCandidateName == "" || $scope.EditCandidateName == null)) {
+                alert("Please Enter Student Name .");
+                return;
+            }
+            if (($scope.EditFatherName == undefined || $scope.EditFatherName == "" || $scope.EditFatherName == null)) {
+                alert("Please Enter Father Name .");
+                return;
+            }
+            if (($scope.EditMotherName == undefined || $scope.EditMotherName == "" || $scope.EditMotherName == null)) {
+                alert("Please Enter Mother Name .");
+                return;
+            }
+            if (($scope.EditCandidateNameDOB == undefined || $scope.EditCandidateNameDOB == "" || $scope.EditCandidateNameDOB == null)) {
+                alert("Please Select Date Of Birth .");
+                return;
+            }
+            if (($scope.EditGender == undefined || $scope.EditGender == "" || $scope.EditGender == null)) {
+                alert("Please Choose Gender.");
+                return;
+            }
+
+            if (($scope.EditPhotoPath == undefined || $scope.EditPhotoPath == "" || $scope.EditPhotoPath == null)) {
+                alert("Please Upload Photo.");
+                return;
+            }
+
+
+
+            if (($scope.EditDistrict == undefined || $scope.EditDistrict == "" || $scope.EditDistrict == null)) {
+                alert("Please Select District .");
+                return;
+            }
+
+            if (($scope.EditexamCenter == undefined || $scope.EditexamCenter == "" || $scope.EditexamCenter == null)) {
+                alert("Please Select Center .");
+                return;
+            }
+
+
+
+
+
+
+            if (($scope.EditHnoStreet == undefined || $scope.EditHnoStreet == "" || $scope.EditHnoStreet == null)) {
+                alert("Please Enter houseNo .");
+                return;
+            }
+
+
+            if (($scope.EditStreet == undefined || $scope.EditStreet == "" || $scope.EditStreet == null)) {
+                alert("Please Enter street .");
+                return;
+            }
+
+            if (($scope.EditVillageTown == undefined || $scope.EditVillageTown == "" || $scope.EditVillageTown == null)) {
+                alert("Please Enter village .");
+                return;
+            }
+
+            //if (($scope.mandal == undefined || $scope.mandal == "" || $scope.mandal == null)) {
+            //    alert("Please Enter mandal .");
+            //    return;
+            //}
+
+            if (($scope.EditDistrict == undefined || $scope.EditDistrict == "" || $scope.EditDistrict == null)) {
+                alert("Please Enter district .");
+                return;
+            }
+
+
+            if (($scope.EditPincode == undefined || $scope.EditPincode == "" || $scope.EditPincode == null)) {
+                alert("Please Enter pincode .");
+                return;
+            }
+
+            if (($scope.EditMobileNumber == undefined || $scope.EditMobileNumber == "" || $scope.EditMobileNumber == null)) {
+                alert("Please Enter mobileNO .");
+                return;
+            }
+
+
+
+            var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
+            if ($scope.EditCandidateNameDOB != null && $scope.EditCandidateNameDOB !== undefined) {
+                var datechange = moment($scope.EditCandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
+                var d = datechange.slice(0, 10).split('/');
+                if (d[2].length === 4) {
+                    $scope.EditCandidateNameDOBchange = d[0] + "/" + d[1] + "/" + d[2];
+                }
+            }
+
+            //var selectedDist = JSON.parse($scope.District);
+            //$scope.examCenterDistrict = selectedDist.DistrictName;
+            //$scope.selectedexamCenter = JSON.parse($scope.examCenter);
+            //$scope.examCenterSel = $scope.selectedexamCenter.ExaminationCenterName;
+
+
+            $scope.finalArray = arr.map(function (obj) {
+                return obj.date;
+            });
+            $scope.finalArray.forEach(function (dat) {
+                if (!$scope.availableDates.includes(dat)) {
+                    alert("Examimation dates chosen was not valied,Please choose available dates displayed in the calender.");
+                    return;
+                }
+            });
+            //$scope.ExamDateSel = JSON.stringify($scope.finalArray).replace("/", "-");;
+
+
+            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
+            var req = {
+                "ApplicationNumber": $scope.ApplicationNumber == null || $scope.ApplicationNumber == undefined ? "" : $scope.ApplicationNumber,
+                "CourseID": $scope.CourseID == null || $scope.CourseID == undefined ? "" : $scope.CourseID,
+                "LanguageID": $scope.LanguageID == null || $scope.LanguageID == undefined ? "" : $scope.LanguageID,
+                "GradeID": $scope.GradeID == null || $scope.GradeID == undefined ? "" : $scope.GradeID,
+                "QualificationID": $scope.QualificationID == null || $scope.QualificationID == undefined ? "" : $scope.QualificationID,
+                "AppearLastSession": $scope.AppearLastSession == null || $scope.AppearLastSession == undefined ? "" : $scope.AppearLastSession,
+                "LastSessionHallticket": $scope.preHallTicket == null || $scope.preHallTicket == undefined ? "" : $scope.preHallTicket,
+                "AadhaarNumber": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
+                "SSCAppeared": $scope.ISSSC == null || $scope.ISSSC == undefined ? "" : $scope.ISSSC,
+                "SSCHallticketNo": $scope.sscHallticket == null || $scope.sscHallticket == undefined ? "" : $scope.sscHallticket,
+                "SSCPassedYear": $scope.passedoutYear == null || $scope.passedoutYear == undefined ? null : $scope.passedoutYear,
+                "SSCPassedType": $scope.sscType == null || $scope.sscType == undefined ? "" : $scope.sscType,
+                "SSCVerified": $scope.SSCVerified == null || $scope.SSCVerified == undefined ? "" : $scope.SSCVerified,
+                "CandidateName": $scope.EditCandidateName == null || $scope.EditCandidateName == undefined ? "" : $scope.EditCandidateName,
+                "FatherName": $scope.EditFatherName == null || $scope.EditFatherName == undefined ? "" : $scope.EditFatherName,
+                "MotherName": $scope.EditMotherName == null || $scope.EditMotherName == undefined ? "" : $scope.EditMotherName,
+                "DateOfBirth": $scope.EditCandidateNameDOBchange == null || $scope.EditCandidateNameDOBchange == undefined ? "" : $scope.EditCandidateNameDOBchange,
+                "Gender": $scope.EditGender == null || $scope.EditGender == undefined ? "" : $scope.EditGender,
+                "ExamDistrictID": $scope.SelectedDistrictId == null || $scope.SelectedDistrictId == undefined ? "" : $scope.SelectedDistrictId,
+                "ExamCenterID": $scope.SelectedExamCentreID == null || $scope.SelectedExamCentreID == undefined ? "" : $scope.SelectedExamCentreID,
+                "ExamDateOption1": $scope.Editdate1 == null || $scope.Editdate1 == undefined ? "" : $scope.Editdate1,
+                "ExamDateOption2": $scope.Editdate2 == null || $scope.Editdate2 == undefined ? "" : $scope.Editdate2,
+                "ExamDateOption3": $scope.Editdate3 == null || $scope.Editdate3 == undefined ? "" : $scope.Editdate3,
+                "ExamDateOption4": $scope.Editdate4 == null || $scope.Editdate4 == undefined ? "" : $scope.Editdate4,
+                "ExamDateOption5": $scope.Editdate5 == null || $scope.Editdate5 == undefined ? "" : $scope.Editdate5,
+                "SelectedExamDate": $scope.SelectedExamDate == null || $scope.SelectedExamDate == undefined ? null : null,
+                "HouseNumber": $scope.EditHnoStreet == null || $scope.EditHnoStreet == undefined ? "" : $scope.EditHnoStreet,
+                "Street": $scope.EditStreet == null || $scope.EditStreet == undefined ? "" : $scope.EditStreet,
+                "VillageTown": $scope.EditVillageTown == null || $scope.EditVillageTown == undefined ? "" : $scope.EditVillageTown,
+                "Mandal": $scope.EditMandal == null || $scope.EditMandal == undefined ? "" : $scope.EditMandal,
+                "District": $scope.EditDistrict == null || $scope.EditDistrict == undefined ? "" : $scope.EditDistrict,
+                "Pincode": $scope.EditPincode == null || $scope.EditPincode == undefined ? "" : $scope.EditPincode,
+                "CandidateMobile": $scope.EditMobileNumber == null || $scope.EditMobileNumber == undefined ? "" : $scope.EditMobileNumber,
+                "CandidateEmail": $scope.EditEmailID == null || $scope.EditEmailID == undefined ? "" : $scope.EditEmailID,
+                "EditPhotoPath": ($scope.NewEditPhotoPathConvert == undefined || $scope.NewEditPhotoPathConvert == null) ? null : $scope.NewEditPhotoPathConvert,
+                "EditQualification1": ($scope.NewEditQualification1Convert == undefined || $scope.NewEditQualification1Convert == null) ? null : $scope.NewEditQualification1Convert,
+                "EditQualification2": ($scope.NewEditQualification2Convert == undefined || $scope.NewEditQualification2Convert == null) ? null : $scope.NewEditQualification2Convert,
+                "ApplicationStatus": $scope.ApplicationStatus == null || $scope.ApplicationStatus == undefined ? 0 : $scope.ApplicationStatus,
+                "HallTicketNumber": $scope.HallTicketNumber == null || $scope.HallTicketNumber == undefined ? null : $scope.HallTicketNumber,
+                "Submitted": $scope.Submitted == null || $scope.Submitted == undefined ? 0 : $scope.Submitted
+            }
+            $scope.btndisable = true;
+            var regstudent = CbtStudentRegService.UpdateCandidateDetails(req);
+            regstudent.then(function (response) {
+                var res = JSON.parse(response);
+                if (res[0].ResponseCode == "200") {
+                    alert(res[0].ResponseDescription);
+                    //$scope.LoadImg = true;
+                    //$scope.ShowCandidateDetails = false;
+                    $scope.ApplicationNumber = res[0].ApplicationNumber;
+                    $scope.CandidateID = res[0].CandidateID;
+                    $scope.ApplicationStatus = res[0].ApplicationStatus;
+                    $scope.ViewCandidateDetails();
+                    //$localStorage.TempData1 = {
+                    //    ApplicationNumber: $scope.ApplicationNumber,
+                    //    CandidateID: $scope.CandidateID,
+                    //    ApplicationStatus: $scope.ApplicationStatus
+
+                    //};
+                    //$state.go('index.ViewCandidateDetails');
+                    //$scope.LoadImg = false;
+
+
+                } else if (res[0].ResponseCode == "400") {
+                    alert(res[0].ResponseDescription);
+                    $state.go('index.ViewCandidateDetails');
+
+                }
+            }, function (err) {
+                $scope.btndisable = false;
+            });
+        }
+
+
+
+        $scope.ViewCandidateDetails = function () {
+            var ViewCandidateDetail = CbtStudentRegService.GetViewCandidateDetails($scope.ApplicationNumber, $scope.CandidateID, $scope.ApplicationStatus);
+            ViewCandidateDetail.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+
+                $scope.PreviewData = [];
+                if (res.length >= 0) {
+                    $scope.loading = false;
+                    $scope.PreviewData = res[0].Data;
+                    $scope.PreviewData1 = JSON.parse($scope.PreviewData)
+                    $scope.PreviewData = $scope.PreviewData1.Table[0];
+                    $scope.ApplicationNumber = $scope.PreviewData1.Table[0].ApplicationNumber;
+                    $scope.CourseName = $scope.PreviewData1.Table[0].CourseName;
+                    $scope.LanguageName = $scope.PreviewData1.Table[0].LanguageName;
+                    $scope.GradeName = $scope.PreviewData1.Table[0].GradeName;
+                    $scope.QualificationDescription = $scope.PreviewData1.Table[0].QualificationDescription;
+                    $scope.SSCHallticketNo = $scope.PreviewData1.Table[0].SSCHallticketNo;
+                    $scope.SSCYear = $scope.PreviewData1.Table[0].SSCYear;
+                    $scope.SSCPassType = $scope.PreviewData1.Table[0].SSCPassType;
+                    $scope.PhotoPath = $scope.PreviewData1.Table[0].PhotoPath;
+                    $scope.CandidateName = $scope.PreviewData1.Table[0].CandidateName;
+                    $scope.FatherName = $scope.PreviewData1.Table[0].FatherName;
+                    $scope.MotherName = $scope.PreviewData1.Table[0].MotherName;
+                    $scope.DateOfBirth = $scope.PreviewData1.Table[0].DateOfBirth;
+                    $scope.Gender = $scope.PreviewData1.Table[0].Gender;
+                    $scope.HnoStreet = $scope.PreviewData1.Table[0].HnoStreet;
+                    $scope.Street = $scope.PreviewData1.Table[0].Street;
+                    $scope.VillageTown = $scope.PreviewData1.Table[0].VillageTown;
+                    $scope.Pincode = $scope.PreviewData1.Table[0].Pincode;
+                    $scope.District = $scope.PreviewData1.Table[0].District;
+                    $scope.MobileNumber = $scope.PreviewData1.Table[0].MobileNumber;
+                    $scope.EmailID = $scope.PreviewData1.Table[0].EmailID;
+                    $scope.ExamDistrict = $scope.PreviewData1.Table[0].DistrictName;
+                    $scope.ExamCentre = $scope.PreviewData1.Table[0].ExaminationCenterName;
+                    $scope.ExamDateOption1 = $scope.PreviewData1.Table[0].ExamDateOption1;
+                    $scope.ExamDateOption2 = $scope.PreviewData1.Table[0].ExamDateOption2;
+                    $scope.ExamDateOption3 = $scope.PreviewData1.Table[0].ExamDateOption3;
+                    $scope.ExamDateOption4 = $scope.PreviewData1.Table[0].ExamDateOption4;
+                    $scope.ExamDateOption5 = $scope.PreviewData1.Table[0].ExamDateOption5;
+                    $scope.Remarks = $scope.PreviewData1.Table[0].Remarks;
+                    $scope.imagesrc = $scope.PreviewData.PhotoPath;
+                    $scope.imagesrc1 = $scope.PreviewData.Qualification1;
+                    $scope.imagesrc2 = $scope.PreviewData.Qualification2;
+                    $scope.Aadhaar = JSON.parse(res[0].Aadhar);
+                    $scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
+                    $scope.courseDetails = false;
+                    $scope.ExamAppearDetails = false;
+                    $scope.ShowAadhaarDetail = false;
+                    $scope.SscForm = false;
+                    $scope.applicationForm = false;
+                    $scope.EditapplicationForm = false;
+                    $scope.PreviewData = true;
+
+                    //$scope.$emit('hideLoading', data);
+
+                } else {
+                    $scope.loading = false;
+                    $scope.PreviewData = [];
+                    //$scope.$emit('hideLoading', data);
+
+                }
+            },
+                function (error) {
+                    //   alert("error while loading Notification");
+                    var err = JSON.parse(error);
+                });
+        }
+
+        //$scope.ViewCandidateDetails = function (ApplicationNumber, CandidateID, ApplicationStatus) {
+        //    $localStorage.TempData1 = {
+        //        ApplicationNumber: ApplicationNumber,
+        //        CandidateID: CandidateID,
+        //        ApplicationStatus: ApplicationStatus
+
+        //    };
+        //    $state.go('index.ViewCandidateDetails');
+
+        //}
         $scope.editData = function () {
             $scope.previewData = false;
             $scope.applicationForm = true;
@@ -1047,11 +1180,11 @@
             });
         }
 
-        $scope.LoadLanguage = function (courseId) {
+        $scope.LoadLanguage = function (SelectedCourse) {
             $scope.languageinfo = [];
             // course = JSON.parse(course);
-            $scope.course_id = courseId.CourseID;
-            var coursedetail = CbtStudentRegService.getlanguages(courseId.CourseID);
+            $scope.CourseID = SelectedCourse.CourseID;
+            var coursedetail = CbtStudentRegService.getlanguages($scope.CourseID);
             coursedetail.then(function (req) {
                 $scope.languageinfo = req
             }, function (err) {
@@ -1062,16 +1195,12 @@
 
         }
 
-        $scope.LoadGrades = function (courseId, languageId) {
+        $scope.LoadGrades = function (SelectedCourse,sellanguage) {
             $scope.LoadGradeinfo = [];
-            // course = JSON.parse(course);
-            // language = JSON.parse(language);
-            if (languageId.Id != 1) {
-                mode = 2
-            }
 
-            if (!angular.isUndefined(courseId) && !angular.isUndefined(languageId)) {
-                var coursedetail = CbtStudentRegService.getGrades(courseId.CourseID, languageId.LanguageId);
+            $scope.LanguageID = sellanguage.LanguageId
+            if (!angular.isUndefined($scope.CourseID) && !angular.isUndefined($scope.LanguageID)) {
+                var coursedetail = CbtStudentRegService.getGrades(SelectedCourse.CourseID, $scope.LanguageID);
                 coursedetail.then(function (req) {
                     $scope.LoadGradeinfo = req
                 }, function (err) {
@@ -1086,9 +1215,10 @@
 
 
         $scope.LoadQualifications = function (SelGrade) {
-            $scope.LoadQualificationinfo = [];         
+            $scope.LoadQualificationinfo = [];  
+            $scope.GradeID = SelGrade.GradeId
             if (!angular.isUndefined(SelGrade.GradeId)) {
-                var coursedetail = CbtStudentRegService.getQualifications(SelGrade.GradeId);
+                var coursedetail = CbtStudentRegService.getQualifications($scope.GradeID);
                 coursedetail.then(function (req) {
                     $scope.LoadQualificationinfo = req;                    
                 }, function (err) {
@@ -1100,7 +1230,23 @@
 
 
         $scope.SelectedQualification = function (SelQualification) {
+            $scope.QualificationID = SelQualification.QualificationID
             $scope.GradeQualificationID = SelQualification.GradeQualificationID
+            if ($scope.GradeQualificationID==1) {
+                $scope.QualificationName='8th'
+            }
+            else if ($scope.GradeQualificationID == 2) {
+                $scope.QualificationName = 'SSC or Equivalent'
+            }
+            else if ($scope.GradeQualificationID == 3) {
+                $scope.QualificationName = 'Lower Grade Exam'
+            }
+            else if ($scope.GradeQualificationID == 4) {
+                $scope.QualificationName = 'Intermediate or Equivalent';
+            }
+            else if ($scope.GradeQualificationID == 5) {
+                $scope.QualificationName = 'Typewriting English Higher';
+            }
         }
 
         $scope.GetPreviousExamDetails = function (preHallTicket, Selgrade) {
@@ -1213,18 +1359,19 @@
 
 
 
-        $scope.LoadExamCenters = function (DistrictID) {
+        $scope.LoadExamCenters = function (District) {
 
             $scope.examCenterList = [];
             try {
-                $scope.SelectedDistrictId = JSON.parse(DistrictID);
+                var SelectedDistrictId = JSON.parse(District);
                 // var course = JSON.parse($scope.course); 
             } catch (er) { }
+            $scope.SelectedDistrictId = SelectedDistrictId.DistrictID;
 
 
            
                 //-------------------Load online exam Centers-----------------------
-            var ExamCenters = CbtStudentRegService.GetCBTExamcentersAndDates($scope.SelectedCourseId.CourseID, $scope.SelectedDistrictId.DistrictID);
+            var ExamCenters = CbtStudentRegService.GetCBTExamcentersAndDates($scope.CourseID, $scope.SelectedDistrictId);
                 ExamCenters.then(function (res) {
                     $scope.availableDates = [];
                     $scope.examCenterList = res.Table;
@@ -1241,6 +1388,70 @@
 
             
             
+
+        }
+
+
+
+
+
+        $scope.SelectedExamCentre = function (examCenter) {
+
+            try {
+                var SelectedExamCentreID = JSON.parse(examCenter);
+            }
+            catch (er) { }
+            $scope.SelectedExamCentreID = SelectedExamCentreID.Id;
+
+
+
+
+        }
+
+
+        $scope.EditLoadExamCenters = function (District) {
+
+            $scope.examCenterList = [];
+            try {
+                var SelectedDistrictId = JSON.parse(District);
+                // var course = JSON.parse($scope.course); 
+            } catch (er) { }
+            $scope.SelectedDistrictID = SelectedDistrictId;
+
+
+
+            //-------------------Load online exam Centers-----------------------
+            var ExamCenters = CbtStudentRegService.GetCBTExamcentersAndDates($scope.CourseID, $scope.SelectedDistrictID);
+            ExamCenters.then(function (res) {
+                $scope.availableDates = [];
+                $scope.examCenterList = res.Table;
+                $scope.OnlineExamDates = res.Table1;
+                for (var i = 0; i < res.Table1.length; i++) {
+                    $scope.availableDates.push(res.Table1[i].Date);
+                }
+
+            }, function (err) {
+                $scope.examCenterList = [];
+                $scope.OnlineExamDates = [];
+                alert("no data found");
+            });
+
+
+
+
+        }
+
+
+        $scope.EditSelectedExamCentre = function (examCenter) {
+
+            try {
+                var SelectedExamCentreID = JSON.parse(examCenter);
+            }
+            catch (er) { }
+            $scope.SelectedExamCentreID = SelectedExamCentreID;
+
+
+
 
         }
 
@@ -1378,6 +1589,7 @@
                     $scope.ShowGetSSCButton = false;
                     $scope.SSCDetails = true;
                     $scope.DisableisSSC = true;
+                    $scope.SSCVerified = 1;
 
                 }
                 else if (resdata.length=0) {
@@ -1485,7 +1697,8 @@
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.userPhoto = base64Image;
+                            $scope.PhotoPath = base64Image;
+                            $scope.PhotoPathConvert = $scope.PhotoPath.replace(/^data:image\/[a-z]+;base64,/, "");
 
                         });
 
@@ -1561,6 +1774,52 @@
         }
 
 
+        $scope.uploadQualCert = function () {
+            var input = document.getElementById("QualifiedCertoFile");
+            var fileSize = input.files[0].size;
+            console.log(fileSize);
+            if (fileSize <= 200000 && fileSize >= 100000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#QualifiedCert').attr('src', e.target.result);
+
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.Qualification1 = base64Image;
+                            $scope.Qualification1Convert = $scope.Qualification1.replace(/^data:image\/[a-z]+;base64,/, "");
+                        });
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            }
+            else if (fileSize <= 200000) {
+                alert("file size should be less than 200KB");
+                $('#QualifiedCertoFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should be greater than 100KB");
+                $('#QualifiedCertoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#QualifiedCertoFile').val('');
+                return;
+            }
+        }
 
         $scope.uploadSscCert = function () {
             var input = document.getElementById("stdSscCertFile");
@@ -1583,7 +1842,8 @@
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.stdSscCert = base64Image;
+                            $scope.Qualification2 = base64Image;
+                            $scope.Qualification2Convert = $scope.Qualification2.replace(/^data:image\/[a-z]+;base64,/, "");
                         });
 
                     }
@@ -1612,8 +1872,63 @@
 
 
 
-        $scope.uploadInterCert = function () {
-            var input = document.getElementById("StdinterCertoFile");
+
+
+
+        $scope.uploadEditPhoto = function () {
+            var input = document.getElementById("editstdPhotoFile");
+            var fileSize = input.files[0].size;
+
+            if (fileSize <= 50000 && fileSize >= 25000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#editstdPhotoImg').attr('src', e.target.result);
+
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', {
+                            src: e.target.result
+                        });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.NewEditPhotoPath = base64Image;
+                            $scope.NewEditPhotoPathConvert = $scope.NewEditPhotoPath.replace(/^data:image\/[a-z]+;base64,/, "");
+
+                        });
+
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            } else if (fileSize <= 25000) {
+                alert("Photo size should be greater than 25KB");
+                $('#editstdPhotoFile').val('');
+                return;
+            } else if (fileSize >= 50000) {
+                alert("Photo size should be less than 50KB");
+                $('#editstdPhotoFile').val('');
+                return;
+            } else {
+                alert("file size should be between 25KB and 50KB");
+                $('#editstdPhotoFile').val('');
+                return;
+            }
+        }
+
+
+
+        $scope.uploadEditQualCert = function () {
+            var input = document.getElementById("editQualifiedCertoFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
             if (fileSize <= 200000 && fileSize >= 100000) {
@@ -1621,7 +1936,7 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
                     reader.onload = function (e) {
-                        $('#StdinterCert').attr('src', e.target.result);
+                        $('#editQualifiedCert').attr('src', e.target.result);
 
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
@@ -1633,7 +1948,8 @@
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.StdinterCert = base64Image;
+                            $scope.NewEditQualification1 = base64Image;
+                            $scope.NewEditQualification1Convert = $scope.NewEditQualification1.replace(/^data:image\/[a-z]+;base64,/, "");
                         });
 
                     }
@@ -1645,29 +1961,29 @@
             }
             else if (fileSize <= 200000) {
                 alert("file size should be less than 200KB");
-                $('#StdinterCertoFile').val('');
+                $('#editQualifiedCertoFile').val('');
                 return;
             } else if (fileSize >= 100000) {
                 alert("file size should be greater than 100KB");
-                $('#StdinterCertoFile').val('');
+                $('#editQualifiedCertoFile').val('');
                 return;
             } else {
                 alert("file size should be between 100KB and 200KB");
-                $('#StdinterCertoFile').val('');
+                $('#editQualifiedCertoFile').val('');
                 return;
             }
         }
 
-        $scope.uploadQualCert = function () {
-            var input = document.getElementById("QualifiedCertoFile");
+        $scope.uploadEditSscCert = function () {
+            var input = document.getElementById("editstdSscCertFile");
             var fileSize = input.files[0].size;
             console.log(fileSize);
-            if (fileSize <= 200000 && fileSize >= 100000) {
+            if (fileSize <= 200000) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0]);
                     reader.onload = function (e) {
-                        $('#QualifiedCert').attr('src', e.target.result);
+                        $('#editstdSscCert').attr('src', e.target.result);
 
                         var canvas = document.createElement("canvas");
                         var imageElement = document.createElement("img");
@@ -1679,7 +1995,8 @@
                             canvas.height = this.height;
                             context.drawImage(this, 0, 0);
                             var base64Image = canvas.toDataURL("image/png");
-                            $scope.qualifiedexamCert = base64Image;
+                            $scope.NewEditQualification2 = base64Image;
+                            $scope.NewEditQualification2Convert = $scope.NewEditQualification2.replace(/^data:image\/[a-z]+;base64,/, "");
                         });
 
                     }
@@ -1691,128 +2008,184 @@
             }
             else if (fileSize <= 200000) {
                 alert("file size should be less than 200KB");
-                $('#QualifiedCertoFile').val('');
-                return;
-            } else if (fileSize >= 100000) {
-                alert("file size should be greater than 100KB");
-                $('#QualifiedCertoFile').val('');
-                return;
-            } else {
-                alert("file size should be between 100KB and 200KB");
-                $('#QualifiedCertoFile').val('');
+                $('#editstdSscCertFile').val('');
                 return;
             }
-        }
-
-        $scope.uploadMedicalCert = function () {
-            var input = document.getElementById("stdMedicalCertFile");
-            var fileSize = input.files[0].size;
-            console.log(fileSize);
-            if (fileSize <= 200000 && fileSize >= 100000) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.readAsDataURL(input.files[0]);
-                    reader.onload = function (e) {
-                        $('#stdMedicalCert').attr('src', e.target.result);
-
-                        var canvas = document.createElement("canvas");
-                        var imageElement = document.createElement("img");
-
-                        imageElement.setAttribute = $('<img>', { src: e.target.result });
-                        var context = canvas.getContext("2d");
-                        imageElement.setAttribute.one("load", function () {
-                            canvas.width = this.width;
-                            canvas.height = this.height;
-                            context.drawImage(this, 0, 0);
-                            var base64Image = canvas.toDataURL("image/png");
-                            $scope.stdMedicalCert = base64Image;
-                        });
-
-                    }
-                    reader.onerror = function (e) {
-                        console.error("File could not be read! Code " + e.target.error.code);
-                    };
-
-                }
-            }
-            else if (fileSize <= 200000) {
-                alert("file size should not be less than 200KB");
-                $('#stdMedicalCertFile').val('');
-                return;
-            } else if (fileSize >= 100000) {
-                alert("file size should not be greater than 100KB");
-                $('#stdMedicalCertFile').val('');
-                return;
-            } else {
+            //else if (fileSize >= 100000) {
+            //    alert("file size should greater than 100KB");
+            //    $('#stdSscCertFile').val('');
+            //    return;
+            //}
+            else {
                 alert("file size should be between 100KB and 200KB");
-                $('#stdMedicalCertFile').val('');
+                $('#editstdSscCertFile').val('');
                 return;
             }
         }
 
 
-        $scope.submitApplication = function () {
 
-            var EncriptedAadhar = $crypto.encrypt($crypto.encrypt($scope.adhaarno, 'HBSBP9214EDU00TS'), $scope.EKey) + '$$@@$$' + $scope.EKey;
-            var req = {
-                "UserId": $scope.UserId == null || $scope.UserId == undefined ? "" : $scope.UserId,
-                "StudentName": $scope.CandidateName == null || $scope.CandidateName == undefined ? "" : $scope.CandidateName,
-                "FatherName": $scope.FatherName == null || $scope.FatherName == undefined ? "" : $scope.FatherName,
-                "MotherName": $scope.MotherName == null || $scope.MotherName == undefined ? "" : $scope.MotherName,
-                "Aadhaar": $scope.adhaarno == null || $scope.adhaarno == undefined ? "" : EncriptedAadhar,
-                "Gender": $scope.Gender == null || $scope.Gender == undefined ? "" : $scope.Gender,
-                "StudentPhoneNumber": $scope.mobileNO == null || $scope.mobileNO == undefined ? "" : $scope.mobileNO,
-                "CourseId": $scope.selectedcourse.Id == null || $scope.selectedcourse.Id == undefined ? "" : $scope.selectedcourse.Id,
-                "LanguageId": $scope.selectedlanguage.Id == null || $scope.selectedlanguage.Id == undefined ? "" : $scope.selectedlanguage.Id,
-                "GradeId": $scope.selectedgrade.Id == null || $scope.selectedgrade.Id == undefined ? "" : $scope.selectedgrade.Id,
-                "MonthYearId": $scope.MonthYearId == null || $scope.MonthYearId == undefined ? "" : $scope.MonthYearId,
-                "ExamDistrictId": $scope.SelectedDistrictId.Id == null || $scope.SelectedDistrictId.Id == undefined ? "" : $scope.SelectedDistrictId.Id,
-                "ExamCenterId": $scope.selectedexamCenter.Id == null || $scope.selectedexamCenter.Id == undefined ? "" : $scope.selectedexamCenter.Id,
-                "ExamDate": $scope.ExamDateSel == null || $scope.ExamDateSel == undefined ? "" : $scope.ExamDateSel,
-                "ExamBatch": $scope.exambatch == null || $scope.exambatch == undefined ? "" : $scope.exambatch,
-                "DistrictId": $scope.SelectedDistrictId.Id == null || $scope.SelectedDistrictId.Id == undefined ? "" : $scope.SelectedDistrictId.Id,
-                "IsBlind": $scope.IsBlind == null || $scope.IsBlind == undefined ? "" : $scope.IsBlind,
-                "DateOfBirth": $scope.CandidateNameDOBchange == null || $scope.CandidateNameDOBchange == undefined ? "" : $scope.CandidateNameDOBchange,
-                "CategoryId": "",
-                "HnoStreet": $scope.houseNo + "," + $scope.street == null || $scope.houseNo + "," + $scope.street == undefined ? "" : $scope.houseNo + "," + $scope.street,
-                "VillageTown": $scope.village == null || $scope.village == undefined ? "" : $scope.village + ',' + $scope.mandal + ',' + $scope.district + ',' + $scope.pincode,
-                "EmailId": $scope.email == null || $scope.email == undefined ? "" : $scope.email,
-                "SscHallTicket": $scope.SscRollNo == null || $scope.SscRollNo == undefined ? "" : $scope.SscRollNo,
-                "InterHallTicket": $scope.InterRollNo == null || $scope.InterRollNo == undefined ? "" : $scope.InterRollNo,
-                "LowerGradeHallTicket": $scope.qualifiedexamhall == null || $scope.qualifiedexamhall == undefined ? "" : $scope.qualifiedexamhall,
-                "File1": $scope.stdSscCert == null || $scope.stdSscCert == undefined ? "" : $scope.stdSscCert,
-                "File2": $scope.qualifiedexamCert == null || $scope.qualifiedexamCert == undefined ? "" : $scope.qualifiedexamCert,
-                "File3": $scope.stdMedicalCert == null || $scope.stdMedicalCert == undefined ? "" : $scope.stdMedicalCert,
-                "Photo": $scope.userPhoto == null || $scope.userPhoto == undefined ? "" : $scope.userPhoto,
-                "mode": $scope.mode == null || $scope.mode == undefined ? "" : $scope.mode,
-            }
-            $scope.btndisable = true;
-            $scope.selectedcourse.CourseName;
-            $scope.TwshLanguage = $scope.selectedlanguage.LanguageName;
-            $scope.TwshGrade = $scope.selectedgrade.GradeName;
-            var regstudent = CbtStudentRegService.SubmitApplication(req);
-            regstudent.then(function (res) {
-                res = JSON.parse(res);
-                if (res.Status == "200") {
-                    alert(res.respdesc);
-                    $scope.applicationsuccess = true;
-                    $scope.previewData = false;
-                    $scope.btndisable = false;
-                    $scope.ApplicationNo = res.ApplicationNo;
-                } else if (res.Status == "406") {
-                    alert(res.respdesc);
-                    $scope.applicationsuccess = false;
-                    $scope.previewData = true;
-                    $scope.btndisable = false;
+        $scope.Modify = function () {
+            var EditCandidateDetail = CbtStudentRegService.GetCandidateDetails($scope.ApplicationNumber, $scope.CandidateID);
+            EditCandidateDetail.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
                 }
+                catch (err) { }
+
+                $scope.EditData = [];
+                if (res.length >= 0) {
+                    $scope.loading = false;
+                    $scope.EditData = res[0].Data;
+                    $scope.EditData1 = JSON.parse($scope.EditData)
+                    $scope.EditData = $scope.EditData1.Table[0];
+                    $scope.EditApplicationNumber = $scope.EditData1.Table[0].ApplicationNumber;
+                    $scope.EditCourseName = $scope.EditData1.Table[0].CourseName;
+                    $scope.EditLanguageName = $scope.EditData1.Table[0].LanguageName;
+                    $scope.EditGradeName = $scope.EditData1.Table[0].GradeName;
+                    $scope.EditQualificationDescription = $scope.EditData1.Table[0].QualificationDescription;
+                    $scope.EditSSCHallticketNo = $scope.EditData1.Table[0].SSCHallticketNo;
+                    $scope.EditSSCYear = $scope.EditData1.Table[0].SSCYear;
+                    $scope.EditSSCPassType = $scope.EditData1.Table[0].SSCPassType;
+                    $scope.EditCandidateName = $scope.EditData1.Table[0].CandidateName;
+                    $scope.EditFatherName = $scope.EditData1.Table[0].FatherName;
+                    $scope.EditMotherName = $scope.EditData1.Table[0].MotherName;
+                    $scope.EditCandidateNameDOB = $scope.EditData1.Table[0].DateOfBirth;
+                    $scope.EditGender = $scope.EditData1.Table[0].Gender;
+                    $scope.EditDistrictID = $scope.EditData1.Table[0].DistrictID;
+                    $scope.EditExamCenterID = $scope.EditData1.Table[0].ExamCenterID;
+                    $scope.EditexamCenter = $scope.EditData1.Table[0].ExaminationCenterName;
+                    $scope.Editdate1 = $scope.EditData1.Table[0].ExamDateOption1;
+                    $scope.Editdate2 = $scope.EditData1.Table[0].ExamDateOption2;
+                    $scope.Editdate3 = $scope.EditData1.Table[0].ExamDateOption3;
+                    $scope.Editdate4 = $scope.EditData1.Table[0].ExamDateOption4;
+                    $scope.Editdate5 = $scope.EditData1.Table[0].ExamDateOption5;
+                    $scope.EditHnoStreet = $scope.EditData1.Table[0].HnoStreet;
+                    $scope.EditStreet = $scope.EditData1.Table[0].Street;
+                    $scope.EditVillageTown = $scope.EditData1.Table[0].VillageTown;
+                    $scope.EditPincode = $scope.EditData1.Table[0].Pincode;
+                    $scope.EditDistrict = $scope.EditData1.Table[0].DistrictName;
+                    $scope.EditMandal = $scope.EditData1.Table[0].Mandal;
+                    $scope.EditMobileNumber = $scope.EditData1.Table[0].MobileNumber;
+                    $scope.EditEmailID = $scope.EditData1.Table[0].EmailID;
+                    $scope.EditRemarks = $scope.EditData1.Table[0].Remarks;
+                    $scope.EditPhotoPath = $scope.EditData.PhotoPath;
+                    $scope.EditQualification1 = $scope.EditData.Qualification1;
+                    $scope.EditQualification2 = $scope.EditData.Qualification2;
+                    $scope.Aadhaar = JSON.parse(res[0].Aadhar);
+                    $scope.EditmaskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
+                    var ExamCenters = CbtStudentRegService.GetCBTExamcentersAndDates($scope.CourseID, $scope.SelectedDistrictId);
+                    ExamCenters.then(function (res) {
+                        $scope.availableDates = [];
+                        $scope.examCenterList = res.Table;
+                        $scope.OnlineExamDates = res.Table1;
+                        for (var i = 0; i < res.Table1.length; i++) {
+                            $scope.availableDates.push(res.Table1[i].Date);
+                        }
+
+                    }, function (err) {
+                        $scope.examCenterList = [];
+                        $scope.OnlineExamDates = [];
+                        alert("no data found");
+                    });
+                   
+                    $scope.PreviewData = false;
+                    $scope.courseDetails = false;
+                    $scope.ExamAppearDetails = false;
+                    $scope.ShowAadhaarDetail = false;
+                    $scope.SscForm = false;
+                    $scope.applicationForm = false;
+                    $scope.EditapplicationForm = true;
+                    $scope.toDataURL($scope.EditPhotoPath, function (res) {
+                        if ($scope.EditPhotoPath == "") {
+                            $scope.PhotoPathConvert = "";
+                        }
+                        else {
+                            $scope.EditPhotoPathConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                        }
+                    })
+
+                    $scope.toDataURL($scope.EditQualification1, function (res) {
+                        if ($scope.EditQualification1 == "") {
+                            $scope.Qualification1Convert = "";
+                        }
+                        else {
+                            $scope.EditQualification1Convert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+
+                        }
+                    })
+
+                    $scope.toDataURL($scope.EditQualification2, function (res) {
+                        if ($scope.EditQualification2 == "") {
+                            $scope.Qualification2Convert = "";
+                        }
+                        else {
+                            $scope.EditQualification2Convert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+
+                        }
+                    })
+                    //$scope.EditData = true;
+
+                    //$scope.$emit('hideLoading', data);
+
+                } else {
+                    $scope.loading = false;
+                    $scope.EditData = [];
+                    //$scope.$emit('hideLoading', data);
+
+                }
+            },
+                function (error) {
+                    //   alert("error while loading Notification");
+                    var err = JSON.parse(error);
+                });
+        }
+
+
+        $scope.SubmitApplication = function () {
+            var SubmitcandDetails = CbtStudentRegService.SubmitCandidateDetails($scope.ApplicationNumber, $scope.CandidateID);
+            SubmitcandDetails.then(function (response) {
+                //try {
+                //    var res = JSON.parse(response);
+                //}
+                //catch (err) { }
+
+                if (response.Table[0].ResponceCode == '200') {
+                    alert(response.Table[0].ResponceDescription);
+                    $scope.PreviewData = false;
+                    $scope.Reset1();
+
+                }
+
+                else if (response.Table[0].ResponceCode == '400') {
+                    alert(response.Table[0].ResponceDescription);
+                }
+
                 else {
-                    alert("submit failed, some input fields are missing try again.");
+                    alert('Something Went Wrong')
                 }
-            }, function (err) {
-                $scope.btndisable = false;
+            }, function (error) {
+                var err = JSON.parse(error);
+            });
+        }
+
+        $scope.openImage = function (imagesrc) {
+            $scope.img = imagesrc;
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "app/views/CBT/Popups/ViewDocument.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+
             });
 
         }
+
+
+
+
+
 
 
         $scope.cancel = function () {

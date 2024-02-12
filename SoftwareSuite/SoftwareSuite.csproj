@@ -405,13 +405,14 @@
     <Compile Include="Models\Admission\StudentReg.cs" />
     <Compile Include="Models\Assessment\PostExamMarks.cs" />
     <Compile Include="Models\CBT\AuaKuaHelper.cs" />
+    <Compile Include="Models\CBT\CbtCrypt.cs" />
+    <Compile Include="Models\CBT\CbtModels.cs" />
     <Compile Include="Models\CBT\KycReq.cs" />
     <Compile Include="Models\CBT\KycRes.cs" />
     <Compile Include="Models\CBT\StringUtilities.cs" />
-    <Compile Include="Models\CBT\TwshModels.cs" />
     <Compile Include="Models\CCIC\CcicAuthToken.cs" />
     <Compile Include="Models\CCIC\CcicCrypt.cs" />
-    <Compile Include="Models\Database\CbtdbHandler.cs" />
+    <Compile Include="Models\Database\CBT\CbtdbHandler.cs" />
     <Compile Include="Models\Database\ccicdbHandler.cs" />
     <Compile Include="Models\CCIC\CcicModels.cs" />
     <Compile Include="Models\CCIC\CcicSystemModules.cs" />
@@ -473,6 +474,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Admission\AdmissionService.cs" />
     <Compile Include="Services\Admission\AttendanceService.cs" />
+    <Compile Include="Services\CbtServices.cs" />
     <Compile Include="Services\CcicSystemUserService.cs" />
     <Compile Include="Services\ExternalPortalService.cs" />
     <Compile Include="Services\IVC\IVCSystemUserService.cs" />
@@ -480,7 +482,6 @@
     <Compile Include="Services\SchedulerService.cs" />
     <Compile Include="Services\SmsService.cs" />
     <Compile Include="Services\SystemUserService.cs" />
-    <Compile Include="Services\CbtServices.cs" />
     <Compile Include="Services\TwshServices.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +655,9 @@
     <Content Include="app\controllers\BoardReportListController.js" />
     <Content Include="app\controllers\BranchWiseController.js" />
     <Content Include="app\controllers\CBT\CbtRegistrationController.js" />
+    <Content Include="app\controllers\CBT\EditCandidateDetailsController.js" />
+    <Content Include="app\controllers\CBT\TestingTwshStudentRegController.js" />
+    <Content Include="app\controllers\CBT\ViewCandidateDetailsController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
@@ -911,7 +915,6 @@
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
     <Content Include="app\controllers\ExamsSite\TwshAdmViewApplicationController.js" />
-    <Content Include="app\controllers\CBT\TestingTwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshStudentRegController.js" />
     <Content Include="app\controllers\ExamsSite\TwshViewApplicationController.js" />
     <Content Include="app\controllers\ExamsSite\TypingCumShorthandResultsController.js" />
@@ -1093,14 +1096,15 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
-
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
-
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
-
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\services\CBT\CbtStudentRegService.js" />
     <Content Include="app\views\CBT\CbtRegistration.html" />
+    <Content Include="app\views\CBT\EditCandidateDetails.html" />
+    <Content Include="app\views\CBT\Popups\ViewDocument.html" />
+    <Content Include="app\views\CBT\TestingStudentReg.html" />
+    <Content Include="app\views\CBT\ViewCandidateDetails.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
@@ -2387,7 +2391,6 @@
     <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />
     <Content Include="app\views\ExamsSite\StudentFeedback.html" />
     <Content Include="app\views\ExamsSite\StudentOnlineRequest.html" />
-    <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\ExamsSite\StudentRequestForm.html" />
     <Content Include="app\views\ExamsSite\TwshViewApplication.html" />
     <Content Include="app\views\ExamsSite\TypingCumShorthand.html" />
@@ -4587,6 +4590,19 @@
     <Content Include="scripts\ui-cropper.js" />
     <Content Include="scripts\underscorejs.js" />
     <Content Include="scripts\xlsx.core.min.js" />
+    <Content Include="Tickets\1.png" />
+    <Content Include="Tickets\2.png" />
+    <Content Include="Tickets\4 %281%29.jpg" />
+    <Content Include="Tickets\4.jpg" />
+    <Content Include="Tickets\certificate1 %281%29.jpg" />
+    <Content Include="Tickets\certificate2 %281%29 %282%29.jpg" />
+    <Content Include="Tickets\certificate2 %281%29 %283%29.jpg" />
+    <Content Include="Tickets\certificate2 %281%29.jpg" />
+    <Content Include="Tickets\certificate3 %281%29.jpg" />
+    <Content Include="Tickets\photo1 %281%29.jpeg" />
+    <Content Include="Tickets\photo1.jpeg" />
+    <Content Include="Tickets\Photo_231000306.jpeg" />
+    <Content Include="Tickets\Photo_231000306.JPG" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4838,6 +4854,16 @@
     <Content Include="SoftwareSuite.ruleset" />
     <Content Include="uidai_auth_encrypt_preprod.cer" />
     <Content Include="uidai_auth_prod.cer" />
+    <Content Include="Tickets\4158357181.pdf" />
+    <Content Include="Tickets\4158357181.zip" />
+    <Content Include="Tickets\CCIC NOTIFICATION AUGUST-2023 %281%29.pdf" />
+    <Content Include="Tickets\colleges-list_2324 %282%29.xlsx" />
+    <Content Include="Tickets\INTRM20054-EI-020164053.rar" />
+    <Content Include="Tickets\PIC_1_Tasks.docx" />
+    <Content Include="Tickets\STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA.zip" />
+    <Content Include="Tickets\TWSH INSTITUTE WISE RESULTS STATISTICS %281%29.xlsx" />
+    <Content Include="Tickets\TWSH ISSUES.docx" />
+    <Content Include="Tickets\TWSH.xlsx" />
     <None Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
