@@ -2153,9 +2153,9 @@
 
                 if (response.Table[0].ResponceCode == '200') {
                     alert(response.Table[0].ResponceDescription);
+                    $scope.ApplicationNo = response.Table[0].ApplicationNumber;
                     $scope.PreviewData = false;
-                    $scope.Reset1();
-
+                    $scope.applicationsuccess = true;
                 }
 
                 else if (response.Table[0].ResponceCode == '400') {
