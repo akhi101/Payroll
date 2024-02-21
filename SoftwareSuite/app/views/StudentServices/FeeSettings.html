@@ -11,15 +11,6 @@
         text-overflow: '';
     }
 
-    .input-group-addon {
-        padding: 4px 12px !important;
-    }
-
-    input[type=date]::-webkit-inner-spin-button,
-    input[type=date]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-    }
-
     .btn-default, .btn-dark-blue {
         border-color: #314559;
         color: #000;
@@ -36,137 +27,73 @@
         color: #ffffff !important;
     }
 
-    span {
-        color: #000 !important;
+    a {
+        color: #337ab7;
+        text-decoration: none;
     }
 
-    .text-info {
-        color: #ffffff;
+    .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
+        border: 1px solid #ddd !important;
+        color: #337ab7;
+        font-size: 14px !important;
+        cursor: default !important;
+        font-family: 'Open Sans';
     }
 
-    /*--------------------------------------------------*/
-    .table-striped > tbody > tr:nth-of-type(odd) {
-        background-color: #f9f9f9 !important;
-    }
-
-    /*--------------------------------------------------*/
-
-
-    /*.multiselect {
-      width: 200px;
+    /*   .base-row {
+        background-color: #fefefe;
+        border-radius: 4px;
+        margin-top: 0px;
+        margin-bottom: 60px;
+        padding: 15px;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0px 3px 17px -8px #888888;
+        font-family: 'Open Sans';
     }*/
 
-    .selectBox {
-        position: relative;
+    .table-custom-tables-tb .table-bordered > thead > tr > th {
+        border: 1px solid #ddd !important;
+        color: #788598;
+        font-size: 14px !important;
+        font-family: 'Open Sans';
     }
 
-        .selectBox select {
-            width: 100%;
-            font-weight: bold;
-        }
-
-    .overSelect {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+    .navbar_section {
+        margin-bottom: -20px;
     }
 
-    #checkboxes {
-        display: none;
-        border: 1px #dadada solid;
+
+    a.backA, a.backA:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+        font-family: 'Open Sans';
+        font-size: 14px;
     }
 
-        #checkboxes label {
-            display: block;
-        }
-
-            #checkboxes label:hover {
-                background-color: #1e90ff;
-            }
-
-    #checkboxessem {
-        display: none;
-        border: 1px #dadada solid;
+    a {
+        color: #337ab7;
+        text-decoration: none;
+        font-size: 14px;
     }
 
-        #checkboxessem label {
-            display: block;
-        }
-
-            #checkboxessem label:hover {
-                background-color: #1e90ff;
-            }
-
-
-    .contain {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        /* margin-bottom: 12px; */
-        /* padding-top: 5px; */
-        cursor: pointer;
-        margin: 5px !important;
-        font-size: 15px !important;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+    .breadcrumb-header {
+        background-color: #d8d8d8;
+        padding: 8px 0px;
+        margin-bottom: 20px;
+        font-family: 'Open Sans';
+        font-size: 14px;
     }
 
-        /* Hide the browser's default checkbox */
-        .contain input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-
-    /* Create a custom checkbox */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 22px;
-        width: 22px;
-        background-color: #eee;
-        border: 1px solid #cac6c6;
+    .col-md-12 {
+        width: 100%;
+        font-family: 'Open Sans';
     }
 
-    /* On mouse-over, add a grey background color */
-    .contain:hover input ~ .checkmark {
-        background-color: #ccc;
-    }
-
-    /* When the checkbox is checked, add a blue background */
-    .contain input:checked ~ .checkmark {
-        background-color: #2196F3;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
-
-    /* Show the checkmark when checked */
-    .contain input:checked ~ .checkmark:after {
-        display: block;
-    }
-    /* Style the checkmark/indicator */
-    .contain .checkmark:after {
-        left: 8px;
-        top: 4px;
-        width: 6px;
-        height: 12px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
+    .btn:not(.btn-link):not(.btn-circle) {
+        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+        /* -webkit-border-radius: 2px; */
+        /* border-radius: 0px !important; */
+        font-size: 14px;
     }
 </style>
 <div ng-controller="FeeSettingsController">
@@ -282,13 +209,13 @@
             </div>
         </div>
 
-        <div class="container " ng-show="ReportFound">
+        <div class="container " ng-show="FeeSettingsData.length>0">
             <div class="col-md-12">
                 <div class="cl-details">
-                    <h2>Time Table Fee Settings</h2>
+                    <h2> Fee Settings</h2>
                 </div>
-                <div class="table-responsive table-custom-tables-tb">
-                    <table class="table table-bordered table-hover table-striped table-rounded custom-table-wdith">
+                <div class="table-responsive table-custom-tables-tb scrollbox">
+                    <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                         <thead>
                             <tr class="cb-1">
                                 <th>S.No</th>
@@ -300,34 +227,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="" ng-repeat="data in GetFeeSettings">
+                            <tr style="" ng-repeat="data in FeeSettingsData">
                                 <td class="text-left">{{$index + 1}}</td>
-                                <td class="text-center pointer" style="padding: 3px;">
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="Academic" ng-model="data.AcademicYearId" style="width: min-content;"
-                                            ng-options="acad.AcademicID as acad.AcademicYear for acad in GetExamMonthYear">
-                                        <option value="" selected>Service Name</option>
-                                    </select>
-                                </td>
-                                <td class="text-center pointer" style="padding: 3px;">
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}"  id="selSession" ng-model="data.SessionId" style="width: min-content;"
-                                            ng-options="ses.val as ses.session for ses in sessioninfo">
-                                        <option value="" selected>Amount</option>
-                                    </select>
-                                </td>
-                                <td class="text-center pointer" style="padding: 3px;">
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="SchemeId" ng-model="data.SchemeId" ng-change="loadSemExamTypes(selscheme)"
-                                            ng-options="scheme.schemeid as scheme.scheme for scheme in schemeinfo ">
-                                        <option value="" selected>Status</option>
-                                    </select>
-                                </td>
-                                <td class="text-center pointer" style="padding: 3px;">
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.SemId" name="SemId" style="width: min-content;"
-                                            ng-options="sems.semid as sems.sem for sems in ActiveSemesters">
-                                        <option value="" selected>Action</option>
-                                    </select>
-                                </td>
-                               
-
+                                <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Name" /></div></td>
+                                <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Price" /></div></td>
+                                <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ChallanPrefix" /></div></td>
+                                <!--<td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Name" /></td>
+                                <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Price" /></td>
+                                <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ChallanPrefix" /></td>-->
 
                                 <td class="text-center">
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="Editfeesettings(data,$index+1)">

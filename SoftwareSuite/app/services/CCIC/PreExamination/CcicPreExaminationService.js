@@ -734,9 +734,41 @@
             return promise;
         };
 
+        this.GetAdminFeePaymentInstituteCount = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminFeePaymentInstituteCount', paramObj);
+            return promise;
+        };
 
+        this.GetAdmFeePaymentInstituteCountExcel = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdmFeePaymentInstituteCountExcel', paramObj);
+            return promise;
+        };
 
+        this.GetAdminFeePaymentCourseCount = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminFeePaymentCourseCount', paramObj);
+            return promise;
+        };
 
+        this.GetAdmFeePaymentCourseCountExcel = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdmFeePaymentCourseCountExcel', paramObj);
+            return promise;
+        };
 
        
 

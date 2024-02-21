@@ -777,9 +777,22 @@
 
             'index.TestingCBTPAGE': {
                 url: "/TestingCBTPAGE",
-                templateUrl: 'app/views/Examssite/TestingStudentReg.html',
-                dependencies: ['controllers/Examssite/TestingTwshStudentRegController', 'services/TWSH/TwshStudentRegService', 'services/SystemAdministration/SystemUserService']
+                templateUrl: 'app/views/CBT/TestingStudentReg.html',
+                dependencies: ['controllers/CBT/TestingTwshStudentRegController', 'services/CBT/CbtStudentRegService', 'services/SystemAdministration/SystemUserService']
             },
+
+            //'index.ViewCandidateDetails': {
+            //    url: "/ViewCandidateDetails",
+            //    templateUrl: 'app/views/CBT/ViewCandidateDetails.html',
+            //    dependencies: ['controllers/CBT/ViewCandidateDetailsController', 'services/CBT/CbtStudentRegService']
+            //},
+
+            //'index.EditCandidateDetails': {
+            //    url: "/TestingCBTPAGE/EditCandidateDetails",
+            //    templateUrl: 'app/views/CBT/EditCandidateDetails.html',
+            //    dependencies: ['controllers/CBT/EditCandidateDetailsController', 'services/CBT/CbtStudentRegService']
+            //},
+
             'index.TwshFeePayment': {
                 url: "/FeePayment",
                 templateUrl: 'app/views/Examssite/FeePayment.html',
@@ -990,6 +1003,12 @@
                 url: "/FeePayment",
                 templateUrl: 'app/views/TWSH/FeePayment.html',
                 dependencies: ['controllers/TWSH/FeePaymentController', 'services/TWSH/TwshStudentRegService', 'services/BillDesk/paymentService']
+            },
+
+            'CBT.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CBT/FeePayment.html',
+                dependencies: ['controllers/CBT/FeePaymentController', 'services/CBT/CbtStudentRegService', 'services/BillDesk/paymentService']
             },
             'TWSH.OnlineApplication': {
                 url: "/OnlineApplication",
