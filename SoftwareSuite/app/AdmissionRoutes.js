@@ -489,6 +489,18 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.PreExamination.CoursewiseFeePaymentReports': {
+                url: "/CoursewiseFeePaymentReports",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicCoursewiseFeePaymentReports.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicCoursewiseFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
+            'CcicDashboard.PreExamination.InstitutewiseFeePaymentReports': {
+                url: "/InstitutewiseFeePaymentReports",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicInstitutewiseFeePaymentReports.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicInstitutewiseFeePaymentReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             'CcicDashboard.PreExamination.FeePaymentReport': {
                 url: "/FeePaymentReport",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicFeePaymentReport.html',

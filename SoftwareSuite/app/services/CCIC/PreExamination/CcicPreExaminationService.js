@@ -743,12 +743,37 @@
             return promise;
         };
 
+
+
         this.GetAdmFeePaymentInstituteCountExcel = function (AcademicYearID, ExamMonthYearID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID,
                 "ExamMonthYearID": ExamMonthYearID,
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdmFeePaymentInstituteCountExcel', paramObj);
+            return promise;
+        };
+
+        this.GetCoursewiseFeePaymentCount = function (AcademicYearID, ExamMonthYearID, InstitutionID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID
+
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCoursewiseFeePaymentCount', paramObj);
+            return promise;
+        };
+
+
+
+        this.GetCoursewiseFeePaymentCountExcel = function (AcademicYearID, ExamMonthYearID, InstitutionID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCoursewiseFeePaymentCountExcel', paramObj);
             return promise;
         };
 
@@ -770,6 +795,25 @@
             return promise;
         };
 
+        this.GetInstitutewiseFeePaymentCount = function (AcademicYearID, ExamMonthYearID,CourseID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutewiseFeePaymentCount', paramObj);
+            return promise;
+        };
+
+        this.GetInstitutewiseFeePaymentCountExcel = function (AcademicYearID, ExamMonthYearID, CourseID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "CourseID": CourseID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInstitutewiseFeePaymentCountExcel', paramObj);
+            return promise;
+        };
        
 
 
