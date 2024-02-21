@@ -11,6 +11,11 @@
             return promise;
         }
 
+        this.GetAllUsers = function () {
+            var promise = DataAccessService.getDataWithPara('api/AdminService/GetAllUsers');
+            return promise;
+        }
+
         this.GetActiveBranches = function () {
             var promise = DataAccessService.getDataWithPara('api/AdminService/getActiveBranches');
             return promise;

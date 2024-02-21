@@ -159,6 +159,31 @@ namespace SoftwareSuite.Controllers.AdminServices
             }
         }
 
+
+        [HttpGet, ActionName("GetAllUsers")]
+        public HttpResponseMessage GetAllUsers()
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Users";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Users", 0, ex.Message);
+                throw ex;
+            }
+        }
+
+
+
+
+
+
+
+
         [HttpGet, ActionName("AddUserPasswords")]
         public string AddUserPasswords(string UserName,string Password)
         {

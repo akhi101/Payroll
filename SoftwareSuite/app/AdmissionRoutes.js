@@ -1340,6 +1340,13 @@
                 dependencies: ['controllers/MasterSettings/SubModuleSettingsController', 'services/AdminServices/AdminService', 'services/SystemAdministration/SystemUserService', 'services/MasterSettings/MasterSettingsService']
             },
 
+
+            'Dashboard.MasterSettings.UserCredentials': {
+                url: "/ModulesSetting/UserCredentials",
+                templateUrl: 'app/views/MasterSettings/UserCredentials.html',
+                dependencies: ['controllers/MasterSettings/UserCredentialsController', 'services/AdminServices/AdminService', 'services/ForgetPasswordService', 'services/SystemAdministration/SystemUserService']
+            },
+
             'Dashboard.DcBillsDashboard': {
 
                 url: "/DcBillsDashboard",

@@ -2153,7 +2153,7 @@
 
                 if (response.Table[0].ResponceCode == '200') {
                     alert(response.Table[0].ResponceDescription);
-                    $scope.ApplicationNo = response.Table[0].ApplicationNumber;
+                    $scope.ApplicationNo = response.Table1[0].ApplicationNumber;
                     $scope.PreviewData = false;
                     $scope.applicationsuccess = true;
                 }
