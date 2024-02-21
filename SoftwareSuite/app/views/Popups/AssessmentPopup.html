@@ -22,8 +22,8 @@
                 <input type="text" class="form-control" maxlength="500" ng-model="OTP" required />
             </div>
             <div class="row">
-                <div class="col-md-2"><button class="btn btn-danger" ng-click="closeModal()">cancel</button></div>
-                <div class="col-md-2"><button class="btn btn-info pull-right" ng-class="{'disabled': Otpdisable}" ng-click="!Otpdisable && ReSendOtp()">
+                <div class="col-md-3"><button class="btn btn-danger" ng-click="closeModal()">cancel</button></div>
+                <div class="col-md-3"><button class="btn btn-info pull-right" ng-class="{'disabled': Otpdisable}" ng-click="!Otpdisable && ReSendOtp()">
                                           <span ng-show="!loader"> Resend SMS</span>
     <span ng-show="loader"><div class="loader"> </div></span>
 </button></div>

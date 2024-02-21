@@ -328,25 +328,25 @@
                             <td class="text-center pointer" style="padding: 3px;"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="date.type" /></td>
                             <td class="text-center pointer" style="padding: 3px;">
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="From Date" autocomplete="off" name="fromdate" datetime-picker="dd-MM-yyyy" id="fromdate " ng-model="date.fromdate" is-open="showFlag1" />
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="From Date" autocomplete="off" name="fromdate" ng-click="ChangeDate(1)" datetime-picker="dd-MM-yyyy HH:mm" id="fromdate " ng-model="date.fromdate" is-open="showFlag1" />
                                     <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag1 = true;ChangeDate(1)"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </td>
                             <td class="text-center pointer" style="padding: 3px;">
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="To Date" autocomplete="off" name="todate" datetime-picker="dd-MM-yyyy" id="fromdate " ng-model="date.todate" is-open="showFlag2" />
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="To Date" autocomplete="off" name="todate" ng-click="ChangeDate(2)" datetime-picker="dd-MM-yyyy HH:mm" id="fromdate " ng-model="date.todate" is-open="showFlag2" />
                                     <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag2 = true;ChangeDate(2)"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </td>
                             <td class="text-center pointer" style="padding: 3px;">
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
-                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Fine Date" autocomplete="off" name="finedate" datetime-picker="dd-MM-yyyy" id="finedate " ng-model="date.finedate" is-open="showFlag3" />
+                                    <input type="text" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Fine Date" autocomplete="off" name="finedate" ng-click="ChangeDate(3)" datetime-picker="dd-MM-yyyy HH:mm" id="finedate " ng-model="date.finedate" is-open="showFlag3" />
                                     <span class="input-group-btn" ng-show="!edit{{$index + 1}}">
-                                        <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                                        <button type="button" class="btn btn-primary" ng-click="showFlag3 = true;ChangeDate(3)"><i class="fa fa-calendar"></i></button>
                                     </span>
                                 </p>
                             </td>

@@ -73,8 +73,11 @@
 
             return DataAccessService.getDataAll('Assessment/getActiveExamTypes');
         };
-        this.getCollegeAssessmentReports = function (collegecode, examtypeid, studentType) {
-            var paramObject = { "collegecode": collegecode, "examtypeid": examtypeid, "studentType": studentType };           
+
+        this.getCollegeAssessmentReports = function (collegecode, examtypeid, studentType, AcademicYearId, Semester, ExamMonthYear) {
+            var paramObject = {
+                "collegecode": collegecode, "examtypeid": examtypeid, "studentType": studentType
+                , "AcademicYearId": AcademicYearId, "Semester": Semester, "ExamMonthYear": ExamMonthYear            };
             return DataAccessService.getDataWithPara('Assessment/getCollegeAssessmentReports', paramObject);
         };
 

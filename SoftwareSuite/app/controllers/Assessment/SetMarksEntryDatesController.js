@@ -15,6 +15,17 @@
 
         }
 
+        $scope.ChangeDate = function (DataType, type) {
+            
+            if (DataType == 1) {
+                $scope.FromDateValue =1
+            } else if (DataType == 2) {
+                $scope.ToDateValue = 1
+            } else if (DataType == 3) {
+                $scope.FineDateValue = 1
+            }
+        }
+
         $scope.LoadStudentType = function () {
             //  $scope.ExamName = examName;
             var LoadExamTypeBy = MarksEntryService.getStudentType();
@@ -152,6 +163,7 @@
 
 
         $scope.UpdateDates = function (dat, ind) {
+           
             $scope['edit' + ind] = true;
 
             var ele2 = document.getElementsByClassName("enabletable" + ind);
@@ -175,36 +187,45 @@
             var srtdate = dat.fromdate == undefined || dat.fromdate == null || dat.fromdate == "" ? " " : dat.fromdate;
             var enddate = dat.todate == undefined || dat.todate == null || dat.todate == "" ? " " : dat.todate;
             var finedate = dat.finedate == undefined || dat.finedate == null || dat.finedate == "" ? " " : dat.finedate;
-            var srtdate1 = moment(dat.fromdate).format("DD/MM/YYYY")
-            var startTime = moment(dat.fromdate).format("HH:mm:ss")
+            if ($scope.FromDateValue == 1) {
+                var srtdate1 = moment(dat.fromdate).format("DD/MM/YYYY")
+                var startTime = moment(dat.fromdate).format("HH:mm:ss")
 
-            if (startTime == '00:00:00') {
+                if (startTime == '00:00:00') {
 
-                var StartDate = moment(srtdate1).format("DD/MM/YYYY HH:mm:ss");
+                    var StartDate = srtdate1 + ' ' + '00:00:00';
 
+                } else {
+                    var StartDate = srtdate1 + ' ' + '00:00:00';
+                }
             } else {
-                var StartDate = srtdate1 + ' ' + startTime;
+                var StartDate = srtdate;
             }
-            var enddate = moment(enddate).format("DD/MM/YYYY")
-            var EndTime = moment(enddate).format("HH:mm:ss")
+            if ($scope.ToDateValue == 1) {
+                var enddate = moment(enddate).format("DD/MM/YYYY")
+                var EndTime = moment(enddate).format("HH:mm:ss")
 
 
-            if (EndTime == '00:00:00') {
-                var EndDate = moment(enddate).format("DD/MM/YYYY") + " 23:59:00";
+                if (EndTime == '00:00:00') {
+                    var EndDate = enddate + " 23:59:00";
+                } else {
+                    var EndDate = enddate + ' ' + "23:59:00";
+                }
             } else {
-                var EndDate = enddate + ' ' + EndTime;
+                var EndDate = enddate;
             }
-
-
-            var FineDate1 = moment(finedate).format("DD/MM/YYYY")
-            var FineTime = moment(finedate).format("HH:mm:ss")
-            if (FineTime == '00:00:00') {
-                var FindDate = moment(FineDate1).format("DD/MM/YYYY") + " 23:59:00";
+            if ($scope.FineDateValue == 1) {
+                var FineDate1 = moment(finedate).format("DD/MM/YYYY")
+                var FineTime = moment(finedate).format("HH:mm:ss")
+                if (FineTime == '00:00:00') {
+                    var FindDate = FineDate1 + " 23:59:00";
+                } else {
+                    var FindDate = FineDate1 + ' ' + "23:59:00";
+                }
             } else {
-                var FindDate = FineDate1 + ' ' + FineTime;
+                var FindDate = finedate;
             }
-
-
+           console.log(StartDate, EndDate, FindDate)
 
             var updatedate = MarksEntryService.UpdateMarksEntryDatesforAdmin(dat.id, StartDate, EndDate, FindDate, dat.fine_ammount)
             updatedate.then(function (response) {
@@ -212,6 +233,9 @@
                 if (response.Table[0].ResponceCode == '200') {
                     alert(response.Table[0].ResponceDescription)
                     $scope.GetMarksEntryDatesList();
+                    $scope.FromDateValue = 0
+                    $scope.ToDateValue = 0
+                    $scope.FineDateValue = 0
                 } else {
                     alert('Something Went Wrong')
                 }
@@ -356,7 +380,7 @@
                 var fromdate = moment($scope.StartDate).format("DD/MM/YYYY HH:mm:ss");
 
             } else {
-                var fromdate = startDate + ' ' + startTime;
+                var fromdate = startDate + ' ' + "00:00:00";
             }
             var EndDate = moment($scope.EndDate).format("DD/MM/YYYY")
             var EndTime = moment($scope.EndDate).format("HH:mm:ss")
@@ -365,7 +389,7 @@
             if (EndTime == '00:00:00') {
                 var todate = moment($scope.EndDate).format("DD/MM/YYYY") + " 23:59:00";
             } else {
-                var todate = EndDate + ' ' + EndTime;
+                var todate = EndDate + ' ' + "23:59:00";
             }
 
 
@@ -374,7 +398,7 @@
             if (FineTime == '00:00:00') {
                 var finedate = moment($scope.FineDate).format("DD/MM/YYYY") + " 23:59:00";
             } else {
-                var finedate = FineDate + ' ' + FineTime;
+                var finedate = FineDate + ' ' + "23:59:00";
             }
 
             let Academicid = $scope.years.AcademicID;

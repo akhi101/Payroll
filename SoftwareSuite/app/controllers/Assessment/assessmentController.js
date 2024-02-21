@@ -129,7 +129,7 @@
                 if ($scope.schemeId == undefined || $scope.schemeId == "") {
                     return
                 }
-                var LoadSemByScheme = AssessmentService.getSemBySchemes($scope.SelStudent.id, $scope.schemeId)
+                var LoadSemByScheme = AssessmentService.getSemBySchemes($scope.SelectedStudent, $scope.schemeId)
                 LoadSemByScheme.then(function (response) {
                     if (response.length > 0) {
                         $scope.UserSemesters = response;
@@ -215,18 +215,18 @@
                 });
             }
 
-            $scope.getExamCategorys = function (student) {
-                try {
-                    $scope.SelStudent = JSON.parse(student); 
-                } catch (ex) {
-                }
+            $scope.GetActiveSchemes = function (SelectedStudent) {
+                //try {
+                $scope.SelectedStudent = SelectedStudent;
+                //} catch (ex) {
+                //}
                 $scope.schemeId = "";
                 $scope.SemesterId = "";
                 $scope.ExamCategory = [];
                 $scope.getActiveSchemes = [];
                 $scope.UserSemesters = [];
                              
-                var LoadActiveSchemes = AssessmentService.getSchemes($scope.SelStudent.id);
+                var LoadActiveSchemes = AssessmentService.getSchemes($scope.SelectedStudent);
                 LoadActiveSchemes.then(function (response) {
                     $scope.getActiveSchemes = response;
                 },
@@ -241,9 +241,9 @@
             $scope.getExamCategory = function (student, selectedsem, ExamMonthYear) {
 
                 // console.log(student)
-               // $scope.SelStudent = JSON.parse(student);
-                //// console.log($scope.SelStudent.id)
-                // var LoadActiveSchemes = AssessmentService.getSchemes($scope.SelStudent.id);
+               // $scope.SelectedStudent = JSON.parse(student);
+                //// console.log($scope.SelectedStudent)
+                // var LoadActiveSchemes = AssessmentService.getSchemes($scope.SelectedStudent);
                 // LoadActiveSchemes.then(function (response) {
                 //     $scope.getActiveSchemes = response;
                 // },
@@ -254,20 +254,20 @@
                 // });           
 
                 try {
-                    $scope.SelStudent = JSON.parse(student);
+                  //  $scope.SelectedStudent = JSON.parse(student);
                     $scope.selsem = JSON.parse(selectedsem);
 
                 } catch (ex) {
 
                 }
-                if ($scope.SelStudent.id == 2 || $scope.SelStudent.id == 1) {
+                if ($scope.SelectedStudent == 2 || $scope.SelectedStudent == 1) {
                     $scope.schemeId = $scope.schemeId;
                     $scope.SemesterId = $scope.selsem.semid;
-                    $scope.StudentId = $scope.SelStudent.id;
+                    $scope.StudentId = $scope.SelectedStudent;
                 } else {
                     $scope.schemeId = $scope.selsem.current_schemeid;
                     $scope.SemesterId = $scope.selsem.semid;
-                    $scope.StudentId = $scope.SelStudent.id;
+                    $scope.StudentId = $scope.SelectedStudent;
                 }
 
                 if ($scope.years.AcademicID == undefined || $scope.years.AcademicID == "") {
@@ -376,15 +376,16 @@
             $scope.openBranchReport = function (data) {
 
                 $localStorage.PrincipalReports = {};
-             
+               // $scope.College_Code, $scope.examTypeId, $scope.SelectedStudent1, $scope.years.AcademicID, JSON.stringify($scope.arr), $scope.ExamMonthYear
                 var PrincipalReports = {
+                    AcademicYearId: $scope.years.AcademicID,
                     examtypeid: $scope.examTypeId,
-                    collegecode: data.collegeCode,
+                    collegecode: $scope.College_Code,
                     branchid: data.branchid,
                     subid: data.subid,
-                    semid: data.semid,
-                    studentTypeId: $scope.studentType,
-                     ExamMonthYear: $scope.ExamMonthYear
+                    semid: $scope.arr,
+                    studentTypeId: $scope.SelectedStudent1,
+                    ExamMonthYear: $scope.ExamMonthYear
 
                 };
                 $localStorage.PrincipalReports = PrincipalReports;
@@ -392,6 +393,52 @@
                 $state.go('Dashboard.AssessmentDashboard.FinalReport')
             }
 
+            $scope.GetActiveSchemes = function (SelectedStudent1) {
+                //try {
+                $scope.SelectedStudent1 = SelectedStudent1;
+                //} catch (ex) {
+                //}
+                $scope.schemeId = "";
+                $scope.SemesterId = "";
+                $scope.ExamCategory = [];
+                $scope.getActiveSchemes = [];
+                $scope.UserSemesters = [];
+
+                var LoadActiveSchemes = AssessmentService.getSchemes($scope.SelectedStudent1);
+                LoadActiveSchemes.then(function (response) {
+                    $scope.getActiveSchemes = response;
+                },
+                    function (error) {
+                        alert("error while loading Schemes");
+                        var err = JSON.parse(error);
+                        console.log(err.Message);
+                        $scope.getActiveSchemes = [];
+                    });
+            }
+
+            $scope.getSemestersByScheme = function (schemeId) {
+                $scope.schemeId = schemeId;
+                $scope.UserSemesters = [];
+                if ($scope.schemeId == undefined || $scope.schemeId == "") {
+                    return
+                }
+                var LoadSemByScheme = AssessmentService.getSemBySchemes($scope.SelectedStudent1, $scope.schemeId)
+                LoadSemByScheme.then(function (response) {
+                    if (response.length > 0) {
+                        $scope.UserSemesters = response;
+                    } else {
+                        // $scope.Examtypes = [];
+                        alert("No Sem found on this Record");
+                    }
+
+                },
+                    function (error) {
+                        alert("error while loading Semesters");
+                        var err = JSON.parse(error);
+                        console.log(err.Message);
+                    });
+
+            }
 
             $scope.getSemistersSetData = function () {
                 $scope.sems = [];
@@ -469,18 +516,80 @@
 
 
             }
-
-
+            $scope.getSemestersByScheme = function(){
+            $scope.ActiveSemesters =[]
             var LoadActiveSemesters = AssessmentService.getActiveSemester();
             LoadActiveSemesters.then(function (response) {
                 $scope.ActiveSemesters = response.Table;
+                var toggleStatus = true;
+                angular.forEach($scope.ActiveSemesters, function (itm) { itm.selected = toggleStatus; });
+                $scope.arr = [];
+                angular.forEach($scope.ActiveSemesters, function (value, key) {
+                    if (value.selected === true) {
+                        $scope.arr.push({ "semid": value.semid })
+                    }
+                });
                 //  console.log($scope.ActiveSemesters)
             },
             function (error) {
                 alert("error while loading semesters");
                 var err = JSON.parse(error);
                 console.log(err.Message);
-            });
+                });
+            }
+
+            $scope.toggleAll = function (isAllSelectedSem) {
+                $scope.isAllSelectedSem = isAllSelectedSem;
+                var toggleStatus = $scope.isAllSelectedSem;
+                angular.forEach($scope.ActiveSemesters, function (itm) { itm.selected = toggleStatus; });
+                $scope.arr = [];
+                angular.forEach($scope.ActiveSemesters, function (value, key) {
+                    if (value.selected === true) {
+                        $scope.arr.push({ "semid": value.semid })
+                    }
+                });
+
+                setTimeout(function () { $scope.closeCheckbox() }, 3000);
+
+            }
+
+            $scope.optionToggled = function (mid1list) {
+                $scope.isAllSelectedSem = $scope.ActiveSemesters.every(function (itm) { return itm.selected; })
+                $scope.arr = [];
+                angular.forEach($scope.ActiveSemesters, function (value, key) {
+                    if (value.selected === true) {
+
+                        $scope.arr.push({ "semid": value.semid })
+                    }
+
+                });
+
+                //console.log($scope.sems)
+
+            }
+            var expanded = false;
+            $scope.showCheckboxes = function () {
+                var checkboxes = document.getElementById("checkboxes");
+                if (!expanded) {
+                    checkboxes.style.display = "block";
+                    expanded = true;
+                } else {
+                    checkboxes.style.display = "none";
+                    expanded = false;
+                }
+            }
+
+            $scope.closeCheckbox = function () {
+                var checkboxes = document.getElementById("checkboxes");
+                if (!expanded) {
+                    checkboxes.style.display = "block";
+                    expanded = true;
+                } else {
+                    checkboxes.style.display = "none";
+                    expanded = false;
+                }
+            }
+
 
             var getActiveExamTypes = AssessmentService.getActiveExamTypes();
             getActiveExamTypes.then(function (response) {
@@ -500,14 +609,26 @@
             }
 
 
+            var getActiveExamTypes = AssessmentService.getActiveExamTypes();
+            getActiveExamTypes.then(function (response) {
+                $scope.ActiveExamTypes = response.Table;
 
-            $scope.getReport = function () {
+            },
+                function (error) {
+                    alert("error while loading semesters");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+
+            $scope.getAssessmentReport = function (ExamMonthYear) {
+                $scope.ExamMonthYear = ExamMonthYear;
                   $scope.loading = true;
                 if ($scope.studentType == 2) {
                     $scope.examTypeId = 0;
                 }
                 //console.log($scope.examType);
-                var getCollegeReports = AssessmentService.getCollegeAssessmentReports($scope.College_Code, $scope.examTypeId, $scope.studentType);
+                var getCollegeReports = AssessmentService.getCollegeAssessmentReports($scope.College_Code, $scope.examTypeId, $scope.SelectedStudent1, $scope.years.AcademicID, JSON.stringify($scope.arr), $scope.ExamMonthYear);
                 getCollegeReports.then(function (response) {
 
                     if (response.length > 0) {
@@ -516,6 +637,7 @@
                         $scope.loading = false;
                         $scope.NoResult = false;
                         var Total = 0
+                        var NotSubmitted = 0;
                         var NotPosted = 0;
                         var Absent = 0;
                         var MallPractice = 0;
@@ -526,6 +648,8 @@
                         for (var i = 0; i < response.length; i++) {
                             if (response[i].Total != null)
                                 Total = Total + response[i].Total;
+                            if (response[i].NotSubmitted != null)
+                                NotSubmitted = NotSubmitted + response[i].NotSubmitted;
                             if (response[i].NotPosted != null)
                                 NotPosted = NotPosted + response[i].NotPosted;
                             if (response[i].Absent != null)
@@ -541,6 +665,7 @@
                         }
 
                         $scope.Total = Total;
+                        $scope.NotSubmitted = NotSubmitted;
                         $scope.NotPosted = NotPosted;
                         $scope.Absent = Absent;
                         $scope.MallPractice = MallPractice;

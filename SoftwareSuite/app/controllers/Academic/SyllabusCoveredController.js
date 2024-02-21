@@ -11,6 +11,7 @@
             $scope.CollegeCode = authData.College_Code;
             // alert($scope.CollegeCode)
             var academicData = $localStorage.AcademicData
+           // console.log(academicData)
             $scope.SemId = academicData.SemId;
             $scope.SchemeId = academicData.SchemeId;
             $scope.SubjectId = academicData.SubjectId;
