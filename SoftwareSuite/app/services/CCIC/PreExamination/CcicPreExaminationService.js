@@ -752,6 +752,24 @@
             return promise;
         };
 
+        this.GetAdminFeePaymentCourseCount = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminFeePaymentCourseCount', paramObj);
+            return promise;
+        };
+
+        this.GetAdmFeePaymentCourseCountExcel = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdmFeePaymentCourseCountExcel', paramObj);
+            return promise;
+        };
+
        
 
 

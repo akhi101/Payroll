@@ -456,6 +456,7 @@
                                             <th>S no</th>
                                             <th>College Name</th>
                                             <th>Total</th>
+                                            <th>Not Submitted</th>
                                             <th>Not Posted</th>
                                             <th>Absent</th>
                                             <th>Malpractice</th>
@@ -470,6 +471,7 @@
                                             <td>{{$index+1}}</td>
                                             <td>{{x.CollegeName}}-{{x.CollegeCode}} </td>
                                             <td>{{x.Total}}</td>
+                                            <td>{{x.NotSubmitted == null ? '-' : x.NotSubmitted}}</td>
                                             <td>{{x.NotPosted == null ? '-' : x.NotPosted}}</td>
                                             <td>{{x.Absent == null ? '-' : x.Absent}}</td>
                                             <td>{{x.MallPractice == null ? '-' : x.MallPractice}}</td>
@@ -481,6 +483,7 @@
                                             <td colspan="2">Total</td>
 
                                             <td>{{Total}}</td>
+                                            <td>{{NotSubmitted}}</td>
                                             <td>{{NotPosted}}</td>
                                             <td>{{Absent}}</td>
                                             <td>{{MallPractice}}</td>

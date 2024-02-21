@@ -2155,7 +2155,6 @@
                     alert(response.Table[0].ResponceDescription);
                     $scope.ApplicationNo = response.Table1[0].ApplicationNumber;
                     $scope.PreviewData = false;
-                    $scope.Reset1();
                     $scope.applicationsuccess = true;
                 }
 

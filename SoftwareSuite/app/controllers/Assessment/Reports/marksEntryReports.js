@@ -517,6 +517,7 @@
                         $scope.NoResult = false;
 
                         var Total = 0
+                        var NotSubmitted = 0;
                         var NotPosted = 0;
                         var Absent = 0;
                         var MallPractice = 0;
@@ -527,6 +528,8 @@
                         for (var i = 0; i < response.length; i++) {
                             if (response[i].Total != null)
                                 Total = Total + response[i].Total;
+                            if (response[i].NotSubmitted != null)
+                                NotSubmitted = NotSubmitted + response[i].NotSubmitted;
                             if (response[i].NotPosted != null)
                                 NotPosted = NotPosted + response[i].NotPosted;
                             if (response[i].Absent != null)
@@ -542,6 +545,7 @@
                         }
 
                         $scope.Total = Total;
+                        $scope.NotSubmitted = NotSubmitted;
                         $scope.NotPosted = NotPosted;
                         $scope.Absent = Absent;
                         $scope.MallPractice = MallPractice;

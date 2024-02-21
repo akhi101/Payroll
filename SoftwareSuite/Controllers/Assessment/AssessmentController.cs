@@ -456,7 +456,7 @@ namespace SoftwareSuite.Controllers.Assessment
 
         //}
 
-        public string getCollegeAssessmentReports(string collegecode, int examtypeid,int studentType)
+        public string getCollegeAssessmentReports(string collegecode, int examtypeid,int studentType,int AcademicYearId, string Semester,int ExamMonthYear)
         {
             try
             {
@@ -472,10 +472,13 @@ namespace SoftwareSuite.Controllers.Assessment
                 }
                 else
                 {
-                    param = new SqlParameter[3];
+                    param = new SqlParameter[6];
                     param[0] = new SqlParameter("@collegecode", collegecode);
                     param[1] = new SqlParameter("@examtypeid", examtypeid);
                     param[2] = new SqlParameter("@studentType", studentType);
+                    param[3] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                    param[4] = new SqlParameter("@Semester", Semester);
+                    param[5] = new SqlParameter("@ExamMonthYear", ExamMonthYear);
                 }
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Assessment_CollegeReports", param);
                 return JsonConvert.SerializeObject(dt);

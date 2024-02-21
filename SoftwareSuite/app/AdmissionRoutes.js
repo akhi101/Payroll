@@ -1004,6 +1004,12 @@
                 templateUrl: 'app/views/TWSH/FeePayment.html',
                 dependencies: ['controllers/TWSH/FeePaymentController', 'services/TWSH/TwshStudentRegService', 'services/BillDesk/paymentService']
             },
+
+            'CBT.FeePayment': {
+                url: "/FeePayment",
+                templateUrl: 'app/views/CBT/FeePayment.html',
+                dependencies: ['controllers/CBT/FeePaymentController', 'services/CBT/CbtStudentRegService', 'services/BillDesk/paymentService']
+            },
             'TWSH.OnlineApplication': {
                 url: "/OnlineApplication",
                 templateUrl: 'app/views/TWSH/StudentReg.html',

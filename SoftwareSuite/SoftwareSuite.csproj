@@ -656,7 +656,9 @@
     <Content Include="app\controllers\BranchWiseController.js" />
     <Content Include="app\controllers\CBT\CbtRegistrationController.js" />
     <Content Include="app\controllers\CBT\EditCandidateDetailsController.js" />
+    <Content Include="app\controllers\CBT\FeePaymentController.js" />
     <Content Include="app\controllers\CBT\TestingTwshStudentRegController.js" />
+    <Content Include="app\controllers\CBT\CBTController.js" />
     <Content Include="app\controllers\CBT\ViewCandidateDetailsController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
@@ -1103,8 +1105,10 @@
     <Content Include="app\services\CBT\CbtStudentRegService.js" />
     <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CBT\EditCandidateDetails.html" />
+    <Content Include="app\views\CBT\FeePayment.html" />
     <Content Include="app\views\CBT\Popups\ViewDocument.html" />
     <Content Include="app\views\CBT\TestingStudentReg.html" />
+    <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
