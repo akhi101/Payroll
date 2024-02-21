@@ -72,6 +72,7 @@
                                         <th>Semester</th>
                                         <th>Subject Code</th>
                                         <th>Total</th>
+                                        <th>Not Submitted</th>
                                         <th>Not Posted</th>
                                         <th>Absent</th>
                                         <th>Malpractice</th>
@@ -91,6 +92,7 @@
                                         <td>{{x.Semester}}</td>
                                         <td>{{x.SubjectCode}}</td>
                                         <td>{{x.Total}}</td>
+                                        <td>{{x.NotSubmitted== null ? '-' : x.NotSubmitted}}</td>
                                         <td>{{x.NotPosted== null ? '-' : x.NotPosted}}</td>
                                         <td>{{x.Absent== null ? '-' : x.Absent}}</td>
                                         <td>{{x.MallPractice== null ? '-' : x.MallPractice}}</td>
@@ -101,6 +103,7 @@
                                     <tr class="alert-sucess">
                                         <td colspan="6">Total</td>
                                         <td>{{Total}}</td>
+                                        <td>{{NotSubmitted}}</td>
                                         <td>{{NotPosted}}</td>
                                         <td>{{Absent}}</td>
                                         <td>{{MallPractice}}</td>

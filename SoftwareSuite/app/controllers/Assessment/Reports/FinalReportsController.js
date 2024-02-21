@@ -25,9 +25,21 @@
         if ($scope.userType == 2) {
             var reportData =$localStorage.PrincipalReports
             studentTypeId: $scope.studentType
-            var semId = reportData.semid;
+           // var semId = reportData.semid;
             $scope.studentTypeId = reportData.studentTypeId;
-            $scope.SemsArray=[{"semid":semId}]
+            $scope.SemsArray = reportData.semid
+            $scope.AcademicID = reportData.AcademicYearId
+            $scope.CollegeCode = reportData.collegecode
+            $scope.ExamMonthYearId = reportData.ExamMonthYear
+            $scope.examtypeid = reportData.examtypeid
+            //AcademicYearId: $scope.years.AcademicID,
+            //    examtypeid: $scope.examTypeId,
+            //        collegecode: data.College_Code,
+            //            branchid: data.branchid,
+            //                subid: data.subid,
+            //                    semid: JSON.stringify($scope.arr),
+            //                        studentTypeId: $scope.SelectedStudent1,
+            //                            ExamMonthYear: $scope.ExamMonthYear
         } else {
             $scope.SemsArray = report.SemsArray;
             $scope.studentTypeId = report.studentTypeId;
@@ -40,7 +52,7 @@
         if ($scope.userType == 2 || $scope.userType == 5 || $scope.userType == 1 || $scope.userType == 1000 || $scope.userType == 1005 || $scope.userType == 1002 || $scope.userType == 1007 || $scope.userType == 1009 || $scope.userType == 1011 || $scope.userType == 1012) {
             $scope.access1 = true;
         }
-      
+        $scope.AcademicID = $scope.years.AcademicID;
         var data = {};
         $scope.$emit('showLoading', data);
         var getAdminReports = AssessmentService.getAdminReportsCollege($scope.examtypeid, $scope.CollegeCode, parseInt($scope.studentTypeId), parseInt($scope.years.AcademicID), JSON.stringify($scope.SemsArray), $scope.ExamMonthYearId);
@@ -53,6 +65,7 @@
                 $scope.clg_reports = false;
                 $scope.NoResult = false;
                 var Total = 0
+                var NotSubmitted = 0;
                 var NotPosted = 0;
                 var Absent = 0;
                 var MallPractice = 0;
@@ -63,6 +76,8 @@
                 for (var i = 0; i < response.length; i++) {
                     if (response[i].Total != null)
                         Total = Total + response[i].Total;
+                    if (response[i].NotSubmitted != null)
+                        NotSubmitted = NotSubmitted + response[i].NotSubmitted;
                     if (response[i].NotPosted != null)
                         NotPosted = NotPosted + response[i].NotPosted;
                     if (response[i].Absent != null)
@@ -78,6 +93,7 @@
                 }
 
                 $scope.Total = Total;
+                $scope.NotSubmitted = NotSubmitted;
                 $scope.NotPosted = NotPosted;
                 $scope.Absent = Absent;
                 $scope.MallPractice = MallPractice;

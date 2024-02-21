@@ -199,7 +199,7 @@
             //}
             $localStorage.authorizationData.tempsessiondata.semId = $scope.SelectedsemId.semid;
             $scope.semLabel($scope.SelectedschemeId.SchemeID, $scope.SelectedsemId.semid);
-            $localStorage.authorizationData.tempsessiondata.shiftId = $scope.Selectedshift.shiftid;         
+            $localStorage.authorizationData.tempsessiondata.shiftId = $scope.Selectedshift;         
 
             //   $scope.sem = SemData.sem
             $scope.loading = true;
@@ -237,7 +237,7 @@
                 SubjectCode: SubjectCode,
                 Scheme: $scope.SelectedschemeId.Scheme,
                 Subject: $scope.Scheme,
-               // ShiftId: $scope.Selectedshift.shiftid,
+                ShiftId: $scope.Selectedshift,
                 SubjectId: SubjectId,
                 BranchId: $scope.BranchId,
                 Branch: $scope.branchname
