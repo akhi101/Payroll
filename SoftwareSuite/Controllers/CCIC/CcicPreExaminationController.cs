@@ -2903,6 +2903,80 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+
+        [HttpGet, ActionName("GetCoursewiseFeePaymentCountExcel")]
+        public string GetCoursewiseFeePaymentCountExcel(int AcademicYearID, int ExamMonthYearID,int InstitutionID)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentInstituteCourseCount", param);
+                var filename = "FeePaymentCoursewiseCount" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetInstitutewiseFeePaymentCountExcel")]
+        public string GetInstitutewiseFeePaymentCountExcel(int AcademicYearID, int ExamMonthYearID, int CourseID)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@CourseID", CourseID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentCourseInstituteCount", param);
+                var filename = "FeePaymentInstitutewiseCount" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
         [HttpPost, ActionName("RequestLog")]
         public HttpResponseMessage RequestLog([FromBody] JsonObject request)
         {
@@ -2967,6 +3041,46 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
 
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentCourseCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetCoursewiseFeePaymentCount")]
+        public string GetCoursewiseFeePaymentCount(int AcademicYearID, int ExamMonthYearID,int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentInstituteCourseCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetInstitutewiseFeePaymentCount")]
+        public string GetInstitutewiseFeePaymentCount(int AcademicYearID, int ExamMonthYearID,int CourseID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@CourseID", CourseID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentCourseInstituteCount", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

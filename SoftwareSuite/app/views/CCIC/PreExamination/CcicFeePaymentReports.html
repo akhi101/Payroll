@@ -263,7 +263,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentInstituteCount">
+                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentInstituteCount" ng-dblclick="getCoursewiseCount(data.InstitutionID)">
                                             <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                             <td class="text-center" style="padding: 3px;">{{data.Institution}}</td>
                                             <td class="text-center" style="padding: 3px;">{{data.Regular}}</td>
@@ -394,7 +394,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentCourseCount">
+                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentCourseCount" ng-dblclick="getInstitutewiseCount(data.CourseID)">
                                             <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                             <td class="text-center" style="padding: 3px;">{{data.Course}}</td>
                                             <td class="text-center" style="padding: 3px;">{{data.Regular}}</td>
