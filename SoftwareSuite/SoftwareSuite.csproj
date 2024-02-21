@@ -963,6 +963,7 @@
     <Content Include="app\controllers\MasterSettings\SubModuleSettingsController.js" />
     <Content Include="app\controllers\MasterSettings\TimeTableMonthYearSettingsController.js" />
     <Content Include="app\controllers\MasterSettings\UploadPolycetDataController.js" />
+    <Content Include="app\controllers\MasterSettings\UserCredentialsController.js" />
     <Content Include="app\controllers\MasterSettings\ViewPresumptiveAttendanceController.js" />
     <Content Include="app\controllers\MasterSettings\WebsiteFeedbackController.js" />
     <Content Include="app\controllers\MasterSettings\WebsiteFeedbackReportController.js" />
@@ -1111,6 +1112,7 @@
     <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\ExamsSite\StudentReg.html" />
+    <Content Include="app\views\MasterSettings\UserCredentials.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
