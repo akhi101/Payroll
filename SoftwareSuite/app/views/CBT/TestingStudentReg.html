@@ -479,10 +479,10 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="rdo-grp">
-                                            <input id="rdo3" type="radio" name="radio2" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn)" />
-                                            <label for="rdo3"><span></span><span>Yes</span></label>
-                                            <input id="rdo4" type="radio" name="radio2" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn)" />
-                                            <label for="rdo4"><span></span><span>No</span></label>
+                                            <input id="rdo1" type="radio" name="radio2" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn)" />
+                                            <label for="rdo1"><span></span><span>Yes</span></label>
+                                            <input id="rdo2" type="radio" name="radio2" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn)" />
+                                            <label for="rdo2"><span></span><span>No</span></label>
 
                                         </div>
                                     </div>
@@ -604,7 +604,17 @@
                                                 <input type="text" ng-model="passedoutYear" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-disabled="SSCDetails" maxlength="4" placeholder="YYYY eg.(1990)" class="form-control" />
                                             </div>
                                         </div>
-
+                                        <div class="col-md-3">
+                                            <div class="form-group required">
+                                                <label>
+                                                    Passedout Year
+                                                </label>
+                                                <select class="form-control" id="year" ng-model="passedoutYear" 
+                                                        ng-disabled="SSCDetails" ng-options="data.YearID as data.YearName for data in  TenthYearData">
+                                                    <option value="" selected>Select Passed Year</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                         <div class="col-md-3">
                                             <div class="form-group required">
                                                 <label for="date-picker-example">Examination Pass Type</label>
@@ -618,7 +628,7 @@
 
                                         <!--<div class="col-md-2 pull-right" style="left:260px;bottom:48px" ng-show="ShowReset2Button">
 
-                                        </div>-->
+    </div>-->
                                         <div class="col-md-3 pull-right" style="right: 150px; top: 39px">
                                             <div class="submit-btn" style="margin:0px;" ng-show="ShowGetSSCButton">
                                                 <button type="submit" ng-disabled="DisableGetSSCButton" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">Get Details</button>
@@ -1309,9 +1319,9 @@
                                     </div>
                                     <div class="col-md-5">
                                         <div class="rdo-grp">
-                                            <input id="rdo3" type="radio" name="radio2" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn)" />
+                                            <input id="rdo3" type="radio" name="radio2" value="Yes" ng-model="YESBtn" ng-click="clickRadio(YESBtn)" />
                                             <label for="rdo3"><span></span><span>Yes</span></label>
-                                            <input id="rdo4" type="radio" name="radio2" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn)" />
+                                            <input id="rdo4" type="radio" name="radio2" value="No" ng-model="NOBtn" ng-click="clickRadio(NOBtn)" />
                                             <label for="rdo4"><span></span><span>No</span></label>
 
                                         </div>

@@ -4405,7 +4405,7 @@
 
             },
 
-            'Dashboard.FeeSettings': {
+            'Dashboard.MasterSettings.FeeSettings': {
 
                 url: "/FeeSettings",
 

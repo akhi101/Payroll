@@ -1,6 +1,9 @@
 ﻿define(['app'], function (app) {
     app.service("CbtStudentRegService", function (DataAccessService) {
-       
+
+        this.GetTenthYears = function () {
+            return DataAccessService.postData('api/CbtStudentReg/GetTenthYears');
+        };
        
         this.GetTwshExamMonthYearbyID = function (AcademicYearID) {
             var paramObj = { "AcademicYearID": AcademicYearID };

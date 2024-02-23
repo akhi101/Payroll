@@ -43,6 +43,27 @@
             //$scope.ShowReset1Button = false;
         }
 
+        $scope.getTenthYears = function () {
+            var tenthyr = CbtStudentRegService.GetTenthYears();
+            tenthyr.then(function (response) {
+                try {
+                    var res = JSON.parse(response)
+
+                }
+                catch (err) { }
+                if (res.Table.length > 0) {
+                    $scope.TenthYearData = res.Table;
+                }
+                else {
+                    $scope.TenthYearData = [];
+                }
+
+            },
+                function (error) {
+                    //alert("data is not loaded");
+                    //    var err = JSON.parse(error);
+                });
+        }
 
         $scope.Reset1 = function () {
             $scope.ShowSubmitButton = true;
