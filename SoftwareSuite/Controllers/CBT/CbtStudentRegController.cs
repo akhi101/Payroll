@@ -41,7 +41,24 @@ namespace SoftwareSuite.Controllers.CBT
     public class CbtStudentRegController : ApiController
     {
 
+        [HttpPost, ActionName("GetTenthYears")]
+        public string GetTenthYears()
+        {
+            var dbHandler = new CbtdbHandler();
+            try
+            {
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_TenthYears";
+                var res = dbHandler.ReturnDataSet(StrQuery);
+                return JsonConvert.SerializeObject(res);
+            }
+            catch (Exception ex)
+            {
 
+                CbtdbHandler.SaveErorr("SP_Get_TenthYears", 0, ex.Message);
+                throw ex;
+            }
+        }
 
         [HttpGet, ActionName("GetCBTCourses")]
         public object GetCBTCourses()
