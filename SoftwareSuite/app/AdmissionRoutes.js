@@ -193,11 +193,11 @@
                 dependencies: ['controllers/IVC/StudentDashboardController', 'services/IVC/PreExamination/IVCPreExaminationService', 'services/BillDesk/paymentService', 'services/IVC/AdminService/IVCAdminService', 'services/IVC/IVCRegistrationService']
             },
 
-            'index.HallTicketDownload': {
-                url: "/HallTicketDownload",
-                templateUrl: 'app/views/CCIC/ExamsSite/CcicHallTicket.html',
-                dependencies: ['controllers/CCIC/ExamsSite/CcicHallTicketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
-            },
+            //'index.HallTicketDownload': {
+            //    url: "/HallTicketDownload",
+            //    templateUrl: 'app/views/CCIC/ExamsSite/CcicHallTicket.html',
+            //    dependencies: ['controllers/CCIC/ExamsSite/CcicHallTicketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            //},
 
 
             'CcicIndex': {
@@ -589,17 +589,29 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicNRDownloadController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
             },
 
-            'CcicDashboard.PreExamination.NRDownload.PhotoAttendenceSheet': {
-                url: "/PhotoAttendenceSheet",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicPhotoAttendenceSheet.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicPhotoAttendenceSheetController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
-            },
+            //'CcicDashboard.PreExamination.NRDownload.PhotoAttendenceSheet': {
+            //    url: "/PhotoAttendenceSheet",
+            //    templateUrl: 'app/views/CCIC/PreExamination/CcicPhotoAttendenceSheet.html',
+            //    dependencies: ['controllers/CCIC/PreExamination/CcicPhotoAttendenceSheetController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
+            //},
 
             'CcicDashboard.PreExamination.NRDownload.NRExcel': {
                 url: "/NRExcel",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicNRExcel.html',
                 dependencies: ['controllers/CCIC/PreExamination/CcicNRExcelController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
             },
+
+            'CcicHallTicket': {
+                url: "/CcicHallTicket",
+                templateUrl: 'app/views/CCIC/PreExamination/CcicHallTicket.html',
+                dependencies: ['controllers/CCIC/PreExamination/CcicHallTicketController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/AdminServices/CcicAdminService']
+            },
+
+            //'index.HallTicketDownload': {
+            //    url: "/HallTicketDownload",
+            //    templateUrl: 'app/views/CCIC/ExamsSite/CcicHallTicket.html',
+            //    dependencies: ['controllers/CCIC/ExamsSite/CcicHallTicketController', , 'services/Assessment/MarksEntryService', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
+            //},
 //------------------------------------------------------------------------------
 
             'CcicDashboard.Assessment': {
