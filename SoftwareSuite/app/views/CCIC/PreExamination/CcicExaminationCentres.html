@@ -240,7 +240,7 @@
 
                         <div class="col-md-4">
                         <div class="form-group">
-                            <label>
+                            <label class="font-weight-bold">
                                 Landmark:
                             </label>
                             <input class="form-control" type="text" maxlength="100" placeholder="Enter Landmark (Optional)" ng-model="Landmark">
@@ -258,7 +258,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>
+                                <label class="font-weight-bold">
                                     District:
                                 </label>
                                 <select class="form-control" id="District" ng-model="District"
@@ -339,9 +339,9 @@
                                     <th width="5%">S.No</th>
                                     <th width="15%" class="text-center">Centre Code</th>
                                     <th width="15%" class="text-center">Centre Name</th>
+                                    <th width="15%" class="text-center">District</th>
                                     <th width="15%" class="text-center">Principal Name</th>
                                     <th width="15%" class="text-center">Principal Mobile</th>
-                                    <th width="15%" class="text-center">District</th>
                                     <th width="15%" class="text-center">Status</th>
                                     <th width="15%" class="text-center">Edit/Update</th>
                                 </tr>
@@ -350,10 +350,10 @@
                                 <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in GetExaminationCentresTable">
                                     <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                     <td class="text-center" style="padding: 3px;">{{data.ExaminationCentreCode}}</td>
-                                    <td class="text-center" style="padding: 3px;">{{data.ExaminationCentreName}}</td>
+                                    <td class="text-center" style="padding: 3px;">{{data.ExaminationCentreCode}}-{{data.ExaminationCentreName}}</td>
+                                    <td class="text-center" style="padding: 3px;">{{data.District}}</td>
                                     <td class="text-center" style="padding: 3px;">{{data.PrincipalName}}</td>
                                     <td class="text-center" style="padding: 3px;">{{data.PrincipalMobile}}</td>
-                                    <td class="text-center" style="padding: 3px;">{{data.District}}</td>
 
                                     <td class="text-center">
                                         <button class="btn btn-success btn-xs" disabled style="width: 70px;" ng-show="data.Active == true" ng-click="SetExaminationCentreStatus(data.ExaminationCentreID,false)">Active</button>

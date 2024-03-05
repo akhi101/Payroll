@@ -225,6 +225,22 @@ namespace SoftwareSuite.BLL
             }
         }
 
+        public IEnumerable<CcicSystemInnerSubModules> GetCcicUserInnerSubModules(int UserTypeID, Int32 SubModuleID)
+        {
+            try
+            {
+                CcicSystemUserService CcicSystemUserService = new CcicSystemUserService();
+                ccicdbHandler dbHandler = new ccicdbHandler();
+                DataTable tblUsersList = new DataTable();
+                tblUsersList = CcicSystemUserService.GetCcicUserInnerSubModules(dbHandler, UserTypeID, SubModuleID);
+                List<CcicSystemInnerSubModules> SystemGroups = tblUsersList.DataTableToList<CcicSystemInnerSubModules>();
+                return SystemGroups;
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
     }
 }
