@@ -815,7 +815,44 @@
             return promise;
         };
        
+        this.AddHallTicketDates = function (DataType,HallTicketDateID,AcademicYearID, ExamMonthYearID, StartDate, EndDate,Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StartDate": StartDate,
+                "EndDate": EndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddorUpdateHallTicketDates', paramObj);
+            return promise;
+        }
 
+        this.UpdateHallTicketDates = function (DataType, HallTicketDateID, AcademicYearID, ExamMonthYearID, StartDate, EndDate, Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StartDate": StartDate,
+                "EndDate": EndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddorUpdateHallTicketDates', paramObj);
+            return promise;
+        }
+
+        this.GetHallTicketDates = function (DataType, HallTicketDateID) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditHallTicketDates', paramObj);
+            return promise;
+        };
 
     });
 });

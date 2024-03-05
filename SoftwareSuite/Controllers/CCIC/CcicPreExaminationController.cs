@@ -3090,6 +3090,67 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        public class HallTicketDatesInfo
+        {
+            public int DataType { get; set; }
+            public int HallTicketDateID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+        }
+
+        [HttpPost, ActionName("AddorUpdateHallTicketDates")]
+        public string AddorUpdateHallTicketDates([FromBody] HallTicketDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@HallTicketDateID", data.HallTicketDateID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@StartDate", data.StartDate);
+                param[5] = new SqlParameter("@EndDate", data.EndDate);
+                param[6] = new SqlParameter("@Active", data.Active);
+                param[7] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HallTicketDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_HallTicketDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetorEditHallTicketDates")]
+        public string GetorEditHallTicketDates(int DataType, int HallTicketDateID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@HallTicketDateID", HallTicketDateID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_HallTicketDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_HallTicketDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
     }
 
 }

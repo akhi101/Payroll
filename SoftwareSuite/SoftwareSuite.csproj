@@ -716,7 +716,10 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicFeePaymentReportController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicCoursewiseFeePaymentReportsController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDownloadController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicNRDownloadController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicNRExcelController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPaymentProcessController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicPhotoAttendenceSheetController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentReportDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\NewController.js" />
@@ -737,6 +740,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicSubjectMasterController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicTestingExamFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicUpdateDateSheetController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDatesController.js" />
     <Content Include="app\controllers\CenterManagemenet\AttachCollegeToPreZoneCenterController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationVocController.js" />
@@ -1115,9 +1119,13 @@
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicHallTicketDates.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicInstitutewiseFeePaymentReports.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicCoursewiseFeePaymentReports.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicNRDownload.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicNRExcel.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicPhotoAttendenceSheet.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\MasterSettings\UserCredentials.html" />

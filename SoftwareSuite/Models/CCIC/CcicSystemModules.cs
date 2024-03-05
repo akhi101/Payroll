@@ -25,4 +25,15 @@ namespace SoftwareSuite.Models.CCIC
         public int UserTypeID { get; set; }
 
     }
+
+    public class CcicSystemInnerSubModules
+    {
+        public string InnerSubModuleName { get; set; }
+        public string InnerSubModuleRouteName { get; set; }
+        public string ModuleCardClassName { get; set; }
+        public int SubModuleID { get; set; }
+
+        public int UserTypeID { get; set; }
+
+    }
 }
