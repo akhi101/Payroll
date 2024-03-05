@@ -3150,6 +3150,115 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
+        [HttpGet, ActionName("GetNRExcelData")]
+        public string GetNRExcelData(int AcademicYearID, int ExamMonthYearID,string ExamCentreCode)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamCentreCode", ExamCentreCode);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCentreNRExcelData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ExamCentreNRExcelData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpGet, ActionName("GetNRExcel")]
+        public string GetNRExcel(int AcademicYearID, int ExamMonthYearID, string ExamCentreCode)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamCentreCode", ExamCentreCode);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCentreNRExcelData", param);
+                var filename = "NR_Excel_Report" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetStudentPinList")]
+        public string GetStudentPinList(int InstitutionID, int AcademicYearID, int ExamMonthYearID, int FeePaymentTypeID,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[3] = new SqlParameter("@FeePaymentTypeID", FeePaymentTypeID);
+                param[4] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PinListForHallticket", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_PinListForHallticket", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetCandidateHallticket")]
+        public string GetCandidateHallticket(int AcademicYearID, int ExamMonthYearID, int StudentTypeID, int StudentID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@StudentTypeID", StudentTypeID);
+                param[3] = new SqlParameter("@StudentID", StudentID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_HallticketData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_HallticketData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
 
     }
 

@@ -854,5 +854,48 @@
             return promise;
         };
 
+
+        this.GetNRExcelData = function (AcademicYearID, ExamMonthYearID, ExamCentreCode) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamCentreCode": ExamCentreCode
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRExcelData', paramObj);
+            return promise;
+        };
+
+        this.GetNRExcel = function (AcademicYearID, ExamMonthYearID, ExamCentreCode) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamCentreCode": ExamCentreCode
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRExcel', paramObj);
+            return promise;
+        };
+
+        this.GetStudentPinList = function (InstitutionID, AcademicYearID, ExamMonthYearID, FeePaymentTypeID, UserName) {
+            var paramObj = {
+                "InstitutionID": InstitutionID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "FeePaymentTypeID": FeePaymentTypeID,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentPinList', paramObj);
+            return promise;
+        };
+
+        this.GetCandidateHallticket = function (AcademicYearID, ExamMonthYearID, StudentTypeID, StudentID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StudentTypeID": StudentTypeID,
+                "StudentID": StudentID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCandidateHallticket', paramObj);
+            return promise;
+        };
     });
 });

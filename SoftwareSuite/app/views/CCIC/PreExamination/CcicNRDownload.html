@@ -230,21 +230,67 @@
 </style>
 <div ng-controller="CcicNRDownloadController">
 
-
     <ui-view>
-        <section class="content">
-            <div class="container">
+        <section class="content containercontent">
+            <div class="container" style="left:100px;margin-left:104px">
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            </div>
+            <div class="container containercontent">
 
                 <div class="row widgets-container">
-                    <div class="col-lg-3 col-xs-6" ng-repeat="item in PreExamModules track by SysModID">
+                    <div class="col-lg-3 col-xs-6" ng-repeat="item in PreExamModules track by $index">
                         <a href="#" class="grow" ui-sref=".{{item.ModuleRouteName}}" ng-click="OpenSubModule(item)">
                             <div class="{{item.ModuleImageClass}}">
                                 <div class="inner">
-                                    <div class="icon" ng-show="item.ModuleRouteName=='PhotoAttendenceSheet'">
+                                    <div class="icon" ng-show="item.ModuleRouteName=='SetFeeDates'">
+                                        <img src="../../contents/img/calender.png" width="60" height="60" />
                                     </div>
-                                    <div class="icon" ng-show="item.ModuleRouteName=='NRExcel'">
+                                    <div class="icon" ng-show="item.ModuleRouteName=='SetExamCenters'">
+                                        <img src="../../contents/img/Examcenter.png" width="60" height="60" />
                                     </div>
-                                    
+                                    <div class="icon" ng-show="item.ModuleRouteName=='PreExamFeePayment'">
+                                        <img src="../../contents/img/Bulkpay.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='NrDownload'">
+                                        <img src="../../contents/img/nrReports.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='PreExamReports'">
+                                        <img src="../../contents/img/results.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='AdminPreExamReports'">
+                                        <img src="../../contents/img/results.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='Search'">
+                                        <img src="../../contents/img/Assess.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='SmsService'">
+                                        <img src="../../contents/img/admissionnew.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='Condonation'">
+                                        <img src="../../contents/img/Condonation.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='Hallticket'">
+                                        <img src="../../contents/img/HallTicket.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='DiplomaFeePayment'">
+                                        <img src="../../contents/img/rupee.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='PaymentStatus'">
+                                        <img src="../../../contents/img/TRanscaton.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='TransactionReport'">
+                                        <img src="../../contents/img/transaction.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.ModuleRouteName=='NrExcelReport'">
+                                        <img src="../../contents/img/nrExcel.png" width="60" height="60" />
+                                    </div>
+                                    <div class="icon" ng-show="item.Module=='StudentOnlineRequest'">
+                                        <img src="../../contents/img/certificate.png" width="60px" height="60" />
+                                    </div>
+                                    <h3>{{item.SysModName}}</h3>
+                                    <div class="icon1">
+                                        <img src="../../contents/img/transprent.png" width="100" />
+                                    </div>
                                 </div>
                             </div>
 
@@ -255,30 +301,28 @@
                 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
                 <!--<a href="#" class="card education">
-                    <div class="overlay"></div>
-                    <div class="circle">
+            <div class="overlay"></div>
+            <div class="circle">
 
-                        <img src="../../contents/img/admissionnew.png" width="60" height="60" />
-                    </div>
-                    <p>Set Dates</p>
-                </a>
-
-
+                <img src="../../contents/img/admissionnew.png" width="60" height="60" />
+            </div>
+            <p>Set Dates</p>
+        </a>
 
 
 
 
-                <a href="#" class="card credentialing">
-                    <div class="overlay bg-green-clr"></div>
-                    <div class="circle bg-green-clr">
-
-                        <img src="../../contents/img/results.png" width="60" height="60" />
-
-                    </div>
-                    <p>Set Examination Centers</p>
-                </a>
 
 
+        <a href="#" class="card credentialing">
+            <div class="overlay bg-green-clr"></div>
+            <div class="circle bg-green-clr">
+
+                <img src="../../contents/img/results.png" width="60" height="60" />
+
+            </div>
+            <p>Set Examination Centers</p>
+        </a>
 
 
 
@@ -286,27 +330,29 @@
 
 
 
-                <a href="#" class="card wallet">
-                    <div class="overlay bg-voilet-clr"></div>
-                    <div class="circle bg-voilet-clr">
-                        <img src="../../contents/img/Assess.png" width="60" height="60" />
 
 
-                    </div>
-                    <p>Reports</p>
-                </a>
+        <a href="#" class="card wallet">
+            <div class="overlay bg-voilet-clr"></div>
+            <div class="circle bg-voilet-clr">
+                <img src="../../contents/img/Assess.png" width="60" height="60" />
 
 
-                <a href="#" class="card human-resources">
-                    <div class="overlay bg-blue-clr"></div>
-                    <div class="circle bg-blue-clr">
+            </div>
+            <p>Reports</p>
+        </a>
 
 
-                        <img src="../../contents/img/admissionnew.png" width="60" height="60" />
+        <a href="#" class="card human-resources">
+            <div class="overlay bg-blue-clr"></div>
+            <div class="circle bg-blue-clr">
 
-                    </div>
-                    <p>Search Pin</p>
-                </a>-->
+
+                <img src="../../contents/img/admissionnew.png" width="60" height="60" />
+
+            </div>
+            <p>Search Pin</p>
+        </a>-->
             </div>
             <div class="container">
 

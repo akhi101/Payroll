@@ -55,7 +55,7 @@ namespace SoftwareSuite.Controllers.CBT
             catch (Exception ex)
             {
 
-                CbtdbHandler.SaveErorr("SP_Get_TenthYears", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Get_TenthYears", 0, ex.Message);
                 throw ex;
             }
         }

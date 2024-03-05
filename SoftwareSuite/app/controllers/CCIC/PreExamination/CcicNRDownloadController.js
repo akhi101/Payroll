@@ -10,9 +10,9 @@ define(['app'], function (app) {
 
         var submodules = [];
         var UserTypeID = authData.UserTypeID;
-        var SubModuleID = parseInt($localStorage.selectedSubModule.SubModuleID);
+        //var SubModuleID = parseInt($localStorage.selectedSubModule.SubModuleID);
 
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserInnerSubModules(UserTypeID, SubModuleID);
+        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserInnerSubModules(UserTypeID, 30);
         getAdmissionsubmod.then(function (Usersdata) {
             var modulesList = [];
             var moduleroutename = "";
@@ -20,9 +20,9 @@ define(['app'], function (app) {
                 for (var i = 0; i < Usersdata.length; i++) {
 
                     var obj = {};
-                    obj.SysModName = Usersdata[i].SubModuleName;
-                    obj.SysModID = Usersdata[i].ModuleID;
-                    obj.ModuleRouteName = Usersdata[i].SubModuleRouteName;
+                    obj.SysModName = Usersdata[i].InnerSubModuleName;
+                    obj.SysModID = 30;
+                    obj.ModuleRouteName = Usersdata[i].InnerSubModuleRouteName;
                     obj.ModuleImageClass = Usersdata[i].ModuleCardClassName;
                     modulesList.push(obj);
 
@@ -105,22 +105,21 @@ define(['app'], function (app) {
 
 
 
-        //$scope.OpenSubModule = function (Module) {
-        //    if (Module.ModuleRouteName == 'FeePayment') {
-        //        alert('Fee Payment will be Resumed Soon');
-        //        // $state.go("CcicDashboard.PreExamination");
-        //        return;
-        //    }
-        //    else {
-        //        $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
-        //    }
-        //}
-
-        $scope.OpenSubModule = function (SubModule) {
-
-            $state.go("CcicDashboard.PreExamination" + SubModule.InnerSubModuleRouteName);
-
+        $scope.OpenSubModule = function (Module) {
+            if (Module.ModuleRouteName == 'PhotoAttendenceSheet') {
+                alert('Photo Attendence Sheet will be Resumed Soon');
+                return;
+            }
+            else {
+                $state.go("CcicDashboard.PreExamination" + Module.ModuleRouteName);
+            }
         }
+
+        //$scope.OpenSubModule = function (SubModule) {
+
+        //    $state.go("CcicDashboard.PreExamination" + SubModule.InnerSubModuleRouteName);
+
+        //}
 
 
         $scope.OpenCcicDashboard = function () {
