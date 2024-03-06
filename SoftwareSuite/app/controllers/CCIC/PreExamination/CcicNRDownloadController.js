@@ -1,148 +1,129 @@
 define(['app'], function (app) {
-    app.controller("CcicNRDownloadController", function ($scope, $http, $localStorage, $state, AppSettings, CcicSystemUserService) {
+    app.controller("CcicNRDownloadController", function ($scope, $localStorage, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
-        $scope.userType = authData.SystemUserTypeID;
-        $scope.hide = false;
-        if ($scope.userType != 3) {
-            $scope.hide = true;
+        $scope.UserName = authData.UserName
+
+        //console.log(authData)
+        const $ctrl = this;
+        $ctrl.$onInit = () => {
+
+
         }
 
-        var submodules = [];
-        var UserTypeID = authData.UserTypeID;
-        //var SubModuleID = parseInt($localStorage.selectedSubModule.SubModuleID);
 
-        var getAdmissionsubmod = CcicSystemUserService.GetCcicUserInnerSubModules(UserTypeID, 30);
-        getAdmissionsubmod.then(function (Usersdata) {
-            var modulesList = [];
-            var moduleroutename = "";
-            if (Usersdata.length > 0) {
-                for (var i = 0; i < Usersdata.length; i++) {
+        $scope.ClickPhotoAttendenceSheet = function () {
+            alert('Photo Attendence Sheet will be Resumed Soon');
+            return;
+        }
 
-                    var obj = {};
-                    obj.SysModName = Usersdata[i].InnerSubModuleName;
-                    obj.SysModID = 30;
-                    obj.ModuleRouteName = Usersdata[i].InnerSubModuleRouteName;
-                    obj.ModuleImageClass = Usersdata[i].ModuleCardClassName;
-                    modulesList.push(obj);
+        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+        getCcicCurrentAcademicYear.then(function (response) {
+
+            $scope.GetCcicCurrentAcademicYear = response;
+
+        },
+            function (error) {
+                alert("error while loading CurrentAcademicYear");
+                var err = JSON.parse(error);
+
+            });
+
+
+
+        $scope.GetExamMonthYearData = function (AcademicYearID) {
+            if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
+                return;
+
+            }
+
+            $scope.AcademicYearID = AcademicYearID;
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(AcademicYearID)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.getNRExcelData = function () {
+            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
+                alert("Select Academic Year");
+                return false;
+            }
+            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
+                alert("Select Exam Month/Year");
+                return false;
+            }
+            $scope.loading = true;
+            var getdata = CcicPreExaminationService.GetNRExcelData($scope.AcademicYear, $scope.monthyear, $scope.UserName);
+            getdata.then(function (res) {
+                try {
+                    var Res = JSON.parse(res)
+                }
+                catch (error) {
 
                 }
-                $scope.PreExamModules = modulesList;
-                // $('.overlayCss').css('display', 'none');
-            } else {
-                $scope.PreExamModules = [];
-            }
-        }, function (err) {
-            console.log(err);
-        });
-        //var obj = {};
-        //$scope.PreExamModules = [{ "obj.SysModID": 1,"obj.ModuleRouteName": "PhotoAttendenceSheet" }]
+                if (Res.Table.length > 0) {
+                    $scope.GetNRExcelData = Res.Table;
+                    $scope.loading = false;
+                }
+                else {
+                    $scope.GetNRExcelData = [];
+                    $scope.loading = false;
+                    $scope.NoData = true;
+                }
 
-        $scope.$on('showLoading', function (evt, data) {
-            $('.overlayCss').css('display', 'block');
-        });
-
-        $scope.$on('hideLoading', function (evt, data) {
-            $('.overlayCss').css('display', 'none');
-        });
-
-
-        //if($scope.userType==1){
-
-        //    var obj = {};
-        //    obj.SysModName = 'Set Exam Dates';
-        //    obj.SysModID = '4';
-        //    obj.ModuleRouteName = 'SetDates';
-        //    obj.ModuleImageClass = 'small-box bg-blue';
-        //    submodules.push(obj);
-
-        //   var obj = {};
-        //    obj.SysModName = 'Set Exam Centers';
-        //    obj.SysModID = '6';
-        //    obj.ModuleRouteName = 'SetExamCenters';
-        //    obj.ModuleImageClass = 'small-box bg-orange ';
-        //    submodules.push(obj);
-
-        //    var obj = {};
-        //    obj.SysModName = 'Search Pin';
-        //    obj.SysModID = '3';
-        //    obj.ModuleRouteName = 'Search';
-        //    obj.ModuleImageClass = 'small-box bg-navy';
-        //    submodules.push(obj);      
-
-        //    var obj = {};
-        //    obj.SysModName = 'Sms Service';
-        //    obj.SysModID = '2';
-        //    obj.ModuleRouteName = 'SmsService';
-        //    obj.ModuleImageClass = 'small-box bg-blue';
-        //    submodules.push(obj);
-
-        //}   
-        //var obj = {};
-        //obj.SysModName = 'Fee Payment';
-        //obj.SysModID = '7';
-        //obj.ModuleRouteName = 'PreExamFeePayment';
-        //obj.ModuleImageClass = 'small-box bg-blue ';
-        //submodules.push(obj);
-
-        //var obj = {};
-        //obj.SysModName = 'NR Download';
-        //obj.SysModID = '5';
-        //obj.ModuleRouteName = 'NrDownload';
-        //obj.ModuleImageClass = 'small-box bg-orange ';
-        //submodules.push(obj);
-
-        //var obj = {};
-        //obj.SysModName = 'Reports';
-        //obj.SysModID = '5';
-        //obj.ModuleRouteName = 'PreExamReports';
-        //obj.ModuleImageClass = 'small-box bg-maroon ';
-        //submodules.push(obj);
-
-
-        $scope.submodules = submodules;
-
-
-
-
-        $scope.OpenSubModule = function (Module) {
-            if (Module.ModuleRouteName == 'PhotoAttendenceSheet') {
-                alert('Photo Attendence Sheet will be Resumed Soon');
-                return;
-            }
-            else {
-                $state.go("CcicDashboard.PreExamination" + Module.ModuleRouteName);
-            }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
         }
+        $scope.getNRExcel = function () {
+            $scope.loading = true;
+            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
+                alert("Select Academic Year");
+                return false;
+            }
+            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
+                alert("Select Exam Month/Year");
+                return false;
+            }
+            var ReportExcel = CcicPreExaminationService.GetNRExcel($scope.AcademicYear, $scope.monthyear, $scope.UserName);
+            ReportExcel.then(function (res) {
+                $scope.loading = false;
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        window.location.href = res;
+                    } else {
+                        alert("No  Excel Report Present")
+                    }
+                } else {
+                    alert("No Excel Report Present")
+                }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
 
-        //$scope.OpenSubModule = function (SubModule) {
-
-        //    $state.go("CcicDashboard.PreExamination" + SubModule.InnerSubModuleRouteName);
-
-        //}
-
-
-        $scope.OpenCcicDashboard = function () {
-            $state.go('CcicDashboard')
-        }
-
-        $scope.logOut = function () {
-            //$scope.$emit("logout", authData.UserName);
-            sessionStorage.loggedIn = "no";
-            var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
-
-            delete $localStorage.authorizationData;
-            delete $localStorage.authToken;
-            delete $scope.SessionID;
-
-            $scope.authentication = {
-                isAuth: false,
-                UserID: 0,
-                UserName: ""
-            };
-            $state.go('CcicLogin');
-        }
-
+        };
+        
 
     })
 })
