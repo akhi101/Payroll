@@ -347,10 +347,12 @@
     <Compile Include="Controllers\CCIC\CcicGenerateTimeTable.cs" />
     <Compile Include="Controllers\CCIC\CcicPageController.cs" />
     <Compile Include="Controllers\CCIC\CcicPreExaminationController.cs" />
+    <Compile Include="Controllers\CCIC\CcicPreExaminationReportController.cs" />
     <Compile Include="Controllers\CCIC\CcicStudentRegistrationController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemEntityRightsController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemUserController.cs" />
     <Compile Include="Controllers\CCIC\CcicTimeTableGenerator.cs" />
+    <Compile Include="Controllers\CCIC\PreExamination\CcicGenerateNR.cs" />
     <Compile Include="Controllers\CCIC\Request.cs" />
     <Compile Include="Controllers\Common\CommunicationController.cs" />
     <Compile Include="Controllers\Common\Html2PDFGenerator.cs" />
