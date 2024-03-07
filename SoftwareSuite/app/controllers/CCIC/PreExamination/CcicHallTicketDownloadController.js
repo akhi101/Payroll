@@ -119,13 +119,11 @@
         }
 
         $scope.generateHallTicket = function (AcademicYearID, ExamMonthYearID, StudentID) {
-            $localStorage.TempData = {
-                AcademicYearID: AcademicYearID,
-                ExamMonthYearID: ExamMonthYearID,
-                StudentTypeID: $scope.StudentType,
-                StudentID: StudentID,
-
-            };
+            sessionStorage.setItem("ExamMonthYearID", ExamMonthYearID);
+            sessionStorage.setItem("StudentID", StudentID);
+            sessionStorage.setItem("AcademicYearID", AcademicYearID);
+            sessionStorage.setItem("StudentType", $scope.StudentType);
+     
             $window.open($state.href('CcicHallTicket'), '_blank');
         }
 
