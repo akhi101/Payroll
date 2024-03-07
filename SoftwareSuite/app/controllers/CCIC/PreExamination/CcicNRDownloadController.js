@@ -123,6 +123,28 @@ define(['app'], function (app) {
             });
 
         };
+
+
+        $scope.getNRStudentDetails = function (ExamMonthYearId, StudentType, ExamDate, ExamType) {
+            $scope.LoadImg = true;
+            var getNrReports = CcicPreExaminationService.NrReports(ExamMonthYearId, StudentType, authData.College_Code.toString(), ExamDate, ExamType);
+            getNrReports.then(function (res) {
+                $scope.LoadImg = false;
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        window.location.href = '/Reports/' + res + '.pdf';
+                    } else {
+                        alert("No NR Report Present");
+                    }
+                } else {
+                    alert("No NR Report Present");
+                }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
+
+        };
         
 
     })

@@ -897,5 +897,15 @@
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCandidateHallticket', paramObj);
             return promise;
         };
+
+        this.NrReports = function (AcademicYearID, ExamMonthYearID, ExamDate) {
+            var paramObj = {
+                AcademicYearID: AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamDate": ExamDate
+            };
+            var promise = DataAccessService.getDataWithPara('CcicPreExaminationReport/NrReports', paramObj);
+            return promise;
+        };
     });
 });

@@ -304,7 +304,76 @@
 
 
             <div class="tab-pane" id="2">
+                <div class="col-md-12 containercontent">
+                    <div class="cl-details">
+                        <h2>Photo Attendence Sheet</h2>
 
+                    </div>
+                </div>
+                <div class="col-md-12 containercontent">
+                    <div class="base-row" style="padding:15px!important;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="font-weight-bold"> Academic Year :</label>
+                                    <select class="form-control " ng-model="AcademicYear" ng-disabled="AcademicYearDisable" name="AcademicYear" required ng-change="GetExamMonthYearData(AcademicYear)">
+                                        <option value="" selected="selected">Select Year</option>
+                                        <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                            {{data.AcademicYear}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label class="font-weight-bold" for="ExamMonthYear">
+                                    Exam Month/Year :
+                                </label>
+                                <select class="form-control" name="ExamMonthYear" ng-disabled="monthyearDisable" required ng-model="monthyear">
+                                    <option value="" selected>Select Exam Month/Year</option>
+                                    <option ng-repeat="data in GetExamMonthYear" value="{{data.ExamMonthYearID}}">
+                                        {{data.ExamMonthYearName}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label class="font-weight-bold" for="ExamDates">
+                                    Exam Dates :
+                                </label>
+                                <select class="form-control" name="ExamDates" required ng-model="ExamDate">
+                                    <option value="" selected>Select Exam Date</option>
+                                    <option ng-repeat="data in ExamDates" value="{{data.ExamDateID}}">
+                                        {{data.ExamDate}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 pull-left">
+                                <div class="gr-btn">
+                                    <button type="submit" style="margin-top:5px!important;" class="btn btn-sm btn-primary gr-button" ng-click="getNRStudentDetails()">
+                                        Get Report<span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-if="loading">
+                        <div style="width: 100%; text-align: center;" ng-show="LoadImg">
+                            <img src="../../../contents/img/Loading1.gif" width="100" />
+                            <h4><b>Generating NR. This may take a while, Please be Patient.</b></h4>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12" ng-if="NoData">
+                        <div class="col-md-12 no-results">
+                            <img src="../../contents/img/Folder-Icon.svg" />
+                            <h2>No Data</h2>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 
