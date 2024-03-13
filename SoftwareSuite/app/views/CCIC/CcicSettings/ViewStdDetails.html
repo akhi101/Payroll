@@ -379,7 +379,10 @@
                                     <div class="col-md-5"><label>Email</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Is Blind</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.IsBlind==true ? 'Yes' : 'No'}}</div>
+                                </div>
 
                             </div>
 
@@ -387,21 +390,29 @@
                             <hr style="border-color: #454545 ">
                             <div class="row " style="padding: 0px 15px;">
 
-                                <div class="col-md-4 text-center" ng-show="imagesrc != '' && imagesrc != null ">
-                                    <div>Click on the file to Expand</div>
+                                <div class="col-md-3 text-center" ng-show="imagesrc != '' && imagesrc != null ">
+                                    <label>SSC Certificate</label>
                                     <img class="zoom" ng-src="{{imagesrc}}" ng-click="openImage(imagesrc)" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
+
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-show="imagesrc1 != '' && imagesrc1 != null ">
-                                    <div>Click on the file to Expand</div>
+                                <div class="col-md-3 text-center" ng-show="imagesrc1 != '' && imagesrc1 != null ">
+                                    <label>Qualication Certificate</label>
                                     <img class="zoom" ng-src="{{imagesrc1}}" ng-click="openImage(imagesrc1)" style="border: 2px solid #ddd;" height="175" width="150" />
-                                </div>
-
-                                <div class="col-md-4 text-center" ng-show="imagesrc2 != '' && imagesrc2 != null ">
                                     <div>Click on the file to Expand</div>
-                                    <img class="zoom" ng-src="{{imagesrc2}}" ng-click="openImage(imagesrc2)" style="border: 2px solid #ddd;" height="175" width="150" />
                                 </div>
 
+                                <div class="col-md-3 text-center" ng-show="imagesrc2 != '' && imagesrc2 != null ">
+                                    <label>Experience Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc2}}" ng-click="openImage(imagesrc2)" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
+                                </div>
+                                <div class="col-md-3 text-center" ng-show="imagesrc3 != '' && imagesrc3 != null ">
+                                    <label>Medical Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc3}}" ng-click="openImage(imagesrc3)" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
+                                </div>
 
 
 
@@ -424,7 +435,7 @@
                 </div>
 
 
-                <div ng-show="(!isSubmitted&&UserTypeID==2&&DatesNotFound)">
+                <div ng-show="showclosebutton">
                     <div class="col-md-1 pull-right mtp-50 containercontent" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px">
 
                         <div class="cancel-btn" style="margin-bottom:0px;">
@@ -435,7 +446,7 @@
 
 
 
-                <div ng-if="((isSubmitted&&UserTypeID==2&&(ApplicationStatus==1 || ApplicationStatus==0))|| UserTypeID==1 || UserTypeID==6)">
+                <div ng-show="showcancelbutton">
                     <div class="col-md-1 pull-right mtp-50 containercontent" style="font-family: 'Open Sans'; width: 1212px; padding-right: 0px">
 
                         <div class="cancel-btn" style="margin-bottom:0px;">
@@ -443,7 +454,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="(!isSubmitted&&UserTypeID==2&&DatesFound) || (isSubmitted&&UserTypeID==2&&(isSubmitted=='Submitted' || ApplicationStatus=='2'))">
+                <div ng-show="showmodifybutton">
                     <div class="col-md-8">
 
                     </div>

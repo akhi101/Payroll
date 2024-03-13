@@ -41,10 +41,17 @@
             if (res.Table.length >= 0) {
                 $scope.loading = false;
                 $scope.PreviewData = res.Table[0];
+                $scope.imagesrc = res.Table[0].SSCCertificate;
+                $scope.imagesrc1 = res.Table[0].QualificationCertificate;
+                $scope.imagesrc2 = res.Table[0].ExperienceCertificate;
+                $scope.imagesrc3 = res.Table[0].BlindCertificate;
                 //$scope.DateofBirth = $scope.PreviewData.DateofBirth;
                 //$scope.maskedAadhaar = $scope.PreviewData.AadharNumber.slice(0, 8).replace(/[0-9]/g, "X") + $scope.PreviewData.AadharNumber.slice(-4);
                 $scope.$emit('hideLoading', data);
 
+                if ($scope.PreviewData.IsBlind==false) {
+                    $scope.PreviewData.BlindCertificate = '';
+                }
             } else {
                 $scope.loading = false;
                 $scope.PreviewData = [];
@@ -59,7 +66,17 @@
 
 
 
-  
+        $scope.openImage = function (imagesrc) {
+            $scope.img = imagesrc;
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "app/views/CCIC/Popups/ViewDocument.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+
+            });
+
+        }
 
         $scope.Modify = function (ApplicationNumber, StudentId) {
             var ApplicationNumber = tempData1.ApplicationNumber;

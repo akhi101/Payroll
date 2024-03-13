@@ -18,8 +18,8 @@
             $scope.radiodisable = true;
             $scope.Modify();
             /*$scope.EditStudentDetails();*/
-
         }
+
 
         var eKey = CcicSystemUserService.GetEKey();
         eKey.then(function (res) {
@@ -44,8 +44,85 @@
         $scope.$emit('showLoading', data);
 
 
+        $scope.Blind = function (IsBlind) {
+            if (IsBlind =='false') {
+                $('#stdMedicalCertFile').val(null);
 
-        
+                $scope.stdMedicalCert = '';
+                $scope.stdMedicalCert = null;
+                $scope.EditData.BlindCertificate == '';
+                //$scope.NewIsBlind = false;
+                $scope.ShowCheckBox = false;
+            }
+            else if (IsBlind == 'true') {
+                $('#stdMedicalCertFile').val(null);
+                $scope.stdMedicalCert = '';
+                $scope.stdMedicalCert = null;
+                $scope.EditData.BlindCertificate == '';
+                //$scope.NewIsBlind = true;
+                $scope.ShowCheckBox = true;
+            }
+            else {
+                $scope.ShowCheckBox = false;
+            }
+        }
+
+        $scope.SelectCheckbox = function (Checkbox) {
+            if (Checkbox == true) {
+                $scope.Checkbox = true;
+            }
+            else {
+                $scope.Checkbox = false;
+            }
+        }
+
+
+        $scope.uploadMedicalCert = function () {
+            var input = document.getElementById("stdMedicalCertFile");
+            var fileSize = input.files[0].size;
+            console.log(fileSize);
+            if (fileSize <= 200000 && fileSize >= 100000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#stdMedicalCert').attr('src', e.target.result);
+
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.EditData.BlindCertificate = base64Image;
+                            $scope.stdMedicalCertConvert = $scope.EditData.BlindCertificate.replace(/^data:image\/[a-z]+;base64,/, "");
+                        });
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            }
+            else if (fileSize <= 200000) {
+                alert("file size should not be less than 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should not be greater than 100KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            }
+        }
 
         $scope.Mode = function () {
 
@@ -277,72 +354,7 @@
         }
 
 
-        //$scope.EditStudentDetails = function () {
-        //    $scope.loading = true;
-        //    $scope.coursedetails = true;
-        //    $scope.sscdetails = true;
-        //    $scope.radiodisable = true;
-        //    //$scope.qualification = true;
-        //    //$scope.experience = true;
-        //    var editstddetails = CcicPreExaminationService.GetViewStudentDetails(tempData4.ApplicationNumber, tempData4.StudentID);
-        //    editstddetails.then(function (response) {
-        //        try {
-        //            var editRes = JSON.parse(response);
-
-        //        }
-        //        catch (err) { }
-        //        $scope.coursedetails = true;
-        //        $scope.SscForm = true;
-        //        $scope.showEducation = true;
-        //        $scope.applicationForm = true;
-        //        $scope.loading = false;
-        //        $scope.EditData = editRes[0];
-
-        //        $scope.ApplicationNumber = tempData4.ApplicationNumber;
-        //        $scope.Course = $scope.EditData.Course;
-        //        //$scope.CourseID = CourseID;
-        //        $scope.Qualification = $scope.EditData.Qualification;
-        //        $scope.Experience = $scope.EditData.Experience;
-
-        //        $scope.SSC = $scope.EditData.SSC;
-
-        //        $scope.SSCHallticketNumber = $scope.EditData.SSCHallticketNumber;
-        //        $scope.SSCPassedYear = $scope.EditData.SSCPassedYear;
-        //        $scope.SSCPassedType = $scope.EditData.SSCPassedType;
-
-        //        $scope.StudentName = $scope.EditData.StudentName;
-        //        $scope.FatherName = $scope.EditData.FatherName;
-        //        $scope.MotherName = $scope.EditData.MotherName;
-        //        $scope.FatherName = $scope.EditData.FatherName;
-        //        $scope.DateofBirth = $scope.EditData.DateofBirth;
-        //        $scope.Gender = $scope.EditData.Gender;
-        //        $scope.AadharNumber = $scope.EditData.AadharNumber;
-        //        $scope.HouseNumber = $scope.EditData.HouseNumber;
-        //        $scope.Street = $scope.EditData.Street;
-        //        $scope.Landmark = $scope.EditData.Landmark;
-        //        $scope.Village = $scope.EditData.Village;
-        //        $scope.Pincode = $scope.EditData.Pincode;
-        //        $scope.District = $scope.EditData.District;
-        //        $scope.AddressState = $scope.EditData.AddressState;
-        //        $scope.StudentMobile = $scope.EditData.StudentMobile;
-        //        $scope.StudentEmail = $scope.EditData.StudentEmail;
-
-        //        $scope.StudentPhoto = $scope.EditData.StudentPhoto;
-        //        $scope.StudentSign = $scope.EditData.StudentSign;
-
-        //        $scope.SSCCertificate = $scope.EditData.SSCCertificate;
-        //        $scope.QualificationCertificate = $scope.EditData.QualificationCertificate;
-        //        $scope.ExperienceCertificate = $scope.EditData.ExperienceCertificate;
-
-
-
-        //        $scope.$emit('hideLoading', data);
-
-        //    }, function (error) {
-        //        $scope.LoadImg = false;
-        //        var err = JSON.parse(error);
-        //    });
-        //}
+      
 
 
         $scope.SubmitStdDetails = function () {
@@ -426,6 +438,7 @@
             });
         }
 
+        $scope.BlindValues = [{ "Id": "Yes", "value": true }, { "Id": "No", "value": false }]
         $scope.Modify = function () {
 
             $scope.loading = true;
@@ -448,26 +461,16 @@
                 $scope.EditData = editRes.Table[0];
 
 
-
+                if ($scope.EditData.IsBlind == false) {
+                    $scope.ShowCheckBox == false;
+                }
+                else if ($scope.EditData.IsBlind == true) {
+                    $scope.ShowCheckBox == true;
+                }
 
 
                 $scope.ApplicationNumber = tempData1.ApplicationNumber;
-                //$scope.CourseName = EditData.CourseName;
-                //$scope.CourseID = EditData.CourseID;
-                ////$scope.CourseID = CourseID;
-                //$scope.Qualification = EditData.Qualification;
-                //$scope.Experience = EditData.Experience;
 
-                //$scope.CourseQualificationID = EditData.CourseQualificationID;
-                //$scope.CourseExperienceID = EditData.CourseExperienceID;
-
-                //$scope.SSC = EditData.SSC;
-                //$scope.SSCValidated = EditData.SSCValidated;
-
-                //$scope.SSCHallticketNumber = EditData.SSCHallticketNumber;
-                //$scope.SSCPassedYear = EditData.SSCPassedYear;
-                //$scope.SSCPassedType = EditData.SSCPassedType;
-                //$scope.SSCValidated = EditData.SSCValidated;
                 if ($scope.SSCValidated == 1) {
                     $scope.CandidateNamefound = true;
                     $scope.FatherNameFound = true;
@@ -520,7 +523,14 @@
                     }
                 })
 
-
+                $scope.toDataURL($scope.EditData.BlindCertificate, function (res) {
+                    if ($scope.EditData.BlindCertificate == "") {
+                        $scope.BlindCertificateConvert = "";
+                    }
+                    else {
+                        $scope.BlindCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    }
+                })
 
                 $scope.$emit('hideLoading', data);
             }, function (error) {
@@ -643,7 +653,22 @@
             //    return;
             //}
 
+            if (($scope.EditData.BlindCertificate == undefined || $scope.EditData.BlindCertificate == "" || $scope.EditData.BlindCertificate == null) && $scope.EditData.IsBlind == true) {
+                alert("Please Upload Medical Certificate");
+                return;
+            }
 
+            if ($scope.EditData.IsBlind == true) {
+                $scope.ShowCheckBox = true;
+            }
+            else {
+                $scope.ShowCheckBox = false;
+            }
+
+            if ($scope.EditData.IsBlind == true && ($scope.Checkbox == undefined || $scope.Checkbox == "" || $scope.Checkbox == null || $scope.Checkbox==false)) {
+                alert("Please agree terms and conditions .");
+                return;
+            }
             $scope.LoadImg = true;
 
 
@@ -684,6 +709,8 @@
                 "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? $scope.SSCCertificateConvert : $scope.SSCCertificateConvert,
                 "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
                 "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
+                "BlindCertificate": ($scope.stdMedicalCertConvert == undefined || $scope.stdMedicalCertConvert == null) ? $scope.stdMedicalCertConvert : $scope.stdMedicalCertConvert,
+                "IsBlind": ($scope.EditData.IsBlind == true) ? true : false
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {

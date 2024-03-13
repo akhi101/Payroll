@@ -1088,6 +1088,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentMobile { get; set; }
             public string StudentEmail { get; set; }
             public bool SSCValidated { get; set; }
+            public bool IsBlind { get; set; }
 
             public string UserName { get; set; }
             public string StudentPhoto { get; set; }
@@ -1095,6 +1096,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string SSCCertificate { get; set; }
             public string QualificationCertificate { get; set; }
             public string ExperienceCertificate { get; set; }
+            public string BlindCertificate { get; set; }
             public List<filelist> filedata { get; set; }
 
 
@@ -1149,6 +1151,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentMobile { get; set; }
             public string StudentEmail { get; set; }
             public bool SSCValidated { get; set; }
+            public bool IsBlind { get; set; }
 
             public string UserName { get; set; }
             public string StudentPhoto { get; set; }
@@ -1156,6 +1159,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string SSCCertificate { get; set; }
             public string QualificationCertificate { get; set; }
             public string ExperienceCertificate { get; set; }
+            public string BlindCertificate { get; set; }
             public List<filelist> filedata { get; set; }
 
 
@@ -1182,6 +1186,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 var expcert_url = dir + "ExperienceCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdExpCert = "ExperienceCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
 
+                var medcert_url = dir + "MedicalCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdMedCert = "MedicalCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -1189,6 +1195,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+                var StudentMedCertpath = string.Empty;
 
 
                 if (CertificateReqAtt.StudentPhoto != "")
@@ -1283,6 +1290,24 @@ namespace SoftwareSuite.Controllers.CCIC
                     expcert_url = "";
                 }
 
+                if (CertificateReqAtt.BlindCertificate != "")
+                {
+                    StdMedCert = "MedicalCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdMedCert);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.BlindCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    medcert_url = relativePath;
+                }
+                else
+                {
+                    medcert_url = "";
+                }
+
                 var dbHandler = new ccicdbHandler();
                 //string encriptedaadhar = "";
 
@@ -1292,7 +1317,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 //string aadhar = crypt.AesDecrypt(res[0]);
                 //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
                 //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
-                var param = new SqlParameter[32];
+                var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
                 param[2] = new SqlParameter("@CourseID", CertificateReqAtt.CourseID);
@@ -1325,6 +1350,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
                 param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
                 param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
+                param[32] = new SqlParameter("@BlindCertificate", medcert_url);
+                param[33] = new SqlParameter("@IsBlind", CertificateReqAtt.IsBlind);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -1364,6 +1391,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 var expcert_url = dir + "ExperienceCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
 
+                var medcert_url = dir + "MedicalCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdMedCert = "MedicalCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -1371,6 +1400,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+                var StudentMedCertpath = string.Empty;
 
 
                 if (UpdateCertificateReqAtt.StudentPhoto != "" && UpdateCertificateReqAtt.StudentPhoto != null)
@@ -1465,6 +1495,24 @@ namespace SoftwareSuite.Controllers.CCIC
                     expcert_url = null;
                 }
 
+                if (UpdateCertificateReqAtt.BlindCertificate != "" && UpdateCertificateReqAtt.BlindCertificate != null)
+                {
+                    StdMedCert = "MedicalCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdMedCert);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.BlindCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    medcert_url = relativePath;
+                }
+                else
+                {
+                    medcert_url = null;
+                }
+
                 var dbHandler = new ccicdbHandler();
                 //string encriptedaadhar = "";
 
@@ -1474,7 +1522,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 //string aadhar = crypt.AesDecrypt(res[0]);
                 //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
                 //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
-                var param = new SqlParameter[32];
+                var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@ApplicationNumber", UpdateCertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", UpdateCertificateReqAtt.InstitutionID);
                 param[2] = new SqlParameter("@CourseID", UpdateCertificateReqAtt.CourseID);
@@ -1507,6 +1555,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
                 param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
                 param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
+                param[32] = new SqlParameter("@BlindCertificate", medcert_url);
+                param[33] = new SqlParameter("@IsBlind", UpdateCertificateReqAtt.IsBlind);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -3254,6 +3304,28 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 dbHandler.SaveErorr("SP_Get_HallticketData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetExamDates")]
+        public string GetExamDates(int AcademicYearID, int ExamMonthYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ExamDates", 0, ex.Message);
                 return ex.Message;
             }
 

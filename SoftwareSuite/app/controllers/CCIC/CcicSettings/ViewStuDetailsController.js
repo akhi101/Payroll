@@ -23,19 +23,19 @@
             $state.go('CcicDashboard.Academic')
         }
         $scope.loading = true;
-        if (tempData3.ApplicationStatus == 'Pending') {
-            $scope.ApplicationStatus = 0;
-        }
-        else if (tempData3.ApplicationStatus == 'Approved') {
-            $scope.ApplicationStatus = 1;
-        }
-        else if (tempData3.ApplicationStatus == 'Revised') {
-            $scope.ApplicationStatus = 2;
-        }
-        else if (tempData3.ApplicationStatus == 'Rejected') {
-            $scope.ApplicationStatus = 3;
-        }
-        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, $scope.ApplicationStatus);
+        //if (tempData3.ApplicationStatus == 'Pending') {
+        //    $scope.ApplicationStatus = 0;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Approved') {
+        //    $scope.ApplicationStatus = 1;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Revised') {
+        //    $scope.ApplicationStatus = 2;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Rejected') {
+        //    $scope.ApplicationStatus = 3;
+        //}
+        var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
         ViewStudentDetail.then(function (response) {
 
             try {
@@ -54,12 +54,13 @@
             //}
 
             $scope.PreviewData = [];
-            if (res.length >= 0) {
+            if (res.Table.length > 0) {
                 $scope.loading = false;
-                $scope.PreviewData = res[0];
+                $scope.PreviewData = res.Table[0];
                 $scope.imagesrc = res.Table[0].SSCCertificate;
                 $scope.imagesrc1 = res.Table[0].QualificationCertificate;
                 $scope.imagesrc2 = res.Table[0].ExperienceCertificate;
+                $scope.imagesrc3 = res.Table[0].BlindCertificate;
                 $scope.$emit('hideLoading', data);
 
             } else {
@@ -76,9 +77,21 @@
 
 
 
+        $scope.openImage = function (imagesrc) {
+            $scope.img = imagesrc;
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "app/views/CCIC/Popups/ViewDocument.html",
+                size: 'xlg',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
 
+            });
 
+        }
 
+        $scope.closeModal = function () {
+            $scope.modalInstance.close();
+        };
 
 
 

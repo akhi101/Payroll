@@ -898,11 +898,21 @@
             return promise;
         };
 
-        this.NrReports = function (AcademicYearID, ExamMonthYearID, ExamDate) {
+        this.GetExamDates = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetExamDates', paramObj);
+            return promise;
+        };
+
+        this.NrReports = function (AcademicYearID, ExamMonthYearID, ExamDate, UserName) {
             var paramObj = {
                 AcademicYearID: AcademicYearID,
                 "ExamMonthYearID": ExamMonthYearID,
-                "ExamDate": ExamDate
+                "ExamDate": ExamDate,
+                "UserName": UserName
             };
             var promise = DataAccessService.getDataWithPara('CcicPreExaminationReport/NrReports', paramObj);
             return promise;

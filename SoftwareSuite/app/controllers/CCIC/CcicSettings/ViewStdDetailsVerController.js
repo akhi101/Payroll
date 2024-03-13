@@ -47,26 +47,26 @@
         $scope.Close = function () {
             $state.go('CcicDashboard.Academic.VerificationReport')
         }
-        if (tempData3.ApplicationStatus == 'Pending') {
-            $scope.ApplicationStatus = 0;
-        }
-        else if (tempData3.ApplicationStatus == 'Approved') {
-            $scope.ApplicationStatus = 1;
-        }
-        else if (tempData3.ApplicationStatus == 'Revised') {
-            $scope.ApplicationStatus = 2;
-        }
-        else if (tempData3.ApplicationStatus == 'Rejected') {
-            $scope.ApplicationStatus = 3;
-        }
-        else if (tempData3.ApplicationStatus == 'Recommended') {
-            $scope.ApplicationStatus = 4;
-        }
+        //if (tempData3.ApplicationStatus == 'Pending') {
+        //    $scope.ApplicationStatus = 0;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Approved') {
+        //    $scope.ApplicationStatus = 1;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Revised') {
+        //    $scope.ApplicationStatus = 2;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Rejected') {
+        //    $scope.ApplicationStatus = 3;
+        //}
+        //else if (tempData3.ApplicationStatus == 'Recommended') {
+        //    $scope.ApplicationStatus = 4;
+        //}
 
         $scope.ViewStudentDetails = function () {
             //$scope.loading = true;
             $scope.DataTable = false;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, $scope.ApplicationStatus);
+            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
             ViewStudentDetail.then(function (response) {
 
                 try {
