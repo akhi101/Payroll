@@ -124,7 +124,7 @@
     .eye-icon {
         position: absolute;
         top: 64%;
-        right: -7px;
+        right: 30px;
         transform: translateY(-50%);
         cursor: pointer;
         z-index: 1;
@@ -392,7 +392,7 @@
 
                 <div class="col-md-12  mtp-50">
                     <div style="width:100%;text-align:center;" ng-show="LoadImg">
-                        <img src="../../../sbtet/contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
+                        <img src="../../../../contents/img/loading2.gif" width="100" style="height:60px;width:60px" />
                         <p>please wait while data is loading...</p>
                     </div>
                 </div>
@@ -429,7 +429,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>{{sscHtLbl}}</label>
-                                                    <input type="text" ng-model="sscHallticket"  maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
+                                                    <input type="text" ng-model="sscHallticket" maxlength="20" ng-disabled="SSCDetails" autocomplete="off" name="hallticket" placeholder="{{sscHtPhl}}" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -510,7 +510,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Candidate Name</label>
-                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()"
+                                                    <input type="text" placeholder="CandidateName" ng-blur="StuName()" oninput="this.value = this.value.toUpperCase()"
                                                            onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'
                                                            maxlength="50" autocomplete="off" ng-model="CNAME" ng-disabled="CandidateNamefound" class="form-control" required />
                                                 </div>
@@ -518,20 +518,20 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Father Name</label>
-                                                    <input type="text" ng-model="FNAME" ng-blur="FatName()"
+                                                    <input type="text" ng-model="FNAME" ng-blur="FatName()" oninput="this.value = this.value.toUpperCase()"
                                                            onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="50" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Mother Name</label>
-                                                    <input type="text" ng-model="MNAME" ng-blur="MotName()" maxlength="50"
+                                                    <input type="text" ng-model="MNAME" ng-blur="MotName()" maxlength="50" oninput="this.value = this.value.toUpperCase()"
                                                            onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
@@ -542,7 +542,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label>Gender</label>
                                                     <select class="form-control" name="applicationForm.SEX" ng-model="SEX" ng-disabled="Genderfound" required>
@@ -557,7 +557,7 @@
 
 
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Aadhar Number</label>
                                                     <input type="{{inputType}}" placeholder="AadharNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="Aadhar" required>
@@ -566,7 +566,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-3">
+
+                                                <div class="form-group ">
+                                                    <label>Is Blind</label>
+                                                    <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
+                                                        <option value="">--Select---</option>
+                                                        <option value=0>No</option>
+                                                        <option value=1>Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+
 
 
                                         <div class="sm-spacer" style="height:20px"></div>
@@ -605,7 +617,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Village/Town/City</label>
-                                                    <input type="text" placeholder="Village/Town/City" maxlength="50" class="form-control" autocomplete="off" ng-model="village" required />
+                                                    <input type="text" placeholder="Village/Town/City" maxlength="50" class="form-control" autocomplete="off" ng-model="village" oninput="this.value = this.value.toUpperCase()" required />
                                                 </div>
                                             </div>
 
@@ -623,7 +635,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>District</label>
-                                                    <input type="text" placeholder="District" maxlength="50" class="form-control" autocomplete="off" ng-model="district" required />
+                                                    <input type="text" placeholder="District" maxlength="50" oninput="this.value = this.value.toUpperCase()" class="form-control" autocomplete="off" ng-model="district" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -632,7 +644,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>State</label>
-                                                    <input type="text" placeholder="State" maxlength="50" class="form-control" autocomplete="off" ng-model="state" required />
+                                                    <input type="text" placeholder="State" maxlength="50" oninput="this.value = this.value.toUpperCase()" class="form-control" autocomplete="off" ng-model="state" required />
                                                 </div>
                                             </div>
 
@@ -659,7 +671,7 @@
                                         </div>
                                         <div class="sm-spacer" style="height:20px"></div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Photo(size should be greater than 5KB and less than 100KB) :</label>
                                                     <img ng-src="{{StudentPhoto}}" class="img img-responsive" id="stdPhotoImg" />
@@ -667,11 +679,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="form-group required custom-img">
                                                     <label class="font-weight-bold">Upload Signature(size less than 50KB) :</label>
                                                     <img ng-src="{{StudentSign}}" style="width:250px;height:100px" class="img img-responsive" id="stdSignImg" />
                                                     <input type="file" required id="stdSignFile" ng-model="StudentSign" accept="image/png, image/gif, image/jpeg" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4" ng-show="IsBlind=='1'">
+                                                <div class="form-group required custom-img">
+                                                    <label>Upload Medical Certificate(size less than 200KB) :</label>
+                                                    <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                    <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
+                                                    <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
                                                 </div>
                                             </div>
 
@@ -716,21 +737,28 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12" ng-show="CheckBox" style="right:55px;top:20px">
 
-                                        <div class="submit-btn" ng-click="SaveNext()" ng-if="Add" style="margin-bottom:0px;">
+                                            <p>
+                                                <span> <input type="checkbox" style="width:20px;height:20px;top:5px" ng-model="Checkbox" /></span>
+                                                I agree to write the exam in Briley script being blind and also upload the medical certificate.
+
+                                            </p>
+                                        </div>
+                                        <div class="submit-btn" ng-click="SaveNext()" ng-if="Add" style="margin-bottom:0px;margin-top:20px">
                                             <!--ng-disabled="Submitted1" ng-show="Save"-->
                                             <button type="submit">Save & Next</button>
                                         </div>
 
-                                        <div class="submit-btn" ng-click="Update()" ng-if="Change" style="margin-bottom:0px;">
+                                        <div class="submit-btn" ng-click="Update()" ng-if="Change" style="margin-bottom: 0px;margin-top: 20px">
                                             <!--ng-disabled="Submitted1" ng-show="Save"-->
                                             <button type="submit">Update</button>
                                         </div>
 
 
                                         <!--<div class="submit-btn" ng-click="UpdateStdDetails(ApplicationNumber,StudentId)" ng-show="Update" style="margin-bottom:0px;">
-                                            <button type="submit">Update</button>
-                                        </div>-->
+                                <button type="submit">Update</button>
+                            </div>-->
 
                                     </div>
 

@@ -124,7 +124,7 @@
     .eye-icon {
         position: absolute;
         top: 64%;
-        right: -7px;
+        right: 30px;
         transform: translateY(-50%);
         cursor: pointer;
         z-index: 1;
@@ -442,7 +442,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
@@ -453,7 +453,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label>Gender</label>
                                                     <select class="form-control" name="applicationForm.SEX" ng-model="Gender" ng-disabled="Genderfound" required>
@@ -468,13 +468,24 @@
 
 
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Aadhar Number</label>
-                                                    <input type="{{inputType}}" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="Aadhaar" required>
+                                                    <input type="{{inputType}}" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="AadharNumber" required>
                                                     <div class="eye-icon" ng-click="toggleAadharVisibility()">
                                                         {{eyeIcon}}
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+
+                                                <div class="form-group ">
+                                                    <label>Is Blind</label>
+                                                    <select class="form-control" ng-model="IsBlind" ng-change="Blind(IsBlind)"
+                                                            ng-options="data.value as data.Id for data in BlindValues">
+                                                        <option value="" selected>--Select---</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -588,7 +599,14 @@
                                                     <input type="file" required id="stdSignFile" ng-model="StudentSign" onchange="angular.element(this).scope().uploadStudentSign()" class="upld-file">
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-4" ng-show="IsBlind==true">
+                                                <div class="form-group required custom-img">
+                                                    <label>Upload Medical Certificate(size less than 200KB) :</label>
+                                                    <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                    <img ng-src="{{BlindCertificate}}" class="img img-responsive" id="stdMedicalCert" />
+                                                    <input type="file" id="stdMedicalCertFile" ng-model="BlindCertificate" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
+                                                </div>
+                                            </div>
 
                                         </div>
 
@@ -629,9 +647,16 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-12" ng-show="IsBlind==true" style="right:55px;top:20px">
 
+                                            <p>
+                                                <span> <input type="checkbox" style="width:20px;height:20px;top:5px" ng-model="Checkbox" ng-change="SelectCheckbox(Checkbox)" /></span>
+                                                I agree to write the exam in Briley script being blind and also upload the medical certificate.
 
-                                        <div class="submit-btn" ng-click="Update(StudentName)" style="margin-bottom:0px;">
+                                            </p>
+                                        </div>
+
+                                        <div class="submit-btn" ng-click="Update(StudentName)" style="margin-bottom: 0px; margin-top: 50px">
                                             <button type="submit">Update</button>
                                         </div>
 

@@ -521,7 +521,10 @@
                                 <div class="col-md-3"><label>Email</label></div>
                                 <div class="col-md-9"><data>: {{PreviewData.StudentEmail}}</data></div>
                             </div>
-
+                            <div class="row padRow">
+                                    <div class="col-md-3"><label>Is Blind</label></div>
+                                    <div class="col-md-9"><data>: {{PreviewData.IsBlind==true ? 'Yes' : 'No'}}</data></div>
+                            </div>
 
                         </div>
 
@@ -576,7 +579,11 @@
                             <img style="width: 720px; height: 800px; " ng-src="{{PreviewData.ExperienceCertificate}}" />
                         </div>
                     </div>
-
+                    <div class="row padRow">
+                        <div class="col-md-6" ng-if="PreviewData.BlindCertificate">
+                            <img style="width: 720px; height: 800px; " ng-src="{{PreviewData.BlindCertificate}}" />
+                        </div>
+                    </div>
                 </div>
 
 

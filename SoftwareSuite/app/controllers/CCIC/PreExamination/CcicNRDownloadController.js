@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.controller("CcicNRDownloadController", function ($scope, $localStorage, CcicPreExaminationService) {
+    app.controller("CcicNRDownloadController", function ($scope, $window,$localStorage, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName
@@ -12,10 +12,10 @@ define(['app'], function (app) {
         }
 
 
-        $scope.ClickPhotoAttendenceSheet = function () {
-            alert('Photo Attendence Sheet will be Resumed Soon');
-            return;
-        }
+        //$scope.ClickPhotoAttendenceSheet = function () {
+        //    alert('Photo Attendence Sheet will be Resumed Soon');
+        //    return;
+        //}
 
         var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
         getCcicCurrentAcademicYear.then(function (response) {
@@ -124,15 +124,29 @@ define(['app'], function (app) {
 
         };
 
+        $scope.getExamDates = function () {
+            var examdate = CcicPreExaminationService.GetExamDates($scope.academicyear,$scope.MonthYear);
+            examdate.then(function (response) {
+                var resp = JSON.parse(response);
+                $scope.ExamDates = resp.Table;
 
-        $scope.getNRStudentDetails = function (ExamMonthYearId, StudentType, ExamDate, ExamType) {
-            $scope.LoadImg = true;
-            var getNrReports = CcicPreExaminationService.NrReports(ExamMonthYearId, StudentType, authData.College_Code.toString(), ExamDate, ExamType);
+            },
+                function (error) {
+                    alert("error while loading Exam Dates");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+        $scope.getNRStudentDetails = function () {
+            $scope.loading = true;
+            var getNrReports = CcicPreExaminationService.NrReports($scope.academicyear, $scope.MonthYear, $scope.ExamDate, $scope.UserName);
             getNrReports.then(function (res) {
-                $scope.LoadImg = false;
+                $scope.loading = false;
                 if (res.length > 0) {
                     if (res.length > 4) {
-                        window.location.href = '/Reports/' + res + '.pdf';
+                        //window.location.href = '/Reports/' + res + '.pdf';
+                        $window.open('/Reports/' + res + '.pdf', '_blank');
                     } else {
                         alert("No NR Report Present");
                     }
@@ -140,7 +154,7 @@ define(['app'], function (app) {
                     alert("No NR Report Present");
                 }
             }, function (err) {
-                $scope.LoadImg = false;
+                $scope.loading = false;
                 alert("Error while loading");
             });
 

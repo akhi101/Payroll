@@ -38,17 +38,18 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
 
 
         [HttpGet, ActionName("NrReports")]
-        public string NrReports(int AcademicYearID, int ExamMonthYearID, string ExamDate)
+        public string NrReports(int AcademicYearID, int ExamMonthYearID, string ExamDate,string UserName)
         {
             string NRReportDir = @"Reports\NR\";
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[2] = new SqlParameter("@ExamDate", ExamDate);
-                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_NR", param);
+                param[3] = new SqlParameter("@UserName", UserName);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PhotoAttendanceData", param);
                 CcicGenerateNR CcicGenerateNR = new CcicGenerateNR();
                 var pdf = CcicGenerateNR.GetNrPdf(ds, NRReportDir);
 

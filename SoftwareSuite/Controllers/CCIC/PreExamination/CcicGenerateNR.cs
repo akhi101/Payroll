@@ -61,18 +61,18 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
 
         public class NrData
         {
-            public string ExamCenter { get; set; }
+            public string ExaminationCentreName { get; set; }
             public string SubjectName { get; set; }
-            public string BranchName { get; set; }
+            public string CourseName { get; set; }
             public string ExamDate { get; set; }
-            public string Pin { get; set; }
-            public string Name { get; set; }
+            public string PIN { get; set; }
+            public string StudentName { get; set; }
             public string Scheme { get; set; }
             public string Semester { get; set; }
-            public string ProfilePhoto { get; set; }
+            public string StudentPhoto { get; set; }
             public string BarcodeUID { get; set; }
             public string BarcodeImage { get; set; }
-            public string ExamYear { get; set; }
+            public string ExamMonthYear { get; set; }
 
         }
 
@@ -300,15 +300,13 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
 
             var distinctBarcodes = nrData.GroupBy(x => x.BarcodeUID)
                                       .Select(grp => grp.First())
-                                      .OrderBy(x => x.Scheme)
-                                      .ThenBy(x => x.BranchName)
-                                      .ThenBy(x => x.Semester)
+                                      .OrderBy(x => x.CourseName)
                                       .ThenBy(x => x.SubjectName)
                                       .ToList();
             var dir_id = Guid.NewGuid().ToString();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\NR\" + dir_id;
             var ppbDir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\NR\PreProcessedBarcodePdf\";
-            var studentPhotoDir = ConfigurationManager.AppSettings["StudentPhotosFolder"].ToString();
+            var studentPhotoDir = ConfigurationManager.AppSettings["Student_Photos"].ToString();
             CreateIfMissing(dir);
             CreateIfMissing(ppbDir);
             int pn = 1;
@@ -325,22 +323,19 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
                 #region PageHeader
                 var page = $@"<br /><br /><div class='col-sm-9 col-md-9 col-lg-9'>
                                 <h4 class='text-center head_print'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING, TELANGANA</b></h5>
-                                <h6 class='text-center'><b>EXAMINATION {bc.ExamYear} </b></h6>
+                                <h6 class='text-center'><b>CERTIFICATE COURSES EXAMINATION {bc.ExamMonthYear} </b></h6>
                                 <h6 class='text-center'><b>PHOTO ATTENDENCE SHEET</b></h6>
                             </div>
                             <div class='col-sm-3 col-md-3 col-lg-3'>
                                 <img style='padding-right: 50px;' src='{GenerateBarcode(bc.BarcodeUID)}' height='68' width='316' /> <br /> {bc.BarcodeUID}
                             </div>
                             <div class='col-md-9'>
-                                <div class='head_text'>Exam Center Code & Name :  {bc.ExamCenter}</div>
-                                <div class='head_text'>Branch Code & Name :  {bc.BranchName}</div>
+                                <div class='head_text'>Exam Center Code & Name :  {bc.ExaminationCentreName}</div>
+                                <div class='head_text'>Course Code & Name :  {bc.CourseName}</div>
                                 <div class='head_text'>Subject Code & Name :  {bc.SubjectName}</div>
                                 <div class='head_text'>Exam Date & Time :  {bc.ExamDate}</div>
                             </div>
                             <div class='col-md-3'>
-                                <div class='head_text'>Scheme : {bc.Scheme}</div>
-                                <div class='head_text'>Year :  </div>
-                                <div class='head_text'>Semester :{bc.Semester}</div>
                             </div>";
                 #endregion
                 #region PageContent
@@ -360,10 +355,10 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
                 {
                     page += $@"<tr><td rowspan= '2' > {i + 1} </td>
                                 <td rowspan= '2'>
-                                    <img src='{studentPhotoDir + students[i].Pin + ".jpg"}' style='border: 2px solid #ddd;' height='65' width='60' />
+                                    <img src='{studentPhotoDir + students[i].StudentPhoto}' style='border: 2px solid #ddd;' height='65' width='60' />
                                 </td>
-                                <td>{students[i].Name}</td>
-								<td rowspan= '2'>{students[i].Pin}</td></tr>
+                                <td>{students[i].StudentName}</td>
+								<td rowspan= '2'>{students[i].PIN}</td></tr>
                             <tr><td ></td></tr>";
                 }
                 page += "</table></td><td class='col-sm-6' style='border: 0px'>";
@@ -383,10 +378,10 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
                     {
                         page += $@"<tr><td rowspan= '2' > {i + 1} </td>
                                 <td rowspan= '2'>
-                                    <img src='{studentPhotoDir + students[i].Pin + ".jpg"}' style='border: 2px solid #ddd;' height='65' width='60' />
+                                    <img src='{studentPhotoDir + students[i].StudentPhoto}' style='border: 2px solid #ddd;' height='65' width='60' />
                                 </td>
-                                <td>{students[i].Name}</td>
-								<td rowspan= '2'>{students[i].Pin}</td></tr>
+                                <td>{students[i].StudentName}</td>
+								<td rowspan= '2'>{students[i].PIN}</td></tr>
                             <tr><td ></td></tr>";
                     }
                     page += "</table>";
@@ -480,15 +475,13 @@ namespace SoftwareSuite.Controllers.CCIC.PreExamination
 
             var distinctBarcodes = nrData.GroupBy(x => x.BarcodeUID)
                                       .Select(grp => grp.First())
-                                      .OrderBy(x => x.Scheme)
-                                      .ThenBy(x => x.BranchName)
-                                      .ThenBy(x => x.Semester)
+                                      .OrderBy(x => x.CourseName)
                                       .ThenBy(x => x.SubjectName)
                                       .ToList();
             var dir_id = Guid.NewGuid().ToString();
             var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\NR\" + dir_id;
             var ppbDir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\NR\PreProcessedBarcodePdf\";
-            var studentPhotoDir = ConfigurationManager.AppSettings["StudentPhotosFolder"].ToString();
+            var studentPhotoDir = ConfigurationManager.AppSettings["Student_Photos"].ToString();
             CreateIfMissing(dir);
             CreateIfMissing(ppbDir);
             int pn = 1;
