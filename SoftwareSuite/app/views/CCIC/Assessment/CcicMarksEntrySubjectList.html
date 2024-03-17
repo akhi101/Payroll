@@ -30,6 +30,9 @@
     .text-info {
         color: #ffffff;
     }
+    .text-success {
+        color: #3c763d;
+    }
 
     span {
         color: #000 !important;
@@ -153,6 +156,10 @@
         padding-left: 0px;
         padding-right: 0px;
     }
+
+    .text-danger {
+        color: red;
+    }
 </style>
 
 <div ng-controller="CcicMarksEntrySubjectListController">
@@ -202,11 +209,12 @@
             <button class="btn bck_btn"><a href="#!/CcicDashboard/Assessment/MarksEntry" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
 
-
         <div class="col-md-12">
             <div class="cl-details">
-                <h2>Marks Entry Subject Entry</h2>
+                <h2>{{ExamType}} Marks Entry Subjects</h2>
             </div>
+            <br>
+            <label class="notifylabel" for="sel1" style="color: red;top:33px"> Double click on row to get Marks Entry</label>
 
             <div class="table-responsive table-custom-tables-tb">
                 <table class="table table-bordered table-hover table-striped table-rounded">
@@ -218,16 +226,21 @@
                             <th>Total No. of Students</th>
                             <th>Marks Posted</th>
                             <th>Marks Not Posted</th>
+                            <th>Submitted</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in getSubjectsResponse" ng-click="selectSubjectDetails(x.SubjectCode,x.SubjectName)">
-                            <td>{{$index+1}}</td>
-                            <td>{{x.SubjectCode}} </td>
-                            <td>{{x.SubjectName}}</td>
-                            <td>{{x.Total}}</td>
-                            <td>{{x.MarksPosted}}</td>
-                            <td>{{x.MarksnotPosted}}</td>
+                        <tr ng-repeat="x in getSubjectsResponse" >
+                            <td ng-dblclick="selectSubjectDetails(x)">{{$index+1}}</td>
+                            <td ng-dblclick="selectSubjectDetails(x)">{{x.SubjectCode}} </td>
+                            <td ng-dblclick="selectSubjectDetails(x)">{{x.SubjectName}}</td>
+                            <td ng-dblclick="selectSubjectDetails(x)">{{x.Total}}</td>
+                            <td ng-dblclick="selectSubjectDetails(x)">{{x.MarksPosted}}</td>
+                            <td ng-dblclick="selectSubjectDetails(x)">{{x.MarksnotPosted}}</td>
+                            <td class="text-center" ng-dblclick="selectSubjectDetails(x)">
+                                <span ng-show="x.Submitted!=0" class="text-success"><b>Yes</b></span>
+                                <span ng-show="x.Submitted==0" class="text-danger"><b>No</b></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

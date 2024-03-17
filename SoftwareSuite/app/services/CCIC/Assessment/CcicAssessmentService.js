@@ -82,28 +82,42 @@
         };
 
 
-        this.getInternalorExternalSubjects = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID) {
+        this.getInternalorExternalSubjects = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID, ExamTypeID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID,
                 "ExamMonthYearID": ExamMonthYearID,
                 "InstitutionID": InstitutionID,
-                "CourseID": CourseID
+                "CourseID": CourseID,
+                "ExamTypeID": ExamTypeID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetInternalorExternalSubjects', paramObj);
             return promise;
         };
 
-        
 
-        this.getCcicSubjectPinList = function (AcademicYearID, CourseID, InstitutionID) {
+
+        this.getCcicSubjectPinList = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID, ExamTypeID, SubjectID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID,
                 "CourseID": CourseID,
-                "InstitutionID": InstitutionID
+                "ExamTypeID": ExamTypeID,
+                "SubjectID": SubjectID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetCcicSubjectPinList', paramObj);
             return promise;
         };
+
+        this.PostStudentMarks = function (marksdata, UserName) {
+            var paramObject = {
+                "json": marksdata,
+                "UserName": UserName
+            };
+            return DataAccessService.postData('api/CcicAssessment/PostCcicStudentMarks', paramObject);
+        };
+
+       
 
     });
 });
