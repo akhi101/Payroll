@@ -7,14 +7,15 @@ define(['app'], function (app) {
         $scope.UserTypeID = authData.UserTypeID;
         var InstitutionID = authData.InstitutionID;
         var tmpdata = $localStorage.TempData;
-        
 
-        var getsubject = CcicAssessmentService.getInternalorExternalSubjects(tmpdata.AcademicYearID, tmpdata.ExamMonthYearID, tmpdata.InstitutionID, tmpdata.CourseID);
+        $scope.ExamType = tmpdata.ExamType;
+
+        var getsubject = CcicAssessmentService.getInternalorExternalSubjects(tmpdata.AcademicYearID, tmpdata.ExamMonthYearID, tmpdata.InstitutionID, tmpdata.CourseID, tmpdata.ExamTypeID);
         getsubject.then(function (response) {
             try {
                 var res = JSON.parse(response)
             }
-            catch { error}
+            catch { }
             if (res !== undefined && res.length > 0) {
                 $scope.getSubjectsResponse = res;
             }
@@ -27,15 +28,17 @@ define(['app'], function (app) {
         });
 
 
-        $scope.selectSubjectDetails = function () {
+        $scope.selectSubjectDetails = function (subject) {
             $localStorage.TempData1 = {
                     AcademicYearID: tmpdata.AcademicYearID,
                     ExamMonthYearID: tmpdata.ExamMonthYearID,
                     InstitutionID: tmpdata.InstitutionID,
                     CourseID: tmpdata.CourseID,
+                    ExamTypeID: tmpdata.ExamTypeID
 
 
                 };
+            $localStorage.assessment.selectSubjectDetails = subject;
             $state.go('CcicDashboard.Assessment.MarksEntryPage')
         }
 

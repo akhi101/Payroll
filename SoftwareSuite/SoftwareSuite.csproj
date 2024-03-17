@@ -1118,6 +1118,7 @@
     <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
+    <Content Include="app\views\CCIC\MarksEntrySubmitPopup.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />

@@ -7,7 +7,13 @@ define(['app'], function (app) {
         var InstitutionID = authData.InstitutionID;
         var tmpdata1 = $localStorage.TempData1;
 
-        
+        $scope.AcademicYearID = tmpdata1.AcademicYearID;
+        $scope.ExamMonthYearID = tmpdata1.ExamMonthYearID;
+        $scope.InstitutionID = tmpdata1.InstitutionID;
+        $scope.CourseID = tmpdata1.CourseID;
+        $scope.ExamTypeID = tmpdata1.ExamTypeID;
+        $scope.SubjectID = $localStorage.assessment.selectSubjectDetails.SubjectID;
+
 
 
 
@@ -18,39 +24,24 @@ define(['app'], function (app) {
 
    
         $scope.loadPinAndMarks = function () {
-
-            var subjectPinList = CcicAssessmentService.getCcicSubjectPinList(tmpdata1.AcademicYearID, tmpdata1.CourseID, tmpdata1.InstitutionID);
+            markslist = [];
+            var subjectPinList = CcicAssessmentService.getCcicSubjectPinList($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
             subjectPinList.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 }
                 catch { error}
-                if (res.length > 0) {
+                if (res.Table.length > 0) {
                     //   console.log(response);
                     $scope.subjectDetailsView = true;
                     //var marksIdList = response
                     $scope.studentsNotFound = false;
                     $scope.LoadImgForPinList = false;
-                    $scope.pinWise = res;
-                    //NEMarksList = res;
-                    //PinIdlist = res.map((obj) => { return { id: obj.id } });
-                    //markslist = res.map((obj) => { if (obj.marks != null) { return { id: obj.id, marks: obj.marks } } });
-                    //markslist = markslist.filter(function (element) { return element !== undefined; });
-                    //Induslist = res.map((obj) => { if (obj.IndustryName != null) { return { id: obj.id, IndustryName: obj.IndustryName } } });
-                    //Induslist = Induslist.filter(function (element) { return element !== undefined; });
-                    //$scope.SubjectName = res[0].SubjectName;
-                    //$scope.MaxMarks = res[0].maxmarks;
-                    //res.forEach(function (stud) {
-                    //    if (stud.marks != null) {
-                    //        previewlist.push(stud);
-                    //    }
-
-                    //});
-
-                    //if (previewlist.length == $scope.pinWise.length) {
-                    //    issaved = true;
-                    //    $scope.subbtn = true;
-                    //}
+                    $scope.pinWise = res.Table;
+                    $scope.MaxMarks = res.Table1[0].MaxMarks;
+                    $scope.CourseName = res.Table1[0].CourseName;
+                    markslist = res.Table.map((obj) => { if (obj.Marks != null) { return { MarksEntryDataID: obj.MarksEntryDataID, Marks: obj.Marks } } });
+                    markslist = markslist.filter(function (element) { return element !== undefined; });
                 } else {
                     alert('No Pins available for the selected inputs.')
                     if (!angular.isUndefined(res) && res.length > 0) {
@@ -68,6 +59,70 @@ define(['app'], function (app) {
             });
 
         }
+
+        var tempId = [];
+
+        var tempId1 = [];
+        $scope.AddMarksById = function (data) {
+            var isvalied = false;
+            if (data.Marks.length > $scope.MaxMarks.length) {
+                alert("Marks Entered character length should not exceed maximum marks length.");
+                $('#' + data.MarksEntryDataID).val('');
+                return;
+            }
+            if (data.Marks > $scope.MaxMarks) {
+                alert("Marks Entered should not be greater than maximum marks.");
+                $('#' + data.MarksEntryDataID).val('');
+                if (markslist.length > 0) {
+                    markslist.map((obj) => {
+                        if (obj.MarksEntryDataID == data.MarksEntryDataID) {
+                            obj.Marks = '';
+                        }
+                    });
+                }
+                return;
+            }
+            if (data.Marks.includes(".")) {
+                alert('Entered marks are not valid');
+                $('#' + data.MarksEntryDataID).val('');
+                return;
+            }
+            data.Marks = data.Marks.trim();
+            if (data.Marks != null && data.Marks != "") {
+                if (isNaN(data.Marks)) {
+                    if (data.Marks.toUpperCase() == 'AB' || data.Marks.toUpperCase() == 'MP' || data.Marks.toUpperCase() == 'DC' || data.Marks.toUpperCase() == 'TC' || data.Marks.toUpperCase() == 'DT') {
+                        isvalied = true;
+                    } else {
+                        isvalied = false;
+                    }
+
+                } else {
+                    isvalied = true;
+                }
+            }
+            if (data.Marks != null && data.Marks != "" && isvalied) {
+                if (markslist.length > 0) {
+                    markslist.map((obj) => {
+                        if (obj.MarksEntryDataID == data.MarksEntryDataID) {
+                            obj.Marks = data.Marks;
+                            tempId.push(data.MarksEntryDataID);
+                        }
+                        if (obj.MarksEntryDataID != data.MarksEntryDataID && !tempId.includes(data.MarksEntryDataID)) {
+                            var marksdata = $scope.addData(data.MarksEntryDataID, data.Marks);
+                            tempId.push(data.MarksEntryDataID);
+                            markslist.push(marksdata);
+
+                        }
+                    });
+
+                } else if (markslist.length == 0) {
+                    var marksdata = $scope.addData(data.MarksEntryDataID, data.Marks);
+                    markslist.push(marksdata);
+
+                }
+            }
+
+        },
 
         
         //$scope.editMarks = function (data) {
@@ -91,12 +146,12 @@ define(['app'], function (app) {
 
         //var tempId1 = [];
 
-        //$scope.addData = function (id, marks) {
-        //    return {
-        //        id: id,
-        //        marks: marks,
-        //    };
-        //},
+            $scope.addData = function (MarksEntryDataID, Marks) {
+            return {
+                MarksEntryDataID: MarksEntryDataID,
+                Marks: Marks,
+            };
+        },
 
         //    $scope.addIndusData = function (id, IndustryName) {
         //        return {
@@ -196,55 +251,91 @@ define(['app'], function (app) {
         //    },
 
 
-        //    $scope.save = function () {
-        //        if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
-        //            var outArr = [];
-        //            PinIdlist.forEach(function (value) {
-        //                var existing = Induslist.filter(function (v, i) {
-        //                    return (v.id == value.id);
-        //                });
-        //                var existing2 = markslist.filter(function (v, i) {
-        //                    return (v.id == value.id);
-        //                });
-        //                if (existing.length && existing2.length) {
-        //                    value.marks = existing2[0].marks;
-        //                    value.IndustryName = existing[0].IndustryName;
-        //                    outArr.push(value)
-        //                } else if (existing2.length) {
-        //                    value.marks = existing2[0].marks;
-        //                    value.IndustryName = "";
-        //                    outArr.push(value)
-        //                } else if (existing.length) {
-        //                    value.marks = "";
-        //                    value.IndustryName = existing[0].IndustryName;
-        //                    outArr.push(value)
-        //                } else {
-        //                    value.marks = "";
-        //                    value.IndustryName = "";
-        //                    outArr.push(value);
-        //                }
-        //            });
-        //            outArr = outArr.filter(i => !(i.marks == "" && i.IndustryName == ""));
-        //            markslist = outArr;
-        //        }
+            $scope.DataSaved = function (type) {
+                if (type == 0) {
+                    $scope.modalInstance = $uibModal.open({
+                        templateUrl: "/app/views/Popups/AssessmentSubmitPopup.html",
+                        size: 'xs',
+                        scope: $scope,
+                        windowClass: 'modal-fit-att',
+                    });
+                    $scope.closeModal = function () {
 
-        //        issaved = true;
-        //        if (markslist != [] && markslist != '') {
-        //            var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, StudentTypeId);
-        //            postmarks.then(function (response) {
-        //                //   console.log(response);
-        //                alert('Marks are Saved Successfully');
-        //                $scope.loadPinAndMarks();
-        //            }, function (error) {
-        //                console.log(error);
-        //                // alert(error);
-        //            });
-        //        } else {
-        //            alert('No valid data Present');
-        //            $scope.loadPinAndMarks();
-        //        }
+                        $scope.modalInstance.close();
+                    }
+                } else {
+                    $scope.OpenPopup()
+                }
 
-        //    }
+
+
+            }
+
+            $scope.save = function (type) {
+                $scope.SaveDisable = true;
+                // if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
+                //if ($scope.IndustryName == 1) {
+                //var outArr = [];
+                //        PinIdlist.forEach(function (value) {
+                //            var existing = Induslist.filter(function (v, i) {
+                //                return (v.id == value.id);
+                //            });
+                //            var existing2 = markslist.filter(function (v, i) {      
+                //                return (v.id == value.id);
+                //            });
+
+                //            if (existing.length) {
+                //              //  value.marks = existing[0].marks;
+                //                value.IndustryName = existing[0].IndustryName;
+                //                outArr.push(value)
+                //            }
+                //             if (existing2.length) {
+                //                value.marks = existing2[0].marks;
+                //               // value.IndustryName = "";
+                //                outArr.push(value)
+                //            }
+                //            else if (existing.length) {
+                //                value.marks = existing[0].marks;
+                //                value.IndustryName = existing[0].IndustryName;
+                //                outArr.push(value)
+                //            } else {
+                //                value.marks = "";
+                //                value.IndustryName = "";
+                //                outArr.push(value);
+                //            }
+                //        });
+                //        outArr = outArr.filter(i => !(i.marks == "" && i.IndustryName == ""));
+                //        markslist = outArr;
+                //  }
+                //}
+
+                if (markslist != [] && markslist != '') {
+
+
+                    var postmarks = CcicAssessmentService.PostStudentMarks(markslist, $scope.UserName);
+                    postmarks.then(function (response) {
+                        $scope.SaveDisable = false;
+                        //   console.log(response);
+                        //alert('Marks are Saved Successfully');
+                        issaved = true;
+                        $scope.DataSaved(type)
+                        //$scope.modalInstance.close();
+                        $scope.loadPinAndMarks();
+                    }, function (error) {
+                        $scope.SaveDisable = false;
+                        console.log(error);
+                        // alert(error);
+                    });
+                } else {
+                    $scope.SaveDisable = false;
+                    //$scope.modalInstance.close();
+                    alert('No valid data Present');
+                    $scope.loadPinAndMarks();
+
+                }
+
+            }
+
         //$scope.back = function () {
         //    $state.go("Dashboard.AssessmentDashboard.Assessment.PracticalSubjectList");
         //}

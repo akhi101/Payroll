@@ -21,7 +21,7 @@ define(['app'], function (app) {
                         for (var i = 0; i < response.length; i++) {
                             var obj = {};
                             obj.SysModName = response[i].ExamType;
-                            obj.SysModID = response[i].ExamTypeID;
+                            obj.SysModID = response[i].Examtypeid;
                             obj.ModuleRouteName = response[i].ModuleRouteName;
                             obj.ModuleImageClass = response[i].ModuleImageClass;
                             modulesList.push(obj);
@@ -147,26 +147,18 @@ define(['app'], function (app) {
 
         $scope.OpenAssessmentModule = function (RouteName) {
 
-            if (RouteName.ModuleRouteName == "Internals") {
+            if (RouteName.ModuleRouteName == "Internals" || RouteName.ModuleRouteName == "Practicals") {
                 $localStorage.TempData = {
                     AcademicYearID: $scope.academicYear,
                     ExamMonthYearID: $scope.ExamMonthYear,
                     InstitutionID: authData.InstitutionID,
-                    CourseID: $scope.Course
+                    CourseID: $scope.Course,
+                    ExamTypeID: RouteName.SysModID,
+                    ExamType: RouteName.ModuleRouteName
 
                 };
                 $state.go('CcicDashboard.Assessment.SubjectList')
-                var strroute = 'Dashboard.AssessmentDashboard.theory';
-            } else if (RouteName.ModuleRouteName == "Practicals") {
-                $localStorage.TempData = {
-                    AcademicYearID: InstitutionID,
-                    ExamMonthYearID: CourseID,
-                    InstitutionID: authData.InstitutionID,
-                    CourseID: CourseID
-
-                };
-                $state.go('CcicDashboard.Assessment.SubjectList')
-            }
+            } 
             
 
         }
