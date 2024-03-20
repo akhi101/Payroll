@@ -1,53 +1,21 @@
 <style>
-    .tableinpt {
-        width: 100%;
-        box-shadow: none;
-        border: 0;
-        pointer-events: none;
-        cursor: pointer;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: 1px;
-        text-overflow: '';
-    }
-
-    .btn-default, .btn-dark-blue {
-        border-color: #314559;
-        color: #000;
-        background-color: white;
-    }
-
-        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
-            border-color: #2c3e50;
-            color: #fff;
-            background-color: #2f4254;
-        }
-
-    button > span.active {
-        color: #ffffff !important;
-    }
-
-    .text-info {
-        color: #ffffff;
-    }
     .text-success {
-        color: #3c763d;
+        color: #3c763d !important;
     }
-
-    span {
-        color: #000 !important;
+    .text-danger {
+        color: #a94442 !important;
     }
-    /*--------------------------------------------------*/
-    .table-striped > tbody > tr:nth-of-type(odd) {
-        background-color: #f9f9f9 !important;
-    }
-
-    .table-custom-tables-tb .table-bordered .table-hover > tbody > tr > td {
-        border: 1px solid #ddd !important;
-        color: #337ab7;
-        font-size: 14px !important;
-        cursor: default !important;
-        font-family: 'Open Sans';
+    .label {
+        display: inline;
+        padding: 0.2em 0.6em 0.3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #3d7eaa !important;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25em;
     }
 
     .base-row {
@@ -58,200 +26,372 @@
         padding: 15px;
         border: 1px solid #e8e8e8;
         box-shadow: 0px 3px 17px -8px #888888;
-        font-family: 'Open Sans';
     }
 
-    .table-custom-tables-tb .table-bordered > thead > tr > th {
-        border: 1px solid #ddd !important;
-        color: #788598;
-        font-size: 14px !important;
-        font-family: 'Open Sans';
+    button {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
     }
 
-    .navbar_section {
-        margin-right: 0px;
-        margin-left: 0px;
-        margin-bottom: -20px;
+    .footer_section {
+        /* position: fixed; */
+        display: none;
+        bottom: 0px;
+        z-index: 99;
     }
 
-    a.backA, a.backA:focus {
-        color: #fff !important;
-        text-decoration: none !important;
-        font-family: 'Open Sans';
-        font-size: 14px;
+    table {
+        border: 1px solid #CCC;
+        border-collapse: collapse !important;
     }
 
-    a {
-        color: #337ab7;
-        text-decoration: none;
-        font-size: 14px;
+    .submit_css {
+        background-color: #dff0d8 !important;
     }
 
-    .breadcrumb-header {
-        background-color: #d8d8d8;
-        padding: 8px 0px;
-        margin-bottom: 20px;
-        font-family: 'Open Sans';
-        font-size: 14px;
+    .label {
+        display: inline;
     }
 
-    .col-md-12 {
-        width: 100%;
-        font-family: 'Open Sans';
+    .details {
+        background: white !important;
     }
 
-    .btn:not(.btn-link):not(.btn-circle) {
-        box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
-        /* -webkit-border-radius: 2px; */
-        /* border-radius: 0px !important; */
-        font-size: 14px;
+    td {
+        border: none !important;
     }
 
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-        color: #555;
-        cursor: default;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-bottom-color: transparent;
-        font-family: 'Open Sans';
-    }
-
-    .nav-tabs > li > a {
-        margin-right: 2px;
-        line-height: 1.42857143;
-        border: 1px solid transparent;
-        border-radius: 4px 4px 0 0;
-        font-family: 'Open Sans';
-    }
-
-    .cl-details h2 {
-        color: #ffffff;
-        font-size: 14px;
-        font-family: 'Open Sans';
-        background: #5ca0d3;
-        padding: 6px 9px;
-        font-weight: 600;
+    .markstable {
         margin-top: 0px;
-        margin-bottom: 5px;
+        margin-bottom: 60px;
     }
 
-    label {
-        display: inline-block;
-        max-width: 100%;
-        margin-bottom: 5px;
-        font-weight: 500;
-        font-size: 14px !important;
+    @media screen {
+        #printSection {
+            display: none !important;
+        }
     }
 
-    .container .containercontent {
-        margin-right: auto;
-        margin-left: auto;
-        padding-left: 0px;
-        padding-right: 0px;
+    @media print {
+
+        .header-top-section {
+            display: none;
+        }
+
+        .main-header {
+            display: none !important;
+        }
+
+        #text-right {
+            float: right !important;
+            color: #000 !important;
+        }
+
+        .fa-fw {
+            width: 1.28571429em;
+            text-align: center;
+            display: none;
+        }
+
+        #idtoDivPrint {
+            /*display: flex;*/
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            color: #000;
+        }
+
+        tr th {
+            background: #98abb9;
+            color: #000 !important;
+            font-weight: 800;
+        }
+
+        /*.sbtet_img{
+
+               width:130px;
+               height:80px;
+               display: list-item;
+               list-style-image: url(../../../contents/img/big-logo.png);
+               list-style-position: inside;
+           }*/
+        td input {
+            width: 50px;
+            text-align: center;
+            border: none;
+        }
+
+        #printSection, #printSection * {
+            visibility: visible;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #printSection {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .print-cnt {
+            display: block;
+            page-break-after: auto;
+        }
+
+        .mya {
+            text-decoration: none !important;
+        }
+
+        #text-left {
+            color: #000 !important;
+        }
+
+        #text-center {
+            text-align: center !important;
+            color: #000 !important;
+        }
+
+        #divtitle {
+            font-size: 24px !important;
+            text-align: center !important;
+        }
+
+        .sem-pad {
+            margin-left: 10px !important;
+        }
+
+        th {
+            color: #000 !important;
+            font-weight: bold !important;
+        }
+
+        label {
+            font-weight: bold !important;
+        }
     }
 
-    .containercontent {
-        margin-right: auto;
-        margin-left: auto;
-        padding-left: 0px;
-        padding-right: 0px;
+    .text-red {
+        color: red;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .loader {
+        border: 4px solid #5cb85c;
+        border-radius: 50%;
+        border-top: 4px solid #fff;
+        width: 20px;
+        height: 20px;
+        -webkit-animation: spin 4s linear infinite; /* Safari */
+        animation: spin 1s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .text-success {
+        color: #3c763d !important;
     }
 
     .text-danger {
+        color: #a94442 !important;
+    }
+
+    .navbar {
+        position: relative;
+        min-height: 50px;
+        /* margin-bottom: 20px; */
+        border: 1px solid transparent;
+        font-family: 'Open Sans';
+    }
+
+    .navbar_inverse_section {
+        border-radius: 0px;
+        margin-bottom: 0px;
+    }
+
+    element.style {
         color: red;
+        top: 33px;
+    }
+
+    label.notifylabel1 {
+        position: absolute;
+        right: 19px;
+        top: 25px;
     }
 </style>
 
 <div ng-controller="CcicMarksEntrySubjectListController">
-    <script type="text/javascript">
-        // When the document is ready
-        $(document).ready(function () {
-
-            $('#example1').datepicker({
-                minViewMode: 'years',
-                autoclose: true,
-                format: 'yyyy'
-            });
-            $('#example2').datepicker({
-                minViewMode: 1,
-                autoclose: true,
-                format: 'mm-yyyy'
-            });
-            $('.tabledate').datepicker({
-                //minViewMode: 1,
-                autoclose: true,
-                format: 'dd-mm-yyyy'
-            });
-            //$('#example4').datepicker({
-            //    //minViewMode: 1,
-            //    autoclose: true,
-            //    //format: 'dd-mm-yyyy'
-            //});
-        });
-    </script>
+    
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
-        <div class="container containercontent">
+        <div class="container">
             <section class="content-header">
-                <h5>Set Assesment Entry Dates</h5>
+                <h5>Marks Entry Subjects</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li><a href="#!/CcicDashboard/Assessment">Assessment</a></li>
-                    <li><a href="#!/CcicDashboard/Assessment/SetEntryDates">Set Entry Dates</a></li>
+                    <li><a href="#!/CcicDashboard/Assessment/SubjectList">Marks Entry SubjectList</a></li>
                 </ol>
             </section>
         </div>
         <!-- breadcrumb Close -->
     </div>
-    <div class="container containercontent">
+    <div class="container">
 
-        <div class="col-md-12 containercontent">
-            <button class="btn bck_btn"><a href="#!/CcicDashboard/Assessment/MarksEntry" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        <div class="col-md-6">
+            <button class="btn bck_btn"><a ng-click="back()" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
+        <div class="col-md-6 non-print">
+            <button class="btn btn-success pull-right" ng-click="GetReport()"> Consolidated Report</button>
+        </div>
+        <div class="col-md-12" style="bottom:25px">
+            <label class="notifylabel1 pull-right" for="sel1" style="color: red;top:33px"> Click on row to get Marks Entry</label>
 
-        <div class="col-md-12">
+        </div>
+        <div class="col-md-12" style="top:30px">
             <div class="cl-details">
                 <h2>{{ExamType}} Marks Entry Subjects</h2>
             </div>
-            <br>
-            <label class="notifylabel" for="sel1" style="color: red;top:33px"> Double click on row to get Marks Entry</label>
 
             <div class="table-responsive table-custom-tables-tb">
                 <table class="table table-bordered table-hover table-striped table-rounded">
                     <thead>
                         <tr class="cb-1">
-                            <th>S no</th>
-                            <th>Subject Code</th>
-                            <th>Subject Name</th>
-                            <th>Total No. of Students</th>
-                            <th>Marks Posted</th>
-                            <th>Marks Not Posted</th>
-                            <th>Submitted</th>
+                            <th class="text-center">S no</th>
+                            <th class="text-center">Subject Code</th>
+                            <th class="text-center">Subject Name</th>
+                            <th class="text-center">Total No. of Students</th>
+                            <th class="text-center">Marks Posted</th>
+                            <th class="text-center">Marks Not Posted</th>
+                            <th class="text-center">Submitted</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in getSubjectsResponse" >
-                            <td ng-dblclick="selectSubjectDetails(x)">{{$index+1}}</td>
-                            <td ng-dblclick="selectSubjectDetails(x)">{{x.SubjectCode}} </td>
-                            <td ng-dblclick="selectSubjectDetails(x)">{{x.SubjectName}}</td>
-                            <td ng-dblclick="selectSubjectDetails(x)">{{x.Total}}</td>
-                            <td ng-dblclick="selectSubjectDetails(x)">{{x.MarksPosted}}</td>
-                            <td ng-dblclick="selectSubjectDetails(x)">{{x.MarksnotPosted}}</td>
-                            <td class="text-center" ng-dblclick="selectSubjectDetails(x)">
+                        <tr ng-repeat="x in getSubjectsResponse">
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{$index+1}}</td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{x.SubjectCode}} </td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{x.SubjectName}}</td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{x.Total}}</td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{x.MarksPosted}}</td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">{{x.MarksnotPosted}}</td>
+                            <td class="text-center" ng-click="selectSubjectDetails(x)">
                                 <span ng-show="x.Submitted!=0" class="text-success"><b>Yes</b></span>
                                 <span ng-show="x.Submitted==0" class="text-danger"><b>No</b></span>
                             </td>
+
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <div class="col-md-12 non-print" ng-show="AllStudentDetails.length>0">
+            <button class="btn btn-success pull-right btn-sm" style="margin-bottom:10px;" ng-click="PrintStudentResult('idtoDivPrintAdmin')"> Print</button>
+        </div>
+        <div class="col-md-12 " ng-show="AllStudentDetails.length>0" id="idtoDivPrintAdmin">
 
+            <table class="table table-bordered table-hover table-striped ">
+                <thead>
+                    <tr class="cb-1">
+                        <th>College Code</th>
+                        <th>College Name</th>
+
+                    </tr>
+                </thead>
+
+                <tr>
+                    <td>{{CollegeCode}}</td>
+                    <td>{{CollegeName}}</td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered table-hover table-striped ">
+                <thead>
+                    <tr class="cb-1">
+                        <th>Scheme </th>
+                        <th>Sem / Year </th>
+                        <th>Exam</th>
+                    </tr>
+                </thead>
+
+                <tr>
+                    <td>{{Scheme_Code}}</td>
+                    <td>{{Semister}}</td>
+                    <td>{{ExamType}}</td>
+                </tr>
+            </table>
+            <div class="table-responsive table-custom-tables-tb">
+                <table class="table table-bordered table-hover table-striped table-rounded">
+                    <thead>
+                        <tr class="cb-1">
+                            <th width="4%">S.No</th>
+                            <th>Pin</th>
+                            <th>Name</th>
+                            <th class="text-center" ng-repeat="Subject_Code in SubjectsList">
+                                {{Subject_Code}}
+                            </th>
+                            <!--<th>Total</th>
+                        <th>Not Posted</th>
+                        <th>Absent</th>
+                        <th>Malpractice</th>
+                        <th class="text-center">Submitted</th>
+                        <th class="text-center">Release</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="dat in AllStudentDetails">
+                            <td>{{$index+1}}</td>
+                            <td>{{dat.pin}}</td>
+                            <td>{{dat.Studentname}}</td>
+                            <td class="text-center" ng-repeat="data in getOldChildren(dat)">
+                                <span>
+                                    {{data.MID1_MARKS ==null? '-': data.MID1_MARKS}}
+                                    <!-- <br /><span class="marks-binding" ng-hide='{{studentgrade.HybridGrade == null}}'>
+                                    ({{studentgrade.Internal_MARKS}}
+                                    +{{studentgrade.EndSemMarks}}
+                                    = {{studentgrade.SubjectTotal}})
+                                </span>-->
+
+
+                                </span>
+
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="width:100%;text-align:center;">
+            <img src="../../../contents/img/loading2.gif" ng-show="loading" width="100" />
+        </div>
 
 
     </div>
 
-</div>
+    </div>
 
 
