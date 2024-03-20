@@ -228,8 +228,15 @@ namespace SoftwareSuite.Controllers.CCIC
         {
             public string UserName { get; set; }
 
-            public List<marklist> json { get; set; }
+            public List<marklist> marksdata { get; set; }
         }
+
+        public class marklist
+        {
+            public int MarksEntryDataID { get; set; }
+            public string Marks { get; set; }
+        }
+
 
         [HttpPost, ActionName("PostCcicStudentMarks")]
         public string PostCcicStudentMarks([FromBody] PostExamMarks ExamMarks)
@@ -238,10 +245,10 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 var marksDat = new List<marklist>();
-                int size = ExamMarks.json.Count;
+                int size = ExamMarks.marksdata.Count;
                 for (int i = 0; i < size; i++)
                 {
-                    marksDat.Add(ExamMarks.json[i]);
+                    marksDat.Add(ExamMarks.marksdata[i]);
                 }
 
 
@@ -261,6 +268,42 @@ namespace SoftwareSuite.Controllers.CCIC
                 dbHandler.SaveErorr("SP_Set_MarksEntryData", 0, ex.Message);
                 return ex.Message;
             }
+        }
+
+        public class submitMarks
+        {
+            public int SubjectID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int CourseID { get; set; }
+            public int ExamTypeID { get; set; }
+            public int InstitutionID { get; set; }
+            public int ExamMonthYearID { get; set; }
+
+        }
+
+        [HttpPost, ActionName("SubmitMarksEntered")]
+        public string SubmitMarksEntered([FromBody] submitMarks request)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@AcademicYearID", request.AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", request.ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", request.InstitutionID);
+                param[3] = new SqlParameter("@CourseID", request.CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", request.ExamTypeID);
+                param[5] = new SqlParameter("@SubjectID", request.SubjectID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_SubmitMarksEntryData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_SubmitMarksEntryData", 0, ex.Message);
+                return ex.Message;
+            }
+
         }
 
 

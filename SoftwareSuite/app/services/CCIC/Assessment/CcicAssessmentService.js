@@ -109,14 +109,26 @@
             return promise;
         };
 
-        this.PostStudentMarks = function (marksdata, UserName) {
+        this.PostStudentMarks = function (MarksList, UserName) {
             var paramObject = {
-                "json": marksdata,
+                "marksdata": MarksList,
                 "UserName": UserName
             };
             return DataAccessService.postData('api/CcicAssessment/PostCcicStudentMarks', paramObject);
         };
 
+        this.SubmitMarksEntered = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID, ExamTypeID, SubjectID) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID,
+                "CourseID": CourseID,
+                "ExamTypeID": ExamTypeID,
+                "SubjectID": SubjectID
+            };
+            var promise = DataAccessService.postData('api/CcicAssessment/SubmitMarksEntered', paramObject);
+            return promise;
+        };
        
 
     });
