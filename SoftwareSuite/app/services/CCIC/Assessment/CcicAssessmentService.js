@@ -129,6 +129,18 @@
             var promise = DataAccessService.postData('api/CcicAssessment/SubmitMarksEntered', paramObject);
             return promise;
         };
+
+        this.GetSubjectsReport = function (AcademicYearID, ExamMonthYearID, InstitutionID, CourseID, ExamTypeID) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "InstitutionID": InstitutionID,
+                "CourseID": CourseID,
+                "ExamTypeID": ExamTypeID,
+            };
+            var promise=  DataAccessService.getDataWithPara('api/CcicAssessment/GetSubjectsReport', paramObject);
+            return promise;
+        };
        
 
     });

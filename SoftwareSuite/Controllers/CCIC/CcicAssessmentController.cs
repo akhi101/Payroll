@@ -307,6 +307,31 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpGet, ActionName("GetSubjectsReport")]
+        public string GetSubjectsReport(int AcademicYearID, int ExamMonthYearID, int InstitutionID, int CourseID, int ExamTypeID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[3] = new SqlParameter("@CourseID", CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", ExamTypeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_MarksEntryConsolidatedReport", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_MarksEntryConsolidatedReport", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
     }
 
 }

@@ -238,7 +238,22 @@ define(['app'], function (app) {
             }
 
         
+        $scope.logOut = function () {
+            //$scope.$emit("logout", authData.UserName);
+            sessionStorage.loggedIn = "no";
+            var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
 
+            delete $localStorage.authorizationData;
+            delete $localStorage.authToken;
+            delete $scope.SessionID;
+
+            $scope.authentication = {
+                isAuth: false,
+                UserID: 0,
+                UserName: ""
+            };
+            $state.go('CcicLogin');
+        }
 
     });
 });

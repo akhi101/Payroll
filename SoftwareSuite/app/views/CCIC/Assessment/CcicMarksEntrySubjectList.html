@@ -1,79 +1,114 @@
 <style>
-    .text-success {
-        color: #3c763d !important;
-    }
-    .text-danger {
-        color: #a94442 !important;
-    }
-    .label {
-        display: inline;
-        padding: 0.2em 0.6em 0.3em;
-        font-size: 75%;
-        font-weight: 700;
-        line-height: 1;
-        color: #3d7eaa !important;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: baseline;
-        border-radius: 0.25em;
-    }
-
-    .base-row {
-        background-color: #fefefe;
-        border-radius: 4px;
-        margin-top: 0px;
-        margin-bottom: 60px;
-        padding: 15px;
-        border: 1px solid #e8e8e8;
-        box-shadow: 0px 3px 17px -8px #888888;
-    }
-
-    button {
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-    }
-
-    .footer_section {
-        /* position: fixed; */
-        display: none;
-        bottom: 0px;
-        z-index: 99;
-    }
-
-    table {
-        border: 1px solid #CCC;
-        border-collapse: collapse !important;
-    }
-
-    .submit_css {
-        background-color: #dff0d8 !important;
-    }
-
-    .label {
-        display: inline;
-    }
-
-    .details {
-        background: white !important;
-    }
-
-    td {
-        border: none !important;
-    }
-
-    .markstable {
-        margin-top: 0px;
-        margin-bottom: 60px;
-    }
-
-    @media screen {
-        #printSection {
-            display: none !important;
-        }
-    }
 
     @media print {
+        .table {
+            margin-bottom: 0px !important;
+        }
 
+        .non-print {
+            display: none;
+        }
+
+        .navbar_section {
+            display: none;
+        }
+
+        .college-details {
+            display: none;
+        }
+
+        .table-custom-tables-tb .table-bordered > thead > tr > th {
+            border: 1px solid #000 !important;
+        }
+
+        .table-custom-tables-tb .table-bordered > tbody > tr > td {
+            border: 1px solid #000 !important;
+        }
+
+        .footer_section {
+            display: none;
+        }
+
+        .scroll-top-wrapper {
+            display: none;
+        }
+
+        tr.cb-1 th {
+            font-weight: 600 !important;
+            color: #000 !important;
+        }
+
+        #printSection, #printSection * {
+            visibility: visible;
+        }
+
+        #printSection {
+            position: relative;
+            left: 0;
+            top: 0;
+        }
+
+        .table-custom-tables-tb .table-bordered > tbody > tr > td {
+            border: 1px solid #000 !important;
+            padding: 2px !important;
+        }
+
+        .text-success {
+            color: #3c763d !important;
+        }
+
+        .text-danger {
+            color: #a94442 !important;
+        }
+
+
+        .base-row {
+            background-color: #fefefe;
+            border-radius: 4px;
+            margin-top: 0px;
+            margin-bottom: 60px;
+            padding: 15px;
+            border: 1px solid #e8e8e8;
+            box-shadow: 0px 3px 17px -8px #888888;
+        }
+
+        button {
+            margin-left: 10px !important;
+            margin-right: 10px !important;
+        }
+
+        .footer_section {
+            /* position: fixed; */
+            display: none;
+            bottom: 0px;
+            z-index: 99;
+        }
+
+        table {
+            border: 1px solid #CCC;
+            border-collapse: collapse !important;
+        }
+
+        .submit_css {
+            background-color: #dff0d8 !important;
+        }
+
+        .label {
+            display: inline;
+        }
+
+        .details {
+            background: white !important;
+        }
+
+        td {
+            border: none !important;
+        }
+
+        .markstable {
+            margin-top: 0px;
+            margin-bottom: 60px;
+        }
         .header-top-section {
             display: none;
         }
@@ -93,16 +128,6 @@
             display: none;
         }
 
-        #idtoDivPrint {
-            /*display: flex;*/
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-            color: #000;
-        }
-
         tr th {
             background: #98abb9;
             color: #000 !important;
@@ -111,33 +136,16 @@
 
         /*.sbtet_img{
 
-               width:130px;
-               height:80px;
-               display: list-item;
-               list-style-image: url(../../../contents/img/big-logo.png);
-               list-style-position: inside;
-           }*/
+        width:130px;
+        height:80px;
+        display: list-item;
+        list-style-image: url(../../../contents/img/big-logo.png);
+        list-style-position: inside;
+    }*/
         td input {
             width: 50px;
             text-align: center;
             border: none;
-        }
-
-        #printSection, #printSection * {
-            visibility: visible;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #printSection {
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        .print-cnt {
-            display: block;
-            page-break-after: auto;
         }
 
         .mya {
@@ -170,12 +178,20 @@
         label {
             font-weight: bold !important;
         }
-    }
 
-    .text-red {
-        color: red;
-        font-weight: 600;
-        letter-spacing: 1px;
+        .text-red {
+            color: red;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+ 
+
+ 
+
+
+
+
     }
 
     .loader {
@@ -209,13 +225,6 @@
         }
     }
 
-    .text-success {
-        color: #3c763d !important;
-    }
-
-    .text-danger {
-        color: #a94442 !important;
-    }
 
     .navbar {
         position: relative;
@@ -229,22 +238,33 @@
         border-radius: 0px;
         margin-bottom: 0px;
     }
-
     element.style {
         color: red;
         top: 33px;
     }
-
     label.notifylabel1 {
         position: absolute;
         right: 19px;
         top: 25px;
     }
+
+    .text-success {
+        color: #3c763d !important;
+    }
+
+    .text-danger {
+        color: #a94442 !important;
+    }
+    .table-responsive {
+        min-height: .01%;
+        overflow-x: auto;
+    }
+
 </style>
 
 <div ng-controller="CcicMarksEntrySubjectListController">
     
-    <div class="breadcrumb-header">
+    <div class="breadcrumb-header non-print">
         <!-- breadcrumb Open -->
         <div class="container">
             <section class="content-header">
@@ -260,18 +280,18 @@
     </div>
     <div class="container">
 
-        <div class="col-md-6">
+        <div class="col-md-6 non-print">
             <button class="btn bck_btn"><a ng-click="back()" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
         <div class="col-md-6 non-print">
             <button class="btn btn-success pull-right" ng-click="GetReport()"> Consolidated Report</button>
         </div>
-        <div class="col-md-12" style="bottom:25px">
+        <div class="col-md-12 non-print" style="bottom:25px">
             <label class="notifylabel1 pull-right" for="sel1" style="color: red;top:33px"> Click on row to get Marks Entry</label>
 
         </div>
-        <div class="col-md-12" style="top:30px">
-            <div class="cl-details">
+        <div class="col-md-12 non-print" style="top:30px">
+            <div class="cl-details" >
                 <h2>{{ExamType}} Marks Entry Subjects</h2>
             </div>
 
@@ -307,50 +327,37 @@
             </div>
         </div>
 
-        <div class="col-md-12 non-print" ng-show="AllStudentDetails.length>0">
-            <button class="btn btn-success pull-right btn-sm" style="margin-bottom:10px;" ng-click="PrintStudentResult('idtoDivPrintAdmin')"> Print</button>
+        <div class="col-md-12 non-print" ng-show="AllStudentDetails.length>0" style="top:23px">
+            <button class="btn btn-success pull-right btn-sm" ng-click="PrintStudentResult('idtoDivPrintAdmin')"> Print</button>
         </div>
-        <div class="col-md-12 " ng-show="AllStudentDetails.length>0" id="idtoDivPrintAdmin">
+        <div class="col-md-12 " ng-show="AllStudentDetails.length>0" id="idtoDivPrintAdmin" style="top:35px">
 
             <table class="table table-bordered table-hover table-striped ">
                 <thead>
                     <tr class="cb-1">
-                        <th>College Code</th>
-                        <th>College Name</th>
+                        <th class="text-center">Institution Code</th>
+                        <th class="text-center">Institution Name</th>
+                        <th class="text-center">Exam Type</th>
 
                     </tr>
                 </thead>
 
                 <tr>
-                    <td>{{CollegeCode}}</td>
-                    <td>{{CollegeName}}</td>
+                    <td class="text-center">{{InstitutionCode}}</td>
+                    <td class="text-center">{{InstitutionName}}</td>
+                    <td class="text-center">{{ExamType}}</td>
                 </tr>
             </table>
 
-            <table class="table table-bordered table-hover table-striped ">
-                <thead>
-                    <tr class="cb-1">
-                        <th>Scheme </th>
-                        <th>Sem / Year </th>
-                        <th>Exam</th>
-                    </tr>
-                </thead>
-
-                <tr>
-                    <td>{{Scheme_Code}}</td>
-                    <td>{{Semister}}</td>
-                    <td>{{ExamType}}</td>
-                </tr>
-            </table>
-            <div class="table-responsive table-custom-tables-tb">
+            <div class="table-responsive table-custom-tables-tb" style="margin-bottom:100px">
                 <table class="table table-bordered table-hover table-striped table-rounded">
                     <thead>
                         <tr class="cb-1">
                             <th width="4%">S.No</th>
-                            <th>Pin</th>
-                            <th>Name</th>
-                            <th class="text-center" ng-repeat="Subject_Code in SubjectsList">
-                                {{Subject_Code}}
+                            <th class="text-center">Pin</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center" ng-repeat="SubjectCode in SubjectsList">
+                                {{SubjectCode}}
                             </th>
                             <!--<th>Total</th>
                         <th>Not Posted</th>
@@ -362,23 +369,11 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="dat in AllStudentDetails">
-                            <td>{{$index+1}}</td>
-                            <td>{{dat.pin}}</td>
-                            <td>{{dat.Studentname}}</td>
+                            <td class="text-center">{{$index+1}}</td>
+                            <td class="text-center">{{dat.PIN}}</td>
+                            <td class="text-center">{{dat.StudentName}}</td>
                             <td class="text-center" ng-repeat="data in getOldChildren(dat)">
-                                <span>
-                                    {{data.MID1_MARKS ==null? '-': data.MID1_MARKS}}
-                                    <!-- <br /><span class="marks-binding" ng-hide='{{studentgrade.HybridGrade == null}}'>
-                                    ({{studentgrade.Internal_MARKS}}
-                                    +{{studentgrade.EndSemMarks}}
-                                    = {{studentgrade.SubjectTotal}})
-                                </span>-->
-
-
-                                </span>
-
-
-
+                                    {{data.Marks ==null? '-': data.Marks}}
                             </td>
                         </tr>
                     </tbody>
