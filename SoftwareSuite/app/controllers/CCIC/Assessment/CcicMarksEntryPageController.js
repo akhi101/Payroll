@@ -79,21 +79,26 @@ define(['app'], function (app) {
         var tempId1 = [];
         $scope.AddMarksById = function (data) {
             var isvalied = false;
-            
-            if (data.Marks.length > $scope.MaxMarks.length) {
-                alert("Marks Entered character length should not exceed maximum marks length.");
-                $scope.data = '';
+            if (data.Marks=='') {
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
+            if (data.Marks.length > $scope.MaxMarks.length) {
+                alert("Marks Entered character length should not exceed maximum marks length.");
+                //$scope.data = '';
+                $('#' + data.MarksEntryDataID).val('');
+                return;
+                isvalied = false;
+            }
             if (data.Marks > $scope.MaxMarks) {
                 alert("Marks Entered should not be greater than maximum marks.");
-                $scope.data = '';
+                //$scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 if (markslist.length > 0) {
                     markslist.map((obj) => {
                         if (obj.MarksEntryDataID == data.MarksEntryDataID) {
                             obj.Marks = '';
+                            isvalied = false;
                         }
                     });
                 }
@@ -101,14 +106,14 @@ define(['app'], function (app) {
             }
             if (data.Marks.includes(".")) {
                 alert('Entered marks are not valid');
-                $scope.data = '';
+                //$scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
             data.Marks = data.Marks.trim();
             if (data.Marks != null && data.Marks != "") {
                 if (isNaN(data.Marks)) {
-                    if (data.Marks.toUpperCase() == 'AB' || data.Marks.toUpperCase() == 'MP' || data.Marks.toUpperCase() == 'DC' || data.Marks.toUpperCase() == 'TC' || data.Marks.toUpperCase() == 'DT') {
+                    if (data.Marks.toUpperCase() == 'AB' || data.Marks.toUpperCase() == 'MP') {
                         isvalied = true;
                     } else {
                         isvalied = false;
@@ -138,6 +143,7 @@ define(['app'], function (app) {
                     markslist.push(marksdata);
 
                 }
+
             }
 
         },
@@ -218,13 +224,17 @@ define(['app'], function (app) {
 
             $scope.save = function (type) {
                 $scope.SaveDisable = true;
-                if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null ) {
-                    alert('No valid data Present');
-                    $scope.SaveDisable = false;
-                    return;
-                }
-
-                else if (markslist != [] && markslist != '') {
+                //if (markslist == [] || markslist== '' || markslist== null) {
+                //    alert('No Data Present');
+                //    $scope.SaveDisable = false;
+                //    return;
+                //}
+                //else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
+                //    alert('No Data Present');
+                //    $scope.SaveDisable = false;
+                //    return;
+                //}
+                 if (markslist != [] && markslist != '') {
 
 
                     var postmarks = CcicAssessmentService.PostStudentMarks(markslist, $scope.UserName);
@@ -260,11 +270,16 @@ define(['app'], function (app) {
             //    $scope.SaveDisable = false;
             //    $scope.modalInstance.close();
             //}
-            if (markslist == [] || markslist == '' || markslist == null) {
-                alert('No valid data Present');
-                $scope.SaveDisable = false;
-                return;
-            }
+            ////if (markslist == [] || markslist == '' || markslist == null) {
+            ////    alert('No Data Present');
+            ////    $scope.SaveDisable = false;
+            ////    return;
+            ////}
+            ////else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
+            ////    alert('No Data Present');
+            ////    $scope.SaveDisable = false;
+            ////    return;
+            ////}
             if (type == 1) {
                 $scope.SaveDisable = false;
                 $scope.modalInstance.close();
