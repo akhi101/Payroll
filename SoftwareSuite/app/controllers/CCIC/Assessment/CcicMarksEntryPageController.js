@@ -79,13 +79,16 @@ define(['app'], function (app) {
         var tempId1 = [];
         $scope.AddMarksById = function (data) {
             var isvalied = false;
+            
             if (data.Marks.length > $scope.MaxMarks.length) {
                 alert("Marks Entered character length should not exceed maximum marks length.");
+                $scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
             if (data.Marks > $scope.MaxMarks) {
                 alert("Marks Entered should not be greater than maximum marks.");
+                $scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 if (markslist.length > 0) {
                     markslist.map((obj) => {
@@ -98,6 +101,7 @@ define(['app'], function (app) {
             }
             if (data.Marks.includes(".")) {
                 alert('Entered marks are not valid');
+                $scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
@@ -170,6 +174,7 @@ define(['app'], function (app) {
         
 
             $scope.DataSaved = function (type) {
+
                 if (type == 0) {
                     $scope.modalInstance = $uibModal.open({
                         templateUrl: "/app/views/Popups/AssessmentSubmitPopup.html",
@@ -213,9 +218,13 @@ define(['app'], function (app) {
 
             $scope.save = function (type) {
                 $scope.SaveDisable = true;
-               
+                if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null ) {
+                    alert('No valid data Present');
+                    $scope.SaveDisable = false;
+                    return;
+                }
 
-                if (markslist != [] && markslist != '') {
+                else if (markslist != [] && markslist != '') {
 
 
                     var postmarks = CcicAssessmentService.PostStudentMarks(markslist, $scope.UserName);
@@ -251,6 +260,11 @@ define(['app'], function (app) {
             //    $scope.SaveDisable = false;
             //    $scope.modalInstance.close();
             //}
+            if (markslist == [] || markslist == '' || markslist == null) {
+                alert('No valid data Present');
+                $scope.SaveDisable = false;
+                return;
+            }
             if (type == 1) {
                 $scope.SaveDisable = false;
                 $scope.modalInstance.close();
@@ -407,20 +421,22 @@ define(['app'], function (app) {
             }
 
 
+        $scope.logOut = function () {
+            //$scope.$emit("logout", authData.UserName);
+            sessionStorage.loggedIn = "no";
+            var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
 
-        //$scope.logOut = function () {
-        //    $scope.$emit("logout", authData.userName);
-        //    sessionStorage.loggedIn = "no";
-        //    delete $localStorage.authorizationData;
+            delete $localStorage.authorizationData;
+            delete $localStorage.authToken;
+            delete $scope.SessionID;
 
-        //    $scope.authentication = {
-        //        isAuth: false,
-        //        UserId: 0,
-        //        userName: ""
-        //    };
-        //    $state.go('login')
-        //}
-
+            $scope.authentication = {
+                isAuth: false,
+                UserID: 0,
+                UserName: ""
+            };
+            $state.go('CcicLogin');
+        }
 
     });
 });

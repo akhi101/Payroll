@@ -325,7 +325,6 @@
                                                 <th style="width: 2%;text-align: center" ng-click="sort('pin')">Pin<i class="fa fa-fw fa-sort"></i></th>
                                                 <th style="width: 10%;text-align: center">Name</th>
                                                 <th style="width: 1%;text-align: center">Marks ({{MaxMarks}})</th>
-                                                <th style="width: 1%;text-align: center" ng-show="subbtn">Edit </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -333,8 +332,7 @@
                                                 <td style="width: 1%;text-align: center">{{$index+1}}</td>
                                                 <td style="width: 2%;text-align: center">{{x.PIN}} </td>
                                                 <td style="width: 10%;text-align: center">{{x.StudentName}}</td>
-                                                <td style="width: 1%;text-align: center"><input ng-model="x.Marks" class='text-uppercase' ng-disabled="{{x.Submitted}}==true" id="{{x.MarksID}}" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 50px; text-align: center" autocomplete="off" type='text' ng-maxlength="{{MaxMarks.length}}" /></td>
-                                                <td style="width: 1%;text-align: center" ng-if="x.issubmited==true"><a ng-click="editMarks(x)">Edit</a></td>
+                                                <td style="width: 1%;text-align: center"><input maxlength="2" ng-model="x.Marks" class='text-uppercase'  ng-disabled="{{x.Submitted}}==true" id="{{x.MarksEntryDataID}}" value="marks{{$index+1}}" ng-change="AddMarksById(x)" style="width: 50px; text-align: center" autocomplete="off" type='text' ng-maxlength="{{MaxMarks.length}}" /></td>
                                             </tr>
                                         </tbody>
                                     </table>
