@@ -24,7 +24,7 @@ define(['app'], function (app) {
             $scope.reverse = !$scope.reverse; //if true make it false and vice versa
         }
 
-   
+
         $scope.loadPinAndMarks = function () {
             markslist = [];
             previewlist = [];
@@ -33,7 +33,7 @@ define(['app'], function (app) {
                 try {
                     var res = JSON.parse(response);
                 }
-                catch { error}
+                catch { error }
                 if (res.Table.length > 0) {
                     //   console.log(response);
                     $scope.subjectDetailsView = true;
@@ -51,17 +51,17 @@ define(['app'], function (app) {
                     markslist = res.Table.map((obj) => { if (obj.Marks != null) { return { MarksEntryDataID: obj.MarksEntryDataID, Marks: obj.Marks } } });
                     markslist = markslist.filter(function (element) { return element !== undefined; });
                 }
-                
+
                 if (previewlist.length == $scope.pinWise.length) {
                     issaved = true;
                     $scope.subbtn = true;
                 }
-            //else {
-            //        alert('No Pins available for the selected inputs.')
-            //        if (!angular.isUndefined(res) && res.length > 0) {
-            //            alert(res[0].ResponceDescription);
-            //        }
-            //    }
+                //else {
+                //        alert('No Pins available for the selected inputs.')
+                //        if (!angular.isUndefined(res) && res.length > 0) {
+                //            alert(res[0].ResponceDescription);
+                //        }
+                //    }
             }, function (error) {
                 $scope.pinWise = [];
                 $scope.subjectDetailsView = false;
@@ -79,7 +79,7 @@ define(['app'], function (app) {
         var tempId1 = [];
         $scope.AddMarksById = function (data) {
             var isvalied = false;
-            if (data.Marks=='') {
+            if (data.Marks == '') {
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
@@ -148,36 +148,36 @@ define(['app'], function (app) {
 
         },
 
-        
-        //$scope.editMarks = function (data) {
-        //    let pin = data.pin;
-        //    subid = $localStorage.assessment.selectSubjectDetails.subid;
 
-        //    var editmarksentered = MarksEntryService.editMarksEntry($scope.College_Code, branchCode, semId, examId, subid, pin, $scope.ExamMonthYear);
-        //    editmarksentered.then(function (res) {
-        //        console.log(res);
-        //        $scope.loadPinAndMarks();
-        //    }, function (err) {
-        //        console.log(err);
-        //        alert("error occured while editing the marks");
-        //    });
+            //$scope.editMarks = function (data) {
+            //    let pin = data.pin;
+            //    subid = $localStorage.assessment.selectSubjectDetails.subid;
 
-        //}
+            //    var editmarksentered = MarksEntryService.editMarksEntry($scope.College_Code, branchCode, semId, examId, subid, pin, $scope.ExamMonthYear);
+            //    editmarksentered.then(function (res) {
+            //        console.log(res);
+            //        $scope.loadPinAndMarks();
+            //    }, function (err) {
+            //        console.log(err);
+            //        alert("error occured while editing the marks");
+            //    });
 
-       
+            //}
 
-        //var tempId = [];
 
-        //var tempId1 = [];
+
+            //var tempId = [];
+
+            //var tempId1 = [];
 
             $scope.addData = function (MarksEntryDataID, Marks) {
-            return {
-                MarksEntryDataID: MarksEntryDataID,
-                Marks: Marks,
-            };
-        },
+                return {
+                    MarksEntryDataID: MarksEntryDataID,
+                    Marks: Marks,
+                };
+            },
 
-        
+
 
             $scope.DataSaved = function (type) {
 
@@ -222,44 +222,44 @@ define(['app'], function (app) {
 
         }
 
-            $scope.save = function (type) {
-                $scope.SaveDisable = true;
-                //if (markslist == [] || markslist== '' || markslist== null) {
-                //    alert('No Data Present');
-                //    $scope.SaveDisable = false;
-                //    return;
-                //}
-                //else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
-                //    alert('No Data Present');
-                //    $scope.SaveDisable = false;
-                //    return;
-                //}
-                 if (markslist != [] && markslist != '') {
+        $scope.save = function (type) {
+            $scope.SaveDisable = true;
+            //if (markslist == [] || markslist== '' || markslist== null) {
+            //    alert('No Data Present');
+            //    $scope.SaveDisable = false;
+            //    return;
+            //}
+            //else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
+            //    alert('No Data Present');
+            //    $scope.SaveDisable = false;
+            //    return;
+            //}
+            if (markslist != [] && markslist != '') {
 
 
-                    var postmarks = CcicAssessmentService.PostStudentMarks(markslist, $scope.UserName);
-                    postmarks.then(function (response) {
-                        $scope.SaveDisable = false;
-                        //   console.log(response);
-                        //alert('Marks are Saved Successfully');
-                        issaved = true;
-                        $scope.DataSaved(type)
-                        //$scope.modalInstance.close();
-                        $scope.loadPinAndMarks();
-                    }, function (error) {
-                        $scope.SaveDisable = false;
-                        console.log(error);
-                        // alert(error);
-                    });
-                } else {
+                var postmarks = CcicAssessmentService.PostStudentMarks(markslist, $scope.UserName);
+                postmarks.then(function (response) {
                     $scope.SaveDisable = false;
+                    //   console.log(response);
+                    //alert('Marks are Saved Successfully');
+                    issaved = true;
+                    $scope.DataSaved(type)
                     //$scope.modalInstance.close();
-                    alert('No valid data Present');
                     $scope.loadPinAndMarks();
-
-                }
+                }, function (error) {
+                    $scope.SaveDisable = false;
+                    console.log(error);
+                    // alert(error);
+                });
+            } else {
+                $scope.SaveDisable = false;
+                //$scope.modalInstance.close();
+                alert('No valid data Present');
+                $scope.loadPinAndMarks();
 
             }
+
+        }
 
 
         $scope.SubmitMarks = function (type) {
@@ -283,11 +283,11 @@ define(['app'], function (app) {
             if (type == 1) {
                 $scope.SaveDisable = false;
                 $scope.modalInstance.close();
-            } 
+            }
 
-            else if (type == 0) { 
+            else if (type == 0) {
                 $scope.SaveDisable = true;
-               
+
 
                 if (markslist != [] && markslist != '') {
 
@@ -319,17 +319,17 @@ define(['app'], function (app) {
                     //$scope.modalInstance.close();
                 }
                 var submitMarks = CcicAssessmentService.SubmitMarksEntered($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
-            submitMarks.then(function (response) {
-                $scope.SaveDisable = false;
-                alert('Marks are Submited Successfully');
-                //$scope.modalInstance.close();
-                $scope.loadPinAndMarks();
-            }, function (error) {
-                $scope.SaveDisable = false;
-                console.log(error);
-            });
+                submitMarks.then(function (response) {
+                    $scope.SaveDisable = false;
+                    alert('Marks are Submited Successfully');
+                    //$scope.modalInstance.close();
+                    $scope.loadPinAndMarks();
+                }, function (error) {
+                    $scope.SaveDisable = false;
+                    console.log(error);
+                });
 
-        }
+            }
 
             else {
                 $scope.save(1)
@@ -343,97 +343,97 @@ define(['app'], function (app) {
         }
 
 
-            $scope.printMarksEntered = function () {
-                if (issaved == false) {
-                    alert('Save the marks before You Print');
-                    return;
-                }
-                var divName = "idtoDivPrint";
-                var $markstable = document.createElement("div");
-                $markstable.innerHTML = '';
-                $markstable.className = "table";
+        $scope.printMarksEntered = function () {
+            if (issaved == false) {
+                alert('Save the marks before You Print');
+                return;
+            }
+            var divName = "idtoDivPrint";
+            var $markstable = document.createElement("div");
+            $markstable.innerHTML = '';
+            $markstable.className = "table";
 
-                var parsent = new DOMParser();
-                var bl = parsent.parseFromString('<div id="divtitle">STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA</div>', "text/html")
-                var parse = new DOMParser();
-                var al = parse.parseFromString('<div id="divtop" ><span id="text-left"><label class="label-pad">Institution : </label>' + $scope.InstitutionCode + '-' + $scope.InstitutionName + '</span><span id="text-right"> </div>', "text/html");
-                var parser = new DOMParser();
-                var el = parser.parseFromString('<div id="divtoadd" ><label class="label-pad">Course :</label>' + $scope.CourseName  + ' </span></div>', "text/html");
-                var parser = new DOMParser();
-                var fl = parser.parseFromString('<div id="divtoaddmore" ><span id="text-left"><label class="label-pad">Subject : </label>' + $scope.SubjectCode + '-' + $scope.SubjectName + '</span></div>', "text/html");
-                var parser = new DOMParser();
-                var gl = parser.parseFromString('<div id="divtoaddMore" ><span id="text-left"><label class="label-pad">Exam Type : </label>' + $scope.ExamTypeName + '</span></div>', "text/html");
-                var parser = new DOMParser();
-                var divToPrint = document.getElementById(divName);
-                var temp = document.body.innerHTML;
-                $("#markslist").hide();
-                var domClone = divToPrint.cloneNode(true);
-                var $printSection = document.getElementById("printSection");
-                if (!$printSection) {
-                    var $printSection = document.createElement("div");
-                    $printSection.id = "printSection";
-                    //var $ele1 = document.createElement("div");
-                    //$ele1.className = "sbtet_img";             
-                    var divToPrintheads = bl.getElementById("divtitle");
-                    var divToPrintheaded = al.getElementById("divtop");
-                    var divToPrinthead = el.getElementById("divtoadd");
-                    var divToPrintheadmore = fl.getElementById("divtoaddmore");
-                    var divToPrintheadMore = gl.getElementById("divtoaddMore");
-                    $markstable.appendChild(divToPrintheads);
-                    $markstable.appendChild(divToPrintheaded);
-                    $markstable.appendChild(divToPrinthead);
-                    $markstable.appendChild(divToPrintheadmore);
-                    $markstable.appendChild(divToPrintheadMore);
+            var parsent = new DOMParser();
+            var bl = parsent.parseFromString('<div id="divtitle">STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA</div>', "text/html")
+            var parse = new DOMParser();
+            var al = parse.parseFromString('<div id="divtop" ><span id="text-left"><label class="label-pad">Institution : </label>' + $scope.InstitutionCode + '-' + $scope.InstitutionName + '</span><span id="text-right"> </div>', "text/html");
+            var parser = new DOMParser();
+            var el = parser.parseFromString('<div id="divtoadd" ><label class="label-pad">Course :</label>' + $scope.CourseName + ' </span></div>', "text/html");
+            var parser = new DOMParser();
+            var fl = parser.parseFromString('<div id="divtoaddmore" ><span id="text-left"><label class="label-pad">Subject : </label>' + $scope.SubjectCode + '-' + $scope.SubjectName + '</span></div>', "text/html");
+            var parser = new DOMParser();
+            var gl = parser.parseFromString('<div id="divtoaddMore" ><span id="text-left"><label class="label-pad">Exam Type : </label>' + $scope.ExamTypeName + '</span></div>', "text/html");
+            var parser = new DOMParser();
+            var divToPrint = document.getElementById(divName);
+            var temp = document.body.innerHTML;
+            $("#markslist").hide();
+            var domClone = divToPrint.cloneNode(true);
+            var $printSection = document.getElementById("printSection");
+            if (!$printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+                //var $ele1 = document.createElement("div");
+                //$ele1.className = "sbtet_img";             
+                var divToPrintheads = bl.getElementById("divtitle");
+                var divToPrintheaded = al.getElementById("divtop");
+                var divToPrinthead = el.getElementById("divtoadd");
+                var divToPrintheadmore = fl.getElementById("divtoaddmore");
+                var divToPrintheadMore = gl.getElementById("divtoaddMore");
+                $markstable.appendChild(divToPrintheads);
+                $markstable.appendChild(divToPrintheaded);
+                $markstable.appendChild(divToPrinthead);
+                $markstable.appendChild(divToPrintheadmore);
+                $markstable.appendChild(divToPrintheadMore);
 
 
-                    document.body.appendChild($printSection);
+                document.body.appendChild($printSection);
 
-                    var $ele1 = document.createElement("div");
-                    $ele1.className = "row";
+                var $ele1 = document.createElement("div");
+                $ele1.className = "row";
 
-                    var $ele2 = document.createElement("div");
-                    $ele2.className = "col-lg-2 col-md-12";
+                var $ele2 = document.createElement("div");
+                $ele2.className = "col-lg-2 col-md-12";
 
-                    var $ele3 = document.createElement("div");
-                    $ele3.className = "col-lg-10 col-md-12";
+                var $ele3 = document.createElement("div");
+                $ele3.className = "col-lg-10 col-md-12";
 
-                    //var $titlelogo = document.createElement("div");               
-                    //$titlelogo.className = "sbtet_img";
+                //var $titlelogo = document.createElement("div");               
+                //$titlelogo.className = "sbtet_img";
 
-                    // var $img = document.createElement("img");
-                    // $img.src = "../../../contents/img/big-logo.png";
-                    // $img.className = "image";
+                // var $img = document.createElement("img");
+                // $img.src = "../../../contents/img/big-logo.png";
+                // $img.className = "image";
 
-                    //var $titlelabel = document.createElement("div");
-                    //$titlelabel.className = "logo-name";
+                //var $titlelabel = document.createElement("div");
+                //$titlelabel.className = "logo-name";
 
-                    //var $title = document.createElement("h2");
-                    //$title.innerHTML = "STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA";
-                    //$titlelabel.className = "title-label";
+                //var $title = document.createElement("h2");
+                //$title.innerHTML = "STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA";
+                //$titlelabel.className = "title-label";
 
-                    //$titlelabel.appendChild($title);
-                    //  $titlelogo.appendChild($img);
+                //$titlelabel.appendChild($title);
+                //  $titlelogo.appendChild($img);
 
-                    // $ele2.appendChild($titlelogo);
-                    //$ele3.appendChild($titlelabel);
+                // $ele2.appendChild($titlelogo);
+                //$ele3.appendChild($titlelabel);
 
-                    //  $ele1.appendChild($ele2);
-                    $ele1.appendChild($ele3);
+                //  $ele1.appendChild($ele2);
+                $ele1.appendChild($ele3);
 
-                    $printSection.appendChild($ele1);
+                $printSection.appendChild($ele1);
 
-                    $printSection.appendChild($ele1);
-                    $printSection.appendChild($markstable);
-
-                }
-                $printSection.appendChild(domClone);
-                // console.log($printSection.innerHTML);
-                window.print();
-                document.body.removeChild($printSection);
-                $("#markslist").show();
-                $scope.showcollegedetail = false;
+                $printSection.appendChild($ele1);
+                $printSection.appendChild($markstable);
 
             }
+            $printSection.appendChild(domClone);
+            // console.log($printSection.innerHTML);
+            window.print();
+            document.body.removeChild($printSection);
+            $("#markslist").show();
+            $scope.showcollegedetail = false;
+
+        }
 
 
         $scope.logOut = function () {
