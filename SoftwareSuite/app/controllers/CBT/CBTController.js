@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CBTController", function ($scope, $http, $timeout, $localStorage, $state, $stateParams, AppSettings, SystemUserService) {
+    app.controller("CBTController", function ($scope, $http, $timeout, $localStorage, $window, $state, $stateParams, AppSettings, SystemUserService) {
         var authdata = $localStorage.authorizationData;
         $scope.userType = authdata.SystemUserTypeId;
         $scope.hide = false;
@@ -99,7 +99,8 @@
         $scope.submodules = submodules;
 
         $scope.OpenSubModule = function (Module) {
-            $state.go("Dashboard.TypeWriting." + Module.ModuleRouteName);
+            //    $state.go("Dashboard.ComputerBasedTest." + Module.ModuleRouteName);
+            $window.open('https://sbtet.telangana.gov.in/TwshCbt', '_blank');
         }
 
         $scope.OpenDashboard = function () {

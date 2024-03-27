@@ -79,25 +79,35 @@ define(['app'], function (app) {
         var tempId1 = [];
         $scope.AddMarksById = function (data) {
             var isvalied = false;
-            if (data.Marks == '') {
-                $('#' + data.MarksEntryDataID).val('');
-                return;
-            }
+            //if (data.Marks == '') {
+            //    alert("Please  Enter Marks")
+            //    return;
+            //    $('#' + data.MarksEntryDataID).val('');
+            //    if (markslist.length >= 0) {
+            //        markslist.map((obj) => {
+            //            if (obj.MarksEntryDataID == data.MarksEntryDataID) {
+            //                obj.Marks = '';
+            //                obj.MarksEntryDataID = '';
+            //                isvalied = false;
+            //            }
+            //        });
+            //    }
+            //    return;
+            //}
             if (data.Marks.length > $scope.MaxMarks.length) {
                 alert("Marks Entered character length should not exceed maximum marks length.");
-                //$scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 return;
                 isvalied = false;
             }
             if (data.Marks > $scope.MaxMarks) {
                 alert("Marks Entered should not be greater than maximum marks.");
-                //$scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 if (markslist.length > 0) {
                     markslist.map((obj) => {
                         if (obj.MarksEntryDataID == data.MarksEntryDataID) {
                             obj.Marks = '';
+                            obj.MarksEntryDataID = '';
                             isvalied = false;
                         }
                     });
@@ -106,7 +116,6 @@ define(['app'], function (app) {
             }
             if (data.Marks.includes(".")) {
                 alert('Entered marks are not valid');
-                //$scope.data = '';
                 $('#' + data.MarksEntryDataID).val('');
                 return;
             }
@@ -114,8 +123,24 @@ define(['app'], function (app) {
             if (data.Marks != null && data.Marks != "") {
                 if (isNaN(data.Marks)) {
                     if (data.Marks.toUpperCase() == 'AB' || data.Marks.toUpperCase() == 'MP') {
+                        //$('#' + data.MarksEntryDataID).val('');
+                        //if (markslist.length >= 0) {
+                        //    markslist.map((obj) => {
+                        //        if (obj.MarksEntryDataID == data.MarksEntryDataID) {
+                        //            obj.Marks = data.Marks;
+                        //        }
+                        //    });
+                        //}
                         isvalied = true;
                     } else {
+                        //$('#' + data.MarksEntryDataID).val('');
+                        //if (markslist.length >= 0) {
+                        //    markslist.map((obj) => {
+                        //        if (obj.MarksEntryDataID == data.MarksEntryDataID) {
+                        //            obj.Marks = data.Marks;
+                        //        }
+                        //    });
+                        //}
                         isvalied = false;
                     }
 
@@ -183,7 +208,7 @@ define(['app'], function (app) {
 
                 if (type == 0) {
                     $scope.modalInstance = $uibModal.open({
-                        templateUrl: "/app/views/Popups/AssessmentSubmitPopup.html",
+                        templateUrl: "/app/views/CCIC/Popups/MarksEntrySubmitPopup.html",
                         size: 'xs',
                         scope: $scope,
                         windowClass: 'modal-fit-att',
@@ -224,11 +249,11 @@ define(['app'], function (app) {
 
         $scope.save = function (type) {
             $scope.SaveDisable = true;
-            //if (markslist == [] || markslist== '' || markslist== null) {
-            //    alert('No Data Present');
-            //    $scope.SaveDisable = false;
-            //    return;
-            //}
+            if (markslist == [] || markslist== '' || markslist== null) {
+                alert('No Data Present');
+                $scope.SaveDisable = false;
+                return;
+            }
             //else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
             //    alert('No Data Present');
             //    $scope.SaveDisable = false;
@@ -264,22 +289,17 @@ define(['app'], function (app) {
 
         $scope.SubmitMarks = function (type) {
             $scope.SaveDisable = true;
-            //if (markslist.length != $scope.pinWise.length) {
-            //    alert("Please Enter All Students Marks for Submit");
-            //    return;
+ 
+            if (markslist == [] || markslist == '' || markslist == null) {
+                alert('No Data Present');
+                $scope.SaveDisable = false;
+                return;
+            }
+            //else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
+            //    alert('No Data Present');
             //    $scope.SaveDisable = false;
-            //    $scope.modalInstance.close();
+            //    return;
             //}
-            ////if (markslist == [] || markslist == '' || markslist == null) {
-            ////    alert('No Data Present');
-            ////    $scope.SaveDisable = false;
-            ////    return;
-            ////}
-            ////else if (markslist[0].Marks == [] || markslist[0] == '' || markslist[0] == null) {
-            ////    alert('No Data Present');
-            ////    $scope.SaveDisable = false;
-            ////    return;
-            ////}
             if (type == 1) {
                 $scope.SaveDisable = false;
                 $scope.modalInstance.close();
@@ -306,6 +326,24 @@ define(['app'], function (app) {
                         console.log(error);
                         // alert(error);
                     });
+                    if (markslist.length != $scope.pinWise.length) {
+                        alert("Please Enter All Students Marks for Submit");
+                        $scope.SaveDisable = false;
+                        return;
+                        //$scope.modalInstance.close();
+                    }
+                    else if (markslist.length == $scope.pinWise.length) {
+                        var submitMarks = CcicAssessmentService.SubmitMarksEntered($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
+                        submitMarks.then(function (response) {
+                            $scope.SaveDisable = false;
+                            alert('Marks are Submited Successfully');
+                            //$scope.modalInstance.close();
+                            $scope.loadPinAndMarks();
+                        }, function (error) {
+                            $scope.SaveDisable = false;
+                            console.log(error);
+                        });
+                    }
                 } else {
                     $scope.SaveDisable = false;
                     //$scope.modalInstance.close();
@@ -313,21 +351,7 @@ define(['app'], function (app) {
                     //$scope.loadPinAndMarks();
 
                 }
-                if (markslist.length != $scope.pinWise.length) {
-                    alert("Please Enter All Students Marks for Submit")
-                    return;
-                    //$scope.modalInstance.close();
-                }
-                var submitMarks = CcicAssessmentService.SubmitMarksEntered($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
-                submitMarks.then(function (response) {
-                    $scope.SaveDisable = false;
-                    alert('Marks are Submited Successfully');
-                    //$scope.modalInstance.close();
-                    $scope.loadPinAndMarks();
-                }, function (error) {
-                    $scope.SaveDisable = false;
-                    console.log(error);
-                });
+               
 
             }
 

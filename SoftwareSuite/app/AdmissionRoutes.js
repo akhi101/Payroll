@@ -3235,6 +3235,12 @@
                 dependencies: ['controllers/Twsh/TWSHController', 'directives/inputNumberOnly', 'services/MenuService']
             },
 
+            'Dashboard.ComputerBasedTest': {
+                url: "/ComputerBasedTest",
+                templateUrl: 'app/views/CBT/CBT.html',
+                dependencies: ['controllers/CBT/CBTController', 'directives/inputNumberOnly', 'services/MenuService']
+            },
+
             'Dashboard.TypeWriting.TwshStudentDetails': {
                 url: "/TwshStudentDetails",
                 templateUrl: 'app/views/TWSH/TwshStudentDetails.html',

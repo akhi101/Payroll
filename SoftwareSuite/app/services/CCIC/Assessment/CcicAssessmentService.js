@@ -141,7 +141,13 @@
             var promise=  DataAccessService.getDataWithPara('api/CcicAssessment/GetSubjectsReport', paramObject);
             return promise;
         };
-       
+        this.GetAssessmentInstitutionCourses = function (InstitutionID) {
+            var paramObject = {
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetAssessmentInstitutionCourses', paramObject);
+            return promise;
+        };
 
     });
 });
