@@ -331,6 +331,24 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
+        [HttpGet, ActionName("GetAssessmentInstitutionCourses")]
+        public string GetAssessmentInstitutionCourses(int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AssessmentInstitutionCourses", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
     }
 

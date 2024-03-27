@@ -13,7 +13,7 @@ define(['app'], function (app) {
         const $ctrl = this;
 
         $ctrl.$onInit = () => {
-            $scope.GetCcicCoursesByInstitution($scope.InstitutionID);
+            $scope.GetAssessmentInstitutionCourses($scope.InstitutionID);
         }
 
 
@@ -130,10 +130,10 @@ define(['app'], function (app) {
                     console.log(err.Message);
                 });
 
-            $scope.GetCcicCoursesByInstitution = function (InstitutionID) {
+        $scope.GetAssessmentInstitutionCourses = function (InstitutionID) {
 
-                var GetCcicCoursesByInstitution = CcicPreExaminationService.GetCcicCoursesByInstitution(InstitutionID);
-                GetCcicCoursesByInstitution.then(function (response) {
+            var getcourses = CcicAssessmentService.GetAssessmentInstitutionCourses(InstitutionID);
+            getcourses.then(function (response) {
 
                     try {
                         var res = JSON.parse(response);
