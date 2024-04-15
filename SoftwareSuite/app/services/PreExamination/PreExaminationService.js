@@ -221,6 +221,14 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GetBranchSemSubFeeReports', paramObject);
         };
 
+        this.GetExamMonthYearByAcademic = function (Academicyearid, studenttypeid, Examtypeid, semid) {
+            var paramObject = { "Academicyearid": Academicyearid, "studenttypeid": studenttypeid, "Examtypeid": Examtypeid, "semid": semid };
+            return DataAccessService.postData('api/PreExamination/getExamMonthYearByAcademic', paramObject);
+        };
+
+
+
+
         this.TransferBmaAttendee = function (collegecode, attendeeid, branch, remarks) {
             var paramObject = { "collegecode": collegecode, "attendeeid": attendeeid, "branch": branch, "remarks": remarks };
             return DataAccessService.getDataWithPara('api/PreExamination/TransferBmaAttendee', paramObject);

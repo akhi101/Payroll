@@ -10,7 +10,7 @@ define(['app'], function (app) {
         //$scope.UserName = tmpData.UserName;
 
 
-        if (tmpData.DataType == '1' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        if (tmpData.DataType == '1' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
             $scope.SAPending = true;
             $scope.RemarksText = true;
             $scope.RejectButton = true;
@@ -19,7 +19,7 @@ define(['app'], function (app) {
             $scope.CloseButton = true;
             $scope.DeleteButton = true;
         }
-        else if (tmpData.DataType == '2' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '2' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName != 'IT_TEAM')) {
             $scope.SAApproved = true;
             $scope.IssueFile = true;
             $scope.saremarkslabel = true;
@@ -27,7 +27,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName != 'IT_TEAM')) {
             $scope.SAUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -37,7 +37,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if (tmpData.DataType == '4' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '4' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
             $scope.SACompleted = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -107,7 +107,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT' ))) {
             $scope.GenUsersUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
