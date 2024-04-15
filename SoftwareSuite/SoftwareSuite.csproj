@@ -423,6 +423,7 @@
     <Compile Include="Models\CommanMethods.cs" />
     <Compile Include="Models\Database\DataTableHelper.cs" />
     <Compile Include="Models\Database\ivcdbHandler.cs" />
+    <Compile Include="Models\Database\PayRolldbhandler.cs" />
     <Compile Include="Models\Database\Twshdbhandler.cs" />
     <Compile Include="Models\DCBills\ExamExpenditureCharges.cs" />
     <Compile Include="Models\ExcelHelper.cs" />
@@ -1107,6 +1108,7 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
+    <Content Include="app\controllers\PostExam\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
@@ -1796,6 +1798,7 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
+    <Content Include="app\views\PostExam\PayRoll\PayRoll.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
