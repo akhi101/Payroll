@@ -4417,6 +4417,18 @@
 
 
 
+            'Dashboard.PayRoll': {
+                url: "/PayRoll",
+                templateUrl: 'app/views/PostExam/PayRoll/PayRoll.html',
+                dependencies: ['controllers/PostExam/PayRoll/PayRollController', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'Dashboard.PayRoll.Designation': {
+                url: "/Designation",
+                templateUrl: 'app/views/PostExam/PayRoll/Designation.html',
+                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/SystemAdministration/SystemUserService']
+            },
+
         }
 
 
