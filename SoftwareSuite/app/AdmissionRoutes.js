@@ -3009,7 +3009,7 @@
             'Dashboard.AssessmentDashboard.MarksSummary': {
                 url: "/MarksSummary",
                 templateUrl: 'app/views/Assessment/Reports/marksEntryReports.html',
-                dependencies: ['controllers/Assessment/Reports/marksEntryReports', 'services/Assessment/MarksEntryService', 'services/Assessment/AssessmentService']
+                dependencies: ['controllers/Assessment/Reports/marksEntryReports', 'services/Assessment/MarksEntryService', 'services/Assessment/AssessmentService', 'services/PreExamination/PreExaminationService']
             },
             'Dashboard.AssessmentDashboard.PracticalEvents': {
                 url: "/MarksSummary/PracticalEvents",
