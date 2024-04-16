@@ -30,7 +30,8 @@ define(['app'], function (app) {
 
 
         }
-        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
+
+        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName != 'IT_TEAM')) {
             $scope.SAUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -110,7 +111,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT'))) {
+        else if ((tmpData.DataType == '3' && ($scope.UserName != 'ADMIN' && $scope.UserName != 'IT_TEAM' && $scope.UserName != 'ASIT' ))) {
             $scope.GenUsersUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
