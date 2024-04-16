@@ -708,7 +708,7 @@
     <Content Include="app\controllers\CCIC\GetCcicDeCryptPaSSPageController.js" />
     <Content Include="app\controllers\CCIC\PaymentGateway\CcicPaymentGatewayResponseController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicCertificatesDataController.js" />
-    <Content Include="app\controllers\CCIC\PostExamination\CcicResultsProcessingController.js" />
+    <Content Include="app\controllers\CCIC\PostExamination\Results\CcicResultsProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicRVRCProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicTabulatedReportsController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicAmountController.js" />
@@ -2155,7 +2155,7 @@
     <Content Include="app\views\CCIC\Popups\EditSubjectMasterPopup.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicCertificatesData.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicPostExamination.html" />
-    <Content Include="app\views\CCIC\PostExamination\CcicResultsProcessing.html" />
+    <Content Include="app\views\CCIC\PostExamination\Results\CcicResultsProcessing.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicRVRCProcessing.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicTabulatedReports.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicAmount.html" />

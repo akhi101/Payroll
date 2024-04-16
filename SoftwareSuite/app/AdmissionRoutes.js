@@ -648,6 +648,31 @@
 
             },
 
+
+            'CcicDashboard.Assessment.AssessmentReports1': {
+                url: "/AssessmentReports1",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports1.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports1Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            },
+
+            'CcicDashboard.Assessment.AssessmentReports2': {
+                url: "/AssessmentReports2",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports2.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports2Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            },
+
+            'CcicDashboard.Assessment.AssessmentReports3': {
+                url: "/AssessmentReports3",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports3.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports3Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            },
+
+            'CcicDashboard.Assessment.AssessmentReports4': {
+                url: "/AssessmentReports4",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports4.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports4Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            },
+
 //-------------------------------------------------------------------------------------------------
 
             'CcicDashboard.PostExamination': {
@@ -658,8 +683,8 @@
 
             'CcicDashboard.PostExamination.ResultsProcessing': {
                 url: "/ResultsProcessing",
-                templateUrl: 'app/views/CCIC/PostExamination/CcicResultsProcessing.html',
-                dependencies: ['controllers/CCIC/PostExamination/CcicResultsProcessingController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+                templateUrl: 'app/views/CCIC/PostExamination/Results/CcicResultsProcessing.html',
+                dependencies: ['controllers/CCIC/PostExamination/Results/CcicResultsProcessingController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
             'CcicDashboard.PostExamination.RVRCProcessing': {

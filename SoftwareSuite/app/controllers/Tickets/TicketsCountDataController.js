@@ -10,7 +10,7 @@ define(['app'], function (app) {
         //$scope.UserName = tmpData.UserName;
 
 
-        if (tmpData.DataType == '1' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        if (tmpData.DataType == '1' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
             $scope.SAPending = true;
             $scope.RemarksText = true;
             $scope.RejectButton = true;
@@ -19,15 +19,18 @@ define(['app'], function (app) {
             $scope.CloseButton = true;
             $scope.DeleteButton = true;
         }
-        else if (tmpData.DataType == '2' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '2' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName != 'IT_TEAM')) {
             $scope.SAApproved = true;
             $scope.IssueFile = true;
             $scope.saremarkslabel = true;
             $scope.sadatelabel = true;
             //$scope.ResolvedFile = true;
 
+
+
+
         }
-        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '3' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
             $scope.SAUnderProcess = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -37,7 +40,7 @@ define(['app'], function (app) {
             //$scope.ResolvedFile = true;
 
         }
-        else if (tmpData.DataType == '4' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT')) {
+        else if (tmpData.DataType == '4' && ($scope.UserName == 'ADMIN' || $scope.UserName == 'ASIT' || $scope.UserName == 'IT_TEAM')) {
             $scope.SACompleted = true;
             $scope.worklabel = true;
             $scope.filenamelabel = true;
@@ -128,7 +131,7 @@ define(['app'], function (app) {
             $scope.saremarkslabel = true;
             $scope.sadatelabel = true;
         }
-     
+
 
         //if (tmpData.UserName == 'ADMIN') {
         //    $scope.UserName == tmpData.UserName;
@@ -146,7 +149,7 @@ define(['app'], function (app) {
         $ctrl.$onInit = () => {
             $scope.imgLabel = true;
             $scope.getTicketsCountData();
-         
+
 
             //if (tmpData.DataType = 1) {
             //    $scope.Status = 'Pending'
@@ -160,7 +163,7 @@ define(['app'], function (app) {
             //else if (tmpData.DataType = 4) {
             //    $scope.Status = 'Completed'
             //}
-           // $scope.CurrentDate = new Date();
+            // $scope.CurrentDate = new Date();
 
             if (tmpData.UserName == 'ADMIN' || tmpData.UserName == 'Elitesoft') {
                 $scope.ActiveData = false;
@@ -175,7 +178,7 @@ define(['app'], function (app) {
                 //$scope.DeleteButton = true;
                 $scope.User = false;
             }
-           
+
 
             var getcirculartype = AdminService.getCircularTypes();
             getcirculartype.then(function (response) {
@@ -249,7 +252,7 @@ define(['app'], function (app) {
         //$scope.location = window.location.origin;
         $scope.loading = true;
         $scope.getTicketsCountData = function () {
-            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName,tmpData.UserName,tmpData.ProjectID);
+            var getticketdata = AdminService.GetTicketsCountData(tmpData.DataType, $scope.UserName, tmpData.UserName, tmpData.ProjectID);
             getticketdata.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -679,8 +682,8 @@ define(['app'], function (app) {
 
         }
 
-        $scope.Approve = function (data,Remarks) {
-            var Status=1
+        $scope.Approve = function (data, Remarks) {
+            var Status = 1
             var updatecountsdata = AdminService.UpdateCountsData(data.TaskID, Status, Remarks);
             updatecountsdata.then(function (res) {
                 if (res[0].StatusCode == '200') {
@@ -768,14 +771,14 @@ define(['app'], function (app) {
         }
 
 
-        $scope.updateWorkAssignedTo = function (data,TaskAssigned) {
+        $scope.updateWorkAssignedTo = function (data, TaskAssigned) {
 
             if (TaskAssigned == '' || TaskAssigned == null || TaskAssigned == undefined) {
                 alert('please Enter Assigned To')
                 return;
             }
             var DataType = 1;
-            var updatedata = AdminService.UpdateWorkAssigned(DataType, data.TaskID, TaskAssigned,'','','');
+            var updatedata = AdminService.UpdateWorkAssigned(DataType, data.TaskID, TaskAssigned, '', '', '');
             updatedata.then(function (res) {
                 if (res[0].StatusCode == '200') {
                     $scope.modalInstance.close();
