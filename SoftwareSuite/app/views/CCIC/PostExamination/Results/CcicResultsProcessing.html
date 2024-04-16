@@ -1,4 +1,17 @@
 ﻿<style>
+
+    .navbar {
+        position: relative;
+        min-height: 50px;
+        border: 1px solid transparent;
+        font-family: 'Open Sans';
+    }
+
+    .navbar_inverse_section {
+        border-radius: 0px;
+        margin-bottom: 0px;
+    }
+
     .upload-btn-wrapper {
         position: relative;
         overflow: hidden;
@@ -702,9 +715,9 @@
                 <h5>Results Automation</h5>
                 <ol class="breadcrumb">
                     <ol class="breadcrumb">
-                        <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
-                        <li><a href="#!/CcicDashboard/PostExamination">PostExam </a></li>
-                        <li><a href="#!/CcicDashboard/PostExamination/ResultsProcessing">Results Processing</a></li>
+                        <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                        <li><a href="#!/Dashboard/PostExam">PostExam </a></li>
+                        <li><a href="#!/Dashboard/PostExam/ResultsAutomationExcelUpload">Results Automation</a></li>
                     </ol>
                 </ol>
             </section>
@@ -713,7 +726,7 @@
     </div>
     <div class="container">
         <div class="col-md-12">
-            <a href="#!/ccicDashboard/PostExamination" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+            <a href="#!/Dashboard/PostExam" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
         </div>
     </div>
     <div class="sm-spacer"></div>
@@ -769,36 +782,24 @@
                         <div class="studWishinputs">
                             <form name="ExcelForm1">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -821,9 +822,9 @@
                             <div class="form-group">
                                 <div class="upload-btn-wrapper">
                                     <button class="btn " style="margin-top:21px;">Choose Excel </button>
-                                    <input type="file" name="File" id="File" accept=".xlsx" sa-file-upload="myFile" />
+                                    <input type="file" name="File" id="File" ng-model="File" accept=".xlsx" sa-file-upload="myFile"  onchange="angular.element(this).scope().uploadFile()" />
                                 </div>
-                                <label>{{filename}}</label>
+                                <label style="color:black;font-size:12px">{{filename}}</label>
                             </div>
                         </div>
                     </div>
@@ -923,36 +924,24 @@
                         <div class="studWishinputs">
                             <form name="NrForm">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -976,36 +965,24 @@
                         <div class="studWishinputs">
                             <form name="MarksPost">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -1048,48 +1025,35 @@
                         <div class="studWishinputs">
                             <form name="WantingForm">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
-                                    <div>
-                                        <div class="col-md-2 ">
-                                            <div class="gr-btn">
-                                                <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="WantingForm.$valid && GenerateWantings()">Submit</button>
-                                            </div>
+                                    <div class="col-md-2 ">
+                                        <div class="gr-btn">
+                                            <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="WantingForm.$valid && GenerateWantings()">Submit</button>
                                         </div>
-
                                     </div>
-</form>
+
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -1102,36 +1066,24 @@
                         <div class="studWishinputs">
                             <form name="UploadForm">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -1250,36 +1202,24 @@
                         <div class="studWishinputs">
                             <form name="ResultsExcel">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -1311,36 +1251,24 @@
                         <div class="studWishinputs">
                             <form name="LogicExcel">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
@@ -1375,39 +1303,34 @@
                         <div class="studWishinputs">
                             <form name="PreviewForm">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Academic Year :
-                                        </label>
-                                        <select class="form-control " ng-model="academicyear" name="StudentType" required ng-change="GetExamMonthYearData(academicyear)">
-                                            <option value="" selected="selected">Select Year</option>
-                                            <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                {{data.AcademicYear}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Batch :
-                                        </label>
-                                        <select class="form-control " ng-model="BaTch" name="StudentType" required ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                            <option value="" selected="selected">Select Batch</option>
-                                            <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
-                                                {{data.Batch}}
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
-                                            Exam Month Year :
+                                            Exam Month/Year :
                                         </label>
-
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="sel1">
+                                            PIN :
+                                        </label>
+                                        <input class="form-control" type="text" ng-model="Pin" />
+                                    </div>
+
                                     <div class="col-md-2">
                                         <div class="gr-btn">
                                             <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="PreviewForm.$valid && GetConsolidatedPreview()">Submit </button>
@@ -1420,49 +1343,6 @@
                     </div>
                 </div>
 
-
-                <!--<div class="col-md-12">
-                    <div class="alert text-center clr_green">
-                        <span class="fontSize">In Development </span>
-                    </div>
-                </div>-->
-                <!--<div class="col-md-12">
-                    <div style="width: 100%; text-align: center;">
-                        <img src="../../../contents/img/loading.gif" ng-show="PreviewLoadImg" width="100" />
-                    </div>
-                    </div>
-                    <div class="container" ng-show="PreviewResultFound">
-
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="down-foramt">
-                                    <div class="col-md-4 hidden">
-                                        <label for="sel1">
-                                            Download Format :
-                                        </label>
-                                    </div>
-                                    <div class="col-md-5 form-group hidden">
-
-                                        <select class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" id="ExamYear" ng-model="EquivalancyCertificate.TenExYr">
-                                            <option value="0" selected="selected">Select Format</option>
-                                            <option ng-repeat="Exam_Year in Exam_Years" class="ng-binding ng-scope" value="2019">2019</option>
-                                            <option ng-repeat="Exam_Year in Exam_Years" class="ng-binding ng-scope" value="2018">2018</option>
-                                        </select>
-                                    </div>
-
-
-                                </div>
-
-
-
-                            </div>
-                        </div>
-                        <div class="col-md-2 pull-right" ng-show="PreviewResultFound">
-                            <div class="pt-btn">
-                                <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="PrintPreviewStudentResult()">Print<span class="fa fa-print heading_icon btn_icons"></span></button>
-                            </div>
-                        </div>
-                    </div>-->
 
                 <div class="print" ng-show="PreviewResultFound" id="idtoDivPreviewPrintAdmin">
                     <div>
@@ -1779,47 +1659,25 @@
                         <div class="studWishinputs">
                             <form name="DeployExcel">
                                 <div class="row">
-                                    <div class="col-md-2 form-group">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"> Academic Year :</label>
+                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                                <option value="" selected="selected">Select Year</option>
+                                                <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
+                                                    {{data.AcademicYear}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 form-group">
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
-                                        <select class="form-control" id="Deploymonthyear" ng-model="Deploymonthyear" required>
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                                ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
-                                            <option ng-repeat="monYer in MonthAndYear" value="{{monYer.Id}}">
-                                                {{monYer.ExamYearMonth}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Scheme :
-                                        </label>
-                                        <select class="form-control" id="DeployScheme" ng-model="DeployScheme" ng-change="loadSemExamTypes(DeployScheme)" required>
-                                            <option value="" selected>Select Scheme</option>
-                                            <option ng-repeat="scheme in schemeinfo" value="{{scheme.scheme}}">
-                                                {{scheme.scheme}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Exam Type :
-                                        </label>
-                                        <select class="form-control" id="DeployExamTypeId" ng-model="DeployExamTypeId" required>
-                                            <option value="" selected>Select Exam Type</option>
-                                            <option ng-repeat="data in getExamTypes" value="{{data.examtypeid}}">
-                                                {{data.examname}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-2 form-group">
-                                        <label for="sel1">
-                                            Student Type :
-                                        </label>
-
-                                        <select class="form-control" ng-model="DeploySelStudentType" name="StudentType" required
-                                                ng-options="Student.id as Student.type for Student in StudentType">
-                                            <option value="" selected>Select Student Type</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 ">
@@ -1894,68 +1752,68 @@
 <!---------------------------------------------------------------------------------------->
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            var navListItems = $('div.setup-panel div a'),
-                    allWells = $('.setup-content'),
+        var navListItems = $('div.setup-panel div a'),
+            allWells = $('.setup-content'),
+            allNextBtn = $('.nextBtn');
+
+        allWells.hide();
+
+        navListItems.click(function (e) {
+
+
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this);
+
+            if (!$item.hasClass('disabled')) {
+
+                navListItems.removeClass('btn-primary').addClass('btn-default');
+                $item.addClass('btn-primary').addClass('active')
+                if ($item.addClass('btn-primary').addClass('active')) {
+                    ($item.addClass('active').addClass('active_btn'))
                     allNextBtn = $('.nextBtn');
-
-            allWells.hide();
-
-            navListItems.click(function (e) {
-
-
-                e.preventDefault();
-                var $target = $($(this).attr('href')),
-                        $item = $(this);
-
-                if (!$item.hasClass('disabled')) {
-
-                    navListItems.removeClass('btn-primary').addClass('btn-default');
-                    $item.addClass('btn-primary').addClass('active')
-                    if($item.addClass('btn-primary').addClass('active')){
-                        ($item.addClass('active').addClass('active_btn'))
-                        allNextBtn = $('.nextBtn');
-                    }
-                    $item.addClass('active');
-                    //$("p").addClass("cls_active");
-                    allWells.hide();
-                    $target.show();
-                    $target.find('input:eq(0)').focus();
                 }
-            });
+                $item.addClass('active');
+                //$("p").addClass("cls_active");
+                allWells.hide();
+                $target.show();
+                $target.find('input:eq(0)').focus();
+            }
+        });
 
 
 
-            allNextBtn.click(function () {
+        allNextBtn.click(function () {
 
-                //validation = true;
-                //$target.show();
+            //validation = true;
+            //$target.show();
 
-                var curStep = $(this).closest(".setup-content"),
-                    curStepBtn = curStep.attr("id"),
-                    nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
-                    curInputs = curStep.find("input[type='text'],input[type='url']"),
-                    isValid = true;
-                $(this).removeClass('active')
-                $("p").addClass("cls_active");
-                $(".form-group").removeClass("has-error");
+            var curStep = $(this).closest(".setup-content"),
+                curStepBtn = curStep.attr("id"),
+                nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                curInputs = curStep.find("input[type='text'],input[type='url']"),
+                isValid = true;
+            $(this).removeClass('active')
+            $("p").addClass("cls_active");
+            $(".form-group").removeClass("has-error");
 
-                for (var i = 0; i < curInputs.length; i++) {
-                    if (!curInputs[i].validity.valid) {
-                        isValid = false;
-                        $(curInputs[i]).closest(".form-group").addClass("has-error");
-                    }
+            for (var i = 0; i < curInputs.length; i++) {
+                if (!curInputs[i].validity.valid) {
+                    isValid = false;
+                    $(curInputs[i]).closest(".form-group").addClass("has-error");
                 }
+            }
 
-                if (isValid)
-                    nextStepWizard.removeAttr('disabled').trigger('click');
-
-            });
-
-             $('div.setup-panel div a.btn-primary').trigger('click');
+            if (isValid)
+                nextStepWizard.removeAttr('disabled').trigger('click');
 
         });
+
+        $('div.setup-panel div a.btn-primary').trigger('click');
+
+    });
 
 
 </script>
