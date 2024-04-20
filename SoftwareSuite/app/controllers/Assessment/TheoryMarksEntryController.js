@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
 
-    app.controller("TheoryMarksEntryController", function ($scope, $http, $localStorage, $state, $uibModal, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService, PaymentService) {
+    app.controller("TheoryMarksEntryController", function ($scope, $http, $localStorage, $uibModal, $state, $uibModal, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService, PaymentService) {
 
         var authData = $localStorage.authorizationData;
         $scope.userName = authData.userName;
@@ -152,6 +152,11 @@
                     $scope.LoadImgForPinList = false;
                     $scope.pinWise = response.Table;
                     NEMarksList = response;
+                    PinIdlist = response.Table.map((obj) => { return { id: obj.id } });
+                    markslist = response.Table.map((obj) => { if (obj.marks != null) { return { id: obj.id, marks: obj.marks, IndustryName: obj.IndustryName } } });
+                    markslist = markslist.filter(function (element) { return element !== undefined; });
+                    Induslist = response.Table.map((obj) => { if (obj.IndustryName != null) { return { id: obj.id, marks: obj.marks, IndustryName: obj.IndustryName } } });
+                    Induslist = Induslist.filter(function (element) { return element !== undefined; });
                     $scope.SubjectName = response.Table1[0].SubjectName;
                     $scope.MaxMarks = response.Table1[0].maxmarks;
                     response.Table.forEach(function (stud) {
@@ -284,50 +289,275 @@
             }
         },
 
+            $scope.save = function (type) {
+                $scope.SaveDisable = true;
+                // if (semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 4 || semId == 6 && $scope.SchemeId == 5 && $scope.examTypeId == 18) {
+                //if ($scope.IndustryName == 1) {
+                //var outArr = [];
+                //        PinIdlist.forEach(function (value) {
+                //            var existing = Induslist.filter(function (v, i) {
+                //                return (v.id == value.id);
+                //            });
+                //            var existing2 = markslist.filter(function (v, i) {      
+                //                return (v.id == value.id);
+                //            });
 
-            $scope.save = function () {
-                // $scope.printDisable = false;
-                issaved = true;
-                // var marks = JSON.stringify(markslist);
-                //   console.log(markslist);
+                //            if (existing.length) {
+                //              //  value.marks = existing[0].marks;
+                //                value.IndustryName = existing[0].IndustryName;
+                //                outArr.push(value)
+                //            }
+                //             if (existing2.length) {
+                //                value.marks = existing2[0].marks;
+                //               // value.IndustryName = "";
+                //                outArr.push(value)
+                //            }
+                //            else if (existing.length) {
+                //                value.marks = existing[0].marks;
+                //                value.IndustryName = existing[0].IndustryName;
+                //                outArr.push(value)
+                //            } else {
+                //                value.marks = "";
+                //                value.IndustryName = "";
+                //                outArr.push(value);
+                //            }
+                //        });
+                //        outArr = outArr.filter(i => !(i.marks == "" && i.IndustryName == ""));
+                //        markslist = outArr;
+                //  }
+                //}
+
                 if (markslist != [] && markslist != '') {
+
+
                     var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, StudentTypeId);
                     postmarks.then(function (response) {
+                        $scope.SaveDisable = false;
                         //   console.log(response);
-                        alert('Marks are Saved Successfully');
+                        //alert('Marks are Saved Successfully');
+                        issaved = true;
+                        $scope.DataSaved(type)
+                        //$scope.modalInstance.close();
                         $scope.loadPinAndMarks();
                     }, function (error) {
+                        $scope.SaveDisable = false;
                         console.log(error);
                         // alert(error);
                     });
                 } else {
+                    $scope.SaveDisable = false;
+                  //  $scope.modalInstance.close();
                     alert('No valid data Present');
                     $scope.loadPinAndMarks();
+
                 }
 
             }
-
         $scope.back = function () {
             $state.go("Dashboard.AssessmentDashboard.TheorySubjectList");
         }
-        $scope.submit = function () {
-            var conf = confirm("Are you sure you want to submit the marks");
-            if (conf) {
-                subid = $localStorage.assessment.selectSubjectDetails.subid;
-                let collegeCode = authData.College_Code;
-                var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear);
-                submitMarks.then(function (response) {
-                    //   console.log(response);
-                    alert('Marks are Submited Successfully');
-                    $scope.loadPinAndMarks();
-                }, function (error) {
-                    console.log(error);
-                });
+        $scope.submit = function (type) {
+            $scope.SaveDisable = true;
+            //var conf = confirm("Are you sure you want to submit the marks");
+            //if (conf) {
+            if (type == 1) {
+                $scope.SaveDisable = false;
+                $scope.modalInstance.close();
+            } else {
+                $scope.save(1)
+                return;
             }
 
-        },
+            subid = $localStorage.assessment.selectSubjectDetails.subid;
+            let collegeCode = authData.College_Code;
+
+            var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear);
+            submitMarks.then(function (response) {
+                //   console.log(response);
+                $scope.SaveDisable = false;
+                alert('Marks are Submited Successfully');
+                $scope.modalInstance.close();
+                $scope.loadPinAndMarks();
+            }, function (error) {
+                $scope.SaveDisable = false;
+                console.log(error);
+            });
+            //}
+
+        }
+
+        $scope.OpenPopup = function (type) {
+
+            if (markslist.length != $scope.pinWise.length) {
+                alert("Please Enter All Students Marks for Submit")
+                return;
+                $scope.modalInstance.close();
+            }
+            if (type == 1) {
+                $scope.modalInstance.close();
+            }
+            if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
+                alert("Please Update Mobile Number in Affiliation Portal");
+                return;
+            }
+            $scope.SendOtp()
+            $scope.modalInstance = $uibModal.open({
+                templateUrl: "/app/views/Popups/AssessmentPopup.html",
+                size: 'xs',
+                scope: $scope,
+                windowClass: 'modal-fit-att',
+            });
+
+            $scope.closeModal = function () {
+
+                $scope.modalInstance.close();
+            }
+        }
+
+        $scope.SendOtp = function () {
+            if ($scope.Mobile != null && $scope.Mobile != undefined && $scope.Mobile.length == '10') {
+                //if ($scope.OldSudent) {
+                //    var Pin = $scope.PinNumber;
+                //} else {
+                //    var Pin = $scope.userData.Pin;
+                //}
+                $scope.Otp = true;
+                $scope.NoOtp = false;
+                $scope.loader = true
+                $scope.Otpdisable = true;
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile, $scope.ExamDetails)
+                GenerateOtpForMobile.then(function (response) {
+                    try {
+                        var detail = JSON.parse(response);
+                    } catch (err) { }
+                    if (detail.status == '200') {
+                        alert(detail.description);
+                        $scope.Otp = true;
+                        $scope.NoOtp = false;
+                        $scope.loader = false
+                        $scope.Otpdisable = false;
+                    } else {
+                        alert(detail.description);
+                        $scope.Otp = false;
+                        $scope.NoOtp = true;
+                        $scope.loader = false
+                        $scope.Otpdisable = false;
+                    }
+                }, function (error) {
+                    alert('error occured while sending OTP');
+                    $scope.Otp = false;
+                    $scope.NoOtp = true;
+                    $scope.loader = false
+                    $scope.Otpdisable = false;
+                })
+
+            } else if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
+                alert("Please Update Mobile Number in Affiliation Portal");
+                return;
+            } else if ($scope.Mobile.length != '10') {
+                alert('Enter valid Mobile number');
+            } else {
+                alert("Please Enter Mobile Number");
+            }
 
 
+        }
+        $scope.counter = 0;
+        $scope.ReSendOtp = function () {
+            $scope.counter++;
+            if ($scope.counter > 2) {
+                $scope.limitexceeded = true;
+                return;
+            } else {
+                //if ($scope.OldSudent) {
+                //    var Pin = $scope.PinNumber;
+                //} else {
+                //    var Pin = $scope.userData.Pin;
+                //}
+                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile)
+                GenerateOtpForMobileNoUpdate.then(function (response) {
+                    try {
+                        var detail = JSON.parse(response);
+                    } catch (err) { }
+                    if (detail.status == '200') {
+                        alert(detail.description);
+                        $scope.Otp = true;
+                        $scope.NoOtp = false;
+                    } else {
+                        alert(detail.description);
+                        $scope.Otp = false;
+                        $scope.NoOtp = true;
+                    }
+                }, function (error) {
+                    alert('error occured while Resending OTP');
+                    $scope.Otp = false;
+                    $scope.NoOtp = true;
+                });
+
+
+            }
+        }
+
+        $scope.VerifyOtp = function (otp) {
+            $scope.OTPdata = otp
+            if ($scope.OTPdata == null || $scope.OTPdata == "" || $scope.OTPdata == undefined) {
+                alert('Please Enter OTP.');
+                return;
+            }
+            if ($scope.OTPdata.length != '6') {
+                alert('Please Enter valid OTP.');
+                return;
+            }
+            //if ($scope.OldSudent) {
+            //    var Pin = $scope.PinNumber;
+            //} else {
+            //    var Pin = $scope.userData.Pin;
+            //}
+            var UpdateUserdata = PreExaminationService.UpdateUserdata($scope.Mobile, $scope.Mobile, $scope.OTPdata)
+            UpdateUserdata.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res.Table[0].StatusCode == '200') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.submit(1)
+                    $scope.phonenoupdated = true;
+                    $scope.Verified = true;
+
+                } else {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.phonenoupdated = false;
+                    $scope.Verified = false;
+                }
+            }, function (error) {
+                alert('error occured while updating Mobile number.');
+                $scope.phonenoupdated = false;
+                $scope.Verified = false;
+            });
+
+
+        }
+
+        $scope.DataSaved = function (type) {
+            if (type == 0) {
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/AssessmentSubmitPopup.html",
+                    size: 'xs',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+                $scope.closeModal = function () {
+
+                    $scope.modalInstance.close();
+                }
+            } else {
+                $scope.OpenPopup()
+            }
+
+
+
+        }
 
             $scope.printMarksEntered = function () {
                 if (issaved == false) {

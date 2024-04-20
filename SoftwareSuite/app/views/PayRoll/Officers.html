@@ -1,0 +1,279 @@
+﻿<style>
+    .btn_top {
+        margin-top: 25px;
+    }
+    tr.clr_bg {
+        background-color: #024e85;
+        color: #fff;
+    }
+    .card {
+        margin-bottom: 50px;
+    }
+   
+   
+</style>
+<div ng-controller="OfficersController">
+    <div class="container content">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active noprint">
+                <a href="#1" class="noprint" data-toggle="tab">Increments</a>
+            </li>
+            <li class="noprint">
+                <a href="#2" class="noprint" data-toggle="tab">Deductions</a>
+            </li>
+            <li class="noprint">
+                <a href="#3" class="noprint" data-toggle="tab">Leaves</a>
+            </li>
+            <li class="noprint">
+                <a href="#4" class="noprint" data-toggle="tab">PayRoll</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="1">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="sb in Years" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="Month" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sm-spacer"></div>
+                <div class="">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Employee Id</th>
+                                <th>Employee Name</th>
+                                <th>Increment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="Increment" class="form-control" /> </td>
+                            </tr>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="Increment" class="form-control" /> </td>
+                            </tr>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="Increment" class="form-control" /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-sm pull-right">Save</button>
+                </div>
+            </div>
+            <div class="tab-pane" id="2">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="sb in Years" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="Month" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sm-spacer"></div>
+                <div class="">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Employee Id</th>
+                                <th>Employee Name</th>
+                                <th>IT</th>
+                                <th>Flag Fund</th>
+                                <th>Harithanidhi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="IT" class="form-control" /> </td>
+                                <td><input name="FlagFund" class="form-control" /> </td>
+                                <td><input name="Harithanidhi" class="form-control" /> </td>
+                            </tr>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="IT" class="form-control" /> </td>
+                                <td><input name="FlagFund" class="form-control" /> </td>
+                                <td><input name="Harithanidhi" class="form-control" /> </td>
+                            </tr>
+                            <tr>
+                                <td>1245</td>
+                                <td>Akhil Kumar</td>
+                                <td><input name="IT" class="form-control" /> </td>
+                                <td><input name="FlagFund" class="form-control" /> </td>
+                                <td><input name="Harithanidhi" class="form-control" /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-sm pull-right">Save</button>
+                </div>
+            </div>
+            <div class="tab-pane" id="3">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="sb in Years" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="Month" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sm-spacer"></div>
+                <div class="card">
+                    <div class="col-md-3"><b>Medical Leaves </b></div>
+                    <div class="col-md-9">: 20</div>
+                    <div class="col-md-3"><b>Casual Leaves </b></div>
+                    <div class="col-md-9">: 10</div>
+                    <div class="col-md-3"><b>Earn Leaves </b></div>
+                    <div class="col-md-9">: 8</div>
+                    <br />
+                    <div class="col-md-3"><b>Leaves Required :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="LeavesRequired" placeholder="Leaves Required" /></div>
+                  
+                        <br />
+                        <div class="col-md-9">
+                            <button class="btn btn-success pull-right">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            <div class="tab-pane" id="4">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="sb in Years" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="Month" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
+                                        {{sb}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sm-spacer"></div>
+            </div>
+        </div>
+    </div>
+</div>

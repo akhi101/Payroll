@@ -102,6 +102,14 @@
         });
 
 
+        $scope.ReleaseButton = function (Submitted) {
+            if (Submitted != 0) {
+                alert("Release Option will be Availabe only once in Principal Login")
+                return;
+            }
+
+        }
+
         $scope.payFineAmount = function () {
             var payfine = MarksEntryService.getPaymentDetails($scope.fineAmount, $scope.College_Code, branchcode, semId, $scope.selectedScheme, AcademicId, examTypeid, $scope.ExamMonthYear);
             payfine.then(function (req) {
