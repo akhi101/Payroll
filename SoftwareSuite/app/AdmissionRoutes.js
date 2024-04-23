@@ -4426,8 +4426,27 @@
             'Dashboard.PayRoll.Designation': {
                 url: "/Designation",
                 templateUrl: 'app/views/PostExam/PayRoll/Designation.html',
-                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/SystemAdministration/SystemUserService']
+                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
             },
+
+            'Dashboard.PayRoll.Departments': {
+                url: "/Departments",
+                templateUrl: 'app/views/PostExam/PayRoll/Department.html',
+                dependencies: ['controllers/PostExam/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRoll.BankDetails': {
+                url: "/BankDetails",
+                templateUrl: 'app/views/PostExam/PayRoll/BankDetails.html',
+                dependencies: ['controllers/PostExam/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRoll.EmployeeDetails': {
+                url: "/EmployeeDetails",
+                templateUrl: 'app/views/PostExam/PayRoll/EmployeeDetails.html',
+                dependencies: ['controllers/PostExam/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
+            },
+
 
         }
 

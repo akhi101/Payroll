@@ -379,6 +379,33 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
         }
+        public DataSet ReturnDataWithStoredProcedureTable(string strQuery)
+        {
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            try
+            {
+                sqlCmd = new SqlCommand(strQuery, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandTimeout = intTimeOutPeriod;
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(ds);
+                if (ExecuteWithTransaction == false)
+                {
+                    if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+                }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                RollBack();
+                throw ex;
+            }
+        }
         public void createlog(string Message, string Query)
         {
             try
@@ -431,6 +458,8 @@ namespace SoftwareSuite.Models.Database
                 throw ex;
             }
         }
+
+
 
         internal void SaveErorr(string v1, int v2, string message)
         {

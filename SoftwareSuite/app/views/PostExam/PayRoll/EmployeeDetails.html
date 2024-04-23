@@ -1,0 +1,287 @@
+﻿<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+<div ng-controller="EmployeeDetailsController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Employee Details</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PayRoll">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRoll/EmployeeDetails">Employee Details</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRoll" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+
+    </div>
+    <div>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <div class="studWishinputs">
+                        <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                            <div class="row">
+
+                                <div class="form-group col-md-12">
+                                    <label>
+                                        Employee Name:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="255" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Employee Name" ng-model="EmployeeName">
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="date-picker-example">Date Of Birth:</label>
+                                    <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                        <input type="text" show-weeks="false" class="form-control" disabled id="datetimepicker1" placeholder="DD/MM/YYYY" autocomplete="off" name="CandidateNameDOB" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="CandidateNameDOB" ng-change="checkDate(CandidateNameDOB)" is-open="showFlag1"  />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" ng-click="showFlag1 = true"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                     </p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="date-picker-example">Date Of Joining:</label>
+                                    <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                        <input type="text" show-weeks="false" class="form-control" disabled id="datetimepicker2" placeholder="DD/MM/YYYY" autocomplete="off" name="DOJ" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOJ" ng-change="checkDate(DOJ)" is-open="showFlag2" required />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" ng-click="showFlag2 = true"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label for="date-picker-example">Date Of Retirement:</label>
+                                    <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
+                                        <input type="text" show-weeks="false" class="form-control" disabled id="datetimepicker3" placeholder="DD/MM/YYYY" autocomplete="off" name="DOR" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOR" ng-change="checkDate(DOR)" is-open="showFlag3" required />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="col-md-12">
+                                <div class="form-group col-md-3"  style="right: 15px;">
+                                    <div class="form-group ">
+                                        <label>Gender</label>
+                                        <select class="form-control" name="applicationForm.Gender" ng-model="Gender" ng-disabled="Genderfound" >
+                                            <option value="">Select Gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                   
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        PHC:
+                                    </label>
+                                    <select class="form-control" name="applicationForm.Gender" ng-model="PHC" >
+                                        <option value="">Select PHC</option>
+                                        <option value="M">YES</option>
+                                        <option value="F">NO</option>
+                                    </select>
+                                   
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Employee Status:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter Empstatus" ng-model="EmployeeStatus">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Increment Month:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter IncrementMonth" ng-model="IncrementMonth">
+                                </div>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Scale Type:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter ScaleType" ng-model="ScaleType">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Pan Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter PanNumber" ng-model="PanNumber">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        GPF Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter GPFNumber" ng-model="GPFNumber">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        CPS/NPS:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter CPS/NPS" ng-model="CPS_NPS">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        CPS Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter CPSNumber" ng-model=" CPSNumber">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Account Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter AccountNumber" ng-model="AccountNumber">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Category Code:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter CategoryCode" ng-model="CategoryCode">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
+                                        ADD
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container " ng-show="EmployeeDetailsData.length>0">
+        <div class="col-md-12">
+            <div class="cl-details">
+                <h2> Employee Details </h2>
+            </div>
+            <div class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                    <thead>
+                        <tr class="cb-1">
+                            <th>S.No</th>
+                            <th class="text-center">Employee Name</th>
+                            <th class="text-center">Date Of Birth</th>
+                            <th class="text-center">Date Of Joining</th>
+                            <th class="text-center">Date Of Retirement</th>
+                            <th class="text-center">Gender</th>
+                            <th class="text-center">PHC</th>
+                            <th class="text-center">Employee Status</th>
+                            <th class="text-center">Increment Month</th>
+                            <th class="text-center">Scale Type</th>
+                            <th class="text-center">Pan Number</th>
+                            <th class="text-center">GPF Number</th>
+                            <th class="text-center">CPS/NPS</th>
+                            <th class="text-center">CPS Number</th>
+                            <th class="text-center">Account Number</th>
+                            <th class="text-center">Category Code</th>
+                            <!--<th class="text-center">Status</th>-->
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="" ng-repeat="data in EmployeeDetailsData">
+                            <td class="text-center pointer">{{$index+1}}</td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CandidateNameDOB" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOJ" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOR" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Gender" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PHC" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Employeestatus" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IncrementMonth" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.ScaleType" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PanNumber" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GPFNumber" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CPS_NPS" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CPSNumber" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.AccountNumber" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CategoryCode" /></div></td>
+
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditEmployeeDetails(data,$index+1)">
+                                    Edit
+                                </button>
+                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
+                                    Update
+                                </button>
+
+                            </td>
+                            <td style="text-align:center">
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="container" ng-show="Noreports">
+        <div class="col-md-12">
+            <div class="no-results">
+                <img src="../../contents/img/Folder-Icon.svg" />
+                <h2>No data Found</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="sm-spacer"></div>
+    <div class="sm-spacer"></div>
+</div>
