@@ -112,7 +112,6 @@
 
             }
 
-            $scope.academicyear = academicyear;
             var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(academicyear)
             getCcicAcademicYearBatch.then(function (res) {
                 try {
@@ -175,6 +174,159 @@
             }
 
             var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACademicYear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+
+        $scope.gETExamMonthYearData = function (ACademicyear) {
+            if (ACademicyear == null || ACademicyear == undefined || ACademicyear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACademicyear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+
+        $scope.gETEXamMonthYearData = function (ACADemicYear) {
+            if (ACADemicYear == null || ACADemicYear == undefined || ACADemicYear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACADemicYear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.gETEXAmMonthYearData = function (ACADEmicYear) {
+            if (ACADEmicYear == null || ACADEmicYear == undefined || ACADEmicYear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACADEmicYear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+
+        $scope.gETEXAMMonthYearData = function (ACADEMicYear) {
+            if (ACADEMicYear == null || ACADEMicYear == undefined || ACADEMicYear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACADEMicYear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.gETEXAMMOnthYearData = function (ACADEMicYear) {
+            if (ACADEMicYear == null || ACADEMicYear == undefined || ACADEMicYear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACADEMicYear)
             getCcicAcademicYearBatch.then(function (res) {
                 try {
                     var res = JSON.parse(res);
@@ -366,6 +518,15 @@
             document.getElementById("myCheck").click();
         }
 
+
+        $scope.uploadFile1 = function () {
+            var fileInput = $document[0].getElementById('File1');
+            $scope.file1 = fileInput.files[0];
+            $scope.filename1 = $scope.file1.name;
+            $scope.FileContains = true;
+            $scope.FileContains1 = true;
+            document.getElementById("myCheck1").click();
+        }
         $scope.$watch('myFile1', function (newFileObj) {
             if (newFileObj) {
                 $scope.filename = newFileObj.name;
@@ -523,13 +684,13 @@
 
         $scope.openExcel1 = function () {
             $scope.reload1 = true;
-            if ($scope.myFile != '') {
+            if ($scope.file1 != '') {
                 $scope.reload1 = true;
                 $scope.tabledata1 = []
                 $scope.Exceldat1 = [];
                 $scope.Exceldata1 = [];
                 var reader = new FileReader();
-                reader.readAsBinaryString($scope.myFile);
+                reader.readAsBinaryString($scope.file1);
                 reader.onload = function (e) {
                     var data = e.target.result;
                     var workbook = XLSX.read(data, {
@@ -552,7 +713,7 @@
 
                             $scope.Exceldat1 = $scope.Exceldata1[0]
 
-                            var tempArray1 = ["Pin", "SubjectCode", "Marks", "MaxMarks", "MpRule", "IndustryName"];
+                            var tempArray1 = ["examcent", "ExamcentName", "scheme", "Branchcode", "Subcode", "subname", "pcode", "semester", "pinno", "SName", "ATTSTATUS", "first_eval_marks", "first_CE_marks", "Final_marks", "MAXMARKS", "MP_Punishment_proposed_COE", "barcode", "evaluatorid", "evaluator_name", "evaluator_college", "evaluator_phone", "chiefexaminerid", "ChiefExaminer_name", "ChiefExaminer_college", "ChiefExaminer_phone"];
                             var keysMached1 = false;
                             for (let q = 0; q < Object.keys($scope.Exceldat1[0]).length; q++) {
                                 if (tempArray1.includes(Object.keys($scope.Exceldat1[0])[q])) {
@@ -700,7 +861,7 @@
 
         $scope.ResultsProcessing = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.ResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.ResultsScheme, $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
+            var loadData1 = CcicPreExaminationService.ResultsProcessing($scope.ACADEmicYear, $scope.MONTHyear, $scope.UserName)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -730,7 +891,7 @@
 
         $scope.ResultsLogicReports = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.ResultsLogicReports($scope.Logicmonthyear, $scope.LogicSelStudentType, $scope.LogicScheme, $scope.LogicExamTypeId, $scope.LogicAcademicYear, $scope.userName)
+            var loadData1 = PreExaminationService.ResultsLogicReports($scope.ACADEMicYear, $scope.MONTHYear, $scope.UserName)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -798,7 +959,7 @@
 
         $scope.GenerateWantings = function () {
             $scope.reload1 = true;
-            var loadData1 = PreExaminationService.GenerateWantings($scope.Wantingsmonthyear, $scope.WantingsSelStudentType, $scope.WantingsScheme, $scope.WantingsExamTypeId)
+            var loadData1 = CcicPreExaminationService.GenerateWantings($scope.ACAdemicyear, $scope.MONthyear, $scope.UserName)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -1336,7 +1497,7 @@
                 }
                 $scope.filteredArray.push(obj)
             });
-            var uploadJson = CcicPreExaminationService.UploadResultFileJson($scope.academicYear, $scope.monthyear, $scope.filteredArray, $scope.UserName);
+            var uploadJson = CcicPreExaminationService.UploadResultFileJson($scope.academicyear, $scope.monthyear, $scope.filteredArray, $scope.UserName);
             uploadJson.then(function (data) {
 
                 var data = JSON.parse(data);
@@ -1469,12 +1630,39 @@
 
             var filteredArray1 = [];
 
-            $scope.Exceldat1.forEach(function (element) {
-                var obj = { "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks, "MpRule": element.MpRule, "IndustryName": element.IndustryName }
+          $scope.Exceldat.forEach(function (element) {
+                //console.log(element)
+                var obj = {
+                    "examcent": element.examcent,
+                    "ExamcentName": element.ExamcentName,
+                    "scheme": element.scheme,
+                    "Branchcode": element.Branchcode,
+                    "Subcode": element.Subcode,
+                    "subname": element.subname,
+                    "pcode": element.pcode,
+                    "semester": element.semester,
+                    "pinno": element.pinno,
+                    "SName": element.SName,
+                    "ATTSTATUS": element.ATTSTATUS,
+                    "first_eval_marks": element.first_eval_marks,
+                    "first_CE_marks": element.first_CE_marks,
+                    "Final_marks": element.Final_marks,
+                    "MAXMARKS": element.MAXMARKS,
+                    "MP_Punishment_proposed_COE": element.MP_Punishment_proposed_COE,
+                    "barcode": element.barcode,
+                    "evaluatorid": element.evaluatorid,
+                    "evaluator_name": element.evaluator_name,
+                    "evaluator_college": element.evaluator_college,
+                    "evaluator_phone": element.evaluator_phone,
+                    "chiefexaminerid": element.chiefexaminerid,
+                    "ChiefExaminer_name": element.ChiefExaminer_name,
+                    "ChiefExaminer_college": element.ChiefExaminer_college,
+                    "ChiefExaminer_phone": element.ChiefExaminer_phone
+                }
                 filteredArray1.push(obj)
             });
 
-            var uploadJson = PreExaminationService.UploadWantingsJson($scope.Wantingsmonthyear, $scope.WantingsSelStudentType, $scope.WantingsScheme, $scope.WantingsExamTypeId, 1, $scope.userName, filteredArray1);
+            var uploadJson = PreExaminationService.UploadWantingsJson($scope.ACADemicyear, $scope.MONThyear, filteredArray1, $scope.UserName);
             uploadJson.then(function (data) {
 
                 var data = JSON.parse(data);

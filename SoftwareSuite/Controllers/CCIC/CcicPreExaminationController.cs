@@ -2763,9 +2763,11 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        private void elapse(object sender, ElapsedEventArgs e, string v)
+        private static void elapse(object sender, ElapsedEventArgs e, string s)
         {
-            throw new NotImplementedException();
+            System.IO.File.Delete(s);
+            ((Timer)sender).Stop();
+            ((Timer)sender).Dispose();
         }
 
 
@@ -3440,6 +3442,202 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 dbHandler.SaveErorr("SP_SET_MarksPostingForResultsProcessing", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GenerateWantings")]
+        public string GenerateWantings(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ResultWantings", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "Wantings" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_GET_ResultWantings ", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("UploadWantingsJson")]
+        public string UploadWantingsJson([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", json["AcademicYearID"]);
+                param[1] = new SqlParameter("@ExamMonthYearID", json["ExamMonthYearID"]);
+                param[2] = new SqlParameter("@Json", json["Json"].ToString());
+                param[3] = new SqlParameter("@UserName", json["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsAutomationWantingsUpdations", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ResultsAutomationWantingsUpdations", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpGet, ActionName("ResultsProcessing")]
+        public string ResultsProcessing(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsProcessing", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "Results" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000000);//600000
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ResultsProcessing ", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("ResultsLogicReports")]
+        public string ResultsLogicReports(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsLogicReports ", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "ResultsLogicReports" + ".xlsx";
+
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ResultsLogicReports ", 0, ex.Message);
                 return ex.Message;
             }
 
