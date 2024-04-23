@@ -917,5 +917,39 @@
             var promise = DataAccessService.getDataWithPara('CcicPreExaminationReport/NrReports', paramObj);
             return promise;
         };
+
+        this.UploadResultFileJson = function (AcademicYearID, ExamMonthYearID, Json,UserName) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "Json": Json,
+                "UserName": UserName,
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/UploadResultFileJson', paramObj);
+            return promise;
+        };
+
+        this.GenerateNrData = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GenerateNrData', paramObject);
+        };
+
+        this.PostMarks = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/PostMarks', paramObject);
+        };
+
     });
 });

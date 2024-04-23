@@ -649,28 +649,28 @@
             },
 
 
-            'CcicDashboard.Assessment.AssessmentReports1': {
-                url: "/AssessmentReports1",
-                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports1.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports1Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            'CcicDashboard.Assessment.AssessmentReports': {
+                url: "/AssessmentReports",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReportsInstitute.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReportsInstituteController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
-            'CcicDashboard.Assessment.AssessmentReports2': {
-                url: "/AssessmentReports2",
-                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports2.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports2Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            'CcicDashboard.Assessment.AssessmentReportsCourse': {
+                url: "/AssessmentReportsCourse",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReportsCourse.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReportsCourseController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
-            'CcicDashboard.Assessment.AssessmentReports3': {
-                url: "/AssessmentReports3",
-                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports3.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports3Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            'CcicDashboard.Assessment.AssessmentReportsSubject': {
+                url: "/AssessmentReportsSubject",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReportsSubject.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReportsSubjectController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
-            'CcicDashboard.Assessment.AssessmentReports4': {
-                url: "/AssessmentReports4",
-                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReports4.html',
-                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReports4Controller', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
+            'CcicDashboard.Assessment.AssessmentReportsData': {
+                url: "/AssessmentReportsData",
+                templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReportsData.html',
+                dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReportsDataController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/CcicSettingsService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
 //-------------------------------------------------------------------------------------------------
@@ -4496,7 +4496,7 @@
             'Dashboard.PayRoll.Designation': {
                 url: "/Designation",
                 templateUrl: 'app/views/PostExam/PayRoll/Designation.html',
-                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/SystemAdministration/SystemUserService']
+                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
             },
 
         }
