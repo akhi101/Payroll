@@ -785,7 +785,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold"> Academic Year :</label>
-                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                            <select class="form-control " ng-model="academicyear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicyear)">
                                                 <option value="" selected="selected">Select Year</option>
                                                 <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                                     {{data.AcademicYear}}
@@ -798,7 +798,7 @@
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                        <select class="form-control" ng-model="monthyear" id="ExamYear" required ng-change="verifyTimeTableGeneration(monthyear)"
                                                 ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
@@ -927,7 +927,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold"> Academic Year :</label>
-                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                            <select class="form-control " ng-model="Academicyear" name="Academicyear" required ng-change="getExamMonthYearData(Academicyear)">
                                                 <option value="" selected="selected">Select Year</option>
                                                 <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                                     {{data.AcademicYear}}
@@ -940,14 +940,14 @@
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                        <select class="form-control" ng-model="Monthyear" id="Monthyear" 
                                                 ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
-                                            <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" ng-click="NrForm.$valid && GenerateNr(NrScheme)">Submit</button>
+                                            <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" ng-click="NrForm.$valid && GenerateNr()">Submit</button>
                                         </div>
                                     </div>
 
@@ -968,7 +968,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold"> Academic Year :</label>
-                                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetExamMonthYearData(academicYear)">
+                                            <select class="form-control " ng-model="ACademicYear" name="ACademicYear" required ng-change="gEtExamMonthYearData(academicYear)">
                                                 <option value="" selected="selected">Select Year</option>
                                                 <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                                     {{data.AcademicYear}}
@@ -981,7 +981,7 @@
                                         <label for="sel1">
                                             Exam Month/Year :
                                         </label>
-                                        <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="verifyTimeTableGeneration(monthyear)"
+                                        <select class="form-control" ng-model="MOnthyear" id="MOnthyear"
                                                 ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetExamMonthYear">
                                             <option value="" selected>Select Month/Year of Exam</option>
                                         </select>

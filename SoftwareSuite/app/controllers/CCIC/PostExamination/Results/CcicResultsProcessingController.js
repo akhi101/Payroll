@@ -106,14 +106,75 @@
 
 
 
-        $scope.GetExamMonthYearData = function (academicYear) {
-            if (academicYear == null || academicYear == undefined || academicYear == "") {
+        $scope.GetExamMonthYearData = function (academicyear) {
+            if (academicyear == null || academicyear == undefined || academicyear == "") {
                 return;
 
             }
 
-            $scope.academicYear = academicYear;
-            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(academicYear)
+            $scope.academicyear = academicyear;
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(academicyear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+
+        $scope.getExamMonthYearData = function (Academicyear) {
+            if (Academicyear == null || Academicyear == undefined || Academicyear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(Academicyear)
+            getCcicAcademicYearBatch.then(function (res) {
+                try {
+                    var res = JSON.parse(res);
+                }
+                catch (err) { }
+
+                if (res.Table.length > 0) {
+                    $scope.GetExamMonthYear = res.Table;
+                }
+                else {
+                    $scope.GetExamMonthYear = [];
+                }
+                for (var j = 1; j < res.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.gEtExamMonthYearData = function (ACademicYear) {
+            if (ACademicYear == null || ACademicYear == undefined || ACademicYear == "") {
+                return;
+
+            }
+
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(ACademicYear)
             getCcicAcademicYearBatch.then(function (res) {
                 try {
                     var res = JSON.parse(res);
@@ -298,8 +359,8 @@
 
         $scope.uploadFile = function () {
             var fileInput = $document[0].getElementById('File');
-            var file = fileInput.files[0];
-            $scope.filename = file.name;
+            $scope.file = fileInput.files[0];
+            $scope.filename = $scope.file.name;
             $scope.FileContains = true;
             $scope.FileContains1 = true;
             document.getElementById("myCheck").click();
@@ -352,14 +413,14 @@
 
         $scope.openExcel = function () {
             $scope.reload = true;
-            if ($scope.filename != '') {
+            if ($scope.file != '') {
                 $scope.reload = true;
 
                 $scope.tabledata = []
                 $scope.Exceldat = [];
                 $scope.Exceldata = [];
                 var reader = new FileReader();
-                reader.readAsBinaryString($scope.myFile);
+                reader.readAsBinaryString($scope.file);
                 reader.onload = function (e) {
                     var data = e.target.result;
                     var workbook = XLSX.read(data, {
@@ -383,7 +444,7 @@
 
                         $scope.Exceldat = $scope.Exceldata[0]
 
-                        var tempArray = ["Pin", "SubjectCode", "Marks", "MaxMarks", "MpRule"];
+                        var tempArray = ["examcent", "ExamcentName", "scheme", "Branchcode", "Subcode", "subname", "pcode", "semester", "pinno", "SName", "ATTSTATUS", "first_eval_marks", "first_CE_marks", "Final_marks", "MAXMARKS", "MP_Punishment_proposed_COE", "barcode", "evaluatorid", "evaluator_name", "evaluator_college", "evaluator_phone", "chiefexaminerid", "ChiefExaminer_name", "ChiefExaminer_college", "ChiefExaminer_phone"];
                         var keysMached = false;
                         for (let q = 0; q < Object.keys($scope.Exceldat[0]).length; q++) {
                             if (tempArray.includes(Object.keys($scope.Exceldat[0])[q])) {
@@ -562,11 +623,11 @@
 
 
         //$scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.ExamTypeId, $scope.userName
-        $scope.GenerateNr = function (Nrscheme) {
+        $scope.GenerateNr = function () {
 
             $scope.reload = true;
 
-            var loadData1 = PreExaminationService.GenerateNrData($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
+            var loadData1 = CcicPreExaminationService.GenerateNrData($scope.Academicyear, $scope.Monthyear,$scope.UserName)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -769,7 +830,7 @@
             $scope.SuccessStatus = false;
             $scope.FailStatus = false;
 
-            var loadData1 = PreExaminationService.PostMarks($scope.Nrmonthyear, $scope.NrSelStudentType, $scope.NrScheme, $scope.NrExamTypeId, $scope.userName)
+            var loadData1 = CcicPreExaminationService.PostMarks($scope.ACademicYear, $scope.MOnthyear, $scope.UserName)
             loadData1.then(function (data) {
                 var data = JSON.parse(data)
                 if (data.Table[0].ResponceCode == '200') {
@@ -1241,120 +1302,41 @@
         $scope.UploadExcel = function () {
 
             $scope.reload = true;
-            //for (let obj of $scope.SampleData) {
-            ////console.log("object:", obj);
-            //    for (let key in obj) {
-            //        //console.log("      key:", key, "value:", obj[key]);
-            //        for (let obj1 of $scope.tabledata) {
-            //        //console.log("object:", obj1);
-            //            for (let key1 in obj1) {
-            //                //  console.log("      key:", key, "value:", obj[key]);
-            //                console.log(key, key1)
-            //                if (key == key1) {
-            //                    console.log('Matched')
-            //                    break;
-            //                } else {
-            //                    console.log('Not Matched')
-
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //        $scope.SampleData.forEach(obj => {
-            //    Object.entries(obj).forEach((key1, value1) => {
-
-            //        $scope.tabledata.forEach(obj1 => {
-            //            Object.entries(obj1).forEach((key2, value2) => {
-            //                if (key1 == key2[0]) {
-            //                                console.log("All Keys Matched")
-            //                                // here is where you grab the value2.color
-            //                            } else {
-            //                    console.log(key2+"Column Names Not Matched")
-            //                    return;
-
-            //                            }
-            //            });
-            //            console.log('-------------------');
-            //        });
-            //    });
-            //    console.log('-------------------');
-            //});
-
-            //for (i = 0; i < $scope.SampleData.length; i++) {
-            // var   SampleData = $scope.SampleData[i];
-            // for (i = 0; i < $scope.tabledata.length; i++) {
-            //     var JsonObj = $scope.tabledata[i];
-            //    }
-            //}
-
-            //angular.forEach($scope.SampleData, function (value1, key1) {
-            //    angular.forEach($scope.tabledata, function (value2, key2) {
-
-            //        if (key1 == key2) {
-            //            alert("All Keys Matched")
-            //            // here is where you grab the value2.color
-            //        } else {
-            //            alert("Column Names Not Matched")
-            //        }
-            //    });
-            //});
-
-            //console.log($scope.Exceldat);
-
-
-            //var empid=[1,4,5]
-            //var records = [{ "empid": 1, "fname": "X", "lname": "Y" }, { "empid": 2, "fname": "A", "lname": "Y" }, { "empid": 3, "fname": "B", "lname": "Y" }, { "empid": 4, "fname": "C", "lname": "Y" }, { "empid": 5, "fname": "C", "lname": "Y" }] ;
-
-            //var empIdObj={};
-
-            //empid.forEach(function(element) {
-            //    empIdObj[element]=true;
-            //});
-
-            //angular.forEach($scope.Exceldat, function (value, key) {
-            //    console.log(value)
-            //    console.log($scope.Exceldat[key])
-            //    //if (value == "Pin") {
-            //    //    if (value == "SubjectCode") {
-            //    //        //alert('Subject Code is required in uploaded Excel')
-            //    //        //return;
-            //    //        if (value == "Marks") {
-            //    //            //alert('Marks is required in uploaded Excel')
-            //    //            //return;
-            //    //            if (value == "MaxMarks") {
-            //    //                //alert('Max Marks is required in uploaded Excel')
-            //    //                //return;
-            //    //            } else {
-            //    //                alert('Max Marks is required in uploaded Excel')
-            //    //                return;
-            //    //            }
-            //    //        } else {
-            //    //            alert('Marks is required in uploaded Excel')
-            //    //            return;
-            //    //        }
-            //    //    } else {
-            //    //        alert('Subject Code is required in uploaded Excel')
-            //    //        return;
-            //    //    }
-            //    //} else {
-            //    //    alert('Pin is required in uploaded Excel')
-            //    //    return;
-            //    //}
-            //    //console.log("username is thomas");
-            //});
-
-
-            //console.log(filteredArray)
-            //console.log($scope.monthyear, $scope.SelStudentType, $scope.Scheme,$scope.SelStudentType, filteredArray, $scope.userName)
+          
             $scope.Exceldat = $scope.Exceldata[0]
             $scope.filteredArray = [];
             $scope.Exceldat.forEach(function (element) {
                 //console.log(element)
-                var obj = { "Pin": element.Pin, "SubjectCode": element.SubjectCode, "Marks": element.Marks, "MaxMarks": element.MaxMarks, "MpRule": element.MpRule }
+                var obj = {
+                    "examcent": element.examcent,
+                    "ExamcentName": element.ExamcentName,
+                    "scheme": element.scheme,
+                    "Branchcode": element.Branchcode,
+                    "Subcode": element.Subcode,
+                    "subname": element.subname,
+                    "pcode": element.pcode,
+                    "semester": element.semester,
+                    "pinno": element.pinno,
+                    "SName": element.SName,
+                    "ATTSTATUS": element.ATTSTATUS,
+                    "first_eval_marks": element.first_eval_marks,
+                    "first_CE_marks": element.first_CE_marks,
+                    "Final_marks": element.Final_marks,
+                    "MAXMARKS": element.MAXMARKS,
+                    "MP_Punishment_proposed_COE": element.MP_Punishment_proposed_COE,
+                    "barcode": element.barcode,
+                    "evaluatorid": element.evaluatorid,
+                    "evaluator_name": element.evaluator_name,
+                    "evaluator_college": element.evaluator_college,
+                    "evaluator_phone": element.evaluator_phone,
+                    "chiefexaminerid": element.chiefexaminerid,
+                    "ChiefExaminer_name": element.ChiefExaminer_name,
+                    "ChiefExaminer_college": element.ChiefExaminer_college,
+                    "ChiefExaminer_phone": element.ChiefExaminer_phone
+                }
                 $scope.filteredArray.push(obj)
             });
-            var uploadJson = PreExaminationService.UploadResultFileJson($scope.monthyear, $scope.SelStudentType, $scope.Scheme, $scope.UploadExamTypeId, $scope.filteredArray, $scope.userName);
+            var uploadJson = CcicPreExaminationService.UploadResultFileJson($scope.academicYear, $scope.monthyear, $scope.filteredArray, $scope.UserName);
             uploadJson.then(function (data) {
 
                 var data = JSON.parse(data);

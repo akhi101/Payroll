@@ -378,6 +378,7 @@
     <Compile Include="Controllers\PaymentGateway\PaymentController.cs" />
     <Compile Include="Controllers\PaymentGateway\TransactionResponseController.cs" />
     <Compile Include="Controllers\PaymentGateway\TwalletController.cs" />
+    <Compile Include="Controllers\PayRoll\PayRollController.cs" />
     <Compile Include="Controllers\Polycet\PolycetLocatorController.cs" />
     <Compile Include="Controllers\PreExamination\GenerateNR.cs" />
     <Compile Include="Controllers\PreExamination\PreExaminationController.cs" />
@@ -1108,11 +1109,13 @@
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
+    <Content Include="app\controllers\PostExam\PayRoll\DesignationController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\services\CBT\CbtStudentRegService.js" />
+    <Content Include="app\services\PayRoll\PayRollService.js" />
     <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CBT\EditCandidateDetails.html" />
     <Content Include="app\views\CBT\FeePayment.html" />
@@ -1798,6 +1801,7 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
+    <Content Include="app\views\PostExam\PayRoll\Designation.html" />
     <Content Include="app\views\PostExam\PayRoll\PayRoll.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />

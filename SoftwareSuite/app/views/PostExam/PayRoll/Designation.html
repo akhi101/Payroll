@@ -1,401 +1,154 @@
-﻿<style>
-    .modal-open {
-        padding-right: 0px !important;
-    }
-
-    body.modal-open {
-        padding-right: 0px !important;
-        overflow-y: auto;
-    }
-
-    .selectBox {
-        position: relative;
-    }
-
-        .selectBox select {
-            width: 100%;
-            font-weight: bold;
-        }
-
-    .overSelect {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-    }
-
-    thead > tr > th {
-        position: sticky;
-        top: 0px;
-    }
-
-
-
-
-    .txt_decorate {
-        text-transform: uppercase;
-    }
-
-    #checkboxesdistrict {
-        display: none;
-        border: 1px #dadada solid;
-    }
-
-        #checkboxesdistrict label {
-            display: block;
-        }
-
-            #checkboxesdistrict label:hover {
-                background-color: #1e90ff;
-            }
-
-    #checkboxesmandal label {
-        display: block;
-    }
-
-        #checkboxesmandal label:hover {
-            background-color: #1e90ff;
-        }
-
-    #checkboxesmandal {
-        display: none;
-        border: 1px #dadada solid;
-    }
-
-
-
-    .contain {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        /* margin-bottom: 12px; */
-        /* padding-top: 5px; */
-        cursor: pointer;
-        margin: 5px !important;
-        font-size: 15px !important;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-        /* Hide the browser's default checkbox */
-        .contain input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-
-    /* Create a custom checkbox */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 22px;
-        width: 22px;
-        background-color: #eee;
-        border: 1px solid #cac6c6;
-    }
-
-    /* On mouse-over, add a grey background color */
-    .contain:hover input ~ .checkmark {
-        background-color: #ccc;
-    }
-
-    /* When the checkbox is checked, add a blue background */
-    .contain input:checked ~ .checkmark {
-        background-color: #2196F3;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
-
-    /* Show the checkmark when checked */
-    .contain input:checked ~ .checkmark:after {
-        display: block;
-    }
-    /* Style the checkmark/indicator */
-    .contain .checkmark:after {
-        left: 8px;
-        top: 4px;
-        width: 6px;
-        height: 12px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-
-    .contain {
-        font-size: 13px !important;
-    }
-
-
-
-    .card {
-        /* Add shadows to create the "card" effect */
-
-        border: 1px solid #ddd;
-        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-        transition: 0.3s;
-        padding: 20px;
-    }
-
-        /* On mouse-over, add a deeper shadow */
-        .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-
-    /* Add some padding inside the card container */
-    .container {
-        padding: 2px 16px;
-    }
-
-    a.ExportToExcel1 {
-        color: #1f497d;
-        text-decoration: none;
-        font-size: 18px;
-        padding-right: 10px;
-        background-color: #fff;
-        cursor: pointer;
-    }
-</style>
+﻿
 <div ng-controller="DesignationController">
-
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
             <section class="content-header">
-                <h5>Add or Update Coordinating Centres</h5>
-
+                <h5>Designation</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PayRoll">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRoll/Designation">Designation</a></li>
+                </ol>
             </section>
         </div>
         <!-- breadcrumb Close -->
     </div>
     <div class="container">
-        <button class="btn  btn-primary back_button" ng-click="GoBack()"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button>
-        <!--<h6>
-            {{mandalarr}}
-        </h6>-->
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRoll" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+
     </div>
-    <div class="container">
-        <div class="card">
-            <form name="dataForm">
-               
-                <div class="row">
+    <div>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <div class="studWishinputs">
+                        <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                            <div class="row">
 
-                    <div class="form-group col-md-12">
-                        <label>
-                            Designation Name:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter Designation Name" ng-model="DesignationName">
-                    </div>
+                                <div class="form-group col-md-12">
+                                    <label>
+                                        Designation Name:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" placeholder="Enter Designation Name" ng-model="DesignationName">
+                                </div>
 
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label>
-                            House Number / Building Name:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter House Number / Building Name (Optional)" ng-model="HouseNo">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>
-                            Street Number / Name:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter Street Number / Name (Optional)" ng-model="StreetNo">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>
-                            Locality:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter Locality (Optional)" ng-model="Locality">
-                    </div>
+                                <div class="form-group col-md-4" required>
+                                    <label>
+                                        Designation Type:
+                                    </label>
+                                    <select class="form-control" id="Designation" ng-model="DesignationType"
+                                            ng-options="data.Id as data.value for data in DesignationCodeValues">
+                                        <option value="" selected>Select Designation</option>
+                                    </select>
+                                </div>
 
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label>
-                            Landmark:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter Landmark (Optional)" ng-model="Landmark">
-                    </div>
-                    <div class="form-group col-md-4" required>
-                        <label>
-                            Village:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Enter Village (Optional)" ng-model="Village">
-                    </div>
-                    <div class="form-group col-md-4" required>
-                        <label>
-                            Designation Type:
-                        </label>
-                        <select class="form-control" id="Designation" ng-model="Designation" ng-change="getDesignation(Designation)"
-                                ng-options="data.DesignationID as data.DesignationName for data in DesignationData">
-                            <option value="" selected>Select Designation</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-4" required>
-                        <label>
-                            DesignationOrder:
-                        </label>
-                        <select class="form-control" id="DesignationOrder" ng-model="DesignationOrder"
-                                ng-options="data.Id as data.value for data in DesignationCodeValues">
-                            <option value="" selected> Designation Order</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>
-                            Postal pin code:
-                        </label>
-                        <input class="form-control" type="text" maxlength="6" minlength="6" placeholder="Enter PinCode" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="PinCode">
-                    </div>
+                                <div class="form-group col-md-4" required>
+                                    <label>
+                                        DesignationOrder:
+                                    </label>
+                                    <select class="form-control" id="DesignationOrder" ng-model="DesignationOrder"
+                                            ng-options="data.Id as data.value for data in DesignationCodeValues">
+                                        <option value="" selected> Designation Order</option>
+                                    </select>
+                                </div>
 
-                    <div class="form-group col-md-3">
-                        <label>
-                            QP Dispatch Route Number:
-                        </label>
-                        <input class="form-control" type="text" placeholder="Enter QP Dispatch Route Number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="QPRoute">
-                    </div>
 
-                    <div class="form-group col-md-3">
-                        <label>
-                            Route Sequence:
-                        </label>
-                        <input class="form-control" type="text" placeholder="Enter Route Sequence" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' maxlength="3" ng-model="RouteSequence">
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        No. of Post:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter No. of Post" ng-model="NoofPost">
+                                </div>
+
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        Go. Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="3"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Go. Number" ng-model="GONumber">
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        No. of Vacants:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="3"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="No. of Vacants" ng-model="NoofVacants">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
+                                        ADD
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
 
-
-                <div class="row">
-                    <div class="form-group col-md-4">
-                        <label>
-                            Coordinator Name:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Please Enter Coordinator Name" ng-model="CoordinatorName">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label>
-                            Mobile Number:
-                        </label>
-                        <input class="form-control" type="text" placeholder="Please Enter Mobile Number" maxlength="10" minlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="CoordinatorMobile">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label>
-                            Email:
-                        </label>
-                        <input class="form-control" type="text" maxlength="100" placeholder="Please Enter Email (Optional)" ng-model="CoordinatorEmail">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-11">
-                        <div class="">
-                            <button type="submit" class="btn  btn-primary btn_top_margin  pull-right" ng-click="Submit()">Add <span class="fa fa-arrow-up heading_icon btn_icons"></span></button>
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="">
-                            <button type="submit" class="btn  btn-danger btn_top_margin  pull-right" ng-click="Cancel()">Cancel<span class="fa  heading_icon btn_icons"></span></button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-        <!--<div class="sm-spacer"></div>-->
-        <div class="col-md-12" style="padding:0px!important">
-            <div class="pull-right">
-                <a class="ExportToExcel1 pointer"
-                   id="ExportToExcel1" ng-click="DownloadtoExcel('#tblParent')">
-                    <i class="fa fa-file-excel"></i>
-                    Report
-                </a>
-            </div>
-            <div class="cl-details" ng-if="CoordinatorsDataNew.length>0">
-                <h5 class="head_css">Coordinating Centres</h5>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12" ng-if="loading">
-                <div class="sm-spacer"></div>
-                <div style="width:100%;text-align:center;">
-                    <img src="../../../contents/img/loader1.gif" ng-if="loading" width="100" />
-                </div>
-            </div>
+    </div>
 
-            <div class="card" ng-show="nodata">
-                <div class="col-md-12 no-results" style="width:100%;text-align:center;">
-                    <img src="../../contents/img/Folder-Icon.svg" />
-                    <h2>No Data</h2>
-                </div>
+    <div class="container " ng-show="DesignationData.length>0">
+        <div class="col-md-12">
+            <div class="cl-details">
+                <h2> Designation</h2>
             </div>
-            <div id="preExamReports" class="table-responsive table-custom-tables-tb col-md-12" ng-if="CoordinatorsDataNew.length>0">
-                <table class="table table-bordered  table-striped table-rounded">
+            <div class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
                     <thead>
                         <tr class="cb-1">
-                            <th class="text-center" style="width: 2%;">S.No</th>
-                            <th class="text-center">QP Route Number</th>
-                            <th class="text-center">Route Sequence</th>
-                            <th class="text-center">Centre Code</th>
-                            <th class="text-center">Centre Name</th>
-                            <th class="text-center">Coordinator Name</th>
-                            <th class="text-center">Coordinator Mobile</th>
-                            <th class="text-center">Active</th>
-                            <th class="text-center" style="width: 10%">Action</th>
+                            <th>S.No</th>
+                            <th class="text-center">Designation Name</th>
+                            <th class="text-center">Designation Type</th>
+                            <th class="text-center">Designation Order</th>
+                            <th class="text-center">No. Of Post</th>
+                            <th class="text-center">GO Number</th>
+                            <th class="text-center">No. Of Vacants</th>
+                            <!--<th class="text-center">Status</th>-->
+                            <th class="text-center">Action</th>
+
                         </tr>
                     </thead>
-
                     <tbody>
-                        <tr style="background-color:#fff!important;cursor:pointer" ng-repeat="data in CoordinatorsDataNew">
+                        <tr style="" ng-repeat="data in DesignationData">
+                            <td class="text-left">{{$index + 1}}</td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationTypeId" /></div></td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationOrder" /></div></td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfPost" /></div></td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GONumber" /></div></td>
+                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfVacants" /></div></td>
+                            
 
-                            <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center">{{data.RouteNumber}}</td>
-                            <td class="text-center">{{data.RouteSequence}}</td>
-                            <td class="text-center">{{data.CentreCode}}</td>
-                            <td class="text-center">{{data.CentreName}}</td>
-                            <td class="text-center">{{data.CoordinatorName}}</td>
-                            <td class="text-center">{{data.CoordinatorMobile}}</td>
                             <td class="text-center">
-                                <button class="btn btn-success btn-xs" ng-disabled="ActiveButton" ng-show="data.Active == true">Yes</button>
-                                <button class="btn btn-danger btn-xs" ng-disabled="ActiveButton" ng-show="data.Active == false">No</button>
-                            </td>
-                            <td class="text-center">
-                                <a href="" class="btn btn-info btn-xs" ng-click="Edit(data.CoordinatingCentreID)">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                                <a href="" class="btn btn-primary btn-xs" ng-click="View(data.CoordinatingCentreID)">
-                                    <i class="fa fa-eye" style="font-size:14px"></i>
-                                </a>
-                                <a href="" disabled class="btn btn-danger btn-xs">
-                                    <i class="fa fa-trash-o" style="font-size:14px"></i>
-                                </a>
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="Editdesignations(data,$index+1)">
+                                    Edit
+                                </button>
+                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="Updatedesignations(data,$index+1)">
+                                    Update
+                                </button>
+
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
-            <div style="width:100%;text-align:center;">
-                <!--<div class="loadingImg">
-                   <img src="../../contents/img/loading2.gif" ng-show="loading" width="64" />
-                </div>-->
 
+        </div>
+    </div>
+    <div class="container" ng-show="Noreports">
+        <div class="col-md-12">
+            <div class="no-results">
+                <img src="../../contents/img/Folder-Icon.svg" />
+                <h2>No data Found</h2>
             </div>
         </div>
     </div>
+
     <div class="sm-spacer"></div>
-    <div class="spacer"></div>
-
-
-</div>
+    <div class="sm-spacer"></div>
+</div>  
