@@ -951,5 +951,51 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/PostMarks', paramObject);
         };
 
+
+        this.GenerateWantings = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GenerateWantings', paramObject);
+        };
+
+        this.UploadWantingsJson = function (AcademicYearID, ExamMonthYearID,Json, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "Json": Json,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.postData('api/CcicPreExamination/UploadWantingsJson', paramObject);
+        };
+
+        this.ResultsProcessing = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/ResultsProcessing', paramObject);
+        };
+
+        this.ResultsLogicReports = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/ResultsLogicReports', paramObject);
+        };
+
     });
 });
