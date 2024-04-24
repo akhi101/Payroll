@@ -149,5 +149,45 @@
             return promise;
         };
 
+
+        this.GetExamMonthYears = function (AcademicYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetExamMonthYears', paramObj);
+            return promise;
+        };
+
+        this.GetAssessmentInstituteCount = function (AcademicYearID, ExamMonthYearID,ExamTypeId) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamTypeId": ExamTypeId
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetAssessmentInstituteCount', paramObj);
+            return promise;
+        };
+
+        this.GetAssessmentInstituteCountExcel = function (AcademicYearID, ExamMonthYearID, ExamTypeId) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamTypeId": ExamTypeId
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetAssessmentInstituteCountExcel', paramObj);
+            return promise;
+        };
+
+        this.GetAssessmentInstituteCourseCount = function (AcademicYearID, ExamMonthYearID, ExamTypeId,InstitutionID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamTypeId": ExamTypeId,
+                "InstitutionID": InstitutionID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetAssessmentInstituteCourseCount', paramObj);
+            return promise;
+        };
+
     });
 });

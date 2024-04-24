@@ -18,7 +18,7 @@
         }
 
         $scope.Submit = function () {
-            $scope.ShowData = true;
+            $scope.ShowData1 = true;
         }
         $scope.GetTable = false;
         //$scope.MonthAndYear = [
@@ -514,7 +514,7 @@
             $scope.file = fileInput.files[0];
             $scope.filename = $scope.file.name;
             $scope.FileContains = true;
-            $scope.FileContains1 = true;
+            //$scope.FileContains1 = true;
             document.getElementById("myCheck").click();
         }
 
@@ -523,7 +523,7 @@
             var fileInput = $document[0].getElementById('File1');
             $scope.file1 = fileInput.files[0];
             $scope.filename1 = $scope.file1.name;
-            $scope.FileContains = true;
+            //$scope.FileContains = true;
             $scope.FileContains1 = true;
             document.getElementById("myCheck1").click();
         }
