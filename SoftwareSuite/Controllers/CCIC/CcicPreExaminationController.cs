@@ -3539,7 +3539,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[2] = new SqlParameter("@UserName", UserName);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsProcessing", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ResultGeneration", param);
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {
                     var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
@@ -3579,7 +3579,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("ResultsProcessing ", 0, ex.Message);
+                dbHandler.SaveErorr("SP_SET_ResultGeneration ", 0, ex.Message);
                 return ex.Message;
             }
 
