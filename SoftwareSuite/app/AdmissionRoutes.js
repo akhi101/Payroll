@@ -655,7 +655,6 @@
                 dependencies: ['controllers/CCIC/Assessment/CcicAssessmentReportsInstituteController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/Assessment/CcicAssessmentService']
             },
 
-
             'CcicDashboard.Assessment.AssessmentReportsCourse': {
                 url: "/AssessmentReportsCourse",
                 templateUrl: 'app/views/CCIC/Assessment/CcicAssessmentReportsCourse.html',
