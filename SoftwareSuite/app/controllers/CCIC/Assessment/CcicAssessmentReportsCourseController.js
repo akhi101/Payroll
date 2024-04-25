@@ -85,16 +85,18 @@
        
 
 
-        $scope.getCoursewiseCount = function () {
+        $scope.getInstituteCourseSubjectwiseCount = function (CourseID) {
 
-            $localStorage.TempData = {
-                AcademicYearID: $scope.AcademicYear,
-                ExamMonthYearID: $scope.monthyear,
-                ExamTypeID: $scope.examtype
+            $localStorage.TempData1 = {
+                AcademicYearID: tmpData.AcademicYearID,
+                ExamMonthYearID: tmpData.ExamMonthYearID,
+                ExamTypeID: tmpData.ExamTypeID,
+                InstitutionID: tmpData.InstitutionID,
+                CourseID: CourseID
 
             };
 
-            $state.go('CcicDashboard.PreExamination.CoursewiseFeePaymentReports');
+            $state.go('CcicDashboard.Assessment.AssessmentReportsSubject');
 
 
         }

@@ -438,6 +438,28 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpGet, ActionName("GetAssesmentInstituteCourseSubjectCount")]
+        public string GetAssesmentInstituteCourseSubjectCount(int AcademicYearID, int ExamMonthYearID, int ExamTypeId, int InstitutionID,int CourseID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[3] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[4] = new SqlParameter("@CourseID", CourseID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_AssesmentInstituteCourseSubjectCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
 
     }
 

@@ -1129,6 +1129,7 @@
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsCourse.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsSubject.html" />
     <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />

@@ -189,5 +189,17 @@
             return promise;
         };
 
+        this.GetAssesmentInstituteCourseSubjectCount = function (AcademicYearID, ExamMonthYearID, ExamTypeId, InstitutionID,CourseID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamTypeId": ExamTypeId,
+                "InstitutionID": InstitutionID,
+                "CourseID": CourseID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicAssessment/GetAssesmentInstituteCourseSubjectCount', paramObj);
+            return promise;
+        };
+
     });
 });

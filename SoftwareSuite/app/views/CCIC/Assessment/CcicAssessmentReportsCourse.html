@@ -187,7 +187,7 @@
                                 <thead class="sticky-header">
                                     <tr class="cb-1">
                                         <th width="2%">S.No</th>
-                                        <th class="text-center">Institution</th>
+                                        <th class="text-center">Course</th>
                                         <!--<th class="text-center">Course</th>-->
                                         <!--<th class="text-center">Course Duration</th>-->
                                         <th class="text-center">Total Records</th>
@@ -198,7 +198,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AssessmentInstituteCourseCount" ng-click="getCoursewiseCount(data.InstitutionID)">
+                                    <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AssessmentInstituteCourseCount" ng-click="getInstituteCourseSubjectwiseCount(data.CourseID)">
                                         <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                         <td class="text-center" style="padding: 3px;">{{data.Course}}</td>
                                         <td class="text-center" style="padding: 3px;">{{data.TotalRecords}}</td>
