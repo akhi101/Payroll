@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+define(['app'], function (app) {
     app.controller("DesignationController", function ($scope, $localStorage, PayRollService) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName;
@@ -10,9 +10,39 @@
 
 
         }
+
+            var getdesign = PayRollService.GetDesignationTypes();
+            getdesign.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                if (response.Table.length > 0) {
+                    $scope.DesignationTypeData = response.Table;
+
+
+                }
+                else {
+                    $scope.DesignationTypeData = [];
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading Designation");
+                    var err = JSON.parse(error);
+
+                });
+        
+
         $scope.DesignationCodeValues = [{ "Id": '1', "value": '1' }, { "Id": '2', "value": '2' }, { "Id": '3', "value": '3' }, { "Id": '4', "value": '4' },
         { "Id": '5', "value": '5' }, { "Id": '6', "value": '6' }];
-      
+
+
+        $scope.DesignationCodeValues1 = [{ "DesignationOrder": '1', "value": '1' }, { "DesignationOrder": '2', "value": '2' }, { "DesignationOrder": '3', "value": '3' }, { "DesignationOrder": '4', "value": '4' },
+            { "DesignationOrder": '5', "value": '5' }, { "DesignationOrder": '6', "value": '6' }];
         $scope.Add = function () {
 
             var datatypeid = 1
@@ -42,7 +72,7 @@
             }
 
             var datatypeid = 1
-            var AddDesignation = PayRollService.AddDesignations(datatypeid, 0 , $scope.DesignationName, $scope.DesignationType, $scope.DesignationOrder, $scope.NoofPost, $scope.GONumber, $scope.NoofVacants,1, $scope.UserName)
+            var AddDesignation = PayRollService.AddDesignations(datatypeid, 0, $scope.DesignationName, $scope.DesignationType, $scope.DesignationOrder, $scope.NoofPost, $scope.GONumber, $scope.NoofVacants, 1, $scope.UserName)
             AddDesignation.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -74,20 +104,21 @@
 
         $scope.getdesignationdata = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetDesignationData(DataTypeID, 0);
+            var getdesign = PayRollService.GetDesignationData(DataTypeID, 0,0);
             getdesign.then(function (response) {
 
-                ////try {
-                ////    var res = JSON.parse(response);
-                ////}
-                ////catch (err) { }
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
                 //$scope.edit = true;
-                if (response.Table.length > 0) {
-                    $scope.DesignationData = response.Table;
+                if (res.Table.length > 0) {
+                    $scope.DesignationData = res.Table;
                     $scope.Noreports = false;
                     for (var j = 1; j < $scope.DesignationData.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
+                    
 
                 }
                 else {
@@ -117,8 +148,6 @@
             for (var j = 0; j < ele2.length; j++) {
                 ele2[j].style['pointer-events'] = "none";
                 ele2[j].style.border = "0";
-                ele2[j].style['-webkit-appearance'] = "none";
-                ele2[j].style['-moz-appearance'] = "none";
             }
 
             var datatypeid = 2;
@@ -142,7 +171,7 @@
 
 
 
-            var desig = PayRollService.UpdateDesignations(datatypeid, data.DesignationId, data.DesignationName, data.DesignationTypeId, data.DesignationOrder, data.NoOfPost, data.GONumber, data.NoOfVacants,1, $scope.UserName)
+            var desig = PayRollService.UpdateDesignations(datatypeid, data.DesignationId, data.DesignationName, data.DesignationTypeId, data.DesignationOrder, data.NoOfPost, data.GONumber, data.NoOfVacants, 1, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -182,40 +211,34 @@
                 ele1[j].style['pointer-events'] = "auto";
                 ele1[j].style.border = "1px solid #ddd";
             }
-
-
             $scope['edit' + ind] = false;
 
-            //var DataTypeID = 2
-            //var getcourdurs = PayRollService.GetFeeSettingsData(DataTypeID, data.Id);
-            //getcourdurs.then(function (response) {
-
-            //    //try {
-            //    //    var res = JSON.parse(response);
-            //    //}
-            //    //catch (err) { }
-
-            //    if (response.Table.length > 0) {
-            //        $scope.FeeSettingsData = response.Table;
-            //        for (var j = 1; j < $scope.FeeSettingsData.length + 1; j++) {
-            //            $scope['edit' + j] = true;
-            //        }
-            //    }
-            //    else {
-            //        $scope.FeeSettingsData = [];
-            //    }
-
-
-            //},
-
-            //    function (error) {
-            //        alert("error while loading CourseDuration");
-            //        var err = JSON.parse(error);
-
-            //    });
+  
 
         }
+        $scope.ChangeStatus = function (DesignationId, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.PayRollStatus(DataType, DesignationId, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getdesignationdata();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getdesignationdata();
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
 
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
 
 
 

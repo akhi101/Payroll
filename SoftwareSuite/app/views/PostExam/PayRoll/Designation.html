@@ -1,4 +1,40 @@
-﻿
+<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
 <div ng-controller="DesignationController">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
@@ -32,27 +68,24 @@
                                     <label>
                                         Designation Name:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" placeholder="Enter Designation Name" ng-model="DesignationName">
+                                    <input class="form-control" type="text" maxlength="100" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Designation Name" ng-model="DesignationName">
                                 </div>
 
                                 <div class="form-group col-md-4" required>
                                     <label>
                                         Designation Type:
                                     </label>
-                                    <select class="form-control" id="Designation" ng-model="DesignationType"
-                                            ng-options="data.Id as data.value for data in DesignationCodeValues">
-                                        <option value="" selected>Select Designation</option>
+                                    <select class="form-control" id="DesignationType" ng-model="DesignationType"
+                                            ng-options="data.DesignationTypeId as data.DesignationType for data in DesignationTypeData">
+                                        <option value="" selected>Select Designation Type</option>
                                     </select>
                                 </div>
-
-                                <div class="form-group col-md-4" required>
+                              
+                                <div class="form-group col-md-4">
                                     <label>
                                         DesignationOrder:
                                     </label>
-                                    <select class="form-control" id="DesignationOrder" ng-model="DesignationOrder"
-                                            ng-options="data.Id as data.value for data in DesignationCodeValues">
-                                        <option value="" selected> Designation Order</option>
-                                    </select>
+                                    <input class="form-control" type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Designation Order" ng-model="DesignationOrder">
                                 </div>
 
 
@@ -68,14 +101,14 @@
                                     <label>
                                         Go. Number:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="3"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Go. Number" ng-model="GONumber">
+                                    <input class="form-control" type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Go. Number" ng-model="GONumber">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label>
                                         No. of Vacants:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="3"oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="No. of Vacants" ng-model="NoofVacants">
+                                    <input class="form-control" type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="No. of Vacants" ng-model="NoofVacants">
                                 </div>
 
                                 <div class="col-md-12">
@@ -110,19 +143,39 @@
                             <th class="text-center">No. Of Vacants</th>
                             <!--<th class="text-center">Status</th>-->
                             <th class="text-center">Action</th>
-
+                            <th class="text-center">Active</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr style="" ng-repeat="data in DesignationData">
                             <td class="text-left">{{$index + 1}}</td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationTypeId" /></div></td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationOrder" /></div></td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfPost" /></div></td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GONumber" /></div></td>
-                            <td><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfVacants" /></div></td>
-                            
+                            <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
+                            <td class="text-center pointer">
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="DesignationTypeId" ng-model="data.DesignationTypeId"
+                                            ng-options="data.DesignationTypeId as data.DesignationType for data in DesignationTypeData">
+                                        <option value="" selected>Select DesignationType</option>
+                                    </select>
+                            </td>
+
+                            <!--<td>
+                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="DesignationType"
+                                        ng-options="data.DesignationTypeId as data.DesignationType for data in DesignationTypeData">
+                                    <option value="" selected>Select DesignationType</option>
+                                </select>
+
+                            </td>-->
+
+                            <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationOrder" /></div></td>
+
+                            <!--<td class="text-center pointer">
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="value" ng-model="data.value"
+                                            ng-options="data.value as data.value for data in DesignationCodeValues">
+                                        <option value="" selected>Select Designation Order</option>
+                                    </select>
+                            </td>-->
+                            <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfPost" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GONumber" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfVacants" /></div></td>
 
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="Editdesignations(data,$index+1)">
@@ -132,6 +185,10 @@
                                     Update
                                 </button>
 
+                            </td>
+                            <td style="text-align:center">
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.DesignationId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.DesignationId,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>
