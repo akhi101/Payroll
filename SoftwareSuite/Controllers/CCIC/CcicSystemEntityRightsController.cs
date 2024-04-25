@@ -26,5 +26,11 @@ namespace SoftwareSuite.Controllers.CCIC
             return JsonConvert.SerializeObject(SystemGroups);
         }
 
+        public string GetCcicUserInnerSubModules(int UserTypeID, int SubModuleID)
+        {
+            CcicSystemUserBLL CcicSystemUserBLL = new CcicSystemUserBLL();
+            IEnumerable<CcicSystemInnerSubModules> SystemGroups = CcicSystemUserBLL.GetCcicUserInnerSubModules(UserTypeID, SubModuleID);
+            return JsonConvert.SerializeObject(SystemGroups);
+        }
     }
 }

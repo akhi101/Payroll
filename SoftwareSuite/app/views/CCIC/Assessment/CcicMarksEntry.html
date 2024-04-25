@@ -32,7 +32,7 @@
     }
 
     span {
-        color: #000 !important;
+        color: white !important;
     }
     /*--------------------------------------------------*/
     .table-striped > tbody > tr:nth-of-type(odd) {
@@ -155,7 +155,7 @@
     }
 </style>
 
-<div ng-controller="CcicMarksEntryController">
+<div ng-controller="CcicMarksEntryController" ng-init="detectRefresh()">
     <script type="text/javascript">
         // When the document is ready
         $(document).ready(function () {
@@ -186,11 +186,11 @@
         <!-- breadcrumb Open -->
         <div class="container containercontent">
             <section class="content-header">
-                <h5>Set Assesment Entry Dates</h5>
+                <h5>Marks Entry</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                     <li><a href="#!/CcicDashboard/Assessment">Assessment</a></li>
-                    <li><a href="#!/CcicDashboard/Assessment/SetEntryDates">Set Entry Dates</a></li>
+                    <li><a href="#!/CcicDashboard/Assessment/MarksEntry">Marks Entry</a></li>
                 </ol>
             </section>
         </div>
@@ -226,14 +226,14 @@
                         <div class="form-group">
                             <label class="font-weight-bold"> Exam Month Year :</label>
                             <select class="form-control " ng-model="ExamMonthYear" name="ExamMonthYear" required>
-                                <option value="" selected="selected">Select Exam Month Year</option>
+                                <option value="" selected="selected">Select Month Year</option>
                                 <option value="{{data.ExamMonthYearID}}" ng-repeat="data in ExamMonthYrData" class="">
                                     {{data.ExamMonthYearName}}
                                 </option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label class="font-weight-bold"> Course :</label>
                             <select class="form-control " ng-model="Course" name="Course" ng-change="verifyDates()" required>

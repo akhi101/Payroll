@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+define(['app'], function (app) {
     app.controller("DesignationController", function ($scope, $localStorage, PayRollService) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName;

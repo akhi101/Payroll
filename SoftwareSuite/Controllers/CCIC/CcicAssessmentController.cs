@@ -20,6 +20,9 @@ using System.Data;
 using SoftwareSuite.Models;
 using static SoftwareSuite.Controllers.Assessment.AssessmentController;
 using System.Timers;
+using SoftwareSuite.Models.Assessment;
+using System.Diagnostics;
+using System.Web.Script.Serialization;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -175,18 +178,19 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("GetInternalorExternalSubjects")]
-        public string GetInternalorExternalSubjects(int AcademicYearID, int ExamMonthYearID,int InstitutionID, int CourseID)
+        public string GetInternalorExternalSubjects(int AcademicYearID, int ExamMonthYearID,int InstitutionID, int CourseID,int ExamTypeID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[2] = new SqlParameter("@InstitutionID", InstitutionID);
                 param[3] = new SqlParameter("@CourseID", CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", ExamTypeID);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_MarksEntryData", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_MarksEntrySubjects", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -198,17 +202,145 @@ namespace SoftwareSuite.Controllers.CCIC
 
 
         [HttpGet, ActionName("GetCcicSubjectPinList")]
-        public string GetCcicSubjectPinList(int AcademicYearID, int CourseID, int InstitutionID)
+        public string GetCcicSubjectPinList(int AcademicYearID,int ExamMonthYearID, int InstitutionID, int CourseID,int ExamTypeID,int SubjectID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
-                param[1] = new SqlParameter("@CourseID", CourseID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[3] = new SqlParameter("@CourseID", CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", ExamTypeID);
+                param[5] = new SqlParameter("@SubjectID", SubjectID);
 
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_SubjectPinList", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_MarksEntryPINList", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public class PostExamMarks
+        {
+            public string UserName { get; set; }
+
+            public List<marklist> marksdata { get; set; }
+        }
+
+        public class marklist
+        {
+            public int MarksEntryDataID { get; set; }
+            public string Marks { get; set; }
+        }
+
+
+        [HttpPost, ActionName("PostCcicStudentMarks")]
+        public string PostCcicStudentMarks([FromBody] PostExamMarks ExamMarks)
+        {
+            try
+            {
+
+                var marksDat = new List<marklist>();
+                int size = ExamMarks.marksdata.Count;
+                for (int i = 0; i < size; i++)
+                {
+                    marksDat.Add(ExamMarks.marksdata[i]);
+                }
+
+
+                Debug.WriteLine("marks entry before Conv to json: " + marksDat);
+                var json = new JavaScriptSerializer().Serialize(marksDat);
+                Debug.WriteLine("marks entry json: " + json);
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@json", json);
+                param[1] = new SqlParameter("@UserName", ExamMarks.UserName);
+                var res = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_MarksEntryData", param);
+                return JsonConvert.SerializeObject(res);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_MarksEntryData", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+        public class submitMarks
+        {
+            public int SubjectID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int CourseID { get; set; }
+            public int ExamTypeID { get; set; }
+            public int InstitutionID { get; set; }
+            public int ExamMonthYearID { get; set; }
+
+        }
+
+        [HttpPost, ActionName("SubmitMarksEntered")]
+        public string SubmitMarksEntered([FromBody] submitMarks request)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@AcademicYearID", request.AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", request.ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", request.InstitutionID);
+                param[3] = new SqlParameter("@CourseID", request.CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", request.ExamTypeID);
+                param[5] = new SqlParameter("@SubjectID", request.SubjectID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Set_SubmitMarksEntryData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_SubmitMarksEntryData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetSubjectsReport")]
+        public string GetSubjectsReport(int AcademicYearID, int ExamMonthYearID, int InstitutionID, int CourseID, int ExamTypeID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[3] = new SqlParameter("@CourseID", CourseID);
+                param[4] = new SqlParameter("@ExamTypeID", ExamTypeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_MarksEntryConsolidatedReport", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_MarksEntryConsolidatedReport", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetAssessmentInstitutionCourses")]
+        public string GetAssessmentInstitutionCourses(int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_AssessmentInstitutionCourses", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

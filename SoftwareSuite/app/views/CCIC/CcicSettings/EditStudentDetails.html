@@ -10,7 +10,7 @@
     .eye-icon {
         position: absolute;
         top: 64%;
-        right: -7px;
+        right: 30px;
         transform: translateY(-50%);
         cursor: pointer;
         z-index: 1;
@@ -138,7 +138,7 @@
 
         <button class="btn bck_btn"><a href="#!/CcicDashboard/Academic" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
 
-        <div class="tab-content ">
+        <div class="tab-content" style="margin-bottom:150px">
             <div class="row">
                 <div class="col-md-12  mtp-50">
                     <div class="card" ng-show="coursedetails">
@@ -305,24 +305,24 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Candidate Name</label>
-                                                    <input type="text" placeholder=CandidateName autocomplete="off" ng-model="EditData.StudentName" ng-disabled="CandidateNamefound" class="form-control" required />
+                                                    <input type="text" placeholder=CandidateName oninput="this.value = this.value.toUpperCase()" autocomplete="off" ng-model="EditData.StudentName" ng-disabled="CandidateNamefound" class="form-control" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Father Name</label>
-                                                    <input type="text" ng-model="EditData.FatherName" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
+                                                    <input type="text" ng-model="EditData.FatherName" oninput="this.value = this.value.toUpperCase()" placeholder="Father Name" autocomplete="off" ng-disabled="FatherNameFound" class="form-control" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Mother Name</label>
-                                                    <input type="text" ng-model="EditData.MotherName" placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
+                                                    <input type="text" ng-model="EditData.MotherName" oninput="this.value = this.value.toUpperCase()" placeholder="Mother Name" autocomplete="off" ng-disabled="MotherNamefound" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
                                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
@@ -333,7 +333,7 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group required">
                                                     <label>Gender</label>
                                                     <select class="form-control" name="applicationForm.SEX" ng-model="EditData.Gender" ng-disabled="Genderfound" required>
@@ -348,13 +348,24 @@
 
 
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Aadhar Number</label>
                                                     <input type="{{inputType}}" placeholder="AadharNumber" maxlength="12" minlength="12" class="form-control" autocomplete="off" ng-model="EditData.AadharNumber" required>
                                                     <div class="eye-icon" ng-click="toggleAadharVisibility()">
                                                         {{eyeIcon}}
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+
+                                                <div class="form-group ">
+                                                    <label>Is Blind</label>
+                                                    <select class="form-control" ng-model="EditData.IsBlind" ng-change="Blind(EditData.IsBlind)"
+                                                            ng-options="data.value as data.Id for data in BlindValues">
+                                                        <option value="" selected>--Select---</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -395,7 +406,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group required">
                                                     <label>Village/Town/City</label>
-                                                    <input type="text" placeholder="Village/Town/City" class="form-control" autocomplete="off" ng-model="EditData.Village" required />
+                                                    <input type="text" placeholder="Village/Town/City" oninput="this.value = this.value.toUpperCase()" class="form-control" autocomplete="off" ng-model="EditData.Village" required />
                                                 </div>
                                             </div>
 
@@ -413,7 +424,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>District</label>
-                                                    <input type="text" placeholder="District" class="form-control" autocomplete="off" ng-model="EditData.District" required />
+                                                    <input type="text" placeholder="District" oninput="this.value = this.value.toUpperCase()" class="form-control" autocomplete="off" ng-model="EditData.District" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -422,7 +433,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>State</label>
-                                                    <input type="text" placeholder="State" class="form-control" autocomplete="off" ng-model="EditData.AddressState" required />
+                                                    <input type="text" placeholder="State" oninput="this.value = this.value.toUpperCase()" class="form-control" autocomplete="off" ng-model="EditData.AddressState" required />
                                                 </div>
                                             </div>
 
@@ -469,6 +480,14 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-4" ng-show="EditData.IsBlind==true">
+                                                <div class="form-group required custom-img">
+                                                    <label>Upload Medical Certificate(size less than 200KB) :</label>
+                                                    <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                    <img ng-src="{{EditData.BlindCertificate}}" class="img img-responsive" id="stdMedicalCert" />
+                                                    <input type="file" id="stdMedicalCertFile" ng-model="EditData.BlindCertificate" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
+                                                </div>
+                                            </div>
 
                                         </div>
 
@@ -510,9 +529,16 @@
                                         </div>
 
 
+                                        <div class="col-md-12"  ng-show="EditData.IsBlind==true" style="right:55px;top:20px">
 
+                                            <p>
+                                                <span> <input type="checkbox"  style="width:20px;height:20px;top:5px" ng-model="Checkbox" ng-change="SelectCheckbox(Checkbox)" /></span>
+                                                I agree to write the exam in Briley script being blind and also upload the medical certificate.
 
-                                        <div class="submit-btn" ng-click="Update(EditData)" style="margin-bottom:0px;">
+                                            </p>
+                                        </div>
+
+                                        <div class="submit-btn" ng-click="Update(EditData)" style="margin-bottom:0px;margin-top:50px">
                                             <button type="submit">Update</button>
                                         </div>
 
@@ -535,213 +561,7 @@
                         <p>please wait while data is loading...</p>
                     </div>
                 </div>
-                <!--<div class="col-md-12 mtp-50" ng-show="ShowDetails">
-        <div class="card">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="offer-custom-style">
-                        <h2>Application Details</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="body">
-                <div class="custom-forms">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="">
-                                <div class="col-md-12 ">
-                                    <div class="col-md-3"><label>Course  </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.CourseName}}</div>
-
-                                </div>
-
-                                <div class="col-md-12 ">
-                                    <div class="col-md-3"><label>Qualification  </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.Qualification}}</div>
-
-                                </div>
-
-                                <div class="col-md-12" ng-if="PreviewData.Experience">
-                                    <div class="col-md-3"><label>Experience  </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.Experience}}</div>
-
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-md-3"> <label>SSCHallticket </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCHallticketNumber}}</div>
-
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-md-3"> <label>SSCPassedYear </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedYear}}</div>
-
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-md-3"> <label>SSCType </label></div>
-                                    <div class="col-md-9 pre-text">: {{PreviewData.SSCPassedType}}</div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-3 text-center">
-                            <img class="zoom" ng-src="{{PreviewData.StudentPhoto}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                        </div>
-
-                        <div class="col-md-3 text-center">
-                            <img class="zoom" ng-src="{{PreviewData.StudentSign}}" style="border: 2px solid #ddd;" height="60" width="150" />
-                        </div>
-
-                    </div>
-                    <hr />
-
-                    <div class="row " style="padding: 0px 15px;">
-
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>CandidateName </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.StudentName}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>FatherName </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.FatherName}}</div>
-
-                        </div>
-
-                        <div class="col-md-6" ng-if="PreviewData.MotherName">
-                            <div class="col-md-5"> <label>MotherName </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.MotherName}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>DateofBirth </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.DateofBirth}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>Gender </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.Gender}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>Aadhar Number </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.AadharNumber}}</div>
-
-                        </div>
-
-
-
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>HouseNo </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.HouseNumber}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>Street </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.Street}}</div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"> <label>Landmark </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.Landmark}}</div>
-
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>Village</label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.Village}}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>Pincode</label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.Pincode}}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>District </label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.District}}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>State</label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.AddressState}}</div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>Mobile Number</label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.StudentMobile}}</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-md-5"><label>Email</label></div>
-                            <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
-                        </div>
-
-
-
-
-
-                    </div>
-
-
-                    <hr />
-                    <div class="row " style="padding: 0px 15px;">
-
-                        <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                            <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                        </div>
-
-                        <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                            <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
-                        </div>
-
-                        <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                            <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" ng-if="GetCcicCourseExperienceInfo.length>0" style="border: 2px solid #ddd;" height="175" width="150" />
-                        </div>
-
-                        <div class="spacer"></div>
-                        <div class="col-md-8">
-
-                        </div>
-
-                        <div class="col-md-1 pull-right mtp-50">
-
-                            <div class="cancel-btn" style="margin-bottom:0px;">
-                                <button type="button" ng-click="Modify(ApplicationNumber,StudentId)">Edit</button>
-                            </div>
-
-                        </div>
-                        <div class="col-md-2 pull-right mtp-50">
-                            <div class="submit-btn" style="margin-bottom:0px;">
-                                <button type="submit" ng-model="SubmitStdDetails" ng-click="SubmitStdDetails(ApplicationNumber,StudentId)">Submit</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-1 pull-right mtp-50">
-
-                        </div>
-
-
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-
-
-
-    </div>-->
+             
 
 
 

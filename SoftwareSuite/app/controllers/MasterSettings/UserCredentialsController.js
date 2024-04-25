@@ -6,7 +6,11 @@
             var authData = $localStorage.authorizationData;
             $scope.authToken = $localStorage.authToken;
             $scope.AssessmentModules = [];
-            $scope.UserTypeID = parseInt(authData.UserTypeID);
+            $scope.UserTypeID = parseInt(authData.SystemUserTypeId);
+            if ($scope.UserTypeID != 1) {
+                alert("UnAuthorized Access")
+                $state.go('Dashboard.MasterSettings');
+            }
             $scope.Loading = true;
             
             //$scope.GetUsersList();

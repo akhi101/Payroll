@@ -12,7 +12,11 @@
             var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicUserSubModules', paramObject);
             return promise;
         }
-
+        this.GetCcicUserInnerSubModules = function (UserTypeID, SubModuleID) {
+            var paramObject = { "UserTypeID": UserTypeID, "SubModuleID": SubModuleID };
+            var promise = DataAccessService.getDataWithPara('CcicSystemEntityRights/GetCcicUserInnerSubModules', paramObject);
+            return promise;
+        }
 
         this.GetCcicSubModules = function (UserName, ModuleID) {
             var paramObject = { "UserName": UserName, "ModuleID": ModuleID };

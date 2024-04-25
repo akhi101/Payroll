@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+define(['app'], function (app) {
     app.service("PayRollService", function (DataAccessService) {
 
 

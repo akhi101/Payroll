@@ -86,18 +86,18 @@ define(['app'], function (app) {
                 alert("Please Enter Examination Centre Name");
                 return;
             }
-            if ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == "") {
-                alert("Please Enter House Number");
-                return;
-            }
-            if ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == "") {
-                alert("Please Enter Street Number / Name");
-                return;
-            }
-            if ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == "") {
-                alert("Please Enter Locality");
-                return;
-            }
+            //if ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == "") {
+            //    alert("Please Enter House Number");
+            //    return;
+            //}
+            //if ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == "") {
+            //    alert("Please Enter Street Number / Name");
+            //    return;
+            //}
+            //if ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == "") {
+            //    alert("Please Enter Locality");
+            //    return;
+            //}
 
             //if ($scope.Landmark == null || $scope.Landmark == undefined || $scope.Landmark == "") {
             //    alert("Please Enter Landmark");
@@ -121,23 +121,25 @@ define(['app'], function (app) {
             }
 
             
-            if ($scope.PrincipalName == null || $scope.PrincipalName == undefined || $scope.PrincipalName == "") {
-                alert("Please Enter Principal Name");
-                return;
-            }
+            //if ($scope.PrincipalName == null || $scope.PrincipalName == undefined || $scope.PrincipalName == "") {
+            //    alert("Please Enter Principal Name");
+            //    return;
+            //}
             if ($scope.PrincipalMobile == null || $scope.PrincipalMobile == undefined || $scope.PrincipalMobile == "") {
                 alert("Please Enter Principal Mobile");
                 return;
             }
-            if ($scope.PrincipalEmail == null || $scope.PrincipalEmail == undefined || $scope.PrincipalEmail == "") {
-                alert("Please Enter Principal Email");
-                return;
-            }
+            //if ($scope.PrincipalEmail == null || $scope.PrincipalEmail == undefined || $scope.PrincipalEmail == "") {
+            //    alert("Please Enter Principal Email");
+            //    return;
+            //}
             let HouseNo = ($scope.HouseNumber == null || $scope.HouseNumber == undefined || $scope.HouseNumber == '') ? '' : $scope.HouseNumber;
             let StreetNo = ($scope.StreetName == null || $scope.StreetName == undefined || $scope.StreetName == '') ? '' : $scope.StreetName;
             let Locality = ($scope.Locality == null || $scope.Locality == undefined || $scope.Locality == '') ? '' : $scope.Locality;
             let Landmark = ($scope.Landmark == null || $scope.Landmark == undefined || $scope.Landmark == '') ? '' : $scope.Landmark;
             let Village = ($scope.Village == null || $scope.Village == undefined || $scope.Village == '') ? '' : $scope.Village;
+            let PrincipalName = ($scope.PrincipalName == null || $scope.PrincipalName == undefined || $scope.PrincipalName == '') ? '' : $scope.PrincipalName;
+            let PrincipalMobile = ($scope.PrincipalMobile == null || $scope.PrincipalMobile == undefined || $scope.PrincipalMobile == '') ? '' : $scope.PrincipalMobile;
             let PrincipalEmail = ($scope.PrincipalEmail == null || $scope.PrincipalEmail == undefined || $scope.PrincipalEmail == '') ? '' : $scope.PrincipalEmail;
             var paramObj = {
                 "DataType": 1,
@@ -151,8 +153,8 @@ define(['app'], function (app) {
                 "Village": Village,
                 "DistrictID": $scope.District,
                 "Pincode": $scope.PinCode,
-                "PrincipalName": $scope.PrincipalName,
-                "PrincipalMobile": $scope.PrincipalMobile,
+                "PrincipalName": PrincipalName,
+                "PrincipalMobile": PrincipalMobile,
                 "PrincipalEmail": PrincipalEmail,
                 "UserName": authData.UserName
             }
@@ -195,18 +197,18 @@ define(['app'], function (app) {
                 alert("Please Enter Coordinating Centre Name");
                 return;
             }
-            if (data[0].HouseNumber == null || data[0].HouseNumber == undefined || data[0].HouseNumber == "") {
-                alert("Please Enter House Number");
-                return;
-            }
-            if (data[0].StreetName == null || data[0].StreetName == undefined || data[0].StreetName == "") {
-                alert("Please Enter Street Number / Name");
-                return;
-            }
-            if (data[0].Locality == null || data[0].Locality == undefined || data[0].Locality == "") {
-                alert("Please Enter Locality");
-                return;
-            }
+            //if (data[0].HouseNumber == null || data[0].HouseNumber == undefined || data[0].HouseNumber == "") {
+            //    alert("Please Enter House Number");
+            //    return;
+            //}
+            //if (data[0].StreetName == null || data[0].StreetName == undefined || data[0].StreetName == "") {
+            //    alert("Please Enter Street Number / Name");
+            //    return;
+            //}
+            //if (data[0].Locality == null || data[0].Locality == undefined || data[0].Locality == "") {
+            //    alert("Please Enter Locality");
+            //    return;
+            //}
 
             //if (data[0].Landmark == null || data[0].Landmark == undefined || data[0].Landmark == "") {
             //    alert("Please Enter Landmark");
@@ -230,10 +232,10 @@ define(['app'], function (app) {
             }
 
 
-            if (data[0].PrincipalName == null || data[0].PrincipalName == undefined || data[0].PrincipalName == "") {
-                alert("Please Enter Principal Name");
-                return;
-            }
+            //if (data[0].PrincipalName == null || data[0].PrincipalName == undefined || data[0].PrincipalName == "") {
+            //    alert("Please Enter Principal Name");
+            //    return;
+            //}
             if (data[0].PrincipalMobile == null || data[0].PrincipalMobile == undefined || data[0].PrincipalMobile == "") {
                 alert("Please Enter Principal Mobile");
                 return;

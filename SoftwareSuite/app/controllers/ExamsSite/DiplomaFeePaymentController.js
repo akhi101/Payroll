@@ -585,6 +585,10 @@
 
                             }
                             else if (resp.Table[0].ResponceCode == '400') {
+                                if (resp.Table[0].ResponceDescription == 'Please Submit Feedback.') {
+                                    alert(resp.Table[0].ResponceDescription);
+                                    $state.go('index.StudentFeedback')
+                                }
                                 $scope.LoadImg = false;
                                 $scope.DetailsFound = false;
                                 $scope.DetailsNotFound = false;
@@ -651,6 +655,10 @@
                                 $scope.DetailsFound = false;
                                 $scope.DetailsNotFound = false;
                                 $scope.DetainedDetailsFound = true;
+                                if (resp.Table[0].ResponceDescription == 'Please Submit Feedback.') {
+                                    alert(resp.Table[0].ResponceDescription);
+                                    $state.go('index.StudentFeedback')
+                                }
                                 $scope.DetainedDetailsFoundWithData = resp.Table[0].ResponceDescription;
                             }
                             else {
@@ -779,6 +787,10 @@
                             $scope.DetailsFound = false;
                             $scope.DetailsNotFound = false;
                             $scope.DetainedDetailsFound = true;
+                            if (resp.Table[0].ResponceDescription == 'Please Submit Feedback.') {
+                                alert(resp.Table[0].ResponceDescription);
+                                $state.go('index.StudentFeedback')
+                            }
                             $scope.DetainedDetailsFoundWithData = resp.Table[0].ResponceDescription;
                         }
                         else {

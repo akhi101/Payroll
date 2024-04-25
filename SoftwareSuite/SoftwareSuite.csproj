@@ -347,10 +347,12 @@
     <Compile Include="Controllers\CCIC\CcicGenerateTimeTable.cs" />
     <Compile Include="Controllers\CCIC\CcicPageController.cs" />
     <Compile Include="Controllers\CCIC\CcicPreExaminationController.cs" />
+    <Compile Include="Controllers\CCIC\CcicPreExaminationReportController.cs" />
     <Compile Include="Controllers\CCIC\CcicStudentRegistrationController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemEntityRightsController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemUserController.cs" />
     <Compile Include="Controllers\CCIC\CcicTimeTableGenerator.cs" />
+    <Compile Include="Controllers\CCIC\PreExamination\CcicGenerateNR.cs" />
     <Compile Include="Controllers\CCIC\Request.cs" />
     <Compile Include="Controllers\Common\CommunicationController.cs" />
     <Compile Include="Controllers\Common\Html2PDFGenerator.cs" />
@@ -704,11 +706,11 @@
     <Content Include="app\controllers\CCIC\CcicSettings\ViewStuDetailsController.js" />
     <Content Include="app\controllers\CCIC\Circulars\CcicRecentNewsController.js" />
     <Content Include="app\controllers\CCIC\ExamsSite\CcicFeePaymentController.js" />
-    <Content Include="app\controllers\CCIC\ExamsSite\CcicHallTicketController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketController.js" />
     <Content Include="app\controllers\CCIC\GetCcicDeCryptPaSSPageController.js" />
     <Content Include="app\controllers\CCIC\PaymentGateway\CcicPaymentGatewayResponseController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicCertificatesDataController.js" />
-    <Content Include="app\controllers\CCIC\PostExamination\CcicResultsProcessingController.js" />
+    <Content Include="app\controllers\CCIC\PostExamination\Results\CcicResultsProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicRVRCProcessingController.js" />
     <Content Include="app\controllers\CCIC\PostExamination\CcicTabulatedReportsController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicAmountController.js" />
@@ -718,7 +720,10 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicFeePaymentReportController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicCoursewiseFeePaymentReportsController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDownloadController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicNRDownloadController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicNRExcelController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicPaymentProcessController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicPhotoAttendenceSheetController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicSetNRDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicEnrollmentReportDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\NewController.js" />
@@ -739,6 +744,7 @@
     <Content Include="app\controllers\CCIC\PreExamination\CcicSubjectMasterController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicTestingExamFeePaymentController.js" />
     <Content Include="app\controllers\CCIC\PreExamination\CcicUpdateDateSheetController.js" />
+    <Content Include="app\controllers\CCIC\PreExamination\CcicHallTicketDatesController.js" />
     <Content Include="app\controllers\CenterManagemenet\AttachCollegeToPreZoneCenterController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationController.js" />
     <Content Include="app\controllers\CenterManagemenet\CenterPracticalBatchCreationVocController.js" />
@@ -1105,6 +1111,7 @@
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\BankDetailsController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\DepartmentController.js" />
+
     <Content Include="app\controllers\PostExam\PayRoll\DesignationController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
@@ -1119,12 +1126,17 @@
     <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
+    <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
     <Content Include="app\views\CCIC\Popups\ConfirmStudentDetails.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicHallTicketDates.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicInstitutewiseFeePaymentReports.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicFeePaymentReport.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicCoursewiseFeePaymentReports.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicNRDownload.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicNRExcel.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicPhotoAttendenceSheet.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\MasterSettings\UserCredentials.html" />
@@ -1792,8 +1804,9 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
-    <Content Include="app\views\PostExam\PayRoll\BankDetails.html" />
+
     <Content Include="app\views\PostExam\PayRoll\Department.html" />
+
     <Content Include="app\views\PostExam\PayRoll\Designation.html" />
     <Content Include="app\views\PostExam\PayRoll\PayRoll.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
@@ -2151,11 +2164,11 @@
     <Content Include="app\views\CCIC\CcicVerificationCourses.html" />
     <Content Include="app\views\CCIC\Circulars\CcicCirculars.html" />
     <Content Include="app\views\CCIC\ExamsSite\CcicFeePayment.html" />
-    <Content Include="app\views\CCIC\ExamsSite\CcicHallTicket.html" />
+    <Content Include="app\views\CCIC\PreExamination\CcicHallTicket.html" />
     <Content Include="app\views\CCIC\Popups\EditSubjectMasterPopup.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicCertificatesData.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicPostExamination.html" />
-    <Content Include="app\views\CCIC\PostExamination\CcicResultsProcessing.html" />
+    <Content Include="app\views\CCIC\PostExamination\Results\CcicResultsProcessing.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicRVRCProcessing.html" />
     <Content Include="app\views\CCIC\PostExamination\CcicTabulatedReports.html" />
     <Content Include="app\views\CCIC\PreExamination\CcicAmount.html" />

@@ -372,7 +372,10 @@
                                     <div class="col-md-5"><label>Email</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.StudentEmail}}</div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="col-md-5"><label>Is Blind</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviewData.IsBlind==true ? 'Yes' : 'No'}}</div>
+                                </div>
 
                             </div>
 
@@ -380,18 +383,29 @@
                             <hr style="border-color: #454545 ">
                             <div class="row " style="padding: 0px 15px;">
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.SSCCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.SSCCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-3 text-center" ng-show="imagesrc != '' && imagesrc != null ">
+                                    <label>SSC Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc}}" ng-click="openImage(imagesrc)" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.QualificationCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.QualificationCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-3 text-center" ng-show="imagesrc1 != '' && imagesrc1 != null ">
+                                    <label>Qualication Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc1}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
                                 </div>
 
-                                <div class="col-md-4 text-center" ng-if="PreviewData.ExperienceCertificate">
-                                    <img class="zoom" ng-src="{{PreviewData.ExperienceCertificate}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                <div class="col-md-3 text-center" ng-show="imagesrc2 != '' && imagesrc2 != null ">
+                                    <label>Experience Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc2}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
                                 </div>
-
+                                
+                                <div class="col-md-3 text-center" ng-show="imagesrc3 != '' && imagesrc3 != null ">
+                                    <label>Medical Certificate</label>
+                                    <img class="zoom" ng-src="{{imagesrc3}}" style="border: 2px solid #ddd;" height="175" width="150" />
+                                    <div>Click on the file to Expand</div>
+                                </div>
 
 
 

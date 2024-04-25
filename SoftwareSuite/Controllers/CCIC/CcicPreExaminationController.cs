@@ -1088,6 +1088,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentMobile { get; set; }
             public string StudentEmail { get; set; }
             public bool SSCValidated { get; set; }
+            public bool IsBlind { get; set; }
 
             public string UserName { get; set; }
             public string StudentPhoto { get; set; }
@@ -1095,6 +1096,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string SSCCertificate { get; set; }
             public string QualificationCertificate { get; set; }
             public string ExperienceCertificate { get; set; }
+            public string BlindCertificate { get; set; }
             public List<filelist> filedata { get; set; }
 
 
@@ -1149,6 +1151,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string StudentMobile { get; set; }
             public string StudentEmail { get; set; }
             public bool SSCValidated { get; set; }
+            public bool IsBlind { get; set; }
 
             public string UserName { get; set; }
             public string StudentPhoto { get; set; }
@@ -1156,6 +1159,7 @@ namespace SoftwareSuite.Controllers.CCIC
             public string SSCCertificate { get; set; }
             public string QualificationCertificate { get; set; }
             public string ExperienceCertificate { get; set; }
+            public string BlindCertificate { get; set; }
             public List<filelist> filedata { get; set; }
 
 
@@ -1182,6 +1186,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 var expcert_url = dir + "ExperienceCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdExpCert = "ExperienceCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
 
+                var medcert_url = dir + "MedicalCertificate" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdMedCert = "MedicalCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -1189,6 +1195,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+                var StudentMedCertpath = string.Empty;
 
 
                 if (CertificateReqAtt.StudentPhoto != "")
@@ -1283,6 +1290,24 @@ namespace SoftwareSuite.Controllers.CCIC
                     expcert_url = "";
                 }
 
+                if (CertificateReqAtt.BlindCertificate != "")
+                {
+                    StdMedCert = "MedicalCertificate_" + CertificateReqAtt.ApplicationNumber + ".JPG";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdMedCert);
+                    byte[] Bytes = Convert.FromBase64String(CertificateReqAtt.BlindCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    medcert_url = relativePath;
+                }
+                else
+                {
+                    medcert_url = "";
+                }
+
                 var dbHandler = new ccicdbHandler();
                 //string encriptedaadhar = "";
 
@@ -1292,7 +1317,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 //string aadhar = crypt.AesDecrypt(res[0]);
                 //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
                 //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
-                var param = new SqlParameter[32];
+                var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@ApplicationNumber", CertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", CertificateReqAtt.InstitutionID);
                 param[2] = new SqlParameter("@CourseID", CertificateReqAtt.CourseID);
@@ -1325,6 +1350,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
                 param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
                 param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
+                param[32] = new SqlParameter("@BlindCertificate", medcert_url);
+                param[33] = new SqlParameter("@IsBlind", CertificateReqAtt.IsBlind);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -1364,6 +1391,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 var expcert_url = dir + "ExperienceCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var StdExpCert = "ExperienceCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
 
+                var medcert_url = dir + "MedicalCertificate" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                var StdMedCert = "MedicalCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
                 var path = string.Empty;
                 string relativePath = string.Empty;
                 var StudentPhotopath = string.Empty;
@@ -1371,6 +1400,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 var StudentSscCertpath = string.Empty;
                 var StudentQualCertpath = string.Empty;
                 var StudentExpCertpath = string.Empty;
+                var StudentMedCertpath = string.Empty;
 
 
                 if (UpdateCertificateReqAtt.StudentPhoto != "" && UpdateCertificateReqAtt.StudentPhoto != null)
@@ -1465,6 +1495,24 @@ namespace SoftwareSuite.Controllers.CCIC
                     expcert_url = null;
                 }
 
+                if (UpdateCertificateReqAtt.BlindCertificate != "" && UpdateCertificateReqAtt.BlindCertificate != null)
+                {
+                    StdMedCert = "MedicalCertificate_" + UpdateCertificateReqAtt.ApplicationNumber + ".JPG";
+                    path = dir;
+                    bool foldrExists = Directory.Exists(dir);
+                    if (!foldrExists)
+                        Directory.CreateDirectory(dir);
+                    string imgPath = Path.Combine(path, StdMedCert);
+                    byte[] Bytes = Convert.FromBase64String(UpdateCertificateReqAtt.BlindCertificate);
+                    File.WriteAllBytes(imgPath, Bytes);
+                    relativePath = imgPath.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+                    medcert_url = relativePath;
+                }
+                else
+                {
+                    medcert_url = null;
+                }
+
                 var dbHandler = new ccicdbHandler();
                 //string encriptedaadhar = "";
 
@@ -1474,7 +1522,7 @@ namespace SoftwareSuite.Controllers.CCIC
                 //string aadhar = crypt.AesDecrypt(res[0]);
                 //string decryptaadhar = aadharencrypt.AesDecrypt(aadhar);
                 //encriptedaadhar = aadharencrypt.Encrypt(decryptaadhar);
-                var param = new SqlParameter[32];
+                var param = new SqlParameter[34];
                 param[0] = new SqlParameter("@ApplicationNumber", UpdateCertificateReqAtt.ApplicationNumber);
                 param[1] = new SqlParameter("@InstitutionID", UpdateCertificateReqAtt.InstitutionID);
                 param[2] = new SqlParameter("@CourseID", UpdateCertificateReqAtt.CourseID);
@@ -1507,6 +1555,8 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[29] = new SqlParameter("@SSCCertificate", ssccert_url);
                 param[30] = new SqlParameter("@QualificationCertificate", qualcert_url);
                 param[31] = new SqlParameter("@ExperienceCertificate", expcert_url);
+                param[32] = new SqlParameter("@BlindCertificate", medcert_url);
+                param[33] = new SqlParameter("@IsBlind", UpdateCertificateReqAtt.IsBlind);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_StudentDetails", param);
@@ -2713,9 +2763,11 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
-        private void elapse(object sender, ElapsedEventArgs e, string v)
+        private static void elapse(object sender, ElapsedEventArgs e, string s)
         {
-            throw new NotImplementedException();
+            System.IO.File.Delete(s);
+            ((Timer)sender).Stop();
+            ((Timer)sender).Dispose();
         }
 
 
@@ -3087,6 +3139,508 @@ namespace SoftwareSuite.Controllers.CCIC
             {
                 return ex.Message;
             }
+        }
+
+
+        public class HallTicketDatesInfo
+        {
+            public int DataType { get; set; }
+            public int HallTicketDateID { get; set; }
+            public int AcademicYearID { get; set; }
+            public int ExamMonthYearID { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+        }
+
+        [HttpPost, ActionName("AddorUpdateHallTicketDates")]
+        public string AddorUpdateHallTicketDates([FromBody] HallTicketDatesInfo data)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@HallTicketDateID", data.HallTicketDateID);
+                param[2] = new SqlParameter("@AcademicYearID", data.AcademicYearID);
+                param[3] = new SqlParameter("@ExamMonthYearID", data.ExamMonthYearID);
+                param[4] = new SqlParameter("@StartDate", data.StartDate);
+                param[5] = new SqlParameter("@EndDate", data.EndDate);
+                param[6] = new SqlParameter("@Active", data.Active);
+                param[7] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HallTicketDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Add_Update_HallTicketDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetorEditHallTicketDates")]
+        public string GetorEditHallTicketDates(int DataType, int HallTicketDateID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@HallTicketDateID", HallTicketDateID);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_HallTicketDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_Edit_HallTicketDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetNRExcelData")]
+        public string GetNRExcelData(int AcademicYearID, int ExamMonthYearID,string ExamCentreCode)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamCentreCode", ExamCentreCode);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCentreNRExcelData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ExamCentreNRExcelData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpGet, ActionName("GetNRExcel")]
+        public string GetNRExcel(int AcademicYearID, int ExamMonthYearID, string ExamCentreCode)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamCentreCode", ExamCentreCode);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamCentreNRExcelData", param);
+                var filename = "NR_Excel_Report" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetStudentPinList")]
+        public string GetStudentPinList(int InstitutionID, int AcademicYearID, int ExamMonthYearID, int FeePaymentTypeID,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[1] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[2] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[3] = new SqlParameter("@FeePaymentTypeID", FeePaymentTypeID);
+                param[4] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PinListForHallticket", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_PinListForHallticket", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetCandidateHallticket")]
+        public string GetCandidateHallticket(int AcademicYearID, int ExamMonthYearID, int StudentTypeID, int StudentID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@StudentTypeID", StudentTypeID);
+                param[3] = new SqlParameter("@StudentID", StudentID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_HallticketData", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_HallticketData", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetExamDates")]
+        public string GetExamDates(int AcademicYearID, int ExamMonthYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_ExamDates", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Get_ExamDates", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("UploadResultFileJson")]
+        public string UploadResultFileJson([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", json["AcademicYearID"]);
+                param[1] = new SqlParameter("@ExamMonthYearID", json["ExamMonthYearID"]);
+                param[2] = new SqlParameter("@Json", json["Json"].ToString());
+                param[3] = new SqlParameter("@UserName", json["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Upload_EndMarks", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Upload_EndMarks", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        public class person
+        {
+            public string file { get; set; }
+            public string ResponceCode { get; set; }
+            public string ResponceDescription { get; set; }
+        }
+
+        [HttpGet, ActionName("GenerateNrData")]
+        public string GenerateNrData(int AcademicYearID,int ExamMonthYearID,string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Set_ResultNR", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = ds.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "GenerateNrData" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    DataSet excelds = new DataSet();
+                    excelds.Tables.Add(ds.Tables[1].Copy());
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(excelds, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_Set_ResultNR", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("PostMarks")]
+        public string PostMarks(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_SET_MarksPostingForResultsProcessing", param);
+                return JsonConvert.SerializeObject(ds);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_SET_MarksPostingForResultsProcessing", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GenerateWantings")]
+        public string GenerateWantings(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_ResultWantings", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "Wantings" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_GET_ResultWantings ", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("UploadWantingsJson")]
+        public string UploadWantingsJson([FromBody] JsonObject json)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", json["AcademicYearID"]);
+                param[1] = new SqlParameter("@ExamMonthYearID", json["ExamMonthYearID"]);
+                param[2] = new SqlParameter("@Json", json["Json"].ToString());
+                param[3] = new SqlParameter("@UserName", json["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsAutomationWantingsUpdations", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("ResultsAutomationWantingsUpdations", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpGet, ActionName("ResultsProcessing")]
+        public string ResultsProcessing(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_SET_ResultGeneration", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "Results" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000000);//600000
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SP_SET_ResultGeneration ", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("ResultsLogicReports")]
+        public string ResultsLogicReports(int AcademicYearID, int ExamMonthYearID, string UserName)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@UserName", UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ResultsLogicReports ", param);
+                if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var ExamMonthYear = dt.Tables[1].Rows[0]["ExamMonthYear"].ToString();
+                    var filename = ExamMonthYear + '_' + "CCIC" + '_' + "ResultsLogicReports" + ".xlsx";
+
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(dt, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = file;
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+                    List<person> p = new List<person>();
+                    person p1 = new person();
+                    p1.file = "";
+                    p1.ResponceCode = dt.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = dt.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("ResultsLogicReports ", 0, ex.Message);
+                return ex.Message;
+            }
+
         }
 
 

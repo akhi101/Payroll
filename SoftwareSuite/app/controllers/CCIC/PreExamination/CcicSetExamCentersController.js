@@ -607,7 +607,7 @@
 
 
         $scope.getExamCentres = function () {
-            var DataType = 1;
+            var DataType = 3;
             var ExaminationCentreID = 0;
             var getcentres = CcicPreExaminationService.GetExaminationCentres(DataType, ExaminationCentreID);
             getcentres.then(function (res) {

@@ -192,5 +192,22 @@ namespace SoftwareSuite.Services
                 throw ex;
             }
         }
+
+        public DataTable GetCcicUserInnerSubModules(ccicdbHandler dbHandler, int UserTypeID, int SubModuleID)
+        {
+            try
+            {
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@UserTypeID", UserTypeID);
+                param[1] = new SqlParameter("@SubModuleID", SubModuleID);
+
+                return dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_UserInnerSubModules", param);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

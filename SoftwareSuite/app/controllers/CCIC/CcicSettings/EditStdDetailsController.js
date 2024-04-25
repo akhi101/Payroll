@@ -39,7 +39,85 @@
         var data = {};
         $scope.$emit('showLoading', data);
 
+        $scope.Blind = function (IsBlind) {
+            if (IsBlind == 'false') {
+                $('#stdMedicalCertFile').val(null);
 
+                $scope.stdMedicalCert = '';
+                $scope.stdMedicalCert = null;
+                $scope.BlindCertificate == '';
+                //$scope.NewIsBlind = false;
+                $scope.ShowCheckBox = false;
+            }
+            else if (IsBlind == 'true') {
+                $('#stdMedicalCertFile').val(null);
+                $scope.stdMedicalCert = '';
+                $scope.stdMedicalCert = null;
+                $scope.BlindCertificate == '';
+                //$scope.NewIsBlind = true;
+                $scope.ShowCheckBox = true;
+            }
+            else {
+                $scope.ShowCheckBox = false;
+            }
+        }
+
+        $scope.SelectCheckbox = function (Checkbox) {
+            if (Checkbox == true) {
+                $scope.Checkbox = true;
+            }
+            else {
+                $scope.Checkbox = false;
+            }
+        }
+
+
+        $scope.uploadMedicalCert = function () {
+            var input = document.getElementById("stdMedicalCertFile");
+            var fileSize = input.files[0].size;
+            console.log(fileSize);
+            if (fileSize <= 200000 && fileSize >= 100000) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+                        $('#stdMedicalCert').attr('src', e.target.result);
+
+                        var canvas = document.createElement("canvas");
+                        var imageElement = document.createElement("img");
+
+                        imageElement.setAttribute = $('<img>', { src: e.target.result });
+                        var context = canvas.getContext("2d");
+                        imageElement.setAttribute.one("load", function () {
+                            canvas.width = this.width;
+                            canvas.height = this.height;
+                            context.drawImage(this, 0, 0);
+                            var base64Image = canvas.toDataURL("image/png");
+                            $scope.BlindCertificate = base64Image;
+                            $scope.BlindCertificateConvert = $scope.BlindCertificate.replace(/^data:image\/[a-z]+;base64,/, "");
+                        });
+
+                    }
+                    reader.onerror = function (e) {
+                        console.error("File could not be read! Code " + e.target.error.code);
+                    };
+
+                }
+            }
+            else if (fileSize <= 200000) {
+                alert("file size should not be less than 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else if (fileSize >= 100000) {
+                alert("file size should not be greater than 100KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            } else {
+                alert("file size should be between 100KB and 200KB");
+                $('#stdMedicalCertFile').val('');
+                return;
+            }
+        }
 
         $scope.Mode = function () {
 
@@ -408,6 +486,7 @@
                 var err = JSON.parse(error);
             });
         }
+        $scope.BlindValues = [{ "Id": "Yes", "value": true }, { "Id": "No", "value": false }]
 
         $scope.Modify = function () {
 
@@ -446,6 +525,7 @@
 
                 $scope.SSC = $scope.EditData.SSC;
                 $scope.SSCValidated = $scope.EditData.SSCValidated;
+                $scope.IsBlind = $scope.EditData.IsBlind;
 
                 $scope.SSCHallticketNumber = $scope.EditData.SSCHallticketNumber;
                 $scope.SSCPassedYear = $scope.EditData.SSCPassedYear;
@@ -535,6 +615,16 @@
                     }
                 })
 
+                $scope.BlindCertificate = $scope.EditData.BlindCertificate;
+                //$scope.ExperienceCertificateConvert = $scope.EditData.ExperienceCertificate;
+                $scope.toDataURL($scope.EditData.BlindCertificate, function (res) {
+                    if ($scope.EditData.BlindCertificate == "" || $scope.EditData.BlindCertificate == null) {
+                        $scope.BlindCertificateConvert = "";
+                    }
+                    else {
+                        $scope.BlindCertificateConvert = res.replace(/^data:image\/[a-z]+;base64,/, "");
+                    }
+                })
 
                 $scope.$emit('hideLoading', data);
             }, function (error) {
@@ -655,7 +745,22 @@
             //    alert('Please Select ExperienceCertificate')
             //    return;
             //}
+            if (($scope.BlindCertificate == undefined || $scope.BlindCertificate == "" || $scope.BlindCertificate == null) && $scope.IsBlind == true) {
+                alert("Please Upload Medical Certificate");
+                return;
+            }
 
+            if ($scope.IsBlind == true) {
+                $scope.ShowCheckBox = true;
+            }
+            else {
+                $scope.ShowCheckBox = false;
+            }
+
+            if ($scope.IsBlind == true && ($scope.Checkbox == undefined || $scope.Checkbox == "" || $scope.Checkbox == null || $scope.Checkbox == false)) {
+                alert("Please agree terms and conditions .");
+                return;
+            }
 
             $scope.LoadImg = true;
 
@@ -698,6 +803,8 @@
                 "SSCCertificate": ($scope.SSCCertificateConvert == undefined || $scope.SSCCertificateConvert == null || $scope.SSCCertificateConvert == "") ? $scope.SSCCertificateConvert : $scope.SSCCertificateConvert,
                 "QualificationCertificate": ($scope.QualificationCertificateConvert == undefined || $scope.QualificationCertificateConvert == null || $scope.QualificationCertificateConvert == "") ? $scope.QualificationCertificateConvert : $scope.QualificationCertificateConvert,
                 "ExperienceCertificate": ($scope.ExperienceCertificateConvert == undefined || $scope.ExperienceCertificateConvert == null || $scope.ExperienceCertificateConvert == "") ? $scope.ExperienceCertificateConvert : $scope.ExperienceCertificateConvert,
+                "BlindCertificate": ($scope.BlindCertificateConvert == undefined || $scope.BlindCertificateConvert == null) ? $scope.BlindCertificateConvert : $scope.BlindCertificateConvert,
+                "IsBlind": ($scope.IsBlind == true) ? true : false
             };
             var updatestddetails = CcicPreExaminationService.UpdateStudentDetails(paramObj);
             updatestddetails.then(function (response) {

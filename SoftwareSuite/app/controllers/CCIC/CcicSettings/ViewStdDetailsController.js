@@ -7,10 +7,10 @@
         var tempData3 = $localStorage.TempData3;
         //var tempData2 = $localStorage.TempData2;
         //$scope.ReportTypeID = tempData2.ReportTypeID;
-        $scope.isSubmitted = tempData3.Submitted;
+        $scope.isSubmitted = tempData3.isSubmitted;
         $scope.ApplicationStatus = tempData3.ApplicationStatus;
         $scope.CourseID = tempData3.CourseID;
-        $scope.Submitted = tempData3.ApplicationStatus;
+        //$scope.Submitted = tempData3.ApplicationStatus;
         const $ctrl = this;
         $ctrl.$onInit = () => {
             if (tempData3.ApplicationStatus == 'Pending') {
@@ -22,9 +22,15 @@
                     catch { err }
                     if (res[0].ResponseCode == '200') {
                         $scope.DatesFound = true;
+                        if (($scope.isSubmitted==false && $scope.UserTypeID == 2 && $scope.DatesFound==true) || ($scope.isSubmitted==true && $scope.UserTypeID == 2 && (tempData3.ApplicationStatus == 'Revised'))) {
+                            $scope.showmodifybutton = true;
+                        }
                     }
-                    if (res[0].ResponseCode == '400') {
+                    else if (res[0].ResponseCode == '400') {
                         $scope.DatesNotFound = true;
+                        if ($scope.isSubmitted == false && $scope.UserTypeID == 2 && $scope.DatesNotFound==true) {
+                            $scope.showclosebutton = true;
+                        }
                     }
                     else {
                         $scope.DatesFound = false;
@@ -36,19 +42,27 @@
 
                         var err = JSON.parse(error);
                     })
-                $scope.ApplicationStatus = 0;
+
+                if (($scope.isSubmitted == true && $scope.UserTypeID == 2 && (tempData3.ApplicationStatus == 'Approved' || tempData3.ApplicationStatus == 'Pending')) || ($scope.UserTypeID == 1 || $scope.UserTypeID == 6)) {
+                    $scope.showcancelbutton = true;
+                }
+                //$scope.ApplicationStatus = 'Pending';
+
             }
-            else if (tempData3.ApplicationStatus == 'Approved') {
-                $scope.ApplicationStatus = 1;
+            else if (($scope.isSubmitted == false && $scope.UserTypeID == 2 && $scope.DatesFound == true) || ($scope.isSubmitted == true && $scope.UserTypeID == 2 && (tempData3.ApplicationStatus == 'Revised'))) {
+                $scope.showmodifybutton = true;
             }
-            else if (tempData3.ApplicationStatus == 'Revised') {
-                $scope.ApplicationStatus = 2;
-            }
-            else if (tempData3.ApplicationStatus == 'Rejected') {
-                $scope.ApplicationStatus = 3;
-            }
+            //else if (tempData3.ApplicationStatus == 'Approved') {
+            //    $scope.ApplicationStatus = 'Approved';
+            //}
+            //else if (tempData3.ApplicationStatus == 'Revised') {
+            //    $scope.ApplicationStatus = 'Revised';
+            //}
+            //else if (tempData3.ApplicationStatus == 'Rejected') {
+            //    $scope.ApplicationStatus = 'Rejected';
+            //}
             $scope.loading = true;
-            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, $scope.ApplicationStatus);
+            var ViewStudentDetail = CcicPreExaminationService.GetViewStudentDetails(tempData3.ApplicationNumber, tempData3.StudentID, tempData3.ApplicationStatus);
             ViewStudentDetail.then(function (response) {
 
                 try {
@@ -63,6 +77,7 @@
                     $scope.imagesrc = res.Table[0].SSCCertificate;
                     $scope.imagesrc1 = res.Table[0].QualificationCertificate;
                     $scope.imagesrc2 = res.Table[0].ExperienceCertificate;
+                    $scope.imagesrc3 = res.Table[0].BlindCertificate;
                     //console.log(PreviewData)
                     //$scope.Aadhaar = res[0].Password;
                     //$scope.maskedAadhaar = $scope.Aadhaar.slice(0, 8).replace(/[0-9]/g, "X") + $scope.Aadhaar.slice(-4);
@@ -83,7 +98,11 @@
                     //   alert("error while loading Notification");
                     var err = JSON.parse(error);
                 });
+
+
         }
+
+
 
         var data = {};
         $scope.$emit('showLoading', data);

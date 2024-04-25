@@ -815,7 +815,187 @@
             return promise;
         };
        
+        this.AddHallTicketDates = function (DataType,HallTicketDateID,AcademicYearID, ExamMonthYearID, StartDate, EndDate,Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StartDate": StartDate,
+                "EndDate": EndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddorUpdateHallTicketDates', paramObj);
+            return promise;
+        }
 
+        this.UpdateHallTicketDates = function (DataType, HallTicketDateID, AcademicYearID, ExamMonthYearID, StartDate, EndDate, Active, UserName) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StartDate": StartDate,
+                "EndDate": EndDate,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/AddorUpdateHallTicketDates', paramObj);
+            return promise;
+        }
+
+        this.GetHallTicketDates = function (DataType, HallTicketDateID) {
+            var paramObj = {
+                "DataType": DataType,
+                "HallTicketDateID": HallTicketDateID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetorEditHallTicketDates', paramObj);
+            return promise;
+        };
+
+
+        this.GetNRExcelData = function (AcademicYearID, ExamMonthYearID, ExamCentreCode) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamCentreCode": ExamCentreCode
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRExcelData', paramObj);
+            return promise;
+        };
+
+        this.GetNRExcel = function (AcademicYearID, ExamMonthYearID, ExamCentreCode) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamCentreCode": ExamCentreCode
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRExcel', paramObj);
+            return promise;
+        };
+
+        this.GetStudentPinList = function (InstitutionID, AcademicYearID, ExamMonthYearID, FeePaymentTypeID, UserName) {
+            var paramObj = {
+                "InstitutionID": InstitutionID,
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "FeePaymentTypeID": FeePaymentTypeID,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetStudentPinList', paramObj);
+            return promise;
+        };
+
+        this.GetCandidateHallticket = function (AcademicYearID, ExamMonthYearID, StudentTypeID, StudentID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "StudentTypeID": StudentTypeID,
+                "StudentID": StudentID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetCandidateHallticket', paramObj);
+            return promise;
+        };
+
+        this.GetExamDates = function (AcademicYearID, ExamMonthYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetExamDates', paramObj);
+            return promise;
+        };
+
+        this.NrReports = function (AcademicYearID, ExamMonthYearID, ExamDate, UserName) {
+            var paramObj = {
+                AcademicYearID: AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "ExamDate": ExamDate,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.getDataWithPara('CcicPreExaminationReport/NrReports', paramObj);
+            return promise;
+        };
+
+        this.UploadResultFileJson = function (AcademicYearID, ExamMonthYearID, Json,UserName) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "Json": Json,
+                "UserName": UserName,
+            };
+            var promise = DataAccessService.postData('api/CcicPreExamination/UploadResultFileJson', paramObj);
+            return promise;
+        };
+
+        this.GenerateNrData = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GenerateNrData', paramObject);
+        };
+
+        this.PostMarks = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/PostMarks', paramObject);
+        };
+
+
+        this.GenerateWantings = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GenerateWantings', paramObject);
+        };
+
+        this.UploadWantingsJson = function (AcademicYearID, ExamMonthYearID,Json, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "Json": Json,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.postData('api/CcicPreExamination/UploadWantingsJson', paramObject);
+        };
+
+        this.ResultsProcessing = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/ResultsProcessing', paramObject);
+        };
+
+        this.ResultsLogicReports = function (AcademicYearID, ExamMonthYearID, UserName) {
+            var paramObject = {
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID,
+                "UserName": UserName
+
+            };
+
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/ResultsLogicReports', paramObject);
+        };
 
     });
 });
