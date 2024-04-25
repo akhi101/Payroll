@@ -350,6 +350,117 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+        [HttpGet, ActionName("GetAssessmentInstituteCount")]
+        public string GetAssessmentInstituteCount(int AcademicYearID,int ExamMonthYearID,int ExamTypeId)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_AssesmentInstituteCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
+        private static void elapse(object sender, ElapsedEventArgs e, string s)
+        {
+            System.IO.File.Delete(s);
+            ((Timer)sender).Stop();
+            ((Timer)sender).Dispose();
+        }
+
+        [HttpGet, ActionName("GetAssessmentInstituteCountExcel")]
+        public string GetAssessmentInstituteCountExcel(int AcademicYearID, int ExamMonthYearID,int ExamTypeId)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_AssesmentInstituteCount", param);
+                var filename = "AssessmentInstitutewiseCount" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+        [HttpGet, ActionName("GetAssessmentInstituteCourseCount")]
+        public string GetAssessmentInstituteCourseCount(int AcademicYearID, int ExamMonthYearID, int ExamTypeId,int InstitutionID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[3] = new SqlParameter("@InstitutionID", InstitutionID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_AssesmentInstituteCourseCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetAssesmentInstituteCourseSubjectCount")]
+        public string GetAssesmentInstituteCourseSubjectCount(int AcademicYearID, int ExamMonthYearID, int ExamTypeId, int InstitutionID,int CourseID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+                param[2] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[3] = new SqlParameter("@InstitutionID", InstitutionID);
+                param[4] = new SqlParameter("@CourseID", CourseID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_AssesmentInstituteCourseSubjectCount", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+
     }
 
 }

@@ -726,7 +726,7 @@
     </div>
     <div class="container">
         <div class="col-md-12">
-            <a href="#!/Dashboard/PostExam" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+            <a href="#!/CcicDashboard/PostExamination" class="backA"> <button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
         </div>
     </div>
     <div class="sm-spacer"></div>
@@ -1089,7 +1089,7 @@
                                     </div>
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
-                                            <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" ng-click="UploadForm.$valid && Submit()">Submit </button>
+                                            <button class="btn submit_btn btn-sm sub_btn btn-primary gr-button" disabled ng-click="UploadForm.$valid && Submit()">Submit </button>
                                         </div>
                                     </div>
 
@@ -1098,7 +1098,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" ng-show="ShowData">
+                <div class="row" ng-show="ShowData1">
                     <div class="col-md-4">
                         <div id="drop-area">
                             <!-- <p>Upload multiple files with the file dialog or by drag and drop Excel here</p>-->
@@ -1274,7 +1274,7 @@
                                     </div>
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
-                                            <button class="btn sub_btn submit_btn btn-sm btn-primary gr-button" ng-click="LogicExcel.$valid && ResultsLogicReports()">Submit</button>
+                                            <button class="btn sub_btn submit_btn btn-sm btn-primary gr-button" disabled ng-click="LogicExcel.$valid && ResultsLogicReports()">Submit</button>
                                         </div>
                                     </div>
 
@@ -1333,7 +1333,7 @@
 
                                     <div class="col-md-2">
                                         <div class="gr-btn">
-                                            <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" ng-click="PreviewForm.$valid && GetConsolidatedPreview()">Submit </button>
+                                            <button class="btn submit_btn btn-sm btn-primary gr-button sub_btn" disabled ng-click="PreviewForm.$valid && GetConsolidatedPreview()">Submit </button>
                                         </div>
                                     </div>
 
@@ -1682,7 +1682,7 @@
                                     </div>
                                     <div class="col-md-2 ">
                                         <div class="gr-btn">
-                                            <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" ng-click="DeployExcel.$valid && ResultsDeployTables()">Submit</button>
+                                            <button class="btn submit_btn sub_btn btn-sm btn-primary gr-button" disabled ng-click="DeployExcel.$valid && ResultsDeployTables()">Submit</button>
                                         </div>
                                     </div>
 

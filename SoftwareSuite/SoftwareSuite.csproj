@@ -666,6 +666,10 @@
     <Content Include="app\controllers\CBT\ViewCandidateDetailsController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsCourseController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsDataController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsInstituteController.js" />
+    <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsSubjectController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryPageController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicMarksEntryReportsController.js" />
@@ -1126,6 +1130,9 @@
     <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsCourse.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsSubject.html" />
     <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />

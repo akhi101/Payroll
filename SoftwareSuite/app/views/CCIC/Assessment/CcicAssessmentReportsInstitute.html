@@ -1,5 +1,13 @@
 ﻿
 <style>
+
+    .navbar {
+        position: relative;
+        min-height: 50px;
+        margin-bottom: 0px !important;
+        border: 1px solid transparent;
+        font-family: 'Open Sans';
+    }
     .table-bordered > thead > tr > th {
         position: sticky;
         top: 0px;
@@ -131,17 +139,17 @@
     }
 </style>
 
-<div ng-controller="CcicAssessmentReportsInstituteController">
+<div ng-controller="CcicAssessmentReportsInstituteController" nng-init="detectRefresh()">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
 
         <div class="container">
             <section class="content-header">
-                <h5>Fee Payment Reports</h5>
+                <h5>Assesment Reports</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination"> Pre Examination</a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination/FeePaymentReports">Fee Payment Reports</a></li>
+                    <li><a href="#!/CcicDashboard/Assessment"> Assessment </a></li>
+                    <li><a href="#!/CcicDashboard/Assessment/AssesmentReports">Assessment Reports</a></li>
 
                 </ol>
             </section>
@@ -152,21 +160,12 @@
         <div class="container" style="margin-bottom:50px">
 
             <div class="col-md-12">
-                <button class="btn bck_btn"><a href="#!/CcicDashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+                <button class="btn bck_btn"><a href="#!/CcicDashboard/Assessment" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
 
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#1" data-toggle="tab" ng-click="tab1()">Institute Wise</a>
-                </li>
-                <li>
-                    <a href="#2" data-toggle="tab" ng-click="tab2()">Course Wise</a>
-                </li>
-            </ul>
 
             <div class="tab-content container">
 
-                <div class="tab-pane active" id="1">
 
                     <div class="col-md-12">
                         <div class="alert alert-info">
@@ -198,9 +197,22 @@
                                         </div>
 
 
+
+                                        <div class="col-md-3 form-group">
+                                            <label class="font-weight-bold" for="ExamType">
+                                                Exam Type :
+                                            </label>
+                                            <select class="form-control" name="ExamType" ng-disabled="examtypeDisable" required ng-model="examtype">
+                                                <option value="" selected>Select ExamType</option>
+                                                <option ng-repeat="data in GetExamTypes" value="{{data.Examtypeid}}">
+                                                    {{data.ExamType}}
+                                                </option>
+                                            </select>
+                                        </div>
+
                                         <div class="col-md-2 pull-left">
                                             <div class="gr-btn">
-                                                <button type="submit" style="margin-top:5px!important;" class="btn btn-sm btn-primary gr-button" ng-click="getAdminFeePaymentCount()">
+                                                <button type="submit" style="margin-top:5px!important;" class="btn btn-sm btn-primary gr-button" ng-click="getAssessmentInstituteCount()">
                                                     Get Report<span class="fa fa-arrow-down heading_icon btn_icons"></span>
                                                 </button>
                                             </div>
@@ -212,10 +224,10 @@
 
                             </div>
                         </div>
-                        <div class="col-md-12" ng-if="AdminFeePaymentInstituteCount.length>0">
+                        <div class="col-md-12" ng-if="AssessmentInstituteCount.length>0">
                             <div class="pull-right">
                                 <a class="ExportToExcel1 pointer"
-                                   id="ExportToExcel1" ng-click="getAdmFeePaymentInstituteCountExcel('#tblParent')">
+                                   id="ExportToExcel1" ng-click="getAssessmentInstituteCountExcel('#tblParent')">
                                     <i class="fa fa-file-excel-o"></i>
                                     Export to Excel
                                 </a>
@@ -244,7 +256,7 @@
                     <div class="col-md-12">
 
 
-                        <div class="table-responsive table-custom-tables-tb" ng-if="AdminFeePaymentInstituteCount.length>0">
+                        <div class="table-responsive table-custom-tables-tb" ng-if="AssessmentInstituteCount.length>0">
                             <div class="table-responsive table-custom-tables-tb scrollbox">
                                 <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
                                     <thead class="sticky-header">
@@ -253,36 +265,30 @@
                                             <th class="text-center">Institution</th>
                                             <!--<th class="text-center">Course</th>-->
                                             <!--<th class="text-center">Course Duration</th>-->
-                                            <th class="text-center">Regular</th>
-                                            <th class="text-center">Regular FeePaid</th>
-                                            <th class="text-center">Backlog</th>
-                                            <th class="text-center">Backlog FeePaid</th>
-                                            <th class="text-center">Registration</th>
-                                            <th class="text-center">Registration FeePaid</th>
-                                            <th class="text-center">Total</th>
+                                            <th class="text-center">Total Records</th>
+                                            <th class="text-center">Marks Posted</th>
+                                            <th class="text-center">Marks Not Posted</th>
+                                            <th class="text-center">Submitted</th>
+                                            <th class="text-center">Not Submitted</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentInstituteCount" ng-dblclick="getCoursewiseCount(data.InstitutionID)">
+                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AssessmentInstituteCount" ng-click="getCoursewiseCount(data.InstitutionID)">
                                             <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
                                             <td class="text-center" style="padding: 3px;">{{data.Institution}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Regular}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.RegularFeePaid}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Backlog}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.BacklogFeePaid}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Registration}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.RegistrationFeePaid}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Regular+data.RegularFeePaid+data.Backlog+data.BacklogFeePaid+data.Registration+data.RegistrationFeePaid}}</td>
+                                            <td class="text-center" style="padding: 3px;">{{data.TotalRecords}}</td>
+                                            <td class="text-center" style="padding: 3px;">{{data.MarksPosted}}</td>
+                                            <td class="text-center" style="padding: 3px;">{{data.MarksNotPosted}}</td>
+                                            <td class="text-center" style="padding: 3px;">{{data.Submitted}}</td>
+                                            <td class="text-center" style="padding: 3px;">{{data.NotSubmitted}}</td>
                                         </tr>
                                         <tr>
                                             <td class="text-center" colspan="2">Total</td>
-                                            <td class="text-center"><b>{{Regular}}</b></td>
-                                            <td class="text-center"><b>{{RegularFeePaid}}</b></td>
-                                            <td class="text-center"><b>{{Backlog}}</b></td>
-                                            <td class="text-center"><b>{{BacklogFeePaid}}</b></td>
-                                            <td class="text-center"><b>{{Registration}}</b></td>
-                                            <td class="text-center"><b>{{RegistrationFeePaid}}</b></td>
-                                            <td class="text-center"><b>{{Regular+RegularFeePaid+Backlog+BacklogFeePaid+Registration+RegistrationFeePaid}}</b></td>
+                                            <td class="text-center"><b>{{TotalRecords}}</b></td>
+                                            <td class="text-center"><b>{{MarksPosted}}</b></td>
+                                            <td class="text-center"><b>{{MarksNotPosted}}</b></td>
+                                            <td class="text-center"><b>{{Submitted}}</b></td>
+                                            <td class="text-center"><b>{{NotSubmitted}}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -304,130 +310,7 @@
                     </div>
 
 
-                </div>
-                <div class="tab-pane" id="2">
 
-                    <div class="col-md-12">
-                        <div class="alert alert-info">
-                            <div class="studWishinputs">
-                                <div class="row">
-                                    <form novalidate>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label class="font-weight-bold"> Academic Year :</label>
-                                                <select class="form-control " ng-model="Academicyear" name="AcademicYear" required ng-change="getexamMonthYearData(Academicyear)">
-                                                    <option value="" selected="selected">Select Year</option>
-                                                    <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
-                                                        {{data.AcademicYear}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3 form-group">
-                                            <label for="ExamMonthYear" class="font-weight-bold">
-                                                Exam Month/Year :
-                                            </label>
-                                            <select class="form-control" name="ExamMonthYear" required ng-model="Monthyear">
-                                                <option value="" selected>Select Exam Month/Year</option>
-                                                <option ng-repeat="data in GetExamMonthYear" value="{{data.ExamMonthYearID}}">
-                                                    {{data.ExamMonthYearName}}
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-2 ">
-                                            <div class="gr-btn">
-                                                <button type="submit" style="margin-top:5px!important;" class="btn btn-sm btn-primary gr-button" ng-click="getAdminFeePaymentCourseCount()">
-                                                    Get Report<span class="fa fa-arrow-down heading_icon btn_icons"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12" ng-if="AdminFeePaymentCourseCount.length>0">
-                            <div class="pull-right">
-                                <a class="ExportToExcel1 pointer"
-                                   id="ExportToExcel1" ng-click="getAdmFeePaymentCourseCountExcel('#tblParent')">
-                                    <i class="fa fa-file-excel-o"></i>
-                                    Export to Excel
-                                </a>
-                            </div>
-                        </div>
-
-                        <div style="width:100%;text-align:center;">
-                            <img src="../../../contents/img/loading2.gif" ng-show="LoadImg" width="100" class="ng-hide">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div ng-show="ResultNotFound" class="no-results ng-hide">
-                                    <img src="../../contents/img/Folder-Icon.svg">
-                                    <h2>No Result Found</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div style="width:100%;text-align:center;">
-                        <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
-                    </div>
-
-                    <div class="col-md-12">
-
-
-                        <div class="table-responsive table-custom-tables-tb" ng-if="AdminFeePaymentCourseCount.length>0">
-                            <div class="table-responsive table-custom-tables-tb scrollbox">
-                                <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
-                                    <thead class="sticky-header">
-                                        <tr class="cb-1">
-                                            <th width="2%">S.No</th>
-                                            <th class="text-center">Course</th>
-                                            <th class="text-center">Regular</th>
-                                            <th class="text-center">Regular FeePaid</th>
-                                            <th class="text-center">Backlog</th>
-                                            <th class="text-center">Backlog FeePaid</th>
-                                            <th class="text-center">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="background-color: #fff!important;cursor: pointer" ng-repeat="data in AdminFeePaymentCourseCount" ng-dblclick="getInstitutewiseCount(data.CourseID)">
-                                            <td class="text-center pointer" style="padding: 3px;">{{$index + 1}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Course}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Regular}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.RegularFeePaid}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Backlog}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.BacklogFeePaid}}</td>
-                                            <td class="text-center" style="padding: 3px;">{{data.Regular+data.RegularFeePaid+data.Backlog+data.BacklogFeePaid}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center" colspan="2">Total</td>
-                                            <td class="text-center"><b>{{Regular}}</b></td>
-                                            <td class="text-center"><b>{{RegularFeePaid}}</b></td>
-                                            <td class="text-center"><b>{{Backlog}}</b></td>
-                                            <td class="text-center"><b>{{BacklogFeePaid}}</b></td>
-                                            <td class="text-center"><b>{{Regular+RegularFeePaid+Backlog+BacklogFeePaid}}</b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-12">
-                        <div ng-if="NoResult" class="no-results">
-                            <img src="../../contents/img/Folder-Icon.svg" />
-                            <h2>No Result Found</h2>
-                        </div>
-                    </div>
-
-
-                </div>
 
 
 

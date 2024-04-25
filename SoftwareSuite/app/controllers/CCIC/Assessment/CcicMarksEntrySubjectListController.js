@@ -73,7 +73,7 @@ define(['app'], function (app) {
                     $scope.InstitutionName = data.Table[0].InstitutionName;
                     $scope.SubjectCode = data.Table1[0].SubjectCode
                     $scope.ExamType = data.Table[0].ExamType
-                    data.Table.forEach(function (student) {
+                    data.Table1.forEach(function (student) {
                         if (!$scope.SubjectsList.includes(student.SubjectCode))
                             $scope.SubjectsList.push(student.SubjectCode);
                     });
@@ -123,7 +123,7 @@ define(['app'], function (app) {
             var tempsub = [];
             var subjectcodes = $scope.SubjectsList;
             for (let i = 0; i < arr.length; i++) {
-                if (arr[i].PIN == student.PIN) {
+                if (arr[i].PIN == student.PIN && arr[i].SubjectCode == $scope.SubjectsList[0]) {
                     Report.push(arr[i]);
                     temparr.push(arr[i]);
                     //  tempsub.push(arr[i].code);
