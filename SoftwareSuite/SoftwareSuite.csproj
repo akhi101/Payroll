@@ -1131,6 +1131,7 @@
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsCourse.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsData.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsSubject.html" />
     <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
