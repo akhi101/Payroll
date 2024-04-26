@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -229,12 +229,15 @@ namespace SoftwareSuite.Controllers.PayRoll
         {
             public int DataTypeId { get; set; }
             public int EmployeeID { get; set; }
+            public string EmployeeCode { get; set; }
             public string EmployeeName { get; set; }
             public int DesignationId { get; set; }
             public int DepartmentId { get; set; }
             public DateTime DOB { get; set; }
             public DateTime DOJ { get; set; }
             public DateTime DOR { get; set; }
+            public DateTime DesignationName { get; set; }
+            public DateTime DepartmentName { get; set; }
             public string Gender { get; set; }
             public string PHC { get; set; }
             public string Empstatus { get; set; }
@@ -244,7 +247,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string GPFNo { get; set; }
             public bool CPS_NPS { get; set; }
             public string CPSNo { get; set; }
-            public int BankId { get; set; }
+            public int BankDetails { get; set; }
             public string AccountNumber { get; set; }
             public string CategoryCode { get; set; }
             public bool Active { get; set; }
@@ -262,26 +265,29 @@ namespace SoftwareSuite.Controllers.PayRoll
                 {
 
                     var dbHandler = new PayRolldbhandler();
-                    var param = new SqlParameter[19];
+                    var param = new SqlParameter[20];
                     param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                     param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
-                    param[2] = new SqlParameter("@EmployeeName", data.EmployeeName);
-                    param[3] = new SqlParameter("@DOB", data.DOB);
-                    param[4] = new SqlParameter("@DOJ", data.DOJ);
-                    param[5] = new SqlParameter("@DOR", data.DOR);
-                    param[6] = new SqlParameter("@Gender", data.Gender);
-                    param[7] = new SqlParameter("@PHC", data.PHC);
-                    param[8] = new SqlParameter("@Empstatus", data.Empstatus);
-                    param[9] = new SqlParameter("@IncrementMonth", data.IncrementMonth);
-                    param[10] = new SqlParameter("@ScaleType", data.ScaleType);
-                    param[11] = new SqlParameter("@PanNO", data.PanNO);
-                    param[12] = new SqlParameter("@GPFNo", data.GPFNo);
-                    param[13] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
-                    param[14] = new SqlParameter("@CPSNo", data.CPSNo);
-                    param[15] = new SqlParameter("@AccountNumber", data.AccountNumber);
-                    param[16] = new SqlParameter("@CategoryCode", data.CategoryCode);
-                    param[17] = new SqlParameter("@Active", data.Active);
-                    param[18] = new SqlParameter("@UserName", data.UserName);
+                    param[2] = new SqlParameter("@EmployeeCode", data.EmployeeCode);
+                    param[3] = new SqlParameter("@EmployeeName", data.EmployeeName);
+                    param[4] = new SqlParameter("@DOB", data.DOB);
+                    param[5] = new SqlParameter("@DOJ", data.DOJ);
+                    param[6] = new SqlParameter("@DOR", data.DOR);
+                    param[7] = new SqlParameter("@DesignationName", data.DesignationName);
+                    param[8] = new SqlParameter("@DepartmentName", data.DepartmentName);
+                    param[9] = new SqlParameter("@Gender", data.Gender);
+                    param[10] = new SqlParameter("@Empstatus", data.Empstatus);
+                    param[11] = new SqlParameter("@IncrementMonth", data.IncrementMonth);
+                    param[12] = new SqlParameter("@ScaleType", data.ScaleType);
+                    param[13] = new SqlParameter("@PanNO", data.PanNO);
+                    param[14] = new SqlParameter("@GPFNo", data.GPFNo);
+                    param[15] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
+                    param[16] = new SqlParameter("@CPSNo", data.CPSNo);
+                    param[17] = new SqlParameter("@BankDetails", data.BankDetails);
+                    param[18] = new SqlParameter("@AccountNumber", data.AccountNumber);
+                    param[19] = new SqlParameter("@CategoryCode", data.CategoryCode);
+                    param[20] = new SqlParameter("@Active", data.Active);
+                    param[21] = new SqlParameter("@UserName", data.UserName);
                     var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeDetails", param);
                     HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                     return response;
@@ -294,5 +300,31 @@ namespace SoftwareSuite.Controllers.PayRoll
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
                 }
             }
-        };
+
+
+        [HttpPost, ActionName("GetBankBranchbyId")]
+        public string GetBankBranchbyId([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@BankId", request["BankId"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankBranch", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+       
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+    };
     };

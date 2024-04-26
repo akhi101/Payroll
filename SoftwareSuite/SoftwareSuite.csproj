@@ -1111,8 +1111,8 @@
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\BankDetailsController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\DepartmentController.js" />
-
     <Content Include="app\controllers\PostExam\PayRoll\DesignationController.js" />
+    <Content Include="app\controllers\PostExam\PayRoll\EmployeeDetailsController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
@@ -1804,11 +1804,11 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
-
     <Content Include="app\views\PostExam\PayRoll\Department.html" />
-
     <Content Include="app\views\PostExam\PayRoll\Designation.html" />
+    <Content Include="app\views\PostExam\PayRoll\EmployeeDetails.html" />
     <Content Include="app\views\PostExam\PayRoll\PayRoll.html" />
+    <Content Include="app\views\PostExam\PayRoll\Popups\BankDetailsPopup.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
