@@ -186,14 +186,17 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeName, DOB, DOJ, DOR, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, AccountNumber, CategoryCode, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationName ,DepartmentName,Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
+                "EmployeeCode": EmployeeCode,
                 "EmployeeName": EmployeeName,
                 "DOB": DOB,
                 "DOJ": DOJ,
                 "DOR": DOR,
+                "DesignationName": DesignationName,
+                "DepartmentName": DepartmentName,
                 "Gender": Gender,
                 "PHC": PHC,
                 "Empstatus": Empstatus,
@@ -203,6 +206,7 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "CPSNo": CPSNo,
+                "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
                 "Active": Active,
@@ -213,14 +217,17 @@ define(['app'], function (app) {
         };
 
        
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeName, DOB, DOJ, DOR, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, AccountNumber, CategoryCode, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationName, DepartmentName, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
+                "EmployeeCode": EmployeeCode,
                 "EmployeeName": EmployeeName,
                 "DOB": DOB,
                 "DOJ": DOJ,
                 "DOR": DOR,
+                "DesignationName": DesignationName,
+                "DepartmentName": DepartmentName,
                 "Gender": Gender,
                 "PHC": PHC,
                 "Empstatus": Empstatus,
@@ -230,6 +237,7 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "CPSNo": CPSNo,
+                "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
                 "Active": Active,
@@ -261,7 +269,14 @@ define(['app'], function (app) {
 
         };
 
+        this.GetBankBranchbyId = function (BankId) {
+            var paramObj = {
+                "BankId": BankId
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetBankBranchbyId', paramObj);
+            return promise;
 
+        };
 
     });
 });
