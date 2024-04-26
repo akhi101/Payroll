@@ -1115,7 +1115,6 @@
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\BankDetailsController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\DepartmentController.js" />
-
     <Content Include="app\controllers\PostExam\PayRoll\DesignationController.js" />
     <Content Include="app\controllers\PostExam\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
@@ -1131,6 +1130,7 @@
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsCourse.html" />
+    <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsData.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsSubject.html" />
     <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
@@ -1811,9 +1811,7 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
-
     <Content Include="app\views\PostExam\PayRoll\Department.html" />
-
     <Content Include="app\views\PostExam\PayRoll\Designation.html" />
     <Content Include="app\views\PostExam\PayRoll\PayRoll.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
