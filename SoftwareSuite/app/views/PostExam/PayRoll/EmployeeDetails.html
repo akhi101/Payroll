@@ -106,18 +106,35 @@
                                         </span>
                                     </p>
                                 </div>
-                                <div class="form-group col-md-6"> 
+
+
+                                <div class="form-group col-md-6">
                                     <label>
                                         Designation Name:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="255" placeholder="Enter Designation Name" ng-model="DesignationName">
+                                    <select class="form-control" id="designationid" ng-model="Designation"
+                                            ng-options="data.DesignationId as data.DesignationName for data in DesignationData">
+                                        <option value="" selected>Select Designation</option>
+                                    </select>
+
                                 </div>
+
                                 <div class="form-group col-md-6">
                                     <label>
                                         Department Name:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="255" placeholder="Enter Department Name" ng-model="DepartmentName">
+                                    <select class="form-control" id="departmentid" ng-model="Department"
+                                            ng-options="data.DepartmentID as data.DepartmentName for data in DepartmentData">
+                                        <option value="" selected>Select Department</option>
+                                    </select>
+
                                 </div>
+                                <!--<div class="form-group col-md-6">
+                                    <label>
+                                        Department Name:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="255" placeholder="Enter Department Name" ng-model="DepartmentName">
+                                </div>-->
                                 <div class="col-md-12">
                                     <div class="form-group col-md-3" style="right: 15px;">
                                         <div class="form-group ">
@@ -134,11 +151,7 @@
                                         <label>
                                             PHC:
                                         </label>
-                                        <select class="form-control" name="applicationForm.Gender" ng-model="PHC">
-                                            <option value="">Select PHC</option>
-                                            <option value="M">YES</option>
-                                            <option value="F">NO</option>
-                                        </select>
+                                        <input class="form-control" type="text" maxlength="10" placeholder="Enter PHC" ng-model="PHC">
 
                                     </div>
 
@@ -168,7 +181,7 @@
                                             <option value="November">November</option>
                                             <option value="December">December</option>
                                         </select>
-                                        
+
                                     </div>
                                 </div>
 
@@ -197,7 +210,11 @@
                                     <label>
                                         CPS/NPS:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter CPS/NPS" ng-model="CPS_NPS">
+                                    <select class="form-control" name="applicationForm.CPS_NPS" ng-model="CPS_NPS">
+                                        <option value="">Select CPS / NPS</option>
+                                        <option value="1">YES</option>
+                                        <option value="0">NO</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -234,7 +251,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="adddetails()">
                                         ADD
                                     </button>
                                 </div>

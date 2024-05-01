@@ -129,18 +129,19 @@
             console.log(Report)
             return Report;
         }
-        //$scope.selectSubjectDetails = function (subject) {
-        //    $localStorage.TempData1 = {
-        //        AcademicYearID: tmpdata.AcademicYearID,
-        //        ExamMonthYearID: tmpdata.ExamMonthYearID,
-        //        InstitutionID: tmpdata.InstitutionID,
-        //        CourseID: tmpdata.CourseID,
-        //        ExamTypeID: tmpdata.ExamTypeID,
-        //        ExamTypeName: tmpdata.ExamType
-        //    };
-        //    $localStorage.SubjectDetails = subject;
-        //    $state.go('CcicDashboard.Assessment.MarksEntryPage')
-        //}
+        $scope.selectSubjectDetails = function (subject) {
+            $localStorage.TempData2 = {
+                AcademicYearID: tmpdata1.AcademicYearID,
+                ExamMonthYearID: tmpdata1.ExamMonthYearID,
+                InstitutionID: tmpdata1.InstitutionID,
+                CourseID: tmpdata1.CourseID,
+                ExamTypeID: tmpdata1.ExamTypeID,
+                SubjectID: subject.SubjectID
+            };
+            $localStorage.SubjectDetails = subject;
+
+            $state.go('CcicDashboard.Assessment.AssessmentReportsData')
+        }
 
         $scope.logOut = function () {
             //$scope.$emit("logout", authData.UserName);

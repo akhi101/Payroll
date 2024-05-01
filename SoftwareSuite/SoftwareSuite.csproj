@@ -349,6 +349,7 @@
     <Compile Include="Controllers\CCIC\CcicPreExaminationController.cs" />
     <Compile Include="Controllers\CCIC\CcicPreExaminationReportController.cs" />
     <Compile Include="Controllers\CCIC\CcicStudentRegistrationController.cs" />
+    <Compile Include="Controllers\CCIC\CcicStudentResult\CcicStudentResultController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemEntityRightsController.cs" />
     <Compile Include="Controllers\CCIC\CcicSystemUserController.cs" />
     <Compile Include="Controllers\CCIC\CcicTimeTableGenerator.cs" />
@@ -683,6 +684,7 @@
     <Content Include="app\controllers\CCIC\CcicInstiTableController.js" />
     <Content Include="app\controllers\CCIC\CcicLoginController.js" />
     <Content Include="app\controllers\CCIC\CcicRecentNewsController.js" />
+    <Content Include="app\controllers\CCIC\CcicResultsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicAcademicYearSettingsController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicAdmEnrollmentDataController.js" />
     <Content Include="app\controllers\CCIC\CcicSettings\CcicAdmEnrollReportCoursesController.js" />
@@ -1122,6 +1124,7 @@
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\services\CBT\CbtStudentRegService.js" />
+    <Content Include="app\services\CCIC\StudentResult\CcicStudentResultService.js" />
     <Content Include="app\services\PayRoll\PayRollService.js" />
     <Content Include="app\views\CBT\CbtRegistration.html" />
     <Content Include="app\views\CBT\EditCandidateDetails.html" />
@@ -1134,6 +1137,7 @@
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsData.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsSubject.html" />
+    <Content Include="app\views\CCIC\CcicResults.html" />
     <Content Include="app\views\CCIC\Popups\MarksEntrySubmitPopup.html" />
     <Content Include="app\views\CCIC\PaymentGateway\CcicPaymentGatewayResponse.html" />
     <Content Include="app\views\CCIC\Popups\ChalanDetails.html" />
