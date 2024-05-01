@@ -10,115 +10,196 @@
 
 
         }
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
+            getdesign.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.DesignationData = res.Table;
+                    $scope.Noreports = false;
+                  
 
 
+                }
+                else {
+                    $scope.DesignationData = [];
+                    $scope.Noreports = true;
+                }
 
-        $scope.Add = function () {
+
+            },
+
+                function (error) {
+                    alert("error while loading Designation");
+                    var err = JSON.parse(error);
+
+                });
+
+
+        var DataTypeID = 1
+        var getdesign = PayRollService.GetDepartmentData(DataTypeID, 0, 0);
+        getdesign.then(function (response) {
+
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.DepartmentData = res.Table;
+                $scope.Noreports = false;
+              
+
+
+            }
+            else {
+                $scope.DepartmentData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Department");
+                var err = JSON.parse(error);
+
+            });
+
+
+        $scope.adddetails = function () {
 
             var datatypeid = 1
             if ($scope.EmployeeCode == null || $scope.EmployeeCode == undefined || $scope.EmployeeCode == "") {
                 alert("Please Enter Employee Code");
                 return;
+            }
 
-                if ($scope.EmployeeName == null || $scope.EmployeeName == undefined || $scope.EmployeeName == "") {
-                    alert("Please Enter Employee Name");
-                    return;
-                } if ($scope.CandidateNameDOB == null || $scope.CandidateNameDOB == undefined || $scope.CandidateNameDOB == "") {
-                    alert("Please Select DOB ");
-                    return;
-                } if ($scope.DOJ == null || $scope.DOJ == undefined || $scope.DOJ == "") {
-                    alert("Please Enter DOJ ");
-                    return;
-                }
-                if ($scope.DOR == undefined || $scope.DOR == null || $scope.DOR == "") {
-                    alert("Please Enter DOR");
-                    return;
-                }
-                if ($scope.DesignationName == undefined || $scope.DesignationName == null || $scope.DesignationName == "") {
-                    alert("Please Enter DesignationName");
-                    return;
-                }
-                if ($scope.DepartmentName == undefined || $scope.DepartmentName == null || $scope.DepartmentName == "") {
-                    alert("Please Enter DepartmentName");
-                    return;
-                }
+            if ($scope.EmployeeName == null || $scope.EmployeeName == undefined || $scope.EmployeeName == "") {
+                alert("Please Enter Employee Name");
+                return;
+            }
 
-                if ($scope.Gender == undefined || $scope.Gender == null || $scope.Gender == "") {
-                    alert("Please Enter Gender");
-                    return;
-                }
-                if ($scope.PHC == undefined || $scope.PHC == null || $scope.PHC == "") {
-                    alert("Please Enter PHC");
-                    return;
-                }
-                if ($scope.EmployeeStatus == undefined || $scope.EmployeeStatus == null || $scope.EmployeeStatus == "") {
-                    alert("Please Enter EmployeeStatus");
-                    return;
-                }
-                if ($scope.IncrementMonth == null || $scope.IncrementMonth == undefined || $scope.IncrementMonth == "") {
-                    alert("Please Enter IncrementMonth");
-                    return;
-                } if ($scope.ScaleType == null || $scope.ScaleType == undefined || $scope.ScaleType == "") {
-                    alert("Please Select ScaleType ");
-                    return;
-                } if ($scope.PanNumber == null || $scope.PanNumber == undefined || $scope.PanNumber == "") {
-                    alert("Please Enter PanNumber ");
-                    return;
-                }
-                if ($scope.GPFNumber == undefined || $scope.GPFNumber == null || $scope.GPFNumber == "") {
-                    alert("Please Enter GPFNumber");
-                    return;
-                }
-                if ($scope.CPS_NPS == undefined || $scope.CPS_NPS == null || $scope.CPS_NPS == "") {
-                    alert("Please Enter CPS/NPS");
-                    return;
-                }
-                if ($scope.CPSNumber == undefined || $scope.CPSNumber == null || $scope.CPSNumber == "") {
-                    alert("Please Enter CPSNumber");
-                    return;
-                }
-                if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
-                    alert("Please Enter BankDetails");
-                    return;
-                }
-                if ($scope.AccountNumber == undefined || $scope.AccountNumber == null || $scope.AccountNumber == "") {
-                    alert("Please Enter AccountNumber");
-                    return;
-                }
-                if ($scope.CategoryCode == undefined || $scope.CategoryCode == null || $scope.CategoryCode == "") {
-                    alert("Please Enter CategoryCode");
-                    return;
-                }
+            if ($scope.CandidateNameDOB == null || $scope.CandidateNameDOB == undefined || $scope.CandidateNameDOB == "") {
+                alert("Please Select DOB ");
+                return;
+            }
 
-                var datatypeid = 1
+            if ($scope.DOJ == null || $scope.DOJ == undefined || $scope.DOJ == "") {
+                alert("Please Enter DOJ ");
+                return;
+            }
 
-                var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.CandidateNameDOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.DesignationName, $scope.DepartmentName, $scope.Gender, $scope.PHC, $scope.EmployeeStatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNumber, $scope.GPFNumber, $scope.CPS_NPS, $scope.CPSNumber, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
-                AddEmployeeDetails.then(function (res) {
-                    //try {
-                    //    var res = JSON.parse(response);
-                    //} catch (err) { }
-                    if (res[0].ResponseCode == '200') {
-                        alert(res[0].ResponseDescription);
-                        $scope.getEmployeeDetailsData();
+            if ($scope.DOR == undefined || $scope.DOR == null || $scope.DOR == "") {
+                alert("Please Enter DOR");
+                return;
+            }
 
-                    }
-                    else if (res[0].ResponseCode == '400') {
-                        alert(res[0].ResponseDescription);
-                        $scope.getEmployeeDetailsDatafF();
-
-                    } else {
-                        alert('Something Went Wrong')
-
-                    }
-                },
-                    function (error) {
-                        alert("something Went Wrong")
-
-
-                    });
+            if ($scope.Designation == undefined || $scope.Designation == null || $scope.Designation == "") {
+                alert("Please Enter DesignationName");
+                return;
             }
 
 
+            if ($scope.Department == undefined || $scope.Department == null || $scope.Department == "") {
+                alert("Please Enter DepartmentName");
+                return;
+            }
+
+
+            if ($scope.Gender == undefined || $scope.Gender == null || $scope.Gender == "") {
+                alert("Please Enter Gender");
+                return;
+            }
+
+            if ($scope.PHC == undefined || $scope.PHC == null || $scope.PHC == "") {
+                alert("Please Enter PHC");
+                return;
+            }
+
+            if ($scope.EmployeeStatus == undefined || $scope.EmployeeStatus == null || $scope.EmployeeStatus == "") {
+                alert("Please Enter EmployeeStatus");
+                return;
+            }
+
+            if ($scope.IncrementMonth == null || $scope.IncrementMonth == undefined || $scope.IncrementMonth == "") {
+                alert("Please Enter IncrementMonth");
+                return;
+            }
+            if ($scope.ScaleType == null || $scope.ScaleType == undefined || $scope.ScaleType == "") {
+                alert("Please Select ScaleType ");
+                return;
+            }
+            if ($scope.PanNumber == null || $scope.PanNumber == undefined || $scope.PanNumber == "") {
+                alert("Please Enter PanNumber ");
+                return;
+            }
+
+            if ($scope.GPFNumber == undefined || $scope.GPFNumber == null || $scope.GPFNumber == "") {
+                alert("Please Enter GPFNumber");
+                return;
+            }
+
+            if ($scope.CPS_NPS == undefined || $scope.CPS_NPS == null || $scope.CPS_NPS == "") {
+                alert("Please Enter CPS/NPS");
+                return;
+            }
+
+            if ($scope.CPSNumber == undefined || $scope.CPSNumber == null || $scope.CPSNumber == "") {
+                alert("Please Enter CPSNumber");
+                return;
+            }
+
+
+            if ($scope.BankID == undefined || $scope.BankID == null || $scope.BankID == "") {
+                alert("Please Enter BankDetails");
+                return;
+            }
+
+            if ($scope.AccountNumber == undefined || $scope.AccountNumber == null || $scope.AccountNumber == "") {
+                alert("Please Enter AccountNumber");
+                return;
+            }
+
+            if ($scope.CategoryCode == undefined || $scope.CategoryCode == null || $scope.CategoryCode == "") {
+                alert("Please Enter CategoryCode");
+                return;
+            }
+
+            var datatypeid = 1
+
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.CandidateNameDOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.EmployeeStatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNumber, $scope.GPFNumber, $scope.CPS_NPS, $scope.CPSNumber, $scope.BankID, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            AddEmployeeDetails.then(function (res) {
+                //try {
+                //    var res = JSON.parse(response);
+                //} catch (err) { }
+                if (res[0].ResponseCode == '200') {
+                    alert(res[0].ResponseDescription);
+                    $scope.getEmployeeDetailsData();
+
+                }
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.getEmployeeDetailsDatafF();
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+    
             $scope.checkDate = function (CandidateNameDOB) {
                 var currentDate = new Date();
                 var birthdate = new Date(CandidateNameDOB);
@@ -258,7 +339,7 @@
 
 
 
-        }
+        
 
         $scope.SelectBankDetails = function () {
 
@@ -303,13 +384,11 @@
 
 
         }
-      
-
 
         $scope.closeModal = function () {
             $scope.modalInstance.close();
         };
-       
+
         $scope.getBranchesbyId = function (BankData) {
 
             //$scope.BankData.BankId = BankData.BankId;
@@ -317,37 +396,38 @@
             var getbranch = PayRollService.GetBankBranchbyId(BankData.BankID);
             getbranch.then(function (response) {
 
-            try {
-                var res = JSON.parse(response);
-            }
-            catch (err) { }
-            //$scope.edit = true;
-            if (res.Table.length > 0) {
-                $scope.BanksData = res.Table;
-                $scope.Noreports = false;
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.BanksData = res.Table;
+                    $scope.Noreports = false;
 
 
-            }
-            else {
-                $scope.BanksData = [];
-                $scope.Noreports = true;
-            }
+                }
+                else {
+                    $scope.BanksData = [];
+                    $scope.Noreports = true;
+                }
 
 
-        },
+            },
 
-            function (error) {
-                alert("error while loading Employee Details");
-                var err = JSON.parse(error);
+                function (error) {
+                    alert("error while loading Employee Details");
+                    var err = JSON.parse(error);
 
-            });
+                });
         }
 
 
-        $scope.SubmitBankDetails = function (Bank,BankBranch) {
+        $scope.SubmitBankDetails = function (Bank, BankBranch) {
 
             $scope.Bank = Bank;
             $scope.BankBranch = BankBranch;
+            $scope.BankID = BankBranch
             $scope.BankDetails = $scope.Bank + ',' + $scope.BankBranch;
             $scope.modalInstance.close();
         }

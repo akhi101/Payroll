@@ -1,50 +1,63 @@
 ﻿define(['app'], function (app) {
 
-    app.controller("CcicAssessmentReportsSubjectController", function ($scope, $window, $http, $state, $localStorage, CcicAssessmentService) {
+    app.controller("CcicAssessmentReportsDataController", function ($scope, $window, $http, $state, $localStorage, CcicAssessmentService) {
 
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
         $scope.UserTypeID = authData.UserTypeID;
-        var tmpdata1 = $localStorage.TempData1;
+        var tmpdata2 = $localStorage.TempData2;
+
+        $scope.AcademicYearID = tmpdata2.AcademicYearID;
+        $scope.ExamMonthYearID = tmpdata2.ExamMonthYearID;
+        $scope.InstitutionID = tmpdata2.InstitutionID;
+        $scope.CourseID = tmpdata2.CourseID;
+        $scope.ExamTypeID = tmpdata2.ExamTypeID;
+        $scope.ExamTypeName = tmpdata2.ExamTypeName;
+        $scope.SubjectID = $localStorage.SubjectDetails.SubjectID;
 
 
-
-        var getsubject = CcicAssessmentService.GetAssesmentInstituteCourseSubjectCount(tmpdata1.AcademicYearID, tmpdata1.ExamMonthYearID, tmpdata1.ExamTypeID, tmpdata1.InstitutionID, tmpdata1.CourseID);
-        getsubject.then(function (response) {
-            try {
-                var res = JSON.parse(response)
-            }
-            catch { }
-            if (res.Table !== undefined && res.Table.length > 0) {
-                $scope.getSubjectsResponse = res.Table;
-                $scope.AcademicYearID = res.Table[0].AcademicYearID;
-                $scope.ExamMonthYearID = res.Table[0].ExamMonthYearID;
-                $scope.DataSubmitted = 1
-                for (var i = 0; $scope.getSubjectsResponse.length; i++) {
-                    if ($scope.getSubjectsResponse[i].Submitted == 0) {
-                        $scope.DataSubmitted = 0
-                    }
+            var subjectPinList = CcicAssessmentService.getCcicSubjectPinList($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
+            subjectPinList.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
                 }
-            }
-            else {
-                //alert("no subjects");
-                //$state.go("Dashboard.AssessmentDashboard.practicals");
-            }
-        }, function (error) {
-            alert("some thing went wrong");
-        });
+                catch { error }
+                if (res.Table.length > 0) {
+                    //   console.log(response);
+                    $scope.subjectDetailsView = true;
+                    //var marksIdList = response
+                    $scope.studentsNotFound = false;
+                    $scope.LoadImgForPinList = false;
+                    $scope.pinWise = res.Table;
+                    $scope.Submitted = res.Table[0].Submitted;
+                    $scope.MaxMarks = res.Table1[0].MaxMarks;
+                    $scope.CourseName = res.Table1[0].CourseName;
+                    $scope.AcademicYear = res.Table1[0].AcademicYear;
+                    $scope.ExamMonthYear = res.Table1[0].ExamMonthYear;
+                    $scope.SubjectCode = res.Table1[0].SubjectCode;
+                    $scope.SubjectName = res.Table1[0].SubjectName;
+                    markslist = res.Table.map((obj) => { if (obj.Marks != null) { return { MarksEntryDataID: obj.MarksEntryDataID, Marks: obj.Marks } } });
+                    markslist = markslist.filter(function (element) { return element !== undefined; });
+                }
+
+               
+            }, function (error) {
+                $scope.pinWise = [];
+                $scope.subjectDetailsView = false;
+                $scope.studentsNotFound = true;
+                $scope.LoadImgForPinList = false;
+                let err = JSON.parse(error)
+                console.log(err);
+
+            });
+
+        
 
 
         $scope.back = function () {
-
-            var AcademicYearID = tmpdata1.AcademicYearID
-            var ExamMonthYearID = tmpdata1.ExamMonthYearID
-            var CourseID = tmpdata1.CourseID
-            sessionStorage.setItem("AcademicYearID", AcademicYearID);
-            sessionStorage.setItem("ExamMonthYearID", ExamMonthYearID);
-            sessionStorage.setItem("CourseID", CourseID);
-            $state.go("CcicDashboard.Assessment.AssessmentReportsCourse");
+            $state.go("CcicDashboard.Assessment.AssessmentReportsSubject");
         }
+
 
         $scope.GetReport = function () {
             if ($scope.DataSubmitted == 0) {
