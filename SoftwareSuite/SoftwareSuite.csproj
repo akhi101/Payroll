@@ -1811,6 +1811,7 @@
     <Content Include="app\views\Popups\EditUserTypesPopup.html" />
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
+    <Content Include="app\views\PostExam\Designation1.html" />
     <Content Include="app\views\PostExam\PayRoll\Department.html" />
     <Content Include="app\views\PostExam\PayRoll\Designation.html" />
     <Content Include="app\views\PostExam\PayRoll\EmployeeDetails.html" />
