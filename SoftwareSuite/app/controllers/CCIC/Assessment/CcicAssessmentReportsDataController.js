@@ -1,313 +1,175 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicAssessmentReportsDataController", function ($scope, $state, $uibModal, $localStorage, CcicPreExaminationService) {
+
+    app.controller("CcicAssessmentReportsDataController", function ($scope, $window, $http, $state, $localStorage, CcicAssessmentService) {
 
         var authData = $localStorage.authorizationData;
-        $scope.UserName = authData.UserName
+        $scope.UserName = authData.UserName;
+        $scope.UserTypeID = authData.UserTypeID;
+        var tmpdata2 = $localStorage.TempData2;
 
-        $scope.finalList = [];
-        $scope.edit = true;
-        $scope.update = false;
-        var examCenters = [];
-        const $ctrl = this;
-        $ctrl.$onInit = () => {
+        $scope.AcademicYearID = tmpdata2.AcademicYearID;
+        $scope.ExamMonthYearID = tmpdata2.ExamMonthYearID;
+        $scope.InstitutionID = tmpdata2.InstitutionID;
+        $scope.CourseID = tmpdata2.CourseID;
+        $scope.ExamTypeID = tmpdata2.ExamTypeID;
+        $scope.ExamTypeName = tmpdata2.ExamTypeName;
+        $scope.SubjectID = $localStorage.SubjectDetails.SubjectID;
 
-        }
 
+            var subjectPinList = CcicAssessmentService.getCcicSubjectPinList($scope.AcademicYearID, $scope.ExamMonthYearID, $scope.InstitutionID, $scope.CourseID, $scope.ExamTypeID, $scope.SubjectID);
+            subjectPinList.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch { error }
+                if (res.Table.length > 0) {
+                    //   console.log(response);
+                    $scope.subjectDetailsView = true;
+                    //var marksIdList = response
+                    $scope.studentsNotFound = false;
+                    $scope.LoadImgForPinList = false;
+                    $scope.pinWise = res.Table;
+                    $scope.Submitted = res.Table[0].Submitted;
+                    $scope.MaxMarks = res.Table1[0].MaxMarks;
+                    $scope.CourseName = res.Table1[0].CourseName;
+                    $scope.AcademicYear = res.Table1[0].AcademicYear;
+                    $scope.ExamMonthYear = res.Table1[0].ExamMonthYear;
+                    $scope.SubjectCode = res.Table1[0].SubjectCode;
+                    $scope.SubjectName = res.Table1[0].SubjectName;
+                    markslist = res.Table.map((obj) => { if (obj.Marks != null) { return { MarksEntryDataID: obj.MarksEntryDataID, Marks: obj.Marks } } });
+                    markslist = markslist.filter(function (element) { return element !== undefined; });
+                }
 
-        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
-        getCcicCurrentAcademicYear.then(function (response) {
-
-            $scope.GetCcicCurrentAcademicYear = response;
-
-        },
-            function (error) {
-                alert("error while loading CurrentAcademicYear");
-                var err = JSON.parse(error);
+               
+            }, function (error) {
+                $scope.pinWise = [];
+                $scope.subjectDetailsView = false;
+                $scope.studentsNotFound = true;
+                $scope.LoadImgForPinList = false;
+                let err = JSON.parse(error)
+                console.log(err);
 
             });
 
+        
 
 
-        $scope.GetExamMonthYearData = function (AcademicYearID) {
-            if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
+        $scope.back = function () {
+            $state.go("CcicDashboard.Assessment.AssessmentReportsSubject");
+        }
+
+
+        $scope.GetReport = function () {
+            if ($scope.DataSubmitted == 0) {
+                alert("Please Submit All Subjects Marks to get Report")
                 return;
-
             }
-
-            $scope.AcademicYearID = AcademicYearID;
-            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(AcademicYearID)
-            getCcicAcademicYearBatch.then(function (res) {
-                try {
-                    var res = JSON.parse(res);
-                }
-                catch (err) { }
-
-                if (res.Table.length > 0) {
-                    $scope.GetExamMonthYear = res.Table;
-                }
-                else {
-                    $scope.GetExamMonthYear = [];
-                }
-                for (var j = 1; j < res.length + 1; j++) {
-                    $scope['edit' + j] = true;
-                }
-            },
-                function (error) {
-                    alert("data is not loaded");
-                    var err = JSON.parse(error);
-                });
-
-        }
-
-        $scope.getexamMonthYearData = function (AcademicYearID) {
-            if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
-                return;
-
-            }
-
-            $scope.AcademicYearID = AcademicYearID;
-            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(AcademicYearID)
-            getCcicAcademicYearBatch.then(function (res) {
-                try {
-                    var res = JSON.parse(res);
-                }
-                catch (err) { }
-
-                if (res.Table.length > 0) {
-                    $scope.GetExamMonthYear = res.Table;
-                }
-                else {
-                    $scope.GetExamMonthYear = [];
-                }
-                for (var j = 1; j < res.length + 1; j++) {
-                    $scope['edit' + j] = true;
-                }
-            },
-                function (error) {
-                    alert("data is not loaded");
-                    var err = JSON.parse(error);
-                });
-
-        }
-
-
-
-
-
-
-
-
-        $scope.getAdminFeePaymentCount = function () {
-            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
-                alert("Select Academic Year");
-                return false;
-            }
-            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
-                alert("Select Exam Month/Year");
-                return false;
-            }
-            var Count = CcicPreExaminationService.GetAdminFeePaymentInstituteCount($scope.AcademicYear, $scope.monthyear);
-            Count.then(function (response) {
-                try {
-                    var Res = JSON.parse(response);
-                }
-                catch (err) { }
-                $scope.AdminFeePaymentInstituteCount = [];
-                var Regular = 0;
-                var RegularFeePaid = 0;
-                var Backlog = 0;
-                var BacklogFeePaid = 0;
-                var Registration = 0;
-                var RegistrationFeePaid = 0;
-                if (Res.Table.length > 0) {
-                    $scope.loading = false;
-                    $scope.AdminFeePaymentInstituteCount = Res.Table;
-                    for (var i = 0; i < Res.Table.length; i++) {
-                        if (Res.Table[i].Regular != null)
-                            Regular = Regular + Res.Table[i].Regular;
-                        if (Res.Table[i].RegularFeePaid != null)
-                            RegularFeePaid = RegularFeePaid + Res.Table[i].RegularFeePaid;
-                        if (Res.Table[i].Backlog != null)
-                            Backlog = Backlog + Res.Table[i].Backlog;
-                        if (Res.Table[i].BacklogFeePaid != null)
-                            BacklogFeePaid = BacklogFeePaid + Res.Table[i].BacklogFeePaid;
-                        if (Res.Table[i].Registration != null)
-                            Registration = Registration + Res.Table[i].Registration;
-                        if (Res.Table[i].RegistrationFeePaid != null)
-                            RegistrationFeePaid = RegistrationFeePaid + Res.Table[i].RegistrationFeePaid;
-                    }
-                    $scope.Regular = Regular;
-                    $scope.RegularFeePaid = RegularFeePaid;
-                    $scope.Backlog = Backlog;
-                    $scope.BacklogFeePaid = BacklogFeePaid;
-                    $scope.Registration = Registration;
-                    $scope.RegistrationFeePaid = RegistrationFeePaid;
-                    $scope.loading = false;
-
-                }
-                else {
-                    $scope.loading = false;
-
-                    $scope.loading = false;
-                    $scope.AdminFeePaymentInstituteCount = [];
-
-                    $scope.NoData = true;
-                }
-            },
-                function (error) {
-                    //   alert("error while loading Notification");
-                    var err = JSON.parse(error);
-                });
-        }
-
-
-
-
-        $scope.getAdmFeePaymentInstituteCountExcel = function () {
             $scope.loading = true;
-            if (($scope.AcademicYear == undefined) || ($scope.AcademicYear == null) || ($scope.AcademicYear == "")) {
-                alert("Select Academic Year");
-                return false;
-            }
-            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
-                alert("Select Exam Month/Year");
-                return false;
-            }
-            var ReportExcel = CcicPreExaminationService.GetAdmFeePaymentInstituteCountExcel(parseInt($scope.AcademicYear), parseInt($scope.monthyear));
-            ReportExcel.then(function (res) {
-                $scope.loading = false;
-                if (res.length > 0) {
-                    if (res.length > 4) {
-                        window.location.href = res;
-                    } else {
-                        alert("No  Excel Report Present")
-                    }
-                } else {
-                    alert("No Excel Report Present")
+            $scope.Noresult = false
+            var loadData1 = CcicAssessmentService.GetAssesmentInstituteCourseSubjectCount(tmpdata1.AcademicYearID, tmpdata1.ExamMonthYearID, tmpdata1.ExamTypeID, tmpdata1.InstitutionID, tmpdata1.CourseID)
+            loadData1.then(function (response) {
+                try {
+                    var res = JSON.parse(response)
                 }
-            }, function (err) {
-                $scope.LoadImg = false;
-                alert("Error while loading");
+                catch {
+
+                }
+                var data = res;
+                if (data.Table.length > 0) {
+                    $scope.Noresult = false
+                    $scope.loading = false;
+                    $scope.SubjectsList = [];
+                    $scope.InstitutionCode = data.Table[0].InstitutionCode;
+                    $scope.InstitutionName = data.Table[0].InstitutionName;
+                    //$scope.SubjectCode = data.Table1[0].SubjectCode
+                    $scope.ExamType = data.Table[0].ExamType
+                    data.Table.forEach(function (student) {
+                        if (!$scope.SubjectsList.includes(student.SubjectCode))
+                            $scope.SubjectsList.push(student.SubjectCode);
+                    });
+                    $scope.StudentDetails = data.Table1;
+                    $scope.AllStudentDetails = data.Table2;
+
+                } else if (data[0].ResponceCode == '404') {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert(data[0].ResponceDescription);
+                }
+                else if (data[0].ResponceCode == '400') {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert(data[0].ResponceDescription);
+                } else {
+                    $scope.Noresult = true
+                    $scope.loading = false;
+                    alert('Something Went Wrong')
+                }
+
+            }, function (error) {
+                $scope.Noresult = true
+                $scope.loading = false;
             });
+        }
+        $scope.PrintStudentResult = function (divName) {
+
+            //var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            //document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+            print.close();
 
         };
 
-        $scope.getAdminFeePaymentCourseCount = function () {
-            if (($scope.Academicyear == undefined) || ($scope.Academicyear == null) || ($scope.Academicyear == "")) {
-                alert("Select Academic Year");
-                return false;
+        $scope.getOldChildren = function (student) {
+            var Report = [];
+            var arr = $scope.StudentDetails;
+            var rem = [];
+            var temparr = [];
+            var temparr2 = [];
+            var tempsub = [];
+            var subjectcodes = $scope.SubjectsList;
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].PIN == student.PIN) {
+                    Report.push(arr[i]);
+                    temparr.push(arr[i]);
+                    //  tempsub.push(arr[i].code);
+                }
             }
-            if (($scope.Monthyear == undefined) || ($scope.Monthyear == null) || ($scope.Monthyear == "")) {
-                alert("Select Exam Month/Year");
-                return false;
-            }
-            var Count = CcicPreExaminationService.GetAdminFeePaymentCourseCount($scope.Academicyear, $scope.Monthyear);
-            Count.then(function (response) {
-                try {
-                    var Res = JSON.parse(response);
-                }
-                catch (err) { }
-                $scope.AdminFeePaymentCourseCount = [];
-                var Regular = 0;
-                var RegularFeePaid = 0;
-                var Backlog = 0;
-                var BacklogFeePaid = 0;
-                if (Res.Table.length > 0) {
-                    $scope.loading = false;
-                    $scope.AdminFeePaymentCourseCount = Res.Table;
-                    for (var i = 0; i < Res.Table.length; i++) {
-                        if (Res.Table[i].Regular != null)
-                            Regular = Regular + Res.Table[i].Regular;
-                        if (Res.Table[i].RegularFeePaid != null)
-                            RegularFeePaid = RegularFeePaid + Res.Table[i].RegularFeePaid;
-                        if (Res.Table[i].Backlog != null)
-                            Backlog = Backlog + Res.Table[i].Backlog;
-                        if (Res.Table[i].BacklogFeePaid != null)
-                            BacklogFeePaid = BacklogFeePaid + Res.Table[i].BacklogFeePaid;
-                    }
-                    $scope.Regular = Regular;
-                    $scope.RegularFeePaid = RegularFeePaid;
-                    $scope.Backlog = Backlog;
-                    $scope.BacklogFeePaid = BacklogFeePaid;
-                    $scope.loading = false;
-
-                }
-                else {
-                    $scope.loading = false;
-
-                    $scope.loading = false;
-                    $scope.AdminFeePaymentCourseCount = [];
-
-                    $scope.NoData = true;
-                }
-            },
-                function (error) {
-                    //   alert("error while loading Notification");
-                    var err = JSON.parse(error);
-                });
+            console.log(Report)
+            return Report;
         }
+        //$scope.selectSubjectDetails = function (subject) {
+        //    $localStorage.TempData1 = {
+        //        AcademicYearID: tmpdata.AcademicYearID,
+        //        ExamMonthYearID: tmpdata.ExamMonthYearID,
+        //        InstitutionID: tmpdata.InstitutionID,
+        //        CourseID: tmpdata.CourseID,
+        //        ExamTypeID: tmpdata.ExamTypeID,
+        //        ExamTypeName: tmpdata.ExamType
+        //    };
+        //    $localStorage.SubjectDetails = subject;
+        //    $state.go('CcicDashboard.Assessment.MarksEntryPage')
+        //}
 
+        $scope.logOut = function () {
+            //$scope.$emit("logout", authData.UserName);
+            sessionStorage.loggedIn = "no";
+            var GetCcicUserLogout = CcicSystemUserService.PostCcicUserLogout($scope.UserName, $scope.SessionID);
 
+            delete $localStorage.authorizationData;
+            delete $localStorage.authToken;
+            delete $scope.SessionID;
 
-
-        $scope.getAdmFeePaymentCourseCountExcel = function () {
-            $scope.loading = true;
-            if (($scope.Academicyear == undefined) || ($scope.Academicyear == null) || ($scope.Academicyear == "")) {
-                alert("Select Academic Year");
-                return false;
-            }
-            if (($scope.Monthyear == undefined) || ($scope.Monthyear == null) || ($scope.Monthyear == "")) {
-                alert("Select Exam Month/Year");
-                return false;
-            }
-            var ReportExcel = CcicPreExaminationService.GetAdmFeePaymentCourseCountExcel(parseInt($scope.Academicyear), parseInt($scope.Monthyear));
-            ReportExcel.then(function (res) {
-                $scope.loading = false;
-                if (res.length > 0) {
-                    if (res.length > 4) {
-                        window.location.href = res;
-                    } else {
-                        alert("No  Excel Report Present")
-                    }
-                } else {
-                    alert("No Excel Report Present")
-                }
-            }, function (err) {
-                $scope.LoadImg = false;
-                alert("Error while loading");
-            });
-
-        };
-
-        $scope.getCoursewiseCount = function (InstitutionID) {
-
-            $localStorage.TempData = {
-                AcademicYearID: $scope.AcademicYear,
-                ExamMonthYearID: $scope.monthyear,
-                InstitutionID: InstitutionID
-
+            $scope.authentication = {
+                isAuth: false,
+                UserID: 0,
+                UserName: ""
             };
-
-            $state.go('CcicDashboard.PreExamination.CoursewiseFeePaymentReports');
-
-
+            $state.go('CcicLogin');
         }
-
-        $scope.getInstitutewiseCount = function (CourseID) {
-
-            $localStorage.TempData1 = {
-                AcademicYearID: $scope.Academicyear,
-                ExamMonthYearID: $scope.Monthyear,
-                CourseID: CourseID
-
-            };
-
-            $state.go('CcicDashboard.PreExamination.InstitutewiseFeePaymentReports');
-
-
-        }
-
-
-
-    })
-})
+    });
+});

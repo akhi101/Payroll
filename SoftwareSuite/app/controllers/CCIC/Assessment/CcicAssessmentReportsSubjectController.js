@@ -53,7 +53,7 @@
             }
             $scope.loading = true;
             $scope.Noresult = false
-            var loadData1 = CcicAssessmentService.GetSubjectsReport(tmpdata.AcademicYearID, tmpdata.ExamMonthYearID, tmpdata.InstitutionID, tmpdata.CourseID, tmpdata.ExamTypeID)
+            var loadData1 = CcicAssessmentService.GetAssesmentInstituteCourseSubjectCount(tmpdata1.AcademicYearID, tmpdata1.ExamMonthYearID, tmpdata1.ExamTypeID, tmpdata1.InstitutionID, tmpdata1.CourseID)
             loadData1.then(function (response) {
                 try {
                     var res = JSON.parse(response)
@@ -68,7 +68,7 @@
                     $scope.SubjectsList = [];
                     $scope.InstitutionCode = data.Table[0].InstitutionCode;
                     $scope.InstitutionName = data.Table[0].InstitutionName;
-                    $scope.SubjectCode = data.Table1[0].SubjectCode
+                    //$scope.SubjectCode = data.Table1[0].SubjectCode
                     $scope.ExamType = data.Table[0].ExamType
                     data.Table.forEach(function (student) {
                         if (!$scope.SubjectsList.includes(student.SubjectCode))
@@ -130,16 +130,17 @@
             return Report;
         }
         $scope.selectSubjectDetails = function (subject) {
-            $localStorage.TempData1 = {
-                AcademicYearID: tmpdata.AcademicYearID,
-                ExamMonthYearID: tmpdata.ExamMonthYearID,
-                InstitutionID: tmpdata.InstitutionID,
-                CourseID: tmpdata.CourseID,
-                ExamTypeID: tmpdata.ExamTypeID,
-                ExamTypeName: tmpdata.ExamType
+            $localStorage.TempData2 = {
+                AcademicYearID: tmpdata1.AcademicYearID,
+                ExamMonthYearID: tmpdata1.ExamMonthYearID,
+                InstitutionID: tmpdata1.InstitutionID,
+                CourseID: tmpdata1.CourseID,
+                ExamTypeID: tmpdata1.ExamTypeID,
+                SubjectID: subject.SubjectID
             };
             $localStorage.SubjectDetails = subject;
-            $state.go('CcicDashboard.Assessment.MarksEntryPage')
+
+            $state.go('CcicDashboard.Assessment.AssessmentReportsData')
         }
 
         $scope.logOut = function () {

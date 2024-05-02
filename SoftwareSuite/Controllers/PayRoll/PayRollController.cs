@@ -247,7 +247,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string GPFNo { get; set; }
             public bool CPS_NPS { get; set; }
             public string CPSNo { get; set; }
-            public int BankDetails { get; set; }
+            public int BankId { get; set; }
             public string AccountNumber { get; set; }
             public string CategoryCode { get; set; }
             public bool Active { get; set; }
