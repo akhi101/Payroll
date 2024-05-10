@@ -2150,6 +2150,24 @@
             },
 
 
+            'Dashboard.PayRollDashboard': {
+                url: "/PayRollDashboard",
+                templateUrl: 'app/views/PayRoll/PayRollDashboard.html',
+                dependencies: ['controllers/PayRoll/PayRollDashboardController', 'services/SystemAdministration/SystemUserService']
+            },
+
+
+            'Dashboard.PayRollDashboard.Officers': {
+                url: "/Officers",
+                templateUrl: 'app/views/PayRoll/Officers.html',
+                dependencies: ['controllers/PayRoll/OfficersController', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'Dashboard.PayRollDashboard.OverAllDeductions': {
+                url: "/OverAllDeductions",
+                templateUrl: 'app/views/PayRoll/OverAllDeductions.html',
+                dependencies: ['controllers/PayRoll/OverAllDeductionsController', 'services/SystemAdministration/SystemUserService']
+            },
 
             //TimeTable Page
             'Dashboard.TimeTablePage': {

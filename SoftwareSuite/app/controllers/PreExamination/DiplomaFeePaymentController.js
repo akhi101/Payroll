@@ -1,5 +1,6 @@
 define(['app'], function (app) {
     app.controller("DiplomaFeePaymentController", function ($scope, $http, $localStorage, $window, $state, PreExaminationService, $uibModal, PaymentService) {
+        $state.go('Dashboard.PreExamination')
         $scope.secondClick = false;
         $scope.allItemsSelected = true;
         $scope.allItemsSelectedthing = true;

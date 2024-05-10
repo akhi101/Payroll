@@ -595,6 +595,8 @@ namespace SoftwareSuite.Controllers.TWSH
             public DateTime FineDate { get; set; }
             public double LateFee { get; set; }
             public DateTime TatkalDate { get; set; }
+
+            public DateTime PremiumTatkalDate { get; set; }
             public double TatkalFee { get; set; }
             public double PremiumTatkalFee { get; set; }
 
@@ -622,7 +624,7 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[11];
+                var param = new SqlParameter[12];
 
                 param[0] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
                 param[1] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
@@ -630,11 +632,12 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[3] = new SqlParameter("@ToDate", request.ToDate);
                 param[4] = new SqlParameter("@FineDate", request.FineDate);
                 param[5] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[6] = new SqlParameter("@Fee", request.Fee);
-                param[7] = new SqlParameter("@LateFee", request.LateFee);
-                param[8] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[9] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[10] = new SqlParameter("@CertificateFee", request.CertificateFee);
+                param[6] = new SqlParameter("@PremiumTatkalDate", request.PremiumTatkalDate);
+                param[7] = new SqlParameter("@Fee", request.Fee);
+                param[8] = new SqlParameter("@LateFee", request.LateFee);
+                param[9] = new SqlParameter("@TatkalFee", request.TatkalFee);
+                param[10] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
+                param[11] = new SqlParameter("@CertificateFee", request.CertificateFee);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("TWSH_SET_StudentFeePaymentDates", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -654,7 +657,7 @@ namespace SoftwareSuite.Controllers.TWSH
             try
             {
                 var dbHandler = new Twshdbandler();
-                var param = new SqlParameter[12];
+                var param = new SqlParameter[13];
                 param[0] = new SqlParameter("@FeePaymentId", request.FeePaymentId);
                 param[1] = new SqlParameter("@AcademicYearId", request.AcademicYearId);
                 param[2] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
@@ -662,11 +665,12 @@ namespace SoftwareSuite.Controllers.TWSH
                 param[4] = new SqlParameter("@ToDate", request.ToDate);
                 param[5] = new SqlParameter("@FineDate", request.FineDate);
                 param[6] = new SqlParameter("@TatkalDate", request.TatkalDate);
-                param[7] = new SqlParameter("@Fee", request.Fee);
-                param[8] = new SqlParameter("@LateFee", request.LateFee);
-                param[9] = new SqlParameter("@TatkalFee", request.TatkalFee);
-                param[10] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
-                param[11] = new SqlParameter("@CertificateFee", request.CertificateFee);
+                param[7] = new SqlParameter("@PremiumTatkalDate", request.PremiumTatkalDate);
+                param[8] = new SqlParameter("@Fee", request.Fee);
+                param[9] = new SqlParameter("@LateFee", request.LateFee);
+                param[10] = new SqlParameter("@TatkalFee", request.TatkalFee);
+                param[11] = new SqlParameter("@PremiumTatkalFee", request.PremiumTatkalFee);
+                param[12] = new SqlParameter("@CertificateFee", request.CertificateFee);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("TWSH_UPDATE_StudentFeePaymentDates", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;

@@ -170,12 +170,29 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group ">
+                                    <label for="datetimepicker5" class="font-weight-bold">Premium Tatkal Date :</label>
+                                    <div class='input-group'>
+                                        <input type="date" class="form-control" id='datetimepicker5' ng-model="PremiumTatkalDate" min="{{pretatkal}}" ng-disabled="premiumtatkalDisable" ng-change="SetPremiumTatkalDateFormats(TatkalDate)" name="pretatkaldate" required />
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                    <span ng-show="SetDatesForm.FineDate.$dirty && SetDatesForm.FineDate.$invalid">
+                                        <span ng-show="hasError('FineDate', 'required')">Fine Date no is required</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Fee Amount :</label>
                                     <div id='Fineamount'>
                                         <input type='text' class="form-control" ng-model="feeAmount" autocomplete="off" name="Fineamount" required />
                                     </div>
                                 </div>
                             </div>
+                          
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Late Fee :</label>
@@ -184,9 +201,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-
                             <div class="col-md-3">
                                 <div class="form-group ">
                                     <label for="datetimepicker3" class="font-weight-bold">Tatkal Fee :</label>
@@ -211,13 +225,15 @@
                                     </div>
                                 </div>
                             </div>
+                           
+                        </div>
+                        <div class="row">
                             <div class="col-md-3 text-center">
                                 <button type="submit" class="btn btn-detail" style="margin-top:23px">
                                     Set Dates
                                 </button>
                             </div>
                         </div>
-                       
 
                     </div>
 
@@ -241,6 +257,7 @@
                                 <th style="">Last Date Without Fine</th>
                                 <th style="">Last Date With Fine </th>
                                 <th style="">Tatkal Last Date</th>
+                                <th style="">Premium Tatkal Last Date</th>
                                 <th style="">Fee </th>
                                 <th style="">Late Date Fee </th>
                                 <th style="">Tatkal Fee</th>
@@ -278,6 +295,10 @@
 
                                 </td>
                                 <td>
+                                    <input style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" placeholder="Tatkal Date" autocomplete="off" name="ExamDate{{$index + 1}}" ng-model="dates.PremiumTatkalDate" />
+
+                                </td>
+                                <td>
                                     <input autocomplete="off" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" maxlength="15" ng-model="dates.Fee" />
                                 </td>
                                 <td>
@@ -294,7 +315,7 @@
                                     <input autocomplete="off" style="width: min-content;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" maxlength="15" ng-model="dates.CertificateFee" />
                                 </td>
 
-                             
+
                                 <td>
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditTwshDate(data,$index+1)">
                                         Edit

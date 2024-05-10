@@ -278,9 +278,9 @@
             return DataAccessService.getDataWithPara('api/PreExamination/SetHomePageSlidesStatus', paramObject);
         };
 
-        this.ResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, ExamTypeId, academicyearid, UserName) {
+        this.ResultsProcessing = function (ExamMonthYearId, StudentTypeId, Scheme, SemIdJson, ExamTypeId, academicyearid, UserName) {
             var paramObject = {
-                "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme,
+                "ExamMonthYearId": ExamMonthYearId, "StudentTypeId": StudentTypeId, "Scheme": Scheme, "SemIdJson": SemIdJson,
                 "ExamTypeId": ExamTypeId, "academicyearid": academicyearid, "UserName": UserName
             };
 
@@ -581,6 +581,14 @@
             var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseBonafidePin', paramObject);
             return promise;
         }
+
+        this.ReleaseStudyPin = function (Pin) {
+            var paramObject = { "Pin": Pin };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/ReleaseStudyPin', paramObject);
+            return promise;
+        }
+
+        
 
         this.ReleaseStudentServicesPin = function (Pin, CertificateTypeId, Id) {
             var paramObject = {
