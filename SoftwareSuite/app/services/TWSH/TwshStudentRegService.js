@@ -90,10 +90,10 @@
             return promise;
         };
 
-        this.TwshsetStudentFeepayments = function (AcademicYearId,ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
+        this.TwshsetStudentFeepayments = function (AcademicYearId, ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, PremiumTatkalDate , Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
             var paramObject = {
                 "AcademicYearId": AcademicYearId,
-                "ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "Fee": Fee,
+                "ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "PremiumTatkalDate": PremiumTatkalDate, "Fee": Fee,
                 "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CertificateFee": CertificateFee
             };
    
@@ -101,9 +101,9 @@
             return promise;
         };
 
-        this.TwshUpdateStudentFeepayments = function (FeePaymentId,AcademicYearId,ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
+        this.TwshUpdateStudentFeepayments = function (FeePaymentId, AcademicYearId, ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, PremiumTatkalDate, Fee, LateFee, TatkalFee, PremiumTatkalFee, CertificateFee) {
             var paramObject = {
-                "FeePaymentId": FeePaymentId, "AcademicYearId": AcademicYearId,"ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "Fee": Fee,
+                "FeePaymentId": FeePaymentId, "AcademicYearId": AcademicYearId, "ExamMonthYearId": ExamMonthYearId, "FromDate": FromDate, "ToDate": ToDate, "FineDate": FineDate, "TatkalDate": TatkalDate, "PremiumTatkalDate": PremiumTatkalDate, "Fee": Fee,
                 "LateFee": LateFee, "TatkalFee": TatkalFee, "PremiumTatkalFee": PremiumTatkalFee, "CertificateFee": CertificateFee
             };
             var promise = DataAccessService.postData('api/TwshStudentReg/TwshUpdateStudentFeepayments', paramObject);

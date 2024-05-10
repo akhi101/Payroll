@@ -71,12 +71,13 @@
                             <tr class="cb-1">
                                 <!--  <th style="width: 1%;"><input type="checkbox" ng-model="allItemsSelected" ng-change="selectAll()"></th>-->
                                 <th class="text-center" style="width: 3%" ng-click="sort('Sno')">Sno</th>
-                                <th class="text-center"  style="width: 10%" ng-click="sort('Scheme')">Application Number</th>
+                                <th class="text-center" style="width: 10%" ng-click="sort('Scheme')">Application Number</th>
                                 <th class="text-center" style="width: 5%" ng-click="sort('ExamMode')">Exam Mode</th>
                                 <th class="text-center" style="width: 5%" ng-click="sort('GradeCode')">Grade Code</th>
                                 <th class="text-center" style="width: 15%" ng-click="sort('Semester')">Student Name</th>
-                                <th style="width: 5%" class="text-center"  ng-click="sort('Branch')">Gender</th>
+                                <th style="width: 5%" class="text-center" ng-click="sort('Branch')">Gender</th>
                                 <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Phone Number</th>
+                                <th class="text-center" style="width: 10%" ng-click="sort('On Roll')">Applied Date</th>
                                 <th class="text-center" style="width: 8%" ng-click="sort('On Roll')">Status</th>
                             </tr>
                         </thead>
@@ -92,11 +93,12 @@
                                 <td class="text-center">{{data.StudentName}}</td>
                                 <td class="text-center">{{data.Gender}}</td>
                                 <td class="text-center">{{data.StudentPhoneNumber}}</td>
+                                <td class="text-center">{{data.AppliedDate|date:'dd-MM-yyyy'}}</td>
                                 <td class="text-center" style="color: green;font-weight: 600" ng-if="data.IsEligible==true &&  data.isrejected == false">Approved</td>
                                 <td class="text-center" style="color: #ef4263; font-weight: 600" ng-if="data.IsEligible == false &&  data.isrejected == false">Pending</td>
                                 <td class="text-center" style="color: #d50b07; font-weight: 600" ng-if="data.isrejected == true && data.IsEligible == false">Rejected</td>
                                 <!--<td ng-if="data.IsEligible == 'false' && data.IsRejected != 'false'">Pending</td>
-                                <td ng-if="data.IsRejected == 'True' ">Rejected</td>-->
+    <td ng-if="data.IsRejected == 'True' ">Rejected</td>-->
                             </tr>
                         </tbody>
                     </table>

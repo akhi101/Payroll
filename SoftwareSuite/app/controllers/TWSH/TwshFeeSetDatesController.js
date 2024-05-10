@@ -5,6 +5,7 @@
         $scope.endDisable = true;
         $scope.fineDisable = true;
         $scope.tatkalDisable = true;
+        $scope.premiumtatkalDisable = true;
         //   $scope.Student.id = 1;
         //var data = {};
         //$scope.$emit('showLoading', data);
@@ -365,6 +366,9 @@
             if (month.length < 2) month = '0' + month;
             if (day.length < 2) day = '0' + day;
             var date = [year, month, day].join('-');
+            premiumtatkalDisable = false;
+            $scope.pretatkal = [year, month, day].join('-');
+            $scope.premiumtatkalDisable = false;
             var time = [hrs, min, sec].join(':');
             $scope.TatkalDate = date + ' ' + time;
             //   $scope.TatkalDate1 = date + ' ' + time;
@@ -476,6 +480,7 @@
             if (month.length < 2) month = '0' + month;
             if (day.length < 2) day = '0' + day;
             var date = [year, month, day].join('-');
+            $scope.premiumtatkalDisable = false;
             var time = [hrs, min, sec].join(':');
             $scope.TatkalDate = date + ' ' + time;
             $scope.TatkalDate1 = date + ' ' + time;
@@ -483,12 +488,46 @@
 
         };
 
+
+        $scope.SetPremiumTatkalDateFormats = function (PremiumTatkalDate) {
+            if (PremiumTatkalDate !== null && PremiumTatkalDate !== undefined) {
+                var d = PremiumTatkalDate.toISOString().slice(0, 10).split('-');
+                d[2] = parseInt(d[2]);
+                d[2] = d[2] + 2; // offset time zone recovery
+                var day = d[2];
+                if (d[0].length === 4) {
+                    var End_date = d[0] + "-" + d[1] + "-" + d[2];
+                }
+            }
+            var indiaTime = new Date(PremiumTatkalDate).toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+            indiaTime = new Date(indiaTime);
+            $scope.End_date1 = indiaTime.toLocaleString();
+            var tomorrow = new Date($scope.End_date1);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            var date = new Date(tomorrow.toLocaleString());
+            month = '' + (date.getMonth() + 1);
+            day = '' + date.getDate();
+            year = date.getFullYear();
+            hrs = '23'; min = '59'; sec = '59';
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            var date = [year, month, day].join('-');
+            var time = [hrs, min, sec].join(':');
+            $scope.PremiumTatkalDate = date + ' ' + time;
+            $scope.PremiumTatkalDate1 = date + ' ' + time;
+            //    $scope.tatkal = date + ' ' + time
+            alert($scope.PremiumTatkalDate)
+        };
+
         $scope.submit = function () {
            
                 var FromDate = moment($scope.StartDate).format("YYYY-MM-DD HH:mm:ss.SSS");
                 var ToDate = moment($scope.EndDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
                 var FineDate = moment($scope.FineDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
-                var TatkalDate = moment($scope.TatkalDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
+            var TatkalDate = moment($scope.TatkalDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
+            var PremiumTatkalDate = moment($scope.PremiumTatkalDate).subtract(1, "days").format("YYYY-MM-DD HH:mm:ss.SSS");
+            var Fee = $scope.feeAmount;
                 var Fee = $scope.feeAmount;
                 var LateFee = $scope.lateFee;
                 var TatkalFee = $scope.tatkalFee;
@@ -517,7 +556,11 @@
                 if (TatkalDate == null || TatkalDate == '' || TatkalDate == undefined) {
                     alert("Please Select Tatkal Date")
                     return
-                }
+            }
+            if (PremiumTatkalDate == null || PremiumTatkalDate == '' || PremiumTatkalDate == undefined) {
+                alert("Please Select Premium Tatkal Date")
+                return
+            }
                 if (Fee == null || Fee == '' || Fee == undefined) {
                     alert("Please Enter Fee")
                     return
@@ -539,7 +582,7 @@
                     return
                 }
               
-            var setFeePaymentDates = TwshStudentRegService.TwshsetStudentFeepayments($scope.year, $scope.ExamMonthYear, FromDate, ToDate, FineDate, TatkalDate, Fee, LateFee, TatkalFee, $scope.PremiumTatkalFee, certificateFee);
+            var setFeePaymentDates = TwshStudentRegService.TwshsetStudentFeepayments($scope.year, $scope.ExamMonthYear, FromDate, ToDate, FineDate, TatkalDate, PremiumTatkalDate, Fee, LateFee, TatkalFee, $scope.PremiumTatkalFee, certificateFee);
             setFeePaymentDates.then(function (response) {
                 $scope.StartDate = '';
                 $scope.EndDate = '';
@@ -588,6 +631,7 @@
             var ToDate = moment(data.ToDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var FineDate = moment(data.FineDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             var TatkalDate = moment(data.TatkalDate).format("YYYY-MM-DD HH:mm:ss.SSS");
+            var PremiumTatkalDate = moment(data.PremiumTatkalDate).format("YYYY-MM-DD HH:mm:ss.SSS");
             if (data.ExamMonthYearId == null || data.ExamMonthYearId == '' || data.ExamMonthYearId == undefined) {
                 alert("Please Select Exam Month Year")
                 return
@@ -606,6 +650,10 @@
             }
             if (data.TatkalDate == null || data.TatkalDate == '' || data.TatkalDate == undefined) {
                 alert("Please Select Tatkal Date")
+                return
+            }
+            if (data.PremiumTatkalDate == null || data.PremiumTatkalDate == '' || data.PremiumTatkalDate == undefined) {
+                alert("Please Select Premium Tatkal Date")
                 return
             }
             if (data.Fee == null || data.Fee == '' || data.Fee == undefined) {
@@ -629,7 +677,7 @@
                 return
             }
 
-            var UpdateFeePaymentDates = TwshStudentRegService.TwshUpdateStudentFeepayments(data.Id, data.AcademicYearId,data.ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, data.Fee, data.LateFee, data.TatkalFee, data.PremiumTatkalFee, data.CertificateFee);
+            var UpdateFeePaymentDates = TwshStudentRegService.TwshUpdateStudentFeepayments(data.Id, data.AcademicYearId, data.ExamMonthYearId, FromDate, ToDate, FineDate, TatkalDate, PremiumTatkalDate, data.Fee, data.LateFee, data.TatkalFee, data.PremiumTatkalFee, data.CertificateFee);
             UpdateFeePaymentDates.then(function (response) {
                 if (response[0].ResponceCode=='200'){
                 $scope.StartDate = '';

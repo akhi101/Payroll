@@ -1068,18 +1068,19 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ResultsProcessing")]
-        public string ResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, int ExamTypeId, int academicyearid, string username)
+        public string ResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme,string SemIdJson ,int ExamTypeId, int academicyearid, string username)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[6];
+                var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
                 param[1] = new SqlParameter("@StudentTypeId", StudentTypeId);
                 param[2] = new SqlParameter("@scheme", scheme);
-                param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
-                param[4] = new SqlParameter("@academicyearid", academicyearid);
-                param[5] = new SqlParameter("@username", username);
+                param[3] = new SqlParameter("@SemIdJson", SemIdJson);
+                param[4] = new SqlParameter("@ExamTypeId", ExamTypeId);
+                param[5] = new SqlParameter("@academicyearid", academicyearid);
+                param[6] = new SqlParameter("@username", username);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_SET_4_1_ResultsProcessing", param);
                 if (dt.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
                 {

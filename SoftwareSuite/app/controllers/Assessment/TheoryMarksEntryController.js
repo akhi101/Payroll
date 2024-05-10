@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
 
-    app.controller("TheoryMarksEntryController", function ($scope, $http, $localStorage, $uibModal, $state, $uibModal, $stateParams, AppSettings, MenuService, AssessmentService, MarksEntryService, PaymentService) {
+    app.controller("TheoryMarksEntryController", function ($scope, $http, $localStorage, $uibModal, $state, $uibModal, $stateParams, PreExaminationService , AppSettings, MenuService, AssessmentService, MarksEntryService, PaymentService) {
 
         var authData = $localStorage.authorizationData;
         $scope.userName = authData.userName;
@@ -159,6 +159,13 @@
                     Induslist = Induslist.filter(function (element) { return element !== undefined; });
                     $scope.SubjectName = response.Table1[0].SubjectName;
                     $scope.MaxMarks = response.Table1[0].maxmarks;
+                    $scope.IndustryName = response.Table1[0].IndustryName;
+                    $scope.Mobile = response.Table1[0].Mobile;
+                    $scope.ExamDetails = response.Table1[0].ExamDetails;
+                    $scope.Subject_Code = response.Table1[0].Subject_Code;
+                    $scope.AbsentStudents = response.Table1[0].AbsentCount;
+                    $scope.OtherStudents = response.Table1[0].OtherCount;
+                    $scope.TotalStudents = response.Table1[0].Total;
                     response.Table.forEach(function (stud) {
                         if (stud.marks != null) {
                             previewlist.push(stud);
