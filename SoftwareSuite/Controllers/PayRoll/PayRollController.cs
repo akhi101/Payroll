@@ -247,7 +247,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string GPFNo { get; set; }
             public bool CPS_NPS { get; set; }
             public string CPSNo { get; set; }
-            public int BankDetails { get; set; }
+            public int BankId { get; set; }
             public string AccountNumber { get; set; }
             public string CategoryCode { get; set; }
             public bool Active { get; set; }
@@ -284,7 +284,11 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[15] = new SqlParameter("@GPFNo", data.GPFNo);
                 param[16] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
                 param[17] = new SqlParameter("@CPSNo", data.CPSNo);
+<<<<<<< HEAD
                 param[18] = new SqlParameter("@BankDetails", data.BankDetails);
+=======
+                param[18] = new SqlParameter("@BankId", data.BankId);
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 param[19] = new SqlParameter("@AccountNumber", data.AccountNumber);
                 param[20] = new SqlParameter("@CategoryCode", data.CategoryCode);
                 param[21] = new SqlParameter("@Active", data.Active);
@@ -330,4 +334,7 @@ namespace SoftwareSuite.Controllers.PayRoll
     };
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268

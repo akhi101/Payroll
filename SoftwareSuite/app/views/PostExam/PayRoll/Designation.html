@@ -157,22 +157,11 @@
                                     </select>
                             </td>
 
-                            <!--<td>
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="DesignationType"
-                                        ng-options="data.DesignationTypeId as data.DesignationType for data in DesignationTypeData">
-                                    <option value="" selected>Select DesignationType</option>
-                                </select>
-
-                            </td>-->
+                            
 
                             <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationOrder" /></div></td>
 
-                            <!--<td class="text-center pointer">
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="value" ng-model="data.value"
-                                            ng-options="data.value as data.value for data in DesignationCodeValues">
-                                        <option value="" selected>Select Designation Order</option>
-                                    </select>
-                            </td>-->
+                            
                             <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfPost" /></div></td>
                             <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GONumber" /></div></td>
                             <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfVacants" /></div></td>

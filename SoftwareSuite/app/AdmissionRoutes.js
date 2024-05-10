@@ -213,6 +213,11 @@
                 dependencies: ['controllers/CCIC/CcicLoginController', 'services/CCIC/CcicSystemUserService']
             },
 
+            'index.CcicResults': {
+                url: "/CcicResults",
+                templateUrl: 'app/views/CCIC/CcicResults.html',
+                dependencies: ['controllers/CCIC/CcicResultsController', 'services/CCIC/PreExamination/CcicPreExaminationService', 'services/CCIC/StudentResult/CcicStudentResultService']
+            },
 
 
             'CcicDashboard': {

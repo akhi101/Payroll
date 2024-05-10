@@ -10,6 +10,7 @@
 
 
         }
+<<<<<<< HEAD
         var DataTypeID = 1
         var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
         getdesign.then(function (response) {
@@ -22,9 +23,30 @@
             if (res.Table.length > 0) {
                 $scope.DesignationData = res.Table;
                 $scope.Noreports = false;
+=======
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
+            getdesign.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.DesignationData = res.Table;
+                    $scope.Noreports = false;
+                  
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
 
 
+                }
+                else {
+                    $scope.DesignationData = [];
+                    $scope.Noreports = true;
+                }
 
+<<<<<<< HEAD
             }
             else {
                 $scope.DesignationData = [];
@@ -39,6 +61,16 @@
                 var err = JSON.parse(error);
 
             });
+=======
+
+            },
+
+                function (error) {
+                    alert("error while loading Designation");
+                    var err = JSON.parse(error);
+
+                });
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
 
 
         var DataTypeID = 1
@@ -53,7 +85,11 @@
             if (res.Table.length > 0) {
                 $scope.DepartmentData = res.Table;
                 $scope.Noreports = false;
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
 
 
             }
@@ -85,7 +121,11 @@
                 return;
             }
 
+<<<<<<< HEAD
             if ($scope.DOB == null || $scope.DOB == undefined || $scope.DOB == "") {
+=======
+            if ($scope.CandidateNameDOB == null || $scope.CandidateNameDOB == undefined || $scope.CandidateNameDOB == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Select DOB ");
                 return;
             }
@@ -122,7 +162,11 @@
                 return;
             }
 
+<<<<<<< HEAD
             if ($scope.Empstatus == undefined || $scope.Empstatus == null || $scope.Empstatus == "") {
+=======
+            if ($scope.EmployeeStatus == undefined || $scope.EmployeeStatus == null || $scope.EmployeeStatus == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Enter EmployeeStatus");
                 return;
             }
@@ -135,12 +179,20 @@
                 alert("Please Select ScaleType ");
                 return;
             }
+<<<<<<< HEAD
             if ($scope.PanNo == null || $scope.PanNo == undefined || $scope.PanNo == "") {
+=======
+            if ($scope.PanNumber == null || $scope.PanNumber == undefined || $scope.PanNumber == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Enter PanNumber ");
                 return;
             }
 
+<<<<<<< HEAD
             if ($scope.GPFNo == undefined || $scope.GPFNo == null || $scope.GPFNo == "") {
+=======
+            if ($scope.GPFNumber == undefined || $scope.GPFNumber == null || $scope.GPFNumber == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Enter GPFNumber");
                 return;
             }
@@ -150,13 +202,21 @@
                 return;
             }
 
+<<<<<<< HEAD
             if ($scope.CPSNo == undefined || $scope.CPSNo == null || $scope.CPSNo == "") {
+=======
+            if ($scope.CPSNumber == undefined || $scope.CPSNumber == null || $scope.CPSNumber == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Enter CPSNumber");
                 return;
             }
 
 
+<<<<<<< HEAD
             if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
+=======
+            if ($scope.BankID == undefined || $scope.BankID == null || $scope.BankID == "") {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 alert("Please Enter BankDetails");
                 return;
             }
@@ -173,7 +233,11 @@
 
             var datatypeid = 1
 
+<<<<<<< HEAD
             var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.DesignationName, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+=======
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.CandidateNameDOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.EmployeeStatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNumber, $scope.GPFNumber, $scope.CPS_NPS, $scope.CPSNumber, $scope.BankID, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
             AddEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -187,6 +251,29 @@
                     alert(res[0].ResponseDescription);
                     $scope.getEmployeeDetailsDatafF();
 
+<<<<<<< HEAD
+=======
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+    
+            $scope.checkDate = function (CandidateNameDOB) {
+                var currentDate = new Date();
+                var birthdate = new Date(CandidateNameDOB);
+                if (birthdate > currentDate) {
+                    alert('Selected Date Should not be Future!')
+                    $scope.CandidateNameDOB = '';
+                    return;
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                 } else {
                     alert('Something Went Wrong')
 
@@ -312,6 +399,7 @@
 
 
 
+<<<<<<< HEAD
         }
         $scope.ChangeStatus = function (EmployeeId, Status) {
             var DataType = 3;
@@ -340,6 +428,9 @@
 
 
 
+=======
+        
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
 
         $scope.SelectBankDetails = function () {
 
@@ -388,6 +479,11 @@
         $scope.closeModal = function () {
             $scope.modalInstance.close();
         };
+<<<<<<< HEAD
+=======
+
+        $scope.getBranchesbyId = function (BankData) {
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
 
         $scope.getBranchesbyId = function (BankData) {
             var BankData = JSON.parse(BankData)
@@ -404,13 +500,21 @@
                 catch (err) { }
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
+<<<<<<< HEAD
                     $scope.BranchsData = res.Table;
+=======
+                    $scope.BanksData = res.Table;
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                     $scope.Noreports = false;
 
 
                 }
                 else {
+<<<<<<< HEAD
                     $scope.BranchsData = [];
+=======
+                    $scope.BanksData = [];
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
                     $scope.Noreports = true;
                 }
 
@@ -424,6 +528,7 @@
                 });
         }
 
+<<<<<<< HEAD
         $scope.ChangeBranchs = function (BankBranch) {
             $scope.BankBranch = BankBranch;
            
@@ -433,6 +538,15 @@
 
    
             $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch;
+=======
+
+        $scope.SubmitBankDetails = function (Bank, BankBranch) {
+
+            $scope.Bank = Bank;
+            $scope.BankBranch = BankBranch;
+            $scope.BankID = BankBranch
+            $scope.BankDetails = $scope.Bank + ',' + $scope.BankBranch;
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
             $scope.modalInstance.close();
         }
 
@@ -442,7 +556,10 @@
 
     })
 })
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 6851f268f873cd906aea252414789dad476ce268
