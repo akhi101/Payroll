@@ -645,7 +645,8 @@
 
         $scope.ResultsProcessing = function () {
             $scope.reload = true;
-            var loadData1 = PreExaminationService.ResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.ResultsScheme, $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
+            console.log($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.ResultsScheme, JSON.stringify($scope.semarr), $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
+            var loadData1 = PreExaminationService.ResultsProcessing($scope.Resultsmonthyear, $scope.ResultsSelStudentType, $scope.ResultsScheme, JSON.stringify($scope.semarr), $scope.ResultsExamTypeId, $scope.ResultsAcademicYear, $scope.userName)
             loadData1.then(function (res) {
                 var data = JSON.parse(res)
                 if (data[0].ResponceCode == '200') {
@@ -1640,19 +1641,83 @@
         //        console.log(err.Message);
         //    });
 
-        //var LoadActiveSemesters = AssessmentService.getActiveSemester();
-        //LoadActiveSemesters.then(function (response) {
-        //    $scope.Semester = response.Table;
-        //    //  console.log($scope.ActiveSemesters)
-        //},
-        //function (error) {
-        //    alert("error while loading semesters");
-        //    var err = JSON.parse(error);
-        //    console.log(err.Message);
-        //});
+        var LoadActiveSemesters = AssessmentService.getAllSemesters();
+        LoadActiveSemesters.then(function (response) {
+
+            $scope.GetSemesters = response.Table;
+            console.log($scope.GetSemesters)
+            $scope.isAllSelectedsem = true;
+            var toggleStatus = $scope.isAllSelectedsem;
+            angular.forEach($scope.GetSemesters, function (itm) { itm.selected = toggleStatus; });
+            $scope.semarr = [];
+            angular.forEach($scope.GetSemesters, function (value, key) {
+                if (value.selected === true) {
+                    $scope.semarr.push({ "SemId": value.SemId })
+                }
+                //  console.log($scope.ActiveSemesters)
+            })
+        },
+        function (error) {
+            alert("error while loading semesters");
+            var err = JSON.parse(error);
+            console.log(err.Message);
+        });
 
 
 
+            //----------------------Sem Multi Select Start--------------------------------//
+            var semexpand = false;
+            $scope.showsemCheckboxes = function () {
+                var checkboxes = document.getElementById("checkboxessem");
+                if (!semexpand) {
+                    checkboxes.style.display = "block";
+                    checkboxes.style.position = "absolute";
+                    checkboxes.style.width = "92%";
+                    checkboxes.style.backgroundColor = "white";
+                    checkboxes.style['z-index'] = 99;
+                    semexpand = true;
+                } else {
+                    checkboxes.style.display = "none";
+                    semexpand = false;
+                }
+            }
+
+            $scope.closesemCheckbox = function () {
+                var checkboxes = document.getElementById("checkboxessem");
+                if (!semexpand) {
+                    checkboxes.style.display = "block";
+                    checkboxes.style.position = "absolute";
+                    checkboxes.style.width = "92%";
+                    checkboxes.style.backgroundColor = "white";
+                    semexpand = true;
+                } else {
+                    checkboxes.style.display = "none";
+                    semexpand = false;
+                }
+            }
+
+            $scope.toggleAllsem = function () {
+                var toggleStatus = $scope.isAllSelectedsem;
+                angular.forEach($scope.GetSemesters, function (itm) { itm.selected = toggleStatus; });
+                $scope.semarr = [];
+                angular.forEach($scope.GetSemesters, function (value, key) {
+                    if (value.selected === true) {
+                        $scope.semarr.push({ "SemId": value.SemId })
+                    }
+                });
+            }
+
+            $scope.optionToggledsem = function () {
+                $scope.isAllSelectedsem = $scope.GetSemesters.every(function (itm) { return itm.selected; })
+                $scope.semarr = [];
+                angular.forEach($scope.GetSemesters, function (value, key) {
+                    if (value.selected === true) {
+                        $scope.semarr.push({ "SemId": value.SemId })
+                    }
+                });
+            }
+
+        //----------------------Sem Multi Select End--------------------------------//
 
 
 

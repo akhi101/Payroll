@@ -160,6 +160,7 @@
                             <th class="text-center">Course</th>
                             <th class="text-center">Batch</th>
                             <th class="text-center">Grade</th>
+                            <th class="text-center">Exam Date</th>
                             <th class="text-center">Paper 1 Time Slot</th>
                             <th class="text-center">Paper 2 Time Slot</th>
                             <th class="text-center">PCODE</th>
@@ -173,32 +174,39 @@
 
                             <td class="text-center">{{$index + 1}}</td>
                             <td class="text-center">
-                               {{data.AcademicYear}}
+                                {{data.AcademicYear}}
                             </td>
-                           
+
                             <td>
                                 {{data.ExamMonthYear}}
                             </td>
                             <td class="text-center">
                                 {{data.CourseName}}
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CourseId"
-                                        ng-options="data.Id as data.CourseName for data in Courses">
-                                    <option value="" selected>Choose</option>
-                                </select>-->
+                ng-options="data.Id as data.CourseName for data in Courses">
+            <option value="" selected>Choose</option>
+        </select>-->
                             </td>
                             <td class="text-center">
                                 {{data.BatchName}}
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.BatchId"
-            ng-options="data.Id as data.BatchName for data in GetBatches">
-        <option value="" selected>Choose</option>
-    </select>-->
+                ng-options="data.Id as data.BatchName for data in GetBatches">
+            <option value="" selected>Choose</option>
+        </select>-->
                             </td>
                             <td class="text-center">
                                 {{data.GradeName}}
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GradeId"
-            ng-options="data.Id as data.GradeName for data in Grades">
-        <option value="" selected>Choose</option>
-    </select>-->
+                ng-options="data.Id as data.GradeName for data in Grades">
+            <option value="" selected>Choose</option>
+        </select>-->
+                            </td>
+                            <td class="text-center">
+                                {{data.ExamDate}}
+                                <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GradeId"
+                ng-options="data.Id as data.GradeName for data in Grades">
+            <option value="" selected>Choose</option>
+        </select>-->
                             </td>
                             <td class="text-center"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Paper1TimeSlot" /></td>
                             <td class="text-center"><input autocomplete="off" style="width:100%;" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Paper2TimeSlot" /></td>

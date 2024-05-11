@@ -1112,6 +1112,10 @@
     <Content Include="app\controllers\PaymentGateway\CertificateFeePaymentGatewayResponseController.js" />
     <Content Include="app\controllers\PaymentGateway\PaymentGatewayResponseController.js" />
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
+    <Content Include="app\controllers\PayRoll\BoardStaffController.js" />
+    <Content Include="app\controllers\PayRoll\OfficersController.js" />
+    <Content Include="app\controllers\PayRoll\PayRollDashboardController.js" />
+    <Content Include="app\controllers\PayRoll\PensionersController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
@@ -1152,6 +1156,10 @@
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\MasterSettings\UserCredentials.html" />
+    <Content Include="app\views\PayRoll\BoardStaff.html" />
+    <Content Include="app\views\PayRoll\Officers.html" />
+    <Content Include="app\views\PayRoll\PayRollDashboard.html" />
+    <Content Include="app\views\PayRoll\Pensioners.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />

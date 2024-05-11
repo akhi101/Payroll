@@ -266,7 +266,7 @@
             $scope.loading = true;
             $scope.Noreports = false;
             $scope.reports = false;
-            var AcademicYearsActive = PreExaminationService.GetAdminPreExamReports($scope.ExamMonthYearID, JSON.stringify($scope.semarr), $scope.StudentTypeID);
+            var AcademicYearsActive = PreExaminationService.GetAdminPreExamReports($scope.ExamMonthYearId, JSON.stringify($scope.semarr), $scope.StudentTypeId);
             AcademicYearsActive.then(function (response) {
                 //var response = JSON.parse(response);
                 //console.log(response);
