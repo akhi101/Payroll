@@ -1,4 +1,4 @@
-﻿
+
 define(['app'], function (app) {
     app.controller("EmployeeDetailsController", function ($scope, $localStorage, PayRollService, $uibModal) {
         var authData = $localStorage.authorizationData;
