@@ -2970,13 +2970,13 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 param[2] = new SqlParameter("@InstitutionID", InstitutionID);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentInstituteCourseCount", param);
-                var filename = "FeePaymentCoursewiseCount" + ".xlsx";
+                var filename = "FeePaymentCoursewiseCount" + ".xls";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
                 if (!folderExists)
                     Directory.CreateDirectory(path);
-                eh.ExportDataSet(ds, path + filename);
+                eh.ExportDataSetToAccess(ds, path + filename);
                 Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
