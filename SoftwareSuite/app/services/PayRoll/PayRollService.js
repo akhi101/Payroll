@@ -269,15 +269,24 @@ define(['app'], function (app) {
 
         };
 
-        this.GetBankBranchbyId = function (BankId) {
+        this.GetBankBranchbyName = function (BankName) {
             var paramObj = {
-                "BankId": BankId
+                "BankName": BankName
             };
-            var promise = DataAccessService.postData('api/PayRoll/GetBankBranchbyId', paramObj);
+            var promise = DataAccessService.postData('api/PayRoll/GetBankBranchbyName', paramObj);
+            return promise;
+
+        };
+
+        this.GetBranchIFSC = function (BankName,BankBranch) {
+            var paramObj = {
+                "BankName": BankName,
+                "BankBranch": BankBranch
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetBranchIFSC', paramObj);
             return promise;
 
         };
 
     });
 });
-

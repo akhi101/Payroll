@@ -6,39 +6,39 @@
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            //$scope.getEmployeeDetailsData();
+            $scope.getEmployeeDetailsData();
 
 
         }
-            var DataTypeID = 1
-            var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
-            getdesign.then(function (response) {
+        var DataTypeID = 1
+        var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
+        getdesign.then(function (response) {
 
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.DesignationData = res.Table;
-                    $scope.Noreports = false;
-                  
-
-
-                }
-                else {
-                    $scope.DesignationData = [];
-                    $scope.Noreports = true;
-                }
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.DesignationData = res.Table;
+                $scope.Noreports = false;
 
 
-            },
 
-                function (error) {
-                    alert("error while loading Designation");
-                    var err = JSON.parse(error);
+            }
+            else {
+                $scope.DesignationData = [];
+                $scope.Noreports = true;
+            }
 
-                });
+
+        },
+
+            function (error) {
+                alert("error while loading Designation");
+                var err = JSON.parse(error);
+
+            });
 
 
         var DataTypeID = 1
@@ -53,7 +53,7 @@
             if (res.Table.length > 0) {
                 $scope.DepartmentData = res.Table;
                 $scope.Noreports = false;
-              
+
 
 
             }
@@ -85,7 +85,7 @@
                 return;
             }
 
-            if ($scope.CandidateNameDOB == null || $scope.CandidateNameDOB == undefined || $scope.CandidateNameDOB == "") {
+            if ($scope.DOB == null || $scope.DOB == undefined || $scope.DOB == "") {
                 alert("Please Select DOB ");
                 return;
             }
@@ -122,7 +122,7 @@
                 return;
             }
 
-            if ($scope.EmployeeStatus == undefined || $scope.EmployeeStatus == null || $scope.EmployeeStatus == "") {
+            if ($scope.Empstatus == undefined || $scope.Empstatus == null || $scope.Empstatus == "") {
                 alert("Please Enter EmployeeStatus");
                 return;
             }
@@ -135,12 +135,12 @@
                 alert("Please Select ScaleType ");
                 return;
             }
-            if ($scope.PanNumber == null || $scope.PanNumber == undefined || $scope.PanNumber == "") {
+            if ($scope.PanNo == null || $scope.PanNo == undefined || $scope.PanNo == "") {
                 alert("Please Enter PanNumber ");
                 return;
             }
 
-            if ($scope.GPFNumber == undefined || $scope.GPFNumber == null || $scope.GPFNumber == "") {
+            if ($scope.GPFNo == undefined || $scope.GPFNo == null || $scope.GPFNo == "") {
                 alert("Please Enter GPFNumber");
                 return;
             }
@@ -150,13 +150,13 @@
                 return;
             }
 
-            if ($scope.CPSNumber == undefined || $scope.CPSNumber == null || $scope.CPSNumber == "") {
+            if ($scope.CPSNo == undefined || $scope.CPSNo == null || $scope.CPSNo == "") {
                 alert("Please Enter CPSNumber");
                 return;
             }
 
 
-            if ($scope.BankID == undefined || $scope.BankID == null || $scope.BankID == "") {
+            if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
                 alert("Please Enter BankDetails");
                 return;
             }
@@ -173,7 +173,7 @@
 
             var datatypeid = 1
 
-            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.CandidateNameDOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.EmployeeStatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNumber, $scope.GPFNumber, $scope.CPS_NPS, $scope.CPSNumber, $scope.BankID, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankId, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
             AddEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -199,147 +199,170 @@
                 });
         }
 
-    
-            $scope.checkDate = function (CandidateNameDOB) {
-                var currentDate = new Date();
-                var birthdate = new Date(CandidateNameDOB);
-                if (birthdate > currentDate) {
-                    alert('Selected Date Should not be Future!')
-                    $scope.CandidateNameDOB = '';
-                    return;
+
+        $scope.checkDate = function (DOB) {
+            var currentDate = new Date();
+            var birthdate = new Date(DOB);
+            if (birthdate > currentDate) {
+                alert('Selected Date Should not be Future!')
+                $scope.DOB = '';
+                return;
+            } else {
+                $scope.DOB = DOB;
+            }
+        }
+
+        $scope.checkDate1 = function (DOJ) {
+            var currentDate = new Date();
+            var birthdate = new Date(DOJ);
+            if (birthdate > currentDate) {
+                alert('Selected Date Should not be Future!')
+                $scope.DOJ = '';
+                return;
+            } else {
+                $scope.DOJ = DOJ;
+            }
+        }
+
+        $scope.checkDate2 = function (DOR) {
+            var currentDate = new Date();
+            var birthdate = new Date(DOR);
+            if (birthdate > currentDate) {
+                alert('Selected Date Should not be Future!')
+                $scope.DOR = '';
+                return;
+            } else {
+                $scope.DOR = DOR;
+            }
+        }
+
+
+
+        $scope.getEmployeeDetailsData = function () {
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+            getdesign.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.EmployeeDetailsData = res.Table;
+                    $scope.Noreports = false;
+                    for (var j = 1; j < $scope.EmployeeDetailsData.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+
+
+                }
+                else {
+                    $scope.EmployeeDetailsData = [];
+                    $scope.Noreports = true;
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading Employee Details");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+
+
+
+
+        $scope.UpdateEmployeeDetails = function (data, ind) {
+            $scope['edit' + ind] = true;
+
+            var ele2 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele2.length; j++) {
+                ele2[j].style['pointer-events'] = "none";
+                ele2[j].style.border = "0";
+            }
+
+            var datatypeid = 2;
+
+
+
+
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.DesignationName, $scope.DepartmentName, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            desig.then(function (response) {
+                try { var response = JSON.parse(response) } catch (err) { }
+                if (response[0].StatusCode == '200') {
+                    alert(response[0].StatusDescription);
+                    $scope.getEmployeeDetailsData();
+
+                } else if (response[0].StatusCode == '400') {
+                    alert(response[0].StatusDescription);
+                    $scope.getEmployeeDetailsData();
+
                 } else {
-                    $scope.CandidateNameDOB = CandidateNameDOB;
+                    alert('Something Went Wrong')
+
                 }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+
+
+
+
+
+
+
+
+
+        $scope.EditEmployeeDetails = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
             }
+            $scope['edit' + ind] = false;
 
 
 
-
-            $scope.getEmployeeDetailsData = function () {
-                var DataTypeID = 1
-                var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
-                getdesign.then(function (response) {
-
-                    try {
-                        var res = JSON.parse(response);
-                    }
-                    catch (err) { }
-                    //$scope.edit = true;
-                    if (res.Table.length > 0) {
-                        $scope.EmployeeDetailsData = res.Table;
-                        $scope.Noreports = false;
-                        for (var j = 1; j < $scope.EmployeeDetailsData.length + 1; j++) {
-                            $scope['edit' + j] = true;
-                        }
-
-
-                    }
-                    else {
-                        $scope.EmployeeDetailsData = [];
-                        $scope.Noreports = true;
-                    }
-
-
-                },
-
-                    function (error) {
-                        alert("error while loading Employee Details");
-                        var err = JSON.parse(error);
-
-                    });
-            }
-
-
-
-
-
-
-            $scope.UpdateEmployeeDetails = function (data, ind) {
-                $scope['edit' + ind] = true;
-
-                var ele2 = document.getElementsByClassName("enabletable" + ind);
-                for (var j = 0; j < ele2.length; j++) {
-                    ele2[j].style['pointer-events'] = "none";
-                    ele2[j].style.border = "0";
+        }
+        $scope.ChangeStatus = function (EmployeeId, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.PayRollStatus(DataType, EmployeeId, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getEmployeeDetailsData();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getEmployeeDetailsData();
+                } else {
+                    alert("Something Went Wrong")
                 }
+            },
+                function (error) {
 
-                var datatypeid = 2;
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
 
-
-
-
-                var desig = PayRollService.UpdateEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.CandidateNameDOB, $scope.DOJ, $scope.DOR, $scope.DesignationName, $scope.DepartmentName, $scope.Gender, $scope.PHC, $scope.EmployeeStatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNumber, $scope.GPFNumber, $scope.CPS / NPS, $scope.CPSNumber, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
-                desig.then(function (response) {
-                    try { var response = JSON.parse(response) } catch (err) { }
-                    if (response[0].StatusCode == '200') {
-                        alert(response[0].StatusDescription);
-                        $scope.getEmployeeDetailsData();
-
-                    } else if (response[0].StatusCode == '400') {
-                        alert(response[0].StatusDescription);
-                        $scope.getEmployeeDetailsData();
-
-                    } else {
-                        alert('Something Went Wrong')
-
-                    }
-                },
-                    function (error) {
-                        alert("something Went Wrong")
-
-
-                    });
-            }
+                    var err = JSON.parse(error);
+                });
+        }
 
 
 
 
-
-
-
-
-
-
-
-            $scope.EditEmployeeDetails = function (data, ind) {
-
-                var ele1 = document.getElementsByClassName("enabletable" + ind);
-                for (var j = 0; j < ele1.length; j++) {
-                    ele1[j].style['pointer-events'] = "auto";
-                    ele1[j].style.border = "1px solid #ddd";
-                }
-                $scope['edit' + ind] = false;
-
-
-
-            }
-            $scope.ChangeStatus = function (EmployeeId, Status) {
-                var DataType = 3;
-                var getSlides = PayRollService.PayRollStatus(DataType, EmployeeId, Status);
-                getSlides.then(function (res) {
-                    var response = JSON.parse(res)
-                    if (response.Table[0].ResponseCode == '200') {
-                        alert(response.Table[0].ResponseDescription)
-                        $scope.getEmployeeDetailsData();
-                    } else if (response.Table[0].ResponseCode == '400') {
-                        alert(response.Table[0].ResponseDescription)
-                        $scope.getEmployeeDetailsData();
-                    } else {
-                        alert("Something Went Wrong")
-                    }
-                },
-                    function (error) {
-
-                        alert("error while loading Slides");
-                        //alert("error while loading Notification");
-
-                        var err = JSON.parse(error);
-                    });
-            }
-
-
-
-        
 
         $scope.SelectBankDetails = function () {
 
@@ -389,11 +412,13 @@
             $scope.modalInstance.close();
         };
 
-        $scope.getBranchesbyId = function (BankData) {
+        $scope.getBranchesbyName = function (BankData) {
+            var BankData = JSON.parse(BankData)
+            console.log(BankData)
+            $scope.BankId = BankData.BankId;
+            $scope.BankName = BankData.BankName;
 
-            //$scope.BankData.BankId = BankData.BankId;
-            //$scope.BankData.BankName = BankData.BankName;
-            var getbranch = PayRollService.GetBankBranchbyId(BankData.BankID);
+            var getbranch = PayRollService.GetBankBranchbyName($scope.BankName);
             getbranch.then(function (response) {
 
                 try {
@@ -402,13 +427,13 @@
                 catch (err) { }
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
-                    $scope.BanksData = res.Table;
+                    $scope.BranchsData = res.Table;
                     $scope.Noreports = false;
 
 
                 }
                 else {
-                    $scope.BanksData = [];
+                    $scope.BranchsData = [];
                     $scope.Noreports = true;
                 }
 
@@ -422,18 +447,51 @@
                 });
         }
 
+        $scope.ChangeBranchs = function (BankBranch) {
+            $scope.BankBranch = BankBranch;
+            var getbranchifsc = PayRollService.GetBranchIFSC($scope.BankName,$scope.BankBranch);
+            getbranchifsc.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.BranchIFSCData = res.Table;
+                    $scope.IFSCCode = $scope.BranchIFSCData[0].IFSCCode;
+                    $scope.Noreports = false;
+
+
+                }
+                else {
+                    $scope.BranchsData = [];
+                    $scope.Noreports = true;
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading Employee Details");
+                    var err = JSON.parse(error);
+
+                });
+
+        }
 
         $scope.SubmitBankDetails = function (Bank, BankBranch) {
 
-            $scope.Bank = Bank;
-            $scope.BankBranch = BankBranch;
-            $scope.BankID = BankBranch
-            $scope.BankDetails = $scope.Bank + ',' + $scope.BankBranch;
+
+            $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch + ',' + $scope.IFSCCode;
             $scope.modalInstance.close();
         }
 
 
 
 
+
     })
 })
+
+

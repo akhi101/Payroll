@@ -10,6 +10,9 @@ using System.IO;
 using SoftwareSuite.Models.Database;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Data.OleDb;
+using SharpCompress.Common;
+using System.Configuration;
 
 namespace SoftwareSuite.Models
 {
@@ -133,6 +136,86 @@ namespace SoftwareSuite.Models
             catch (Exception ex)
             {
                 dbHandler.SaveErorr("USP_GET_Notification", 0, ex.Message);
+            }
+        }
+
+        public void ExportDataSetToAccess(DataSet ds, string destination)
+        {
+
+
+            try
+            {
+
+
+
+                // Connection string for Access database
+                string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + destination;
+
+                // Create a new Access database file
+                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Iterate through each DataTable in the DataSet
+                    foreach (DataTable table in ds.Tables)
+                    {
+                        // Create a new table in the Access database
+                        string createTableQuery = "CREATE TABLE [" + table.TableName + "] (";
+
+                        // Add columns to the create table query
+                        foreach (DataColumn column in table.Columns)
+                        {
+                            createTableQuery += "[" + column.ColumnName + "] TEXT, ";
+                        }
+
+                        createTableQuery = createTableQuery.TrimEnd(',', ' ') + ")";
+
+                        using (OleDbCommand createTableCommand = new OleDbCommand(createTableQuery, connection))
+                        {
+                            createTableCommand.ExecuteNonQuery();
+                        }
+
+                        // Insert rows into the newly created table
+                        foreach (DataRow row in table.Rows)
+                        {
+                            string insertQuery = "INSERT INTO [" + table.TableName + "] (";
+
+                            // Add column names to the insert query
+                            foreach (DataColumn column in table.Columns)
+                            {
+                                insertQuery += "[" + column.ColumnName + "], ";
+                            }
+
+                            insertQuery = insertQuery.TrimEnd(',', ' ') + ") VALUES (";
+
+                            // Add parameter placeholders to the insert query
+                            for (int i = 0; i < table.Columns.Count; i++)
+                            {
+                                insertQuery += "?, ";
+                            }
+
+                            insertQuery = insertQuery.TrimEnd(',', ' ') + ")";
+
+                            using (OleDbCommand insertCommand = new OleDbCommand(insertQuery, connection))
+                            {
+                                // Add parameter values to the insert command
+                                foreach (DataColumn column in table.Columns)
+                                {
+                                    insertCommand.Parameters.AddWithValue("@" + column.ColumnName, row[column]);
+                                }
+
+                                insertCommand.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+
+                Console.WriteLine("Data exported to Access file successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Handle errors
+                Console.WriteLine("Error: " + ex.Message);
             }
         }
 
