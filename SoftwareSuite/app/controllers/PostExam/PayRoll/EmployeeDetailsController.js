@@ -173,7 +173,7 @@ define(['app'], function (app) {
 
             var datatypeid = 1
 
-            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankId, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
             AddEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -291,7 +291,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.DesignationName, $scope.DepartmentName, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, data.EmployeeID, data.EmployeeCode, data.EmployeeName, data.DOB, data.DOJ, data.DOR, data.DesignationId, data.DepartmentId, data.Gender, data.PHC, data.Empstatus, data.IncrementMonth, data.ScaleType, data.PanNo, data.GPFNo, data.CPS_NPS, data.CPSNo, data.BankDetails, data.AccountNumber, data.CategoryCode, data.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -480,10 +480,11 @@ define(['app'], function (app) {
 
         }
 
-        $scope.SubmitBankDetails = function (Bank, BankBranch) {
+        $scope.SubmitBankDetails = function (BankData, BankBranch) {
 
 
             $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch + ',' + $scope.IFSCCode;
+            //$scope.BankId = BankData.BankId;
             $scope.modalInstance.close();
         }
 
