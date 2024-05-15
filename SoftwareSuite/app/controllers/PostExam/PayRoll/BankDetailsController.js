@@ -74,7 +74,7 @@
 
 
         $scope.getBankDetailsData = function () {
-            var DataTypeID = 1
+            var DataTypeID = 4
             var getdesign = PayRollService.GetBankDetailsData(DataTypeID, 0, 0);
             getdesign.then(function (response) {
 
