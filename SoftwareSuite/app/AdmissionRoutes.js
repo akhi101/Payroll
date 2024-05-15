@@ -4541,6 +4541,12 @@
                 dependencies: ['controllers/PostExam/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            'Dashboard.PayRoll.SalaryDetails': {
+                url: "/SalaryDetails",
+                templateUrl: 'app/views/PostExam/PayRoll/SalaryDetails.html',
+                dependencies: ['controllers/PostExam/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
+            },
+
 
         }
 

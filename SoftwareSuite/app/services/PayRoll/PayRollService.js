@@ -288,5 +288,63 @@ define(['app'], function (app) {
 
         };
 
+
+
+
+
+
+
+
+        this.AddSalary = function (DataTypeId, EmployeeID, BasicAmount, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "EmployeeID": EmployeeID,
+                "BasicAmount": BasicAmount,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
+            return promise;
+        };
+
+
+        this.UpdateSalary = function (DataTypeId, EmployeeID, BasicAmount, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "EmployeeID": EmployeeID,
+                "BasicAmount": BasicAmount,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
+            return promise;
+        };
+
+        this.GetSalaryData = function (DataTypeID, EmployeeID, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryData', paramObj);
+            return promise;
+
+        };
+
+        this.ChangeSalaryStatus = function (DataTypeID, EmployeeID, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryData', paramObj);
+            return promise;
+
+        };
+
+
+
+
+
+
+
     });
 });
