@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     .modal-content {
         flex-direction: column;
         display: flex;
@@ -88,13 +88,13 @@
                                                         <label>
                                                             Bank Name:
                                                         </label>
-                                                        <select class="form-control" name="BankName" ng-model="BankData" ng-change="getBranchesbyId(BankData)">
+                                                        <select class="form-control" name="BankName" ng-model="BankData" ng-change="getBranchesbyName(BankData)">
                                                             <option value="" selected>Select Bank</option>
                                                             <option ng-repeat="data in BanksData" value="{{data}}">
                                                                 {{data.BankName}}
                                                             </option>
                                                         </select>
-                                  
+
 
                                                     </div>
                                                     <hr>
@@ -112,8 +112,14 @@
                                                         </select>
 
 
-                                                        
+
                                                     </div>
+                                                    <hr>
+
+                                                    <strong class="course-label" ng-show="IFSCCode" style="font-size:20px">IFSC Code:</strong>
+                                                    <span class="text-muted word-break" style="font-size:20px">
+                                                        {{IFSCCode}}
+                                                    </span>
                                                     <hr>
 
 
@@ -144,6 +150,3 @@
         </div>
     </div>
 </div>
-
-
-

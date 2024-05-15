@@ -1,4 +1,3 @@
-
 define(['app'], function (app) {
     app.controller("EmployeeDetailsController", function ($scope, $localStorage, PayRollService, $uibModal) {
         var authData = $localStorage.authorizationData;
@@ -413,13 +412,13 @@ define(['app'], function (app) {
             $scope.modalInstance.close();
         };
 
-        $scope.getBranchesbyId = function (BankData) {
+        $scope.getBranchesbyName = function (BankData) {
             var BankData = JSON.parse(BankData)
             console.log(BankData)
             $scope.BankId = BankData.BankId;
             $scope.BankName = BankData.BankName;
 
-            var getbranch = PayRollService.GetBankBranchbyId($scope.BankId);
+            var getbranch = PayRollService.GetBankBranchbyName($scope.BankName);
             getbranch.then(function (response) {
 
                 try {
@@ -450,13 +449,41 @@ define(['app'], function (app) {
 
         $scope.ChangeBranchs = function (BankBranch) {
             $scope.BankBranch = BankBranch;
+            var getbranchifsc = PayRollService.GetBranchIFSC($scope.BankName,$scope.BankBranch);
+            getbranchifsc.then(function (response) {
+
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.BranchIFSCData = res.Table;
+                    $scope.IFSCCode = $scope.BranchIFSCData[0].IFSCCode;
+                    $scope.Noreports = false;
+
+
+                }
+                else {
+                    $scope.BranchsData = [];
+                    $scope.Noreports = true;
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading Employee Details");
+                    var err = JSON.parse(error);
+
+                });
 
         }
 
         $scope.SubmitBankDetails = function (Bank, BankBranch) {
 
 
-            $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch;
+            $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch + ',' + $scope.IFSCCode;
             $scope.modalInstance.close();
         }
 
@@ -466,3 +493,5 @@ define(['app'], function (app) {
 
     })
 })
+
+

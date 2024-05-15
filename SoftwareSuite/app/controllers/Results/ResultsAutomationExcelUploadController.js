@@ -1751,7 +1751,7 @@
             var location = window.location.origin
             //console.log(location + '/Results/C18/C16C18SamapleFormate.xlsx');
             //window.location.replace('/Results/C18/C16C18SamapleFormate.xlsx');
-            window.location.href = location + '/Results/Results_Sample_Format.xlsx';
+            window.location.href = location + '/Results/CCIC_Results_Sample_Format.xlsx';
 
 
 

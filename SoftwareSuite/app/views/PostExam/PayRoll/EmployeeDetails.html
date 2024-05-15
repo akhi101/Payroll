@@ -1,7 +1,6 @@
-﻿<style>
+<style>
 
-    .tableinpt {
-        box-shadow: none;
+    .tableinpt {        box-shadow: none;
         border: 0;
         pointer-events: none;
         cursor: pointer;
@@ -307,8 +306,8 @@
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOB | date:'dd-MM-yyyy'" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOJ | date:'dd-MM-yyyy'" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOR | date:'dd-MM-yyyy'" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOJ | date:'dd-MM-yyyy'"  /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DOR | date:'dd-MM-yyyy'"  /></div></td>
                             <!--<td class="text-center pointer" style="padding: 3px;">
                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
                                     <input type="text" show-weeks="false" class="form-control tableinpt tabledate enabletable{{$index + 1}}" placeholder="Date of Birth" autocomplete="off" name="DateofBirth" datetime-picker="dd-MM-yyyy" id="datetimepicker4" ng-model="data.DOB" is-open="showFlag4" />
@@ -349,9 +348,9 @@
                             </td>
                             <td class="text-center pointer">
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Gender"
-                                        ng-options="data as data.Gender for data in GenderData">
-                                    <option value="" selected>Select Gender</option>
-                                </select>-->
+                ng-options="data as data.Gender for data in GenderData">
+            <option value="" selected>Select Gender</option>
+        </select>-->
                                 <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.Gender" ng-model="data.Gender">
                                     <option value="">Select Gender</option>
                                     <option value="M">Male</option>
@@ -368,9 +367,9 @@
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GPFNo" /></div></td>
                             <td class="text-center pointer">
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="CPS_NPS"
-                                        ng-options="data.CPS_NPS as data.CPS_NPS for data in CPS_NPS">
-                                    <option value="" selected>Select CPS_NPS</option>
-                                </select>-->
+                ng-options="data.CPS_NPS as data.CPS_NPS for data in CPS_NPS">
+            <option value="" selected>Select CPS_NPS</option>
+        </select>-->
                                 <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.CPS_NPS" ng-model="data.CPS_NPS">
                                     <option value="">Select CPS / NPS</option>
                                     <option value=1>YES</option>
@@ -381,13 +380,13 @@
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CPSNo" /></div></td>
                             <td class="text-center pointer">
                                 <!--<select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.BankDetails"
-                                        ng-options="data.BankDetails as data.BankDetails for data in BankDetails">
-                                    <option value="" selected>Select BankDetails</option>
-                                </select>-->
+                ng-options="data.BankDetails as data.BankDetails for data in BankDetails">
+            <option value="" selected>Select BankDetails</option>
+        </select>-->
                                 <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.BankDetails">
                                     <option value="">Select BankDetails</option>
                                     <!--<option value="1">YES</option>
-                                    <option value="0">NO</option>-->
+            <option value="0">NO</option>-->
                                 </select>
                             </td>
 
@@ -426,3 +425,4 @@
     <div class="sm-spacer"></div>
     <div class="sm-spacer"></div>
 </div>
+

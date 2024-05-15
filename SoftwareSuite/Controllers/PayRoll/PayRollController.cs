@@ -303,16 +303,39 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-        [HttpPost, ActionName("GetBankBranchbyId")]
-        public string GetBankBranchbyId([FromBody] JsonObject request)
+        [HttpPost, ActionName("GetBankBranchbyName")]
+        public string GetBankBranchbyName([FromBody] JsonObject request)
         {
             try
             {
 
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@BankId", request["BankId"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankBranch", param);
+                param[0] = new SqlParameter("@BankName", request["BankName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankName", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+        [HttpPost, ActionName("GetBranchIFSC")]
+        public string GetBranchIFSC([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[1] = new SqlParameter("@BankName", request["BankName"]);
+                param[0] = new SqlParameter("@BankBranch", request["BankBranch"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankBranchIFSCCode", param);
                 return JsonConvert.SerializeObject(dt);
 
             }
