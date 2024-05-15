@@ -245,9 +245,9 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string ScaleType { get; set; }
             public string PanNO { get; set; }
             public string GPFNo { get; set; }
-            public bool CPS_NPS { get; set; }
+            public string CPS_NPS { get; set; }
             public string CPSNo { get; set; }
-            public int BankId { get; set; }
+            public string BankDetails { get; set; }
             public string AccountNumber { get; set; }
             public string CategoryCode { get; set; }
             public bool Active { get; set; }
@@ -284,7 +284,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[15] = new SqlParameter("@GPFNo", data.GPFNo);
                 param[16] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
                 param[17] = new SqlParameter("@CPSNo", data.CPSNo);
-                param[18] = new SqlParameter("@BankId", data.BankId);
+                param[18] = new SqlParameter("@BankDetails", data.BankDetails);
                 param[19] = new SqlParameter("@AccountNumber", data.AccountNumber);
                 param[20] = new SqlParameter("@CategoryCode", data.CategoryCode);
                 param[21] = new SqlParameter("@Active", data.Active);

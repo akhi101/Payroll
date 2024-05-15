@@ -186,7 +186,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankId, AccountNumber, CategoryCode, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -206,7 +206,7 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "CPSNo": CPSNo,
-                "BankId": BankId,
+                "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
                 "Active": Active,
@@ -217,7 +217,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankId, AccountNumber, CategoryCode, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -237,7 +237,7 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "CPSNo": CPSNo,
-                "BankId": BankId,
+                "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
                 "Active": Active,
