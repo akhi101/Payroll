@@ -364,9 +364,9 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
                 param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@BasicAmount", request["BasicAmount"]);
+                param[2] = new SqlParameter("@CurrentBasicAmount", request["CurrentBasicAmount"]);
                 param[3] = new SqlParameter("@Active", request["Active"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("  ", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
             }
@@ -379,21 +379,27 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-
+        public class SalaryDetails
+        {
+            public int DataTypeId { get; set; }
+            public int EmployeeID { get; set; }
+            public int CurrentBasicAmount { get; set; }
+            public string UserName { get; set; }
+        }
 
 
         [HttpPost, ActionName("AddorUpdateSalary")]
-        public string AddorUpdateSalary([FromBody] JsonObject request)
+        public string AddorUpdateSalary([FromBody] SalaryDetails data)
         {
             try
             {
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@BasicAmount", request["BasicAmount"]);
-                param[3] = new SqlParameter("@UserName", request["UserName"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("      ", param);
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[2] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
+                param[3] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
