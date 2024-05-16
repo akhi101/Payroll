@@ -295,11 +295,11 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeID, BasicAmount, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeID, CurrentBasicAmount, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
-                "BasicAmount": BasicAmount,
+                "CurrentBasicAmount": CurrentBasicAmount,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
@@ -307,11 +307,11 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeID, BasicAmount, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeID, CurrentBasicAmount, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
-                "BasicAmount": BasicAmount,
+                "CurrentBasicAmount": CurrentBasicAmount,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);

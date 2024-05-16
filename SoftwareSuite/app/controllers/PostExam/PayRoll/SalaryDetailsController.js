@@ -6,11 +6,29 @@
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
             $scope.getsalarydata();
 
+            $scope.AddDetails = '1';
+            $scope.UpdateDetails = '0';
+        }
+
+
+        $scope.ClearData = function () {
+            $scope.EmployeeName = "";
+            $scope.CurrentBasicAmount = "";
+            $scope.NoofMOUS = "";
+            $scope.ComitteMembers = "";
+            $scope.SupportActivitiesfromIndustry = "";
+            $scope.MOUValidFromDate = "";
+            $scope.MOUValidToDate = "";
+            $scope.Remarks = "";
 
         }
-        
 
         $scope.Add = function () {
 
@@ -21,12 +39,11 @@
                 alert("Please Enter EmployeeName");
                 return;
             }
-            if ($scope.BasicAmount == null || $scope.BasicAmount == undefined || $scope.BasicAmount == "") {
+            if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
                 alert("Enter Current Basic Amount");
                 return;
             }
-            var datatypeid = 1
-            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.EmployeeName, $scope.BasicAmount, 1, $scope.UserName)
+            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.EmployeeName, $scope.CurrentBasicAmount, 1, $scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -110,7 +127,7 @@
 
 
 
-            var desig = PayRollService.UpdateSalary(datatypeid, data.EmployeeID, $scope.EmployeeName, $scope.BasicAmount,  $scope.UserName)
+            var desig = PayRollService.UpdateSalary(datatypeid, data.EmployeeID, $scope.EmployeeName, $scope.CurrentBasicAmount,  $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
