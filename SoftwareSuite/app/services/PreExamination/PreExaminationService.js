@@ -3148,7 +3148,8 @@
                     return promise;
                 } else if (StudentTypeId == 2) {
                     var paramObject = { "Pin": Pin, "DateOfBirth": DateOfBirth, "StudentTypeId": StudentTypeId, "Exammonthyearid": EMYR };
-                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket', paramObject);
+                    console.log(paramObject)
+                    var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBacklogHallticket1', paramObject);
                     return promise;
                 }
             },

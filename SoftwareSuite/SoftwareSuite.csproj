@@ -1114,6 +1114,7 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PayRoll\BoardStaffController.js" />
     <Content Include="app\controllers\PayRoll\OfficersController.js" />
+    <Content Include="app\controllers\PayRoll\OverAllDeductionsController.js" />
     <Content Include="app\controllers\PayRoll\PayRollDashboardController.js" />
     <Content Include="app\controllers\PayRoll\PensionersController.js" />
     <Content Include="app\controllers\PostExamController.js" />
@@ -1158,6 +1159,7 @@
     <Content Include="app\views\MasterSettings\UserCredentials.html" />
     <Content Include="app\views\PayRoll\BoardStaff.html" />
     <Content Include="app\views\PayRoll\Officers.html" />
+    <Content Include="app\views\PayRoll\OverAllDeductions.html" />
     <Content Include="app\views\PayRoll\PayRollDashboard.html" />
     <Content Include="app\views\PayRoll\Pensioners.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
