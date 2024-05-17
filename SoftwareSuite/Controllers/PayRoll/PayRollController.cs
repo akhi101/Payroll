@@ -209,7 +209,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeId", request["EmployeeId"]);
+                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
                 param[2] = new SqlParameter("@Active", request["Active"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeDetails", param);
                 return JsonConvert.SerializeObject(dt);
@@ -355,17 +355,16 @@ namespace SoftwareSuite.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditSalaryData")]
-        public string GetorEditSalaryData([FromBody] JsonObject request)
+        public string GetorEditSalaryData([FromBody] SalaryDetails data)
         {
             try
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@CurrentBasicAmount", request["CurrentBasicAmount"]);
-                param[3] = new SqlParameter("@Active", request["Active"]);
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID",data.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeId",data.EmployeeId);
+                param[2] = new SqlParameter("@Active",data.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -382,8 +381,11 @@ namespace SoftwareSuite.Controllers.PayRoll
         public class SalaryDetails
         {
             public int DataTypeId { get; set; }
-            public int EmployeeID { get; set; }
-            public int CurrentBasicAmount { get; set; }
+            public int DataTypeID { get; set; }
+
+            public bool Active { get; set; }
+            public int EmployeeId { get; set; }
+            public string CurrentBasicAmount { get; set; }
             public string UserName { get; set; }
         }
 
@@ -396,7 +398,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
-                param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
                 param[2] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
                 param[3] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);

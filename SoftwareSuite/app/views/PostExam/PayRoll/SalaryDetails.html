@@ -68,7 +68,12 @@
                                     <label>
                                         Employee Name :
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Employee Name" ng-model="EmployeeName">
+
+                                    <select class="form-control"  ng-model="EmployeeID"
+                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                        <option value="" selected>Select Employee Name</option>
+                                    </select>
+                                
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>
@@ -98,10 +103,10 @@
         </div>
     </div>
 
-    <div class="container " ng-show="DepartmentData.length>0">
+    <div class="container " ng-show="SalaryData.length>0">
         <div class="col-md-12">
             <div class="cl-details">
-                <h2> Department</h2>
+                <h2> Employee Salary Details</h2>
             </div>
             <div class="table-responsive table-custom-tables-tb scrollbox">
                 <table class="table table-bordered  table-striped table-rounded scrollbox-content">
@@ -117,25 +122,17 @@
                     </thead>
                     <tbody>
                         <tr style="" ng-repeat="data in SalaryData">
-                            <td class="text-left">{{$index + 1}}</td>
-                            <td class="text-center"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="EmployeeName" /></div></td>
-                            <td class="text-center"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="BasicAmount" /></div></td>
-
-
-
-
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td class="text-center">{{data.EmployeeName}}</td>
+                            <td class="text-center">{{data.CurrentBasicAmount}}</td>
                             <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditSalary(data,$index+1)">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">
                                     Edit
                                 </button>
-                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateSalary(data,$index+1)">
-                                    Update
-                                </button>
-
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>
