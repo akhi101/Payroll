@@ -46,12 +46,14 @@
             try {
                 $scope.SelectedDistrictId = JSON.parse(DistrictId);
                 // var course = JSON.parse($scope.course); 
-            } catch (er) { }
+            } catch (er) {
+                $scope.SelectedDistrictId = DistrictId;
+            }
 
 
             if ($scope.tmpmode == 1) {
                 //-------------------Load online exam Centers-----------------------
-                var ExamCenters = TwshStudentRegService.getonlineExaminationCenters($scope.CourseId, $scope.SelectedDistrictId.Id);
+                var ExamCenters = TwshStudentRegService.getonlineExaminationCenters($scope.CourseId, $scope.SelectedDistrictId);
                 ExamCenters.then(function (res) {
                     $scope.availableDates = [];
                     $scope.examCenterList = res.Table;
@@ -68,7 +70,7 @@
 
             } else if ($scope.tmpmode == 2) {
                 //-----------------load offline Exam Centers----------------------
-                var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId.Id, $scope.CourseId, $scope.GradeId);
+                var ExamCenters = TwshStudentRegService.getExaminationCenters(parseInt($scope.UserId), $scope.SelectedDistrictId, $scope.CourseId, $scope.GradeId);
                 ExamCenters.then(function (req) {
                     $scope.examCenterList = req
                 }, function (err) {
@@ -125,23 +127,27 @@
                     $scope.CategoryCode = ApplicationDetails[0].CategoryCode;
                     $scope.StudentPhoneNumber = ApplicationDetails[0].StudentPhoneNumber;
                     $scope.ExamDate = ApplicationDetails[0].ExamDate;
-                    $scope.ExamBatch = ApplicationDetails[0].ExamBatch;
+                  
                     $scope.UserUploadPhoto = ApplicationDetails[0].Photo;
                     $scope.ExaminationCenterName = ApplicationDetails[0].ExaminationCenterName;
                     $scope.tmpmode = ApplicationDetails[0].ExamMode;
                     $scope.LanguageName = ApplicationDetails[0].LanguageName;
                     $scope.IsEligible = ApplicationDetails[0].IsEligible;
                     $scope.IsRejected = ApplicationDetails[0].isrejected;
-                    $scope.IsReleased = ApplicationDetails[0].isreleased;
-                    $scope.IsFeePaid = ApplicationDetails[0].IsFeePaid;
+                    $scope.District = ApplicationDetails[0].DistrictId;
                     $scope.CourseId = ApplicationDetails[0].CourseId;
+                    $scope.IsFeePaid = ApplicationDetails[0].IsFeePaid;
                     $scope.LanguageId = ApplicationDetails[0].LanguageId;
                     $scope.GradeId = ApplicationDetails[0].GradeId;
                     $scope.ExamCenterId = ApplicationDetails[0].ExamCenterId;
                     $scope.RejectedRemarks = ApplicationDetails[0].RejectedRemarks;
-                    $scope.ReleasedRemarks = ApplicationDetails[0].ReleasedRemarks;
+                    $scope.ExamDateselect = ApplicationDetails[0].ExamDate;
+                    $scope.ExamDateselect = ApplicationDetails[0].ExamDateId;
+                    $scope.ExamBatch = ApplicationDetails[0].ExamBatch;
+                    $scope.LoadExamCenters($scope.District)
 
                     $scope.GetExamDates()
+                    $scope.getBatches($scope.ExamDateselect)
                     $scope.loadDistricts();
 
                 } else {
@@ -205,14 +211,14 @@
                     $scope.CategoryCode = ApplicationDetails[0].CategoryCode;
                     $scope.StudentPhoneNumber = ApplicationDetails[0].StudentPhoneNumber;
                     $scope.ExamDate = ApplicationDetails[0].ExamDate;
-                    $scope.ExamBatch = ApplicationDetails[0].ExamBatch;
+                  
                     $scope.Photo = ApplicationDetails[0].Photo;
                     $scope.ExaminationCenterName = ApplicationDetails[0].ExaminationCenterName;
                     $scope.DistrictName = ApplicationDetails[0].DistrictName;
                     $scope.LanguageName = ApplicationDetails[0].LanguageName;
                     $scope.IsEligible = ApplicationDetails[0].IsEligible;
                     $scope.IsRejected = ApplicationDetails[0].isrejected;
-                    $scope.IsReleased = ApplicationDetails[0].isreleased;
+                    $scope.District = ApplicationDetails[0].DistrictId;
                     $scope.IsFeePaid = ApplicationDetails[0].IsFeePaid;
                     $scope.CourseId = ApplicationDetails[0].CourseId;
                     $scope.LanguageId = ApplicationDetails[0].LanguageId;
@@ -220,8 +226,12 @@
                     $scope.ExamCenterId = ApplicationDetails[0].ExamCenterId;
                     $scope.RejectedRemarks = ApplicationDetails[0].RejectedRemarks;
                     $scope.ReleasedRemarks = ApplicationDetails[0].ReleasedRemarks;
-
+                   // $scope.ExamDateselect = ApplicationDetails[0].ExamDate;
+                    $scope.ExamDateselect = ApplicationDetails[0].ExamDateId;
+                    $scope.ExamBatch = ApplicationDetails[0].ExamBatch;
+                    $scope.LoadExamCenters($scope.District)
                     $scope.GetExamDates()
+                    $scope.getBatches($scope.ExamDateselect)
                     $scope.loadDistricts();
 
                 } else {
@@ -285,7 +295,7 @@
                         $scope.StdinterCert = response.Table1[0].File2;
                         $scope.IsBlind = response.Table1[0].IsBlind == false ? '0' : '1';
                         $scope.ExamDateselect = response.Table1[0].ExamDate;
-                        $scope.ExamDate = response.Table1[0].ExamDate;
+                        $scope.ExamDateselect = response.Table1[0].ExamDateId;
                         $scope.exambatch = response.Table1[0].ExamBatch;
 
 
@@ -425,8 +435,8 @@
         }
         $scope.getBatches = function (ExamDateselect) {
             $scope.exambatchList = [];
-            $scope.ExamDateselected = JSON.parse(ExamDateselect);
-            var getBatches = TwshStudentRegService.getBatches($scope.ExamDateselected.Id, $scope.CourseId, $scope.GradeId);
+            $scope.ExamDateselected = ExamDateselect;
+            var getBatches = TwshStudentRegService.getBatches($scope.ExamDateselected, $scope.CourseId, $scope.GradeId);
             getBatches.then(function (res) {
                 $scope.exambatchList = res;
             }, function (err) {

@@ -11452,6 +11452,28 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
+        [HttpGet, ActionName("GetBacklogHallticket1")]
+        public string GetBacklogHallticket1(string Pin, string DateOfBirth, int StudentTypeId, string Exammonthyearid)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@DateOfBirth", DateOfBirth);
+                param[2] = new SqlParameter("@StudentTypeId", StudentTypeId);
+                param[3] = new SqlParameter("@Exammonthyearid", Exammonthyearid);
+                var dt = new DataSet();
+                dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_HallTicketDetailsByPin_bac_test", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("USP_SFP_GET_HallTicketDetailsByPin_bac_test", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
         [HttpPost, ActionName("getBackLogData")]
         public string getBackLogData([FromBody] JsonObject request)
         {

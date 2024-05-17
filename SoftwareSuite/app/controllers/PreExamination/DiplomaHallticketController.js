@@ -1,9 +1,23 @@
 ﻿define(['app'], function (app) {
     app.controller("DiplomaHallticketController", function ($scope, $http, $localStorage, $window, $state, $stateParams, AppSettings, MarksEntryService, $uibModal, PaymentService, PreExaminationService) {
 
-        $scope.dateOfBirth = "";
-        $scope.result = false;
-        $scope.ExamMonthYear = '';
+        var authData = $localStorage.authorizationData;
+        $scope.ExamCategory = [];
+        $scope.userName = authData.userName;
+        $scope.College_Code = authData.College_Code;
+        AppSettings.College_Name = authData.College_Name;
+        $scope.College_Name = authData.College_Name;
+        AppSettings.userName = authData.userName;
+        $scope.BranchId = authData.BranchId;
+        $scope.CollegeID = authData.CollegeID;
+        $scope.userType = authData.SystemUserTypeId
+
+        if ($scope.userType == 1014 || $scope.userType == 1) {
+
+        } else {
+            alert("Unauthorized Access")
+            $state.go('Dashboard.PreExamination')
+        }
 
         /// recaptcha
       

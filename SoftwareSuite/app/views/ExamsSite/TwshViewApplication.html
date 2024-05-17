@@ -446,16 +446,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 ">
-                                    <div class="col-md-5">
-                                        <label ng-show="IsRejected==true">
+                                    <div class="col-md-5" ng-show="IsRejected==true">
+                                        <label >
                                             Rejected Remarks
                                         </label>
                                         <!--<label ng-show="IsReleased==true">
                                         Released Remarks
                                     </label>-->
                                     </div>
-                                    <div class="col-md-7 pre-text">
-                                        : <span class="fail_msg" ng-show="IsRejected==true">{{RejectedRemarks}}</span>
+                                    <div class="col-md-7 pre-text" ng-show="IsRejected==true">
+                                        : <span class="fail_msg" >{{RejectedRemarks}}</span>
                                         <!--<span class="fail_msg" ng-show="ReleasedRemarks == true">{{ReleasedRemarks}}</span>-->
                                     </div>
                                 </div>
@@ -550,12 +550,16 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Examination District</label>
-                                            <select class="form-control" ng-model="District" ng-change="LoadExamCenters(District)" required>
+                                            <!--<select class="form-control" ng-model="District" ng-change="LoadExamCenters(District)" required>
                                                 <option value="" selected>Select District</option>
                                                 <option ng-repeat="District in Districts" value="{{District}}">
                                                     {{District.DistrictName}}
                                                 </option>
 
+                                            </select>-->
+                                            <select class="form-control" ng-change="LoadExamCenters(District)" name="District" ng-model="District"
+                                                    ng-options="data.Id as data.DistrictName for data in Districts">
+                                                <option value="" selected>Select District</option>
                                             </select>
                                         </div>
                                     </div>
@@ -563,36 +567,48 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Examination Center</label>
-                                            <select class="form-control" ng-model="ExamCenterId" required>
+                                            <select class="form-control"  name="District" ng-model="ExamCenterId"
+                                                    ng-options="data.Id as data.ExaminationCenterName for data in examCenterList">
+                                                <option value="" selected>Select Center</option>
+                                            </select>
+                                            <!--<select class="form-control" ng-model="ExamCenterId" required>
                                                 <option value="" selected>Select Exam Center</option>
                                                 <option ng-repeat="examCenter in examCenterList" value="{{examCenter.Id}}">
                                                     {{examCenter.ExaminationCenterName}}
                                                 </option>
 
-                                            </select>
+                                            </select>-->
                                         </div>
                                     </div>
 
                                     <div class="col-md-4" ng-show="tmpmode==2">
                                         <div class="form-group required">
-                                            <label for="date-picker-example">Examination Date</label>
-                                            <select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
+                                            <label for="date-picker-example">Examination Date{{ExamDateselect}}</label>
+                                            <!--<select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
                                                 <option value="" selected>Select Exam Date</option>
-                                                <option  ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
+                                                <option ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
                                                     {{ExamDateselect.ExamDate}}
                                                 </option>
+                                            </select>-->
+                                            <select class="form-control" name="District" ng-model="ExamDateselect" ng-change="getBatches(ExamDateselect)"
+                                                    ng-options="data.Id as data.ExamDate for data in ExamDates">
+                                                <option value="" selected>Select Exam Date</option>
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 " ng-show="tmpmode==2">
                                         <div class="form-group required">
-                                            <label>Examination Batch</label>
-                                            <select class="form-control" ng-model="exambatch">
+                                            <label>Examination Batch {{exambatch}}</label>
+                                            <!--<select class="form-control" ng-model="exambatch">
                                                 <option value="" selected>Select Exam Batch</option>
                                                 <option ng-repeat="exambatch in exambatchList" value="{{exambatch.BatchNumber}}">
                                                     {{exambatch.BatchNumber}}
                                                 </option>
+                                            </select>-->
+                                            <select class="form-control" name="District" ng-model="exambatch" 
+                                                    ng-options="data.BatchNumber as data.BatchNumber for data in exambatchList">
+                                                <option value="" selected>Select Exam Batch</option>
                                             </select>
                                         </div>
                                     </div>
@@ -733,7 +749,7 @@
                                     </div>
 
                                     <div class="col-md-8 pull-right mtp-50">
-                                        <div class="submit-btn" style="margin-top: 150px;margin-bottom: 0px;;">
+                                        <div class="submit-btn" style="margin-top: 150px;margin-bottom: 0px;">
                                             <button type="submit" ng-click="UpdateData()">Submit</button>
                                         </div>
                                     </div>
