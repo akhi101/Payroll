@@ -247,10 +247,10 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeId, Active) {
+        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeId": EmployeeId,
+                "EmployeeID": EmployeeID,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
@@ -258,10 +258,10 @@ define(['app'], function (app) {
 
         };
 
-        this.EmployeeDetailStatus = function (DataTypeID, EmployeeId, Active) {
+        this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeId": EmployeeId,
+                "EmployeeID": EmployeeID,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
@@ -295,10 +295,10 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeID, CurrentBasicAmount, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
-                "EmployeeID": EmployeeID,
+                "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
                 "UserName": UserName
             };
@@ -307,10 +307,10 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeID, CurrentBasicAmount, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
-                "EmployeeID": EmployeeID,
+                "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
                 "UserName": UserName
             };
@@ -318,10 +318,10 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetSalaryData = function (DataTypeID, EmployeeID, Active) {
+        this.GetSalaryData = function (DataTypeID, EmployeeId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeID": EmployeeID,
+                "EmployeeId": EmployeeId,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryData', paramObj);
@@ -329,10 +329,10 @@ define(['app'], function (app) {
 
         };
 
-        this.ChangeSalaryStatus = function (DataTypeID, EmployeeID, Active) {
+        this.ChangeSalaryStatus = function (DataTypeID, EmployeeId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeID": EmployeeID,
+                "EmployeeId": EmployeeId,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryData', paramObj);

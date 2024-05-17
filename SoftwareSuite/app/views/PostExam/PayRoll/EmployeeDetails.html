@@ -163,8 +163,8 @@
                         
                                         <select class="form-control" name="applicationForm.Status" ng-model="Empstatus">
                                             <option value="">Select Status</option>
-                                            <option value="T">Transferred</option>
                                             <option value="W">Working</option>
+                                            <option value="T">Transferred</option>
                                             <option value="R">Retired</option>
                                         </select>
                                     </div>
@@ -290,23 +290,11 @@
                             <th>S.No</th>
                             <th class="text-center">Employee Code</th>
                             <th class="text-center">Employee Name</th>
-                            <th class="text-center">Date Of Birth</th>
-                            <th class="text-center">Date Of Joining</th>
-                            <th class="text-center">Date Of Retirement</th>
+                            
                             <th class="text-center">Designation Name</th>
-                            <th class="text-center">Department Name</th>
+                            
                             <th class="text-center">Gender</th>
-                            <th class="text-center">PHC</th>
-                            <th class="text-center">Employee Status</th>
-                            <th class="text-center">Increment Month</th>
-                            <th class="text-center">Scale Type</th>
-                            <th class="text-center">Pan Number</th>
-                            <th class="text-center">GPF Number</th>
-                            <th class="text-center">CPS/NPS</th>
-                            <th class="text-center">CPS Number</th>
-                            <th class="text-center">Bank Details</th>
-                            <th class="text-center">Account Number</th>
-                            <th class="text-center">Category Code</th>
+                            
                             <th class="text-center">Action</th>
                             <th class="text-center">Status</th>
 
@@ -315,25 +303,13 @@
                     <tbody>
                         <tr style="" ng-repeat="data in EmployeeDetailsData">
                             <td class="text-center pointer">{{$index+1}}</td>
-                            <td>{{data.EmployeeCode}}</td>
-                            <td>{{data.EmployeeName}}</td>
-                            <td>{{data.DOB | date:'dd-MM-yyyy'}}</td>
-                            <td>{{data.DOJ | date:'dd-MM-yyyy'}}</td>
-                            <td>{{data.DOR | date:'dd-MM-yyyy'}}</td>
-                            <td>{{data.DesignationName}}</td>
-                            <td>{{data.DepartmentName}}</td>
-                            <td>{{data.Gender}}</td>
-                            <td>{{data.PHC}}</td>
-                            <td>{{data.Empstatus}}</td>
-                            <td>{{data.IncrementMonth}}</td>
-                            <td>{{data.ScaleType}}</td>
-                            <td>{{data.PanNo}}</td>
-                            <td>{{data.GPFNo}}</td>
-                            <td>{{data.CPS_NPS}}</td>
-                            <td>{{data.CPSNo}}</td>
-                            <td>{{data.BankDetails}}</td>
-                            <td>{{data.AccountNumber}}</td>
-                            <td>{{data.CategoryCode}}</td>
+                            <td class="text-center pointer">{{data.EmployeeCode}}</td>
+                            <td class="text-center pointer">{{data.EmployeeName}}</td>
+                            
+                            <td class="text-center pointer">{{data.DesignationName}}</td>
+                            
+                            <td class="text-center pointer">{{data.Gender}}</td>
+                            
                            
 
                             
@@ -350,8 +326,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>

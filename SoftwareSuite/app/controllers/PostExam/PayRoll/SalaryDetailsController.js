@@ -18,15 +18,45 @@
         }
 
 
+
+
+        var DataTypeID = 1
+        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+        getdesign.then(function (response) {
+
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.EmployeeDetailsData = res.Table;
+                $scope.Noreports = false;
+
+
+
+            }
+            else {
+                $scope.EmployeeDetailsData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Employee Details");
+                var err = JSON.parse(error);
+
+            });
+    
+
         $scope.ClearData = function () {
-            $scope.EmployeeName = "";
+            $scope.EmployeeID = null;
             $scope.CurrentBasicAmount = "";
-            $scope.NoofMOUS = "";
-            $scope.ComitteMembers = "";
-            $scope.SupportActivitiesfromIndustry = "";
-            $scope.MOUValidFromDate = "";
-            $scope.MOUValidToDate = "";
-            $scope.Remarks = "";
+            $scope.AddDetails = '1';
+            $scope.UpdateDetails = '0';
 
         }
 
@@ -35,7 +65,7 @@
             var datatypeid = 1
 
 
-            if ($scope.EmployeeName == null || $scope.EmployeeName == undefined || $scope.EmployeeName == "") {
+            if ($scope.EmployeeID == null || $scope.EmployeeID == undefined || $scope.EmployeeID == "") {
                 alert("Please Enter EmployeeName");
                 return;
             }
@@ -43,13 +73,14 @@
                 alert("Enter Current Basic Amount");
                 return;
             }
-            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.EmployeeName, $scope.CurrentBasicAmount, 1, $scope.UserName)
+            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
+                    $scope.ClearData();
                     $scope.getsalarydata();
 
                 }
@@ -75,7 +106,7 @@
 
         $scope.getsalarydata = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetSalaryData(DataTypeID, 0, 0);
+            var getdesign = PayRollService.GetSalaryData(DataTypeID,0, 0);
             getdesign.then(function (response) {
 
                 try {
@@ -86,9 +117,7 @@
                 if (res.Table.length > 0) {
                     $scope.SalaryData = res.Table;
                     $scope.Noreports = false;
-                    for (var j = 1; j < $scope.SalaryData.length + 1; j++) {
-                        $scope['edit' + j] = true;
-                    }
+                   
 
 
                 }
@@ -112,30 +141,21 @@
 
 
 
-        $scope.UpdateSalary = function (data, ind) {
-            $scope['edit' + ind] = true;
-
-            var ele2 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele2.length; j++) {
-                ele2[j].style['pointer-events'] = "none";
-                ele2[j].style.border = "0";
-            }
-
+        $scope.UPDATE = function () {
+            
             var datatypeid = 2;
 
-
-
-
-
-            var desig = PayRollService.UpdateSalary(datatypeid, data.EmployeeID, $scope.EmployeeName, $scope.CurrentBasicAmount,  $scope.UserName)
-            desig.then(function (response) {
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount,  $scope.UserName)
+            sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
+                    $scope.ClearData();
                     $scope.getsalarydata();
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
+                    $scope.ClearData();
                     $scope.getsalarydata();
 
                 } else {
@@ -160,21 +180,51 @@
 
 
 
-        $scope.EditSalary = function (data, ind) {
+        $scope.EditSalary = function (data) {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+            $scope.AddDetails = '0';
+            $scope.UpdateDetails = '1';
+            var DataTypeID = 2
+            var getdesign = PayRollService.GetSalaryData(DataTypeID, data.EmployeeId, 0);
+            getdesign.then(function (response) {
 
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-            }
-            $scope['edit' + ind] = false;
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.EditSalaryData = res.Table;
+                    $scope.EmployeeID = res.Table[0].EmployeeId;
+                    $scope.CurrentBasicAmount = res.Table[0].CurrentBasicAmount;
+                    $scope.Noreports = false;
 
+
+
+                }
+                else {
+                    $scope.SalaryData = [];
+                    $scope.Noreports = true;
+                }
+
+
+            },
+
+                function (error) {
+                    alert("error while loading Department");
+                    var err = JSON.parse(error);
+
+                });
 
 
         }
-        $scope.ChangeStatus = function (EmployeeID, Status) {
+        $scope.ChangeStatus = function (EmployeeId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.ChangeSalaryStatus(DataType, EmployeeID, Status);
+            var getSlides = PayRollService.ChangeSalaryStatus(DataType, EmployeeId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {

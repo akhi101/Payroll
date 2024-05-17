@@ -428,9 +428,9 @@ define(['app'], function (app) {
 
 
         }
-        $scope.ChangeStatus = function (EmployeeId, Status) {
+        $scope.ChangeStatus = function (EmployeeID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollStatus(DataType, EmployeeId, Status);
+            var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
