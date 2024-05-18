@@ -489,7 +489,7 @@ define(['app'], function (app) {
 
 
             $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/PostExam/PayRoll/Popups/BankDetailsPopup.html",
+                templateUrl: "/app/views/PayRoll/Popups/BankDetailsPopup.html",
                 size: 'lg',
                 scope: $scope,
                 windowClass: 'modal-fit',
