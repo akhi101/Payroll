@@ -1,7 +1,7 @@
 ﻿<div ng-controller="OverAllDeductionsController">
     <div class="container content">
         <div class="col-md-12">
-            <button class="btn bck_btn"><a href="#!/Dashboard/PreExamination" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
         <ul class="nav nav-tabs">
             <li class="active noprint">
@@ -20,7 +20,11 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <input class="form-control" name="EmployeeId" />
+                            <select class="form-control" ng-model="EmployeeID"
+                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                <option value="" selected>Select Employee Name</option>
+                            </select>
+                          
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -54,7 +58,10 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <input class="form-control" name="EmployeeId" />
+                            <select class="form-control" ng-model="EmployeeID"
+                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                <option value="" selected>Select Employee Name</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -229,7 +236,10 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <input class="form-control" name="EmployeeId" />
+                            <select class="form-control" ng-model="EmployeeID"
+                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                <option value="" selected>Select Employee Name</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">

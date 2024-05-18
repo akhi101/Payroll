@@ -1,6 +1,5 @@
 ﻿define(['app'], function (app) {
     app.controller("PayRollDashboardController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService) {
-
         var authdata = $localStorage.authorizationData;
         $scope.userType = authdata.SystemUserTypeId;
         $scope.hide = false;
@@ -100,7 +99,7 @@
         $scope.submodules = submodules;
 
         $scope.OpenSubModule = function (Module) {
-            $state.go("Dashboard.PreExamination." + Module.ModuleRouteName);
+            $state.go("Dashboard.PayRollDashboard." + Module.ModuleRouteName);
         }
 
         $scope.OpenDashboard = function () {

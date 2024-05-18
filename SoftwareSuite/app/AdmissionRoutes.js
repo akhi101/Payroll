@@ -2150,24 +2150,7 @@
             },
 
 
-            'Dashboard.PayRollDashboard': {
-                url: "/PayRollDashboard",
-                templateUrl: 'app/views/PayRoll/PayRollDashboard.html',
-                dependencies: ['controllers/PayRoll/PayRollDashboardController', 'services/SystemAdministration/SystemUserService']
-            },
-
-
-            'Dashboard.PayRollDashboard.Officers': {
-                url: "/Officers",
-                templateUrl: 'app/views/PayRoll/Officers.html',
-                dependencies: ['controllers/PayRoll/OfficersController', 'services/SystemAdministration/SystemUserService']
-            },
-
-            'Dashboard.PayRollDashboard.OverAllDeductions': {
-                url: "/OverAllDeductions",
-                templateUrl: 'app/views/PayRoll/OverAllDeductions.html',
-                dependencies: ['controllers/PayRoll/OverAllDeductionsController', 'services/SystemAdministration/SystemUserService']
-            },
+           
 
             //TimeTable Page
             'Dashboard.TimeTablePage': {
@@ -4511,42 +4494,61 @@
 
 
 
-            'Dashboard.PayRoll': {
-                url: "/PayRoll",
-                templateUrl: 'app/views/PostExam/PayRoll/PayRoll.html',
-                dependencies: ['controllers/PostExam/PayRoll/PayRollController', 'services/SystemAdministration/SystemUserService']
+            //'Dashboard.PayRollDashboard': {
+            //    url: "/PayRollDashboard",
+            //    templateUrl: 'app/views/PayRollDashboard/PayRoll.html',
+            //    dependencies: ['controllers/PayRollDashboard/PayRollController', 'services/SystemAdministration/SystemUserService']
+            //},
+
+           
+            'Dashboard.PayRollDashboard': {
+                url: "/PayRollDashboard",
+                templateUrl: 'app/views/PayRoll/PayRollDashboard.html',
+                dependencies: ['controllers/PayRoll/PayRollDashboardController', 'services/SystemAdministration/SystemUserService']
             },
 
-            'Dashboard.PayRoll.Designation': {
+
+            'Dashboard.PayRollDashboard.Officers': {
+                url: "/Officers",
+                templateUrl: 'app/views/PayRoll/Officers.html',
+                dependencies: ['controllers/PayRoll/OfficersController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollDashboard.OverAllDeductions': {
+                url: "/OverAllDeductions",
+                templateUrl: 'app/views/PayRoll/OverAllDeductions.html',
+                dependencies: ['controllers/PayRoll/OverAllDeductionsController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollDashboard.Designation': {
                 url: "/Designation",
-                templateUrl: 'app/views/PostExam/PayRoll/Designation.html',
-                dependencies: ['controllers/PostExam/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
+                templateUrl: 'app/views/PayRoll/Designation.html',
+                dependencies: ['controllers/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRoll.Departments': {
+            'Dashboard.PayRollDashboard.Departments': {
                 url: "/Departments",
-                templateUrl: 'app/views/PostExam/PayRoll/Department.html',
-                dependencies: ['controllers/PostExam/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
+                templateUrl: 'app/views/PayRoll/Department.html',
+                dependencies: ['controllers/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRoll.BankDetails': {
+            'Dashboard.PayRollDashboard.BankDetails': {
                 url: "/BankDetails",
-                templateUrl: 'app/views/PostExam/PayRoll/BankDetails.html',
-                dependencies: ['controllers/PostExam/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
+                templateUrl: 'app/views/PayRoll/BankDetails.html',
+                dependencies: ['controllers/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRoll.EmployeeDetails': {
+            'Dashboard.PayRollDashboard.EmployeeDetails': {
                 url: "/EmployeeDetails",
-                templateUrl: 'app/views/PostExam/PayRoll/EmployeeDetails.html',
-                dependencies: ['controllers/PostExam/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
+                templateUrl: 'app/views/PayRoll/EmployeeDetails.html',
+                dependencies: ['controllers/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRoll.SalaryDetails': {
+            'Dashboard.PayRollDashboard.SalaryDetails': {
                 url: "/SalaryDetails",
-                templateUrl: 'app/views/PostExam/PayRoll/SalaryDetails.html',
-                dependencies: ['controllers/PostExam/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
+                templateUrl: 'app/views/PayRoll/SalaryDetails.html',
+                dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
             },
-
 
         }
 
