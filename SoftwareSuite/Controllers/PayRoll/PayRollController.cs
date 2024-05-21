@@ -40,6 +40,62 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+     
+
+        [HttpGet, ActionName("GetMonths")]
+        public HttpResponseMessage GetMonths()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Months";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Months", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet, ActionName("GetFinancialYears")]
+        public HttpResponseMessage GetFinancialYears()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_FinancialYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_FinancialYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+        [HttpGet, ActionName("GetIncrements")]
+        public HttpResponseMessage GetIncrements()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_Increments";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_Increments", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+        
+
+
         [HttpPost, ActionName("GetorEditDesignationData")]
         public string GetorEditDesignationData([FromBody] JsonObject request)
         {
@@ -82,6 +138,31 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[8] = new SqlParameter("@Active", request["Active"]);
                 param[9] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Designations", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("AddorUpdateIncrements")]
+        public string AddorUpdateIncrements([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@IncrementId", request["IncrementId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@IncrementAmount", request["IncrementAmount"]);
+                param[6] = new SqlParameter("@Active", request["Active"]);
+                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Increments", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

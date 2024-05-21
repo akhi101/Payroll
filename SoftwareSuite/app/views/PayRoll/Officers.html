@@ -40,8 +40,8 @@
                             <div class="">
                                 <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
                                     <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="sb in Years" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
                                     </option>
                                 </select>
                             </div>
@@ -53,11 +53,22 @@
                             <div class="">
                                 <select class="form-control" ng-model="Month" name="StudentType" required>
                                     <option value="" selected>Select Month </option>
-                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
                                     </option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Employee Id:</label>
+                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -70,37 +81,48 @@
                     </div>
                 </div>
                 <div class="sm-spacer"></div>
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
+                    <br />
+                    <div class="col-md-3"><b>Increment Amount :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
+
+                    <br />
+                    <div class="col-md-9" ng-show="EmployeeData">
+                        <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
+                    </div>
+                </div>
                 <div class="">
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="clr_bg">
-                                <th>Employee Id</th>
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
                                 <th>Employee Name</th>
-                                <th>Increment</th>
+                                <th>Designation</th>
+                                <th>Increment Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="Increment" class="form-control" /> </td>
+                            <tr ng-repeat="data in GetAllIncrements">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.Designation}}</td>
+                                <td>{{data.IncrementAmount}}</td>
                             </tr>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="Increment" class="form-control" /> </td>
-                            </tr>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="Increment" class="form-control" /> </td>
-                            </tr>
+                          
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12">
-                    <button class="btn btn-success btn-sm pull-right">Save</button>
-                </div>
+            
             </div>
             <div class="tab-pane" id="2">
                 <div class="card">
@@ -110,8 +132,8 @@
                             <div class="">
                                 <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
                                     <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="sb in Years" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
                                     </option>
                                 </select>
                             </div>
@@ -123,11 +145,22 @@
                             <div class="">
                                 <select class="form-control" ng-model="Month" name="StudentType" required>
                                     <option value="" selected>Select Month </option>
-                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
                                     </option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Employee Id:</label>
+                            <select class="form-control" ng-model="EmployeeID" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data.EmployeeID}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -137,6 +170,22 @@
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
+                    <br />
+                    <div class="col-md-3"><b>Increment Amount :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
+
+                    <br />
+                    <div class="col-md-9" ng-show="EmployeeData">
+                        <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
                     </div>
                 </div>
                 <div class="sm-spacer"></div>
@@ -188,8 +237,8 @@
                             <div class="">
                                 <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
                                     <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="sb in Years" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
                                     </option>
                                 </select>
                             </div>
@@ -201,11 +250,22 @@
                             <div class="">
                                 <select class="form-control" ng-model="Month" name="StudentType" required>
                                     <option value="" selected>Select Month </option>
-                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
                                     </option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Employee Id:</label>
+                            <select class="form-control" ng-model="EmployeeID" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data.EmployeeID}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -243,8 +303,8 @@
                             <div class="">
                                 <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
                                     <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="sb in Years" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
                                     </option>
                                 </select>
                             </div>
@@ -256,11 +316,22 @@
                             <div class="">
                                 <select class="form-control" ng-model="Month" name="StudentType" required>
                                     <option value="" selected>Select Month </option>
-                                    <option ng-repeat="sb in SubBillers" value="{{sb}}">
-                                        {{sb}}
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
                                     </option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Employee Id:</label>
+                            <select class="form-control" ng-model="EmployeeID" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data.EmployeeID}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-2 text-center">
@@ -275,5 +346,6 @@
                 <div class="sm-spacer"></div>
             </div>
         </div>
+        <div class="sm-spacer"></div>
     </div>
 </div>
