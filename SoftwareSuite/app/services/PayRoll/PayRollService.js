@@ -6,6 +6,19 @@ define(['app'], function (app) {
             return DataAccessService.getDataWithPara('api/PayRoll/GetDesignationTypes');
         };
 
+        this.GetMonths = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetMonths');
+        };
+
+        this.GetFinancialYears = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
+        };
+        
+        
+        this.GetIncrements = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetIncrements');
+        };
+
         this.AddDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
@@ -20,6 +33,22 @@ define(['app'], function (app) {
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateDesignations', paramObject);
+            return promise;
+        };
+
+     
+        this.AddorUpdateIncrements = function (DataTypeId, IncrementId, FinancialYearId, MonthID, EmployeeID, IncrementAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "IncrementId": IncrementId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "IncrementAmount": IncrementAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateIncrements', paramObject);
             return promise;
         };
 
