@@ -4550,6 +4550,12 @@
                 dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            'Dashboard.PayRollDashboard.FinancialYearSettings': {
+                url: "/FinancialYearSettings",
+                templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
+                dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
+            },
+
         }
 
 

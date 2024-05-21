@@ -1117,6 +1117,7 @@
     <Content Include="app\controllers\PayRoll\DepartmentController.js" />
     <Content Include="app\controllers\PayRoll\DesignationController.js" />
     <Content Include="app\controllers\PayRoll\EmployeeDetailsController.js" />
+    <Content Include="app\controllers\PayRoll\FinancialYearSettingsController.js" />
     <Content Include="app\controllers\PayRoll\OfficersController.js" />
     <Content Include="app\controllers\PayRoll\OverAllDeductionsController.js" />
     <Content Include="app\controllers\PayRoll\PayRollController.js" />
@@ -1163,6 +1164,7 @@
     <Content Include="app\views\PayRoll\Department.html" />
     <Content Include="app\views\PayRoll\Designation.html" />
     <Content Include="app\views\PayRoll\EmployeeDetails.html" />
+    <Content Include="app\views\PayRoll\FinancialYearSettings.html" />
     <Content Include="app\views\PayRoll\Officers.html" />
     <Content Include="app\views\PayRoll\OverAllDeductions.html" />
     <Content Include="app\views\PayRoll\PayRollDashboard.html" />

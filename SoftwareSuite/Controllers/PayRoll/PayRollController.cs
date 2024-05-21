@@ -414,5 +414,74 @@ namespace SoftwareSuite.Controllers.PayRoll
 
 
 
+
+        [HttpPost, ActionName("GetorEditFinancialYear")]
+        public string GetorEditFinancialYear([FromBody] FinancialDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@FinancialYearId", data.FinancialYearId);
+                param[2] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_FinancialYear", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+        public class FinancialDetails
+        {
+            public int DataTypeId { get; set; }
+            public int DataTypeID { get; set; }
+
+            public bool Active { get; set; }
+            public int FinancialYearId { get; set; }
+            public string FinancialStartYear { get; set; }
+
+            public string FinancialYear { get; set; }
+            public string UserName { get; set; }
+        }
+
+
+        [HttpPost, ActionName("AddorUpdateFinancialYear")]
+        public string AddorUpdateFinancialYear([FromBody] FinancialDetails data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@FinancialYearId", data.FinancialYearId);
+                param[2] = new SqlParameter("@FinancialStartYear", data.FinancialStartYear);
+                param[3] = new SqlParameter("@FinancialYear", data.FinancialYear);
+                param[4] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_FinancialYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
     };
 };

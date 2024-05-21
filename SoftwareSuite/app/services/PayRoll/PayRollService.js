@@ -345,6 +345,58 @@ define(['app'], function (app) {
 
 
 
+        this.AddFinancialYear = function (DataTypeId, FinancialYearId, FinancialStartYear, FinancialYear, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "FinancialYearId": FinancialYearId,
+                "FinancialStartYear": FinancialStartYear,
+                "FinancialYear": FinancialYear,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateFinancialYear', paramObject);
+            return promise;
+        };
+
+
+        this.UpdateFinancialYear = function (DataTypeId, FinancialYearId, FinancialStartYear, FinancialYear, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "FinancialYearId": FinancialYearId,
+                "FinancialStartYear": FinancialStartYear,
+                "FinancialYear": FinancialYear,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateFinancialYear', paramObject);
+            return promise;
+        };
+
+        this.GetFinancialYearData = function (DataTypeID, FinancialYearId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "FinancialYearId": FinancialYearId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditFinancialYear', paramObj);
+            return promise;
+
+        };
+
+        this.ChangeFinancialStatus = function (DataTypeID, FinancialYearId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "FinancialYearId": FinancialYearId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditFinancialYear', paramObj);
+            return promise;
+
+        };
+
+
+
+
+
+
 
     });
 });
