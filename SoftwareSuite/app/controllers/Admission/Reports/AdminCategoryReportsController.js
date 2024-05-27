@@ -1,8 +1,13 @@
 ﻿define(['app'], function (app) {
     app.controller("AdminCategoryReportsController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService, AcademicService, $timeout) {
         $scope.loading = false;
+        const $ctrl = this;
+        $ctrl.$onInit = () => {
+            $scope.academicYear = 14;
 
-
+            $scope.getadmincategory()
+        }
+        
         var AcademicYears = AcademicService.getAcademicYears()
         AcademicYears.then(function (response) {
             $scope.loading = false;

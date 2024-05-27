@@ -31,6 +31,34 @@
             <div style="width:100%;text-align:center;">
                 <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
             </div>
+
+
+            <div class="row">
+                <div class="col-md-3" style="padding-left: 30px;">
+                    <div class="form-group">
+                        <label class="font-weight-bold"> Academic Year :</label>
+                        <select class="form-control" id="designationid" ng-model="academicYear"
+                                ng-options="data.AcademicID as data.AcademicYear for data in GetAcademicYears">
+                            <option value="" selected>Select Year</option>
+                        </select>
+                        <!--<select class="form-control " ng-model="academicYear" name="AcademicYear" required>
+                    <option value="" selected="selected">Select Year</option>
+                    <option value="{{data.AcademicID}}" ng-repeat="data in GetAcademicYears" class="">
+                        {{data.AcademicYear}}
+                    </option>
+
+                </select>-->
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-3 pull-left">
+                    <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="getadmincategory()">
+                        Get Details
+                    </button>
+                </div>
+            </div>
             <div class="col-md-12">
                 <div class="pull-right" ng-show="result">
                     <a class="ExportToExcel1 pointer"
@@ -40,31 +68,6 @@
                     </a>
                 </div>
             </div>
-            
-                <div class="row">
-                    <div class="col-md-3" style="padding-left: 30px;">
-                        <div class="form-group">
-                            <label class="font-weight-bold"> Academic Year :</label>
-                            <select class="form-control " ng-model="academicYear" name="AcademicYear" required>
-                                <option value="" selected="selected">Select Year</option>
-                                <option value="{{data.AcademicID}}" ng-repeat="data in GetAcademicYears" class="">
-                                    {{data.AcademicYear}}
-                                </option>
-                                <!--<option value=1>1</option>
-                        <option value=2>2</option>-->
-                            </select>
-                        </div>
-                    </div>
-
-                    
-
-                    <div class="col-md-3 pull-left">
-                        <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="getadmincategory()">
-                            Get Details
-                        </button>
-                    </div>
-                </div>
-            
             <div class="col-md-12" ng-show="result">
                 <div class="cl-details">
                     <h2> Category Reports</h2>
