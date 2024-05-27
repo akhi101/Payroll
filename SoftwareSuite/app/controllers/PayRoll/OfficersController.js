@@ -9,7 +9,6 @@
             $scope.CasualLeaves = 2;
             $scope.EarnLeaves=3
             $scope.TotalLeaves=10
-
             $scope.FinancialYears();
             $scope.GetEmployeeDetails();
             $scope.GetMonths();
