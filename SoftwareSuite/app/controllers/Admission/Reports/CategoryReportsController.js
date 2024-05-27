@@ -1,6 +1,30 @@
 ﻿define(['app'], function (app) {
-    app.controller("CategoryReportsController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService, Excel, $timeout) {
+    app.controller("CategoryReportsController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService, AcademicService , Excel, $timeout) {
         $scope.loading = false;
+
+        const $ctrl = this;
+        $ctrl.$onInit = () => {
+            $scope.academicYear = 14;
+            var authData = $localStorage.authorizationData;
+            $scope.UserName = authData.userName;
+            $scope.getadmincategory()
+        }
+
+        var AcademicYears = AcademicService.getAcademicYears()
+        AcademicYears.then(function (response) {
+            $scope.loading = false;
+            $scope.GetAcademicYears = response.Table;
+            //$scope.$emit('hideLoading', data);
+
+        },
+            function (error) {
+                alert("data is not loaded");
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
+
+
+
         var authdata = $localStorage.authorizationData;
         $scope.userType = authdata.SystemUserTypeId
        
@@ -20,41 +44,70 @@
 
         }
         
-        var data = {};
-        $scope.$emit('showLoading', data);
+        //var data = {};
+        //$scope.$emit('showLoading', data);
 
 
-        var getActiveList = AdmissionService.getStudentCategory(ClgCode);
-        getActiveList.then(function (response) {
-            //console.log(response)
-            if (response.length > 0) {
-                $scope.response = response;
-                //     $scope.loading = false;
-                $scope.$emit('hideLoading', data);
-                $scope.Noresult = false;
-                $scope.result = true;
+        //var getActiveList = AdmissionService.getStudentCategory(ClgCode);
+        //getActiveList.then(function (response) {
+        //    //console.log(response)
+        //    if (response.length > 0) {
+        //        $scope.response = response;
+        //        //     $scope.loading = false;
+        //        $scope.$emit('hideLoading', data);
+        //        $scope.Noresult = false;
+        //        $scope.result = true;
 
-                var onroll = 0
-                var Sc_M = 0;
-                var Sc_F = 0;
-                var St_M = 0;
-                var St_F = 0;
-                var BC_A_M = 0;
-                var BC_A_F = 0;
-                var BC_B_M = 0;
-                var BC_B_F = 0;
-                var BC_C_M = 0;
-                var BC_C_F = 0;
-                var BC_D_M = 0;
-                var BC_D_F = 0;
-                var BC_E_M = 0;
-                var BC_E_F = 0;
-                var Oc_M = 0;
-                var Oc_F = 0;
-                var NA_M = 0;
-                var NA_F = 0;
+        $scope.openOnroll = function (data) {
+            $localStorage.categoryData = {
+                CollegeCode: data.CollegeCode,
+                SemId: data.SemID,
+                BranchId: data.branchid,
+                SchemeId: data.SchemeId,
+                DataFormatTypeId: 1,
 
-                
+
+            }
+            //console.log($localStorage.categoryData)
+            $state.go('Dashboard.AdmissionDashboard.CategoryDetails')
+
+        }
+        $scope.getadmincategory = function () {
+
+            var data = {};
+            $scope.$emit('showLoading', data);
+            var getActiveList = AdmissionService.getStudentCategory($scope.academicYear, $scope.UserName);
+            getActiveList.then(function (response) {
+                if (response.length > 0) {
+                    //console.log(response)
+                    $scope.CollegeCategories = response;
+                    //  $scope.loading = false;
+                    $scope.$emit('hideLoading', data);
+                    $scope.Noresult = false;
+                    $scope.result = true;
+
+
+                    var onroll = 0
+                    var Sc_M = 0;
+                    var Sc_F = 0;
+                    var St_M = 0;
+                    var St_F = 0;
+                    var BC_A_M = 0;
+                    var BC_A_F = 0;
+                    var BC_B_M = 0;
+                    var BC_B_F = 0;
+                    var BC_C_M = 0;
+                    var BC_C_F = 0;
+                    var BC_D_M = 0;
+                    var BC_D_F = 0;
+                    var BC_E_M = 0;
+                    var BC_E_F = 0;
+                    var Oc_M = 0;
+                    var Oc_F = 0;
+                    var NA_M = 0;
+                    var NA_F = 0;
+
+
 
                     for (var i = 0; i < response.length; i++) {
 
@@ -139,43 +192,31 @@
 
 
 
-                
-            }
-            else {
-                $scope.$emit('hideLoading', data);
-                 //   $scope.loading = false;
-                $scope.Noresult = true;
-                $scope.result = false;
-            }
-           
+
+                }
+                else {
+                    $scope.$emit('hideLoading', data);
+                    //   $scope.loading = false;
+                    $scope.Noresult = true;
+                    $scope.result = false;
+                }
+
             },
-            function (error) {
-                alert("error while loading Reports");
-                $scope.$emit('hideLoading', data);
-              //  $scope.loading = false;
-                $scope.Noresult = true;
-                $scope.result = false;
-           
-                var err = JSON.parse(error);
-                console.log(err.Message);
-            });
-        
+                function (error) {
+                    alert("error while loading Reports");
+                    $scope.$emit('hideLoading', data);
+                    //  $scope.loading = false;
+                    $scope.Noresult = true;
+                    $scope.result = false;
 
-        $scope.openOnroll = function (data) {
-            $localStorage.categoryData = {
-                CollegeCode: data.CollegeCode,
-                SemId: data.SemID,
-                BranchId: data.branchid,
-                SchemeId: data.SchemeId,
-                DataFormatTypeId: 1,
-                
-
-            }
-            //console.log($localStorage.categoryData)
-           $state.go('Dashboard.AdmissionDashboard.CategoryDetails')
-
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
         }
-        $scope.openOcM = function (data,M) {
+
+      
+        $scope.openOcM = function (data, M) {
+         
             $localStorage.categoryData = {
                 CollegeCode: data.CollegeCode,
                 SemId: data.SemID,
