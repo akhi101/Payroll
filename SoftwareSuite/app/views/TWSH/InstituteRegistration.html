@@ -187,21 +187,24 @@
                                 </select>
                             </td>
                             <td>
+                                <input autocomplete="off" style="width: 75px" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ContactPerson" />
+                            </td>
+                            <td>
+                                <input autocomplete="off" style="width: 90px" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ContactNumber" />
+                            </td>
+
+                            <td>
+                                <textarea autocomplete="off" style="width: 100px" rows="2" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.InstitutionAddress"></textarea>
+                            </td>
+                            <td>
 
                                 <select class="form-control tableinpt enabletable{{$index + 1}}" style="width: 110px" ng-model="data.DistrictId" name="iselective" style="width: min-content;"
                                         ng-options="dat.Id as dat.DistrictName for dat in Districts">
                                     <option value="" selected>Select District</option>
                                 </select>
                             </td>
-                            <td>
-                                <input autocomplete="off" style="width: 75px" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ContactPerson" />
-                            </td>
-                            <td>
-                                <input autocomplete="off" style="width: 90px" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.ContactNumber" />
-                            </td>
-                            <td>
-                                <textarea autocomplete="off" style="width: 100px" rows="2" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.InstitutionAddress"></textarea>
-                            </td>
+
+
                             <td>
                                 <input autocomplete="off" style="width: 70px" class="form-control tableinpt enabletable{{$index + 1}}" type="text" ng-model="data.Pincode" />
                             </td>

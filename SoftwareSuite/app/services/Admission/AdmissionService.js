@@ -100,8 +100,9 @@
             return promise;
         }
 
-        this.getAdminStudentCategory = function () {
-            var promise = DataAccessService.getDataWithPara('Admission/GetAdminStudentCategory');
+        this.getAdminStudentCategory = function (AcademicID) {
+            var paramObject = { "AcademicID": AcademicID };
+            var promise = DataAccessService.getDataWithPara('Admission/GetAdminStudentCategory', paramObject);
             return promise;
         }
         this.export = function () {

@@ -1,10 +1,28 @@
 ﻿define(['app'], function (app) {
-    app.controller("AdminCategoryReportsController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService, Excel, $timeout) {
+    app.controller("AdminCategoryReportsController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService, AcademicService, $timeout) {
         $scope.loading = false;
-        var data = {};
-        $scope.$emit('showLoading', data);
-        var getActiveList = AdmissionService.getAdminStudentCategory();
-        getActiveList.then(function (response) {
+
+
+        var AcademicYears = AcademicService.getAcademicYears()
+        AcademicYears.then(function (response) {
+            $scope.loading = false;
+            $scope.GetAcademicYears = response.Table;
+            //$scope.$emit('hideLoading', data);
+
+        },
+            function (error) {
+                alert("data is not loaded");
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
+
+
+        $scope.getadmincategory = function () {
+
+            var data = {};
+            $scope.$emit('showLoading', data);
+            var getActiveList = AdmissionService.getAdminStudentCategory($scope.academicYear);
+            getActiveList.then(function (response) {
             //console.log(response)
             $scope.CollegeCategories = response.Table;
             //  $scope.loading = false;
@@ -117,7 +135,7 @@
             $scope.Noresult = true;
             $scope.result = false;
         })
-
+        }
         $scope.openReport = function (collegeCode) {
             localStorage.setItem('collegeCode', collegeCode)
             $state.go('Dashboard.AdmissionDashboard.CategoryReports')
