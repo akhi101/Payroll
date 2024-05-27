@@ -3636,7 +3636,7 @@
             'Dashboard.AdmissionDashboard.CategoryReports': {
                 url: "/AdminCategoryReports/CategoryReports",
                 templateUrl: 'app/views/Admission/Reports/CategoryReports.html',
-                dependencies: ['controllers/Admission/Reports/CategoryReportsController', 'services/Admission/AdmissionService']
+                dependencies: ['controllers/Admission/Reports/CategoryReportsController', 'services/Admission/AdmissionService', 'services/Academic/AcademicService']
             },
 
             'Dashboard.AdmissionDashboard.AdminCategoryReports': {

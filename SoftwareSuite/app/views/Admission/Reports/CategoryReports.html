@@ -25,14 +25,35 @@
     </div>
     <section class="">
         <div class="container">
-                <div class="col-md-12" ng-if="userType== 1">
-                    <a href="#!/Dashboard/AdmissionDashboard/AdminCategoryReports" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
-                    </div>
+            <div class="col-md-12" ng-if="userType== 1">
+                <a href="#!/Dashboard/AdmissionDashboard/AdminCategoryReports" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
+            </div>
             <div class="col-md-12" ng-if="userType== 2 || userType== 3">
                 <a href="#!/Dashboard/AdmissionDashboard" class="backA"><button class="btn bck_btn"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button></a>
             </div>
             <div style="width:100%;text-align:center;">
                 <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" style="padding-left: 30px;">
+                    <div class="form-group">
+                        <label class="font-weight-bold"> Academic Year :</label>
+                        <select class="form-control" id="designationid" ng-model="academicYear"
+                                ng-options="data.AcademicID as data.AcademicYear for data in GetAcademicYears">
+                            <option value="" selected>Select Year</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-3 pull-left">
+                    <button class="btn pull-right btn-success btn-css" style="margin-top: 23px;" ng-click="getadmincategory()">
+                        Get Details
+                    </button>
+                </div>
             </div>
             <div class="col-md-12">
                 <div class="pull-right" ng-show="result">
@@ -47,7 +68,7 @@
                 <div class="cl-details">
                     <h2>Category Reports</h2>
                 </div>
-         
+
 
                 <div id="tblParent" class="table-responsive table-custom-tables-tb scrollbox">
                     <table class="table table-bordered table-hover table-striped table-rounded scrollbox-content">
@@ -80,14 +101,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="x in response track by $index" >                            
+                            <tr ng-repeat="x in CollegeCategories track by $index">
                                 <td>{{$index+1}}</td>
                                 <td>{{x.CollegeCode}} </td>
                                 <td>{{x.Scheme}}</td>
                                 <td>{{x.Semester}}</td>
                                 <td>{{x.BranchCode}}</td>
-                                <td >{{x.onroll}} </td>
-                           
+                                <td>{{x.onroll}} </td>
+
                                 <td ng-click="openOcM(x,1)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.Oc_M}}</td>
                                 <td ng-click="openOcF(x,2)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.Oc_F}}</td>
                                 <td ng-click="openScM(x,1)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.Sc_M}}</td>
@@ -104,7 +125,7 @@
                                 <td ng-click="openBCDF(x,2)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.BC_D_F}}</td>
                                 <td ng-click="openBCEM(x,1)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.BC_E_M}}</td>
                                 <td ng-click="openBCEF(x,2)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.BC_E_F}}</td>
-                                <td  ng-click="openNaM(x,1)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.NA_M}}</>
+                                <td ng-click="openNaM(x,1)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.NA_M}}</>
                                 <td ng-click="openNaF(x,2)" style="font-weight:bold;text-decoration:underline;text-align:center;color: #1976d2;">{{x.NA_F}}</>
                             </tr>
                             <tr style="font-weight:bold!important;">
@@ -128,7 +149,7 @@
                                 <td class="text-center">{{BC_E_F}}</td>
                                 <td class="text-center">{{NA_M}}</td>
                                 <td class="text-center">{{NA_F}}</td>
-                           
+
                             </tr>
                         </tbody>
                     </table>
