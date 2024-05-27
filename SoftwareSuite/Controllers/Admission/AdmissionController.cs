@@ -886,13 +886,14 @@ namespace SoftwareSuite.Controllers.Admission
         }
 
         [HttpGet, ActionName("GetStudentCategory")]
-        public string GetStudentCategory(string CollegeCode)
+        public string GetStudentCategory(int AcademicYearId,string CollegeCode)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@CollegeCode ", CollegeCode);
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearId ", AcademicYearId);
+                param[1] = new SqlParameter("@CollegeCode ", CollegeCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_StudentCategory", param);
                 return JsonConvert.SerializeObject(dt);
             }
