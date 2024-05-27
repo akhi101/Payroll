@@ -469,24 +469,26 @@ namespace SoftwareSuite.Controllers.Admission
 
 
 
+       
+
+
         [HttpGet, ActionName("GetAdminStudentCategory")]
-        public string GetAdminStudentCategory()
+        public string GetAdminStudentCategory(int AcademicID)
         {
             try
             {
                 var dbHandler = new dbHandler();
-                string StrQuery = "";
-                StrQuery = "exec ADM_GET_StudentCategory";
-                var res = dbHandler.ReturnDataSet(StrQuery);
-                return JsonConvert.SerializeObject(res);
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicID", AcademicID);
+                
+                var dt = dbHandler.ReturnDataWithStoredProcedure("ADM_GET_StudentCategory  ", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("ADM_GET_StudentCategory", 0, ex.Message);
                 return ex.Message;
             }
         }
-
 
 
 
