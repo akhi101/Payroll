@@ -212,7 +212,10 @@
 
         $scope.SaveIncrement = function () {
             var datatypeid = 1
+<<<<<<< StudentServiceChangeC21
+=======
 
+>>>>>>> master
             var datatypeid = 1
             var AddDepartment = PayRollService.AddorUpdateIncrements(datatypeid, null, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.IncrementAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {

@@ -368,7 +368,7 @@
                         if (response.length > 0) {
                             for (var i = 0; i < response.length; i++) {
                                
-                                if ($scope.Scheme == 'C18') {
+                                if ($scope.Scheme == 'C18' || $scope.Scheme == 'C21' ) {
                                     var obj = {
                                         "Pin": response[i].Pin,
                                         "CertificateServiceId": 2,

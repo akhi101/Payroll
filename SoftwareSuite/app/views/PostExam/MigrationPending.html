@@ -265,7 +265,7 @@
           
             <img src="../../../contents/img/sbtet-logo.svg" alt="Notebook" class="myImg">
             <div class="content">
-                <div class="row " ng-show="StudentData.Scheme=='C18'">
+                <div class="row " ng-show="StudentData.Scheme=='C18'||StudentData.Scheme=='C21'">
                     <p class="text-intend">
                         This is to certify that Mr./Ms.<b class="border_btm">{{StudentData.Name}}</b> Son/Daughter of
                         <b class="border_btm">{{StudentData.FatherName == null ? '______________':StudentData.FatherName}}</b>
@@ -282,7 +282,7 @@
                     <p class="text-intend">This Certificate is issued on the request of the candidate.</p>
                 </div>
 
-                <div class="row" ng-show="StudentData.Scheme!='C18'">
+                <div class="row" ng-show="StudentData.Scheme!='C18'&&StudentData.Scheme!='C21'">
                     <p class="text-intend">
                         This is to certify that <b class="border_btm" ng-if="!StudentData.Name">_________________</b>
                         <b class="border_btm" ng-if="StudentData.Name">{{StudentData.Name}}</b> S/o/D/o <b class="border_btm" ng-if="!StudentData.FatherName">_________________</b><b class="border_btm" ng-if="StudentData.FatherName">{{StudentData.FatherName}}</b> bearing Permanent Identification Number (PIN) <b class="border_btm" ng-if="StudentData.Pin">{{StudentData.Pin}}</b> has passed the <b class="border_btm" ng-if="!StudentData.CourseDuration">_________________</b><b class="border_btm" ng-if="StudentData.CourseDuration">{{StudentData.CourseDuration}}</b> Diploma Course

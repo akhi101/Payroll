@@ -364,7 +364,7 @@
             <br />
             <img src="../../../contents/img/sbtet-logo.svg" alt="Notebook" class="myImg">
             <div class="content">
-                <div class="row " ng-show="StudentData.SchemeId !=5">
+                <div class="row " ng-show="StudentData.SchemeId !=5 && StudentData.SchemeId!=9">
                     <p class="text-intend">
                         This is to certify that Mr./Ms.<b class="border_btm">{{StudentData.Name}}</b> Son/Daughter of
                         <b class="border_btm">{{StudentData.FatherName == null ? '______________':StudentData.FatherName}}</b>
@@ -374,7 +374,7 @@
                     </p>
 
                 </div>
-                <div class="row " ng-show="StudentData.SchemeId==5">
+                <div class="row " ng-show="StudentData.SchemeId==5||StudentData.SchemeId==9">
                     <p class="text-intend">
                         This is to certify that Mr./Ms.<b class="border_btm">{{StudentData.Name}}</b> Son/Daughter of
                         <b class="border_btm">{{StudentData.FatherName == null ? '______________':StudentData.FatherName}}</b>
@@ -387,7 +387,7 @@
 
                 </div>
 
-                <div class="row" ng-show="(StudentData.BranchCode !='PH') && (StudentData.SchemeId!=5)">
+                <div class="row" ng-show="(StudentData.BranchCode !='PH') && (StudentData.SchemeId!=5) &&( StudentData.SchemeId!=9)">
                     <table class="table">
                         <thead>
                             <tr>
@@ -462,9 +462,9 @@
 
                 </div>
                 <div class='sm-spacer'></div>
-                <h6 ng-show="StudentData.SchemeId==5"><center class="ft_text">CGPA EQUIVALENT TO AGGREGATE PERCENTAGE OF MARKS</center></h6>
-                <div class="col-md-2" ng-show="StudentData.SchemeId==5"></div>
-                <div class="col-md-8" ng-show="StudentData.SchemeId==5">
+                <h6 ng-show="StudentData.SchemeId==5||StudentData.SchemeId==9"><center class="ft_text">CGPA EQUIVALENT TO AGGREGATE PERCENTAGE OF MARKS</center></h6>
+                <div class="col-md-2" ng-show="StudentData.SchemeId==5|| StudentData.SchemeId==9"></div>
+                <div class="col-md-8" ng-show="StudentData.SchemeId==5 || StudentData.SchemeId==9">
                     <table class="table" style="margin-top:10px;">
                         <thead>
                             <tr>
@@ -553,7 +553,7 @@
 
                     </table>
                 </div>
-                <div class="col-md-2" ng-show="StudentData.SchemeId==5"></div>
+                <div class="col-md-2" ng-show="StudentData.SchemeId==5|| StudentData.SchemeId==9"></div>
                 <div class='sm-spacer'></div>
                 <div class='sm-spacer'></div>
                 <div class="row">

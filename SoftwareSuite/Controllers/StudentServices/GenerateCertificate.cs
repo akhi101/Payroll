@@ -1237,8 +1237,8 @@ padding:1px!important;
                                     <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                                   <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
                                     <h6 class='text-center'>
-                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­500 028, India.
-                                    </h6>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
+                                    </h6> 
                                   
                                 </div>
                                 <div class='col-md-2 logo'>
@@ -1275,7 +1275,7 @@ padding:1px!important;
             <br />
             <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>
             <div class='content'>";
-            if (InterimData[0].SchemeId != 5)
+            if (InterimData[0].SchemeId != 5  && InterimData[0].SchemeId != 9)
             {
                 page += $@"<div class='row '>
                     <p class='text-intend'>
@@ -1286,7 +1286,7 @@ and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-
                     </p>
                 </div>";
             }
-            else if (InterimData[0].SchemeId == 5)
+            else if (InterimData[0].SchemeId == 5  || InterimData[0].SchemeId == 9)
             {
                 page += $@"<div class='row'>
 	<p class='text-intend'>
@@ -1312,7 +1312,7 @@ in
 </div>";
             }
 
-            if (InterimData[0].BranchCode != "PH" && InterimData[0].SchemeId != 5)
+            if (InterimData[0].BranchCode != "PH" && InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)
             {
                 page += $@" <div class='row'>
                 <table class='table'>
@@ -1363,7 +1363,7 @@ in
                             and is valid till the issue of<b class='text-transform:uppercase;'> Original Diploma Certificate </b> or for a period of <b class='border_btm' >Six Months </b> whichever is earlier.
                         </p>
                     </div>";
-            if (InterimData[0].SchemeId == 5)
+            if (InterimData[0].SchemeId == 5  || InterimData[0].SchemeId == 9)
             {
                 page += $@" 
 <div class='sm-spacer'></div>
@@ -1467,7 +1467,7 @@ in
  <div class='col-md-2'></div>
 </div>";
             }
-            if (InterimData[0].SchemeId != 5)
+            if (InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)
             {
                 page += $@" <div class='sm-spacer'></div>
 					   <div class='sm-spacer'></div>
@@ -2847,7 +2847,7 @@ height:20px;
                 <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                                   <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
                 <h6 class='text-center'>
-                   Sanketika Vidya Bhavan, Masab Tank, Hyderabad­500 028, India.
+                   Sanketika Vidya Bhavan, Masab Tank, Hyderabad-­500 028, India.
                 </h6>
                 
             </div>
@@ -2883,7 +2883,7 @@ height:20px;
 
             <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>
             <div class='content'>";
-            if (MigrationData[0].SchemeId != 5)
+            if (MigrationData[0].SchemeId != 5 && MigrationData[0].SchemeId != 9)
             {
                 page += $@"<div class='row'>
                         <p class='text-intend'>
@@ -2899,7 +2899,7 @@ height:20px;
 
                     </div>";
             }
-            else if (MigrationData[0].SchemeId == 5)
+            else if (MigrationData[0].SchemeId == 5|| MigrationData[0].SchemeId == 9)
             {
                 page += $@"<div class='row'>
                     <p class='text-intend'>
