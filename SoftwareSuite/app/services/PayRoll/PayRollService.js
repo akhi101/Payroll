@@ -52,6 +52,22 @@ define(['app'], function (app) {
             return promise;
         };
 
+ 
+        this.AddorUpdateNPS = function (DataTypeId, NPSId, FinancialYearId, MonthID, EmployeeID, PensionAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "NPSId": NPSId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "PensionAmount": PensionAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+              var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
+            return promise;
+        };
+        
 
         this.UpdateDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {

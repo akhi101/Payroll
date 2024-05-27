@@ -3,7 +3,7 @@
         $scope.TCReceiptFound = false;
         $scope.serviceform = true;
         $scope.result = false;
-        $scope.Price = 0;
+        //$scope.Price = 0;
         //$scope.loader = true;
         $scope.date = new Date();
         //    $scope.Schemes = [{ "Id": "1", "Name": "C-00" },
@@ -853,6 +853,7 @@
 
 
         $scope.save = function (PinNumber) {
+            $scope.MarksData =[]
             $scope.Verified = false;
 
             if ($scope.Certificate== null || $scope.Certificate== "" || $scope.Certificate== undefined) {
@@ -1155,7 +1156,7 @@
             $scope.CertificateTypes = response.Table;
             //$scope.CertificateTypes.splice(7, 1); 
             console.log($localStorage.StudentServices)
-            $scope.Certificate= $localStorage.StudentServices.ServiceType;
+            $scope.CertificateType= $localStorage.StudentServices.ServiceType;
            
            
             $scope.Service = false;
@@ -1288,9 +1289,9 @@
             //try {
             //    var Cetificate = JSON.parse($scope.Certificate)
             //} catch (err) { }
-            //$scope.CertificateName = Cetificate.Name;
-            //$scope.Certificate = Cetificate.Id;
-            //$scope.Price = Cetificate.Price;
+            $scope.CertificateName = data.Name;
+            $scope.Certificate = data.Id;
+            $scope.Price = data.Price;
             $scope.cleardata();
         }
 
