@@ -933,6 +933,14 @@
                     if (res[0].Result == "Fail") {
                         $scope.PreviousExam = false;
                         $scope.CandidateName = res[0].StudentName;
+                        $scope.FatherName = res[0].FatherName;
+                        $scope.PreviousGradeNme = res[0].Gradename	;
+                        $scope.PreviousGradeCode = res[0].Gradecode	;
+                        $scope.MotherName = res[0].MotherName;
+                        $scope.applicationForm.InterRollNo = res[0].HallTicketNumber;
+                        $scope.CandidateNameDOB = res[0].DateOfBirth	;
+                        $scope.applicationForm.SscRollNo = res[0].SscHallTicket	;
+                        $scope.PreviousResult = res[0].Result;
                         $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
                         $scope.ShowAadhaarDetail = true;
                         $scope.applicationForm = false;

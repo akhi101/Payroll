@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("TwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
 
-
+        $scope.DetailsDisabled = false;
        
         $scope.isChecked = true;
         $scope.instructions = false;
@@ -655,7 +655,8 @@
                 $scope.CandidateNameDOB = CandidateNameDOB;
             }
         }
-        $scope.submitData = function () {
+        $scope.submitData = function (adhaarno) {
+            alert($scope.adhaarno)
             $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
 
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
@@ -930,19 +931,28 @@
             previousDetails.then(function (res) {
                 var gradeinfo = $scope.selectedgrade;
                 if (res.length > 0) {
-                    if (res[0].Result == "Fail") {
-                        $scope.PreviousExam = false;
+                    if (res[0].Result == "Fail" || res[0].Result == "FAIL") {
+                        $scope.PreviousExam = true;
+                        $scope.DetailsDisabled = true;
                         $scope.CandidateName = res[0].StudentName;
-                        $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
-                        $scope.ShowAadhaarDetail = true;
-                        $scope.applicationForm = false;
+                        $scope.FatherName = res[0].FatherName;
+                        $scope.PreviousGradeNme = res[0].Gradename;
+                        $scope.PreviousGradeCode = res[0].Gradecode;
+                        $scope.MotherName = res[0].MotherName;
+                        $scope.qualifiedexamhall = res[0].HallTicketNumber;
+                        $scope.CandidateNameDOB = res[0].DateOfBirth;
+                        $scope.SscRollNo = res[0].SscHallTicket;
+                        $scope.PreviousResult = res[0].Result;
+                       // $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
+                       // $scope.ShowAadhaarDetail = false;
+                        $scope.applicationForm = true;
                         $scope.ExamAppearDetails = false;
                         $scope.oldUser2 = false;
                         $scope.sscForm = false;
                         $scope.isqualified1 = false;
                         $scope.isqualified2 = false;
                         $scope.isqualified3 = false;
-                    } else if (res[0].Result == "Pass") {
+                    } else if (res[0].Result == "Pass" || res[0].Result == "PASS") {
                         $scope.PreviousExam = true;
                         alert("Please Check your Hallticket No.");
                         $state.go("TWSH.OnlineApplication");
@@ -960,10 +970,11 @@
                         $scope.oldUser = false;
                         $scope.oldUser2 = false;
                         $scope.sscForm = false;
-                        $scope.applicationForm = false;
+                        $scope.applicationForm = true;
                         $scope.isqualified1 = false;
                         $scope.isqualified2 = false;
                         $scope.isqualified3 = false;
+                    
                     } else {
                         alert("Details Not found, Try to get details using Lower Exam HallTicket No");
                         $scope.oldUser2 = true;
