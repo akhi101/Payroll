@@ -696,11 +696,11 @@
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-                                <div class="form-group required">
-                                    <label>Aadhaar Number</label>
-                                    <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
-                                </div>
-                            </div>-->
+        <div class="form-group required">
+            <label>Aadhaar Number</label>
+            <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
+        </div>
+    </div>-->
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
@@ -723,96 +723,102 @@
 
                                         </div>
                                     </div>
-                                    <!--<div class="col-md-4">
-                                <div class="form-group  required">
-                                    <label>Community</label>
-                                    <select class="form-control" name="applicationForm.community" ng-model="community" required>
-                                        <option value="" selected>Select Caste</option>
-                                        <option ng-repeat="community in communities" value="{{community}}">
-                                            {{community.CategoryCode}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>-->
-                                    <!--<div class="col-md-12">-->
-                                    <div class="col-md-4 " ng-show="tmpmode ==2">
-                                        <div class="form-group ">
-                                            <label>Is Blind</label>
-                                            <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
-                                                <option value="">--Select---</option>
-                                                <option value=0>No</option>
-                                                <option value=1>Yes</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" ng-if="isqualified1">
-                                        <div class="form-group required">
-                                            <label> SSC ROll No</label>
-                                            <input type="text" ng-model="SscRollNo" maxlength="20" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" ng-disabled="SscRollNofound" required class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" ng-if="isqualified2">
-                                        <div class="form-group required ">
-                                            <label> Inter ROll No</label>
-                                            <input type="text" maxlength="20" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" ng-if="isqualified3">
-                                        <div class="form-group required">
-                                            <label>Previous Qualified Exam Hallticket</label>
-                                            <input type="text" name="applicationForm.InterRollNo" maxlength="20" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" required class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <!--<div class="col-md-12">-->
-                                    <div class="col-md-12">
-                                        <p class="text-danger" style="color:red;padding-left:0px"><b>Note :</b> Upload Files should be Either JPG or PNG or JPEG format only.</p>
-                                    </div>
                                     <div class="col-md-4">
-                                        <div class="form-group required custom-img">
-                                            <label>Update  Photo with a sign(size less than 50KB) :</label>
-                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{userPhoto}}" class="img img-responsive" id="stdPhotoImg" />
-                                            <input type="file" id="stdPhotoFile" ng-model="userPhoto" onchange="angular.element(this).scope().uploadPhoto()" class="upld-file" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" ng-show="IsBlind=='1'">
-                                        <div class="form-group required custom-img">
-                                            <label>Upload Medical Certificate(size less than 200KB) :</label>
-                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
-                                            <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4" ng-if="isqualified1">
-                                        <div class="form-group required custom-img">
-                                            <label>Upload SSC/10th Certificate(size less than 200KB) :</label>
-                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
-                                            <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
-                                        </div>
-                                    </div>
+                                        <div class="form-group required">
+                                            <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
 
-                                    <div class="col-md-4" ng-if="isqualified2">
-                                        <div class="form-group required custom-img">
-                                            <label>Upload Intermediate Certificate(size less than 200KB) :</label>
-                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
-                                            <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
                                         </div>
-                                    </div>
-                                    <div class="col-md-4" ng-if="isqualified3">
-                                        <div class="form-group required custom-img">
-                                            <label>Lower Qualified Exam Certificate(size less than 200KB) </label>
-                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                            <img ng-src="{{qualifiedexamCert}}" class="img img-responsive" id="QualifiedCert" />
-                                            <input type="file" id="QualifiedCertoFile" placeholder="Qualified exam certificate" required ng-model="qualifiedexamCert" onchange="angular.element(this).scope().uploadQualCert()" class="upld-file">
+                                        <!--<div class="col-md-4">
+        <div class="form-group  required">
+            <label>Community</label>
+            <select class="form-control" name="applicationForm.community" ng-model="community" required>
+                <option value="" selected>Select Caste</option>
+                <option ng-repeat="community in communities" value="{{community}}">
+                    {{community.CategoryCode}}
+                </option>
+            </select>
+        </div>
+    </div>-->
+                                        <!--<div class="col-md-12">-->
+                                        <div class="col-md-4 " ng-show="tmpmode ==2">
+                                            <div class="form-group ">
+                                                <label>Is Blind</label>
+                                                <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
+                                                    <option value="">--Select---</option>
+                                                    <option value=0>No</option>
+                                                    <option value=1>Yes</option>
+                                                </select>
+                                            </div>
                                         </div>
+                                        
+                                        <div class="col-md-4" ng-if="isqualified1">
+                                            <div class="form-group required">
+                                                <label> SSC ROll No</label>
+                                                <input type="text" ng-model="SscRollNo" maxlength="20" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" ng-disabled="SscRollNofound" required class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" ng-if="isqualified2">
+                                            <div class="form-group required ">
+                                                <label> Inter ROll No</label>
+                                                <input type="text" maxlength="20" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" ng-if="isqualified3">
+                                            <div class="form-group required">
+                                                <label>Previous Qualified Exam Hallticket</label>
+                                                <input type="text" name="applicationForm.InterRollNo" maxlength="20" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" required class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="col-md-12">-->
+                                        <div class="col-md-12">
+                                            <p class="text-danger" style="color:red;padding-left:0px"><b>Note :</b> Upload Files should be Either JPG or PNG or JPEG format only.</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group required custom-img">
+                                                <label>Update  Photo with a sign(size less than 50KB) :</label>
+                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                <img ng-src="{{userPhoto}}" class="img img-responsive" id="stdPhotoImg" />
+                                                <input type="file" id="stdPhotoFile" ng-model="userPhoto" onchange="angular.element(this).scope().uploadPhoto()" class="upld-file" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" ng-show="IsBlind=='1'">
+                                            <div class="form-group required custom-img">
+                                                <label>Upload Medical Certificate(size less than 200KB) :</label>
+                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
+                                                <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" ng-if="isqualified1">
+                                            <div class="form-group required custom-img">
+                                                <label>Upload SSC/10th Certificate(size less than 200KB) :</label>
+                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
+                                                <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4" ng-if="isqualified2">
+                                            <div class="form-group required custom-img">
+                                                <label>Upload Intermediate Certificate(size less than 200KB) :</label>
+                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
+                                                <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4" ng-if="isqualified3">
+                                            <div class="form-group required custom-img">
+                                                <label>Lower Qualified Exam Certificate(size less than 200KB) </label>
+                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                                <img ng-src="{{qualifiedexamCert}}" class="img img-responsive" id="QualifiedCert" />
+                                                <input type="file" id="QualifiedCertoFile" placeholder="Qualified exam certificate" required ng-model="qualifiedexamCert" onchange="angular.element(this).scope().uploadQualCert()" class="upld-file">
+                                            </div>
+                                        </div>
+                                        <!--</div>-->
                                     </div>
-                                    <!--</div>-->
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
