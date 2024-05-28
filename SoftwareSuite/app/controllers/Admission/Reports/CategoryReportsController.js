@@ -27,19 +27,19 @@
 
         var authdata = $localStorage.authorizationData;
         $scope.userType = authdata.SystemUserTypeId
-       
+        $scope.UserName = authdata.userName;
        
         if ($scope.userType == 1) {
-            var ClgCode = localStorage.getItem('collegeCode')
+            $scope.ClgCode = localStorage.getItem('collegeCode')
 
         } else if ($scope.userType == 2) {
-            var ClgCode = authdata.College_Code
+            $scope.ClgCode = $scope.UserName
             var userId = authdata.SysUserID;
         } else if ($scope.userType == 3) {
-            var ClgCode = authdata.userName
+            $scope.ClgCode = authdata.userName
             var userId = authdata.SysUserID;
         } else {
-            var ClgCode = localStorage.getItem('collegeCode')
+            $scope.ClgCode = localStorage.getItem('collegeCode')
             // var ClgCode = '99999';
 
         }
@@ -76,7 +76,7 @@
 
             var data = {};
             $scope.$emit('showLoading', data);
-            var getActiveList = AdmissionService.getStudentCategory($scope.academicYear, $scope.UserName);
+            var getActiveList = AdmissionService.getStudentCategory($scope.academicYear, $scope.ClgCode);
             getActiveList.then(function (response) {
                 if (response.length > 0) {
                     //console.log(response)
