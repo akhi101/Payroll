@@ -258,7 +258,7 @@
         $scope.editData = function () {
             $scope.editbutton = true;
             if ($scope.IsEligible == true) {
-                alert('Application Already Approved cannot Edit');
+                alert('Application Already Approved cannot be Editable, Please contact to Examination Centre');
                 $scope.editbutton = false;
                 return;
             }
