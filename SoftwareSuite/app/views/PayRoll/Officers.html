@@ -100,23 +100,26 @@
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="clr_bg">
-                                <th>Financial Year</th>
-                                <th>Month</th>
-                                <th>Employee Code</th>
-                                <th>Employee Name</th>
-                                <th>Designation</th>
-                                <th>Increment Amount</th>
+                                <th>S.No</th>
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Increment Amount</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in GetAllIncrements">
-                                <td>{{data.FinancialYear}}</td>
-                                <td>{{data.Months}}</td>
-                                <td>{{data.EmployeeCode}}</td>
-                                <td>{{data.EmployeeName}}</td>
-                                <td>{{data.Designation}}</td>
-                                <td>{{data.IncrementAmount}}</td>
-
+                                <td class="text-center pointer">{{$index+1}}</td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IncrementAmount" /></div></td>
                             </tr>
 
                         </tbody>
@@ -315,16 +318,18 @@
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="clr_bg">
-                                <th>Financial Year</th>
-                                <th>Month</th>
-                                <th>Employee Code</th>
-                                <th>Employee Name</th>
-                                <th>Designation</th>
-                                <th>Medical Leaves</th>
-                                <th>Casual Leaves</th>
-                                <th>Earn Leaves</th>
-                                <th>Total Leaves</th>
-                                <th>Leaves Required</th>
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Medical Leaves</th>
+                                <th class="text-center">Casual Leaves</th>
+                                <th class="text-center">Earn Leaves</th>
+                                <th class="text-center">Total Leaves</th>
+                                <th class="text-center">Leaves Required</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
                             </tr>
                         </thead>
                         <tbody>
