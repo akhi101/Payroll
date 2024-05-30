@@ -193,117 +193,79 @@
             font-size: auto !important;
         }
     </style>
+
+    <style>
+
+        .toggle-eye {
+            position: relative;
+        }
+
+            .toggle-eye input {
+                padding-right: 30px;
+            }
+
+        .eye-icon {
+            position: absolute;
+            top: 62%;
+            right: -9px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 1;
+        }
+    </style>
     <div class="sm-spacer"></div>
     <div class="container">
-        <!--<div class="col-md-12  mtp-50" ng-show="sscForm">
-            <div class="card">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="offer-custom-style">
-                            <h2>SSC/10th Details</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="body">
-                    <form name="sscdetailsForm">
-                        <div class="custom-forms">
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group required">
-                                        <label>SSC Hallticket Number</label>
-                                        <input type="text" ng-model="sscHallticket" autocomplete="off" name="hallticket" placeholder="Hallticket No" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group required">
-                                        <label>Passedout Year</label>
-                                        <input type="text" ng-model="passedoutYear" maxlength="4" placeholder=" YYYY eg.(1990)" class="form-control" />
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group required">
-                                        <label for="date-picker-example">Examination Pass Type</label>
-                                        <select class="form-control" ng-model="sscType">
-                                            <option value="">Select Pass Type</option>
-                                            <option value="R">Regular</option>
-                                            <option value="A">Supplmentary</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="submit-btn " style="margin:0px;">
-                                        <button type="submit" ng-click="getsscDetails(sscHallticket,passedoutYear,sscType)">GetDetails</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div><b> (OR) Other than SSC/10<sup>Th</sup> Board</b></div>
-                                <div class="col-md-2 pull-left">
-                                    <div class="submit-btn" style="margin:0px;">
-                                        <button type="button" ng-click="ShowApplication()"> Click Here</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>-->
         <div class="row">
 
             <!--<div class="col-md-12  mtp-50" ng-if="instructions">
-        <div class="card">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="offer-custom-style">
-                        <h2>Instructions</h2>
-                    </div>
-                </div>
-            </div>
-
-            <div class="body">
-                <div class="custom-forms">
-                    <p>
-                        <i class="fa fa-arrow-right"> </i> TYPE WRITING Candidates applying for any grade in any language as privately for the first time he or she shall appear through the recognized typewriting institution only.
-                    </p>
-
-                    <p><i class="fa fa-arrow-right"> </i> SHORTHAND Candidates can apply for any grade directly or privately</p>
-                    <p>
-                        <i class="fa fa-arrow-right"> </i> Candidates whose qualifying examination data is NOT available online, they have
-                        to upload the attested copy in the website and has to show the original eligibility
-                        Certificates to the Principal of the examination centre before last date of the fee
-                        payment, <b>
-                            failing which the candidate will not be allowed to write the
-                            examination
-                        </b>.
-                    </p>
-                    <p><i class="fa fa-arrow-right"> </i> <b>Note :</b> Please read the instructions before You procced to fill application.</p>
-                    <div class="clearfix"></div>
-
-                    <div class="custom-check-boxes terms-label">
-                    <label class="customcheck">
-                        I have read the above instructions, proceed to Fill Application.
-                        <input type="checkbox" id="check">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
+                <div class="card">
                     <div class="row">
-                        <div class="col-md-12 pull-right mtp-50">
-                            <div class="submit-btn" style="margin-bottom:0px;">
-                                <button class="btn btn-info" ng-click="fillApplication()">
-                                    Fill Application
-                                </button>
+                        <div class="col-md-12">
+                            <div class="offer-custom-style">
+                                <h2>Instructions</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body">
+                        <div class="custom-forms">
+                            <p>
+                                <i class="fa fa-arrow-right"> </i> TYPE WRITING Candidates applying for any grade in any language as privately for the first time he or she shall appear through the recognized typewriting institution only.
+                            </p>
+
+                            <p><i class="fa fa-arrow-right"> </i> SHORTHAND Candidates can apply for any grade directly or privately</p>
+                            <p>
+                                <i class="fa fa-arrow-right"> </i> Candidates whose qualifying examination data is NOT available online, they have
+                                to upload the attested copy in the website and has to show the original eligibility
+                                Certificates to the Principal of the examination centre before last date of the fee
+                                payment, <b>
+                                    failing which the candidate will not be allowed to write the
+                                    examination
+                                </b>.
+                            </p>
+                            <p><i class="fa fa-arrow-right"> </i> <b>Note :</b> Please read the instructions before You procced to fill application.</p>
+                            <div class="clearfix"></div>
+
+                            <div class="custom-check-boxes terms-label">
+                            <label class="customcheck">
+                                I have read the above instructions, proceed to Fill Application.
+                                <input type="checkbox" id="check">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-12 pull-right mtp-50">
+                                    <div class="submit-btn" style="margin-bottom:0px;">
+                                        <button class="btn btn-info" ng-click="fillApplication()">
+                                            Fill Application
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>-->
+            </div>-->
 
             <div class="col-md-12  mtp-50" ng-show="courseDetails">
                 <div class="card">
@@ -327,11 +289,11 @@
                                                 <option value="" selected>Select Course</option>
                                             </select>
                                             <!--<select class="form-control" id="course" ng-model="course" ng-init="loadCourse()" ng-change="LoadLanguage(course)" required>
-                                        <option value="" selected>Select Course</option>
-                                        <option ng-repeat="course in courseinfo" value="{{course}}">
-                                            {{course.CourseName}}
-                                        </option>
-                                    </select>-->
+                                                <option value="" selected>Select Course</option>
+                                                <option ng-repeat="course in courseinfo" value="{{course}}">
+                                                    {{course.CourseName}}
+                                                </option>
+                                            </select>-->
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -343,11 +305,11 @@
                                             </select>
 
                                             <!--<select class="form-control" id="language" ng-model="language" ng-change="LoadGrades(course,language) " required>
-                                        <option value="" selected>Select Language</option>
-                                        <option ng-repeat="language in languageinfo" value="{{language}}">
-                                            {{language.LanguageName}}
-                                        </option>
-                                    </select>-->
+                                                <option value="" selected>Select Language</option>
+                                                <option ng-repeat="language in languageinfo" value="{{language}}">
+                                                    {{language.LanguageName}}
+                                                </option>
+                                            </select>-->
                                         </div>
                                     </div>
 
@@ -360,18 +322,18 @@
                                                 <option value="" selected>Select Grade</option>
                                             </select>
                                             <!--<select class="form-control" id="language" ng-model="grade" required>
-                                        <option value="" selected>Select Grade</option>
-                                        <option ng-repeat="grade in LoadGradeinfo" value="{{grade}}">
-                                            {{grade.GradeName}}
-                                        </option>
-                                    </select>-->
+                                                <option value="" selected>Select Grade</option>
+                                                <option ng-repeat="grade in LoadGradeinfo" value="{{grade}}">
+                                                    {{grade.GradeName}}
+                                                </option>
+                                            </select>-->
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4 pull-left mtp-50">
-                                <div class="back-btn" style="margin-bottom:0px;">
-                                    <button type="button" ng-click="backtoInstructions()">Back</button>
-                                </div>
-                            </div>-->
+                                        <div class="back-btn" style="margin-bottom:0px;">
+                                            <button type="button" ng-click="backtoInstructions()">Back</button>
+                                        </div>
+                                    </div>-->
                                     <div class="col-md-12 pull-right mtp-50">
                                         <div class="submit-btn" style="margin-bottom:0px;">
                                             <button type="submit">Submit</button>
@@ -425,21 +387,22 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-md-7">
-                            <label>Did you appear for <b>{{Grade}}</b> in any of the last sessions ?</label>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="rdo-grp">
-                                <input id="rdo1" type="radio" name="radio" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn,grade)" />
-                                <label for="rdo1"><span></span><span>Yes</span></label>
-                                <input id="rdo2" type="radio" name="radio" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn,grade)" />
-                                <label for="rdo2"><span></span><span>No</span></label>
+                                    <label>Did you appear for <b>{{Grade}}</b> in any of the last sessions ?</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="rdo-grp">
+                                        <input id="rdo1" type="radio" name="radio" value="Yes" ng-model="yesBtn" ng-click="clickRadio(yesBtn,grade)" />
+                                        <label for="rdo1"><span></span><span>Yes</span></label>
+                                        <input id="rdo2" type="radio" name="radio" value="No" ng-model="noBtn" ng-click="clickRadio(noBtn,grade)" />
+                                        <label for="rdo2"><span></span><span>No</span></label>
 
-                            </div>
-                        </div>-->
+                                    </div>
+                                </div>-->
 
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -617,7 +580,10 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Aadhaar Number</label>
-                                            <input type="text" ng-model="adhaarno" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
+                                            <input type="{{inputType}}" ng-model="adhaarno" maxlength="12" minlength="12" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Aadhaar number" autocomplete="off" name="adhaarno" class="form-control" />
+                                            <div class="eye-icon" ng-click="toggleAadharVisibility()">
+                                                {{eyeIcon}}
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4 pull-left" ng-if="!otpsent && tmpmode ==1">
@@ -634,10 +600,10 @@
                                     </div>
                                 </div>
                                 <!--<div class="col-md-2" ng-show="otpsent">
-                                <div class="submit-btn " style="margin-top: 2.5em;">
-                                    <button type="submit" ng-click="VerifyOtp(adhaarno,adhaarOtp)">Verify </button>
-                                </div>
-                            </div>-->
+                                    <div class="submit-btn " style="margin-top: 2.5em;">
+                                        <button type="submit" ng-click="VerifyOtp(adhaarno,adhaarOtp)">Verify </button>
+                                    </div>
+                                </div>-->
                                 <div class="col-md-4 pull-left mtp-50">
                                     <div class="back-btn" style="margin-bottom:0px;">
                                         <button type="button" ng-click="Aadhaarback()">Back</button>
@@ -663,14 +629,15 @@
         </div>
 
 
-        <form name="StudentDetails" novalidate ng-submit="submitData()">
+        <form name="StudentDetails" novalidate ng-submit="submitData(adhaarno)">
             <div class="custom-forms" ng-show="applicationForm">
+                <!--ng-show="applicationForm"-->
                 <div class="col-md-12  mtp-50">
                     <div class="card">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="offer-custom-style">
-                                    <h2>Student's Personal Details</h2>
+                                    <h2>Student's Personal Details{{adhaarno}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -680,27 +647,29 @@
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Name</label>
-                                            <input type="text" placeholder="Name of the Candidate" maxlength="50" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.CandidateName" ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
+
+                                            <input type="text" maxlength="50" placeholder="Name of the Candidate" ng-disabled="DetailsDisabled" autocomplete="off" name="applicationForm.CandidateName" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' ng-model="CandidateName" ng-disabled="CandidateNamefound" class="form-control" required />
+
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Father Name</label>
-                                            <input type="text" ng-model="FatherName" maxlength="50" placeholder="Father Name" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.FatherName" ng-disabled="FatherNamefound" class="form-control" required />
+                                            <input type="text" ng-model="FatherName" maxlength="50" placeholder="Father Name" ng-disabled="DetailsDisabled" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.FatherName" ng-disabled="FatherNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Mother Name</label>
-                                            <input type="text" ng-model="MotherName" maxlength="50" placeholder="Mother Name" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Mother Name" autocomplete="off" name="applicationForm.MotherName" ng-disabled="MotherNamefound" class="form-control" required />
+                                            <input type="text" ng-model="MotherName" maxlength="50" placeholder="Mother Name" ng-disabled="DetailsDisabled" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' autocomplete="off" name="applicationForm.MotherName" ng-disabled="MotherNamefound" class="form-control" required />
                                         </div>
                                     </div>
                                     <!--<div class="col-md-4">
-        <div class="form-group required">
-            <label>Aadhaar Number</label>
-            <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
-        </div>
-    </div>-->
+                                        <div class="form-group required">
+                                            <label>Aadhaar Number</label>
+                                            <input type="text" ng-model="adhaarno" maxlength="12" placeholder="Enter Aadhaar number" autocomplete="off" name="applicationForm.adhaarno" class="form-control" required />
+                                        </div>
+                                    </div>-->
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
@@ -723,102 +692,111 @@
 
                                         </div>
                                     </div>
+                                    <!--<div class="col-md-4">
+                                        <div class="form-group  required">
+                                            <label>Community</label>
+                                            <select class="form-control" name="applicationForm.community" ng-model="community" required>
+                                                <option value="" selected>Select Caste</option>
+                                                <option ng-repeat="community in communities" value="{{community}}">
+                                                    {{community.CategoryCode}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>-->
+                                    <!--<div class="col-md-12">-->
+                                    <div class="col-md-4 " ng-show="tmpmode ==2">
+
+                                        <div class="form-group ">
+                                            <label>Is Blind</label>
+                                            <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
+                                                <option value="">--Select---</option>
+                                                <option value=0>No</option>
+                                                <option value=1>Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group required">
-                                            <label for="date-picker-example">Date Of Birth(dd/mm/yyyy):</label>
-
+                                            <label> SSC ROll No</label>
+                                            <input type="text" maxlength="20" ng-model="SscRollNo" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" required class="form-control" />
                                         </div>
-                                        <!--<div class="col-md-4">
-        <div class="form-group  required">
-            <label>Community</label>
-            <select class="form-control" name="applicationForm.community" ng-model="community" required>
-                <option value="" selected>Select Caste</option>
-                <option ng-repeat="community in communities" value="{{community}}">
-                    {{community.CategoryCode}}
-                </option>
-            </select>
-        </div>
-    </div>-->
-                                        <!--<div class="col-md-12">-->
-                                        <div class="col-md-4 " ng-show="tmpmode ==2">
-                                            <div class="form-group ">
-                                                <label>Is Blind</label>
-                                                <select class="form-control" name="applicationForm.IsBlind" ng-model="IsBlind" ng-change="Blind(IsBlind)">
-                                                    <option value="">--Select---</option>
-                                                    <option value=0>No</option>
-                                                    <option value=1>Yes</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-md-4" ng-if="isqualified1">
-                                            <div class="form-group required">
-                                                <label> SSC ROll No</label>
-                                                <input type="text" ng-model="SscRollNo" maxlength="20" placeholder="SSC HallTicket no" autocomplete="off" name="applicationForm.SscRollNo" ng-disabled="SscRollNofound" required class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4" ng-if="isqualified2">
-                                            <div class="form-group required ">
-                                                <label> Inter ROll No</label>
-                                                <input type="text" maxlength="20" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4" ng-if="isqualified3">
-                                            <div class="form-group required">
-                                                <label>Previous Qualified Exam Hallticket</label>
-                                                <input type="text" name="applicationForm.InterRollNo" maxlength="20" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" required class="form-control" />
-                                            </div>
-                                        </div>
-
-                                        <!--<div class="col-md-12">-->
-                                        <div class="col-md-12">
-                                            <p class="text-danger" style="color:red;padding-left:0px"><b>Note :</b> Upload Files should be Either JPG or PNG or JPEG format only.</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group required custom-img">
-                                                <label>Update  Photo with a sign(size less than 50KB) :</label>
-                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                                <img ng-src="{{userPhoto}}" class="img img-responsive" id="stdPhotoImg" />
-                                                <input type="file" id="stdPhotoFile" ng-model="userPhoto" onchange="angular.element(this).scope().uploadPhoto()" class="upld-file" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4" ng-show="IsBlind=='1'">
-                                            <div class="form-group required custom-img">
-                                                <label>Upload Medical Certificate(size less than 200KB) :</label>
-                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                                <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
-                                                <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4" ng-if="isqualified1">
-                                            <div class="form-group required custom-img">
-                                                <label>Upload SSC/10th Certificate(size less than 200KB) :</label>
-                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                                <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
-                                                <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4" ng-if="isqualified2">
-                                            <div class="form-group required custom-img">
-                                                <label>Upload Intermediate Certificate(size less than 200KB) :</label>
-                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                                <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
-                                                <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4" ng-if="isqualified3">
-                                            <div class="form-group required custom-img">
-                                                <label>Lower Qualified Exam Certificate(size less than 200KB) </label>
-                                                <!--<label for="StudentPhoto">Photo Update :</label>-->
-                                                <img ng-src="{{qualifiedexamCert}}" class="img img-responsive" id="QualifiedCert" />
-                                                <input type="file" id="QualifiedCertoFile" placeholder="Qualified exam certificate" required ng-model="qualifiedexamCert" onchange="angular.element(this).scope().uploadQualCert()" class="upld-file">
-                                            </div>
-                                        </div>
-                                        <!--</div>-->
                                     </div>
+                                    <div class="col-md-4" ng-show="PreviousGradeNme">
+                                        <div class="form-group required">
+                                            <label>Previous Qualified Grade</label>
+                                            <input type="text" name="PreviousGradeNme" maxlength="20" autocomplete="off" placeholder="" ng-model="PreviousGradeNme" ng-disabled="DetailsDisabled" required class="form-control" />
+                                        </div>
                                     </div>
+                                    <div class="col-md-4" ng-show="qualifiedexamhall">
+                                        <div class="form-group required">
+                                            <label>Previous Qualified Exam Hallticket</label>
+                                            <input type="text" name="applicationForm.InterRollNo" maxlength="20" autocomplete="off" placeholder="" ng-model="qualifiedexamhall" ng-disabled="DetailsDisabled" required class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-show="PreviousResult">
+                                        <div class="form-group required">
+                                            <label>Previous Result</label>
+                                            <input type="text" ng-model="PreviousResult" maxlength="20" placeholder="SSC HallTicket no" autocomplete="off" name="PreviousResult" ng-disabled="DetailsDisabled" required class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-if="isqualified2">
+                                        <div class="form-group required ">
+                                            <label> Inter ROll No</label>
+                                            <input type="text" maxlength="20" name="applicationForm.InterRollNo" autocomplete="off" ng-model="InterRollNo" required class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p class="" style="color:red"><b>Note :</b> Upload Files should be Either JPG or PNG or JPEG format only.</p>
+                                    </div>
+                                    <!--<div class="col-md-12">-->
+                                    <div class="col-md-4">
+                                        <div class="form-group required custom-img">
+                                            <label>Upload  Photo with a sign(size must be in Between 25KB and 50KB) :</label>
+                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                            <img ng-src="{{userPhoto}}" class="img img-responsive" id="stdPhotoImg" />
+                                            <input type="file" id="stdPhotoFile" ng-model="userPhoto" onchange="angular.element(this).scope().uploadPhoto()" class="upld-file" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-show="IsBlind=='1'">
+                                        <div class="form-group required custom-img">
+                                            <label>Upload Medical Certificate(size must be in Between 100KB and 200KB) :</label>
+                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                            <img ng-src="{{stdMedicalCert}}" class="img img-responsive" id="stdMedicalCert" />
+                                            <input type="file" id="stdMedicalCertFile" ng-model="stdMedicalCert" onchange="angular.element(this).scope().uploadMedicalCert()" class="upld-file">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" ng-if="isqualified1">
+                                        <div class="form-group required custom-img">
+                                            <label>Upload SSC/10th Certificate(size must be in Between 100KB and 200KB) :</label>
+                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                            <img ng-src="{{stdSscCert}}" class="img img-responsive" id="stdSscCert" />
+                                            <input type="file" required id="stdSscCertFile" ng-model="stdSscCert" onchange="angular.element(this).scope().uploadSscCert()" class="upld-file">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4" ng-if="isqualified2">
+                                        <div class="form-group required custom-img">
+                                            <label>Upload Intermediate Certificate(size must be in Between 100KB and 200KB) :</label>
+                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                            <img ng-src="{{StdinterCert}}" class="img img-responsive" id="StdinterCert" />
+                                            <input type="file" required id="StdinterCertoFile" ng-model="StdinterCert" onchange="angular.element(this).scope().uploadInterCert()" class="upld-file">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-if="isqualified3">
+                                        <div class="form-group required custom-img">
+                                            <label>Lower Qualified Exam Certificate(size must be in Between 100KB and 200KB) </label>
+                                            <!--<label for="StudentPhoto">Photo Update :</label>-->
+                                            <img ng-src="{{qualifiedexamCert}}" class="img img-responsive" id="QualifiedCert" />
+                                            <input type="file" id="QualifiedCertoFile" placeholder="Qualified exam certificate" required ng-model="qualifiedexamCert" onchange="angular.element(this).scope().uploadQualCert()" class="upld-file">
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
                                 </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -835,11 +813,11 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Institution</label>
-                                    <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
-                                </div>
-                            </div>-->
+                                        <div class="form-group">
+                                            <label>Institution</label>
+                                            <input type="text" id="applytype" placeholder="Private Candidate" disabled class="form-control" required />
+                                        </div>
+                                    </div>-->
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Examination Appearing </label>
@@ -888,7 +866,7 @@
                                             <label for="date-picker-example">Examination Date</label>
                                             <select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
                                                 <option value="" selected>Select Exam Date</option>
-                                                <option  ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
+                                                <option ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
                                                     {{ExamDateselect.ExamDate}}
                                                 </option>
                                             </select>
@@ -987,28 +965,28 @@
                             <div class="custom-forms">
                                 <div class="row">
                                     <!--<div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Institution</label>
-                                    <input type="text" ng-model="Institution" placeholder="Private Candidate" disabled class="form-control" />
-                                </div>
-                            </div>-->
+                                        <div class="form-group">
+                                            <label>Institution</label>
+                                            <input type="text" ng-model="Institution" placeholder="Private Candidate" disabled class="form-control" />
+                                        </div>
+                                    </div>-->
 
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>House No</label>
-                                            <input type="text" maxlength="255" placeholder="House No/D.no" ng-model="houseNo" autocomplete="off" class="form-control" required />
+                                            <input type="text" placeholder="House No/D.no" maxlength="255" ng-model="houseNo" autocomplete="off" class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Street</label>
-                                            <input type="text" maxlength="255" placeholder="Street" class="form-control" autocomplete="off" ng-model="street" required />
+                                            <input type="text" placeholder="Street" class="form-control" maxlength="255" autocomplete="off" ng-model="street" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group required">
                                             <label>Village/Town</label>
-                                            <input type="text" maxlength="500" placeholder="Village/Town" class="form-control" autocomplete="off" ng-model="village" required />
+                                            <input type="text" placeholder="Village/Town" class="form-control" maxlength="500" autocomplete="off" ng-model="village" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -1021,7 +999,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group required ">
                                             <label>District</label>
-                                            <input class="form-control" placeholder="District" autocomplete="off" ng-model="district" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' required>
+                                            <input class="form-control" placeholder="District" autocomplete="off" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' ng-model="district" required>
 
                                         </div>
                                     </div>
@@ -1035,7 +1013,7 @@
                                     <div class="col-md-4 ">
                                         <div class="form-group required">
                                             <label>Mobile No</label>
-                                            <input type="text" placeholder="Mobile No" maxlength="10" minlength="10" autocomplete="off" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="mobileNO" required />
+                                            <input type="text" placeholder="Mobile No" autocomplete="off" class="form-control" maxlength="10" minlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" ng-model="mobileNO" required />
                                         </div>
                                     </div>
                                     <div class="col-md-4 ">
@@ -1059,6 +1037,7 @@
 
                 </p>
             </div>
+            <!--ng-show="applicationForm"-->
             <div class="col-md-12 pull-right mtp-50" ng-show="applicationForm">
                 <div class="submit-btn" style="margin-bottom:0px;">
                     <button type="submit">Submit</button>
@@ -1105,7 +1084,7 @@
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="col-md-6"> <label>Aadhaar Number</label></div>
-                                            <div class="col-md-6 pre-text">: {{adhaarno}}</div>
+                                            <div class="col-md-6 pre-text">: {{maskedAadhaar}}</div>
 
                                         </div>
                                         <div class="col-md-6 " ng-show="selectedCommunityname != null && selectedCommunityname =='undefined'">
@@ -1213,9 +1192,27 @@
                                     <div class="col-md-7 pre-text">: {{Paper2Time}} </div>
 
                                 </div>
+                                <div class="col-md-6 " ng-if="mode==2">
+                                    <div class="col-md-5"> <label>Previous Qualified Hallticket</label></div>
+                                    <div class="col-md-7 pre-text">: {{qualifiedexamhall}} </div>
+
+                                </div>
+                                <div class="col-md-6 " ng-if="mode==2">
+                                    <div class="col-md-5"> <label>Previous Grade Name</label></div>
+                                    <div class="col-md-7 pre-text">: {{PreviousGradeNme}} </div>
+
+                                </div>
+                                <div class="col-md-6 " ng-if="mode==2">
+                                    <div class="col-md-5"> <label>Previous Result</label></div>
+                                    <div class="col-md-7 pre-text">
+                                        : <span class="text-success" ng-show="PreviousResult=='Pass'|| PreviousResult=='PASS'"><b>{{PreviousResult}}</b></span>
+                                        <span class="text-danger" ng-show="PreviousResult=='Fail'|| PreviousResult=='FAIL'"><b>{{PreviousResult}}</b></span>
+                                    </div>
+
+                                </div>
                                 <!--<div class="col-md-6 form-group">
-        <label>Examination Center :</label> Hyderabad
-    </div>-->
+                                    <label>Examination Center :</label> Hyderabad
+                                </div>-->
 
                             </div>
                         </div>
