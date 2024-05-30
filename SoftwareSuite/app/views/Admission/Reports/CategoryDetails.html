@@ -54,7 +54,10 @@
                                 <th>S.No</th>
                                 <th>Pin</th>
                                 <th>Student Name</th>
+                                <th>Father Name</th>
+                                <th>Date Of Birth</th>
                                 <th>Category</th>
+                                <th>Contact Number</th>
                                 
                             </tr>
                         </thead>
@@ -63,7 +66,10 @@
                                 <td>{{$index+1}}</td>
                                 <td>{{x.Pin == null ? '-' : x.Pin}} </td>
                                 <td>{{x.Name == null ? '-' : x.Name}} </td>
+                                <td>{{x.FatherName == null ? '-' : x.FatherName}} </td>
+                                <td>{{x.DateOfBirth == null ? '-' : x.DateOfBirth}} </td>
                                 <td>{{x.Category == null ? '-' : x.Category}}</td>
+                                <td>{{x.phonenumber == null ? '-' : x.phonenumber}}</td>
                                 
                             </tr>
                          

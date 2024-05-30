@@ -39,7 +39,7 @@
 
         $scope.DownloadtoExcel = function (tableid) {
 
-            var exportHref = Excel.tableToExcel(tableid, 'stdentDetails');
+            var exportHref = Excel.tableToExcel(tableid, 'studentDetails');
             $timeout(function () {
                 var a = document.createElement('a');
                 a.href = exportHref;
