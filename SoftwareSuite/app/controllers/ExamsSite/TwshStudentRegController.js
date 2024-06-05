@@ -960,8 +960,26 @@
                         $scope.isqualified3 = false;
                     } else if (res[0].Result == "Pass" || res[0].Result == "PASS") {
                         $scope.PreviousExam = true;
-                        alert("Please Check your Hallticket No.");
-                        $state.go("TWSH.OnlineApplication");
+                        $scope.DetailsDisabled = true;
+                        $scope.CandidateName = res[0].StudentName;
+                        $scope.FatherName = res[0].FatherName;
+                        $scope.PreviousGradeNme = res[0].Gradename;
+                        $scope.PreviousGradeCode = res[0].Gradecode;
+                        $scope.MotherName = res[0].MotherName;
+                        $scope.qualifiedexamhall = res[0].HallTicketNumber;
+                        $scope.CandidateNameDOB = res[0].DateOfBirth;
+                        $scope.SscRollNo = res[0].SscHallTicket;
+                        $scope.PreviousResult = res[0].Result;
+                        $scope.ShowAadhaarDetail = true;
+                        $scope.applicationForm = false;
+                        $scope.ExamAppearDetails = false;
+                        $scope.oldUser2 = false;
+                        $scope.sscForm = false;
+                        $scope.isqualified1 = false;
+                        $scope.isqualified2 = false;
+                        $scope.isqualified3 = false;
+                        //alert("Please Check your Hallticket No.");
+                        //$state.go("TWSH.OnlineApplication");
                     }
 
                 } else {
