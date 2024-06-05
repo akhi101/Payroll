@@ -1138,70 +1138,72 @@
                 Year: passedoutYear,
                 Stream: sscType
             };
-            var sscdetails = TwshStudentRegService.getSSCDetails(reqData);
-            sscdetails.then(function (res) {
-                if (res) {
+            if (passedoutYear >= '2023') {
 
-                    let resdata = JSON.parse(res)
-                    if (resdata.Status == 200) {
-                        $scope.applicationForm = true;
-                        $scope.CandidateName = resdata.Name;
-                        $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
-                        $scope.FatherName = resdata.FatherName;
-                        $scope.FatherNamefound = $scope.FatherName != "" ? true : false;
-                        $scope.MotherName = resdata.MotherName;
-                        $scope.MotherNamefound = $scope.MotherName != "" ? true : false;
-                        $scope.SscRollNo = resdata.RollNo;
-                        $scope.SscRollNofound = $scope.SscRollNo != "" ? true : false;
-                        $scope.Gender = resdata.Sex == "B" || resdata.Sex == "M" ? "M" : resdata.Sex == "G" || resdata.Sex == "F" ? "F" : "";
-                        $scope.Genderfound = $scope.Gender != "" ? true : false;
-                        let date1 = resdata.DateOfBirth;
-                        let ch = date1.split('');
-                        var datelength = ch.length;
-                        //    var tempdate = "";                             
-                        //    var regex = "^[0-9]{1,6}$";
-                        //    if (datelength<=6) {                      
-                        //        if (parseInt(ch[4] + ch[5]) <= 99 && parseInt(ch[4] + ch[5]) > 80) {
-                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/19" + ch[4] + ch[5];
-                        //        } else {
-                        //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/20" + ch[4] + ch[5];
-                        //        }
-                        //    }
-                        //    else if (datelength <= 8 && datelength >= 6){                               
-                        //        tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/" + ch[4] + ch[5] + ch[6] + ch[7];                               
-                        //}          
+                var sscdetails = TwshStudentRegService.getSSCDetails(reqData);
+                sscdetails.then(function (res) {
+                    if (res) {
 
-                        //    else {
-                        //        tempdate = resdata.DateOfBirth;                        
+                        let resdata = JSON.parse(res)
+                        if (resdata.Status == 200) {
+                            $scope.applicationForm = true;
+                            $scope.CandidateName = resdata.Name;
+                            $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
+                            $scope.FatherName = resdata.FatherName;
+                            $scope.FatherNamefound = $scope.FatherName != "" ? true : false;
+                            $scope.MotherName = resdata.MotherName;
+                            $scope.MotherNamefound = $scope.MotherName != "" ? true : false;
+                            $scope.SscRollNo = resdata.RollNo;
+                            $scope.SscRollNofound = $scope.SscRollNo != "" ? true : false;
+                            $scope.Gender = resdata.Sex == "B" || resdata.Sex == "M" ? "M" : resdata.Sex == "G" || resdata.Sex == "F" ? "F" : "";
+                            $scope.Genderfound = $scope.Gender != "" ? true : false;
+                            let date1 = resdata.DateOfBirth;
+                            let ch = date1.split('');
+                            var datelength = ch.length;
+                            //    var tempdate = "";                             
+                            //    var regex = "^[0-9]{1,6}$";
+                            //    if (datelength<=6) {                      
+                            //        if (parseInt(ch[4] + ch[5]) <= 99 && parseInt(ch[4] + ch[5]) > 80) {
+                            //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/19" + ch[4] + ch[5];
+                            //        } else {
+                            //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/20" + ch[4] + ch[5];
+                            //        }
+                            //    }
+                            //    else if (datelength <= 8 && datelength >= 6){                               
+                            //        tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/" + ch[4] + ch[5] + ch[6] + ch[7];                               
+                            //}          
 
-                        //    }                           
-                        //    $scope.CandidateNameDOB = tempdate;
-                        //    $scope.CandidateNameDOBchange = tempdate;
-                        //    $scope.CandidateNameDOBfound = $scope.CandidateNameDOB != "" ? true : false;
+                            //    else {
+                            //        tempdate = resdata.DateOfBirth;                        
 
-                        $scope.sscForm = false;
+                            //    }                           
+                            //    $scope.CandidateNameDOB = tempdate;
+                            //    $scope.CandidateNameDOBchange = tempdate;
+                            //    $scope.CandidateNameDOBfound = $scope.CandidateNameDOB != "" ? true : false;
 
+                            $scope.sscForm = false;
+
+                        } else {
+                            alert("Details not found, Continue to fillApplication");
+                            $scope.applicationForm = true;
+                            $scope.sscForm = false;
+                            $scope.isqualified1 = true;
+                        }
                     } else {
                         alert("Details not found, Continue to fillApplication");
                         $scope.applicationForm = true;
                         $scope.sscForm = false;
                         $scope.isqualified1 = true;
                     }
-                } else {
+
+                }, function (err) {
                     alert("Details not found, Continue to fillApplication");
                     $scope.applicationForm = true;
                     $scope.sscForm = false;
                     $scope.isqualified1 = true;
-                }
+                })
 
-            }, function (err) {
-                alert("Details not found, Continue to fillApplication");
-                $scope.applicationForm = true;
-                $scope.sscForm = false;
-                $scope.isqualified1 = true;
-            })
-
-
+            }
 
         }
         var communitylist = TwshStudentRegService.getCategory()
