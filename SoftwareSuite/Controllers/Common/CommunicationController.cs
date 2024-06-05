@@ -268,7 +268,9 @@ namespace SoftwareSuite.Controllers.Common
                 SmtpClient smtp = new SmtpClient();
                 smtp.ServerCertificateValidationCallback = (mysender, certificate, chain, sslPolicyErrors) => { return true; };
                 smtp.CheckCertificateRevocation = false;
-                smtp.Connect("smtp.mail.gov.in", 465, SecureSocketOptions.Auto);
+                // smtp.Connect("smtp.mail.gov.in", 465, SecureSocketOptions.Auto);
+                smtp.Connect("smtpsgwhyd.nic.in", 465, SecureSocketOptions.Auto);
+                
                 smtp.Timeout = 200000;
 
                 message.From.Add(new MailboxAddress(request.From));
@@ -389,7 +391,9 @@ namespace SoftwareSuite.Controllers.Common
                 //message.Body = builder.ToMessageBody();
                 //MailMessage message = new MailMessage();smtp.mail.gov.in
                 SmtpClient smtp = new SmtpClient();
-                smtp.Connect("relay.emailgov.in", 465, SecureSocketOptions.Auto);
+                // smtp.Connect("relay.emailgov.in", 465, SecureSocketOptions.Auto);
+                smtp.Connect("smtpsgwhyd.nic.in", 465, SecureSocketOptions.Auto);
+                
                 smtp.Timeout = 200000;
 
                 //for (int i = 0; i < size; i++){                

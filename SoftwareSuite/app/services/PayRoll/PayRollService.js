@@ -72,8 +72,26 @@ define(['app'], function (app) {
               var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
             return promise;
         };
+      
         
+        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, Months, EmiStartMonth, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "HBAId": HBAId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "Amount": Amount,
+                "Months": Months,
+                "EmiStartMonth": EmiStartMonth,
+                "Active": Active,
+                "UserName": UserName
+            };
 
+            console.log(paramObject)
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateHBA', paramObject);
+            return promise;
+        };
 
         this.UpdateDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
@@ -318,6 +336,18 @@ define(['app'], function (app) {
 
         };
 
+
+        this.GetEditNPS = function (DataTypeID, NPSId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "NPSId": NPSId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditNPS', paramObj);
+            return promise;
+
+        };
+
         this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -499,7 +529,16 @@ define(['app'], function (app) {
 
         };
 
+        this.GetEmployeeLeaveBalance = function (FinancialYearID, EmployeeID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "EmployeeID": EmployeeID,
+               
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEmployeeLeaveBalance', paramObj);
+            return promise;
 
+        };
 
         this.AddorUpdateLeaves = function (DataTypeId, LeaveId, FinancialYearId, MonthID, EmployeeID, TotalLeaves, MedicalLeaves, CasualLeaves, EarnLeaves, LeavesRequired, Active, UserName) {
             var paramObject = {

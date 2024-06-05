@@ -2,10 +2,7 @@
     .btn_top {
         margin-top: 25px;
     }
-    tr.clr_bg {
-        background-color: #024e85;
-        color: #fff;
-    }
+  
     .card {
         margin-bottom: 50px;
     }
@@ -274,7 +271,7 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetorEditLeaves()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetEmployeeLeaveBalance()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
@@ -283,22 +280,22 @@
                 </div>
 
                 <div class="sm-spacer"></div>
-                <div class="card">
+                <div class="card"  ng-show="ShowLeaveData">
 
                     <div class="col-md-3"><b>Employee Name </b></div>
-                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-9">: {{LeavesEmployeeName}}</div>
                     <div class="col-md-3"><b>Employee Id </b></div>
-                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
                     <div class="col-md-3"><b>Designation </b></div>
                     <div class="col-md-9">: {{Designation}}</div>
                     <div class="col-md-3"><b>Medical Leaves </b></div>
-                    <div class="col-md-9">: {{MedicalLeaves}}</div>
+                    <div class="col-md-9">: {{MedicalLeavesBalance}}</div>
                     <div class="col-md-3"><b>Casual Leaves </b></div>
-                    <div class="col-md-9">: {{CasualLeaves}}</div>
+                    <div class="col-md-9">: {{CasualLeavesBalance}}</div>
                     <div class="col-md-3"><b>Earn Leaves </b></div>
-                    <div class="col-md-9">: {{EarnLeaves}}</div>
+                    <div class="col-md-9">: {{EarnLeavesBalance}}</div>
                     <div class="col-md-3"><b>Total Leaves </b></div>
-                    <div class="col-md-9">: {{TotalLeaves}}</div>
+                    <div class="col-md-9">: {{LeavesBalance}}</div>
                     <div class="col-md-3"><b>Medical Leaves :</b></div>
                     <div class="col-md-3"><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeaves" ng-change="ChangeLeaves()" placeholder="Medical Leaves" /></div>
                     <div class="col-md-3"><b>Casual Leaves :</b></div>
@@ -338,7 +335,7 @@
                                 <td>{{data.Months}}</td>
                                 <td>{{data.EmployeeCode}}</td>
                                 <td>{{data.EmployeeName}}</td>
-                                <td>{{data.Designation}}</td>
+                                <td>{{data.DesignationName}}</td>
                                 <td>{{data.MedicalLeaves}}</td>
                                 <td>{{data.CasualLeaves}}</td>
                                 <td>{{data.EarnLeaves}}</td>

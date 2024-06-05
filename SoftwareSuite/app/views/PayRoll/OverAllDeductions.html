@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Financial Year:</label>
                             <div class="">
-                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+                                <select class="form-control" ng-model="NPSFinancialYear" name="FinancialYear" required>
                                     <option value="" selected>Select Financial Year</option>
                                     <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
                                         {{data.FinancialYear}}
@@ -76,11 +76,15 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Month:</label>
                             <div class="">
-                                <select class="form-control" ng-model="Month" name="StudentType" required>
-                                    <option value="" selected>Select Month </option>
+
+                                <select class="form-control" ng-model="NPSMonth" name="StudentType" required>
+                                    <option value="" selected>
+                                        Select Month
+                                    </option>
                                     <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
                                         {{data.Months}}
                                     </option>
+
                                 </select>
                             </div>
                         </div>
@@ -88,10 +92,12 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="Employee1" ng-change="ChangeEmpDedData(Employee1)" name="StudentType" required>
+
+                            <select class="form-control" ng-model="NPSEmployee" ng-change="ChangeEmpData(NPSEmployee)" name="EmployeeId" required>
                                 <option value="" selected>Select Employee </option>
                                 <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
-                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                    {{data.EmployeeName}}
+
                                 </option>
                             </select>
                         </div>
@@ -114,6 +120,48 @@
                     <div class="col-md-9">: {{Designation}}</div>
 
 
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
+                    <br />
+                    <div class="col-md-3"><b>Pension  Amount </b></div>
+                    <div class="col-md-3"><input class="form-control" placeholder="Pension Amount" ng-model="PensionAmount" name="PensionAmount"></div>
+                    <br />
+                    <div class="col-md-9">
+                        <button class="btn btn-success pull-right" ng-click="SaveNPS()">Submit</button>
+                    </div>
+
+                </div>
+                <div class="spacer"></div>
+                <div class="" ng-show="NPSData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>Designation</th>
+                                <th>Pension Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in NPSData">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.DesignationType}}</td>
+                                <td>{{data.PensionAmount}}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="tab-pane " id="2">
@@ -303,7 +351,9 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Financial Year:</label>
                             <div class="">
-                                <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
+
+                                <select class="form-control" ng-model="HBAFinancialYear" name="FinancialYear" required>
+
                                     <option value="" selected>Select Financial Year</option>
                                     <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
                                         {{data.FinancialYear}}
@@ -314,10 +364,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Month:</label>
+
+                            <label class="font-weight-bold">Month</label>
                             <div class="">
-                                <select class="form-control" ng-model="Month" name="StudentType" required>
-                                    <option value="" selected>Select Month </option>
+                                <select class="form-control" ng-model="HBAMonth" name="StudentType" required>
+                                    <option value="" selected>
+                                        Select Month
+                                    </option>
+
                                     <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
                                         {{data.Months}}
                                     </option>
@@ -328,36 +382,87 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="Employee1" ng-change="ChangeEmpDedData(Employee1)" name="StudentType" required>
-                                <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
-                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
-                                </option>
+
+                            <select class="form-control" ng-model="HBAEmployeeID" ng-change="ChangeHBAEmpData(HBAEmployeeID)"
+                                    ng-options="data as data.EmployeeName for data in EmployeeDetailsData">
+                                <option value="" selected>Select Employee Name</option>
+
                             </select>
                         </div>
                     </div>
 
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetHBAReport()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="card" ng-show="EmployeeData">
+
+                <div class="sm-spacer"></div>
+
+                <div class="card" ng-show="HBAEmployeeData">
                     <div class="col-md-3"><b>Employee Name </b></div>
-                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-9">: {{HBAEmployeeName}}</div>
                     <div class="col-md-3"><b>Employee Id </b></div>
-                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-9">: {{HBAEmployeeCode}}</div>
                     <div class="col-md-3"><b>Designation </b></div>
-                    <div class="col-md-9">: {{Designation}}</div>
-
-
+                    <div class="col-md-9">: {{HBADesignation}}</div>
+                    <br/>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Amount:</label>
+                            <input class="form-control" name="Amount" ng-model="HBAAmount"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Months:</label>
+                            <input class="form-control" name="Months"  ng-model="HBAMonths"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Emi Start Month:</label>
+                            <input class="form-control" name="HBAMonthId" ng-model="HBAMonthId" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-9">
+                        <button class="btn btn-success pull-right" ng-click="SaveHBA()">Submit</button>
+                    </div>
                 </div>
-            </div>
-                
+                <div class="spacer"></div>
+                <div class="" ng-show="NPSData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>Designation</th>
+                                <th>Pension Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in NPSData">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.DesignationType}}</td>
+                                <td>{{data.PensionAmount}}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sm-spacer"></div>
+
             </div>
         </div>
     

@@ -3,6 +3,7 @@
         const $ctrl = this;
         $ctrl.$onInit = () => {
             $scope.EmployeeData = false;
+            $scope.ShowLeaveData = false;
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
             $scope.MedicalLeaves = 1;
@@ -80,6 +81,9 @@
 
                 });
         }
+
+       
+        
 
         $scope.GetorEditLeaves = function () {
             let DataType = 1;
@@ -287,31 +291,86 @@
                 } catch (err) { }
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
+                    $scope.ShowLeaveData = false;
                     $scope.GetorEditLeaves()
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
+                    $scope.ShowLeaveData = false;
                     $scope.GetorEditLeaves()
 
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ShowLeaveData = false;
 
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
-
+                    $scope.ShowLeaveData = false;
 
                 });
         }
 
         $scope.ChangeLeaves = function () {
             //alert()
+            if ($scope.MedicalLeaves == null || $scope.MedicalLeaves == undefined || $scope.MedicalLeaves == "") {
+                $scope.MedicalLeaves = 0;
+            }
+            if ($scope.CasualLeaves == null || $scope.CasualLeaves == undefined || $scope.CasualLeaves == "") {
+                $scope.CasualLeaves = 0;
+            }
+            if ($scope.EarnLeaves == null || $scope.EarnLeaves == undefined || $scope.EarnLeaves == "") {
+                $scope.EarnLeaves = 0;
+            }
+
             $scope.LeavesRequired = parseInt($scope.MedicalLeaves) + parseInt($scope.CasualLeaves) + parseInt($scope.EarnLeaves);
-            $scope.RemainingLeaves = parseInt($scope.TotalLeaves) - parseInt($scope.LeavesRequired)
+            if (parseInt($scope.LeavesRequired) <= parseInt($scope.LeavesBalance)) {
+                $scope.RemainingLeaves = parseInt($scope.LeavesBalance) - parseInt($scope.LeavesRequired)
+            } else {
+                alert("Leaves Required must be less than Total Leaves")
+                $scope.MedicalLeaves = 0;
+                $scope.CasualLeaves = 0;
+                $scope.EarnLeaves = 0;
+            }
+           
         }
         
+        $scope.GetEmployeeLeaveBalance = function () {
+            let DataType = 1;
+            var getdesign = PayRollService.GetEmployeeLeaveBalance($scope.FinancialYear, $scope.EmployeeId);
+            getdesign.then(function (resp) {
+                console.log(resp)
+                var response = JSON.parse(resp)
+                console.log(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.ShowLeaveData = true;
+                    $scope.EmployeeLeaveBalance = response.Table[0];
+                    $scope.LeavesBalance = $scope.EmployeeLeaveBalance.LeavesBalance;
+                    $scope.EarnLeavesBalance = $scope.EmployeeLeaveBalance.EarnLeaves;
+                    $scope.CasualLeavesBalance = $scope.EmployeeLeaveBalance.CasualLeaves;
+                    $scope.MedicalLeavesBalance = $scope.EmployeeLeaveBalance.MedicalLeaves;
+                    $scope.LeavesEmployeeCode = $scope.EmployeeLeaveBalance.EmployeeCode;
+                    $scope.LeavesEmployeeName = $scope.EmployeeLeaveBalance.EmployeeName;
+                    $scope.LeavesEmployeeID = $scope.EmployeeLeaveBalance.EmployeeID;
+
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.EmployeeLeaveData = [];
+                    $scope.Noreports = true;
+                    $scope.ShowLeaveData = false;
+                }
+            },
+                function (error) {
+                    alert("error while loading Leaves Data");
+                    $scope.ShowLeaveData = false;
+                    var err = JSON.parse(error);
+
+                });
+        }
 
         
         

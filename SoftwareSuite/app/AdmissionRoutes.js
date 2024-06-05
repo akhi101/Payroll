@@ -957,6 +957,12 @@
                 templateUrl: 'app/views/newwebsite/staff.html',
                 dependencies: ['views/newwebsite/controllers/StaffController', 'services/AdminServices/AdminService']
             },
+            'index.ReleasePolycetResults': {
+                url: "/ReleasePolycetResults",
+                templateUrl: 'app/views/Polycet/ReleasePolycetResults.html',
+                dependencies: ['controllers/Polycet/ReleasePolycetResultsController', 'services/AdminServices/AdminService']
+            },
+
             'index.Sitemap': {
                 url: "/Sitemap",
                 templateUrl: 'app/views/newwebsite/sitemap.html',

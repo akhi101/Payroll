@@ -215,6 +215,33 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+        [HttpPost, ActionName("AddorUpdateHBA")]
+        public string AddorUpdateHBA([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[10];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@HBAId", request["HBAId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@Amount", request["Amount"]);
+                param[6] = new SqlParameter("@Months", request["Months"]);
+                param[7] = new SqlParameter("@EmiStartMonth", request["EmiStartMonth"]);
+                param[8] = new SqlParameter("@Active", request["Active"]);
+                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HBA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+       
 
         [HttpPost, ActionName("GetorEditDeductions")]
         public string GetorEditDeductions([FromBody] JsonObject request)
@@ -309,6 +336,27 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+        [HttpPost, ActionName("GetEmployeeLeaveBalance")]
+        public string GetEmployeeLeaveBalance([FromBody] LeavesDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_EmployeeLeavesBalance", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
 
         [HttpPost, ActionName("AddorUpdateLeaves")]
         public string AddorUpdateLeaves([FromBody] JsonObject request)
@@ -325,7 +373,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[5] = new SqlParameter("@TotalLeaves", request["TotalLeaves"]);
                 param[6] = new SqlParameter("@MedicalLeaves", request["MedicalLeaves"]);
                 param[7] = new SqlParameter("@CasualLeaves", request["CasualLeaves"]);
-                param[8] = new SqlParameter("@EarnLeaves", request["EarnLeaves "]);
+                param[8] = new SqlParameter("@EarnLeaves", request["EarnLeaves"]);
                 param[9] = new SqlParameter("@LeavesRequired", request["LeavesRequired"]);
                 param[10] = new SqlParameter("@Active", request["Active"]);
                 param[11] = new SqlParameter("@UserName", request["UserName"]);
@@ -470,7 +518,24 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-
+        [HttpPost, ActionName("GetEditNPS")]
+        public string GetEditNPS([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@NPSId", request["NPSId"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_NPS", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
         public class EmpDetails
         {

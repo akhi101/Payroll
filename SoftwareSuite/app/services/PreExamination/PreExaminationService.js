@@ -2056,17 +2056,17 @@
         };
 
 
-        this.GetBonafiedApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode) {
+        this.GetBonafiedApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode, BranchCode) {
             var paramObj = {
-                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode
+                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode, "BranchCode": BranchCode
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetBonafiedApprovalListByScheme', paramObj);
             return promise;
         };
 
-        this.GetStudyApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode) {
+        this.GetStudyApprovalListByScheme = function (Scheme, datatype, userType, CollegeCode,BranchCode) {
             var paramObj = {
-                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode
+                "Scheme": Scheme, "datatype": datatype, "userType": userType, "CollegeCode": CollegeCode, "BranchCode": BranchCode
             }
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetStudyApprovalListByScheme', paramObj);
             return promise;
