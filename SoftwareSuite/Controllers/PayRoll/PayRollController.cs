@@ -59,6 +59,24 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+        [HttpGet, ActionName("GetAdvanceType")]
+        public HttpResponseMessage GetAdvanceType()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_AdvanceTypes";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AdvanceTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
         [HttpGet, ActionName("GetFinancialYears")]
         public HttpResponseMessage GetFinancialYears()
         {
@@ -769,8 +787,84 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+       
+
+            [HttpPost, ActionName("GetorEditAdvance")]
+            public string GetorEditAdvance([FromBody] AdvanceDetails data)
+            {
+                try
+                {
+
+                    var dbHandler = new PayRolldbhandler();
+                    var param = new SqlParameter[3];
+                    param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                    param[1] = new SqlParameter("@AdvancesId", data.AdvancesId);
+                    param[2] = new SqlParameter("@Active", data.Active);
+                    var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Advances", param);
+                    return JsonConvert.SerializeObject(dt);
+
+                }
+                catch (Exception ex)
+                {
+
+                    return ex.Message;
+
+                }
+            }
 
 
+            public class AdvanceDetails
+        {
+            public int DataTypeId { get; set; }
+            public int DataTypeID { get; set; }
+            public int AdvancesId { get; set; }
+            public int EmployeeID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int MonthId { get; set; }
+            public int AdvanceTypeId { get; set; }
+            public int AdvanceAmount { get; set; }
+            public int AdvanceNoOfMonths { get; set; }
+            public int AdvanceEmiStartMonth { get; set; }
+            public bool Active { get; set; }
+           
+            public string UserName { get; set; }
+
+
+
+        }
+
+
+        [HttpPost, ActionName("AddorUpdateAdvance")]
+        public string AddorUpdateAdvance([FromBody] AdvanceDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[10];
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@AdvancesId", data.AdvancesId);
+                param[2] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[3] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[4] = new SqlParameter("@MonthId", data.MonthId);
+                param[5] = new SqlParameter("@AdvanceTypeId", data.AdvanceTypeId);
+                param[6] = new SqlParameter("@AdvanceAmount", data.AdvanceAmount);
+                param[7] = new SqlParameter("@AdvanceNoOfMonths", data.AdvanceNoOfMonths);
+                param[8] = new SqlParameter("@AdvanceEmiStartMonth", data.AdvanceEmiStartMonth);
+                param[9] = new SqlParameter("@UserName", data.UserName);
+               
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Add_Update_Advances", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
 
 
 

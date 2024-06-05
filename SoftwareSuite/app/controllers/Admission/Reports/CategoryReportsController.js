@@ -58,13 +58,15 @@
         //        $scope.Noresult = false;
         //        $scope.result = true;
 
-        $scope.openOnroll = function (data) {
+        $scope.openOnroll = function (data,M) {
             $localStorage.categoryData = {
                 CollegeCode: data.CollegeCode,
                 SemId: data.SemID,
                 BranchId: data.branchid,
                 SchemeId: data.SchemeId,
                 DataFormatTypeId: 1,
+               
+                Gender: M
 
 
             }

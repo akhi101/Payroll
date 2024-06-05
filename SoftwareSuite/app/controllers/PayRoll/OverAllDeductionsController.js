@@ -3,13 +3,49 @@
         const $ctrl = this;
      $scope.Values = [{ "id": 1, "name": "Yes" }, { "id": 0, "name": "No" }]
         $ctrl.$onInit = () => {
+
             $scope.EmployeeData = false;
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
         $scope.FinancialYears();
             $scope.GetMonths();
             $scope.GetEditNPS();
-    }
+   
+            $scope.getAdvanceType();
+            $scope.GetorEditAdvance();
+            
+            
+        }
+
+        $scope.NoofMonths = [
+            { "Id": 1, "value": "1" },
+            { "Id": 2, "value": "2" },
+            { "Id": 3, "value": "3" },
+            { "Id": 4, "value": "4" },
+            { "Id": 5, "value": "5" },
+            { "Id": 6, "value": "6" },
+            { "Id": 7, "value": "7" },
+            { "Id": 8, "value": "8" },
+            { "Id": 9, "value": "9" },
+            { "Id": 10, "value": "10" },
+            { "Id": 11, "value": "11" },
+            { "Id": 12, "value": "12" },
+            { "Id": 13, "value": "13" },
+            { "Id": 14, "value": "14" },
+            { "Id": 15, "value": "15" },
+            { "Id": 16, "value": "16" },
+            { "Id": 17, "value": "17" },
+            { "Id": 18, "value": "18" },
+            { "Id": 19, "value": "19" },
+            { "Id": 20, "value": "20" },
+            { "Id": 21, "value": "21" },
+            { "Id": 22, "value": "22" },
+            { "Id": 23, "value": "23" },
+            { "Id": 24, "value": "24" }
+
+        ]
+
+
         $scope.FinancialYears = function () {
             var getdesign = PayRollService.GetFinancialYears();
             getdesign.then(function (response) {
@@ -30,6 +66,110 @@
 
                 });
         }
+
+        $scope.GetReport = function () {
+            $scope.EmployeeData = true;
+        }
+
+
+        $scope.ChangeEmpData = function (data) {
+            var data = JSON.parse(data)
+            $scope.EmployeeId = data.EmployeeID
+            $scope.EmployeeCode = data.EmployeeCode
+            $scope.EmployeeName = data.EmployeeName
+            $scope.Designation = data.DesignationName
+
+        }
+
+        $scope.GetorEditAdvance = function () {
+            var getdesign = PayRollService.GetorEditAdvance(1, 0, 0);
+            getdesign.then(function (response) {
+                var response = JSON.parse(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.GetAllAdvance = response.Table;
+                    $scope.Noreports = false;
+                    for (var j = 1; j < $scope.GetAllAdvance.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                else {
+                    $scope.GetAllAdvance = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Advance Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+        $scope.SubmitAdvance = function () {
+            var datatypeid = 1
+
+           
+            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, 0, $scope.EmployeeId,$scope.FinancialYear1, $scope.Month,  $scope.AdvanceType, $scope.Amount, $scope.NoOfMonths, $scope.EMIMonth, 1, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res.Table[0].ResponseCode == '200') {
+                    alert(res.Table[0].ResponseDescription);
+                    $scope.GetorEditAdvance()
+
+                }
+                else if (res.Table[0].ResponseCode == '400') {
+                    alert(res.Table[0].ResponseDescription);
+                    $scope.GetorEditAdvance()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+       
+
+
+
+        $scope.UpdateAdvance = function (data) {
+            var datatypeid = 2
+
+
+            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, data.AdvancesID, data.EmployeeID, data.FinancialYearID, data.MonthID, data.AdvanceTypeId, data.AdvanceAmount, data.AdvanceNoOfMonths, data.AdvanceEmiStartMonth, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res.Table[0].StatusCode == '200') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.GetorEditAdvance()
+
+                }
+                else if (res.Table[0].StatusCode == '400') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.GetorEditAdvance()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
 
         $scope.GetMonths = function () {
             var getmonths = PayRollService.GetMonths();
@@ -52,6 +192,26 @@
                 });
         }
 
+        $scope.getAdvanceType = function () {
+            var getmonths = PayRollService.GetAdvanceType();
+            getmonths.then(function (response) {
+
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.AdvanceTypeData = response.Table;
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.AdvanceTypeData = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Months");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
         var DataTypeID = 1
         var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
@@ -106,6 +266,7 @@
 
                 });
         }
+
 
 
         $scope.GetReport = function () {
@@ -192,5 +353,48 @@
             }
 
         }
+
+
+       
+
+        $scope.EditAdvances = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+
+
+        }
+        $scope.ChangeActive = function (AdvancesID, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.PayRollAction(DataType, AdvancesID, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetorEditAdvance();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetorEditAdvance();
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
+
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
+
+
+
+
     })
 })
