@@ -10,6 +10,10 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetMonths');
         };
 
+        this.GetAdvanceType = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetAdvanceType');
+        };
+
         this.GetFinancialYears = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
@@ -110,8 +114,17 @@ define(['app'], function (app) {
 
         };
 
+        this.PayRollAction = function (DataTypeID, AdvancesId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "AdvancesId": AdvancesId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditAdvance', paramObj);
+            return promise;
 
-
+        };
+      
 
 
 
@@ -439,6 +452,8 @@ define(['app'], function (app) {
 
         };
 
+        
+
         this.GetorEditDeductions = function (DataTypeID, DeductionsId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -505,6 +520,41 @@ define(['app'], function (app) {
             return promise;
         };
 
+
+        this.GetorEditAdvance = function (DataTypeID, AdvancesId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "AdvancesId": AdvancesId,
+                "Active": Active
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditAdvance', paramObj);
+            return promise;
+
+        };
+
+
+
+
+        this.AddorUpdateAdvance = function (DataTypeId, AdvancesId, EmployeeID, FinancialYearID, MonthId, AdvanceTypeId, AdvanceAmount, AdvanceNoOfMonths, AdvanceEmiStartMonth, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "AdvancesId": AdvancesId,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthId": MonthId,
+                "AdvanceTypeId": AdvanceTypeId,
+                "AdvanceAmount": AdvanceAmount,
+                "AdvanceNoOfMonths": AdvanceNoOfMonths,
+                "AdvanceEmiStartMonth": AdvanceEmiStartMonth,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateAdvance', paramObject);
+            return promise;
+        };
+
+
+      
 
     });
 });
