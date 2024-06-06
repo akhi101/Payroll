@@ -1,4 +1,46 @@
-﻿<div ng-controller="OverAllDeductionsController">
+﻿<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+
+
+
+
+
+<div ng-controller="OverAllDeductionsController">
     <div class="container content">
         <div class="col-md-12">
             <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
@@ -19,10 +61,44 @@
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="NPSFinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+
+                                <select class="form-control" ng-model="NPSMonth" name="StudentType" required>
+                                    <option value="" selected>
+                                        Select Month
+                                    </option>
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
+                                    </option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="EmployeeID"
-                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
-                                <option value="" selected>Select Employee Name</option>
+
+                            <select class="form-control" ng-model="NPSEmployee" ng-change="ChangeEmpData(NPSEmployee)" name="EmployeeId" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                    {{data.EmployeeName}}
+
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -35,31 +111,96 @@
                         </div>
                     </div>
                 </div>
-                <div class="sm-spacer"></div>
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
 
-                <div class="card">
-                    <div class="col-md-3"><b>Name </b></div>
-                    <div class="col-md-9">: Akhil</div>
-                    <div class="col-md-3"><b>Father Name </b></div>
-                    <div class="col-md-9">: 10</div>
-                    <div class="col-md-3"><b>EmployeeId </b></div>
-                    <div class="col-md-9">: 8</div>
+
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
+                    <br />
                     <div class="col-md-3"><b>Pension  Amount </b></div>
-                    <div class="col-md-3"><input class="form-control" placeholder="Pension Amount" name="PensionAmount"></div>
+                    <div class="col-md-3"><input class="form-control" placeholder="Pension Amount" ng-model="PensionAmount" name="PensionAmount"></div>
                     <br />
                     <div class="col-md-9">
-                        <button class="btn btn-success pull-right">Submit</button>
+                        <button class="btn btn-success pull-right" ng-click="SaveNPS()">Submit</button>
                     </div>
+
+                </div>
+                <div class="spacer"></div>
+                <div class="" ng-show="NPSData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>Designation</th>
+                                <th>Pension Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in NPSData">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.DesignationType}}</td>
+                                <td>{{data.PensionAmount}}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="tab-pane " id="2">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYear1" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="Month" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="EmployeeID"
-                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
-                                <option value="" selected>Select Employee Name</option>
+                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -72,156 +213,65 @@
                         </div>
                     </div>
                 </div>
-                <div class="sm-spacer"></div>
+                <div class="card" ng-show="EmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{EmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{EmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
+                </div>
+
                 <div class="card">
+
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Festival Advance:</label>
-                            <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
-                                <option value="" selected>Select </option>
-                                <option ng-repeat="data in Values" value="{{data.id}}">
-                                    {{data.name}}
+                            <label class="font-weight-bold">Advance Type:</label>
+                            <select class="form-control" ng-model="AdvanceType" name="Advance" required>
+                                <option value="" selected>Select Advance Type </option>
+                                <option ng-repeat="data in AdvanceTypeData" value="{{data.AdvanceTypeID}}">
+                                    {{data.AdvanceTypeName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Amount:</label>
+                         
+                            <input class="form-control" placeholder="Enter Amount" ng-model="Amount" name="Amount" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">No Of Months:</label>
+                            <select class="form-control" ng-model="NoOfMonths" name="StudentType" required>
+                                <option value="" selected>Select No Of Months: </option>
+                                <option ng-repeat="data in NoofMonths" value="{{data.Id}}">
+                                    {{data.value}}
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Amount:</label>
-                            <input class="form-control" name="Amount" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Months:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
                             <label class="font-weight-bold">Emi Start Month:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Special Festival Advance:</label>
-                            <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
-                                <option value="" selected>Select </option>
-                                <option ng-repeat="data in Values" value="{{data.id}}">
-                                    {{data.name}}
+                            <select class="form-control" ng-model="EMIMonth" name="StudentType" required>
+                                <option value="" selected>Emi Start Month:</option>
+                                <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                    {{data.Months}}
                                 </option>
                             </select>
+
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Amount:</label>
-                            <input class="form-control" name="Amount" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Months:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Emi Start Month:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Education Advance:</label>
-                            <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
-                                <option value="" selected>Select </option>
-                                <option ng-repeat="data in Values" value="{{data.id}}">
-                                    {{data.name}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Amount:</label>
-                            <input class="form-control" name="Amount" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Months:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Emi Start Month:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Marriage Advance:</label>
-                            <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
-                                <option value="" selected>Select </option>
-                                <option ng-repeat="data in Values" value="{{data.id}}">
-                                    {{data.name}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Amount:</label>
-                            <input class="form-control" name="Amount" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Months:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Emi Start Month:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Vehicle Advance:</label>
-                            <select class="form-control" ng-model="FinancialYear" name="FinancialYear" required>
-                                <option value="" selected>Select </option>
-                                <option ng-repeat="data in Values" value="{{data.id}}">
-                                    {{data.name}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Amount:</label>
-                            <input class="form-control" name="Amount" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Months:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Emi Start Month:</label>
-                            <input class="form-control" name="Months" />
-                        </div>
-                    </div>
+
                     <div class="col-md-12 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-success  text-center  gr-button btn_top" ng-click="">
+                            <button class="btn btn-sm btn-success  text-center  gr-button btn_top" ng-click="SubmitAdvance()">
                                 Submit
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
@@ -229,31 +279,191 @@
                     </div>
                 </div>
 
+                <div class="sm-spacer"></div>
+                <div class="">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1" style="padding-left: 25px;">
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Advance Type</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">No Of Months</th>
+                                <th class="text-center">Emi Start Month</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in GetAllAdvance">
+
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+
+                                <td>
+
+
+                                    <select class="form-control" id="departmentid" ng-model="data.AdvanceTypeId"
+                                            ng-options="data.AdvanceTypeID as data.AdvanceTypeName for data in AdvanceTypeData">
+                                        <option value="" selected>Select Advance Type</option>
+                                    </select>
+
+
+                                   
+                                </td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.AdvanceAmount" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.AdvanceNoOfMonths" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.AdvanceEmiStartMonth" /></div></td>
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditAdvances(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateAdvance(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.AdvancesID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.AdvancesID,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
+
+
+                               
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
             <div class="tab-pane " id="3">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+
+                                <select class="form-control" ng-model="HBAFinancialYear" name="FinancialYear" required>
+
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+
+                            <label class="font-weight-bold">Month</label>
+                            <div class="">
+                                <select class="form-control" ng-model="HBAMonth" name="StudentType" required>
+                                    <option value="" selected>
+                                        Select Month
+                                    </option>
+
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="EmployeeID"
-                                    ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+
+                            <select class="form-control" ng-model="HBAEmployeeID" ng-change="ChangeHBAEmpData(HBAEmployeeID)"
+                                    ng-options="data as data.EmployeeName for data in EmployeeDetailsData">
                                 <option value="" selected>Select Employee Name</option>
+
                             </select>
                         </div>
                     </div>
+
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetHBAReport()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
                     </div>
                 </div>
+
                 <div class="sm-spacer"></div>
+
+                <div class="card" ng-show="HBAEmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{HBAEmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{HBAEmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{HBADesignation}}</div>
+                    <br/>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Amount:</label>
+                            <input class="form-control" name="Amount" ng-model="HBAAmount"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Months:</label>
+                            <input class="form-control" name="Months"  ng-model="HBAMonths"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Emi Start Month:</label>
+                            <input class="form-control" name="HBAMonthId" ng-model="HBAMonthId" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-9">
+                        <button class="btn btn-success pull-right" ng-click="SaveHBA()">Submit</button>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+                <div class="" ng-show="NPSData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="clr_bg">
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
+                                <th>Employee Name</th>
+                                <th>Designation</th>
+                                <th>Pension Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in NPSData">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.DesignationType}}</td>
+                                <td>{{data.PensionAmount}}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sm-spacer"></div>
+
             </div>
         </div>
-    </div>
-    <div class="sm-spacer"></div>
-    <div class="sm-spacer"></div>
-</div>
+    
+ </div>

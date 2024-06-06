@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("TwshStudentRegController", function ($scope, $crypto, SystemUserService, $state, $localStorage, AppSettings, $uibModal, TwshStudentRegService) {
 
-
+        $scope.DetailsDisabled = false;
        
         $scope.isChecked = true;
         $scope.instructions = false;
@@ -531,6 +531,7 @@
         }
 
         $scope.Continue = function () {
+ 
             if ($scope.adhaarno == '' || $scope.adhaarno == null) {
                 alert("Aadhaar number Can't be Empty");
                 return;
@@ -655,7 +656,8 @@
                 $scope.CandidateNameDOB = CandidateNameDOB;
             }
         }
-        $scope.submitData = function () {
+        $scope.submitData = function (adhaarno) {
+          
             $scope.maskedAadhaar = $scope.adhaarno.slice(0, 8).replace(/[0-9]/g, "X") + $scope.adhaarno.slice(-4);
 
             if (($scope.CandidateName == undefined || $scope.CandidateName == "" || $scope.CandidateName == null)) {
@@ -813,12 +815,16 @@
 
 
             var reg = "[0-9]{1,2}[/][0-9]{1,2}[/][0-9]{4}";
-            if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined) {
-                var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
-                var d = datechange.slice(0, 10).split('/');
-                if (d[2].length === 4) {
-                    $scope.CandidateNameDOBchange = d[0] + "/" + d[1] + "/" + d[2];
+            if ($scope.CandidateNameDOB.length == undefined) {
+                if ($scope.CandidateNameDOB != null && $scope.CandidateNameDOB !== undefined) {
+                    var datechange = moment($scope.CandidateNameDOB).format("DD/MM/YYYY HH:mm:ss");
+                    var d = datechange.slice(0, 10).split('/');
+                    if (d[2].length === 4) {
+                        $scope.CandidateNameDOBchange = d[0] + "/" + d[1] + "/" + d[2];
+                    }
                 }
+            } else {
+                $scope.CandidateNameDOBchange = $scope.CandidateNameDOB
             }
             try {
                 $scope.selectedCommunity = JSON.parse($scope.community);
@@ -930,10 +936,20 @@
             previousDetails.then(function (res) {
                 var gradeinfo = $scope.selectedgrade;
                 if (res.length > 0) {
-                    if (res[0].Result == "Fail") {
-                        $scope.PreviousExam = false;
+                    if (res[0].Result == "Fail" || res[0].Result == "FAIL") {
+                        $scope.PreviousExam = true;
+                        $scope.DetailsDisabled = true;
                         $scope.CandidateName = res[0].StudentName;
-                        $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
+                        $scope.FatherName = res[0].FatherName;
+                        $scope.PreviousGradeNme = res[0].Gradename;
+                        $scope.PreviousGradeCode = res[0].Gradecode;
+                        $scope.MotherName = res[0].MotherName;
+                        $scope.qualifiedexamhall = res[0].HallTicketNumber;
+                        $scope.CandidateNameDOB = res[0].DateOfBirth;
+                        $scope.SscRollNo = res[0].SscHallTicket;
+                        $scope.PreviousResult = res[0].Result;
+                       // $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
+                       // $scope.ShowAadhaarDetail = false;
                         $scope.ShowAadhaarDetail = true;
                         $scope.applicationForm = false;
                         $scope.ExamAppearDetails = false;
@@ -942,10 +958,28 @@
                         $scope.isqualified1 = false;
                         $scope.isqualified2 = false;
                         $scope.isqualified3 = false;
-                    } else if (res[0].Result == "Pass") {
+                    } else if (res[0].Result == "Pass" || res[0].Result == "PASS") {
                         $scope.PreviousExam = true;
-                        alert("Please Check your Hallticket No.");
-                        $state.go("TWSH.OnlineApplication");
+                        $scope.DetailsDisabled = true;
+                        $scope.CandidateName = res[0].StudentName;
+                        $scope.FatherName = res[0].FatherName;
+                        $scope.PreviousGradeNme = res[0].Gradename;
+                        $scope.PreviousGradeCode = res[0].Gradecode;
+                        $scope.MotherName = res[0].MotherName;
+                        $scope.qualifiedexamhall = res[0].HallTicketNumber;
+                        $scope.CandidateNameDOB = res[0].DateOfBirth;
+                        $scope.SscRollNo = res[0].SscHallTicket;
+                        $scope.PreviousResult = res[0].Result;
+                        $scope.ShowAadhaarDetail = true;
+                        $scope.applicationForm = false;
+                        $scope.ExamAppearDetails = false;
+                        $scope.oldUser2 = false;
+                        $scope.sscForm = false;
+                        $scope.isqualified1 = false;
+                        $scope.isqualified2 = false;
+                        $scope.isqualified3 = false;
+                        //alert("Please Check your Hallticket No.");
+                        //$state.go("TWSH.OnlineApplication");
                     }
 
                 } else {
@@ -960,10 +994,11 @@
                         $scope.oldUser = false;
                         $scope.oldUser2 = false;
                         $scope.sscForm = false;
-                        $scope.applicationForm = false;
+                        $scope.applicationForm = true;
                         $scope.isqualified1 = false;
                         $scope.isqualified2 = false;
                         $scope.isqualified3 = false;
+                    
                     } else {
                         alert("Details Not found, Try to get details using Lower Exam HallTicket No");
                         $scope.oldUser2 = true;
@@ -990,7 +1025,7 @@
             var previousDetails = TwshStudentRegService.GetQualifiedExamData(preHallTicket, $scope.selectedgrade.QualificationGradeId);
             previousDetails.then(function (res) {
                 if (res.length > 0) {
-                    if (res[0].Result == "Pass") {
+                    if (res[0].Result == "Pass" || res[0].Result == "PASS") {
                         $scope.QualifiedExam = true;
                         $scope.CandidateName = res[0].StudentName;
                         $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
@@ -1003,7 +1038,7 @@
                         $scope.isqualified2 = false;
                         $scope.isqualified3 = false;
                     } else {
-                        if (res[0].Result == "Fail") {
+                        if (res[0].Result == "Fail" || res[0].Result == "FAIL") {
 
                             alert("Eligibility Criteria not fullfilled.");
                             $state.go("TWSH.OnlineApplication");
@@ -1087,7 +1122,7 @@
 
 
 
-        $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
+        $scope.getssc = function (sscHallticket, passedoutYear, sscType) {
             if (sscHallticket == '' || sscHallticket == null) {
                 alert("SSC HallTicket number can't be Empty");
                 return;
@@ -1104,6 +1139,73 @@
                 Stream: sscType
             };
             if (passedoutYear >= '2023') {
+
+                var sscdetails = TwshStudentRegService.getNewSSCDetails(reqData);
+                sscdetails.then(function (res) {
+                    if (res) {
+
+                        let resdata = JSON.parse(res)
+                        if (resdata.Status == 200) {
+                            $scope.applicationForm = true;
+                            $scope.CandidateName = resdata.Name;
+                            $scope.CandidateNamefound = $scope.CandidateName != "" ? true : false;
+                            $scope.FatherName = resdata.FatherName;
+                            $scope.FatherNamefound = $scope.FatherName != "" ? true : false;
+                            $scope.MotherName = resdata.MotherName;
+                            $scope.MotherNamefound = $scope.MotherName != "" ? true : false;
+                            $scope.SscRollNo = resdata.RollNo;
+                            $scope.SscRollNofound = $scope.SscRollNo != "" ? true : false;
+                            $scope.Gender = resdata.Sex == "B" || resdata.Sex == "M" ? "M" : resdata.Sex == "G" || resdata.Sex == "F" ? "F" : "";
+                            $scope.Genderfound = $scope.Gender != "" ? true : false;
+                            let date1 = resdata.DateOfBirth;
+                            let ch = date1.split('');
+                            var datelength = ch.length;
+                            //    var tempdate = "";                             
+                            //    var regex = "^[0-9]{1,6}$";
+                            //    if (datelength<=6) {                      
+                            //        if (parseInt(ch[4] + ch[5]) <= 99 && parseInt(ch[4] + ch[5]) > 80) {
+                            //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/19" + ch[4] + ch[5];
+                            //        } else {
+                            //            tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/20" + ch[4] + ch[5];
+                            //        }
+                            //    }
+                            //    else if (datelength <= 8 && datelength >= 6){                               
+                            //        tempdate = ch[0] + ch[1] + "/" + ch[2] + ch[3] + "/" + ch[4] + ch[5] + ch[6] + ch[7];                               
+                            //}          
+
+                            //    else {
+                            //        tempdate = resdata.DateOfBirth;                        
+
+                            //    }                           
+                            //    $scope.CandidateNameDOB = tempdate;
+                            //    $scope.CandidateNameDOBchange = tempdate;
+                            //    $scope.CandidateNameDOBfound = $scope.CandidateNameDOB != "" ? true : false;
+
+                            $scope.sscForm = false;
+
+                        } else {
+                            alert("Details not found, Continue to fillApplication");
+                            $scope.applicationForm = true;
+                            $scope.sscForm = false;
+                            $scope.isqualified1 = true;
+                        }
+                    } else {
+                        alert("Details not found, Continue to fillApplication");
+                        $scope.applicationForm = true;
+                        $scope.sscForm = false;
+                        $scope.isqualified1 = true;
+                    }
+
+                }, function (err) {
+                    alert("Details not found, Continue to fillApplication");
+                    $scope.applicationForm = true;
+                    $scope.sscForm = false;
+                    $scope.isqualified1 = true;
+                })
+            }
+
+
+            else {
 
                 var sscdetails = TwshStudentRegService.getSSCDetails(reqData);
                 sscdetails.then(function (res) {
@@ -1167,7 +1269,6 @@
                     $scope.sscForm = false;
                     $scope.isqualified1 = true;
                 })
-
             }
 
         }

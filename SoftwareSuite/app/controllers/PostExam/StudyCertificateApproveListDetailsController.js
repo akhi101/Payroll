@@ -11,6 +11,7 @@
         $scope.ApproveType = $localStorage.CertificateData.ApproveType;
         $scope.Scheme = $localStorage.CertificateData.Scheme;
         $scope.College_Code = authData.College_Code;
+        $scope.BranchCode = authData.BranchCode;
         var PaymentStudent = [];
         var PaymentStudentList = [];
         $scope.buttonlabel = "Approve";
@@ -107,7 +108,7 @@
             if (Path == null || Path == '' || Path == undefined) {
                 var Path = '';
             }
-            var ResetCertificateStatus = PreExaminationService.ResetCertificateStatus(9, PIN, Path);
+            var ResetCertificateStatus = PreExaminationService.ResetCertificateStatus(91, PIN, Path);
             ResetCertificateStatus.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].ResponceCode == "200") {
@@ -285,7 +286,7 @@
             });
 
         $scope.GetApprovalDetails = function () {
-            var ApproveList = PreExaminationService.GetStudyApprovalListByScheme($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code);
+            var ApproveList = PreExaminationService.GetStudyApprovalListByScheme($scope.Scheme, $scope.ApproveType, $scope.UserTypeId, $scope.College_Code, $scope.BranchCode);
             ApproveList.then(function (response) {
                 var response = JSON.parse(response)
                 console.log(response);

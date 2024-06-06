@@ -10,11 +10,15 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetMonths');
         };
 
+        this.GetAdvanceType = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetAdvanceType');
+        };
+
         this.GetFinancialYears = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
-        
-        
+
+
         this.GetIncrements = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetIncrements');
         };
@@ -36,7 +40,7 @@ define(['app'], function (app) {
             return promise;
         };
 
-     
+
         this.AddorUpdateIncrements = function (DataTypeId, IncrementId, FinancialYearId, MonthID, EmployeeID, IncrementAmount, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
@@ -52,6 +56,42 @@ define(['app'], function (app) {
             return promise;
         };
 
+
+ 
+        this.AddorUpdateNPS = function (DataTypeId, NPSId, FinancialYearId, MonthID, EmployeeID, PensionAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "NPSId": NPSId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "PensionAmount": PensionAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+              var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
+            return promise;
+        };
+      
+        
+        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, Months, EmiStartMonth, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "HBAId": HBAId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "Amount": Amount,
+                "Months": Months,
+                "EmiStartMonth": EmiStartMonth,
+                "Active": Active,
+                "UserName": UserName
+            };
+
+            console.log(paramObject)
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateHBA', paramObject);
+            return promise;
+        };
 
         this.UpdateDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
@@ -92,8 +132,17 @@ define(['app'], function (app) {
 
         };
 
+        this.PayRollAction = function (DataTypeID, AdvancesId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "AdvancesId": AdvancesId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditAdvance', paramObj);
+            return promise;
 
-
+        };
+      
 
 
 
@@ -287,6 +336,18 @@ define(['app'], function (app) {
 
         };
 
+
+        this.GetEditNPS = function (DataTypeID, NPSId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "NPSId": NPSId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditNPS', paramObj);
+            return promise;
+
+        };
+
         this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -307,7 +368,7 @@ define(['app'], function (app) {
 
         };
 
-        this.GetBranchIFSC = function (BankName,BankBranch) {
+        this.GetBranchIFSC = function (BankName, BankBranch) {
             var paramObj = {
                 "BankName": BankName,
                 "BankBranch": BankBranch
@@ -421,11 +482,118 @@ define(['app'], function (app) {
 
         };
 
+        
+
+        this.GetorEditDeductions = function (DataTypeID, DeductionsId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "DeductionsId": DeductionsId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditDeductions', paramObj);
+            return promise;
+
+        };
+
+
+        this.AddorUpdateDeductions = function (DataTypeId, DeductionsId, FinancialYearId, MonthID, EmployeeID, IT, FlagFund, Harithanidhi, DeductionAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "DeductionsId": DeductionsId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "IT": IT,
+                "FlagFund": FlagFund,
+                "Harithanidhi": Harithanidhi,
+                "DeductionAmount": DeductionAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateDeductions', paramObject);
+            return promise;
+        };
+
+
+        this.GetorEditLeaves = function (DataTypeID, ID, FinancialYearID, EmployeeID, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "ID": ID,
+                "FinancialYearID": FinancialYearID,
+                "EmployeeID": EmployeeID,
+                "Active": Active
+                
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditLeaves', paramObj);
+            return promise;
+
+        };
+
+        this.GetEmployeeLeaveBalance = function (FinancialYearID, EmployeeID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "EmployeeID": EmployeeID,
+               
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEmployeeLeaveBalance', paramObj);
+            return promise;
+
+        };
+
+        this.AddorUpdateLeaves = function (DataTypeId, LeaveId, FinancialYearId, MonthID, EmployeeID, TotalLeaves, MedicalLeaves, CasualLeaves, EarnLeaves, LeavesRequired, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "LeaveId": LeaveId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "TotalLeaves": TotalLeaves,
+                "MedicalLeaves": MedicalLeaves,
+                "CasualLeaves": CasualLeaves,
+                "EarnLeaves": EarnLeaves,
+                "LeavesRequired": LeavesRequired,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateLeaves', paramObject);
+            return promise;
+        };
+
+
+        this.GetorEditAdvance = function (DataTypeID, AdvancesId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "AdvancesId": AdvancesId,
+                "Active": Active
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditAdvance', paramObj);
+            return promise;
+
+        };
 
 
 
 
+        this.AddorUpdateAdvance = function (DataTypeId, AdvancesId, EmployeeID, FinancialYearID, MonthId, AdvanceTypeId, AdvanceAmount, AdvanceNoOfMonths, AdvanceEmiStartMonth, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "AdvancesId": AdvancesId,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthId": MonthId,
+                "AdvanceTypeId": AdvanceTypeId,
+                "AdvanceAmount": AdvanceAmount,
+                "AdvanceNoOfMonths": AdvanceNoOfMonths,
+                "AdvanceEmiStartMonth": AdvanceEmiStartMonth,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateAdvance', paramObject);
+            return promise;
+        };
 
+
+      
 
     });
 });

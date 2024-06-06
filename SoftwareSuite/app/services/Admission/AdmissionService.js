@@ -46,14 +46,14 @@
         }
 
        
-        this.getStudentCategory = function (CollegeCode) {
-            var paramObject = { "CollegeCode": CollegeCode };
-            var promise = DataAccessService.getDataWithPara('Admission/GetStudentCategory', paramObject);
-            return promise;
-        }
+        //this.getStudentCategory = function (CollegeCode) {
+        //    var paramObject = { "CollegeCode": CollegeCode };
+        //    var promise = DataAccessService.getDataWithPara('Admission/GetStudentCategory', paramObject);
+        //    return promise;
+        //}
 
-        this.getStudentCategory = function (CollegeCode) {
-            var paramObject = { "CollegeCode": CollegeCode };
+        this.getStudentCategory = function (AcademicYearId,CollegeCode) {
+            var paramObject = { "AcademicYearId": AcademicYearId,"CollegeCode": CollegeCode };
             var promise = DataAccessService.getDataWithPara('Admission/GetStudentCategory', paramObject);
             return promise;
         }
@@ -100,8 +100,9 @@
             return promise;
         }
 
-        this.getAdminStudentCategory = function () {
-            var promise = DataAccessService.getDataWithPara('Admission/GetAdminStudentCategory');
+        this.getAdminStudentCategory = function (AcademicID) {
+            var paramObject = { "AcademicID": AcademicID };
+            var promise = DataAccessService.getDataWithPara('Admission/GetAdminStudentCategory', paramObject);
             return promise;
         }
         this.export = function () {

@@ -957,6 +957,12 @@
                 templateUrl: 'app/views/newwebsite/staff.html',
                 dependencies: ['views/newwebsite/controllers/StaffController', 'services/AdminServices/AdminService']
             },
+            'index.ReleasePolycetResults': {
+                url: "/ReleasePolycetResults",
+                templateUrl: 'app/views/Polycet/ReleasePolycetResults.html',
+                dependencies: ['controllers/Polycet/ReleasePolycetResultsController', 'services/AdminServices/AdminService']
+            },
+
             'index.Sitemap': {
                 url: "/Sitemap",
                 templateUrl: 'app/views/newwebsite/sitemap.html',
@@ -3636,13 +3642,13 @@
             'Dashboard.AdmissionDashboard.CategoryReports': {
                 url: "/AdminCategoryReports/CategoryReports",
                 templateUrl: 'app/views/Admission/Reports/CategoryReports.html',
-                dependencies: ['controllers/Admission/Reports/CategoryReportsController', 'services/Admission/AdmissionService']
+                dependencies: ['controllers/Admission/Reports/CategoryReportsController', 'services/Admission/AdmissionService', 'services/Academic/AcademicService']
             },
 
             'Dashboard.AdmissionDashboard.AdminCategoryReports': {
                 url: "/AdminCategoryReports",
                 templateUrl: 'app/views/Admission/Reports/AdminCategoryReports.html',
-                dependencies: ['controllers/Admission/Reports/AdminCategoryReportsController', 'services/Admission/AdmissionService']
+                dependencies: ['controllers/Admission/Reports/AdminCategoryReportsController', 'services/Admission/AdmissionService', 'services/Academic/AcademicService']
             },
 
             'Dashboard.AdmissionDashboard.CategoryDetails': {

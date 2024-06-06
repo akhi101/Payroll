@@ -152,8 +152,8 @@
                             <div class="col-md-3">
                                 <div class="form-group ">
                                     <label class="font-weight-bold">Services :</label>
-                                    <select class="form-control" ng-disabled="Service" ng-change="changeCertificate()" name="CertificateType" ng-model="Certificate"
-                                            ng-options="data.Id as data.Name for data in CertificateTypes">
+                                    <select class="form-control" ng-disabled="Service" ng-change="changeCertificate(CertificateType)" name="CertificateType" ng-model="CertificateType"
+                                            ng-options="data as data.Name for data in CertificateTypes">
                                         <option value="" selected>Select Service</option>
                                     </select>
                                     <!--<select class="form-control" ng-disabled="Service" ng-model="CertificateType" ng-change="changeCertificate()" name="CertificateType">

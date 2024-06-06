@@ -5264,17 +5264,18 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetBonafiedApprovalListByScheme")]
-        public string GetBonafiedApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode)
+        public string GetBonafiedApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode,string BranchCode= null)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@Scheme", Scheme);
                 param[1] = new SqlParameter("@datatype", datatype);
                 param[2] = new SqlParameter("@userType", userType);
                 param[3] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[4] = new SqlParameter("@BranchCode", BranchCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_BonafiedApprovalListByScheme", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -5286,17 +5287,18 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetStudyApprovalListByScheme")]
-        public string GetStudyApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode)
+        public string GetStudyApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode, string BranchCode = null)
         {
             try
             {
 
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@Scheme", Scheme);
                 param[1] = new SqlParameter("@datatype", datatype);
                 param[2] = new SqlParameter("@userType", userType);
                 param[3] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[4] = new SqlParameter("@BranchCode", BranchCode);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SFP_GET_StudyApprovalListByScheme", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -5921,21 +5923,21 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Tc_ApproveStatus", param);
-                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
-                //{
-                //    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
-                //    {
-                //        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
-                //        {
-                //            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Transfer");
-                //            if (status.ToString() == "SUCCESS")
-                //            {
-                //                UpdateSmsStatus(6, dt.Tables[1].Rows[i]["Pin"].ToString());
-                //            }
+                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
+                {
+                    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                    {
+                        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                        {
+                            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Transfer");
+                            if (status.ToString() == "SUCCESS")
+                            {
+                                UpdateSmsStatus(6, dt.Tables[1].Rows[i]["Pin"].ToString());
+                            }
 
-                //        }
-                //    }
-                //}
+                        }
+                    }
+                }
                 return JsonConvert.SerializeObject(dt);
 
 
@@ -6013,21 +6015,21 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[1] = new SqlParameter("@userType", request["userType"]);
                 param[2] = new SqlParameter("@approvestatus", request["approvestatus"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SPB_SET_Study_ApproveStatus", param);
-                //if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
-                //{
-                //    //for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
-                //    //{
-                //    //    if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
-                //    //    {
-                //    //        //var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Study/Bonafide");
-                //    //        //if (status.ToString() == "SUCCESS")
-                //    //        //{
-                //    //        //    UpdateSmsStatus(9, dt.Tables[1].Rows[i]["Pin"].ToString());
-                //    //        //}
+                if (dt.Tables[0].Rows[0]["ResponseCode"].ToString() == "200" && request["userType"].ToString() == "2")
+                {
+                    for (var i = 0; i < dt.Tables[1].Rows.Count; i++)
+                    {
+                        if (dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != null || dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString() != string.Empty)
+                        {
+                            var status = sendcertSMS(dt.Tables[1].Rows[i]["Pin"].ToString(), dt.Tables[1].Rows[i]["StudentPhoneNumber"].ToString(), dt.Tables[1].Rows[i]["CertificatePath"].ToString(), "Study/Bonafide");
+                            if (status.ToString() == "SUCCESS")
+                            {
+                                UpdateSmsStatus(9, dt.Tables[1].Rows[i]["Pin"].ToString());
+                            }
 
-                //    //    }
-                //    //}
-                //}
+                        }
+                    }
+                }
 
                 return JsonConvert.SerializeObject(dt);
 

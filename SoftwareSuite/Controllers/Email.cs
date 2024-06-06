@@ -78,7 +78,9 @@ namespace SoftwareSuite.Controllers
                 MailMessage message = new MailMessage();
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;// | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
+                //SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
+                SmtpClient smtp = new SmtpClient("smtpsgwhyd.nic.in", 465);
+                
                 message.To.Add(new MailAddress(request.To));
                 message.From = new MailAddress(mailusername);
                 message.To.Add(new MailAddress(request.To));
@@ -100,7 +102,9 @@ namespace SoftwareSuite.Controllers
                 smtp.Credentials = new NetworkCredential(mailusername, mailpassword);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
+                smtp.Dispose();
                 //using (MailMessage mail = new MailMessage(request.From, request.Subject))
+                //
                 //{
                 //    mail.Subject = request.Subject;
                 //    mail.Body = request.Message;
@@ -127,7 +131,7 @@ namespace SoftwareSuite.Controllers
                 //    //smtp.Port = 587;
                 //    smtp.Send(mail);
 
-                    var res = "success";
+                var res = "success";
 
                     return res;
                 //}
@@ -147,7 +151,8 @@ namespace SoftwareSuite.Controllers
                 MailMessage message = new MailMessage();
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;// | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
+                //     SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
+                SmtpClient smtp = new SmtpClient("smtpsgwhyd.nic.in", 465);
                 //message.To.Add(new MailAddress(request.To));
                 message.From = new MailAddress(mailusername);
                 message.To.Add(new MailAddress(request.To));
@@ -167,6 +172,7 @@ namespace SoftwareSuite.Controllers
                 smtp.Credentials = new NetworkCredential(mailusername, mailpassword);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
+            
                 var res = "success";
               
                     return res;
@@ -203,8 +209,9 @@ namespace SoftwareSuite.Controllers
                 MailMessage message = new MailMessage();
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;// | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-                SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
-
+                                                                                  // SmtpClient smtp = new SmtpClient("relay.nic.in", 465);
+                SmtpClient smtp = new SmtpClient("smtpsgwhyd.nic.in", 465);
+             
                 message.From = new MailAddress(mailusername);
                
                 message.Subject = request.Subject;

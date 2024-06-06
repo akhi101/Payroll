@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- ========== Meta Tags ========== -->
@@ -359,7 +360,7 @@
                                                     <li ng-click="OpenModule('index.TwshFeePayment')"><a class="MobileSidebar" id="TwshFeePayment" ui-sref="index.TwshFeePayment">Fee Payment</a></li>
                                                     <li ng-click="OpenModule('index.TwshViewApplication')"><a class="MobileSidebar" id="index.TwshViewApplication" ui-sref="index.TwshViewApplication">Reschedule CBT Exam\ View Application</a></li>
                                                     <li ng-click="OpenModule('index.TwshHallticket')"><a class="MobileSidebar" id="index.TwshHallticket" ui-sref="index.TwshHallticket">Hallticket Download</a></li>
-                                                    <li ><a class="MobileSidebar" target="_blank" href="https://sbtet.telangana.gov.in/TwshCbt">CBT Practice</a></li>
+                                                    <li><a class="MobileSidebar" target="_blank" href="https://sbtet.telangana.gov.in/TwshCbt">CBT Practice</a></li>
                                                     <li><a class="MobileSidebar" download href="/Cbt_Instructions/CBT INSTRUCTIONS TO THE  CANDIDATES WITH FORMATS  12-04-2022.pdf">CBT Instructions</a></li>
                                                     <li ng-click="OpenModule('index.TypingAndShorthandResults')"><a class="MobileSidebar" id="index.TypingAndShorthandResults" ui-sref="index.TypingAndShorthandResults">Results</a></li>
                                                     <li><a class="MobileSidebar" target="_blank" href="https://osdes.sbtet.telangana.gov.in/pcrv">Photo Copy & Revaluation</a></li>
@@ -372,7 +373,8 @@
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Syllabus</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Time Table</a></li>
                                                     <li ng-click="OpenModule('index.FeePayment')"><a class="MobileSidebar" id="index.FeePayment" ui-sref="index.FeePayment">Fee Payment</a></li>-->
-                                                    <li ng-click="OpenModule('index.CcicResults')"><a class="MobileSidebar" id="index.CcicResults" target="_blank"  ui-sref="index.CcicResults" >CCIC Results</a></li>
+                                                    <li ng-click="OpenModule('index.CcicResults')"><a class="MobileSidebar" id="index.CcicResults" target="_blank" ui-sref="index.CcicResults">CCIC Results</a></li>
+                                                    <!--<li><a target="_blank" href="https://www.sbtet.telangana.gov.in/index.html#!/index/CcicResults">CCIC Results</a></li>-->
                                                     <li><a target="_blank" href="https://osdes.sbtet.telangana.gov.in/pcrv/">Photo Copy & Revaluation</a></li>
                                                     <!--<li ng-click="OpenModule('index.HallTicketDownload')"><a class="MobileSidebar" id="index.HallTicketDownload" ui-sref="index.HallTicketDownload">Hall Ticket Download</a></li>
                                                     <li ng-click="OpenModule('index.CommingSoon')"><a class="MobileSidebar" id="index.CommingSoon" ui-sref="index.CommingSoon">Consolidated Result</a></li>
@@ -559,7 +561,13 @@
                                     <span class="test-scroll">
                                         <marquee onmouseover="this.stop();" onmouseout="this.start();" scrollamount="10">
                                             <p>
-                                                <a href="#" ng-repeat="data in Notifications"><img class="gifImg" height="25" width="40" src="../../contents/img/gif.gif" /> {{data.Notification}}</a>
+                                                <a href="#" ng-repeat="data in Notifications">
+                                                    <img class="gifImg" height="25" width="40" src="../../contents/img/gif.gif" />
+                                                    <a href="https://polycet.sbtet.telangana.gov.in/Downloads/POLYCET-2024_KEY.pdf" target="_blank">
+                                                        Provisional Key of POLYCET-2024 is published, click here.
+                                                    </a>
+                                                    {{data.Notification}}
+                                                </a>
                                                 <!--<a class="MobileSidebar"href="#">SBTET-Hyderabad- Academics- VI sem of C-16 Curriculum - Industrial Training/ In house Project - Instructions communicated - Reg.</a>
                                                 <a href="#">SBTET-TS-Hyderabad-Academics-C-18 (DGT,DHMCT,DHS,DLT,DME,DMET,DMG,DPKG,DPT,DTT) Curriculum-II Semester syllabus for 2018-19 - Communicated - Part-II - Reg</a>
                                                 <a href="#">SBTET-TS-Hyderabad-Academics-C-18 (DAA,DAE,DCCP,DCE,DCHE,DCME,DECE,DEEE,DEIE,DFWT) Curriculum-II Semester syllabus for 2018-19 - Communicated - Part-I - Reg</a>-->

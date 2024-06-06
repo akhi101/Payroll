@@ -1,11 +1,8 @@
-﻿<style>
+﻿ <style>
     .btn_top {
         margin-top: 25px;
     }
-    tr.clr_bg {
-        background-color: #024e85;
-        color: #fff;
-    }
+  
     .card {
         margin-bottom: 50px;
     }
@@ -91,7 +88,6 @@
                     <br />
                     <div class="col-md-3"><b>Increment Amount :</b></div>
                     <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
-
                     <br />
                     <div class="col-md-9" ng-show="EmployeeData">
                         <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
@@ -100,29 +96,33 @@
                 <div class="">
                     <table class="table table-responsive table-bordered">
                         <thead>
-                            <tr class="clr_bg">
-                                <th>Financial Year</th>
-                                <th>Month</th>
-                                <th>Employee Code</th>
-                                <th>Employee Name</th>
-                                <th>Designation</th>
-                                <th>Increment Amount</th>
+                            <tr class="cb-1">
+                                <th>S.No</th>
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Increment Amount</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in GetAllIncrements">
-                                <td>{{data.FinancialYear}}</td>
-                                <td>{{data.Months}}</td>
-                                <td>{{data.EmployeeCode}}</td>
-                                <td>{{data.EmployeeName}}</td>
-                                <td>{{data.Designation}}</td>
-                                <td>{{data.IncrementAmount}}</td>
+                                <td class="text-center pointer">{{$index+1}}</td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IncrementAmount" /></div></td>
                             </tr>
-                          
+
                         </tbody>
                     </table>
                 </div>
-            
+
             </div>
             <div class="tab-pane" id="2">
                 <div class="card">
@@ -155,9 +155,9 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="EmployeeID" name="StudentType" required>
+                            <select class="form-control" ng-model="Employee1" ng-change="ChangeEmpDedData(Employee1)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data.EmployeeID}}">
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
                                     {{data.EmployeeName}} ({{data.EmployeeCode}})
                                 </option>
                             </select>
@@ -179,56 +179,57 @@
                     <div class="col-md-9">: {{EmployeeCode}}</div>
                     <div class="col-md-3"><b>Designation </b></div>
                     <div class="col-md-9">: {{Designation}}</div>
-                    <br />
-                    <div class="col-md-3"><b>Increment Amount :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
-
-                    <br />
+                    <div class="col-md-3"><b>IT  :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="IT" ng-model="IT" placeholder="IT" /></div>
+                    <div class="col-md-3"><b>FlagFund :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="FlagFund" ng-model="FlagFund" placeholder="FlagFund" /></div>
+                    <div class="col-md-3"><b>Harithanidhi :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="Harithanidhi" ng-model="Harithanidhi" placeholder="Harithanidhi" /></div>
+                    <div class="col-md-3"><b>Deduction Amount :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="DeductionAmount" ng-model="DeductionAmount" placeholder="Deduction Amount" /></div>
                     <div class="col-md-9" ng-show="EmployeeData">
-                        <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
+                        <button class="btn btn-success pull-right" ng-click="SaveDeduction()">Save</button>
                     </div>
                 </div>
+
+
+
+
                 <div class="sm-spacer"></div>
                 <div class="">
                     <table class="table table-responsive table-bordered">
                         <thead>
-                            <tr class="clr_bg">
-                                <th>Employee Id</th>
+                            <tr class="cb-1">
+                                <th>Financial Year</th>
+                                <th>Month</th>
+                                <th>Employee Code</th>
                                 <th>Employee Name</th>
+                                <th>Designation</th>
                                 <th>IT</th>
-                                <th>Flag Fund</th>
+                                <th>FlagFund</th>
                                 <th>Harithanidhi</th>
+                                <th>Deduction Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="IT" class="form-control" /> </td>
-                                <td><input name="FlagFund" class="form-control" /> </td>
-                                <td><input name="Harithanidhi" class="form-control" /> </td>
+                            <tr ng-repeat="data in GetAllDeductions">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.Designation}}</td>
+                                <td>{{data.IT}}</td>
+                                <td>{{data.FlagFund}}</td>
+                                <td>{{data.Harithanidhi}}</td>
+                                <td>{{data.DeductionAmount}}</td>
                             </tr>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="IT" class="form-control" /> </td>
-                                <td><input name="FlagFund" class="form-control" /> </td>
-                                <td><input name="Harithanidhi" class="form-control" /> </td>
-                            </tr>
-                            <tr>
-                                <td>1245</td>
-                                <td>Akhil Kumar</td>
-                                <td><input name="IT" class="form-control" /> </td>
-                                <td><input name="FlagFund" class="form-control" /> </td>
-                                <td><input name="Harithanidhi" class="form-control" /> </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-12">
-                    <button class="btn btn-success btn-sm pull-right">Save</button>
-                </div>
+
             </div>
+
             <div class="tab-pane" id="3">
                 <div class="card">
                     <div class="col-md-3">
@@ -260,9 +261,9 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee Id:</label>
-                            <select class="form-control" ng-model="EmployeeID" name="StudentType" required>
+                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpLevData(Employee)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data.EmployeeID}}">
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
                                     {{data.EmployeeName}} ({{data.EmployeeCode}})
                                 </option>
                             </select>
@@ -270,31 +271,87 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetEmployeeLeaveBalance()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
                     </div>
                 </div>
+
                 <div class="sm-spacer"></div>
-                <div class="card">
+                <div class="card"  ng-show="ShowLeaveData">
+
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{LeavesEmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{Designation}}</div>
                     <div class="col-md-3"><b>Medical Leaves </b></div>
-                    <div class="col-md-9">: 20</div>
+                    <div class="col-md-9">: {{MedicalLeavesBalance}}</div>
                     <div class="col-md-3"><b>Casual Leaves </b></div>
-                    <div class="col-md-9">: 10</div>
+                    <div class="col-md-9">: {{CasualLeavesBalance}}</div>
                     <div class="col-md-3"><b>Earn Leaves </b></div>
-                    <div class="col-md-9">: 8</div>
-                    <br />
+                    <div class="col-md-9">: {{EarnLeavesBalance}}</div>
+                    <div class="col-md-3"><b>Total Leaves </b></div>
+                    <div class="col-md-9">: {{LeavesBalance}}</div>
+                    <div class="col-md-3"><b>Medical Leaves :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeaves" ng-change="ChangeLeaves()" placeholder="Medical Leaves" /></div>
+                    <div class="col-md-3"><b>Casual Leaves :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="CasualLeaves" ng-model="CasualLeaves" ng-change="ChangeLeaves()" placeholder="Casual Leaves" /></div>
+                    <div class="col-md-3"><b>Earn Leaves :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="EarnLeaves" ng-model="EarnLeaves" ng-change="ChangeLeaves()" placeholder="Earn Leaves" /></div>
                     <div class="col-md-3"><b>Leaves Required :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="LeavesRequired" placeholder="Leaves Required" /></div>
-                  
-                        <br />
-                        <div class="col-md-9">
-                            <button class="btn btn-success pull-right">Submit</button>
-                        </div>
+                    <div class="col-md-3"><input class="form-control" ng-model="LeavesRequired" disabled name="LeavesRequired" placeholder="Leaves Required" /></div>
+                    <div class="col-md-3"><b>Remaining Leaves :</b></div>
+                    <div class="col-md-3"><input class="form-control" ng-model="RemainingLeaves" disabled name="RemainingLeaves" placeholder="Total Leaves" /></div>
+                    <div class="col-md-9" ng-show="savebutton">
+                        <button class="btn btn-success pull-right" ng-click="SaveLeaves()">Save</button>
                     </div>
                 </div>
+                <div class="sm-spacer"></div>
+                <div class="">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1">
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Medical Leaves</th>
+                                <th class="text-center">Casual Leaves</th>
+                                <th class="text-center">Earn Leaves</th>
+                                <th class="text-center">Total Leaves</th>
+                                <th class="text-center">Leaves Required</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in EmployeeLeaveData">
+                                <td>{{data.FinancialYear}}</td>
+                                <td>{{data.Months}}</td>
+                                <td>{{data.EmployeeCode}}</td>
+                                <td>{{data.EmployeeName}}</td>
+                                <td>{{data.DesignationName}}</td>
+                                <td>{{data.MedicalLeaves}}</td>
+                                <td>{{data.CasualLeaves}}</td>
+                                <td>{{data.EarnLeaves}}</td>
+                                <td>{{data.TotalLeaves}}</td>
+                                <td>{{data.LeavesRequired}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+
+           
+
+
             <div class="tab-pane" id="4">
                 <div class="card">
                     <div class="col-md-3">

@@ -40,7 +40,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-     
+
 
         [HttpGet, ActionName("GetMonths")]
         public HttpResponseMessage GetMonths()
@@ -58,6 +58,24 @@ namespace SoftwareSuite.Controllers.PayRoll
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet, ActionName("GetAdvanceType")]
+        public HttpResponseMessage GetAdvanceType()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_AdvanceTypes";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_AdvanceTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
 
         [HttpGet, ActionName("GetFinancialYears")]
         public HttpResponseMessage GetFinancialYears()
@@ -93,7 +111,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        
+
 
 
         [HttpPost, ActionName("GetorEditDesignationData")]
@@ -172,6 +190,202 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+        [HttpPost, ActionName("AddorUpdateNPS")]
+        public string AddorUpdateNPS([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@NPSId", request["NPSId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
+                param[6] = new SqlParameter("@Active", request["Active"]);
+                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_NPS", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [HttpPost, ActionName("AddorUpdateHBA")]
+        public string AddorUpdateHBA([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[10];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@HBAId", request["HBAId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@Amount", request["Amount"]);
+                param[6] = new SqlParameter("@Months", request["Months"]);
+                param[7] = new SqlParameter("@EmiStartMonth", request["EmiStartMonth"]);
+                param[8] = new SqlParameter("@Active", request["Active"]);
+                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HBA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+       
+
+        [HttpPost, ActionName("GetorEditDeductions")]
+        public string GetorEditDeductions([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Deductions", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+
+        [HttpPost, ActionName("AddorUpdateDeductions")]
+        public string AddorUpdateDeductions([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[11];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@IT", request["IT"]);
+                param[6] = new SqlParameter("@FlagFund", request["FlagFund"]);
+                param[7] = new SqlParameter("@Harithanidhi", request["Harithanidhi"]);
+                param[8] = new SqlParameter("@DeductionAmount", request["DeductionAmount"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Deductions", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        public class LeavesDetails
+        {
+            public int DataTypeID { get; set; }
+            public int ID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int EmployeeID { get; set; }
+            public bool Active { get; set; }
+            
+           
+
+        }
+
+
+        [HttpPost, ActionName("GetorEditLeaves")]
+        public string GetorEditLeaves([FromBody] LeavesDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@ID", data.ID);
+                param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[3] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[4] = new SqlParameter("@Active", data.Active);
+                
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeLeavesBalance", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+        [HttpPost, ActionName("GetEmployeeLeaveBalance")]
+        public string GetEmployeeLeaveBalance([FromBody] LeavesDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_EmployeeLeavesBalance", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+        [HttpPost, ActionName("AddorUpdateLeaves")]
+        public string AddorUpdateLeaves([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[12];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@LeaveId", request["LeaveId"]);
+                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@TotalLeaves", request["TotalLeaves"]);
+                param[6] = new SqlParameter("@MedicalLeaves", request["MedicalLeaves"]);
+                param[7] = new SqlParameter("@CasualLeaves", request["CasualLeaves"]);
+                param[8] = new SqlParameter("@EarnLeaves", request["EarnLeaves"]);
+                param[9] = new SqlParameter("@LeavesRequired", request["LeavesRequired"]);
+                param[10] = new SqlParameter("@Active", request["Active"]);
+                param[11] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Leaves", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
 
 
@@ -304,7 +518,24 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-
+        [HttpPost, ActionName("GetEditNPS")]
+        public string GetEditNPS([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@NPSId", request["NPSId"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_NPS", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
         public class EmpDetails
         {
@@ -443,9 +674,9 @@ namespace SoftwareSuite.Controllers.PayRoll
 
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@DataTypeID",data.DataTypeID);
-                param[1] = new SqlParameter("@EmployeeId",data.EmployeeId);
-                param[2] = new SqlParameter("@Active",data.Active);
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
+                param[2] = new SqlParameter("@Active", data.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -556,8 +787,84 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+       
+
+            [HttpPost, ActionName("GetorEditAdvance")]
+            public string GetorEditAdvance([FromBody] AdvanceDetails data)
+            {
+                try
+                {
+
+                    var dbHandler = new PayRolldbhandler();
+                    var param = new SqlParameter[3];
+                    param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                    param[1] = new SqlParameter("@AdvancesId", data.AdvancesId);
+                    param[2] = new SqlParameter("@Active", data.Active);
+                    var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Advances", param);
+                    return JsonConvert.SerializeObject(dt);
+
+                }
+                catch (Exception ex)
+                {
+
+                    return ex.Message;
+
+                }
+            }
 
 
+            public class AdvanceDetails
+        {
+            public int DataTypeId { get; set; }
+            public int DataTypeID { get; set; }
+            public int AdvancesId { get; set; }
+            public int EmployeeID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int MonthId { get; set; }
+            public int AdvanceTypeId { get; set; }
+            public int AdvanceAmount { get; set; }
+            public int AdvanceNoOfMonths { get; set; }
+            public int AdvanceEmiStartMonth { get; set; }
+            public bool Active { get; set; }
+           
+            public string UserName { get; set; }
+
+
+
+        }
+
+
+        [HttpPost, ActionName("AddorUpdateAdvance")]
+        public string AddorUpdateAdvance([FromBody] AdvanceDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[10];
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@AdvancesId", data.AdvancesId);
+                param[2] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[3] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[4] = new SqlParameter("@MonthId", data.MonthId);
+                param[5] = new SqlParameter("@AdvanceTypeId", data.AdvanceTypeId);
+                param[6] = new SqlParameter("@AdvanceAmount", data.AdvanceAmount);
+                param[7] = new SqlParameter("@AdvanceNoOfMonths", data.AdvanceNoOfMonths);
+                param[8] = new SqlParameter("@AdvanceEmiStartMonth", data.AdvanceEmiStartMonth);
+                param[9] = new SqlParameter("@UserName", data.UserName);
+               
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Add_Update_Advances", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
 
 
 
@@ -566,3 +873,4 @@ namespace SoftwareSuite.Controllers.PayRoll
 
     };
 };
+

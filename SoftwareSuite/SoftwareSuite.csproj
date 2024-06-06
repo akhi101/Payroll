@@ -1124,6 +1124,7 @@
     <Content Include="app\controllers\PayRoll\PayRollDashboardController.js" />
     <Content Include="app\controllers\PayRoll\PensionersController.js" />
     <Content Include="app\controllers\PayRoll\SalaryDetailsController.js" />
+    <Content Include="app\controllers\Polycet\ReleasePolycetResultsController.js" />
     <Content Include="app\controllers\PostExamController.js" />
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
@@ -1172,6 +1173,7 @@
     <Content Include="app\views\PayRoll\Popups\BankDetailsPopup.html" />
     <Content Include="app\views\PayRoll\Popups\SalaryDetails.html" />
     <Content Include="app\views\PayRoll\SalaryDetails.html" />
+    <Content Include="app\views\Polycet\ReleasePolycetResults.html" />
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
@@ -3378,6 +3380,7 @@
     <Content Include="assets\img\next.png" />
     <Content Include="assets\img\preloader.gif" />
     <Content Include="assets\img\previous.png" />
+    <Content Include="assets\img\Release_Results.gif" />
     <Content Include="assets\img\reload.png" />
     <Content Include="assets\img\Secretary.jpg" />
     <Content Include="assets\jquery.lightbox.css" />
