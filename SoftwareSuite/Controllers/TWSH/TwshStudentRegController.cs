@@ -3358,7 +3358,11 @@ namespace SoftwareSuite.Controllers.TWSH
                             MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
                             DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
                             SEX = PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText;
-                            RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
+                            if (ReqData.Year !="2024")
+                            {
+                                RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
+                            }
+                             
                         }
                         catch (Exception ex)
                         {
@@ -3368,10 +3372,12 @@ namespace SoftwareSuite.Controllers.TWSH
                             MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
                             DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
                             SEX = "-";
-                            RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
+                            if (ReqData.Year != "2024")
+                            {
+                                RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
+                            }
                         }
-
-                        if (RESULT == "PASS")
+                        if (ReqData.Year == "2024")
                         {
                             response = Request.CreateResponse(HttpStatusCode.OK);
                             response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"200\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
@@ -3379,10 +3385,20 @@ namespace SoftwareSuite.Controllers.TWSH
                         }
                         else
                         {
-                            response = Request.CreateResponse(HttpStatusCode.OK);
-                            response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
-                            return response;
+                            if (RESULT == "PASS")
+                            {
+                                response = Request.CreateResponse(HttpStatusCode.OK);
+                                response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"200\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
+                                return response;
+                            }
+                            else
+                            {
+                                response = Request.CreateResponse(HttpStatusCode.OK);
+                                response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
+                                return response;
+                            }
                         }
+                           
                     }
                     else
                     {
@@ -3402,82 +3418,6 @@ namespace SoftwareSuite.Controllers.TWSH
             }
         }
 
-
-        [HttpPost, ActionName("GetNewSSCDetails")]
-        public async Task<HttpResponseMessage> GetNewSSCDetails([FromBody] SscDetails ReqData)
-        {
-
-            var url = ConfigurationManager.AppSettings["SSC_NewAPI"].ToString();
-            var urlwithparam = url + "?RollNo=" + ReqData.RollNo + "&Year=" + ReqData.Year + "&Stream=" + ReqData.Stream + "&channel=SBTT&password=S2T20";
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = new HttpResponseMessage();
-                    var resMsg = await client.GetAsync(urlwithparam);
-                    var content = await resMsg.Content.ReadAsStringAsync();
-                    XmlDocument PIDResponseXML = new XmlDocument();
-                    PIDResponseXML.LoadXml(content);
-                    if (PIDResponseXML.InnerXml.Length != 22)
-                    {
-                        var ROLLNO = string.Empty;
-                        var NAME = string.Empty;
-                        var FNAME = string.Empty;
-                        var MNAME = string.Empty;
-                        var DOB = string.Empty;
-                        var SEX = string.Empty;
-                        var RESULT = string.Empty;
-                        try
-                        {
-                            ROLLNO = PIDResponseXML["NewDataSet"]["Table"]["ROLLNO"].InnerText;
-                            NAME = PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText;
-                            FNAME = PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText;
-                            MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
-                            DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
-                            SEX = PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["SEX"].InnerText;
-                            RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
-                        }
-                        catch (Exception ex)
-                        {
-                            ROLLNO = PIDResponseXML["NewDataSet"]["Table"]["ROLLNO"].InnerText;
-                            NAME = PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["NAME"].InnerText;
-                            FNAME = PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["FNAME"].InnerText;
-                            MNAME = PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["MNAME"].InnerText;
-                            DOB = PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == null || PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText == "-" ? null : PIDResponseXML["NewDataSet"]["Table"]["DOB"].InnerText;
-                            SEX = "-";
-                            RESULT = PIDResponseXML["NewDataSet"]["Table"]["RESULT"].InnerText;
-                        }
-
-                        if (RESULT == "PASS")
-                        {
-                            response = Request.CreateResponse(HttpStatusCode.OK);
-                            response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"200\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
-                            return response;
-                        }
-                        else
-                        {
-                            response = Request.CreateResponse(HttpStatusCode.OK);
-                            response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"RollNo\":\"" + ROLLNO + "\",\"Name\" : \"" + NAME + "\",\"FatherName\" : \"" + FNAME + "\",\"MotherName\" : \"" + MNAME + "\",\"DateOfBirth\" : \"" + DOB + "\",\"Sex\" : \"" + SEX + "\"}"), System.Text.Encoding.UTF8, "application/json");
-                            return response;
-                        }
-                    }
-                    else
-                    {
-                        response = Request.CreateResponse(HttpStatusCode.OK);
-                        response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"Response\" : \"No Data Found\" }"), System.Text.Encoding.UTF8, "application/json");
-                        return response;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    var response = Request.CreateResponse(HttpStatusCode.NotFound);
-                    response.Content = new StringContent(JsonConvert.SerializeObject("{\"Status\" : \"404\",\"Response\" : \"" + ex + "\" }"), System.Text.Encoding.UTF8, "application/json");
-                    return response;
-                }
-
-            }
-        }
 
         [HttpPost, ActionName("SendBulkSms")]
         public string TwshSendBulkSms()
