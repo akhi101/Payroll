@@ -774,7 +774,7 @@
                 alert('please Enter college Location');
                 return;
             }
-            if (($scope.UserTypeId == 3 || $scope.UserTypeId == 2) && ($scope.StudentDetails.Conduct == null || $scope.StudentDetails.Conduct == '' || $scope.StudentDetails.Conduct == undefined)) {
+            if (( $scope.UserTypeId == 2) && ($scope.StudentDetails.Conduct == null || $scope.StudentDetails.Conduct == '' || $scope.StudentDetails.Conduct == undefined)) {
                 alert('please select conduct.');
                 return;
             }

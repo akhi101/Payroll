@@ -741,6 +741,7 @@
             var promise = DataAccessService.postData('api/TwshStudentReg/GetSSCDetails', object);
             return promise;
         };
+
         this.getDistrictInstitutes = function (DistrictId, UserTypeId) {
             var paramObj = { "DistrictId": DistrictId, "UserTypeId": UserTypeId };
             console.log(paramObj)

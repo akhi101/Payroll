@@ -159,7 +159,7 @@
             var addInfo7 = "";
             var subMarchantid = "TSTWSH"
             $localStorage.redirecturl = "";
-            $localStorage.redirecturl = 'TWSH.OnlineApplication';
+            $localStorage.redirecturl = 'TWSH.TwshReports';
             var location = window.location.origin;
             if (location == "https://ss.sbtet.telangana.gov.in") {
                 location += "/API/"
