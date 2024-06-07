@@ -742,10 +742,6 @@
             return promise;
         };
 
-        this.getNewSSCDetails = function (object) {
-            var promise = DataAccessService.postData('api/TwshStudentReg/GetNewSSCDetails', object);
-            return promise;
-        };
         this.getDistrictInstitutes = function (DistrictId, UserTypeId) {
             var paramObj = { "DistrictId": DistrictId, "UserTypeId": UserTypeId };
             console.log(paramObj)

@@ -1122,7 +1122,7 @@
 
 
 
-        $scope.getsscDetails = function (sscHallticket, passedoutYear, sscType) {
+        $scope.getssc = function (sscHallticket, passedoutYear, sscType) {
             if (sscHallticket == '' || sscHallticket == null) {
                 alert("SSC HallTicket number can't be Empty");
                 return;
@@ -1138,9 +1138,7 @@
                 Year: passedoutYear,
                 Stream: sscType
             };
-
-
-            if (passedoutYear >= '2023') {
+            
                 var sscdetails = TwshStudentRegService.getSSCDetails(reqData);
                 sscdetails.then(function (res) {
                     if (res) {
@@ -1203,10 +1201,9 @@
                     $scope.sscForm = false;
                     $scope.isqualified1 = true;
                 })
-
             }
 
-        }
+        
         var communitylist = TwshStudentRegService.getCategory()
         communitylist.then(function (res) {
             $scope.communities = res;

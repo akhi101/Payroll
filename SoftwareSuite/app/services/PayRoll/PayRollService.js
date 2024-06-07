@@ -18,10 +18,17 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
 
+        this.GetorEditIncrements = function (DataTypeID, IncrementId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "IncrementId": IncrementId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditIncrements', paramObj);
+            return promise;
 
-        this.GetIncrements = function () {
-            return DataAccessService.getDataAll('api/PayRoll/GetIncrements');
         };
+
 
         this.AddDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
@@ -57,7 +64,7 @@ define(['app'], function (app) {
         };
 
 
- 
+
         this.AddorUpdateNPS = function (DataTypeId, NPSId, FinancialYearId, MonthID, EmployeeID, PensionAmount, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
@@ -69,11 +76,24 @@ define(['app'], function (app) {
                 "Active": Active,
                 "UserName": UserName
             };
-              var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
             return promise;
         };
-      
-        
+
+
+
+
+        this.GetorEditHBA = function (DataTypeID, HBAId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "HBAId": HBAId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditHBA', paramObj);
+            return promise;
+
+        };
+
         this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, Months, EmiStartMonth, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
@@ -132,6 +152,17 @@ define(['app'], function (app) {
 
         };
 
+        this.PayRollNPS = function (DataTypeID, NPSId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "NPSId": NPSId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditNPS', paramObj);
+            return promise;
+
+        };
+
         this.PayRollAction = function (DataTypeID, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -142,7 +173,17 @@ define(['app'], function (app) {
             return promise;
 
         };
-      
+
+        this.PayRollIncrement = function (DataTypeID, IncrementId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "IncrementId": IncrementId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditIncrements', paramObj);
+            return promise;
+
+        };
 
 
 
@@ -482,7 +523,7 @@ define(['app'], function (app) {
 
         };
 
-        
+
 
         this.GetorEditDeductions = function (DataTypeID, DeductionsId, Active) {
             var paramObj = {
@@ -522,7 +563,7 @@ define(['app'], function (app) {
                 "FinancialYearID": FinancialYearID,
                 "EmployeeID": EmployeeID,
                 "Active": Active
-                
+
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditLeaves', paramObj);
             return promise;
@@ -533,7 +574,7 @@ define(['app'], function (app) {
             var paramObj = {
                 "FinancialYearID": FinancialYearID,
                 "EmployeeID": EmployeeID,
-               
+
             };
             var promise = DataAccessService.postData('api/PayRoll/GetEmployeeLeaveBalance', paramObj);
             return promise;
@@ -593,7 +634,7 @@ define(['app'], function (app) {
         };
 
 
-      
+
 
     });
 });
