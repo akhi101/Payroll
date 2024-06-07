@@ -5,14 +5,15 @@
         $ctrl.$onInit = () => {
 
             $scope.EmployeeData = false;
+            $scope.HBAEmployeeData = false;
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
         $scope.FinancialYears();
             $scope.GetMonths();
             $scope.GetEditNPS();
-   
             $scope.getAdvanceType();
             $scope.GetorEditAdvance();
+            $scope.GetorEditHBA();
             
             
         }
@@ -137,25 +138,48 @@
         }
        
 
+        $scope.GetorEditHBA = function () {
+            var getdesign = PayRollService.GetorEditHBA(1, 0, 0);
+            getdesign.then(function (response) {
+                var response = JSON.parse(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.GetAllHBA = response.Table;
+                    $scope.Noreports = false;
+                    for (var j = 1; j < $scope.GetAllHBA.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                else {
+                    $scope.GetAllHBA = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Advance Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
 
-        $scope.UpdateAdvance = function (data) {
-            var datatypeid = 2
+        $scope.SaveHBA = function () {
+            var DataTypeId = 1
 
 
-            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, data.AdvancesID, data.EmployeeID, data.FinancialYearID, data.MonthID, data.AdvanceTypeId, data.AdvanceAmount, data.AdvanceNoOfMonths, data.AdvanceEmiStartMonth, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, 0, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeID, $scope.Amount, $scope.HBAMonth1, $scope.EMIMonth, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
-                if (res.Table[0].StatusCode == '200') {
-                    alert(res.Table[0].StatusDescription);
-                    $scope.GetorEditAdvance()
+                if (res[0].ResponseCode == '200') {
+                    alert(res[0].ResponseDescription);
+                    $scope.GetorEditHBA()
 
                 }
-                else if (res.Table[0].StatusCode == '400') {
-                    alert(res.Table[0].StatusDescription);
-                    $scope.GetorEditAdvance()
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.GetorEditHBA()
 
                 } else {
                     alert('Something Went Wrong')
@@ -168,6 +192,8 @@
 
                 });
         }
+
+       
 
 
 
@@ -298,64 +324,114 @@
         }
 
         $scope.GetEditNPS = function () {
-        var DataTypeID = 1
+            var DataTypeID = 1
             var getdesign = PayRollService.GetEditNPS(DataTypeID, 0, 0);
-        getdesign.then(function (response) {
-            try {
-                var res = JSON.parse(response);
-            }
-            catch (err) { }
-            //$scope.edit = true;
-            if (res.Table.length > 0) {
-                $scope.NPSData = res.Table;
-                $scope.Noreports = false;
-            }
-            else {
-                $scope.NPSData = [];
-                $scope.Noreports = true;
-            }
-        },
-            function (error) {
-                alert("error while loading Employee Details");
-                var err = JSON.parse(error);
-
-            });
-
-            $scope.SaveHBA = function () {
-                var datatypeid = 1;
-                console.log(datatypeid, null, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeId, $scope.HBAAmount, $scope.HBAMonths, $scope.HBAMonthId, 1, $scope.UserName)
-                var AddDepartment = PayRollService.AddorUpdateHBA(datatypeid, null, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeId, $scope.HBAAmount, $scope.HBAMonths, $scope.HBAMonthId, 1, $scope.UserName)
-                AddDepartment.then(function (response) {
-                    try {
-                        var res = JSON.parse(response);
-                    } catch (err) { }
-                    if (res[0].ResponseCode == '200') {
-                        alert(res[0].ResponseDescription);
-                        $scope.EmployeeData = false;
-                        $scope.PensionAmount = "";
-                        $scope.GetEditNPS();
-
+            getdesign.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                }
+                catch (err) { }
+                //$scope.edit = true;
+                if (res.Table.length > 0) {
+                    $scope.NPSData = res.Table;
+                    $scope.Noreports = false;
+                    for (var j = 1; j < $scope.NPSData.length + 1; j++) {
+                        $scope['edit' + j] = true;
                     }
-                    else if (res[0].ResponseCode == '400') {
-                        alert(res[0].ResponseDescription);
-                        $scope.GetEditNPS();
+                }
+                else {
+                    $scope.NPSData = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Employee Details");
+                    var err = JSON.parse(error);
 
-                    } else {
-                        alert('Something Went Wrong')
-
-                    }
-                },
-                    function (error) {
-                        alert("something Went Wrong")
+                });
 
 
-                    });
-            }
 
         }
 
+        
+
+
+
+
 
        
+
+        $scope.EditNPS = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+
+
+        }
+
+        $scope.UpdateNPS = function (data) {
+            var DataTypeId = 2
+
+
+            var AddDepartment = PayRollService.AddorUpdateNPS(DataTypeId, data.NPSID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.PensionAmount,data.Active, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].StatusCode == '200') {
+                    alert(res[0].StatusDescription);
+                    $scope.GetEditNPS()
+
+                }
+                else if (res[0].StatusCode == '400') {
+                    alert(res[0].StatusDescription);
+                    $scope.GetEditNPS()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+        
+       
+
+        $scope.ChangeNPS = function (NPSID, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.PayRollNPS(DataType, NPSID, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetEditNPS();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetEditNPS();
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
+
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
+
 
         $scope.EditAdvances = function (data, ind) {
 
@@ -369,14 +445,46 @@
 
 
         }
-        $scope.ChangeActive = function (AdvancesID, Status) {
+
+        $scope.UpdateAdvance = function (data) {
+            var datatypeid = 2
+
+
+            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, data.AdvancesID, data.EmployeeID, data.FinancialYearID, data.MonthID, data.AdvanceTypeId, data.AdvanceAmount, data.AdvanceNoOfMonths, data.AdvanceEmiStartMonth, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res.Table[0].StatusCode == '200') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.GetorEditAdvance()
+
+                }
+                else if (res.Table[0].StatusCode == '400') {
+                    alert(res.Table[0].StatusDescription);
+                    $scope.GetorEditAdvance()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+        $scope.ChangeActive = function (AdvancesId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollAction(DataType, AdvancesID, Status);
+            var getSlides = PayRollService.PayRollAction(DataType, AdvancesId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditAdvance();
+                    $scope.GetEditAdvance();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
                     $scope.GetorEditAdvance();
@@ -392,7 +500,6 @@
                     var err = JSON.parse(error);
                 });
         }
-
 
 
 

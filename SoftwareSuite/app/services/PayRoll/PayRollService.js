@@ -18,10 +18,17 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
 
+        this.GetorEditIncrements = function (DataTypeID, IncrementId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "IncrementId": IncrementId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditIncrements', paramObj);
+            return promise;
 
-        this.GetIncrements = function () {
-            return DataAccessService.getDataAll('api/PayRoll/GetIncrements');
         };
+        
 
         this.AddDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
@@ -72,7 +79,20 @@ define(['app'], function (app) {
               var promise = DataAccessService.postData('api/PayRoll/AddorUpdateNPS', paramObject);
             return promise;
         };
-      
+
+
+
+
+        this.GetorEditHBA = function (DataTypeID, HBAId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "HBAId": HBAId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditHBA', paramObj);
+            return promise;
+
+        };
         
         this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, Months, EmiStartMonth, Active, UserName) {
             var paramObject = {
@@ -132,6 +152,17 @@ define(['app'], function (app) {
 
         };
 
+        this.PayRollNPS = function (DataTypeID, NPSId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "NPSId": NPSId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditNPS', paramObj);
+            return promise;
+
+        };
+
         this.PayRollAction = function (DataTypeID, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -142,9 +173,37 @@ define(['app'], function (app) {
             return promise;
 
         };
-      
 
+        this.PayRollIncrement = function (DataTypeID, IncrementId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "IncrementId": IncrementId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditIncrements', paramObj);
+            return promise;
 
+        };
+        this.PayRollDecrement = function (DataTypeID, DeductionsId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "DeductionsId": DeductionsId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditDeductions', paramObj);
+            return promise;
+
+        };
+        this.PayRollLeaves = function (DataTypeID, LeaveId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "LeaveId": LeaveId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditLeaves', paramObj);
+            return promise;
+
+        };
 
 
         this.AddDepartments = function (DataTypeId, DepartmentId, DepartmentName, UserName) {

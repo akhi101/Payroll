@@ -117,6 +117,20 @@
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IncrementAmount" /></div></td>
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.IncrementID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
                             </tr>
 
                         </tbody>
@@ -200,28 +214,45 @@
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="cb-1">
-                                <th>Financial Year</th>
-                                <th>Month</th>
-                                <th>Employee Code</th>
-                                <th>Employee Name</th>
-                                <th>Designation</th>
-                                <th>IT</th>
-                                <th>FlagFund</th>
-                                <th>Harithanidhi</th>
-                                <th>Deduction Amount</th>
+                                <th class="text-center">Financial Year</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">IT</th>
+                                <th class="text-center">FlagFund</th>
+                                <th class="text-center">Harithanidhi</th>
+                                <th class="text-center">Deduction Amount</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in GetAllDeductions">
-                                <td>{{data.FinancialYear}}</td>
-                                <td>{{data.Months}}</td>
-                                <td>{{data.EmployeeCode}}</td>
-                                <td>{{data.EmployeeName}}</td>
-                                <td>{{data.Designation}}</td>
-                                <td>{{data.IT}}</td>
-                                <td>{{data.FlagFund}}</td>
-                                <td>{{data.Harithanidhi}}</td>
-                                <td>{{data.DeductionAmount}}</td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IT" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FlagFund" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Harithanidhi" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DeductionAmount" /></div></td>
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditDeduction(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateDeduction(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDeduction(data.DeductionsID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDeduction(data.DeductionsID,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
                             </tr>
 
                         </tbody>
@@ -331,16 +362,29 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in EmployeeLeaveData">
-                                <td>{{data.FinancialYear}}</td>
-                                <td>{{data.Months}}</td>
-                                <td>{{data.EmployeeCode}}</td>
-                                <td>{{data.EmployeeName}}</td>
-                                <td>{{data.DesignationName}}</td>
-                                <td>{{data.MedicalLeaves}}</td>
-                                <td>{{data.CasualLeaves}}</td>
-                                <td>{{data.EarnLeaves}}</td>
-                                <td>{{data.TotalLeaves}}</td>
-                                <td>{{data.LeavesRequired}}</td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MedicalLeaves" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CasualLeaves" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EarnLeaves" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalLeaves" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.LeavesRequired" /></div></td>
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditLeave(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateLeave(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLeave(data.LeaveId,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLeave(data.LeaveId,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
                             </tr>
 
                         </tbody>

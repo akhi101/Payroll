@@ -95,22 +95,31 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-        [HttpGet, ActionName("GetIncrements")]
-        public HttpResponseMessage GetIncrements()
+        [HttpPost, ActionName("GetorEditIncrements")]
+        public string GetorEditIncrements([FromBody] JsonObject request)
         {
             try
             {
+
                 var dbHandler = new PayRolldbhandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_Increments";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@IncrementId", request["IncrementId"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Increments", param);
+                return JsonConvert.SerializeObject(dt);
+
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_Increments", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+
+                return ex.Message;
+
             }
         }
+
+
+       
 
 
 
@@ -215,6 +224,32 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+
+        [HttpPost, ActionName("GetorEditHBA")]
+        public string GetorEditHBA([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@HBAId", request["HBAId"]);
+                param[2] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_HBA", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
         [HttpPost, ActionName("AddorUpdateHBA")]
         public string AddorUpdateHBA([FromBody] JsonObject request)
         {
@@ -267,6 +302,32 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
+        [HttpPost, ActionName("GetorEditLeaves")]
+        public string GetorEditLeaves([FromBody] LeavesDetails data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@ID", data.ID);
+                param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[3] = new SqlParameter("@EmployeeID", data.EmployeeID);
+                param[4] = new SqlParameter("@Active", data.Active);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeLeavesBalance", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
 
 
         [HttpPost, ActionName("AddorUpdateDeductions")]
@@ -310,31 +371,7 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-        [HttpPost, ActionName("GetorEditLeaves")]
-        public string GetorEditLeaves([FromBody] LeavesDetails data)
-        {
-            try
-            {
-
-                var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
-                param[1] = new SqlParameter("@ID", data.ID);
-                param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
-                param[3] = new SqlParameter("@EmployeeID", data.EmployeeID);
-                param[4] = new SqlParameter("@Active", data.Active);
-                
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeLeavesBalance", param);
-                return JsonConvert.SerializeObject(dt);
-
-            }
-            catch (Exception ex)
-            {
-
-                return ex.Message;
-
-            }
-        }
+        
 
         [HttpPost, ActionName("GetEmployeeLeaveBalance")]
         public string GetEmployeeLeaveBalance([FromBody] LeavesDetails data)
