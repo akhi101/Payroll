@@ -26,6 +26,8 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using SoftwareSuite.Models.Security;
 using SoftwareSuite.Models.CCIC;
+using System.Data.OleDb;
+using ADOX;
 
 namespace SoftwareSuite.Controllers.CCIC
 {
@@ -2771,37 +2773,69 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
-        //[HttpGet, ActionName("AddorUpdateorInActiveAssesmentEntryDates")]
-        //public string AddorUpdateorInActiveAssesmentEntryDates(int DataType, int EntryDateID, int AcademicYearID, int ExamMonthYearID, DateTime StartDate, DateTime EndDate, bool Active, string UserName)
-        //{
-        //    try
-        //    {
-        //        var dbHandler = new ccicdbHandler();
-        //        var param = new SqlParameter[8];
-        //        param[0] = new SqlParameter("@DataType", DataType);
-        //        param[1] = new SqlParameter("@EntryDateID", EntryDateID);
-        //        param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
-        //        param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
-        //        param[4] = new SqlParameter("@StartDate", StartDate);
-        //        param[5] = new SqlParameter("@EndDate", EndDate);
-        //        param[6] = new SqlParameter("@Active", Active);
-        //        param[7] = new SqlParameter("@UserName", UserName);
-        //        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_AssesmentEntryDates", param);
-        //        return JsonConvert.SerializeObject(dt);
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public static void CreateAccessDatabase(string databaseFilePath,string filename)
+        {
+            // Check if the file already exists
+            //if (File.Exists(databaseFilePath + filename))
+            //{
+            //    Console.WriteLine("The database file already exists.");
+            //    return;
+            //}
 
-        //        dbHandler.SaveErorr("SP_Add_Update_AssesmentEntryDates", 0, ex.Message);
-        //        return ex.Message;
-        //    }
+            // Create a new Catalog object
+            Catalog catalog = new Catalog();
 
-        //}
+            try
+            {
+                // Connection string for creating a new Access database
+                string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={databaseFilePath + filename};";
+
+                // Create the database
+                catalog.Create(connectionString);
 
 
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+           
+        }
 
 
-        [HttpGet, ActionName("GetFeePaymentReportExcel")]
+//[HttpGet, ActionName("AddorUpdateorInActiveAssesmentEntryDates")]
+//public string AddorUpdateorInActiveAssesmentEntryDates(int DataType, int EntryDateID, int AcademicYearID, int ExamMonthYearID, DateTime StartDate, DateTime EndDate, bool Active, string UserName)
+//{
+//    try
+//    {
+//        var dbHandler = new ccicdbHandler();
+//        var param = new SqlParameter[8];
+//        param[0] = new SqlParameter("@DataType", DataType);
+//        param[1] = new SqlParameter("@EntryDateID", EntryDateID);
+//        param[2] = new SqlParameter("@AcademicYearID", AcademicYearID);
+//        param[3] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
+//        param[4] = new SqlParameter("@StartDate", StartDate);
+//        param[5] = new SqlParameter("@EndDate", EndDate);
+//        param[6] = new SqlParameter("@Active", Active);
+//        param[7] = new SqlParameter("@UserName", UserName);
+//        var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_AssesmentEntryDates", param);
+//        return JsonConvert.SerializeObject(dt);
+//    }
+//    catch (Exception ex)
+//    {
+
+//        dbHandler.SaveErorr("SP_Add_Update_AssesmentEntryDates", 0, ex.Message);
+//        return ex.Message;
+//    }
+
+//}
+
+
+
+
+
+[HttpGet, ActionName("GetFeePaymentReportExcel")]
         public string GetFeePaymentReportExcel(int DataType, int InstitutionID, int AcademicYearID, int ExamMonthYearID,int FeePaymentTypeID,string UserName)
         {
              List<person> p = new List<person>();
@@ -2894,13 +2928,14 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
                 param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentInstituteCount", param);
-                var filename = "FeePaymentInstitutewiseCount" + ".xlsx";
+                var filename = "FeePaymentInstitutewiseCount" + ".accdb";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
                 if (!folderExists)
                     Directory.CreateDirectory(path);
-                eh.ExportDataSet(ds, path + filename);
+                //CreateAccessDatabase(path,filename);
+                eh.ExportDataSet(ds, path+ filename);
                 Timer timer = new Timer(200000);
                 timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
                 timer.Start();
