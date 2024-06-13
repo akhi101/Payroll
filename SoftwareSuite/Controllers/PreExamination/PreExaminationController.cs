@@ -11841,9 +11841,9 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        [HttpGet, ActionName("GenerateOtpForMobileNo")]
+        [HttpPost, ActionName("GenerateOtpForFacultyMobileNoUpdate")]
 
-        public string GenerateOtpForMobileNo(string Pin, string Phone,string ExamDetails)
+        public string GenerateOtpForFacultyMobileNoUpdate([FromBody] JsonObject request)
         {
             string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
                 " Secretary,"+ " SBTET"+ " " + "TS";
@@ -11854,25 +11854,26 @@ namespace SoftwareSuite.Controllers.PreExamination
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[2];
-                param[0] = new SqlParameter("@Pin", Pin);
-                param[1] = new SqlParameter("@PhoneNumber", Phone);
-                dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_MobileUpdate", param);
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@Pin", request["Pin"]);
+                param[1] = new SqlParameter("@PhoneNumber", request["Phone"]);
+                param[2] = new SqlParameter("@StudentType", request["StudentType"]);
+                dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_FacultyMobileUpdate", param);
 
                 if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
                 {
                     return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
                 }
-                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], ExamDetails);
+                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], request["ExamDetails"]);
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
-                if (Phone != null || Phone != string.Empty)
+                if (request["Phone"] != null || request["Phone"] != string.Empty)
                 {
-                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007170677994132793";
+                    string urlParameters = "?mobile=" + request["Phone"] + " & message=" + Message + " & templateid=1007170677994132793";
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-                    resp = "OTP sent to the mobile number :" + Phone.ToString().Substring(0, 2) + "xxxxx" + Phone.ToString().Substring(7);
+                    resp = "OTP sent to the mobile number :" + request["Phone"].ToString().Substring(0, 2) + "xxxxx" + request["Phone"].ToString().Substring(7);
                     return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
 
                 }

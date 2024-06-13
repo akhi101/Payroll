@@ -1015,10 +1015,10 @@
                 dependencies: ['views/newwebsite/controllers/FeedbackController', 'services/PreExamination/PreExaminationService',]
             },
 
-            'index.StudentConsolidatedResult': {
-                url: "/StudentConsolidatedResult",
-                templateUrl: 'app/views/StudentExamResults/StudentConsolidatedResult.html',
-                dependencies: ['controllers/StudentExamResults/StudentConsolidatedResultController', 'services/StudentResultService']
+            'index.StudentConsolidated': {
+                url: "/StudentConsolidated",
+                templateUrl: 'app/views/ExamsSite/StudentConsolidated.html',
+                dependencies: ['controllers/ExamsSite/StudentConsolidatedController', 'services/StudentResultService']
             },
 
             'index.StudentOnlineRequest': {
@@ -2523,7 +2523,11 @@
                 dependencies: ['controllers/PostExam/NameCorrectionApproveListController', 'services/PreExamination/PreExaminationService', 'services/BillDesk/paymentService']
             },
 
-
+            'Dashboard.StudentServices.GetODCData': {
+                url: "/GetODCData",
+                templateUrl: 'app/views/PostExam/GetODCData.html',
+                dependencies: ['controllers/PostExam/GetODCDataController', 'services/PreExamination/PreExaminationService', 'services/DigitalSignatureService']
+            },
 
 
             'Dashboard.PostExam.MarksMemo': {

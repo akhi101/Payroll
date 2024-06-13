@@ -37,7 +37,7 @@
 
         var examTypeId = $localStorage.assessment.entryListid;
         $scope.examTypeId =$localStorage.assessment.entryListid;
-        var StudentTypeId = $localStorage.assessment.StudentTypeId;
+        $scope.StudentTypeId = $localStorage.assessment.StudentTypeId;
         var schemeid = parseInt($localStorage.assessment.Scheme);
 
         var getDatesAndPins = MarksEntryService.getDatesFineAmount(examId, semId, AcademicId, $scope.ExamMonthYear);
@@ -147,7 +147,7 @@
             var Scheme = {};
             Schemeid = (loadedScheme == undefined || loadedScheme == '') ? $localStorage.assessment.Scheme.current_schemeid : loadedScheme.SchemeID;
             var subid = $localStorage.assessment.selectSubjectDetails.subid;
-            var subjectPinList = MarksEntryService.getSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, semId, $localStorage.authorizationData.BranchId, subid, examTypeId, StudentTypeId, $scope.ExamMonthYear);
+            var subjectPinList = MarksEntryService.getSubjectPinList($scope.AcademicYearsActiveResponse.AcademicID, $scope.SchemeId, $localStorage.authorizationData.College_Code, semId, $localStorage.authorizationData.BranchId, subid, examTypeId, $scope.StudentTypeId, $scope.ExamMonthYear);
             subjectPinList.then(function (response) {
                 if (response.Table.length > 0) {
                     //   console.log(response);
@@ -167,6 +167,9 @@
                     $scope.IndustryName = response.Table1[0].IndustryName;
                     $scope.Mobile = response.Table1[0].Mobile;
                     $scope.ExamDetails = response.Table1[0].ExamDetails;
+                    if ($scope.ExamDetails == null || $scope.ExamDetails == undefined || $scope.ExamDetails == "") {
+                        $scope.ExamDetails = "Backlog Practical Marks Entry"
+                    }
                     $scope.Subject_Code = response.Table1[0].Subject_Code;
                     $scope.AbsentStudents = response.Table1[0].AbsentCount;
                     $scope.OtherStudents = response.Table1[0].OtherCount;
@@ -337,8 +340,24 @@
                 }
 
             }
-        $scope.OpenPopup = function (type) {
-          
+
+        $scope.OpenPopup1 = function (type) {
+            if ($scope.StudentTypeId == 1) {
+                $scope.OpenPopup(type)
+            } else if ($scope.StudentTypeId == 2) {
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
+                    size: 'xs',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+            }
+        }
+
+        $scope.OpenPopup = function (type, Mobile) {
+            if ($scope.StudentTypeId == 2) {
+                $scope.Mobile = Mobile
+            }
             if (markslist.length != $scope.pinWise.length) {
                 alert("Please Enter All Students Marks for Submit")
                 return;
@@ -347,17 +366,12 @@
             if (type == 1) {
                 $scope.modalInstance.close();
             }
-            if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
-                alert("Please Update Mobile Number in Affiliation Portal");
-                return;
-            }
+            //if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
+            //    alert("Please Update Mobile Number in Affiliation Portal");
+            //    return;
+            //}
             $scope.SendOtp()
-            $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/Popups/AssessmentPopup.html",
-                size: 'xs',
-                scope: $scope,
-                windowClass: 'modal-fit-att',
-            });
+           
              
                 $scope.closeModal = function () {
 
@@ -376,7 +390,7 @@
                 $scope.NoOtp = false;
                 $scope.loader = true
                 $scope.Otpdisable = true;
-                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile, $scope.ExamDetails)
+                var GenerateOtpForMobile = PreExaminationService.GenerateOtpForFacultyMobileNoUpdate($scope.Mobile, $scope.Mobile, $scope.StudentTypeId, $scope.ExamDetails)
                 GenerateOtpForMobile.then(function (response) {
                     try {
                         var detail = JSON.parse(response);
@@ -387,6 +401,12 @@
                         $scope.NoOtp = false;
                         $scope.loader = false
                         $scope.Otpdisable = false;
+                        $scope.modalInstance = $uibModal.open({
+                            templateUrl: "/app/views/Popups/AssessmentPopup.html",
+                            size: 'xs',
+                            scope: $scope,
+                            windowClass: 'modal-fit-att',
+                        });
                     } else {
                         alert(detail.description);
                         $scope.Otp = false;
@@ -403,8 +423,13 @@
                 })
 
             } else if ($scope.Mobile == null || $scope.Mobile == undefined || $scope.Mobile == '') {
-                alert("Please Update Mobile Number in Affiliation Portal");
-                return;
+                if ($scope.StudentTypeId == 1) {
+                    alert("Please Update Mobile Number in Affiliation Portal");
+                    return;
+                } else if ($scope.StudentTypeId == 2){
+                    alert("Please Faculty/Incharge Mobile Number");
+                    return;
+                }
             } else if ($scope.Mobile.length != '10') {
                 alert('Enter valid Mobile number');
             } else {
@@ -425,7 +450,7 @@
                 //} else {
                 //    var Pin = $scope.userData.Pin;
                 //}
-                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForMobileNo($scope.Mobile, $scope.Mobile)
+                var GenerateOtpForMobileNoUpdate = PreExaminationService.GenerateOtpForFacultyMobileNoUpdate($scope.Mobile, $scope.Mobile, $scope.StudentTypeId, $scope.ExamDetails)
                 GenerateOtpForMobileNoUpdate.then(function (response) {
                     try {
                         var detail = JSON.parse(response);
@@ -434,6 +459,12 @@
                         alert(detail.description);
                         $scope.Otp = true;
                         $scope.NoOtp = false;
+                        $scope.modalInstance = $uibModal.open({
+                            templateUrl: "/app/views/Popups/AssessmentPopup.html",
+                            size: 'xs',
+                            scope: $scope,
+                            windowClass: 'modal-fit-att',
+                        });
                     } else {
                         alert(detail.description);
                         $scope.Otp = false;
@@ -551,7 +582,7 @@
                 if (markslist != [] && markslist != '') {
                    
 
-                    var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, StudentTypeId);
+                    var postmarks = MarksEntryService.PostStudentMarks(examId, $scope.SchemeId, markslist, $scope.StudentTypeId);
                     postmarks.then(function (response) {
                         $scope.SaveDisable = false;
                         //   console.log(response);
@@ -577,6 +608,20 @@
         $scope.back = function () {
             $state.go("Dashboard.AssessmentDashboard.Assessment.PracticalSubjectList");
         }
+        $scope.OpenPopup1 = function (type) {
+            if ($scope.StudentTypeId == 1) {
+                $scope.submit(type)
+            } else if ($scope.StudentTypeId == 2) {
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
+                    size: 'xs',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+            }
+        }
+
+       
 
         $scope.submit = function (type) {
             $scope.SaveDisable = true;

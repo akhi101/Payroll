@@ -937,7 +937,7 @@
     <Content Include="app\controllers\ExamsSite\MersidiseCertificateController.js" />
     <Content Include="app\controllers\ExamsSite\PreExamTimetableController.js" />
     <Content Include="app\controllers\ExamsSite\StudentAttendanceController.js" />
-    <Content Include="app\controllers\ExamsSite\StudentConsolidatedResultController.js" />
+    <Content Include="app\controllers\ExamsSite\StudentConsolidatedController.js" />
     <Content Include="app\controllers\ExamsSite\StudentFeedbackController.js" />
     <Content Include="app\controllers\ExamsSite\StudentOnlineRequestController.js" />
     <Content Include="app\controllers\ExamsSite\StudentRequestFormController.js" />
@@ -1186,6 +1186,7 @@
     <Content Include="app\views\Popups\ApprovePopup.html" />
     <Content Include="app\controllers\PostExam\BacklogSubjectsController.js" />
     <Content Include="app\controllers\PostExam\BonafideCertApproveListController.js" />
+    <Content Include="app\views\Popups\AssessmentBacklogPopup.html" />
     <Content Include="app\views\Popups\AssessmentPopup.html" />
     <Content Include="app\views\Popups\AssessmentSubmitPopup.html" />
     <Content Include="app\views\Popups\ReleasePopup.html" />
@@ -2461,7 +2462,7 @@
     <Content Include="app\views\ExamsSite\MersidiseCertificate.html" />
     <Content Include="app\views\ExamsSite\PreExamTimetable.html" />
     <Content Include="app\views\ExamsSite\StudentAttendance.html" />
-    <Content Include="app\views\ExamsSite\StudentConsolidatedResult.html" />
+    <Content Include="app\views\ExamsSite\StudentConsolidated.html" />
     <Content Include="app\views\ExamsSite\StudentFeedback.html" />
     <Content Include="app\views\ExamsSite\StudentOnlineRequest.html" />
     <Content Include="app\views\ExamsSite\StudentRequestForm.html" />

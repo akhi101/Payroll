@@ -686,9 +686,10 @@
             return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNoUpdate', param);
         };
 
-        this.GenerateOtpForMobileNo = function (Pin, Phone, ExamDetails) {
-            var param = { "Pin": Pin, "Phone": Phone, "ExamDetails": ExamDetails }
-            return DataAccessService.getDataWithPara('api/PreExamination/GenerateOtpForMobileNo', param);
+        this.GenerateOtpForFacultyMobileNoUpdate = function (Pin, Phone, StudentType, ExamDetails) {
+            var param = { "Pin": Pin, "Phone": Phone, "StudentType": StudentType, "ExamDetails": ExamDetails }
+            console.log(param)
+            return DataAccessService.postData('api/PreExamination/GenerateOtpForFacultyMobileNoUpdate', param);
         };
 
         this.SendEail = function (htmlString) {
