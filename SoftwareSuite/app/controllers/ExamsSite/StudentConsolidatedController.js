@@ -1,6 +1,6 @@
 ﻿define(['app'], function (app) {
-    app.controller("StudentsResultsHistoryController", function ($scope, $http, $localStorage, $window, $state, AppSettings, StudentResultService, Excel, $timeout) {
-      
+    app.controller("StudentConsolidatedController", function ($scope, $http, $localStorage, $window, $state, AppSettings, StudentResultService, Excel, $timeout) {
+
         // get month and year of examination
         $scope.MonthAndYear = [
             { "Id": 1, "ExamYearMonth": "Oct - Nov 2018" },
@@ -589,24 +589,25 @@
 
         $scope.PrintStudentResult = function () {
 
-            var divName = "idtoDivPrintAdmin";
-            var divToPrint = document.getElementById(divName);
-            var temp = document.body.innerHTML;
-            $("#studentresult1").hide();
-            var domClone = divToPrint.cloneNode(true);
-            var $printSection = document.getElementById("printSection");
-            //document.body.innerHTML = "";
-            if (!$printSection) {
-                var $printSection = document.createElement("div");
-                $printSection.id = "printSection";
-                document.body.appendChild($printSection);
-            }
-            $printSection.innerHTML = "";
-            $printSection.appendChild(domClone);
+        //    var divName = "idtoDivPrintAdmin";
+        //    var divToPrint = document.getElementById(divName);
+        //    var temp = document.body.innerHTML;
+        ////    $("#studentresult1").hide();
+        //    var domClone = divToPrint.cloneNode(true);
+        //    var $printSection = document.getElementById("idtoDivPrintAdmin");
+        //    //document.body.innerHTML = "";
+        //    if (!$printSection) {
+        //        var $printSection = document.createElement("div");
+        //        $printSection.id = "idtoDivPrintAdmin";
+        //        document.body.appendChild($printSection);
+        //    }
+        //    $printSection.innerHTML = "";
+        //    $printSection.appendChild(domClone);
             // alert($printSection.innerHTML);
+            document.title = "CONSOLIDATED_MEMORANDUM_MARKS_"+$scope.Pin;
             window.print();
-            document.body.removeChild($printSection);
-            $("#studentresult1").show();
+            //document.body.removeChild($printSection);
+            //$("#studentresult1").show();
         };
 
 

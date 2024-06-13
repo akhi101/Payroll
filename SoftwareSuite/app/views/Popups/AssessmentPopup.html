@@ -13,7 +13,7 @@
 <body>
     <div class="modal-header aadhar-modal-header">
         <button type="button" class="btn btn-circle btn-close btn-modal-close" ng-click="closeModal()">&times;</button>
-        <h4 class="text-center Hed_text">OTP Sent to Faculty Mobile Number : {{Mobile}} </h4>
+        <h4 class="text-center Hed_text">OTP Sent to Faculty Mobile Number : <span ng-show="StudentTypeId==1">{{Mobile}}</span><span ng-show="StudentTypeId==2">{{BacklogMobile}}</span> </h4>
     </div>
     <div class="modal-body">
         <form name="RejectForm">
