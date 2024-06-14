@@ -10,10 +10,9 @@ define(['app'], function (app) {
             $scope.UserName = authData.userName;
             $scope.FinancialYears();
             $scope.GetMonths();
-            $scope.GetEditNPS();
             $scope.getAdvanceType();
-            $scope.GetorEditAdvance();
-            $scope.GetorEditHBA();
+            //$scope.GetorEditAdvance();
+            //$scope.GetorEditHBA();
 
 
         }
@@ -68,9 +67,10 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.GetReport = function () {
-            $scope.EmployeeData = true;
-        }
+        //$scope.GetReport = function () {
+        //    $scope.EmployeeData = true;
+            
+        //}
 
 
         $scope.ChangeEmpData = function (data) {
@@ -83,20 +83,21 @@ define(['app'], function (app) {
         }
 
         $scope.GetorEditAdvance = function () {
-            var getdesign = PayRollService.GetorEditAdvance(1, 0, 0);
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditAdvance(DataTypeID, $scope.EmployeeId, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
                 if (response.Table.length > 0) {
                     $scope.GetAllAdvance = response.Table;
-                    $scope.Noreports = false;
+                    $scope.DataNotFound1 = false;
                     for (var j = 1; j < $scope.GetAllAdvance.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
                     $scope.GetAllAdvance = [];
-                    $scope.Noreports = true;
+                    $scope.DataNotFound1 = true;
                 }
             },
                 function (error) {
@@ -167,7 +168,7 @@ define(['app'], function (app) {
             var DataTypeId = 1
 
 
-            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, 0, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeId, $scope.Amount, $scope.HBAMonth1, $scope.EMIMonth, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, 0, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeId, $scope.Amount, $scope.NoOfMonths, $scope.EMIMonth, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -319,6 +320,9 @@ define(['app'], function (app) {
 
         $scope.GetReport = function () {
             $scope.EmployeeData = true;
+            $scope.GetEditNPS();
+            $scope.GetorEditAdvance();
+
         }
 
 
@@ -334,6 +338,7 @@ define(['app'], function (app) {
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
+           
 
         }
 
@@ -348,7 +353,7 @@ define(['app'], function (app) {
 
         $scope.GetEditNPS = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEditNPS(DataTypeID, 0, 0);
+            var getdesign = PayRollService.GetEditNPS(DataTypeID, $scope.NPSEmployeeId, 0, 0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -357,14 +362,14 @@ define(['app'], function (app) {
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
                     $scope.NPSData = res.Table;
-                    $scope.Noreports = false;
+                    $scope.DataNotFound = false;
                     for (var j = 1; j < $scope.NPSData.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
                     $scope.NPSData = [];
-                    $scope.Noreports = true;
+                    $scope.DataNotFound = true;
                 }
             },
                 function (error) {

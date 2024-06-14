@@ -94,7 +94,7 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, Months, EmiStartMonth, Active, UserName) {
+        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, NoofMonths, EmiStartMonth, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "HBAId": HBAId,
@@ -102,7 +102,7 @@ define(['app'], function (app) {
                 "MonthID": MonthID,
                 "EmployeeID": EmployeeID,
                 "Amount": Amount,
-                "Months": Months,
+                "NoofMonths": NoofMonths,
                 "EmiStartMonth": EmiStartMonth,
                 "Active": Active,
                 "UserName": UserName
@@ -152,9 +152,10 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollNPS = function (DataTypeID, NPSId, Active) {
+        this.PayRollNPS = function (DataTypeID, EmployeeID, NPSId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
                 "NPSId": NPSId,
                 "Active": Active
             };
@@ -163,9 +164,11 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollAction = function (DataTypeID, AdvancesId, Active) {
+        this.PayRollAction = function (DataTypeID, EmployeeId, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeId": EmployeeId,
+                
                 "AdvancesId": AdvancesId,
                 "Active": Active
             };
@@ -378,9 +381,10 @@ define(['app'], function (app) {
         };
 
 
-        this.GetEditNPS = function (DataTypeID, NPSId, Active) {
+        this.GetEditNPS = function (DataTypeID, EmployeeID, NPSId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
                 "NPSId": NPSId,
                 "Active": Active
             };
@@ -601,9 +605,10 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditAdvance = function (DataTypeID, AdvancesId, Active) {
+        this.GetorEditAdvance = function (DataTypeID, EmployeeId, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeId": EmployeeId,
                 "AdvancesId": AdvancesId,
                 "Active": Active
 

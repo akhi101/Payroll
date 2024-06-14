@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Employee Id:</label>
+                            <label class="font-weight-bold">Employee:</label>
 
                             <select class="form-control" ng-model="NPSEmployee" ng-change="ChangeEmpData(NPSEmployee)" name="EmployeeId" required>
                                 <option value="" selected>Select Employee </option>
@@ -108,7 +108,6 @@
                 </div>
 
 
-
                 <div class="card" ng-show="EmployeeData">
                     <div class="col-md-3"><b>Employee Name </b></div>
                     <div class="col-md-9">: {{EmployeeName}}</div>
@@ -124,6 +123,15 @@
                         <button class="btn btn-success pull-right" ng-click="SaveNPS()">Submit</button>
                     </div>
 
+                </div>
+
+                <div class="row" ng-show="DataNotFound">
+                    <div class="col-md-12">
+                        <div ng-show="DataNotFound" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </div>
                 </div>
                 <div class="spacer"></div>
 
@@ -202,7 +210,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Employee Id:</label>
+                            <label class="font-weight-bold">Employee:</label>
                             <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
                                 <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
@@ -229,7 +237,7 @@
                     <div class="col-md-9">: {{Designation}}</div>
                 </div>
 
-                <div class="card">
+                <div class="card" ng-show="EmployeeData"> 
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -255,12 +263,9 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">No Of Months:</label>
-                            <select class="form-control" ng-model="NoOfMonths" name="StudentType" required>
-                                <option value="" selected>Select No Of Months: </option>
-                                <option ng-repeat="data in NoofMonths" value="{{data.Id}}">
-                                    {{data.value}}
-                                </option>
-                            </select>
+                            <input class="form-control" placeholder="Enter NoOfMonths" ng-model="NoOfMonths" name="NoOfMonths" />
+
+                            
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -315,7 +320,7 @@
                                 <td>
 
 
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}"" id="departmentid" ng-model="data.AdvanceTypeId"
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="departmentid" ng-model="data.AdvanceTypeId"
                                             ng-options="data.AdvanceTypeID as data.AdvanceTypeName for data in AdvanceTypeData">
                                         <option value="" selected>Select Advance Type</option>
                                     </select>
@@ -388,7 +393,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="font-weight-bold">Employee Id:</label>
+                            <label class="font-weight-bold">Employee :</label>
                             <select class="form-control" ng-model="HBAEmployeeID" ng-change="ChangeHBAEmpData(HBAEmployeeID)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
                                 <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
@@ -428,19 +433,9 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
+                            <label class="font-weight-bold">No Of Months:</label>
+                            <input class="form-control" placeholder="Enter NoOfMonths" ng-model="NoOfMonths" name="NoOfMonths" />
 
-                            <label class="font-weight-bold">Month</label>
-                            <div class="">
-                                <select class="form-control" ng-model="HBAMonth1" name="StudentType" required>
-                                    <option value="" selected>
-                                        Select Month
-                                    </option>
-
-                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
-                                        {{data.Months}}
-                                    </option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -472,6 +467,7 @@
                                 <th class="text-center">Employee Code</th>
                                 <th class="text-center">Employee Name</th>
                                 <th class="text-center">Amount</th>
+                                <th class="text-center">No Of Months</th>
                                 <th class="text-center">Emi Start Month</th>
                                 <th class="text-center">Action</th>
                                 <th class="text-center">Active</th>
@@ -498,7 +494,8 @@
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Amount" /></div></td>
-                                <!--<td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>-->
+                             
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoofMonths" /></div></td>
 
                                 <td class="text-center pointer">
                                     <div>
@@ -536,7 +533,7 @@
                             </tr>
 
                 </tbody>
-                </table>
+                          </table>
             </div>
 
             </div>
