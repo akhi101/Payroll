@@ -359,7 +359,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ReleaseMarksEntry")]
-        public string ReleaseMarksEntry(string CollegeCode,int SemId, int SchemeId, int ExamTypeId, int AcademicYearId,int subid,int ExamMonthYearId,string UserName,int UserTypeId)
+        public string ReleaseMarksEntry(string CollegeCode, int SemId, int SchemeId, int ExamTypeId, int AcademicYearId, int subid, int ExamMonthYearId, string UserName, int UserTypeId)
 
         {
             try
@@ -372,8 +372,8 @@ namespace SoftwareSuite.Controllers.PreExamination
                 param[3] = new SqlParameter("@ExamTypeId", ExamTypeId);
                 param[4] = new SqlParameter("@AcademicYearId", AcademicYearId);
                 param[5] = new SqlParameter("@subid", subid);
-                param[6] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId); 
-                param[7] = new SqlParameter("@UserName", UserName); 
+                param[6] = new SqlParameter("@ExamMonthYearId", ExamMonthYearId);
+                param[7] = new SqlParameter("@UserName", UserName);
                 param[8] = new SqlParameter("@UserTypeId", UserTypeId);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SBP_ADM_ReleaseMarksEntry", param);
                 return JsonConvert.SerializeObject(dt);
@@ -385,7 +385,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-       
+
 
         [HttpGet, ActionName("GetChallanNumbers")]
         public string GetChallanNumbers(int PaymentTypeID, int PaymentSubTypeID, string PIN, int ExamMonthYearID = 0)
@@ -410,7 +410,7 @@ namespace SoftwareSuite.Controllers.PreExamination
 
 
         [HttpGet, ActionName("GetAsssessmentConsolidatedReport")]
-        public string GetAsssessmentConsolidatedReport(int AcademicyearId,int ExamMonthYearId,string collegecode,int branchId,int  schemeid,int semid,int ExamType)
+        public string GetAsssessmentConsolidatedReport(int AcademicyearId, int ExamMonthYearId, string collegecode, int branchId, int schemeid, int semid, int ExamType)
         {
             List<person> p = new List<person>();
             person p1 = new person();
@@ -474,7 +474,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-      
+
 
         [HttpGet, ActionName("GenerateC18MemosData")]
         public string GenerateC18MemosData(int ExamMonthYearId, int MinCredits, string Day, string Month, string Year)
@@ -1068,7 +1068,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("ResultsProcessing")]
-        public string ResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme,string SemIdJson ,int ExamTypeId, int academicyearid, string username)
+        public string ResultsProcessing(int ExamMonthYearId, int StudentTypeId, string scheme, string SemIdJson, int ExamTypeId, int academicyearid, string username)
         {
             try
             {
@@ -5264,7 +5264,7 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
         [HttpGet, ActionName("GetBonafiedApprovalListByScheme")]
-        public string GetBonafiedApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode,string BranchCode= null)
+        public string GetBonafiedApprovalListByScheme(string Scheme, int datatype, int userType, string CollegeCode, string BranchCode = null)
         {
             try
             {
@@ -11841,13 +11841,11 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
-        [HttpPost, ActionName("GenerateOtpForFacultyMobileNoUpdate")]
-
-        public string GenerateOtpForFacultyMobileNoUpdate([FromBody] JsonObject request)
+        [HttpGet, ActionName("GenerateOtpForFacultyMobileNoUpdate")]
+        public string GenerateOtpForFacultyMobileNoUpdate(string Pin, string Phone, int StudentType, string ExamDetails)
         {
             string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
-                " Secretary,"+ " SBTET"+ " " + "TS";
-
+                " Secretary," + " SBTET" + " " + "TS";
             DataSet dt = new DataSet();
             string Message = string.Empty;
             string resp = string.Empty;
@@ -11855,25 +11853,25 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
                 var dbHandler = new dbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@Pin", request["Pin"]);
-                param[1] = new SqlParameter("@PhoneNumber", request["Phone"]);
-                param[2] = new SqlParameter("@StudentType", request["StudentType"]);
+                param[0] = new SqlParameter("@Pin", Pin);
+                param[1] = new SqlParameter("@PhoneNumber", Phone);
+                param[2] = new SqlParameter("@StudentType", StudentType);
                 dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_FacultyMobileUpdate", param);
 
                 if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
                 {
                     return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
                 }
-                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], request["ExamDetails"]);
+                Message = string.Format(otpMsg, dt.Tables[1].Rows[0]["Otp"], ExamDetails);
                 string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
-                if (request["Phone"] != null || request["Phone"] != string.Empty)
+                if (Phone != null || Phone != string.Empty)
                 {
-                    string urlParameters = "?mobile=" + request["Phone"] + " & message=" + Message + " & templateid=1007170677994132793";
+                    string urlParameters = "?mobile=" + Phone + "&message=" + Message + "&templateid=1007170677994132793";
                     HttpClient client = new HttpClient();
                     client.BaseAddress = new Uri(url);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-                    resp = "OTP sent to the mobile number :" + request["Phone"].ToString().Substring(0, 2) + "xxxxx" + request["Phone"].ToString().Substring(7);
+                    resp = "OTP sent to the mobile number :" + Phone.ToString().Substring(0, 2) + "xxxxx" + Phone.ToString().Substring(7);
                     return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
 
                 }
@@ -11893,6 +11891,61 @@ namespace SoftwareSuite.Controllers.PreExamination
                 return ex.Message;
             }
         }
+
+        //[HttpGet, ActionName("GenerateOtpForFacultyMobileNoUpdate")]
+
+        //public string GenerateOtpForFacultyMobileNoUpdate([FromBody] JsonObject request)
+        //{
+
+        //    string otpMsg = "{0} OTP sent to the mapped faculty mobile number for submitting Marks for the {1}," +
+        //        " Secretary,"+ " SBTET"+ " " + "TS";
+        //    string otpMsg1 = "OTP for updating mobile no {0}, valid for 10 min. Secretary, SBTET TS.";
+
+        //    DataSet dt = new DataSet();
+        //    string Message = string.Empty;
+        //    string resp = string.Empty;
+        //    try
+        //    {
+        //        var dbHandler = new dbHandler();
+        //        var param = new SqlParameter[3];
+        //        param[0] = new SqlParameter("@Pin", request["Pin"]);
+        //        param[1] = new SqlParameter("@PhoneNumber", request["Phone"]);
+        //        param[2] = new SqlParameter("@StudentType", request["StudentType"]);
+        //        dt = dbHandler.ReturnDataWithStoredProcedure("usp_SOS_GET_OTP_FacultyMobileUpdate", param);
+
+        //        if (dt.Tables[0].Rows[0]["StatusCode"].ToString() != "200")
+        //        {
+        //            return "{\"status\":\"400\",\"description\" : \"" + dt.Tables[0].Rows[0]["StatusDescription"].ToString() + "\"}";
+        //        }
+        //        Message = string.Format(otpMsg1, dt.Tables[1].Rows[0]["Otp"], request["ExamDetails"]);
+        //        string url = ConfigurationManager.AppSettings["SMS_API"].ToString();
+        //        if (request["Phone"] != null || request["Phone"] != string.Empty)
+        //        {
+        //            string urlParameters = "?mobile=" + request["Phone"] + " & message=" + Message + " & templateid=1007161786863825790";  //1007170677994132793
+        //            HttpClient client = new HttpClient();
+        //            client.BaseAddress = new Uri(url);
+        //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+        //            resp = "OTP sent to the mobile number :" + request["Phone"].ToString().Substring(0, 2) + "xxxxx" + request["Phone"].ToString().Substring(7);
+        //            return "{\"status\":\"200\",\"description\" : \"" + resp + "\"}";
+
+        //        }
+        //        else
+        //        {
+        //            resp = "Mobile number not valid";
+        //            return "{\"status\":\"400\",\"description\" : \"" + resp + "\"}";
+
+
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        dbHandler.SaveErorr("usp_SOS_GET_OTP_MobileUpdate", 0, ex.Message);
+        //        return ex.Message;
+        //    }
+        //}
         [HttpGet, ActionName("GetStudentFeePaymentDetails")]
         public string GetStudentFeePaymentDetails(string Pin, int StudentTypeId, int EMYR = 0)
         {
@@ -14098,7 +14151,7 @@ namespace SoftwareSuite.Controllers.PreExamination
             }
         }
 
-        
+
 
         [HttpGet, ActionName("GetTimetableDatesByExamMonthYear")]
         public HttpResponseMessage GetTimetableDatesByExamMonthYear(int StudentTypeId, int ExamMonthYearId)

@@ -76,7 +76,8 @@ namespace SoftwareSuite.Models.Assessment
         public int examtypeId { get; set; }
         public int subId { get; set; }
         public int ExamMonthYearId { get; set; }
-        
+        public string SubmittedMobileNo { get; set; }
+
     }
 
     public class studentDetails

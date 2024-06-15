@@ -58,6 +58,42 @@ namespace SoftwareSuite.Controllers.Common
 
         }
 
+        [HttpGet, ActionName("SendSmsTg")]
+        public async Task<string> SendSmsTg(string mobile, string message, string templateid)
+        {
+            var env = ConfigurationManager.AppSettings["SMS_ENV"].ToString();
+            try
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => { return true; };
+                if (env == "PROD")
+                {
+                    var url = ConfigurationManager.AppSettings["SMS_URL"].ToString();
+                    var smsusername = ConfigurationManager.AppSettings["SMS_Service_Username"].ToString().Trim();
+                    var smspassword = ConfigurationManager.AppSettings["SMS_Service_Password"].ToString().Trim();
+                    // var url = "http://smsgw.sms.gov.in/failsafe/HttpLink";
+                    var client = new HttpClient();
+                    var res = await client.GetAsync(url + $"?username={smsusername}&pin={smspassword}&mnumber={mobile}&message={HttpUtility.UrlEncode(message)}&signature=SBTETG&dlt_template_id={templateid}&dlt_entity_id=1001451340000019208");
+                    var resContent = await res.Content.ReadAsStringAsync();
+                    return resContent;
+
+                }
+                else if (env == "DEV")
+                {
+                    var url1 = ConfigurationManager.AppSettings["SMS_API"].ToString();
+                    var client = new HttpClient();
+                    var res = await client.GetAsync(url1 + $"?mobile={mobile}&message={HttpUtility.UrlEncode(message)}&templateid={templateid}");
+                    var resContent = await res.Content.ReadAsStringAsync();
+                    return resContent;
+                }
+                return "Not Supported Environment";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         [HttpGet, ActionName("BulkSendSms")]
         public async Task<string> BulkSendSms(string mobile, string message)
         {

@@ -139,10 +139,10 @@
                 alert("Select Semester");
                 return;
             }
-            if (($scope.Selectedshift == undefined) || ($scope.Selectedshift == "0") || ($scope.Selectedshift == "")) {
-                alert("Select Shift");
-                return;
-            }
+            //if (($scope.Selectedshift == undefined) || ($scope.Selectedshift == "0") || ($scope.Selectedshift == "")) {
+            //    alert("Select Shift");
+            //    return;
+            //}
             var Scheme = $scope.scheme;
             var Smester = $scope.semester;
             let shiftid = $scope.Selectedshift;

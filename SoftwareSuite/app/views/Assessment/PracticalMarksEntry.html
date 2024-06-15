@@ -143,11 +143,13 @@
             font-weight: bold !important;
         }
     }
+
     .text-red {
         color: red;
         font-weight: 600;
         letter-spacing: 1px;
     }
+
     .loader {
         border: 4px solid #5cb85c;
         border-radius: 50%;
@@ -329,10 +331,10 @@
                                 <div class="row" style="position: fixed; z-index: 100;bottom: 0px;width: 100%;padding-bottom: 5px;padding-top: 5px;">
                                     <div class="col-md-6">
                                         <!--<div class="pull-left">
-                        <button class="btn btn-default" ng-click="back()">
-                            Back
-                        </button>
-                    </div>-->
+                                            <button class="btn btn-default" ng-click="back()">
+                                                Back
+                                            </button>
+                                        </div>-->
                                     </div>
                                     <div class="col-md-6">
                                         <div class="pull-left">
@@ -340,7 +342,7 @@
                                                 Save
                                             </button>
                                             <!--<button type="button" class="btn btn-info" ng-click="preview()">preview</button> ng-show="submitHide"-->
-                                            <button class="btn btn-success" ng-hide="pinWise[0].issubmited==true" ng-disabled="SaveDisable" ng-show="subbtn" ng-click="OpenPopup1()">Submit</button>
+                                            <button class="btn btn-success" ng-hide="pinWise[0].issubmited==true" ng-disabled="SaveDisable" ng-show="subbtn" ng-click="OpenPopup1(2,2)">Submit</button>
                                             <button class="btn btn-info" ng-show="pinWise[0].issubmited==true" ng-disabled="printDisable" ng-click="printMarksEntered()">Print</button>
                                         </div>
                                     </div>
@@ -353,12 +355,12 @@
                             </div>
                         </div>
                     </div>
-                    </section>
-                        </div>
+                </section>
+            </div>
 
 
-                    </div>
-</div>
+        </div>
+    </div>
 
 
 </body>

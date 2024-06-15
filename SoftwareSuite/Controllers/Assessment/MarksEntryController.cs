@@ -405,8 +405,9 @@ namespace SoftwareSuite.Controllers.Assessment
         {
             try
             {
+                string clientIpAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[7];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@collegecode", request.collegeCode);
                 param[1] = new SqlParameter("@branchcode", request.branchCode);
                 param[2] = new SqlParameter("@academicyearid", request.AcademicId);
@@ -414,6 +415,8 @@ namespace SoftwareSuite.Controllers.Assessment
                 param[4] = new SqlParameter("@examtypeid", request.examtypeId);
                 param[5] = new SqlParameter("@subid", request.subId);
                 param[6] = new SqlParameter("@ExamMonthYearId", request.ExamMonthYearId);
+                param[7] = new SqlParameter("@SubmittedMobileNo", request.SubmittedMobileNo);
+                param[8] = new SqlParameter("@IpAddress", clientIpAddress);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_SET_SubmitMarksEntry", param);
                 return JsonConvert.SerializeObject(dt);
             }
