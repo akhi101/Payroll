@@ -259,8 +259,8 @@
         $scope.SaveDeduction = function () {
             var datatypeid = 1
 
-            var datatypeid = 1
-            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, null, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.IT, $scope.FlagFund, $scope.Harithanidhi, $scope.DeductionAmount, 1, $scope.UserName)
+           
+            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, 0, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.IT, $scope.FlagFund, $scope.Harithanidhi, $scope.DeductionAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);

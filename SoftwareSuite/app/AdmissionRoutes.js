@@ -4561,6 +4561,7 @@
                 templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
                 dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
             },
+            
 
         }
 
