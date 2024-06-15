@@ -17,6 +17,7 @@
         $scope.branch = $localStorage.assessment.branchName;
         var branchCode = $localStorage.assessment.branchCode;
         var StudentTypeId = $localStorage.assessment.StudentTypeId;
+        $scope.StudentTypeId = $localStorage.assessment.StudentTypeId;
         $scope.payfine = false;
         var schemeid = parseInt($localStorage.assessment.Scheme);
         $scope.ExamMonthYear = $localStorage.assessment.ExamMonthYear;

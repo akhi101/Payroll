@@ -67,7 +67,7 @@
             <div class="col-md-6 non-print">
                 <button class="btn bck_btn"><a href="#!/Dashboard/AssessmentDashboard/Assessment/Practicals" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
             </div>
-            <div class="col-md-6 non-print">
+            <div class="col-md-6 non-print" ng-show="StudentTypeId==1">
                 <button class="btn btn-success pull-right" ng-click="GetReport()"> Consolidated Report</button>
             </div>
             <div class="col-md-12 non-print">
@@ -103,7 +103,7 @@
                                         <td ng-click="selectSubjectDetails(x)"> {{x.absent}}</td>
                                         <td ng-click="selectSubjectDetails(x)">{{x.mp}}</td>
                                         <td class="text-center" ng-click="selectSubjectDetails(x)">
-                                            <span ng-show="x.Submitted!=0" class="text-success"><b>Yes</b></span>
+                                            <span ng-show="x.Submitted>0" class="text-success"><b>Yes</b></span>
                                             <span ng-show="x.Submitted==0" class="text-danger"><b>No</b></span>
                                         </td>
                                         <td class="text-center">

@@ -167,9 +167,9 @@
                     $scope.IndustryName = response.Table1[0].IndustryName;
                     $scope.Mobile = response.Table1[0].Mobile;
                     $scope.ExamDetails = response.Table1[0].ExamDetails;
-                    if ($scope.ExamDetails == null || $scope.ExamDetails == undefined || $scope.ExamDetails == "") {
-                        $scope.ExamDetails = "Backlog Practical Marks Entry"
-                    }
+                    //if ($scope.ExamDetails == null || $scope.ExamDetails == undefined || $scope.ExamDetails == "") {
+                    //    $scope.ExamDetails = "Backlog Practical Marks Entry"
+                    //}
                     $scope.Subject_Code = response.Table1[0].Subject_Code;
                     $scope.AbsentStudents = response.Table1[0].AbsentCount;
                     $scope.OtherStudents = response.Table1[0].OtherCount;
@@ -345,12 +345,17 @@
             if ($scope.StudentTypeId == 1) {
                 $scope.OpenPopup(type)
             } else if ($scope.StudentTypeId == 2) {
+
                 $scope.modalInstance = $uibModal.open({
                     templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
                     size: 'xs',
                     scope: $scope,
                     windowClass: 'modal-fit-att',
                 });
+                $scope.closeModal = function () {
+
+                    $scope.modalInstance.close();
+                }
             }
         }
 
@@ -401,6 +406,7 @@
                         $scope.NoOtp = false;
                         $scope.loader = false
                         $scope.Otpdisable = false;
+                        $scope.modalInstance.close();
                         $scope.modalInstance = $uibModal.open({
                             templateUrl: "/app/views/Popups/AssessmentPopup.html",
                             size: 'xs',
@@ -459,6 +465,8 @@
                         alert(detail.description);
                         $scope.Otp = true;
                         $scope.NoOtp = false;
+                        $scope.modalInstance.close();
+                        $scope.modalInstance.close();
                         $scope.modalInstance = $uibModal.open({
                             templateUrl: "/app/views/Popups/AssessmentPopup.html",
                             size: 'xs',
@@ -503,7 +511,7 @@
                 } catch (err) { }
                 if (res.Table[0].StatusCode == '200') {
                     alert(res.Table[0].StatusDescription);
-                    $scope.submit(1)
+                    $scope.submit(1,2)
                     $scope.phonenoupdated = true;
                     $scope.Verified = true;   
                     
@@ -533,8 +541,13 @@
 
                     $scope.modalInstance.close();
                 }
-            } else  {
-                $scope.OpenPopup()
+            } else {
+                if ($scope.StudentTypeId == 2) {
+                    $scope.OpenPopup1(2)
+                } else {
+                    $scope.OpenPopup()
+                }
+               
             }
            
 
@@ -608,22 +621,35 @@
         $scope.back = function () {
             $state.go("Dashboard.AssessmentDashboard.Assessment.PracticalSubjectList");
         }
-        $scope.OpenPopup1 = function (type) {
+        $scope.OpenPopup1 = function (type,Backlog) {
             if ($scope.StudentTypeId == 1) {
                 $scope.submit(type)
             } else if ($scope.StudentTypeId == 2) {
-                $scope.modalInstance = $uibModal.open({
-                    templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
-                    size: 'xs',
-                    scope: $scope,
-                    windowClass: 'modal-fit-att',
-                });
+                if (type != 2) {
+                    $scope.modalInstance.close();
+                }
+                if (Backlog == 2) {
+                    $scope.save()
+                    return;
+                } else {
+                    $scope.modalInstance = $uibModal.open({
+                        templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
+                        size: 'xs',
+                        scope: $scope,
+                        windowClass: 'modal-fit-att',
+                    });
+                    $scope.closeModal = function () {
+
+                        $scope.modalInstance.close();
+                    }
+                }
+               
             }
         }
 
        
 
-        $scope.submit = function (type) {
+        $scope.submit = function (type,Backlog) {
             $scope.SaveDisable = true;
             //var conf = confirm("Are you sure you want to submit the marks");
             //if (conf) {
@@ -634,11 +660,14 @@
                 $scope.save(1)
                 return;
             }
+            //if (Backlog == 2) {
+            //    $scope.save(1)
+            //}
 
                 subid = $localStorage.assessment.selectSubjectDetails.subid;
                 let collegeCode = authData.College_Code;
               
-                var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear);
+                var submitMarks = MarksEntryService.SubmitMarksEntered(collegeCode, branchCode, AcademicId, semId, examId, subid, $scope.ExamMonthYear,$scope.Mobile);
                 submitMarks.then(function (response) {
                     //   console.log(response);
                     $scope.SaveDisable = false;

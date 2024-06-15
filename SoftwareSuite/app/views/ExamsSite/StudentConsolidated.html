@@ -1,5 +1,46 @@
-﻿<style>
-    /* .clr_red{
+﻿
+<script type="text/javascript">
+    setInterval(function () {
+        var date = new Date();
+        var format = "DD-MMM-YYYY DDD";
+        dateConvert(date, format)
+    }, 1);
+
+    function dateConvert(dateobj, format) {
+        var year = dateobj.getFullYear();
+        var month = ("0" + (dateobj.getMonth() + 1)).slice(-2);
+        var date = ("0" + dateobj.getDate()).slice(-2);
+        var hours = ("0" + dateobj.getHours()).slice(-2);
+        var minutes = ("0" + dateobj.getMinutes()).slice(-2);
+        var seconds = ("0" + dateobj.getSeconds()).slice(-2);
+        var day = dateobj.getDay();
+        var months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+        var converted_date = "";
+
+        switch (format) {
+            case "DD-MMM-YYYY DDD":
+                converted_date = date + "-" + month + "-" + year + " " + hours + ":" + minutes + ":" + seconds;;
+                break;
+            case "YYYY-MM-DD":
+                converted_date = year + "-" + month + "-" + date;
+                break;
+            case "YYYY-MMM-DD DDD":
+                converted_date = year + "-" + months[parseInt(month) - 1] + "-" + date
+                    + " " + hours + ":" + minutes + ":" + seconds;
+                break;
+        }
+        //return converted_date;
+        // to show it I used innerHTMl in a <p> tag
+        if (document.getElementById("currenttime") != null) {
+            document.getElementById("currenttime").innerHTML = "" + converted_date + "  GMT+0530 (India Standard Time)";
+        }
+    }
+</script>
+
+
+<div ng-controller="StudentConsolidatedController">
+    <style>
+        /* .clr_red{
             color:red;
         }
         .clr_green{
@@ -44,18 +85,35 @@
             z-index: 9998;
             background: #f0f2f7;
         }*/
-    /*
+        /*
         @media screen {
             #printSection {
                 display: none !important;
             }
         }*/
-    .myImg {
-        display: none;
-    }
+        .myImg {
+            display: none;
+        }
 
-    @media print {
-        /* .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        @media print {
+            .myImg {
+                display: block !important;
+                /* width: 60%; */
+                opacity: 0.2 !important;
+                z-index: 1000 !important;
+                position: absolute !important;
+                top: 25% !important;
+                left: 10% !important;
+                background-image: url(/contents/img/sbtet-logo.svg) !important;
+                position: fixed !important;
+                /* background-image: url(red.png); */
+                background-repeat: no-repeat !important;
+                background-position: top center !important;
+                width: 80% !important;
+                height: 80% !important;
+            }
+
+            /* .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
                 float: left;
             }
 
@@ -130,7 +188,7 @@
                 padding: 0px !important;
                 margin: 0px !important;
             }*/
-        /*
+            /*
             body * {
                 visibility: hidden;
             }
@@ -180,140 +238,82 @@
             .mya {
                 text-decoration: none !important;
             }*/
-        #mainfooter {
-            display: none;
+            #mainfooter {
+                display: none;
+            }
+
+            .header {
+                display: none;
+            }
+
+            .header {
+                display: none;
+            }
+
+            .header_area {
+                display: none;
+            }
+
+            .breadcrumb-header {
+                display: none;
+            }
+
+            .alert-info {
+                display: none;
+            }
+
+            .ptr-button {
+                display: none;
+            }
+
+            .fd-form {
+                display: none;
+            }
+
+            .logo-img img {
+                /* float: right; */
+                /* margin-right: 0; */
+                /* cursor: pointer; */
+                height: 75px;
+                width: 75px;
+                /* display: block; */
+                position: absolute;
+                left: 50px;
+                top: 25px;
+            }
+
+            .clearfix {
+                display: none;
+            }
+
+            .scroll-top-wrapper {
+                display: none !important;
+            }
+
+            html, body {
+                border: 1px solid white;
+                height: 99%;
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
+
+            .content {
+                display: block;
+                position: absolute;
+                page-break-after: avoid;
+                page-break-before: avoid;
+            }
+
+            .container {
+                max-width: auto !important;
+            }
+
+
+            .display-inline {
+                display: inline-block;
+            }
         }
-
-        .header {
-            display: none;
-        }
-
-        .header {
-            display: none;
-        }
-
-        .header_area {
-            display: none;
-        }
-
-        .breadcrumb-header {
-            display: none;
-        }
-
-        .alert-info {
-            display: none;
-        }
-
-        .ptr-button {
-            display: none;
-        }
-
-        .fd-form {
-            display: none;
-        }
-
-        .logo-img img {
-            /* float: right; */
-            /* margin-right: 0; */
-            /* cursor: pointer; */
-            height: 75px;
-            width: 75px;
-            /* display: block; */
-            position: absolute;
-            left: 50px;
-            top: 25px;
-        }
-
-        .clearfix {
-            display: none;
-        }
-
-        .scroll-top-wrapper {
-            display: none !important;
-        }
-
-        html, body {
-            border: 1px solid white;
-            height: 99%;
-            page-break-after: avoid;
-            page-break-before: avoid;
-        }
-
-        .content {
-            display: block;
-            position: absolute;
-            page-break-after: avoid;
-            page-break-before: avoid;
-        }
-
-        .container {
-            max-width: auto !important;
-        }
-
-        .myImg {
-            display: block;
-            width: 60%;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 45px;
-            display: block;
-            opacity: 0.2;
-            z-index: 1000;
-            position: absolute;
-            top: 15%;
-            left: 20%;
-            background-image: url('/contents/img/sbtet-logo.svg');
-            background-repeat: no-repeat;
-            background-position: right top;
-            background-attachment: fixed;
-        }
-
-        .display-inline {
-            display: inline-block;
-        }
-    }
-</style>
-<script type="text/javascript">
-    setInterval(function () {
-        var date = new Date();
-        var format = "DD-MMM-YYYY DDD";
-        dateConvert(date, format)
-    }, 1);
-
-    function dateConvert(dateobj, format) {
-        var year = dateobj.getFullYear();
-        var month = ("0" + (dateobj.getMonth() + 1)).slice(-2);
-        var date = ("0" + dateobj.getDate()).slice(-2);
-        var hours = ("0" + dateobj.getHours()).slice(-2);
-        var minutes = ("0" + dateobj.getMinutes()).slice(-2);
-        var seconds = ("0" + dateobj.getSeconds()).slice(-2);
-        var day = dateobj.getDay();
-        var months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-        var converted_date = "";
-
-        switch (format) {
-            case "DD-MMM-YYYY DDD":
-                converted_date = date + "-" + month + "-" + year + " " + hours + ":" + minutes + ":" + seconds;;
-                break;
-            case "YYYY-MM-DD":
-                converted_date = year + "-" + month + "-" + date;
-                break;
-            case "YYYY-MMM-DD DDD":
-                converted_date = year + "-" + months[parseInt(month) - 1] + "-" + date
-                    + " " + hours + ":" + minutes + ":" + seconds;
-                break;
-        }
-        //return converted_date;
-        // to show it I used innerHTMl in a <p> tag
-        if (document.getElementById("currenttime") != null) {
-            document.getElementById("currenttime").innerHTML = "" + converted_date + "  GMT+0530 (India Standard Time)";
-        }
-    }
-</script>
-
-
-<div ng-controller="StudentConsolidatedController">
-
+    </style>
     <div class="breadcrumb-header" id="studentresult1">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -469,17 +469,17 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
                         </table>
                     </div>
                 </div>-->
-                
 
-          
+
+
 
 
 
 
 
                 <div ng-if="showData == 1" class="col-md-12">
-                    <img src="../../../contents/img/sbtet-logo.svg" alt="Notebook" class="myImg">
-
+                    <!-- <img src="../../../contents/img/sbtet-logo.svg" alt="Notebook" class="myImg">-->
+                    <div alt="Notebook" class="myImg"></div>
                     <!--   <div class="col-lg-12">-->
 
                     <div class="row">
@@ -653,7 +653,9 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
                                         <!--<td>{{data.MaxCredits}}</td>
                                         <td>{{data.Mid1Marks}}</td>
                                         <td>{{data.Mid2Marks}}</td>-->
+                                        {d
                                         <td>{{data.Internal}}</td>
+                                        da
                                         <td>{{data.EndExam}}</td>
                                         <td>{{data.SubjectTotal}}</td>
 
@@ -661,14 +663,22 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
 
 
 
-                                               
-                                                <!--<td>{{data.HybridGrade}}</td>
-                                            <td>{{data.GradePoint}}</td>
-                                            <td>{{data.CreditsGained}}</td>-->
-                                                <!--<td>{{data.TotalMarks}}</td>-->
-                                                <!--<td>{{data.WholeOrSupply =='W'?'R':'S'}}</td>
-                                            <td>{{data.ExamMonthYear}}</td>-->
+
+
+
+
+
+
+                                        <!--<td>{{data.HybridGrade}}</td>
+                                        <td>{{data.GradePoint}}</td>
+                                        <td>{{data.CreditsGained}}</td>-->
+                                        <!--<td>{{data.TotalMarks}}</td>-->
+                                        <!--<td>{{data.WholeOrSupply =='W'?'R':'S'}}</td>
+                                        <td>{{data.ExamMonthYear}}</td>-->
                                         <td>{{data.Remarks}}</td>
+
+
+                                        <
 
 
                                     </tr>
@@ -683,6 +693,7 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
                                         <td>{{val.TotalMarks}}</td>
 
                                         <td colspan="2"></td>
+
                                         <!--<td>{{val.Result}}</td>-->
                                         <!--<td>{{data3.courseTotalGradePoints}}</td>-->
                                         <!--<td></td>
@@ -732,7 +743,7 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
 
                                     </tr>-->
                                 </tbody>
-                             
+
                             </table>
 
                             <!--<table class="table table-bordered">
@@ -754,8 +765,12 @@ box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="ConCaptcha" />
                                         <td>{{TotalData.CGPA}}</td>
                                     </tr>
                             </table>-->
-                           
+
                             <label><strong>Abbrevations</strong></label>
+
+                            st
+
+
 
                             <div class="col-md-12">
                                 <div class="col-md-3 display-inline">

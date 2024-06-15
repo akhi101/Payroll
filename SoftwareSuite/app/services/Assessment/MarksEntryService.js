@@ -63,13 +63,15 @@
                 var promise = DataAccessService.postData('MarksEntry/SubmitAllMarksEntered', paramObject);
                 return promise;
             },
-            this.SubmitMarksEntered = function (collegeCode, branchCode, AcademicId, semId, examtypeId, subId, ExamMonthYearId) {
+            this.SubmitMarksEntered = function (collegeCode, branchCode, AcademicId, semId, examtypeId, subId, ExamMonthYearId, SubmittedMobileNo) {
                 var paramObject = {
-                    "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "subId": subId, "ExamMonthYearId": ExamMonthYearId
+                    "collegeCode": collegeCode, "branchCode": branchCode, "AcademicId": AcademicId, "semId": semId, "examtypeId": examtypeId, "subId": subId, "ExamMonthYearId": ExamMonthYearId, "SubmittedMobileNo": SubmittedMobileNo
                 };
                 var promise = DataAccessService.postData('MarksEntry/SubmitMarksEntered', paramObject);
                 return promise;
             },
+
+
             this.getStudentType = function () {
                 return DataAccessService.getDataAll('Assessment/getStudentType');
             },

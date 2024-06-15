@@ -604,7 +604,8 @@
         //    $printSection.innerHTML = "";
         //    $printSection.appendChild(domClone);
             // alert($printSection.innerHTML);
-            document.title = "CONSOLIDATED_MEMORANDUM_MARKS_"+$scope.Pin;
+            document.title = "CONSOLIDATED_MEMORANDUM_MARKS_" + $scope.Pin;
+
             window.print();
             //document.body.removeChild($printSection);
             //$("#studentresult1").show();
