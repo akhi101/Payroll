@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport1()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
@@ -211,7 +211,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee:</label>
-                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
+                            <select class="form-control" ng-model="Employee" ng-change="ChangeAdvEmpData(Employee)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
                                 <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
                                     {{data.EmployeeName}} ({{data.EmployeeCode}})
@@ -221,7 +221,7 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport2()">
                                 Get Details
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
@@ -237,7 +237,7 @@
                     <div class="col-md-9">: {{Designation}}</div>
                 </div>
 
-                <div class="card" ng-show="EmployeeData"> 
+                <div class="card" ng-show="EmployeeData">
 
                     <div class="col-md-3">
                         <div class="form-group">
@@ -258,14 +258,14 @@
 
                             <input class="form-control" placeholder="Enter Amount" ng-model="Amount" name="Amount" />
 
-                        </div>
+                        </div> 
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">No Of Months:</label>
                             <input class="form-control" placeholder="Enter NoOfMonths" ng-model="NoOfMonths" name="NoOfMonths" />
 
-                            
+
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -290,9 +290,16 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row" ng-show="DataNotFound1">
+                    <div class="col-md-12">
+                        <div ng-show="DataNotFound1" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </div>
+                </div>
                 <div class="sm-spacer"></div>
-                <div class="">
+                <div class="" ng-show="GetAllAdvance.length>0">
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="cb-1" style="padding-left: 25px;">
@@ -458,12 +465,12 @@
                 <div class="spacer"></div>
 
 
-                <div class="">
+                <div class="" ng-show="GetAllHBA.length>0">
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="cb-1" style="padding-left: 25px;">
                                 <th class="text-center">Financial Year</th>
-                                <th class="text-center">Months</th>
+                                <th class="text-center">Month</th>
                                 <th class="text-center">Employee Code</th>
                                 <th class="text-center">Employee Name</th>
                                 <th class="text-center">Amount</th>
@@ -478,24 +485,17 @@
                             <tr ng-repeat="data in GetAllHBA">
 
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
-                                <td class="text-center pointer">
-                                    <div>
-                                        <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MonthName" name="StudentType" required>
-                                            <option value="" selected>
-                                                Select Month
-                                            </option>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
 
-                                            <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
-                                                {{data.Months}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </td>
+
+
+
+                               
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Amount" /></div></td>
-                             
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoofMonths" /></div></td>
+
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NoOfMonths" /></div></td>
 
                                 <td class="text-center pointer">
                                     <div>
@@ -513,10 +513,10 @@
                                 <!--<td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Emi_Start_Month" /></div></td>-->
 
                                 <td class="text-center">
-                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditAdvances(data,$index+1)">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditHBA(data,$index+1)">
                                         Edit
                                     </button>
-                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateAdvance(data,$index+1)">
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateHBA(data,$index+1)">
                                         Update
                                     </button>
 

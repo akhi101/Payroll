@@ -234,7 +234,8 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@HBAId", request["HBAId"]);
+                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+              
                 param[2] = new SqlParameter("@Active", request["Active"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_HBA", param);
                 return JsonConvert.SerializeObject(dt);

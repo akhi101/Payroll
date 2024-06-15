@@ -83,10 +83,11 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditHBA = function (DataTypeID, HBAId, Active) {
+        this.GetorEditHBA = function (DataTypeID, EmployeeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "HBAId": HBAId,
+                "EmployeeID": EmployeeID,
+               
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditHBA', paramObj);
