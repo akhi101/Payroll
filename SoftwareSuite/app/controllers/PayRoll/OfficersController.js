@@ -2,20 +2,22 @@
     app.controller("OfficersController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.EmployeeData = false;
+            $scope.IncEmployeeData = false;
+            $scope.DedEmployeeData = false;
+
             $scope.ShowLeaveData = false;
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
             $scope.MedicalLeaves = 1;
             $scope.CasualLeaves = 2;
-            $scope.EarnLeaves=3
-            $scope.TotalLeaves=10
+            $scope.EarnLeaves = 3
+            $scope.TotalLeaves = 10
             $scope.FinancialYears();
             $scope.GetEmployeeDetails();
             $scope.GetMonths();
-            $scope.GetorEditIncrements();
-            $scope.GetorEditDeductions();
-            $scope.GetorEditLeaves();
+            /* $scope.GetorEditIncrements();*/
+            /*$scope.GetorEditDeductions();*/
+            /*$scope.GetorEditLeaves();*/
         }
 
         $scope.GetData = function () {
@@ -39,20 +41,21 @@
 
 
         $scope.GetorEditIncrements = function () {
-            var getdesign = PayRollService.GetorEditIncrements(1, 0, 0);
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditIncrements(DataTypeID, $scope.IncrementsEmployeeId, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
                 if (response.Table.length > 0) {
                     $scope.GetAllIncrements = response.Table;
-                    $scope.Noreports = false;
+                    $scope.DataNotFound1 = false;
                     for (var j = 1; j < $scope.GetAllIncrements.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
                     $scope.GetAllIncrements = [];
-                    $scope.Noreports = true;
+                    $scope.DataNotFound1 = true;
                 }
             },
                 function (error) {
@@ -64,23 +67,24 @@
 
 
 
-        
+
 
         $scope.GetorEditDeductions = function () {
-            var getdesign = PayRollService.GetorEditDeductions(1, 1, 0);
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditDeductions(DataTypeID, $scope.DeductionsEmployeeId, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
                 if (response.Table.length > 0) {
                     $scope.GetAllDeductions = response.Table;
-                    $scope.Noreports = false;
+                    $scope.DataNotFound2 = false;
                     for (var j = 1; j < $scope.GetAllDeductions.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
                     $scope.GetAllDeductions = [];
-                    $scope.Noreports = true;
+                    $scope.DataNotFound2 = true;
                 }
             },
                 function (error) {
@@ -90,12 +94,12 @@
                 });
         }
 
-       
-        
+
+
 
         $scope.GetorEditLeaves = function () {
             let DataType = 1;
-            var getdesign = PayRollService.GetorEditLeaves(DataType,0,0,0,0);
+            var getdesign = PayRollService.GetorEditLeaves(DataType, 0, 0, 0, 0);
             getdesign.then(function (resp) {
                 console.log(resp)
                 var response = JSON.parse(resp)
@@ -154,7 +158,7 @@
                     $scope.Noreports = false;
                     $scope.savebutton = true;
                 }
-                
+
                 else {
                     $scope.EmployeeDetailsData = [];
                     $scope.Noreports = true;
@@ -189,22 +193,24 @@
         }
         $scope.ChangeEmpData = function (data) {
             var data = JSON.parse(data)
-            $scope.EmployeeId = data.EmployeeID
+            $scope.IncrementsFinancialYearId = data.FinancialYearID
+            $scope.IncrementsMonthId = data.MonthID
+            $scope.IncrementsEmployeeId = data.EmployeeID
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
-            
+
         }
 
 
 
         $scope.ChangeEmpDedData = function (data) {
             var data = JSON.parse(data)
-            $scope.EmployeeId = data.EmployeeID
+            $scope.DeductionsEmployeeId = data.EmployeeID
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
-            
+
         }
 
         $scope.ChangeEmpLevData = function (data) {
@@ -213,19 +219,26 @@
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
-          
+
 
         }
 
-        $scope.GetReport = function () {
-            $scope.EmployeeData = true;
+        $scope.GetReport1 = function () {
+            $scope.IncEmployeeData = true;
+            $scope.GetorEditIncrements();
+        }
+
+        $scope.GetReport2 = function () {
+            $scope.DedEmployeeData = true;
+            $scope.GetorEditDeductions();
+
         }
 
 
         $scope.SaveIncrement = function () {
             var datatypeid = 1
 
-            var AddDepartment = PayRollService.AddorUpdateIncrements(datatypeid, 0, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.IncrementAmount, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateIncrements(datatypeid, 0, $scope.IncrementsFinancialYear, $scope.IncrementsMonth, $scope.IncrementsEmployeeId, $scope.IncrementAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -259,8 +272,8 @@
         $scope.SaveDeduction = function () {
             var datatypeid = 1
 
-           
-            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, 0, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.IT, $scope.FlagFund, $scope.Harithanidhi, $scope.DeductionAmount, 1, $scope.UserName)
+
+            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, 0, $scope.DeductionsFinancialYear, $scope.DeductionsMonth, $scope.DeductionsEmployeeId, $scope.IT, $scope.FlagFund, $scope.Harithanidhi, $scope.DeductionAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -292,7 +305,7 @@
             var datatypeid = 1
 
             var datatypeid = 1
-            var AddDepartment = PayRollService.AddorUpdateLeaves(datatypeid, 0, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.TotalLeaves, $scope.MedicalLeaves, $scope.CasualLeaves, $scope.EarnLeaves ,$scope.LeavesRequired, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateLeaves(datatypeid, 0, $scope.FinancialYear, $scope.Month, $scope.EmployeeId, $scope.TotalLeaves, $scope.MedicalLeaves, $scope.CasualLeaves, $scope.EarnLeaves, $scope.LeavesRequired, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -342,7 +355,7 @@
                 $scope.CasualLeaves = 0;
                 $scope.EarnLeaves = 0;
             }
-           
+
         }
 
 
@@ -382,7 +395,6 @@
         }
 
 
-
         $scope.EditIncrement = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
@@ -397,11 +409,15 @@
         }
 
 
+
+
+
+
         $scope.UpdateIncrement = function (data) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateIncrements(DataTypeId, data.IncrementID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.IncrementAmount,data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateIncrements(DataTypeId, data.IncrementID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.IncrementAmount, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -523,7 +539,7 @@
                 });
         }
 
-        
+
         $scope.EditLeave = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
@@ -592,9 +608,9 @@
                 });
         }
 
-        
-        
-        
+
+
+
         $scope.Years = ['2021', '2022', '2023', '2024', '2025'];
         //$scope.SubBillers = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY'];
     })

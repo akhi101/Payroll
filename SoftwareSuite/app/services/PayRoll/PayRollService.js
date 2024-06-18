@@ -18,9 +18,10 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
 
-        this.GetorEditIncrements = function (DataTypeID, IncrementId, Active) {
+        this.GetorEditIncrements = function (DataTypeID, EmployeeID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
                 "IncrementId": IncrementId,
                 "Active": Active
             };
@@ -87,7 +88,7 @@ define(['app'], function (app) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
-               
+
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditHBA', paramObj);
@@ -169,7 +170,6 @@ define(['app'], function (app) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeId": EmployeeId,
-                
                 "AdvancesId": AdvancesId,
                 "Active": Active
             };
@@ -178,9 +178,11 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollIncrement = function (DataTypeID, IncrementId, Active) {
+        this.PayRollIncrement = function (DataTypeID, EmployeeID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+
+                "EmployeeID": EmployeeID,
                 "IncrementId": IncrementId,
                 "Active": Active
             };
@@ -530,9 +532,10 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditDeductions = function (DataTypeID, DeductionsId, Active) {
+        this.GetorEditDeductions = function (DataTypeID, EmployeeID, DeductionsId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
                 "DeductionsId": DeductionsId,
                 "Active": Active
             };
@@ -565,6 +568,7 @@ define(['app'], function (app) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "ID": ID,
+
                 "FinancialYearID": FinancialYearID,
                 "EmployeeID": EmployeeID,
                 "Active": Active

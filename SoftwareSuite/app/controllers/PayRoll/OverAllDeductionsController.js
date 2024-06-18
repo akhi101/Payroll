@@ -3,7 +3,7 @@ define(['app'], function (app) {
         const $ctrl = this;
         $scope.Values = [{ "id": 1, "name": "Yes" }, { "id": 0, "name": "No" }]
         $ctrl.$onInit = () => {
-
+            $scope.NPSEmployeeData = false;
             $scope.EmployeeData = false;
             $scope.HBAEmployeeData = false;
             var authData = $localStorage.authorizationData;
@@ -147,14 +147,14 @@ define(['app'], function (app) {
                 //$scope.edit = true;
                 if (response.Table.length > 0) {
                     $scope.GetAllHBA = response.Table;
-                    $scope.Noreports = false;
+                    $scope.DataNotFound2 = false;
                     for (var j = 1; j < $scope.GetAllHBA.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
                     $scope.GetAllHBA = [];
-                    $scope.Noreports = true;
+                    $scope.DataNotFound2 = true;
                 }
             },
                 function (error) {
@@ -320,7 +320,7 @@ define(['app'], function (app) {
 
 
         $scope.GetReport1 = function () {
-            $scope.EmployeeData = true;
+            $scope.NPSEmployeeData = true;
             $scope.GetEditNPS();
             
         }
