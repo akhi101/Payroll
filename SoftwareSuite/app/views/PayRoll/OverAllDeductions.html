@@ -108,7 +108,7 @@
                 </div>
 
 
-                <div class="card" ng-show="EmployeeData">
+                <div class="card" ng-show="NPSEmployeeData">
                     <div class="col-md-3"><b>Employee Name </b></div>
                     <div class="col-md-9">: {{EmployeeName}}</div>
                     <div class="col-md-3"><b>Employee Id </b></div>
@@ -462,6 +462,14 @@
                         <button class="btn btn-success pull-right" ng-click="SaveHBA()">Submit</button>
                     </div>
                 </div>
+                <div class="row" ng-show="DataNotFound2">
+                    <div class="col-md-12">
+                        <div ng-show="DataNotFound2" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </div>
+                </div>
                 <div class="spacer"></div>
 
 
@@ -490,7 +498,7 @@
 
 
 
-                               
+
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Amount" /></div></td>
@@ -532,9 +540,9 @@
 
                             </tr>
 
-                </tbody>
-                          </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>

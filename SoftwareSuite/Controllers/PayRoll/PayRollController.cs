@@ -102,10 +102,11 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@IncrementId", request["IncrementId"]);
-                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[2] = new SqlParameter("@IncrementId", request["IncrementId"]);
+                param[3] = new SqlParameter("@Active", request["Active"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Increments", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -174,7 +175,7 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
-        [HttpPost, ActionName("AddorUpdateIncrements    ")]
+        [HttpPost, ActionName("AddorUpdateIncrements")]
         public string AddorUpdateIncrements([FromBody] JsonObject request)
         {
             try
@@ -235,7 +236,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
                 param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-              
+
                 param[2] = new SqlParameter("@Active", request["Active"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_HBA", param);
                 return JsonConvert.SerializeObject(dt);
@@ -286,10 +287,11 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
-                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[2] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
+                param[3] = new SqlParameter("@Active", request["Active"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Deductions", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -356,6 +358,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@ID", data.ID);
+
                 param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[3] = new SqlParameter("@EmployeeID", data.EmployeeID);
                 param[4] = new SqlParameter("@Active", data.Active);
@@ -856,7 +859,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public int DataTypeId { get; set; }
             public int DataTypeID { get; set; }
             public int EmployeeId { get; set; }
-            
+
             public int AdvancesId { get; set; }
             public int EmployeeID { get; set; }
             public int FinancialYearID { get; set; }
@@ -913,4 +916,3 @@ namespace SoftwareSuite.Controllers.PayRoll
 
     };
 };
-
