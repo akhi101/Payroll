@@ -32,11 +32,11 @@
     <div class="breadcrumb-header">
         <div class="container">
             <section class="content-header">
-                <h5>Update DateSheet </h5>
+                <h5>Printer NR Download</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/CcicDashboard"><i class="fa fa-dashboard">Ccic Dashboard</i> </a></li>
                     <li><a href="#!/CcicDashboard/PreExamination">Ccic PreExamination</a></li>
-                    <li><a href="#!/CcicDashboard/PreExamination/UpdateDateSheet">Update DateSheet</a></li>
+                    <li><a href="#!/CcicDashboard/PreExamination/PrinterNRDownload">Printer NR Download</a></li>
                 </ol>
             </section>
         </div>
@@ -63,7 +63,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="font-weight-bold"> Academic Year :</label>
-                                    <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCourseDurationBatchData(academicYear)">
+                                    <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCurrentBatchData(academicYear)">
                                         <option value="" selected="selected">Select Year</option>
                                         <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                             {{data.AcademicYear}}
@@ -78,7 +78,7 @@
                                     <label class="font-weight-bold"> Batch :</label>
                                     <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
                                         <option value="" selected="selected">Select Batch</option>
-                                        <option value="{{data.Batch}}" ng-repeat="data in GetCurrentBatch" class="">
+                                        <option value="{{data.BatchID}}" ng-repeat="data in CurrentBatchData" class="">
                                             {{data.Batch}}
                                         </option>
                                     </select>
@@ -89,20 +89,28 @@
                                 <label for="sel1">
                                     Exam Month/Year :
                                 </label>
-                                <select class="form-control" ng-model="monthyear" id="ExamYear"
-                                        ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in GetAYBatchExamMonthYearData">
+                                <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="getExamDates()"
+                                        ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in ExamMonthYearData">
                                     <option value="" selected>Select Month/Year of Exam</option>
                                 </select>
                             </div>
 
 
-
+                            <div class="col-md-3 form-group">
+                                <label for="sel1">
+                                    Exam Dates :
+                                </label>
+                                <select class="form-control" ng-model="ExamDate" id="ExamDate"
+                                        ng-options="data.ExamDate as data.ExamDate for data in ExamDates">
+                                    <option value="" selected>Select Exam Date</option>
+                                </select>
+                            </div>
 
 
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="AddCcicModule()">
+                                    <button class="btn btn-sm btn-primary gr-button btn_top pull-left" style="margin-top: 23px!important;" ng-click="getNRStudentDetails()">
                                         Download NR
                                         <span class="fa fa-arrow-down heading_icon btn_icons"></span>
 

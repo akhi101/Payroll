@@ -38,7 +38,7 @@ namespace SoftwareSuite.Services
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SystemProgram", 0, ex.Message);
                 throw ex;
             }
 
@@ -71,7 +71,7 @@ namespace SoftwareSuite.Services
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SystemProgram", 0, ex.Message);
                 throw ex;
             }
 
@@ -95,7 +95,7 @@ namespace SoftwareSuite.Services
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SystemProgram", 0, ex.Message);
                 throw ex;
             }
         }
@@ -113,7 +113,7 @@ namespace SoftwareSuite.Services
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SystemProgram", 0, ex.Message);
                 throw ex;
             }
         }
