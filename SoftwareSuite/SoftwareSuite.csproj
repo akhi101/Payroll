@@ -675,6 +675,7 @@
     <Content Include="app\controllers\CBT\CBTController.js" />
     <Content Include="app\controllers\CBT\ViewCandidateDetailsController.js" />
     <Content Include="app\controllers\CCIC\Academic\CcicAcademicController.js" />
+    <Content Include="app\controllers\CCIC\Academic\CcicCoursesController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsCourseController.js" />
     <Content Include="app\controllers\CCIC\Assessment\CcicAssessmentReportsDataController.js" />
@@ -1150,6 +1151,7 @@
     <Content Include="app\views\CBT\TestingStudentReg.html" />
     <Content Include="app\views\CBT\CBT.html" />
     <Content Include="app\views\CBT\ViewCandidateDetails.html" />
+    <Content Include="app\views\CCIC\Academic\CcicCourses.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsCourse.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsData.html" />
     <Content Include="app\views\CCIC\Assessment\CcicAssessmentReportsInstitute.html" />

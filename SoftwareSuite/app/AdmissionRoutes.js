@@ -433,6 +433,12 @@
                 dependencies: ['controllers/CCIC/CcicSettings/CcicAdmVerificationDataController', 'services/CCIC/CcicSettingsService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
+            'CcicDashboard.Academic.Courses': {
+                url: "/Courses",
+                templateUrl: 'app/views/CCIC/Academic/CcicCourses.html',
+                dependencies: ['controllers/CCIC/Academic/CcicCoursesController',  'services/CCIC/PreExamination/CcicPreExaminationService']
+            },
+
             //'CcicDashboard.Academic.CcicVerificationCourses': {
             //    url: "/Verification/CcicVerificationCourses",
             //    templateUrl: 'app/views/CCIC/CcicSettings/CcicVerificationCourses.html',

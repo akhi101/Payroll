@@ -264,7 +264,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Modules", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_Modules", 0, ex.Message);
                 throw ex;
             }
         }
@@ -462,7 +462,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Add_User", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Add_User", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -494,7 +494,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Update_User", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Update_User", 0, ex.Message);
                 return ex.Message;
             }
         }
