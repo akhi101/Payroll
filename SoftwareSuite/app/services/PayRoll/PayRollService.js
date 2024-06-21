@@ -18,10 +18,12 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
 
-        this.GetorEditIncrements = function (DataTypeID, EmployeeID, IncrementId, Active) {
+        this.GetorEditIncrements = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "IncrementId": IncrementId,
                 "Active": Active
             };
@@ -84,11 +86,13 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditHBA = function (DataTypeID, EmployeeID, Active) {
+        this.GetorEditHBA = function (DataTypeID, EmployeeID, FinancialYearID, MonthID,HBAId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
-
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "HBAId": HBAId,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditHBA', paramObj);
@@ -154,10 +158,12 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollNPS = function (DataTypeID, EmployeeID, NPSId, Active) {
+        this.PayRollNPS = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, NPSId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "NPSId": NPSId,
                 "Active": Active
             };
@@ -178,11 +184,12 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollIncrement = function (DataTypeID, EmployeeID, IncrementId, Active) {
+        this.PayRollIncrement = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-
                 "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "IncrementId": IncrementId,
                 "Active": Active
             };
@@ -384,10 +391,12 @@ define(['app'], function (app) {
         };
 
 
-        this.GetEditNPS = function (DataTypeID, EmployeeID, NPSId, Active) {
+        this.GetEditNPS = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, NPSId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "NPSId": NPSId,
                 "Active": Active
             };
@@ -532,10 +541,12 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditDeductions = function (DataTypeID, EmployeeID, DeductionsId, Active) {
+        this.GetorEditDeductions = function (DataTypeID, EmployeeID, FinancialYearID, MonthID,DeductionsId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "DeductionsId": DeductionsId,
                 "Active": Active
             };
@@ -564,13 +575,13 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditLeaves = function (DataTypeID, ID, FinancialYearID, EmployeeID, Active) {
+        this.GetorEditLeaves = function (DataTypeID, FinancialYearID, MonthID, EmployeeID, LeaveId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "ID": ID,
-
                 "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "EmployeeID": EmployeeID,
+                "LeaveId": LeaveId,
                 "Active": Active
 
             };
@@ -590,18 +601,39 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateLeaves = function (DataTypeId, LeaveId, FinancialYearId, MonthID, EmployeeID, TotalLeaves, MedicalLeaves, CasualLeaves, EarnLeaves, LeavesRequired, Active, UserName) {
+        this.AddLeaves = function (DataTypeId, LeaveId, FinancialYearId, MonthID, EmployeeID, MedicalLeaves, MedicalLeavesUtilized, CasualLeaves, CasualLeavesUtilized, EarnLeaves, EarnLeavesUtilized , Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "LeaveId": LeaveId,
                 "FinancialYearId": FinancialYearId,
                 "MonthID": MonthID,
                 "EmployeeID": EmployeeID,
-                "TotalLeaves": TotalLeaves,
                 "MedicalLeaves": MedicalLeaves,
+                "MedicalLeavesUtilized": MedicalLeavesUtilized,
                 "CasualLeaves": CasualLeaves,
+                "CasualLeavesUtilized": CasualLeavesUtilized,
                 "EarnLeaves": EarnLeaves,
-                "LeavesRequired": LeavesRequired,
+                "EarnLeavesUtilized": EarnLeavesUtilized,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateLeaves', paramObject);
+            return promise;
+        };
+
+        this.UpdateLeaves = function (DataTypeId, LeaveId, FinancialYearId, MonthID, EmployeeID, MedicalLeaves, MedicalLeavesUtilized, CasualLeaves, CasualLeavesUtilized, EarnLeaves, EarnLeavesUtilized, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "LeaveId": LeaveId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "MedicalLeaves": MedicalLeaves,
+                "MedicalLeavesUtilized": MedicalLeavesUtilized,
+                "CasualLeaves": CasualLeaves,
+                "CasualLeavesUtilized": CasualLeavesUtilized,
+                "EarnLeaves": EarnLeaves,
+                "EarnLeavesUtilized": EarnLeavesUtilized,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -610,10 +642,13 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditAdvance = function (DataTypeID, EmployeeId, AdvancesId, Active) {
+
+        this.GetorEditAdvance = function (DataTypeID, EmployeeId, FinancialYearID, MonthID, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeId": EmployeeId,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "AdvancesId": AdvancesId,
                 "Active": Active
 
