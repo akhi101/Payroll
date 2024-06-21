@@ -4,7 +4,6 @@
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
         }
 
 
@@ -20,23 +19,54 @@
 
             });
 
+        $scope.GetCurrentBatchData = function (AcademicYearID) {
+            if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
+                return;
+            }
 
+            $scope.AcademicYearID = AcademicYearID;
+            $scope.loading = true;
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetCurrentBatch(AcademicYearID)
+            getCcicAcademicYearBatch.then(function (Res) {
+                try {
+                    var res = JSON.parse(Res);
+                }
+                catch (err) { }
 
-        $scope.getAYBatchExamMonthYear = function (AcademicYearID, BaTch) {
+                if (res.Table.length > 0) {
+                    $scope.loading = false;
+                    $scope.CurrentBatchData = res.Table;
+                    $scope.NoData = false;
+                }
+                else {
+                    $scope.loading = false;
+                    $scope.CurrentBatchData = [];
+                    $scope.NoData = true;
+
+                }
+
+            },
+                function (error) {
+                    $scope.loading = false;
+                    $scope.NoData = true;
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                });
+
+        }
+
+        $scope.getAYBatchExamMonthYear = function (AcademicYearID) {
             if (AcademicYearID == null || AcademicYearID == undefined || AcademicYearID == "") {
                 return;
 
             }
 
-            if (BaTch == null || BaTch == undefined || BaTch == "") {
-                return;
 
-            }
             $scope.AcademicYearID = AcademicYearID;
 
 
 
-            var getAYbatchexammonthyear = CcicPreExaminationService.GetAYBatchExamMonthYear(AcademicYearID, BaTch)
+            var getAYbatchexammonthyear = CcicPreExaminationService.GetExamMonthYears(AcademicYearID)
             getAYbatchexammonthyear.then(function (res) {
                 try {
                     var res = JSON.parse(res);
@@ -44,10 +74,10 @@
                 catch (err) { }
 
                 if (res.Table.length > 0) {
-                    $scope.GetAYBatchExamMonthYearData = res.Table;
+                    $scope.ExamMonthYearData = res.Table;
                 }
                 else {
-                    $scope.GetAYBatchExamMonthYearData = [];
+                    $scope.ExamMonthYearData = [];
                 }
 
             },
@@ -58,6 +88,46 @@
 
 
         }
+
+
+        $scope.getExamDates = function () {
+
+            var examdate = CcicPreExaminationService.GetExamDates($scope.academicYear, $scope.monthyear);
+            examdate.then(function (response) {
+                var Res = JSON.parse(response)
+
+                $scope.ExamDates = Res.Table;
+
+            },
+                function (error) {
+                    alert("error while loading Dates");
+                    var err = JSON.parse(error);
+
+                });
+
+        }
+
+
+        $scope.getNRStudentDetails = function () {
+            $scope.LoadImg = true;
+            var getNrReports = CcicPreExaminationService.NrReports($scope.academicYear, $scope.monthyear,$scope.ExamDate,$scope.UserName);
+            getNrReports.then(function (res) {
+                $scope.LoadImg = false;
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        window.location.href = '/Reports/' + res + '.pdf';
+                    } else {
+                        alert("No NR Report Present");
+                    }
+                } else {
+                    alert("No NR Report Present");
+                }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
+
+        };
 
 
     })

@@ -3,7 +3,8 @@
        
         var authData = $localStorage.authorizationData;         
         $scope.userType = authData.SystemUserTypeId
-        $scope.College_Code = authData.College_Code;
+        //$scope.College_Code = authData.College_Code;
+        $scope.College_Code = authData.userName;
         $scope.LoadImg = false;
         $scope.showReAdmissionList = false;
         $scope.DisplayButton = true;
