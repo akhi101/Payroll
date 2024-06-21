@@ -48,7 +48,7 @@
                 <a href="#2" class="noprint" data-toggle="tab">All Advances</a>
             </li>
             <li class="noprint">
-                <a href="#3" class="noprint" data-toggle="tab">House Building Advance</a>
+                <a href="#3" class="noprint" data-toggle="tab">House Building Advance(HBA)</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -256,14 +256,14 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Amount:</label>
 
-                            <input class="form-control" placeholder="Enter Amount" ng-model="Amount" name="Amount" />
+                            <input class="form-control" placeholder="Enter Amount" ng-model="AdvanceAmount" name="Amount" />
 
                         </div> 
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">No Of Months:</label>
-                            <input class="form-control" placeholder="Enter NoOfMonths" ng-model="NoOfMonths" name="NoOfMonths" />
+                            <input class="form-control" placeholder="Enter NoOfMonths" ng-model="AdvanceNoOfMonths" name="NoOfMonths" />
 
 
                         </div>
@@ -271,7 +271,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Emi Start Month:</label>
-                            <select class="form-control" ng-model="EMIMonth" name="StudentType" required>
+                            <select class="form-control" ng-model="AdvanceEmiStartMonth" name="StudentType" required>
                                 <option value="" selected>Emi Start Month:</option>
                                 <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
                                     {{data.Months}}
