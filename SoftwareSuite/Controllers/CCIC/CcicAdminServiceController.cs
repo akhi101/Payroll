@@ -355,7 +355,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Users", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_Users", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
@@ -378,7 +378,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Edit_Users", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_Edit_Users", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }
@@ -401,7 +401,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Edit_UserTypes", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_Edit_UserTypes", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.OK, ex.Message);
             }
         }

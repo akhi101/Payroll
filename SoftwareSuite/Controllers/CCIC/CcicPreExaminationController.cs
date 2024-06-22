@@ -477,7 +477,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Add_Update_InActive_ExaminationCentres", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Add_Update_InActive_ExaminationCentres", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -792,7 +792,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Add_ExamMonthYear", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Add_ExamMonthYear", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -840,7 +840,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Add_Update_Delete_SubjectMaster", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Add_Update_Delete_SubjectMaster", 0, ex.Message);
                 return ex.Message;
             }
         }
@@ -1701,7 +1701,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_ApplicationNumber", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_ApplicationNumber", 0, ex.Message);
                 throw ex;
             }
         }
@@ -1720,7 +1720,7 @@ namespace SoftwareSuite.Controllers.CCIC
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_Districts", 0, ex.Message);
+                ccicdbHandler.SaveErorr("SP_Get_Districts", 0, ex.Message);
                 throw ex;
             }
         }
@@ -3677,6 +3677,90 @@ namespace SoftwareSuite.Controllers.CCIC
                 return ex.Message;
             }
 
+        }
+
+        public HttpResponseMessage GetCcicEducationQualifications()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_EducationQualifications";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_EducationQualifications", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+
+
+        public class CourseInfo
+        {
+            public int DataTypeId { get; set; }
+            public int CourseID { get; set; }
+            public string Scheme { get; set; }
+            public string CourseCode { get; set; }
+            public string CourseName { get; set; }
+            public string CourseDuration { get; set; }
+            public string CourseQualification { get; set; }
+            public bool Active { get; set; }
+            public string UserName { get; set; }
+
+
+        }
+
+
+
+        [HttpPost, ActionName("AddorUpdateCourses")]
+        public string AddorUpdateCourses([FromBody] CourseInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                var param = new SqlParameter[8];
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@CourseID", data.CourseID);
+                param[2] = new SqlParameter("@Scheme", data.Scheme);
+                param[3] = new SqlParameter("@CourseCode", data.CourseCode);
+                param[4] = new SqlParameter("@CourseName", data.CourseName);
+                param[5] = new SqlParameter("@CourseDuration", data.CourseDuration);
+                param[6] = new SqlParameter("@Active", data.Active);
+                param[7] = new SqlParameter("@UserName", data.UserName);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Courses", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                ccicdbHandler.SaveErorr("SP_Add_Update_Courses", 0, ex.Message);
+                return ex.Message;
+            }
+        }
+
+
+
+        [HttpPost, ActionName("GetorActiveorUpdateCourses")]
+        public string GetorActiveorUpdateCourses([FromBody] CourseInfo data)
+        {
+            var dbHandler = new ccicdbHandler();
+            try
+            {
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
+                param[1] = new SqlParameter("@CourseID", data.CourseID);
+                param[2] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Edit_Courses", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                ccicdbHandler.SaveErorr("SP_Get_Edit_Courses", 0, ex.Message);
+                return ex.Message;
+            }
         }
 
 

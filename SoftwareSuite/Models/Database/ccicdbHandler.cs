@@ -52,9 +52,21 @@ namespace SoftwareSuite.Models.Database
             }
         }
 
-        internal void SaveErorr(string v1, int v2, string message)
+        public static void SaveErorr(string ClassName, int UpdLoginID, string Erorr)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Procedure", ClassName);
+                param[1] = new SqlParameter("@Error", Erorr);
+                dbHandler.ExecuteNonQueryWithStoredProcedure("SP_SET_ErrorLog", param);
+            }
+            catch (Exception ex)
+            {
+                // LogUtility.SaveException(UpdLoginID, ClassName, 1, ex);
+                // throw ex;
+            }
         }
 
         private string GetConnString()

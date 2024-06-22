@@ -997,5 +997,28 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/ResultsLogicReports', paramObject);
         };
 
+        this.GetCcicEducationQualifications = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicEducationQualifications');
+        };
+
+        this.AddCourses = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateCourses', paramObject);
+        };
+
+        this.UpdateCourses = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/AddorUpdateCourses', paramObject);
+        };
+
+        this.GetCourses = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/GetorActiveorUpdateCourses', paramObject);
+        };
+
+        this.UpdateCourseStatus = function (paramObject) {
+
+            return DataAccessService.postData('api/CcicPreExamination/GetorActiveorUpdateCourses', paramObject);
+        };
     });
 });
