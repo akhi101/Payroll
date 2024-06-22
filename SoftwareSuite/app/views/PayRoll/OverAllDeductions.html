@@ -168,8 +168,8 @@
 
                                 </td>
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeNPS(data.NPSID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeNPS(data.NPSID,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeNPS(data.EmployeeID,data.FinancialYearID,data.MonthID,data.NPSID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeNPS(data.EmployeeID,data.FinancialYearID,data.MonthID,data.NPSID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
                             </tr>
@@ -349,8 +349,8 @@
 
                                 </td>
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.AdvancesID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.AdvancesID,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.AdvancesID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.AdvancesID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
 
@@ -530,8 +530,8 @@
 
                                 </td>
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeHBAActive(data.HBAId,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeHBAActive(data.HBAId,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeHBAActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.HBAId,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeHBAActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.HBAId,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
 

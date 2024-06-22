@@ -180,10 +180,12 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollAction = function (DataTypeID, EmployeeId, AdvancesId, Active) {
+        this.PayRollAction = function (DataTypeID, EmployeeId, FinancialYearID, MonthID, AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeId": EmployeeId,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "AdvancesId": AdvancesId,
                 "Active": Active
             };
@@ -205,8 +207,32 @@ define(['app'], function (app) {
             return promise;
 
         };
+        this.PayRollDeduction = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, DeductionsId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "DeductionsId": DeductionsId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditDeductions', paramObj);
+            return promise;
 
+        };
+        this.PayRollLeaves = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, LeaveId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "LeaveId": LeaveId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditLeaves', paramObj);
+            return promise;
 
+        };
 
 
         this.AddDepartments = function (DataTypeId, DepartmentId, DepartmentName, UserName) {
