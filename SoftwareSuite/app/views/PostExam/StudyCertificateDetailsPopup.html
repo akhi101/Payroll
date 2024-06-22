@@ -221,30 +221,31 @@
                     <div class="col-md-4 font_bold">Father Name</div>
                     <div class="col-md-8"> <input type="text" class="form-control" placeholder="Father Name" ng-model="StudentDetails.FatherName" class="upld-file" required></div>
                 </div>
-
+                
                 <div class="row padRow">
                     <div class="col-md-4 font_bold">Branch Code</div>
                     <div class="col-md-8">
-                        <select ng-model="StudentDetails.BranchCode" class="form-control" name="BranchCode">
-                            <option value="" selected>Select Branch Code</option>
-                            <option ng-repeat="data in Branches" value="{{data.BranchCode}}">
-                                {{data.BranchName}}
-                            </option>
-                        </select>
+                        <input type="text" class="form-control" placeholder="Father Name" disabled ng-model="StudentDetails.BranchName"  required>
+                        <!--<select ng-model="StudentDetails.BranchCode" class="form-control" name="BranchCode">
+        <option value="" selected>Select Branch Code</option>
+        <option ng-repeat="data in Branches" value="{{data.BranchCode}}">
+            {{data.BranchName}}
+        </option>
+    </select>-->
                         <!-- <input type="text" placeholder="Branch Name" ng-model="StudentDetails.BranchCode" class="upld-file" required>-->
                     </div>
                 </div>
                 <!--<div class="row padRow">
-                    <div class="col-md-4 font_bold">Select Certificate</div>
-                    <div class="col-md-8">
-                        <div class="form-group"> 
-                            <select class="form-control input-sm" id="stdShift" disabled ng-Model="StudentDetails.ServiceType"
-                                    ng-options="x.ServiceType as x.Name for x in BonafideTypes"
-                                     ></select>
-                        </div>
-                    </div>
-                </div>-->
-              
+        <div class="col-md-4 font_bold">Select Certificate</div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <select class="form-control input-sm" id="stdShift" disabled ng-Model="StudentDetails.ServiceType"
+                        ng-options="x.ServiceType as x.Name for x in BonafideTypes"
+                         ></select>
+            </div>
+        </div>
+    </div>-->
+
                 <div class="row padRow">
                     <div class="col-md-4 font_bold">From Academic Year </div>
                     <div class="col-md-8">
@@ -280,7 +281,7 @@
                     </div>
                 </div>
 
-                <div class="row padRow" >
+                <div class="row padRow">
                     <div class="col-md-4 font_bold">
                         Reason for Study Certificate
                     </div>
