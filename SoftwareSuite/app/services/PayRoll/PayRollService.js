@@ -18,7 +18,15 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
 
+
+        this.GetPaySlip = function (PinJson) {
+            var param = { "PINjson": PinJson }
+            return DataAccessService.postData('api/StudentCertificate/GetPaySlip', param);
+        };
+
+
         this.GetorEditIncrements = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, IncrementId, Active) {
+
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
