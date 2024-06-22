@@ -470,9 +470,9 @@
                 });
         }
 
-        $scope.ChangeActive = function (IncrementID, Status) {
+        $scope.ChangeActive = function (EmployeeID, FinancialYearID, MonthID, IncrementID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollIncrement(DataType, IncrementID, Status);
+            var getSlides = PayRollService.PayRollIncrement(DataType, EmployeeID, FinancialYearID, MonthID, IncrementID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -542,9 +542,9 @@
                 });
         }
 
-        $scope.ChangeDeduction = function (DeductionsID, Status) {
+        $scope.ChangeDeduction = function (EmployeeID, FinancialYearID, MonthID,DeductionsID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollDecrement(DataType, DeductionsID, Status);
+            var getSlides = PayRollService.PayRollDeduction(DataType, EmployeeID, FinancialYearID, MonthID,DeductionsID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -611,17 +611,17 @@
                 });
         }
 
-        $scope.ChangeLeave = function (LeaveId, Status) {
+        $scope.ChangeLeave = function (EmployeeID, FinancialYearID, MonthID,LeaveId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollLeaves(DataType, LeaveId, Status);
+            var getSlides = PayRollService.PayRollLeaves(DataType, EmployeeID, FinancialYearID, MonthID, LeaveId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditLeaves();
+                    $scope.getorEditLeaves();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditLeaves();
+                    $scope.getorEditLeaves();
                 } else {
                     alert("Something Went Wrong")
                 }
