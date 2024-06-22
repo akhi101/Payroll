@@ -45,6 +45,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string Class { get; set; }
             public string CGPA { get; set; }
             public Boolean Is3Backlog { get; set; }
+            public string EmployeeCode { get; set; }
 
         }
 
@@ -1502,6 +1503,674 @@ in
             return relativePath;
         }
 
+
+        public string GetPaySlip(DataSet IntrmData)
+        {
+
+            List<InterimData> InterimData = IntrmData.Tables[0].DataTableToList<InterimData>().ToList(); ;
+            var studentintrmMarks = DataTableHelper.ConvertDataTable<studentintrmMarks>(IntrmData?.Tables[0]).ToArray();
+
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
+            CreateIfMissing(dir);
+            string html = @"<html>"
+                   + "<head>"
+                   + $"<title></title>"
+                   + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+                   + @"<style type='text/css'>
+                         html{
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                        }
+                        body {
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                            m0argin-left: 10px;
+                        }
+                        table {  
+                            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+                            width: 100%; 
+                            //border-collapse: collapse;
+                            border-spacing: 0; 
+                        }
+
+                     
+
+                        th {  
+                            font-weight: bold; /* Make sure they're bold */
+                        }
+
+                      
+
+                      .logoImg {
+                                height: 70px !important;
+                                width: 70px !important;
+                            }
+
+                    .myHr {
+                                border-top: 1px solid #000;
+                            }
+
+                            .header-top-section {
+                                display: none;
+                            }
+
+                            .border_btm {
+                                border-bottom: 1px solid #ddd;
+                                text-transform: uppercase;
+                            }
+
+                            .text-uppercase {
+                                text-transform: uppercase;
+                            }
+
+                            p {
+                                text-indent: 50px;
+padding :6px
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+
+                            .marginData {
+                                margin: 0px 20px;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .print_btn {
+                                display: none;
+                            }
+
+                            .spacer {
+                                display: none;
+                            }
+
+                            .text-intend {
+                                text-indent: 50px;
+                                line-height: 2.0;
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+
+                            .Line {
+                                line-height: normal;
+                            }
+                             .sm-spacer{
+                                     height:20px;
+                                 }
+
+                            .a {
+                                margin: 25px;
+                            }
+
+                            canvas.sa-canvas {
+                                border: none;
+                            }
+
+                            .interim-spacer {
+                                display: none;
+                            }
+
+                            .myImg {
+                                width: 70% !important;
+                                padding:120px;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                                display: block!important;
+                                opacity:0.3;
+                            }
+
+                            .myData {
+                                position: absolute;
+                            }
+                        .table > thead > tr > th {
+						
+							border: 1px solid #000000 !important;
+                            border: 1px solid #000000 !important;
+						}
+
+                            .container img {
+                                vertical-align: middle;
+                            }
+
+                            .container .content {
+                                position: absolute!important;
+                                top: 0!important;
+                                background: rgb(0, 0, 0)!important;
+                                background: rgba(255, 255, 255, 0.36)!important;
+                                color: #130404!important;
+                                width: 100%!important;
+                                padding: 20px!important;
+                            }
+                               .container{
+                                position: relative;
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                                .table td, .table th {
+                                background-color: transparent!important;
+                            }
+                            .myrow{
+                                position:relative!important;
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+                            .image{
+                                 background: url(../../../contents/img/big-logo.png) repeat;
+                               /*  height: 500px;  You must set a specified height */
+                                  background-position: center; /* Center the image */
+                                  background-repeat: no-repeat; /* Do not repeat the image */
+                                  /* Resize the background image to cover the entire container */
+                                  position:relative;
+                            }
+                           .myImg {
+                              width: 60%;
+                             padding:120px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                            opacity:0.3;
+                            z-index:1000;
+                        }
+                           .myData{
+                               position:absolute;
+                           }
+                    .container{
+                            position: relative;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                    .container img {
+                        vertical-align: middle;
+                    }
+
+                    .container .content {
+                       position: absolute;
+                       bottom: 0;
+                       background: rgb(0, 0, 0);
+                       background: rgba(233, 235, 239, 0.36);
+                       color: #130404;
+                       width: 100%;
+                       padding: 20px;
+                    }
+                      .less_pad{
+padding:1px!important;
+}
+  .logo_css {
+                height: 85px;
+                width: 85px;
+                border-radius: 50%;
+            }
+
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                border-bottom-width: 2px;
+                padding: 5px;
+                border: 0px !important;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+  border: 0px !important;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+                border: 0px !important;
+                background-color: #eaf5ff !important;
+            }
+  tr.border {
+                border: 1px solid #ddd;
+            }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border: 0px!important;
+}.table>thead>tr>th {
+   border: 0px!important;
+}
+.border-left{
+border-left:2px solid #fff!important;
+}
+td.border {
+    border: 1px solid #150c0c !important;
+}
+                        </style> "
+                   + "</head><body>";
+
+            string sbString = html;
+
+
+            #region PageHeader
+            var page = $@" <div class='container'>
+                            <div class='row'>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/telangana-logo-png.png' class='img-responsive logoImg pull-left' />
+                                    </div>
+                                </div>
+
+                                <div class='col-md-8 title'>
+                                    <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
+                                  <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
+                                    <h6 class='text-center'>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
+                                    </h6> 
+                                  
+                                </div>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' class='img-responsive logoImg pull-right' />
+                                    </div>
+                                </div>
+                            </div>
+                    </div>";
+
+
+
+            #endregion
+
+            #region PageContent
+            page += $@" <div class='container'>              
+                <div class='row'>
+                <div class=''>
+                    <table class='table  table-responsive'>
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>: Akhil Kumar B</th>
+                                <td>DDOREG</td>
+                                <td>: 67567</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Designation</td>
+                                <td>: Senior Assistant</td>
+                                <td>PAN NO</td>
+                                <td>: 67567</td>
+                            </tr>
+                            <tr>
+                                <td>Employee Code</td>
+                                <td>: 1024</td>
+                                <td>CHEQ NO</td>
+                                <td>: 67567</td>
+                            </tr>
+                            <tr>
+                                <td>GPF No</td>
+                                <td>: 145265</td>
+                                <td>CHEQ DATE</td>
+                                <td>: 67567</td>
+                            </tr>
+                            <tr>
+                                <td>TSGLI No</td>
+                                <td>: 343244</td>
+                                <th>Bank Account No</th>
+                                <th>: Akhil Kumar B</th>
+                            </tr>
+                            <tr>
+                                <td>DDOCODE</td>
+                                <td>: 3423424</td>
+                                <td>Bank Name</td>
+                                <td>: Senior Assistant</td>
+                            </tr>
+                            <tr>
+                                <td>DDO Desg</td>
+                                <td>: 232232</td>
+                                <td>Scale</td>
+                                <td>: 1024</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+            <div class='row'>
+                <table class='table table-bordered table-responsive'>
+                    <thead>
+                        <tr>
+                            <th class='border'>Earnings</th>
+                            <th class='border'>Deductions</th>
+                            <th class='border'>Recoveries</th>
+                            <th class='border'>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='border'>
+                            <td class='border'><span>Basic</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'><span>EWF</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>DA</span>
+                                <span>1975</span>
+                            </td>
+                            <td class='border'><span>GIS Ins</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                            
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>HRA</span>
+                                <span>1975</span>
+                            </td>
+                            <td class='border'><span>PT</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>CCA</span>
+                                <span>1975</span>
+                            </td>
+                            <td class='border'><span>CGS</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>Tel Inc</span>
+                                <span>1975</span>
+                            </td>
+                            <td class='border'><span>TSGLI(S)</span>
+                                <span>23100</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> </td>
+                            <td class='border'><span>NG</span>
+                                <span>80</span>
+                            </td>
+                           <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class='row'>
+                    <table class='table  table-responsive'>
+                        <thead>
+                            <tr>
+                                <th >TOKEN NO</th>
+                                <th>: 00001739 </th>
+                                <th class='border-left'>BILL GROSS AMT</th>
+                                <th>: 42434234</th>
+                                <th class='border-left'>BILL DATE</th>
+                                <th>: 4423423</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TOKEN DATE                                </td>
+                                <td>: 4234243</td>
+                                <td class='border-left'>BILL NET AMT</td>
+                                <td>: 35342</td>
+                                <td class='border-left'>DEDUCTION AMT</td>
+                                <td>: 43424324</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+</div>";
+//            if (InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)
+//            {
+//                page += $@"<div class='row '>
+//                    <p class='text-intend'>
+//                        This is to certify that Mr./Ms.<b class='border_btm' > {InterimData[0].Name ?? "-"}</b> Son/Daughter of <b class='border_btm' >{InterimData[0].FatherName ?? "-"}</b>
+//                        bearing Permanent Identification Number(PIN) <b class='border_btm'>{InterimData[0].Pin ?? "-"}</b> has <b class='border_btm' >Passed</b>
+//                        the <b class='border_btm'>{InterimData[0].CourseDuration ?? "-"}</b> Diploma Course in <b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b>{isThreeBacklog(InterimData[0].Is3Backlog, InterimData[0].MonthYear)} at <b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"},{InterimData[0].CollegeAddress}</b>
+//and he/she was placed in <b class='border_btm'>{InterimData[0].PassedClass ?? "-"}</b>{isThreeBacklogdivision(InterimData[0].Is3Backlog)}..
+//                    </p>
+//                </div>";
+//            }
+//            else if (InterimData[0].SchemeId == 5 || InterimData[0].SchemeId == 9)
+//            {
+//                page += $@"<div class='row'>
+//	<p class='text-intend'>
+//                        This is to certify that Mr./Ms.
+//		<b class='border_btm' > {InterimData[0].Name ?? "-"}</b> Son/Daughter of 
+//		<b class='border_btm' >{InterimData[0].FatherName ?? "-"}</b>
+//                        bearing Permanent Identification Number(PIN) 
+//		<b class='border_btm'>{InterimData[0].Pin ?? "-"}</b> has 
+//		<b class='border_btm' >Passed</b>
+//                        the 
+//		<b class='border_btm'>{InterimData[0].CourseDuration ?? "-"}</b> Diploma Course in 
+//		<b class='border_btm'>{InterimData[0].BranchName ?? "-"}</b> during the Examination held 
+//in 
+//		<b class='border_btm'>{InterimData[0].MonthYear ?? "-"}</b> at 
+//		<b class='border_btm'>{InterimData[0].CollegeCode ?? "-"}-{InterimData[0].CollegeName ?? "-"}</b> and he/she is placed in 
+//		<b class='border_btm'>{InterimData[0].Class ?? "-"}</b> with
+
+//		<b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Point Average <b>(CGPA)</b> on a scale of <b>10</b> and earned 
+//		<b class='border_btm'>{InterimData[0].TotalCreditsEarned ?? "-"}</b> credits.
+                    
+//	</p>
+//	<div class='sm-spacer'></div>
+//</div>";
+//            }
+
+//            if (InterimData[0].BranchCode != "PH" && InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)
+//            {
+//                page += $@" <div class='row'>
+//                <table class='table'>
+//                    <thead>
+//                        <tr>
+//                            <th class='text-center' rowspan='2' style='width: 25%; border: 1px solid #000000 !important;'>Examination</th>
+//                            <th class='text-center' rowspan='2' style='width:2%; border: 1px solid #000000 !important;'>Max.<br/> Marks</th>
+//                            <th class='text-center' rowspan='2' style='width:2%; border: 1px solid #000000 !important;'>Marks<br/> Secured</th>
+//                            <th class='text-center' colspan='2'>MARKS TAKEN INTO CONSIDERATION FOR THE AWARD OF CLASS</th>
+//                        </tr>
+//                        <tr>
+//                            <th class='text-center' style='width:4%  border: 1px solid #000000 !important;'>IN FIGURES</th>                             
+//                            <th class='text-center' style='width:10%  border: 1px solid #000000 !important;'>IN WORDS</th>
+//                        </tr>
+//                    </thead>
+//                    <tbody>";
+
+//                for (var i = 0; i < studentintrmMarks.Length; i++)
+//                {
+//                    page += $@"<tr>
+//                                            <td class='text-center'>{studentintrmMarks[i].Examination ?? "-"}</td>
+//                                            <td class='text-center'>{studentintrmMarks[i].MaxMarks ?? "-"}</td>
+//                                            <td class='text-center'>{studentintrmMarks[i].MaxSecured ?? "-"}</td>
+//                                            <td class='text-center'>{studentintrmMarks[i].InFigures ?? "-"}{percheck(studentintrmMarks[i].Per)}</td>                           
+//                                            <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
+//                                        </tr>";
+//                }
+//                page += $@" <tr>
+//                                <td class='text-center'> Total Marks In Figure</td>
+//                                <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInFigure}</b> </td>
+//                            </tr>
+//                            <tr>
+//                                <td class='text-center'> In Words</td>
+//                                <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInWords ?? "-"}</b> </td>
+//                            </tr>
+//                            <tr>
+//                                <td class='text-center'> Percentage of Marks</td>
+//                                <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].PercentageOfMarks ?? "-"}</b> </td>
+//                            </tr>
+//                        </tbody>
+//                    </table>
+//                </div>";
+//            }
+
+//            page += $@"<div class='row'>
+//                        <p class='text-intend'>
+//                            This Certificate has been issued as per the request of candidate as an interim measure
+//                            and is valid till the issue of<b class='text-transform:uppercase;'> Original Diploma Certificate </b> or for a period of <b class='border_btm' >Six Months </b> whichever is earlier.
+//                        </p>
+//                    </div>";
+//            if (InterimData[0].SchemeId == 5 || InterimData[0].SchemeId == 9)
+//            {
+//                page += $@" 
+//<div class='sm-spacer'></div>
+// <div class='row'>
+//						<div class='col-md-12'>
+//							<div style='line-height: 2.0;'><b>Place : Hyderabad</b></div>
+//                            <div style='line-height: 2.0;'><b>Date :  {DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
+//						</div>               
+//					</div>
+//<div class='sm-spacer'></div>
+//<div class='sm-spacer'></div>
+//					  <h6><center><b>CGPA EQUIVALENT TO AGGREGATE PERCENTAGE OF MARKS</b></center></h6>
+//<div class='row'>
+//					  <div class='col-md-3'></div>
+//                          <div class='col-md-6'>
+//					 <table class='table' style='font-size:12px;'>
+
+//  <tr style='padding:1px!important'>
+//    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>S.NO</th>
+//    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>CGPA</th>
+//    <th class='text-center' style='border: 1px solid #000000 !important;padding:3px!important'>Aggregate Percentage of Marks*</th>
+//	 <th  class='text-center'style='border: 1px solid #000000 !important;padding:3px!important'>Division*</th>
+//  </tr>
+
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>1</td>
+//    <td class='less_pad' padding:1px!important>10</td>
+//    <td class='less_pad' padding:1px!important>95</td>
+//	<td rowspan = '3' > First Class with <br>Distinction</td>
+//  </tr>
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>2</td>
+//    <td class='less_pad' padding:1px!important>9</td>
+//    <td class='less_pad' padding:1px!important>85</td>
+//  </tr>
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>3</td>
+//    <td class='less_pad' padding:1px!important>8</td>
+//    <td class='less_pad' padding:1px!important>75</td>
+//  </tr>
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>4</td>
+//    <td class='less_pad' padding:1px!important>7</td>
+//    <td class='less_pad' padding:1px!important>65</td>
+//	<td class='less_pad' padding:1px!important>First Class</td>
+//  </tr>
+// <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>5</td>
+//    <td class='less_pad' padding:1px!important>6</td>
+//    <td class='less_pad' padding:1px!important>55</td>
+//	<td rowspan = '3' > Second Class</td>
+//  </tr>
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>6</td>
+//    <td class='less_pad' padding:1px!important>5</td>
+//    <td class='less_pad' padding:1px!important>45</td>
+//  </tr>
+//  <tr style='padding:1px!important'>
+//    <td class='less_pad' padding:1px!important>7</td>
+//    <td class='less_pad' padding:1px!important>4</td>
+//    <td class='less_pad' padding:1px!important>35</td>
+//  </tr>
+ 
+//</table >
+//</div>
+// <div class='col-md-3'></div>
+//</div>
+//<div class='row'>
+//<div class='col-md-3'></div>
+//<div class='col-md-7'>
+//		 <table class='table' style = 'margin-top:20px;font-size:12px; style='border: 0px solid #fff !important;' >
+
+//  <tr style='border: 0px solid #fff !important; padding:3px!important'>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;'> *Aggregate %</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' >:</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;'>(CGPA-0.5) x 10</td>
+	
+//  </tr>
+//  <tr style='border: 0px solid #fff !important;'>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'># First Class with Distinction  </td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>CGPA>=8</td>
+//  </tr>
+//  <tr style='border: 0px solid #fff !important;'>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>   First Class</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>8>CGPA>=6.5</td>
+//  </tr>
+//  <tr style='border: 0px solid #fff !important;'>  
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>Second Class</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>:</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>6.5>CGPA>=4</td>
+//  </tr >
+//   <tr style='border: 0px solid #fff !important;'>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important;' class='less_pad'>   Pass</td>
+//    <td style='border: 0px solid #fff !important; padding:3px!important;text-align:left!important' class='less_pad'>:</td>
+//    <td style='border: 0px solid #fff !important;padding:3px!important;text-align:left!important' class='less_pad'>CGPA<4<br>(Subject to Earning of >=130 Credits)</td>
+//  </tr>
+//</table>
+//</div>					  
+// <div class='col-md-2'></div>
+//</div>";
+//            }
+//            if (InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)
+//            {
+//                page += $@" <div class='sm-spacer'></div>
+//					   <div class='sm-spacer'></div>
+//					 <div class='row'>
+//						<div class='col-md-12'>
+//							<div style='line-height: 2.0;'><b>Place : Hyderabad</b></div>
+//                            <div style='line-height: 2.0;'><b>Date :  {DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
+//						</div>               
+//					</div>";
+//            }
+//            page += $@"</div>             
+//            </div>";
+            #endregion
+
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+
+            var doc = converter.ConvertHtmlString(sbString);
+            var path = dir + "PaySlip" + InterimData[0].EmployeeCode + DateTime.Now.ToString("HHmmss") + ".pdf";
+            doc.Save(path);
+            doc.Close();
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+            return relativePath;
+        }
+
         public string GetTwshCertificate(DataSet TwshDat)
         {
 
@@ -1722,9 +2391,9 @@ padding :6px
 
                                 <div class='col-md-10 title'>
                                     <h3 class='text-center hall_head' style='margin-left: -67px;margin-right: -53px;font-weight:bold;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h3>
-                                  <h3 class='text-center hall_head' style=''><b>TELANGANA</b></h3>
+                                  <h3 class='text-center hall_head' style=''><b>TELANGANA : : HYDERABAD</b></h3>
                                     <h4 class='text-center' style='text-transform: uppercase;font-weight:bold;'>
-                                        Marks Card {TwshData[0].MonthYear}
+                                        Marks Card 
                                     </h4>
                                    
                                 </div>
@@ -1798,12 +2467,7 @@ padding :6px
 					   <div class='sm-spacer'></div>
 <div class='sm-spacer'></div>
 <div class='sm-spacer'></div>
- <div class='sm-spacer'></div>
-					   <div class='sm-spacer'></div>
-<div class='sm-spacer'></div>
- <div class='sm-spacer'></div>
-<div class='sm-spacer'></div>
-					 <div class='row'>
+ <div class='row'>
 						<div class='col-md-6'>
 							<div style = 'line-height: 2.0' ><b> Place : Hyderabad</b></div>
                             <div style = 'line-height: 2.0' ><b> Date :  {DateTime.Now.ToString("dd-MM-yyyy")}</b></div>
@@ -1813,6 +2477,12 @@ padding :6px
                             </div>
 						</div> 
 					</div>
+ <div class='sm-spacer'></div>
+					   <div class='sm-spacer'></div>
+<div class='sm-spacer'></div>
+ <div class='sm-spacer'></div>
+<div class='sm-spacer'></div>
+					
                 </div>             
             </div>
 ";

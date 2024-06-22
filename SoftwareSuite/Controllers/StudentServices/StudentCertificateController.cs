@@ -127,6 +127,34 @@ namespace SoftwareSuite.Controllers.StudentServices
             }
         }
 
+        [HttpPost, ActionName("GetPaySlip")]
+        public async Task<object> GetPaySlip([FromBody] JsonObject request)
+        {
+            try
+            {
+                var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["PINjson"]));
+                var respdfList = new List<GetInterimRes>();
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[1];
+                for (int i = 0; i < js.Count; i++)
+                {
+                    var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
+                    param[0] = new SqlParameter("@Employeecode", jobject["Employeecode"]);
+                    DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
+                    GenerateCertificate GenerateCertificate = new GenerateCertificate();
+                    var ApplicationNumber = ds.Tables[0].Rows[0]["EmployeeCode"].ToString();
+                    var pdfurl = GenerateCertificate.GetPaySlip(ds);
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = jobject["Employeecode"].ToString(), ApplicationNumber = ApplicationNumber });
+                }
+
+                return respdfList;
+            }
+            catch (Exception ex)
+            {
+                return "FAILED" + ex.Message;
+            }
+        }
+
         [HttpGet, ActionName("GetTypeWritingCertificate")]
         public async Task<object> GetTypeWritingCertificate(string RegNo)
         {

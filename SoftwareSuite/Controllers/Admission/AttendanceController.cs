@@ -524,16 +524,17 @@ namespace SoftwareSuite.Controllers.Admission
                 req3.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                 var data3 = client.Post<AbasWorkingDays>(req3).Data;
                 var db3 = new dbHandler();
-                var param3 = new SqlParameter[3];
+                    var sbtetdeptflag = 0;
+                 var param3 = new SqlParameter[3];
                 param3[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                 param3[0].Value = JsonConvert.SerializeObject(data3.orglist);
-                param3[1] = new SqlParameter("@deptType", deptflag);
+                param3[1] = new SqlParameter("@deptType", sbtetdeptflag);
                 param3[2] = new SqlParameter("@startdate", sem1startdate);
                 db3.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param3);
                 }
                 else {
 
-                    var deptflag = 2;
+                    var deptflag = 0;
                     //string apistring = string.Empty;
                     string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
                     apistring = string.Format(apiparams, sem1startdate, deptflag);
@@ -541,26 +542,27 @@ namespace SoftwareSuite.Controllers.Admission
                     req3.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                     var data3 = client.Post<AbasWorkingDays>(req3).Data;
                     var db3 = new dbHandler();
+                    var  sbtetdeptflag = 2;
                     var param3 = new SqlParameter[3];
                     param3[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                     param3[0].Value = JsonConvert.SerializeObject(data3.orglist);
-                    param3[1] = new SqlParameter("@deptType", deptflag);
+                    param3[1] = new SqlParameter("@deptType", sbtetdeptflag);
                     param3[2] = new SqlParameter("@startdate", sem1startdate);
                     db3.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param3);
                     //-----------getting all departments working days--------------
 
-                    deptflag = 3;
+                    deptflag = 0;
                 apistring = string.Empty;
                 apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
                 apistring = string.Format(apiparams, semstartdatealldep, deptflag);
                 var req = new RestRequest(apistring, Method.POST);
                 req.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                 var data = client.Post<AbasWorkingDays>(req).Data;
-            
-                var param = new SqlParameter[3];
+                     sbtetdeptflag = 3;
+                    var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                 param[0].Value = JsonConvert.SerializeObject(data.orglist);
-                param[1] = new SqlParameter("@deptType", deptflag);
+                param[1] = new SqlParameter("@deptType", sbtetdeptflag);
                 param[2] = new SqlParameter("@startdate", semstartdatealldep);
                 db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param);
                 }
@@ -577,10 +579,11 @@ namespace SoftwareSuite.Controllers.Admission
                     req1.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                     var data1 = client.Post<AbasWorkingDays>(req1).Data;
                     var db1 = new dbHandler();
+                    var sbtetdeptflag = 1;
                     var param1 = new SqlParameter[3];
                     param1[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                     param1[0].Value = JsonConvert.SerializeObject(data1.orglist);
-                    param1[1] = new SqlParameter("@deptType", deptflag);
+                    param1[1] = new SqlParameter("@deptType", sbtetdeptflag);
                     param1[2] = new SqlParameter("@startdate", semstartdatepharm1styear);
                     db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param1);
 
@@ -589,31 +592,33 @@ namespace SoftwareSuite.Controllers.Admission
                     //-----------getting pharmacy 1st year college working days--------------            
                     var client1 = new RestClient(clientUrl);
                     string apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
-                    var deptflag = 5;
+                    var deptflag = 1;
                     apistring = string.Format(apiparams, semstartdatepharm1styear, deptflag);
                     var req1 = new RestRequest(apistring, Method.POST);
                     req1.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                     var data1 = client.Post<AbasWorkingDays>(req1).Data;
                     var db1 = new dbHandler();
+                    var sbtetdeptflag = 5;
                     var param1 = new SqlParameter[3];
                     param1[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                     param1[0].Value = JsonConvert.SerializeObject(data1.orglist);
-                    param1[1] = new SqlParameter("@deptType", deptflag);
+                    param1[1] = new SqlParameter("@deptType", sbtetdeptflag);
                     param1[2] = new SqlParameter("@startdate", semstartdatepharm1styear);
                     db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param1);
                     //-----------getting pharmacy 2nd year college working days--------------             
                     var client2 = new RestClient(clientUrl);
                     // var semstartdatepharm2ndyear = ConfigurationManager.AppSettings["Pharm_2ndyearStartDate"];
                      apiparams = "/getworkingdays?groupid=1004&startdate={0}&flag={1}";
-                    deptflag = 6;
+                    deptflag = 1;
                 apistring = string.Format(apiparams, semstartdatepharm2ndyear, deptflag);
                 var req2 = new RestRequest(apistring, Method.POST);
                 req2.AddHeader("apikey", ConfigurationManager.AppSettings["BMA_API_Key"]);
                 var data2 = client.Post<AbasWorkingDays>(req2).Data;
+                    sbtetdeptflag = 6;
                 var param2 = new SqlParameter[3];
                 param2[0] = new SqlParameter("@data", SqlDbType.VarChar, -1);
                 param2[0].Value = JsonConvert.SerializeObject(data2.orglist);
-                param2[1] = new SqlParameter("@deptType", deptflag);
+                param2[1] = new SqlParameter("@deptType", sbtetdeptflag);
                 param2[2] = new SqlParameter("@startdate", semstartdatepharm2ndyear);
                 db.ReturnDataWithStoredProcedure("usp_SaveAbasWorkingDays", param2);
                 }
