@@ -255,6 +255,11 @@
                 }
                 return;
             }
+            const invalidChars = /[^0-9]/gi;
+            if (invalidChars.test(data.marks)) {
+                data.marks = data.marks.replace(invalidChars, "");
+                return;
+            }
             if (data.marks.includes(".")) {
                 alert('Entered marks are not valid');
                 $('#' + data.id).val('');
