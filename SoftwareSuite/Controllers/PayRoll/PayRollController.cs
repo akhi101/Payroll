@@ -941,10 +941,112 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+        public class IDHData
+        {
+
+            public int DataTypeID { get; set; }
+            public int IR_DA_HRAId { get; set; }
+            
+            public bool Active { get; set; }
 
 
 
+        }
 
+        [HttpPost, ActionName("GetEditIDH")]
+        public string GetEditIDH([FromBody] IDHData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@IR_DA_HRAId", data.IR_DA_HRAId);
+                param[2] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_IR_DA_HRA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpPost, ActionName("AddorUpdateIDH")]
+        public string AddorUpdateIDH([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@IR_DA_HRAId", request["IR_DA_HRAId"]);
+                param[2] = new SqlParameter("@IR", request["IR"]);
+                param[3] = new SqlParameter("@DA", request["DA"]);
+                param[4] = new SqlParameter("@HRA", request["HRA"]);
+                param[5] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_IR_DA_HRA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        public class MAData
+        {
+
+            public int DataTypeID { get; set; }
+            public int MAID { get; set; }
+
+            public bool Active { get; set; }
+
+
+
+        }
+
+        [HttpPost, ActionName("GetEditMA")]
+        public string GetEditMA([FromBody] MAData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@MAID", data.MAID);
+                param[2] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_MA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpPost, ActionName("AddorUpdateMA")]
+        public string AddorUpdateMA([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@MAID", request["MAID"]);
+                param[2] = new SqlParameter("@MA", request["MA"]);
+                param[3] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_MA", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
     };
 };

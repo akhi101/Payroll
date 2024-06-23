@@ -1,0 +1,303 @@
+﻿<style>
+
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+<div ng-controller="CommonElevensesController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Common Elevences</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard/CommonElevences">Common Elevences</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container content">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active noprint">
+                <a href="#1" class="noprint   font-weight-bold" data-toggle="tab">IR/DA/HRA</a>
+            </li>
+            <li class="noprint">
+                <a href="#2" class="noprint    font-weight-bold" data-toggle="tab">CCA</a>
+            </li>
+            <li class="noprint">
+                <a href="#3" class="noprint     font-weight-bold" data-toggle="tab">MA</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="1">
+                <div class="card">
+
+                    <div class="col-md-3">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                IR %:
+                            </label>
+                            <input class="form-control" type="text" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Percentage of IR" ng-model="IR">
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                DA:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Percentage of DA" ng-model="DA">
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                HRA:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Percentage of HRA" ng-model="HRA">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style="right:200px">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="ADDIDH()">
+                                ADD
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="spacer"></div>
+
+                <div class="" ng-if="IDHData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1">
+                                <th class="text-center">IR</th>
+                                <th class="text-center">DA</th>
+                                <th class="text-center">HRA</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in IDHData">
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DA" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.HRA" /></div></td>
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIDH(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIDH(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeIDH(data.IR_DA_HRAID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeIDH(data.IR_DA_HRAID,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane " id="2">
+                <div class="card">
+
+                    <div class="col-md-3" style=" margin-top: 25px; ">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                              From To:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Amount" ng-model="Fromto">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" style=" margin-top: 25px; ">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                Up To:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Amount " ng-model="Upto">
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3" style=" margin-top: 25px; ">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                CCA Amount:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Amount for CCA" ng-model="CCA">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 text-left">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="ADD1">
+                                ADD
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="spacer"></div>
+
+                <div class="" ng-show="IDHData">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1">
+                                <th class="text-center">Fromto</th>
+                                <th class="text-center">Upto</th>
+                                <th class="text-center">CCA Amount</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in IDHData">
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Fromto" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Upto" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CCA" /></div></td>
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditCCA(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateCCA(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeCCA(data.IR,data.DA,data.HRA,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeCCA(data.IR,data.DA,data.HRA,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane " id="3">
+                <div class="card">
+
+                    <div class="col-md-3">
+                        <div class="form-group col-md-10">
+                            <label class="font-weight-bold">
+                                MA:
+                            </label>
+                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Amount for MA" ng-model="MA">
+
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="col-md-3" style="right:200px">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="ADDMA()">
+                                ADD
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="spacer"></div>
+
+                <div class="" ng-if="MAData.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1">
+                                <th class="text-center">MA</th>
+                                
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in MAData">
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
+
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditMA(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateMA(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeMA(data.MAID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeMA(data.MAID,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>  
