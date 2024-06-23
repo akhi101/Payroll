@@ -4572,7 +4572,11 @@
                 dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
             },
             
-
+            'Dashboard.PayRollDashboard.CommonElevenses': {
+                url: "/CommonElevenses",
+                templateUrl: 'app/views/PayRoll/CommonElevenses.html',
+                dependencies: ['controllers/PayRoll/CommonElevensesController', 'services/PayRoll/PayRollService']
+            },
         }
 
 
