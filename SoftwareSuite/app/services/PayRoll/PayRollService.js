@@ -367,6 +367,7 @@ define(['app'], function (app) {
                 "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
+               
                 "Active": Active,
                 "UserName": UserName
             };
@@ -398,6 +399,7 @@ define(['app'], function (app) {
                 "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
                 "CategoryCode": CategoryCode,
+                
                 "Active": Active,
                 "UserName": UserName
             };
@@ -468,11 +470,13 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief,CCA, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
+                "InterimRelief": InterimRelief,
+                "CCA": CCA,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
@@ -480,11 +484,13 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount,InterimRelief,CCA, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
+                "InterimRelief": InterimRelief,
+                "CCA": CCA,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);

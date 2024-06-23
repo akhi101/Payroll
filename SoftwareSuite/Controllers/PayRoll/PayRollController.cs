@@ -625,6 +625,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string BankDetails { get; set; }
             public string AccountNumber { get; set; }
             public string CategoryCode { get; set; }
+            public string CCA { get; set; }
             public bool Active { get; set; }
             public string UserName { get; set; }
 
@@ -662,6 +663,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[18] = new SqlParameter("@BankDetails", data.BankDetails);
                 param[19] = new SqlParameter("@AccountNumber", data.AccountNumber);
                 param[20] = new SqlParameter("@CategoryCode", data.CategoryCode);
+               
                 param[21] = new SqlParameter("@Active", data.Active);
                 param[22] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeDetails", param);
@@ -761,6 +763,8 @@ namespace SoftwareSuite.Controllers.PayRoll
             public bool Active { get; set; }
             public int EmployeeId { get; set; }
             public string CurrentBasicAmount { get; set; }
+            public string InterimRelief { get; set; }
+            public string CCA { get; set; }
             public string UserName { get; set; }
         }
 
@@ -771,11 +775,13 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[4];
+                var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
                 param[2] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
-                param[3] = new SqlParameter("@UserName", data.UserName);
+                param[3] = new SqlParameter("@InterimRelief", data.InterimRelief);
+                param[4] = new SqlParameter("@CCA", data.CCA);
+                param[5] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }

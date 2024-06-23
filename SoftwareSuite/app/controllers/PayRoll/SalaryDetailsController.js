@@ -18,8 +18,7 @@
         }
 
 
-
-
+        
         var DataTypeID = 1
         var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
         getdesign.then(function (response) {
@@ -55,6 +54,8 @@
         $scope.ClearData = function () {
             $scope.EmployeeID = null;
             $scope.CurrentBasicAmount = "";
+            $scope.InterimRelief = null;
+            $scope.CCA = null;
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
 
@@ -73,7 +74,15 @@
                 alert("Enter Current Basic Amount");
                 return;
             }
-            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.UserName)
+            if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
+                alert("Select InterimRelief");
+                return;
+            }
+            if ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") {
+                alert("Select CCA");
+                return;
+            }
+            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief,$scope.CCA, $scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -116,6 +125,7 @@
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
                     $scope.SalaryData = res.Table;
+
                     $scope.Noreports = false;
                    
 
@@ -145,7 +155,7 @@
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount,  $scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA,  $scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -201,6 +211,8 @@
                     $scope.EditSalaryData = res.Table;
                     $scope.EmployeeID = res.Table[0].EmployeeId;
                     $scope.CurrentBasicAmount = res.Table[0].CurrentBasicAmount;
+                    $scope.InterimRelief = res.Table[0].InterimRelief;
+                    $scope.CCA = res.Table[0].CCA;
                     $scope.Noreports = false;
 
 
