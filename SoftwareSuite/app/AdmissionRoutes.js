@@ -4515,6 +4515,47 @@
             //    templateUrl: 'app/views/PayRollDashboard/PayRoll.html',
             //    dependencies: ['controllers/PayRollDashboard/PayRollController', 'services/SystemAdministration/SystemUserService']
             //},
+            'Dashboard.PayRollMasters': {
+                url: "/PayRollMasters",
+                templateUrl: 'app/views/PayRoll/PayRollMasters.html',
+                dependencies: ['controllers/PayRoll/PayRollMastersController', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'Dashboard.PayRollMasters.Designation': {
+                url: "/Designation",
+                templateUrl: 'app/views/PayRoll/Designation.html',
+                dependencies: ['controllers/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollMasters.Departments': {
+                url: "/Departments",
+                templateUrl: 'app/views/PayRoll/Department.html',
+                dependencies: ['controllers/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollMasters.BankDetails': {
+                url: "/BankDetails",
+                templateUrl: 'app/views/PayRoll/BankDetails.html',
+                dependencies: ['controllers/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollMasters.EmployeeDetails': {
+                url: "/EmployeeDetails",
+                templateUrl: 'app/views/PayRoll/EmployeeDetails.html',
+                dependencies: ['controllers/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollMasters.SalaryDetails': {
+                url: "/SalaryDetails",
+                templateUrl: 'app/views/PayRoll/SalaryDetails.html',
+                dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollMasters.FinancialYearSettings': {
+                url: "/FinancialYearSettings",
+                templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
+                dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
+            },
 
            
             'Dashboard.PayRollDashboard': {
