@@ -6,8 +6,7 @@
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
 
-            $scope.getEditIDH();
-            $scope.getEditMA();
+            $scope.getEditElevence();
 
         }
 
@@ -15,9 +14,9 @@
       
 
 
-        $scope.getEditIDH = function () {
+        $scope.getEditElevence = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEditIDH(DataTypeID, $scope.IR, $scope.DA, $scope.HRA, 0, 0);
+            var getdesign = PayRollService.GetEditElevence(DataTypeID, $scope.ElevenceId, $scope.IR, $scope.DA, $scope.HRA, $scope.Medical, 0, 0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -25,14 +24,14 @@
                 catch (err) { }
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
-                    $scope.IDHData = res.Table;
+                    $scope.ElevenceData = res.Table;
                     $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.IDHData.length + 1; j++) {
+                    for (var j = 1; j < $scope.ElevenceData.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
-                    $scope.IDHData = [];
+                    $scope.ElevenceData = [];
                     $scope.DataNotFound = true;
                 }
             },
@@ -46,25 +45,52 @@
 
         }
 
+        $scope.ClearData = function () {
+            $scope.ElevenceId = null;
+            $scope.IR = "";
+            $scope.DA = "";
+            $scope.HRA = "";
+            $scope.Medical = "";
+            $scope.AddDetails = '1';
+            $scope.UpdateDetails = '0';
 
+        }
 
-        $scope.ADDIDH = function () {
+        $scope.ADDElevence = function () {
             var datatypeid = 1
-           
-            var addIDH = PayRollService.AddorUpdateIDH(datatypeid, 0, $scope.IR, $scope.DA, $scope.HRA, $scope.UserName)
-            addIDH.then(function (response) {
+
+            
+            if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
+                alert("Enter IR");
+                return;
+            }
+            if ($scope.DA == null || $scope.DA == undefined || $scope.DA == "") {
+                alert("Enter DA");
+                return;
+            }
+            if ($scope.HRA == null || $scope.HRA == undefined || $scope.HRA == "") {
+                alert("Enter HRA");
+                return;
+            }
+            if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
+                alert("Enter Medical");
+                return;
+            }
+
+            var addElevence = PayRollService.AddorUpdateElevence(datatypeid, 0, $scope.IR, $scope.DA, $scope.HRA, $scope.Medical, $scope.UserName)
+            addElevence.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    
-                    $scope.getEditIDH();
+                    $scope.ClearData();
+                    $scope.getEditElevence();
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
-                    $scope.getEditIDH();
+                    $scope.getEditElevence();
 
                 } else {
                     alert('Something Went Wrong')
@@ -80,7 +106,7 @@
 
 
 
-        $scope.EditIDH = function (data, ind) {
+        $scope.EditElevence = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
             for (var j = 0; j < ele1.length; j++) {
@@ -93,23 +119,25 @@
 
         }
 
-        $scope.UpdateIDH = function (data) {
+        $scope.UpdateElevence = function (data) {
             var datatypeid = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateIDH(datatypeid, data.IR_DA_HRAID, data.IR, data.DA, data.HRA, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateElevence(datatypeid, data.ElevenceID, data.IR, data.DA, data.HRA, data.Medical, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
                 if (res[0].StatusCode == '200') {
                     alert(res[0].StatusDescription);
-                    $scope.getEditIDH()
+                    $scope.ClearData();
+                    $scope.getEditElevence()
 
                 }
                 else if (res[0].StatusCode == '400') {
                     alert(res[0].StatusDescription);
-                    $scope.getEditIDH()
+                    $scope.ClearData();
+                    $scope.getEditElevence()
 
                 } else {
                     alert('Something Went Wrong')
@@ -125,17 +153,17 @@
 
      
 
-        $scope.ChangeIDH = function (IR_DA_HRAID,  Status) {
+        $scope.ChangeElevence = function (ElevenceID,  Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollIDH(DataType, IR_DA_HRAID, Status);
+            var getSlides = PayRollService.PayRollElevence(DataType, ElevenceID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditIDH();
+                    $scope.getEditElevence();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditIDH();
+                    $scope.getEditElevence();
                 } else {
                     alert("Something Went Wrong")
                 }
@@ -155,139 +183,7 @@
 
 
 
-        $scope.getEditMA = function () {
-            var DataTypeID = 1
-            var getdesign = PayRollService.GetEditMA(DataTypeID, $scope.MA, 0, 0);
-            getdesign.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.MAData = res.Table;
-                    $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.MAData.length + 1; j++) {
-                        $scope['edit' + j] = true;
-                    }
-                }
-                else {
-                    $scope.MAData = [];
-                    $scope.DataNotFound = true;
-                }
-            },
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
-
-
-
-        }
-
-
-
-        $scope.ADDMA = function () {
-            var datatypeid = 1
-
-            var AddDepartment = PayRollService.AddorUpdateMA(datatypeid, 0, $scope.MA,  $scope.UserName)
-            AddDepartment.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                } catch (err) { }
-                if (res[0].ResponseCode == '200') {
-                    alert(res[0].ResponseDescription);
-                    
-                    $scope.getEditMA();
-
-                }
-                else if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription);
-                    $scope.getEditMA();
-
-                } else {
-                    alert('Something Went Wrong')
-
-                }
-            },
-                function (error) {
-                    alert("something Went Wrong")
-
-
-                });
-        }
-
-
-
-        $scope.EditMA = function (data, ind) {
-
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-            }
-            $scope['edit' + ind] = false;
-
-
-
-        }
-
-        $scope.UpdateMA = function (data) {
-            var datatypeid = 2
-
-
-            var updatema = PayRollService.AddorUpdateMA(datatypeid, data.MAID, data.MA, $scope.UserName)
-            updatema.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                } catch (err) { }
-                if (res[0].StatusCode == '200') {
-                    alert(res[0].StatusDescription);
-                    $scope.getEditMA()
-
-                }
-                else if (res[0].StatusCode == '400') {
-                    alert(res[0].StatusDescription);
-                    $scope.getEditMA()
-
-                } else {
-                    alert('Something Went Wrong')
-
-                }
-            },
-                function (error) {
-                    alert("something Went Wrong")
-
-
-                });
-        }
-
-
-
-        $scope.ChangeMA = function (MAID,  Status) {
-            var DataType = 3;
-            var changema = PayRollService.PayRollMA(DataType, MAID,  Status);
-            changema.then(function (res) {
-                var response = JSON.parse(res)
-                if (response.Table[0].ResponseCode == '200') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEditMA();
-                } else if (response.Table[0].ResponseCode == '400') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEditMA();
-                } else {
-                    alert("Something Went Wrong")
-                }
-            },
-                function (error) {
-
-                    alert("error while loading Slides");
-                    //alert("error while loading Notification");
-
-                    var err = JSON.parse(error);
-                });
-        }
+       
 
 
 
