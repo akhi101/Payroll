@@ -213,8 +213,7 @@ define(['app'], function (app) {
             $scope.GetorEditDeductions();
 
         }
-
-
+       
         $scope.SaveIncrement = function () {
             var datatypeid = 1
 
@@ -672,6 +671,161 @@ define(['app'], function (app) {
                     var err = JSON.parse(error);
                 });
         }
+
+        $scope.GetReport4 = function () {
+            $scope.SplEmployeeData = true;
+            $scope.GetorEditSplPay();
+        }
+
+        $scope.GetData = function () {
+            let datatype = 1
+            var finyr = PayRollService.GetorEditSplPay(datatype, 0, 0)
+            finyr.then(function (response) {
+                var res = JSON.parse(response)
+                $scope.GetAllSplPay = res.Table;
+
+                for (var j = 1; j < $scope.GetAllSplPay.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+        }
+
+
+
+        $scope.GetorEditSplPay = function () {
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditSplPay(DataTypeID, $scope.SplPayEmployeeId, $scope.SplPayFinancialYear, $scope.SplPayMonth, 0, 0);
+            getdesign.then(function (response) {
+                var response = JSON.parse(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.GetAllSplPay = response.Table;
+
+                    $scope.DataNotFound1 = false;
+                    for (var j = 1; j < $scope.GetAllSplPay.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                else {
+                    $scope.GetAllSplPay = [];
+                    $scope.DataNotFound1 = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading SplPay Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+
+        $scope.SaveSplPay = function () {
+            var datatypeid = 1
+
+            var AddDepartment = PayRollService.AddorUpdateSplPay(datatypeid, 0, $scope.SplPayFinancialYear, $scope.SplPayMonth, $scope.SplPayEmployeeId, $scope.SplPayAmount, 1, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].ResponseCode == '200') {
+                    alert(res[0].ResponseDescription);
+                    $scope.GetorEditSplPay()
+
+                }
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.GetorEditSplPay()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+
+        $scope.UpdateSplPay = function (data) {
+            var DataTypeId = 2
+
+
+            var AddDepartment = PayRollService.AddorUpdateSplPay(DataTypeId, data.SplPayId, data.FinancialYearID, data.MonthID, data.EmployeeID, data.SplPayAmount, data.Active, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].StatusCode == '200') {
+                    alert(res[0].StatusDescription);
+                    $scope.GetorEditSplPay()
+
+                }
+                else if (res[0].StatusCode == '400') {
+                    alert(res[0].StatusDescription);
+                    $scope.GetorEditSplPay()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+        $scope.ChangeStatus = function (EmployeeID, FinancialYearID, MonthID, SplPayId, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.PayRollSplPay(DataType, EmployeeID, FinancialYearID, MonthID, SplPayId, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetorEditSplPay();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.GetorEditSplPay();
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
+
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
+
+
+
+        $scope.EditSplPay = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+
+
+        }
+
 
 
 
