@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CommonElevensesController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
+    app.controller("CommonAllowancesController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
         const $ctrl = this;
         $scope.Values = [{ "id": 1, "name": "Yes" }, { "id": 0, "name": "No" }]
         $ctrl.$onInit = () => {

@@ -1124,7 +1124,7 @@
     <Content Include="app\controllers\PaymentGateway\PaymentResponseController.js" />
     <Content Include="app\controllers\PayRoll\BankDetailsController.js" />
     <Content Include="app\controllers\PayRoll\BoardStaffController.js" />
-    <Content Include="app\controllers\PayRoll\CommonElevensesController.js" />
+    <Content Include="app\controllers\PayRoll\CommonAllowancesController.js" />
     <Content Include="app\controllers\PayRoll\DepartmentController.js" />
     <Content Include="app\controllers\PayRoll\DesignationController.js" />
     <Content Include="app\controllers\PayRoll\EmployeeDetailsController.js" />
@@ -1174,7 +1174,7 @@
     <Content Include="app\views\MasterSettings\UserCredentials.html" />
     <Content Include="app\views\PayRoll\BankDetails.html" />
     <Content Include="app\views\PayRoll\BoardStaff.html" />
-    <Content Include="app\views\PayRoll\CommonElevenses.html" />
+    <Content Include="app\views\PayRoll\CommonAllowances.html" />
     <Content Include="app\views\PayRoll\Department.html" />
     <Content Include="app\views\PayRoll\Designation.html" />
     <Content Include="app\views\PayRoll\EmployeeDetails.html" />

@@ -763,7 +763,52 @@ define(['app'], function (app) {
             return promise;
         };
 
-        
+        this.AddorUpdateSplPay = function (DataTypeId, SplPayId, FinancialYearId, MonthID, EmployeeID, SplPayAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "SplPayId": SplPayId,
+                "FinancialYearId": FinancialYearId,
+                "MonthID": MonthID,
+                "EmployeeID": EmployeeID,
+                "SplPayAmount": SplPayAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSplPay', paramObject);
+            return promise;
+        };
+
+
+
+        this.GetorEditSplPay = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, SplPayId, Active) {
+
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "SplPayId": SplPayId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSplPay', paramObj);
+            return promise;
+
+        };
+
+        this.PayRollSplPay = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, SplPayId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "SplPayId": SplPayId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSplPay', paramObj);
+            return promise;
+
+        };
+
 
     });
 });
