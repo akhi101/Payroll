@@ -119,7 +119,7 @@ define(['app'], function (app) {
         $scope.SaveNPS = function () {
             var datatypeid = 1
             console.log(datatypeid, null, $scope.NPSFinancialYear, $scope.NPSMonth, $scope.NPSEmployeeId, $scope.PensionAmount, 1, $scope.UserName)
-            var AddDepartment = PayRollService.AddorUpdateNPS(datatypeid, null, $scope.NPSFinancialYear, $scope.NPSMonth, $scope.NPSEmployeeId, $scope.PensionAmount, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateNPS(datatypeid, 0, $scope.NPSFinancialYear, $scope.NPSMonth, $scope.NPSEmployeeId, $scope.PensionAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -149,7 +149,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.GetorEditAdvance = function () {
+        $scope.getorEditAdvance = function () {
             var DataTypeID = 1
             var getdesign = PayRollService.GetorEditAdvance(DataTypeID, $scope.EmployeeId, $scope.FinancialYear1, $scope.Month, 0, 0);
             getdesign.then(function (response) {
@@ -186,12 +186,12 @@ define(['app'], function (app) {
                 } catch (err) { }
                 if (res.Table[0].ResponseCode == '200') {
                     alert(res.Table[0].ResponseDescription);
-                    $scope.GetorEditAdvance()
+                    $scope.getorEditAdvance()
 
                 }
                 else if (res.Table[0].ResponseCode == '400') {
                     alert(res.Table[0].ResponseDescription);
-                    $scope.GetorEditAdvance()
+                    $scope.getorEditAdvance()
 
                 } else {
                     alert('Something Went Wrong')
@@ -264,17 +264,17 @@ define(['app'], function (app) {
 
 
 
-        $scope.ChangeHBAActive = function (HBAId, Status) {
+        $scope.ChangeHBAActive = function (EmployeeID, FinancialYearID, MonthID,HBAId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.GetorEditHBA(DataType, HBAId, Status);
+            var getSlides = PayRollService.GetorEditHBA(DataType, EmployeeID, FinancialYearID, MonthID, HBAId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetEditAdvance();
+                    $scope.GetorEditHBA();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditAdvance();
+                    $scope.GetorEditHBA();
                 } else {
                     alert("Something Went Wrong")
                 }
@@ -364,7 +364,7 @@ define(['app'], function (app) {
         }
         $scope.GetReport2 = function () {
             $scope.EmployeeData = true;
-            $scope.GetorEditAdvance();
+            $scope.getorEditAdvance();
 
         }
 
@@ -492,9 +492,9 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.ChangeNPS = function (NPSID, Status) {
+        $scope.ChangeNPS = function (EmployeeID, FinancialYearID, MonthID, NPSID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollNPS(DataType, NPSID, Status);
+            var getSlides = PayRollService.PayRollNPS(DataType, EmployeeID, FinancialYearID, MonthID, NPSID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -541,12 +541,12 @@ define(['app'], function (app) {
                 } catch (err) { }
                 if (res.Table[0].StatusCode == '200') {
                     alert(res.Table[0].StatusDescription);
-                    $scope.GetorEditAdvance()
+                    $scope.getorEditAdvance()
 
                 }
                 else if (res.Table[0].StatusCode == '400') {
                     alert(res.Table[0].StatusDescription);
-                    $scope.GetorEditAdvance()
+                    $scope.getorEditAdvance()
 
                 } else {
                     alert('Something Went Wrong')
@@ -561,17 +561,17 @@ define(['app'], function (app) {
         }
 
 
-        $scope.ChangeActive = function (AdvancesId, Status) {
+        $scope.ChangeActive = function (EmployeeID, FinancialYearID, MonthID,AdvancesID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollAction(DataType, AdvancesId, Status);
+            var getSlides = PayRollService.PayRollAction(DataType, EmployeeID,FinancialYearID,MonthID,AdvancesID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetEditAdvance();
+                    $scope.getorEditAdvance();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditAdvance();
+                    $scope.getorEditAdvance();
                 } else {
                     alert("Something Went Wrong")
                 }

@@ -53,16 +53,16 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="active noprint">
-                <a href="#1" class="noprint" data-toggle="tab">Increments</a>
+                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Increments</a>
             </li>
             <li class="noprint">
-                <a href="#2" class="noprint" data-toggle="tab">Deductions</a>
+                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Deductions</a>
             </li>
             <li class="noprint">
-                <a href="#3" class="noprint" data-toggle="tab">Leaves</a>
+                <a href="#3" class="noprint  font-weight-bold" data-toggle="tab">Leaves</a>
             </li>
             <li class="noprint">
-                <a href="#4" class="noprint" data-toggle="tab">PayRoll</a>
+                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Spl Pay/Arrears</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -175,8 +175,8 @@
                                 </td>
 
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.IncrementID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
                             </tr>
@@ -304,8 +304,8 @@
 
                                 </td>
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDeduction(data.DeductionsID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDeduction(data.DeductionsID,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDeduction(data.EmployeeID,data.FinancialYearID,data.MonthID,data.DeductionsID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDeduction(data.EmployeeID,data.FinancialYearID,data.MonthID,data.DeductionsID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
                             </tr>
@@ -443,8 +443,8 @@
 
                                 </td>
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLeave(data.LeaveId,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLeave(data.LeaveId,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
                             </tr>
 

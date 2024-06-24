@@ -101,6 +101,7 @@ define(['app'], function (app) {
                 $scope.BankDetails = "";
                 $scope.AccountNumber = "";
                 $scope.CategoryCode = "";
+                
             }
 
 
@@ -202,6 +203,7 @@ define(['app'], function (app) {
                 alert("Please Enter CategoryCode");
                 return;
             }
+            
 
             var datatypeid = 1
 
@@ -326,7 +328,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode,  $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -409,6 +411,7 @@ define(['app'], function (app) {
                     $scope.BankDetails = res.Table[0].BankDetails;
                     $scope.AccountNumber = res.Table[0].AccountNumber;
                     $scope.CategoryCode = res.Table[0].CategoryCode;
+                   
                    
 
                 }
