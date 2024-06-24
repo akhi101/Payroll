@@ -1005,8 +1005,8 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-        [HttpPost, ActionName("GetorEditIncrements")]
-        public string GetorEditIncrements([FromBody] JsonObject request)
+        [HttpPost, ActionName("GetorEditSplPay")]
+        public string GetorEditSplPay([FromBody] JsonObject request)
         {
             try
             {
@@ -1017,9 +1017,9 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
                 param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@IncrementId", request["IncrementId"]);
+                param[4] = new SqlParameter("@SplPayId", request["SplPayId"]);
                 param[5] = new SqlParameter("@Active", request["Active"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Increments", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_SplPay", param);
                 return JsonConvert.SerializeObject(dt);
 
             }
@@ -1031,22 +1031,22 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-        [HttpPost, ActionName("AddorUpdateIncrements")]
-        public string AddorUpdateIncrements([FromBody] JsonObject request)
+        [HttpPost, ActionName("AddorUpdateSplPay")]
+        public string AddorUpdateSplPay([FromBody] JsonObject request)
         {
             try
             {
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@IncrementId", request["IncrementId"]);
+                param[1] = new SqlParameter("@SplPayId", request["SplPayId"]);
                 param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
                 param[3] = new SqlParameter("@MonthID", request["MonthID"]);
                 param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@IncrementAmount", request["IncrementAmount"]);
+                param[5] = new SqlParameter("@SplPayAmount", request["SplPayAmount"]);
                 param[6] = new SqlParameter("@Active", request["Active"]);
                 param[7] = new SqlParameter("@UserName", request["UserName"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Increments", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_SplPay", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

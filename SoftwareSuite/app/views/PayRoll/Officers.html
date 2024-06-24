@@ -488,7 +488,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="font-weight-bold">Employee:</label>
-                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
+                            <select class="form-control" ng-model="Employee" ng-change="ChangeSplEmpData(Employee)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
                                 <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
                                     {{data.EmployeeName}} ({{data.EmployeeCode}})
@@ -518,7 +518,7 @@
                     <div class="col-md-3"><input class="form-control" name="SplPayAmount" ng-model="SplPayAmount" placeholder="SplPay/Arrears Amount" /></div>
                     <br />
                     <div class="col-md-9" ng-show="SplEmployeeData">
-                        <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
+                        <button class="btn btn-success pull-right" ng-click="SaveSplPay()">Save</button>
                     </div>
                 </div>
                 <div class="row" ng-show="DataNotFound1">
@@ -566,8 +566,8 @@
                                 </td>
 
                                 <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.FinancialYearID,data.MonthID,data.SplPayId,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.FinancialYearID,data.MonthID,data.SplPayId,1)" ng-if="data.Active==0">InActive</button>
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.FinancialYearID,data.MonthID,data.SplPayID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.FinancialYearID,data.MonthID,data.SplPayID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
                             </tr>

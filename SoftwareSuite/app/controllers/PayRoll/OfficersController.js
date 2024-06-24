@@ -677,6 +677,19 @@ define(['app'], function (app) {
             $scope.GetorEditSplPay();
         }
 
+
+        $scope.ChangeSplEmpData = function (data) {
+            var data = JSON.parse(data)
+            $scope.SplPayFinancialYearId = data.FinancialYearID
+            $scope.SplPayMonthId = data.MonthID
+            $scope.SplPayEmployeeId = data.EmployeeID
+            $scope.EmployeeCode = data.EmployeeCode
+            $scope.EmployeeName = data.EmployeeName
+            $scope.Designation = data.DesignationName
+
+        }
+
+
         $scope.GetData = function () {
             let datatype = 1
             var finyr = PayRollService.GetorEditSplPay(datatype, 0, 0)
@@ -761,7 +774,7 @@ define(['app'], function (app) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateSplPay(DataTypeId, data.SplPayId, data.FinancialYearID, data.MonthID, data.EmployeeID, data.SplPayAmount, data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateSplPay(DataTypeId, data.SplPayID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.SplPayAmount, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -787,9 +800,9 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.ChangeStatus = function (EmployeeID, FinancialYearID, MonthID, SplPayId, Status) {
+        $scope.ChangeStatus = function (EmployeeID, FinancialYearID, MonthID, SplPayID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollSplPay(DataType, EmployeeID, FinancialYearID, MonthID, SplPayId, Status);
+            var getSlides = PayRollService.PayRollSplPay(DataType, EmployeeID, FinancialYearID, MonthID, SplPayID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
