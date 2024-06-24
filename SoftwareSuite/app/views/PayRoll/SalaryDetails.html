@@ -64,7 +64,7 @@
                         <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                             <div class="row">
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>
                                         Employee Name :
                                     </label>
@@ -75,14 +75,14 @@
                                     </select>
 
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>
                                         Current Basic Amount :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Current Basic Amount" ng-model="CurrentBasicAmount">
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label>
                                         Interim Relief:
                                     </label>
@@ -92,16 +92,35 @@
                                         <option value="N">No</option>
                                     </select>
                                 </div>
-
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-4">
                                     <label>
-                                        CCA:
+                                        CCA :
                                     </label>
-                                    <select class="form-control" name="applicationForm.CCA" ng-model="CCA">
-                                        <option value="">Select CCA</option>
-                                        <option value="Y">Yes</option>
-                                        <option value="N">No</option>
-                                    </select>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CCA Amount" ng-model="CCA">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        PP :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter PP Amount" ng-model="PP">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        FPI :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter FPI Amount" ng-model="FPI">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        TG Increment :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter TG Increment Amount" ng-model="TG_Increment">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        Conveyance Elevence :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Conveyance Elevence Amount" ng-model="ConveyanceElevence">
                                 </div>
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
@@ -137,6 +156,10 @@
                             <th class="text-center"> Current Basic Amount</th>
                             <th class="text-center">Interim Relief</th>
                             <th class="text-center">CCA </th>
+                            <th class="text-center">PP </th>
+                            <th class="text-center">FPI </th>
+                            <th class="text-center">TG Increment </th>
+                            <th class="text-center">Conveyance Elevence </th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
@@ -153,13 +176,12 @@
                                     <option value="N">No</option>
                                 </select>
                             </td>
-                            <td class="text-center">
-                                <select class="form-control" name="applicationForm.CCA" ng-model="data.CCA">
-                                    <option value="">Select CCA</option>
-                                    <option value="Y">Yes</option>
-                                    <option value="N">No</option>
-                                </select>
-                            </td>
+                            <td class="text-center">{{data.CCA}}</td>
+                            <td class="text-center">{{data.PP}}</td>
+                            <td class="text-center">{{data.FPI}}</td>
+                            <td class="text-center">{{data.TG_Increment}}</td>
+                            <td class="text-center">{{data.ConveyanceElevence}}</td>
+
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">
                                     Edit
