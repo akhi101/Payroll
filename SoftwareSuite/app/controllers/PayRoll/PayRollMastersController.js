@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("PayRollDashboardController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService) {
+    app.controller("PayRollMastersController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService) {
         var authdata = $localStorage.authorizationData;
         $scope.userType = authdata.SystemUserTypeId;
         $scope.hide = false;
