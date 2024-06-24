@@ -1755,6 +1755,36 @@ border-left:2px solid #fff!important;
 td.border {
     border: 1px solid #150c0c !important;
 }
+          .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        border: 1px solid #ddd !important;
+        background-color: #eaf5ff !important;
+    }
+hr{
+        margin: 10px 0px!important;
+    }
+       @media print {
+         .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        border: 1px solid #ddd !important;
+        background-color: #eaf5ff !important;
+    }
+ hr{
+        margin: 10px 0px!important;
+    }
+.my_margin{
+margin :0px 0px;
+}
+}
+.my_margin{
+margin :0px 0px;
+}
                         </style> "
                    + "</head><body>";
 
@@ -1773,9 +1803,9 @@ td.border {
                                 <div class='col-md-8 title'>
                                     <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
                                   <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
-                                    <h6 class='text-center'>
+                                    <h5 class='text-center' style='font-size: 16px!important;'>
                                        Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
-                                    </h6> 
+                                    </h5> 
                                   
                                 </div>
                                 <div class='col-md-2 logo'>
@@ -1784,6 +1814,8 @@ td.border {
                                     </div>
                                 </div>
                             </div>
+ <h4 class='text-center my_margin'><b>PAYSLIP FOR THE MONTH OF JUNE - 2024</b></h4>     
+<hr>
                     </div>";
 
 
@@ -1791,157 +1823,145 @@ td.border {
             #endregion
 
             #region PageContent
-            page += $@" <div class='container'>              
+            page += $@"<div class='container'>        
                 <div class='row'>
-                <div class=''>
                     <table class='table  table-responsive'>
                         <thead>
                             <tr>
-                                <th>Employee Name</th>
-                                <th>: Akhil Kumar B</th>
-                                <td>DDOREG</td>
-                                <td>: 67567</td>
+                                <td>Employee Code</td>
+                                <td>: 1024</td>
+                                <td>Bank ACC No</td>
+                                <td>: 67567234342333</td>
                             </tr>
+                           
                         </thead>
                         <tbody>
                             <tr>
+                                <th> Name</th>
+                                <th>: Akhil Kumar B</th>
+                                <td>CPS/NPS No</td>
+                                <td>: 67567</td>
+                            </tr>
+                            <tr>
                                 <td>Designation</td>
                                 <td>: Senior Assistant</td>
-                                <td>PAN NO</td>
-                                <td>: 67567</td>
-                            </tr>
-                            <tr>
-                                <td>Employee Code</td>
-                                <td>: 1024</td>
-                                <td>CHEQ NO</td>
-                                <td>: 67567</td>
-                            </tr>
-                            <tr>
-                                <td>GPF No</td>
-                                <td>: 145265</td>
-                                <td>CHEQ DATE</td>
-                                <td>: 67567</td>
-                            </tr>
-                            <tr>
                                 <td>TSGLI No</td>
-                                <td>: 343244</td>
-                                <th>Bank Account No</th>
-                                <th>: Akhil Kumar B</th>
+                                <td>: 67567</td>
                             </tr>
+                          
                             <tr>
-                                <td>DDOCODE</td>
-                                <td>: 3423424</td>
-                                <td>Bank Name</td>
-                                <td>: Senior Assistant</td>
+                                <td>Department</td>
+                                <td>: 145265</td>
+                                <td>PAN No</td>
+                                <td>: 67567</td>
                             </tr>
-                            <tr>
-                                <td>DDO Desg</td>
-                                <td>: 232232</td>
-                                <td>Scale</td>
-                                <td>: 1024</td>
-                            </tr>
-
+                          
                         </tbody>
                     </table>
-                </div>
-               
             </div>
             <div class='row'>
                 <table class='table table-bordered table-responsive'>
                     <thead>
                         <tr>
-                            <th class='border'>Earnings</th>
-                            <th class='border'>Deductions</th>
-                            <th class='border'>Recoveries</th>
-                            <th class='border'>Details</th>
+                            <th class='border'>PAY & ALLOWANCES</th>
+                            <th class='border'>DEDUCTIONS</th>
+                            <th class='border'>LOANS</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         <tr class='border'>
-                            <td class='border'><span>Basic</span>
-                                <span>23100</span>
+                            <td class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>455445.0</span>
                             </td>
-                            <td class='border'><span>EWF</span>
-                                <span>23100</span>
+                            <td class='border'><span>LIC(5454665456) :</span>
+                                <span class='pull-right'>510</span>
                             </td>
                             <td class='border'></td>
-                            <td class='border'></td>
+                           
                         </tr>
                         <tr class='border'>
-                            <td class='border'><span>DA</span>
-                                <span>1975</span>
+                            <td class='border'><span>DA :</span>
+                                <span class='pull-right'>1975</span>
                             </td>
-                            <td class='border'><span>GIS Ins</span>
-                                <span>23100</span>
+                            <td class='border'><span>PT :</span>
+                                <span class='pull-right'> 23100</span>
                             </td>
                             <td class='border'></td>
+                           
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>HRA :</span>
+                                <span class='pull-right'>1975</span>
+                            </td>
+                            <td class='border'><span>ITAX :</span>
+                                <span class='pull-right'>23100</span>
+                            </td>
                             <td class='border'></td>
                             
                         </tr>
                         <tr class='border'>
-                            <td class='border'><span>HRA</span>
-                                <span>1975</span>
+                            <td class='border'><span>CCA :</span>
+                                <span class='pull-right'>1975</span>
                             </td>
-                            <td class='border'><span>PT</span>
-                                <span>23100</span>
+                            <td class='border'><span>NPS :</span>
+                                <span class='pull-right'>23100</span>
                             </td>
                             <td class='border'></td>
-                            <td class='border'></td>
+                            
                         </tr>
                         <tr class='border'>
-                            <td class='border'><span>CCA</span>
-                                <span>1975</span>
+                            <td class='border'><span>TSINCR :</span>
+                                <span class='pull-right'>1975</span>
                             </td>
-                            <td class='border'><span>CGS</span>
-                                <span>23100</span>
+                            <td class='border'><span></span>
+                                <span class='pull-right'></span>
                             </td>
                             <td class='border'></td>
-                            <td class='border'></td>
+                           
                         </tr>
                         <tr class='border'>
-                            <td class='border'><span>Tel Inc</span>
-                                <span>1975</span>
-                            </td>
-                            <td class='border'><span>TSGLI(S)</span>
-                                <span>23100</span>
-                            </td>
-                            <td class='border'></td>
-                            <td class='border'></td>
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> </td>
-                            <td class='border'><span>NG</span>
-                                <span>80</span>
+                            <td class='border'> <span>CON.ALLOW :</span>
+                                <span class='pull-right'>5564</span></td>
+                            <td class='border'>
                             </td>
                            <td class='border'></td>
-                            <td class='border'></td>
+                          
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> <span>MDCL_A :</span>
+                                <span class='pull-right'>3000</span></td>
+                            <td class='border'>
+                            </td>
+                           <td class='border'></td>
+                          
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> <span>GROSS :</span>
+                                <span class='pull-right'>748547</span></td>
+                            <td class='border'>
+                                <span>TOT DED :</span>
+                                <span class='pull-right'>45333</span>
+                            </td>
+                           <td class='border'>
+                            <span>NETPAY :</span>
+                                <span class='pull-right'>34534</span>
+                           </td>
+                          
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class='row'>
-                    <table class='table  table-responsive'>
-                        <thead>
-                            <tr>
-                                <th >TOKEN NO</th>
-                                <th>: 00001739 </th>
-                                <th class='border-left'>BILL GROSS AMT</th>
-                                <th>: 42434234</th>
-                                <th class='border-left'>BILL DATE</th>
-                                <th>: 4423423</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TOKEN DATE                                </td>
-                                <td>: 4234243</td>
-                                <td class='border-left'>BILL NET AMT</td>
-                                <td>: 35342</td>
-                                <td class='border-left'>DEDUCTION AMT</td>
-                                <td>: 43424324</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
+                  <div class='col-md-9'>
+                  <div>D.A.@22.95%</div>
+                  <div>HRA.@22.95%</div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='text-center'>Sd/</div>
+                    <div class='text-center'>Secretary</div>
+                    </div>
             </div>
 </div>";
 //            if (InterimData[0].SchemeId != 5 && InterimData[0].SchemeId != 9)

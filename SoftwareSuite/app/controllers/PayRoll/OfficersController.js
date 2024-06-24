@@ -611,6 +611,44 @@ define(['app'], function (app) {
                 });
         }
 
+
+
+        $scope.Approve = function () {
+            var PaymentStudent = [{"Employeecode":"1025"}]
+            if (PaymentStudent != [] && PaymentStudent != '') {
+                $scope.btndisable = true;
+                var ApproveStatus = 1;
+               
+                  
+                    $scope.buttonlabel = "Signing in process ...";
+                var GetInterimCertificateTobeSignedlocation = PayRollService.GetPaySlip(PaymentStudent)
+                GetInterimCertificateTobeSignedlocation.then(function (response) {
+                    var pdf = response[0].PdfUrl
+                        var location = window.location.origin;
+                        if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
+                            location += "/API/"
+                        } else {
+                            location += "/"
+                    }
+                    window.open(pdf,'_blank')
+                    }, function (err) {
+                        $scope.btndisable = false;
+                        $scope.buttonlabel = "Approve";
+                    });
+
+
+
+              
+
+                
+            } else {
+                alert('select the pins');
+                return;
+            }
+        }
+
+
+
         $scope.ChangeLeave = function (EmployeeID, FinancialYearID, MonthID,LeaveId, Status) {
             var DataType = 3;
             var getSlides = PayRollService.PayRollLeaves(DataType, EmployeeID, FinancialYearID, MonthID, LeaveId, Status);

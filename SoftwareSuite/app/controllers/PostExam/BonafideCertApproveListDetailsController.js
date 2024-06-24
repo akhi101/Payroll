@@ -57,7 +57,36 @@ define(['app'], function (app) {
 
             if (val == true) {
                 for (var i = 0; i < $scope.ApprovalDetails.length; i++) {
-
+                    if ($scope.UserTypeId == 1006) {
+                        if ($scope.ApprovalDetails[i].Clg_AdminVerified == 0) {
+                            $scope.ApprovalDetails[i].isChecked = false
+                            $scope.allItemsSelected = false;
+                            $scope.checkedStatus = false;
+                            val = false;
+                            alert("Please Verify all Student Details by clicking concerned row")
+                            return;
+                        }
+                    } else
+                        if ($scope.UserTypeId == 3) {
+                            if ($scope.ApprovalDetails[i].Clg_HodVerified == 0) {
+                                $scope.ApprovalDetails[i].isChecked = false
+                                $scope.allItemsSelected = false;
+                                $scope.checkedStatus = false;
+                                val = false;
+                                alert("Please Verify all Student Details by clicking concerned row")
+                                return;
+                            }
+                        } else
+                            if ($scope.UserTypeId == 2) {
+                                if ($scope.ApprovalDetails[i].Clg_PrincipalVerified == 0) {
+                                    $scope.ApprovalDetails[i].isChecked = false
+                                    $scope.allItemsSelected = false;
+                                    $scope.checkedStatus = false;
+                                    val = false;
+                                    alert("Please Verify all Student Details by clicking concerned row")
+                                    return;
+                                }
+                            }
                     $scope.ApprovalDetails[i].isChecked = true;
                     if ($scope.ApprovalDetails[i].isChecked) {
                         dataPay = {};

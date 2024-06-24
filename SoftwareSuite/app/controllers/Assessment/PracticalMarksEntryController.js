@@ -269,7 +269,7 @@
                     }
                     return;
             }
-            const invalidChars = /[^0-9]/gi;
+            const invalidChars = /[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/;;
             if (invalidChars.test(data.marks)) {
                 data.marks = data.marks.replace(invalidChars, "");
                 return;
