@@ -621,14 +621,15 @@
                   
                     $scope.buttonlabel = "Signing in process ...";
                 var GetInterimCertificateTobeSignedlocation = PayRollService.GetPaySlip(PaymentStudent)
-                    GetInterimCertificateTobeSignedlocation.then(function (response) {
+                GetInterimCertificateTobeSignedlocation.then(function (response) {
+                    var pdf = response[0].PdfUrl
                         var location = window.location.origin;
                         if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
                             location += "/API/"
                         } else {
                             location += "/"
-                        }
-                      
+                    }
+                    window.open(pdf,'_blank')
                     }, function (err) {
                         $scope.btndisable = false;
                         $scope.buttonlabel = "Approve";
