@@ -4557,7 +4557,12 @@
                 dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
             },
 
-           
+            'Dashboard.PayRollDashboard.CommonAllowances': {
+                url: "/PayRollDashboard",
+                templateUrl: 'app/views/PayRoll/CommonAllowances.html',
+                dependencies: ['controllers/PayRoll/CommonAllowancesController', 'services/PayRoll/PayRollService']
+            },
+
             'Dashboard.PayRollDashboard': {
                 url: "/PayRollDashboard",
                 templateUrl: 'app/views/PayRoll/PayRollDashboard.html',
@@ -4577,47 +4582,47 @@
                 dependencies: ['controllers/PayRoll/OverAllDeductionsController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRollDashboard.Designation': {
-                url: "/Designation",
-                templateUrl: 'app/views/PayRoll/Designation.html',
-                dependencies: ['controllers/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
+            //'Dashboard.PayRollDashboard.Designation': {
+            //    url: "/Designation",
+            //    templateUrl: 'app/views/PayRoll/Designation.html',
+            //    dependencies: ['controllers/PayRoll/DesignationController', 'services/PayRoll/PayRollService']
+            //},
+
+            //'Dashboard.PayRollDashboard.Departments': {
+            //    url: "/Departments",
+            //    templateUrl: 'app/views/PayRoll/Department.html',
+            //    dependencies: ['controllers/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
+            //},
+
+            //'Dashboard.PayRollDashboard.BankDetails': {
+            //    url: "/BankDetails",
+            //    templateUrl: 'app/views/PayRoll/BankDetails.html',
+            //    dependencies: ['controllers/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
+            //},
+
+            //'Dashboard.PayRollDashboard.EmployeeDetails': {
+            //    url: "/EmployeeDetails",
+            //    templateUrl: 'app/views/PayRoll/EmployeeDetails.html',
+            //    dependencies: ['controllers/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
+            //},
+
+            'Dashboard.PayRollDashboard.SalaryDetails': {
+                url: "/SalaryDetails",
+                templateUrl: 'app/views/PayRoll/SalaryDetails.html',
+                dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.PayRollDashboard.Departments': {
-                url: "/Departments",
-                templateUrl: 'app/views/PayRoll/Department.html',
-                dependencies: ['controllers/PayRoll/DepartmentController', 'services/PayRoll/PayRollService']
-            },
-
-            'Dashboard.PayRollDashboard.BankDetails': {
-                url: "/BankDetails",
-                templateUrl: 'app/views/PayRoll/BankDetails.html',
-                dependencies: ['controllers/PayRoll/BankDetailsController', 'services/PayRoll/PayRollService']
-            },
-
-            'Dashboard.PayRollDashboard.EmployeeDetails': {
-                url: "/EmployeeDetails",
-                templateUrl: 'app/views/PayRoll/EmployeeDetails.html',
-                dependencies: ['controllers/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
-            },
-
-            'Dashboard.PayRollDashboard.EmployeeSalaryDetails': {
-                url: "/EmployeeSalaryDetails",
-                templateUrl: 'app/views/PayRoll/EmployeeSalaryDetails.html',
-                dependencies: ['controllers/PayRoll/EmployeeSalaryDetailsController', 'services/PayRoll/PayRollService']
-            },
-
-            'Dashboard.PayRollDashboard.FinancialYearSettings': {
-                url: "/FinancialYearSettings",
-                templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
-                dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
-            },
+            //'Dashboard.PayRollDashboard.FinancialYearSettings': {
+            //    url: "/FinancialYearSettings",
+            //    templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
+            //    dependencies: ['controllers/PayRoll/FinancialYearSettingsController', 'services/PayRoll/PayRollService']
+            //},
             
-            'Dashboard.PayRollDashboard.CommonAllowances': {
-                url: "/CommonAllowances",
-                templateUrl: 'app/views/PayRoll/CommonAllowances.html',
-                dependencies: ['controllers/PayRoll/CommonAllowancesController', 'services/PayRoll/PayRollService']
-            },
+            //'Dashboard.PayRollDashboard.CommonAllowances': {
+            //    url: "/CommonAllowances",
+            //    templateUrl: 'app/views/PayRoll/CommonAllowances.html',
+            //    dependencies: ['controllers/PayRoll/CommonAllowancesController', 'services/PayRoll/PayRollService']
+            //},
         }
 
 
