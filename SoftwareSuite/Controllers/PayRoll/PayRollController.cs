@@ -121,6 +121,29 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+        [HttpPost, ActionName("GetEmployeebyMonthYear")]
+        public string GetEmployeebyMonthYear([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+               
+                param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[1] = new SqlParameter("@MonthId", request["MonthId"]);
+              
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_IncrementForEmployee", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
 
 
 
@@ -514,18 +537,14 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[11];
+                var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@BankId", request["BankId"]);
                 param[2] = new SqlParameter("@BankName", request["BankName"]);
                 param[3] = new SqlParameter("@BankBranch", request["BankBranch"]);
                 param[4] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
-                param[5] = new SqlParameter("@Address1", request["Address1"]);
-                param[6] = new SqlParameter("@Address2", request["Address2"]);
-                param[7] = new SqlParameter("@Address3", request["Address3"]);
-                param[8] = new SqlParameter("@PinCode", request["PinCode"]);
-                param[9] = new SqlParameter("@Active", request["Active"]);
-                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                param[5] = new SqlParameter("@Active", request["Active"]);
+                param[6] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_BankDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -614,18 +633,18 @@ namespace SoftwareSuite.Controllers.PayRoll
             public DateTime DesignationName { get; set; }
             public DateTime DepartmentName { get; set; }
             public string Gender { get; set; }
-            public string PHC { get; set; }
+            
             public string Empstatus { get; set; }
             public string IncrementMonth { get; set; }
             public string ScaleType { get; set; }
             public string PanNO { get; set; }
             public string GPFNo { get; set; }
             public string CPS_NPS { get; set; }
-            public string CPSNo { get; set; }
+            public string PranNo { get; set; }
             public string BankDetails { get; set; }
             public string AccountNumber { get; set; }
-            public string CategoryCode { get; set; }
-            public string CCA { get; set; }
+           
+            
             public bool Active { get; set; }
             public string UserName { get; set; }
 
@@ -641,7 +660,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[23];
+                var param = new SqlParameter[21];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
                 param[2] = new SqlParameter("@EmployeeCode", data.EmployeeCode);
@@ -652,20 +671,17 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[7] = new SqlParameter("@DesignationId", data.DesignationId);
                 param[8] = new SqlParameter("@DepartmentId", data.DepartmentId);
                 param[9] = new SqlParameter("@Gender", data.Gender);
-                param[10] = new SqlParameter("@PHC", data.PHC);
-                param[11] = new SqlParameter("@Empstatus", data.Empstatus);
-                param[12] = new SqlParameter("@IncrementMonth", data.IncrementMonth);
-                param[13] = new SqlParameter("@ScaleType", data.ScaleType);
-                param[14] = new SqlParameter("@PanNO", data.PanNO);
-                param[15] = new SqlParameter("@GPFNo", data.GPFNo);
-                param[16] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
-                param[17] = new SqlParameter("@CPSNo", data.CPSNo);
-                param[18] = new SqlParameter("@BankDetails", data.BankDetails);
-                param[19] = new SqlParameter("@AccountNumber", data.AccountNumber);
-                param[20] = new SqlParameter("@CategoryCode", data.CategoryCode);
-               
-                param[21] = new SqlParameter("@Active", data.Active);
-                param[22] = new SqlParameter("@UserName", data.UserName);
+                param[10] = new SqlParameter("@Empstatus", data.Empstatus);
+                param[11] = new SqlParameter("@IncrementMonth", data.IncrementMonth);
+                param[12] = new SqlParameter("@ScaleType", data.ScaleType);
+                param[13] = new SqlParameter("@PanNO", data.PanNO);
+                param[14] = new SqlParameter("@GPFNo", data.GPFNo);
+                param[15] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
+                param[16] = new SqlParameter("@PranNo", data.PranNo);
+                param[17] = new SqlParameter("@BankDetails", data.BankDetails);
+                param[18] = new SqlParameter("@AccountNumber", data.AccountNumber);
+                param[19] = new SqlParameter("@Active", data.Active);
+                param[20] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeDetails", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -769,6 +785,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public float FPI { get; set; }
             public float TG_Increment { get; set; }
             public float ConveyanceElevence { get; set; }
+            public float Medical { get; set; }
             public string UserName { get; set; }
         }
 
@@ -779,7 +796,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[10];
+                var param = new SqlParameter[11];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
                 param[2] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
@@ -789,7 +806,8 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[6] = new SqlParameter("@FPI", data.FPI);
                 param[7] = new SqlParameter("@TG_Increment", data.TG_Increment);
                 param[8] = new SqlParameter("@ConveyanceElevence", data.ConveyanceElevence);
-                param[9] = new SqlParameter("@UserName", data.UserName);
+                param[9] = new SqlParameter("@Medical", data.Medical);
+                param[10] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -986,14 +1004,15 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[7];
+                var param = new SqlParameter[8];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@ElevenceId", request["ElevenceId"]);
                 param[2] = new SqlParameter("@IR", request["IR"]);
-                param[3] = new SqlParameter("@DA", request["DA"]);
-                param[4] = new SqlParameter("@HRA", request["HRA"]);
-                param[5] = new SqlParameter("@Medical", request["Medical"]);
-                param[6] = new SqlParameter("@UserName", request["UserName"]);
+                param[3] = new SqlParameter("@DA_NGO", request["DA_NGO"]);
+                param[4] = new SqlParameter("@DA_Officers", request["DA_Officers"]);
+                param[5] = new SqlParameter("@DA_BoardOfficers", request["DA_BoardOfficers"]);
+                param[6] = new SqlParameter("@HRA", request["HRA"]);
+                param[7] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Elevence", param);
                 return JsonConvert.SerializeObject(dt);
             }

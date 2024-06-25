@@ -35,7 +35,7 @@
         background-color: #f9f9f9 !important;
     }
 </style>
-<div ng-controller="SalaryDetailsController">
+<div ng-controller="EmployeeSalaryDetailsController">
     <div class="breadcrumb-header">
         <!-- breadcrumb Open -->
         <div class="container">
@@ -43,8 +43,8 @@
                 <h5>Salary Details</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
-                    <li><a href="#!/Dashboard/PayRollMasters">Pay Roll Masters</a></li>
-                    <li><a href="#!/Dashboard/PayRollMasters/Department">SalaryDetails</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard/Department">SalaryDetails</a></li>
                 </ol>
             </section>
         </div>
@@ -122,6 +122,12 @@
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Conveyance Elevence Amount" ng-model="ConveyanceElevence">
                                 </div>
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        Medical  :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Medical Amount" ng-model="Medical">
+                                </div>
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
                                     <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
@@ -160,6 +166,7 @@
                             <th class="text-center">FPI </th>
                             <th class="text-center">TG Increment </th>
                             <th class="text-center">Conveyance Elevence </th>
+                            <th class="text-center">Medical </th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
@@ -181,6 +188,7 @@
                             <td class="text-center">{{data.FPI}}</td>
                             <td class="text-center">{{data.TG_Increment}}</td>
                             <td class="text-center">{{data.ConveyanceElevence}}</td>
+                            <td class="text-center">{{data.Medical}}</td>
 
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">

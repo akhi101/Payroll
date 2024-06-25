@@ -1,5 +1,5 @@
 define(['app'], function (app) {
-    app.controller("OfficersController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
+    app.controller("MonthlySalaryDetailsController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
@@ -43,6 +43,20 @@ define(['app'], function (app) {
 
         }
 
+        $scope.getEmployeebyMonthYear = function () {
+            var getmnthyr = PayRollService.GetEmployeebyMonthYear($scope.IncrementsFinancialYear, $scope.IncrementsMonth)
+            getmnthyr.then(function (response) {
+                var res = JSON.parse(response)
+                $scope.EmployeeDatabyYearMonth = res.Table;
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+        }
+
 
         $scope.GetorEditIncrements = function () {
             var DataTypeID = 1
@@ -70,6 +84,9 @@ define(['app'], function (app) {
                 });
         }
 
+
+
+        
 
 
 

@@ -4570,10 +4570,10 @@
             },
 
 
-            'Dashboard.PayRollDashboard.Officers': {
-                url: "/Officers",
-                templateUrl: 'app/views/PayRoll/Officers.html',
-                dependencies: ['controllers/PayRoll/OfficersController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
+            'Dashboard.PayRollDashboard.MonthlySalaryDetails': {
+                url: "/MonthlySalaryDetails",
+                templateUrl: 'app/views/PayRoll/MonthlySalaryDetails.html',
+                dependencies: ['controllers/PayRoll/MonthlySalaryDetailsController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
             },
 
             'Dashboard.PayRollDashboard.OverAllDeductions': {
@@ -4606,11 +4606,11 @@
             //    dependencies: ['controllers/PayRoll/EmployeeDetailsController', 'services/PayRoll/PayRollService']
             //},
 
-            //'Dashboard.PayRollDashboard.SalaryDetails': {
-            //    url: "/SalaryDetails",
-            //    templateUrl: 'app/views/PayRoll/SalaryDetails.html',
-            //    dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
-            //},
+            'Dashboard.PayRollDashboard.SalaryDetails': {
+                url: "/SalaryDetails",
+                templateUrl: 'app/views/PayRoll/SalaryDetails.html',
+                dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
+            },
 
             //'Dashboard.PayRollDashboard.FinancialYearSettings': {
             //    url: "/FinancialYearSettings",

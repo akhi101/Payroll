@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("SalaryDetailsController", function ($scope, $localStorage, PayRollService) {
+    app.controller("EmployeeSalaryDetailsController", function ($scope, $localStorage, PayRollService) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName;
 
@@ -60,6 +60,7 @@
             $scope.FPI = "";
             $scope.TG_Increment = "";
             $scope.ConveyanceElevence = "";
+            $scope.Medical = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
 
@@ -102,8 +103,12 @@
                 alert("Select ConveyanceElevence");
                 return;
             }
+            if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
+                alert("Select Medical");
+                return;
+            }
             
-            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence,  $scope.UserName)
+            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical,  $scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -176,7 +181,7 @@
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence,  $scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical,  $scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -238,6 +243,7 @@
                     $scope.FPI = res.Table[0].FPI;
                     $scope.TG_Increment = res.Table[0].TG_Increment;
                     $scope.ConveyanceElevence = res.Table[0].ConveyanceElevence;
+                    $scope.Medical = res.Table[0].Medical;
                     $scope.Noreports = false;
 
 

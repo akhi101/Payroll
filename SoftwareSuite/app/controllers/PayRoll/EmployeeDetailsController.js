@@ -91,16 +91,16 @@ define(['app'], function (app) {
                 $scope.Designation = "";
                 $scope.Department = "";
                 $scope.Gender = "";
-                $scope.PHC = "";
+/*                $scope.PHC = "";*/
                 $scope.Empstatus = "";
                 $scope.IncrementMonth = "";
                 $scope.ScaleType = "";
                 $scope.PanNo = "";
                 $scope.CPS_NPS = "";
-                $scope.CPSNo = "";
+                $scope.PranNo = "";
                 $scope.BankDetails = "";
                 $scope.AccountNumber = "";
-                $scope.CategoryCode = "";
+                /*$scope.CategoryCode = "";*/
                 
             }
 
@@ -150,10 +150,10 @@ define(['app'], function (app) {
                 return;
             }
 
-            if ($scope.PHC == undefined || $scope.PHC == null || $scope.PHC == "") {
-                alert("Please Enter PHC");
-                return;
-            }
+            //if ($scope.PHC == undefined || $scope.PHC == null || $scope.PHC == "") {
+            //    alert("Please Enter PHC");
+            //    return;
+            //}
 
             if ($scope.Empstatus == undefined || $scope.Empstatus == null || $scope.Empstatus == "") {
                 alert("Please Enter EmployeeStatus");
@@ -183,8 +183,8 @@ define(['app'], function (app) {
                 return;
             }
 
-            if ($scope.CPSNo == undefined || $scope.CPSNo == null || $scope.CPSNo == "") {
-                alert("Please Enter CPSNumber");
+            if ($scope.PranNo == undefined || $scope.PranNo == null || $scope.PranNo == "") {
+                alert("Please Enter PranNumber");
                 return;
             }
 
@@ -199,15 +199,15 @@ define(['app'], function (app) {
                 return;
             }
 
-            if ($scope.CategoryCode == undefined || $scope.CategoryCode == null || $scope.CategoryCode == "") {
-                alert("Please Enter CategoryCode");
-                return;
-            }
+            //if ($scope.CategoryCode == undefined || $scope.CategoryCode == null || $scope.CategoryCode == "") {
+            //    alert("Please Enter CategoryCode");
+            //    return;
+            //}
             
 
             var datatypeid = 1
 
-            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode, 1, $scope.UserName)
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.BankDetails, $scope.AccountNumber,  1, $scope.UserName)
             AddEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -328,7 +328,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.PHC, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.CPSNo, $scope.BankDetails, $scope.AccountNumber, $scope.CategoryCode,  $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.BankDetails, $scope.AccountNumber,   $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -400,17 +400,17 @@ define(['app'], function (app) {
                     $scope.Designation = res.Table[0].DesignationId;
                     $scope.Department = res.Table[0].DepartmentId;
                     $scope.Gender = res.Table[0].Gender;
-                    $scope.PHC = res.Table[0].PHC;
+                   
                     $scope.Empstatus = res.Table[0].Empstatus;
                     $scope.IncrementMonth = res.Table[0].IncrementMonth;
                     $scope.ScaleType = res.Table[0].ScaleType;
                     $scope.PanNo = res.Table[0].PanNo;
                     $scope.GPFNo = res.Table[0].GPFNo;
                     $scope.CPS_NPS = res.Table[0].CPS_NPS;
-                    $scope.CPSNo = res.Table[0].CPSNo;
+                    $scope.PranNo = res.Table[0].PranNo;
                     $scope.BankDetails = res.Table[0].BankDetails;
                     $scope.AccountNumber = res.Table[0].AccountNumber;
-                    $scope.CategoryCode = res.Table[0].CategoryCode;
+                    /*$scope.CategoryCode = res.Table[0].CategoryCode;*/
                    
                    
 

@@ -43,8 +43,8 @@
                 <h5>Bank Details</h5>
                 <ol class="breadcrumb">
                     <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
-                    <li><a href="#!/Dashboard/PayRollMasters">Pay Roll Masters</a></li>
-                    <li><a href="#!/Dashboard/PayRollMasters/BankDetails">Bank Details</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard/BankDetails">Bank Details</a></li>
                 </ol>
             </section>
         </div>
@@ -75,7 +75,7 @@
                                     <label>
                                         Bank Branch:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="255" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Bank Name" ng-model="BankBranch">
+                                    <input class="form-control" type="text" maxlength="255" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Bank Branch" ng-model="BankBranch">
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -86,7 +86,7 @@
                                 </div>
 
 
-                                <div class="form-group col-md-6">
+                                <<!--div class="form-group col-md-6">
                                     <label>
                                         Address 1:
                                     </label>
@@ -114,7 +114,7 @@
                                        Pincode:
                                     </label>
                                     <input class="form-control" type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder="Enter Pincode" ng-model="PinCode">
-                                </div>
+                                </div>-->
 
                                 <div class="col-md-12">
                                     <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
@@ -143,10 +143,10 @@
                             <th class="text-center">Bank Name</th>
                             <th class="text-center">Bank Branch</th>
                             <th class="text-center">IFSC CODE</th>
-                            <th class="text-center">Address 1</th>
+                            <!--<th class="text-center">Address 1</th>
                             <th class="text-center">Address 2</th>
                             <th class="text-center">Address 3</th>
-                            <th class="text-center">Pincode</th>
+                            <th class="text-center">Pincode</th>-->
                             <!--<th class="text-center">Status</th>-->
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
@@ -158,10 +158,10 @@
                             <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.BankName" /></div></td>
                             <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))'  class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.BankBranch" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IFSCCode" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Address1" /></div></td>
+                            <!--<td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Address1" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Address2" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Address3" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PinCode" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PinCode" /></div></td>-->
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditBankDetails(data,$index+1)">
                                     Edit

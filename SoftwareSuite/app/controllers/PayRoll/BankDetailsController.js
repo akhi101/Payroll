@@ -25,25 +25,25 @@
             alert("Please Enter IFSCCode ");
                 return;
             }
-        if ($scope.Address1 == undefined || $scope.Address1 == null || $scope.Address1 == "") {
-            alert("Please Enter Address1");
-                return;
-            }
-        if ($scope.Address2 == undefined || $scope.Address2 == null || $scope.Address2 == "") {
-            alert("Please Enter Address2");
-                return;
-            }
-        if ($scope.Address3 == undefined || $scope.Address3 == null || $scope.Address3 == "") {
-            alert("Please Enter No of Address3");
-                return;
-            }
-        if ($scope.PinCode == undefined || $scope.PinCode == null || $scope.PinCode == "") {
-            alert("Please Enter No of PinCode");
-            return;
-        }
+        //if ($scope.Address1 == undefined || $scope.Address1 == null || $scope.Address1 == "") {
+        //    alert("Please Enter Address1");
+        //        return;
+        //    }
+        //if ($scope.Address2 == undefined || $scope.Address2 == null || $scope.Address2 == "") {
+        //    alert("Please Enter Address2");
+        //        return;
+        //    }
+        //if ($scope.Address3 == undefined || $scope.Address3 == null || $scope.Address3 == "") {
+        //    alert("Please Enter No of Address3");
+        //        return;
+        //    }
+        //if ($scope.PinCode == undefined || $scope.PinCode == null || $scope.PinCode == "") {
+        //    alert("Please Enter No of PinCode");
+        //    return;
+        //}
         
             var datatypeid = 1
-        var AddBankDetails = PayRollService.AddBankDetails(datatypeid, 0, $scope.BankName, $scope.BankBranch, $scope.IFSCCode, $scope.Address1, $scope.Address2, $scope.Address3, $scope.PinCode, 1, $scope.UserName)
+        var AddBankDetails = PayRollService.AddBankDetails(datatypeid, 0, $scope.BankName, $scope.BankBranch, $scope.IFSCCode,  1, $scope.UserName)
         AddBankDetails.then(function (response){
                 try {
                     var res = JSON.parse(response);
@@ -126,7 +126,7 @@
            
 
 
-            var desig = PayRollService.UpdateBankDetails(datatypeid, data.BankId, data.BankName, data.BankBranch, data.IFSCCode, data.Address1, data.Address2, data.Address3, data.PinCode, 1, $scope.UserName)
+            var desig = PayRollService.UpdateBankDetails(datatypeid, data.BankId, data.BankName, data.BankBranch, data.IFSCCode,  1, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
