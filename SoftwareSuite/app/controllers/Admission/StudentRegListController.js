@@ -528,15 +528,17 @@
                                 $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                                 $scope.modalInstance.close();
                             } else if (attendee.respcode === "409") {
+                                $scope.GetStudentDetailsForAdmission()
                                 $scope.modalInstance.close();
                                 $scope.$emit('hideLoading', data);
                                 alert(attendee.respdesc + " with AtendeeId: " + attendee.attdid);
-                                $scope.GetStudentDetailsForAdmission()
+                               
                             } else {
+                                $scope.GetStudentDetailsForAdmission()
                                 $scope.modalInstance.close();
                                 $scope.$emit('hideLoading', data);
                                 alert(attendee.respdesc);
-                                $scope.GetStudentDetailsForAdmission()
+                           
                                 $state.go('Dashboard.AdmissionDashboard.Admission.StudentRegList');
                             }
                         },
