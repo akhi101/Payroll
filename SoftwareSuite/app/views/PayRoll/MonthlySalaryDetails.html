@@ -46,7 +46,17 @@
         background-color: #f9f9f9 !important;
     }
 </style>
-<div ng-controller="OfficersController">
+<div ng-controller="MonthlySalaryDetailsController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Monthly Salary Details</h5>
+
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
     <div class="container content">
         <div class="col-md-12">
             <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
@@ -85,7 +95,7 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Month:</label>
                             <div class="">
-                                <select class="form-control" ng-model="IncrementsMonth" name="StudentType" required>
+                                <select class="form-control" ng-model="IncrementsMonth" name="StudentType" required ng-change="getEmployeebyMonthYear()">
                                     <option value="" selected>Select Month </option>
                                     <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
                                         {{data.Months}}
@@ -99,7 +109,7 @@
                             <label class="font-weight-bold">Employee:</label>
                             <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
                                 <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                <option ng-repeat="data in EmployeeDatabyYearMonth" value="{{data}}">
                                     {{data.EmployeeName}} ({{data.EmployeeCode}})
                                 </option>
                             </select>
@@ -367,34 +377,34 @@
 
                 <div class="sm-spacer"></div>
                 <div class="col-md-12" ng-show="ShowLeaveData">
-                <div class="card">
+                    <div class="card">
 
-                    <div class="col-md-3"><b>Employee Name </b></div>
-                    <div class="col-md-9">: {{LeavesEmployeeName}}</div>
-                    <div class="col-md-3"><b>Employee Code </b></div>
-                    <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
-                    <div class="col-md-3"><b>Designation </b></div>
-                    <div class="col-md-9">: {{Designation}}</div>
-                    <div class="row">
-                        <div class="col-md-3" ><b>Medical Leaves </b></div>
-                        <div class="col-md-9" >: {{MedicalLeavesBalance}}</div>
-                        <div class="col-md-3" ><b>Medical Leaves Utilized :</b></div>
-                        <div class="col-md-2" ><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeavesUtilized" maxlength="2" placeholder="Medical Leaves" /></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3" ><b>Casual Leaves </b></div>
-                        <div class="col-md-9" >: {{CasualLeavesBalance}}</div>
-                        <div class="col-md-3"><b>Casual Leaves Utilized:</b></div>
-                        <div class="col-md-2" ><input class="form-control" name="CasualLeaves" ng-model="CasualLeavesUtilized" maxlength="2" placeholder="Casual Leaves" /></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3"><b>Earn Leaves </b></div>
-                        <div class="col-md-9" >: {{EarnLeavesBalance}}</div>
-                        <div class="col-md-3" ><b>Earn Leaves Utilized :</b></div>
-                        <div class="col-md-2" ><input class="form-control" name="EarnLeaves" ng-model="EarnLeavesUtilized" maxlength="2" placeholder="Earn Leaves" /></div>
-                    </div>
+                        <div class="col-md-3"><b>Employee Name </b></div>
+                        <div class="col-md-9">: {{LeavesEmployeeName}}</div>
+                        <div class="col-md-3"><b>Employee Code </b></div>
+                        <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
+                        <div class="col-md-3"><b>Designation </b></div>
+                        <div class="col-md-9">: {{Designation}}</div>
+                        <div class="row">
+                            <div class="col-md-3"><b>Medical Leaves </b></div>
+                            <div class="col-md-9">: {{MedicalLeavesBalance}}</div>
+                            <div class="col-md-3"><b>Medical Leaves Utilized :</b></div>
+                            <div class="col-md-2"><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeavesUtilized" maxlength="2" placeholder="Medical Leaves" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><b>Casual Leaves </b></div>
+                            <div class="col-md-9">: {{CasualLeavesBalance}}</div>
+                            <div class="col-md-3"><b>Casual Leaves Utilized:</b></div>
+                            <div class="col-md-2"><input class="form-control" name="CasualLeaves" ng-model="CasualLeavesUtilized" maxlength="2" placeholder="Casual Leaves" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3"><b>Earn Leaves </b></div>
+                            <div class="col-md-9">: {{EarnLeavesBalance}}</div>
+                            <div class="col-md-3"><b>Earn Leaves Utilized :</b></div>
+                            <div class="col-md-2"><input class="form-control" name="EarnLeaves" ng-model="EarnLeavesUtilized" maxlength="2" placeholder="Earn Leaves" /></div>
+                        </div>
 
-                </div>
+                    </div>
                 </div>
                 <div class="col-md-12" ng-show="ShowLeaveData">
                     <button class="btn btn-success pull-right" ng-click="SaveLeaves()">Save</button>

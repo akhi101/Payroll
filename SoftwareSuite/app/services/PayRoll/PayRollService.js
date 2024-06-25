@@ -40,6 +40,19 @@ define(['app'], function (app) {
 
         };
 
+        this.GetEmployeebyMonthYear = function (FinancialYearID, MonthId) {
+
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthId": MonthId,
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEmployeebyMonthYear', paramObj);
+            return promise;
+
+        };
+
+       
+
 
         this.AddDesignations = function (DataTypeId, DesignationId, DesignationName, DesignationTypeId, DesignationOrder, NoOfPost, GONumber, NoOfVacants, Active, UserName) {
             var paramObject = {
@@ -289,17 +302,13 @@ define(['app'], function (app) {
 
 
 
-        this.AddBankDetails = function (DataTypeId, BankId, BankName, BankBranch, IFSCCode, Address1, Address2, Address3, PinCode, Active, UserName) {
+        this.AddBankDetails = function (DataTypeId, BankId, BankName, BankBranch, IFSCCode,  Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "BankId": BankId,
                 "BankName": BankName,
                 "BankBranch": BankBranch,
                 "IFSCCode": IFSCCode,
-                "Address1": Address1,
-                "Address2": Address2,
-                "Address3": Address3,
-                "PinCode": PinCode,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -308,17 +317,13 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateBankDetails = function (DataTypeId, BankId, BankName, BankBranch, IFSCCode, Address1, Address2, Address3, PinCode, Active, UserName) {
+        this.UpdateBankDetails = function (DataTypeId, BankId, BankName, BankBranch, IFSCCode,  Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "BankId": BankId,
                 "BankName": BankName,
                 "BankBranch": BankBranch,
                 "IFSCCode": IFSCCode,
-                "Address1": Address1,
-                "Address2": Address2,
-                "Address3": Address3,
-                "PinCode": PinCode,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -352,7 +357,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, BankDetails, AccountNumber, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -364,17 +369,17 @@ define(['app'], function (app) {
                 "DesignationId": DesignationId,
                 "DepartmentId": DepartmentId,
                 "Gender": Gender,
-                "PHC": PHC,
+                /*"PHC": PHC,*/
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
-                "CPSNo": CPSNo,
+                "PranNo": PranNo,
                 "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
-                "CategoryCode": CategoryCode,
+                /*"CategoryCode": CategoryCode,*/
                
                 "Active": Active,
                 "UserName": UserName
@@ -384,7 +389,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, PHC, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, CPSNo, BankDetails, AccountNumber, CategoryCode, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, BankDetails, AccountNumber, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -396,17 +401,17 @@ define(['app'], function (app) {
                 "DesignationId": DesignationId,
                 "DepartmentId": DepartmentId,
                 "Gender": Gender,
-                "PHC": PHC,
+                /*"PHC": PHC,*/
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
-                "CPSNo": CPSNo,
+                "PranNo": PranNo,
                 "BankDetails": BankDetails,
                 "AccountNumber": AccountNumber,
-                "CategoryCode": CategoryCode,
+                /*"CategoryCode": CategoryCode,*/
                 
                 "Active": Active,
                 "UserName": UserName
@@ -478,7 +483,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, Medical, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeId": EmployeeId,
@@ -489,6 +494,7 @@ define(['app'], function (app) {
                 "FPI": FPI,
                 "TG_Increment": TG_Increment,
                 "ConveyanceElevence": ConveyanceElevence,
+                "Medical": Medical,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
@@ -496,7 +502,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, Medical, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeId": EmployeeId,
@@ -507,6 +513,7 @@ define(['app'], function (app) {
                 "FPI": FPI,
                 "TG_Increment": TG_Increment,
                 "ConveyanceElevence": ConveyanceElevence,
+                "Medical": Medical,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
@@ -749,14 +756,15 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateElevence = function (DataTypeId, ElevenceId, IR, DA, HRA, Medical,  UserName) {
+        this.AddorUpdateElevence = function (DataTypeId, ElevenceId, IR, DA_NGO , DA_Officers , DA_BoardOfficers , HRA,   UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "ElevenceId": ElevenceId,
                 "IR": IR,
-                "DA": DA,
+                "DA_NGO": DA_NGO,
+                "DA_Officers": DA_Officers,
+                "DA_BoardOfficers": DA_BoardOfficers,
                 "HRA": HRA,            
-                "Medical": Medical,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateElevence', paramObject);

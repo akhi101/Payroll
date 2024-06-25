@@ -16,7 +16,7 @@
 
         $scope.getEditElevence = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEditElevence(DataTypeID, $scope.ElevenceId, $scope.IR, $scope.DA, $scope.HRA, $scope.Medical, 0, 0);
+            var getdesign = PayRollService.GetEditElevence(DataTypeID, $scope.ElevenceId, $scope.IR, $scope.DA_NGO, $scope.DA_Officers, $scope.DA_BoardOfficers, $scope.HRA,  0, 0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -48,9 +48,10 @@
         $scope.ClearData = function () {
             $scope.ElevenceId = null;
             $scope.IR = "";
-            $scope.DA = "";
+            $scope.DA_NGO = "";
+            $scope.DA_Officers = "";
+            $scope.DA_BoardOfficers = "";
             $scope.HRA = "";
-            $scope.Medical = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
 
@@ -64,7 +65,15 @@
                 alert("Enter IR");
                 return;
             }
-            if ($scope.DA == null || $scope.DA == undefined || $scope.DA == "") {
+            if ($scope.DA_NGO == null || $scope.DA_NGO == undefined || $scope.DA_NGO == "") {
+                alert("Enter DA");
+                return;
+            }
+            if ($scope.DA_Officers == null || $scope.DA_Officers == undefined || $scope.DA_Officers == "") {
+                alert("Enter DA");
+                return;
+            }
+            if ($scope.DA_BoardOfficers == null || $scope.DA_BoardOfficers == undefined || $scope.DA_BoardOfficers == "") {
                 alert("Enter DA");
                 return;
             }
@@ -72,12 +81,9 @@
                 alert("Enter HRA");
                 return;
             }
-            if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
-                alert("Enter Medical");
-                return;
-            }
+          
 
-            var addElevence = PayRollService.AddorUpdateElevence(datatypeid, 0, $scope.IR, $scope.DA, $scope.HRA, $scope.Medical, $scope.UserName)
+            var addElevence = PayRollService.AddorUpdateElevence(datatypeid, 0, $scope.IR, $scope.DA_NGO, $scope.DA_Officers, $scope.DA_BoardOfficers, $scope.HRA, $scope.UserName)
             addElevence.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -123,7 +129,7 @@
             var datatypeid = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateElevence(datatypeid, data.ElevenceID, data.IR, data.DA, data.HRA, data.Medical, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateElevence(datatypeid, data.ElevenceID, data.IR, data.DA_NGO, data.DA_Officers, data.DA_BoardOfficers, data.HRA,  $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
