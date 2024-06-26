@@ -98,8 +98,9 @@ define(['app'], function (app) {
                 $scope.PanNo = "";
                 $scope.CPS_NPS = "";
                 $scope.PranNo = "";
-                $scope.BankDetails = "";
+               /* $scope.BankDetails = "";*/
                 $scope.AccountNumber = "";
+                $scope.IFSCCode = "";
                 /*$scope.CategoryCode = "";*/
                 
             }
@@ -189,13 +190,17 @@ define(['app'], function (app) {
             }
 
 
-            if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
-                alert("Please Enter BankDetails");
-                return;
-            }
+            //if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
+            //    alert("Please Enter BankDetails");
+            //    return;
+            //}
 
             if ($scope.AccountNumber == undefined || $scope.AccountNumber == null || $scope.AccountNumber == "") {
                 alert("Please Enter AccountNumber");
+                return;
+            }
+            if ($scope.IFSCCode == undefined || $scope.IFSCCode == null || $scope.IFSCCode == "") {
+                alert("Please Enter IFSCCode");
                 return;
             }
 
@@ -207,7 +212,7 @@ define(['app'], function (app) {
 
             var datatypeid = 1
 
-            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.BankDetails, $scope.AccountNumber,  1, $scope.UserName)
+            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.AccountNumber, $scope.IFSCCode,  1, $scope.UserName)
             AddEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -328,7 +333,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.BankDetails, $scope.AccountNumber,   $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -363,12 +368,7 @@ define(['app'], function (app) {
 
         $scope.EditEmployeeDetails = function (EmployeeID,Active) {
 
-            //var ele1 = document.getElementsByClassName("enabletable" + ind);
-            //for (var j = 0; j < ele1.length; j++) {
-            //    ele1[j].style['pointer-events'] = "auto";
-            //    ele1[j].style.border = "1px solid #ddd";
-            //}
-            //$scope['edit' + ind] = false;
+            
             window.scroll({
                 top: 0,
                 left: 0,
@@ -408,8 +408,9 @@ define(['app'], function (app) {
                     $scope.GPFNo = res.Table[0].GPFNo;
                     $scope.CPS_NPS = res.Table[0].CPS_NPS;
                     $scope.PranNo = res.Table[0].PranNo;
-                    $scope.BankDetails = res.Table[0].BankDetails;
+                    /*$scope.BankDetails = res.Table[0].BankDetails;*/
                     $scope.AccountNumber = res.Table[0].AccountNumber;
+                    $scope.IFSCCode = res.Table[0].IFSCCode;
                     /*$scope.CategoryCode = res.Table[0].CategoryCode;*/
                    
                    
@@ -459,129 +460,129 @@ define(['app'], function (app) {
 
 
 
-        $scope.SelectBankDetails = function () {
+        //$scope.SelectBankDetails = function () {
 
-            let DataTypeID = 1
-            var getbank = PayRollService.GetBankDetailsData(DataTypeID, 0, 0);
-            getbank.then(function (response) {
+        //    let DataTypeID = 1
+        //    var getbank = PayRollService.GetBankDetailsData(DataTypeID, 0, 0);
+        //    getbank.then(function (response) {
 
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.BanksData = res.Table;
-                    $scope.Noreports = false;
-
-
-                }
-                else {
-                    $scope.BanksData = [];
-                    $scope.Noreports = true;
-                }
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        //$scope.edit = true;
+        //        if (res.Table.length > 0) {
+        //            $scope.BanksData = res.Table;
+        //            $scope.Noreports = false;
 
 
-            },
-
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
+        //        }
+        //        else {
+        //            $scope.BanksData = [];
+        //            $scope.Noreports = true;
+        //        }
 
 
-            $scope.modalInstance = $uibModal.open({
-                templateUrl: "/app/views/PayRoll/Popups/BankDetailsPopup.html",
-                size: 'lg',
-                scope: $scope,
-                windowClass: 'modal-fit',
-                backdrop: 'static',
-                keyboard: false
-            });
+        //    },
+
+        //        function (error) {
+        //            alert("error while loading Employee Details");
+        //            var err = JSON.parse(error);
+
+        //        });
 
 
-        }
-
-        $scope.closeModal = function () {
-            $scope.modalInstance.close();
-        };
-
-        $scope.getBranchesbyName = function (BankData) {
-            var BankData = JSON.parse(BankData)
-            console.log(BankData)
-            $scope.BankId = BankData.BankId;
-            $scope.BankName = BankData.BankName;
-
-            var getbranch = PayRollService.GetBankBranchbyName($scope.BankName);
-            getbranch.then(function (response) {
-
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.BranchsData = res.Table;
-                    $scope.Noreports = false;
+        //    //$scope.modalInstance = $uibModal.open({
+        //    //    templateUrl: "/app/views/PayRoll/Popups/BankDetailsPopup.html",
+        //    //    size: 'lg',
+        //    //    scope: $scope,
+        //    //    windowClass: 'modal-fit',
+        //    //    backdrop: 'static',
+        //    //    keyboard: false
+        //    //});
 
 
-                }
-                else {
-                    $scope.BranchsData = [];
-                    $scope.Noreports = true;
-                }
+        //}
+
+        //$scope.closeModal = function () {
+        //    $scope.modalInstance.close();
+        //};
+
+        //$scope.getBranchesbyName = function (BankData) {
+        //    var BankData = JSON.parse(BankData)
+        //    console.log(BankData)
+        //    $scope.BankId = BankData.BankId;
+        //    $scope.BankName = BankData.BankName;
+
+        //    var getbranch = PayRollService.GetBankBranchbyName($scope.BankName);
+        //    getbranch.then(function (response) {
+
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        //$scope.edit = true;
+        //        if (res.Table.length > 0) {
+        //            $scope.BranchsData = res.Table;
+        //            $scope.Noreports = false;
 
 
-            },
-
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
-        }
-
-        $scope.ChangeBranchs = function (BankBranch) {
-            $scope.BankBranch = BankBranch;
-            var getbranchifsc = PayRollService.GetBranchIFSC($scope.BankName,$scope.BankBranch);
-            getbranchifsc.then(function (response) {
-
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.BranchIFSCData = res.Table;
-                    $scope.IFSCCode = $scope.BranchIFSCData[0].IFSCCode;
-                    $scope.Noreports = false;
+        //        }
+        //        else {
+        //            $scope.BranchsData = [];
+        //            $scope.Noreports = true;
+        //        }
 
 
-                }
-                else {
-                    $scope.BranchsData = [];
-                    $scope.Noreports = true;
-                }
+        //    },
+
+        //        function (error) {
+        //            alert("error while loading Employee Details");
+        //            var err = JSON.parse(error);
+
+        //        });
+        //}
+
+        //$scope.ChangeBranchs = function (BankBranch) {
+        //    $scope.BankBranch = BankBranch;
+        //    var getbranchifsc = PayRollService.GetBranchIFSC($scope.BankName,$scope.BankBranch);
+        //    getbranchifsc.then(function (response) {
+
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
+        //        //$scope.edit = true;
+        //        if (res.Table.length > 0) {
+        //            $scope.BranchIFSCData = res.Table;
+        //            $scope.IFSCCode = $scope.BranchIFSCData[0].IFSCCode;
+        //            $scope.Noreports = false;
 
 
-            },
-
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
-
-        }
-
-        $scope.SubmitBankDetails = function (BankData, BankBranch) {
+        //        }
+        //        else {
+        //            $scope.BranchsData = [];
+        //            $scope.Noreports = true;
+        //        }
 
 
-            $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch + ',' + $scope.IFSCCode;
-            //$scope.BankId = BankData.BankId;
-            $scope.modalInstance.close();
-        }
+        //    },
+
+        //        function (error) {
+        //            alert("error while loading Employee Details");
+        //            var err = JSON.parse(error);
+
+        //        });
+
+        //}
+
+        //$scope.SubmitBankDetails = function (BankData, BankBranch) {
+
+
+        //    $scope.BankDetails = $scope.BankName + ',' + $scope.BankBranch + ',' + $scope.IFSCCode;
+        //    //$scope.BankId = BankData.BankId;
+        //    $scope.modalInstance.close();
+        //}
 
 
 
