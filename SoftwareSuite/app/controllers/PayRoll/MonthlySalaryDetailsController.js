@@ -3,9 +3,9 @@ define(['app'], function (app) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
-            $scope.EarnLeavesBalance = 10;
-            $scope.CasualLeavesBalance = 10;
-            $scope.MedicalLeavesBalance = 10;
+            $scope.EarnLeavesBalance = 30;
+            $scope.CasualLeavesBalance = 15;
+            $scope.MedicalLeavesBalance = 20;
             $scope.IncEmployeeData = false;
             $scope.DedEmployeeData = false;
 
@@ -60,7 +60,7 @@ define(['app'], function (app) {
 
         $scope.GetorEditIncrements = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetorEditIncrements(DataTypeID, $scope.IncrementsEmployeeId, $scope.IncrementsFinancialYear, $scope.IncrementsMonth, 0, 0);
+            var getdesign = PayRollService.GetorEditIncrements(DataTypeID, $scope.IncrementsFinancialYear, $scope.IncrementsMonth, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
@@ -188,16 +188,16 @@ define(['app'], function (app) {
 
                 });
         }
-        $scope.ChangeEmpData = function (data) {
-            var data = JSON.parse(data)
-            $scope.IncrementsFinancialYearId = data.FinancialYearID
-            $scope.IncrementsMonthId = data.MonthID
-            $scope.IncrementsEmployeeId = data.EmployeeID
-            $scope.EmployeeCode = data.EmployeeCode
-            $scope.EmployeeName = data.EmployeeName
-            $scope.Designation = data.DesignationName
+        //$scope.ChangeEmpData = function (data) {
+        //    var data = JSON.parse(data)
+        //    $scope.IncrementsFinancialYearId = data.FinancialYearID
+        //    $scope.IncrementsMonthId = data.MonthID
+        //    $scope.IncrementsEmployeeId = data.EmployeeID
+        //    $scope.EmployeeCode = data.EmployeeCode
+        //    $scope.EmployeeName = data.EmployeeName
+        //    $scope.Designation = data.DesignationName
 
-        }
+        //}
 
 
 

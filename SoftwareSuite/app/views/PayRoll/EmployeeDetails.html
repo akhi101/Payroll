@@ -231,7 +231,7 @@
                                     <input class="form-control" type="text" maxlength="50" placeholder="Enter PranNumber" ng-model="PranNo">
                                 </div>
 
-                                <div class="form-group col-md-8">
+                                <!--<div class="form-group col-md-8">
                                     <label>
                                         Bank Details:
                                     </label>
@@ -242,14 +242,19 @@
                                     <button class="btn pull-right btn-primary btn-css text-uppercase" style="margin-top: 23px;" ng-click="SelectBankDetails()">
                                         Select
                                     </button>
-                                </div>
-                                <div class="form-group col-md-4">
+                                </div>-->
+                                <div class="form-group col-md-3">
                                     <label>
                                         Account Number:
                                     </label>
                                     <input class="form-control" type="text" maxlength="50" placeholder="Enter AccountNumber" ng-model="AccountNumber">
                                 </div>
-
+                                <div class="form-group col-md-3">
+                                    <label>
+                                        IFSC Code:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter IFSC Code" ng-model="IFSCCode" onkeyup="this.value = this.value.toUpperCase();">
+                                </div>
                                 <!--<div class="form-group col-md-4">
                                     <label>
                                         Category Code:

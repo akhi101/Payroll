@@ -4551,6 +4551,8 @@
                 dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            
+
             'Dashboard.PayRollMasters.FinancialYearSettings': {
                 url: "/FinancialYearSettings",
                 templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',
@@ -4612,6 +4614,12 @@
                 dependencies: ['controllers/PayRoll/SalaryDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            'Dashboard.PayRollMasters.SalaryDetails': {
+                url: "/SalaryDetails",
+                templateUrl: 'app/views/PayRoll/EmployeeSalaryDetails.html',
+                dependencies: ['controllers/PayRoll/EmployeeSalaryDetailsController', 'services/PayRoll/PayRollService']
+            },
+            
             //'Dashboard.PayRollDashboard.FinancialYearSettings': {
             //    url: "/FinancialYearSettings",
             //    templateUrl: 'app/views/PayRoll/FinancialYearSettings.html',

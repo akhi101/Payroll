@@ -25,11 +25,10 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditIncrements = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, IncrementId, Active) {
+        this.GetorEditIncrements = function (DataTypeID, FinancialYearID, MonthID, IncrementId, Active) {
 
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeID": EmployeeID,
                 "FinancialYearID": FinancialYearID,
                 "MonthID": MonthID,
                 "IncrementId": IncrementId,
@@ -207,10 +206,10 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollIncrement = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, IncrementId, Active) {
+        this.PayRollIncrement = function (DataTypeID,  FinancialYearID, MonthID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "EmployeeID": EmployeeID,
+                
                 "FinancialYearID": FinancialYearID,
                 "MonthID": MonthID,
                 "IncrementId": IncrementId,
@@ -331,16 +330,16 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetBankDetailsData = function (DataTypeID, BankId, Active) {
-            var paramObj = {
-                "DataTypeID": DataTypeID,
-                "BankId": BankId,
-                "Active": Active
-            };
-            var promise = DataAccessService.postData('api/PayRoll/GetorEditBankDetailsData', paramObj);
-            return promise;
+        //this.GetBankDetailsData = function (DataTypeID, BankId, Active) {
+        //    var paramObj = {
+        //        "DataTypeID": DataTypeID,
+        //        "BankId": BankId,
+        //        "Active": Active
+        //    };
+        //    var promise = DataAccessService.postData('api/PayRoll/GetorEditBankDetailsData', paramObj);
+        //    return promise;
 
-        };
+        //};
 
         this.BankDetailStatus = function (DataTypeID, BankId, Active) {
             var paramObj = {
@@ -357,7 +356,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, BankDetails, AccountNumber, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -377,8 +376,9 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
-                "BankDetails": BankDetails,
+                /*"BankDetails": BankDetails,*/
                 "AccountNumber": AccountNumber,
+                "IFSCCode": IFSCCode,
                 /*"CategoryCode": CategoryCode,*/
                
                 "Active": Active,
@@ -389,7 +389,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, BankDetails, AccountNumber, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -409,8 +409,10 @@ define(['app'], function (app) {
                 "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
-                "BankDetails": BankDetails,
+               /* "BankDetails": BankDetails,*/
                 "AccountNumber": AccountNumber,
+                "IFSCCode": IFSCCode,
+
                 /*"CategoryCode": CategoryCode,*/
                 
                 "Active": Active,
