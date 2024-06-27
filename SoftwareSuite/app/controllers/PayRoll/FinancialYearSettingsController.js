@@ -58,7 +58,13 @@
 
         }
 
+        $scope.ClearData = function () {
+            $scope.StartYear = "";
+            $scope.FinancialYear = "";
 
+
+
+        }
         $scope.UpdateFinancialYear = function (dat, ind) {
             $scope['edit' + ind] = true;
 
@@ -75,12 +81,17 @@
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription)
                     $scope.GetData();
+                    $scope.ClearData();
+
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
+
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
 
 
                 });
@@ -112,12 +123,17 @@
                 if (response[0].ResponseCode == '200') {
                     alert(response[0].ResponseDescription)
                     $scope.GetData();
+                    $scope.ClearData();
+
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
+
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
 
 
                 });
