@@ -10,7 +10,12 @@
 
 
         }
+        $scope.ClearData = function () {
+            $scope.DepartmentName = "";
+           
 
+
+        }
         
         $scope.Add = function () {
 
@@ -30,19 +35,26 @@
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.getdepartmentdata();
+                    $scope.ClearData();
+
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.getdepartmentdata();
+                    $scope.ClearData();
+
 
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
 
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
+
 
 
                 });
@@ -112,18 +124,25 @@
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
                     $scope.getdepartmentdata();
+                    $scope.ClearData();
+
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
                     $scope.getdepartmentdata();
+                    $scope.ClearData();
+
 
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
+
 
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
 
 
                 });

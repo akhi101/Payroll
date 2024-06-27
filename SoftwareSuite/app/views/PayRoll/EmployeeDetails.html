@@ -102,9 +102,9 @@
                                     <label for="date-picker-example">Date Of Retirement:</label>
                                     <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
                                         <input type="text" show-weeks="false" class="form-control" disabled id="datetimepicker3" placeholder="DD/MM/YYYY" autocomplete="off" name="DOR" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOR" ng-change="checkDate2(DOR)" is-open="showFlag3" required />
-                                        <span class="input-group-btn">
+                                        <!--<span class="input-group-btn">
                                             <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
-                                        </span>
+                                        </span>-->
                                     </p>
                                 </div>
 
@@ -208,29 +208,33 @@
 
                                 <div class="form-group col-md-3">
                                     <label>
-                                        GPF Number:
-                                    </label>
-                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter GPFNumber" ng-model="GPFNo">
-                                </div>
-
-                                <div class="form-group col-md-3">
-                                    <label>
                                         CPS/NPS:
                                     </label>
-                                    <select class="form-control" name="applicationForm.CPS_NPS" ng-model="CPS_NPS">
+                                    <select class="form-control" name="applicationForm.CPS_NPS" ng-model="CPS_NPS" ng-change="ChangeNPS(CPS_NPS)">
                                         <option value="">Select CPS / NPS</option>
                                         <option value="Y">YES</option>
                                         <option value="N">NO</option>
                                     </select>
                                 </div>
 
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3" ng-show="showprannumber">
                                     <label>
                                         Pran Number:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter PranNumber" ng-model="PranNo">
+                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter PranNumber" ng-model="PranNo" >
                                 </div>
-
+                                <div class="form-group col-md-3" ng-show="showgpfnumber">
+                                    <label>
+                                        GPF Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter GPFNumber" ng-model="GPFNo" >
+                                </div>
+                                <div class="form-group col-md-3" ng-show="showtsglinumber">
+                                    <label>
+                                        TSGLI Number:
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter TSGLINumber" ng-model="TSGLINo" >
+                                </div>
                                 <!--<div class="form-group col-md-8">
                                     <label>
                                         Bank Details:

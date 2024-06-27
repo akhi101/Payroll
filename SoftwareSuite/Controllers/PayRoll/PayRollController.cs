@@ -637,9 +637,11 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string IncrementMonth { get; set; }
             public string ScaleType { get; set; }
             public string PanNO { get; set; }
-            public string GPFNo { get; set; }
+          
             public string CPS_NPS { get; set; }
             public string PranNo { get; set; }
+            public string GPFNo { get; set; }
+            public string TSGLINo { get; set; }
             
             public string AccountNumber { get; set; }
             public string IFSCCode { get; set; }
@@ -660,7 +662,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[21];
+                var param = new SqlParameter[22];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
                 param[2] = new SqlParameter("@EmployeeCode", data.EmployeeCode);
@@ -675,13 +677,14 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[11] = new SqlParameter("@IncrementMonth", data.IncrementMonth);
                 param[12] = new SqlParameter("@ScaleType", data.ScaleType);
                 param[13] = new SqlParameter("@PanNO", data.PanNO);
-                param[14] = new SqlParameter("@GPFNo", data.GPFNo);
-                param[15] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
-                param[16] = new SqlParameter("@PranNo", data.PranNo);
-                param[17] = new SqlParameter("@AccountNumber", data.AccountNumber);
-                param[18] = new SqlParameter("@IFSCCode", data.IFSCCode);
-                param[19] = new SqlParameter("@Active", data.Active);
-                param[20] = new SqlParameter("@UserName", data.UserName);
+                param[14] = new SqlParameter("@CPS_NPS", data.CPS_NPS);
+                param[15] = new SqlParameter("@PranNo", data.PranNo);
+                param[16] = new SqlParameter("@GPFNo", data.GPFNo);
+                param[17] = new SqlParameter("@TSGLINo", data.TSGLINo);
+                param[18] = new SqlParameter("@AccountNumber", data.AccountNumber);
+                param[19] = new SqlParameter("@IFSCCode", data.IFSCCode);
+                param[20] = new SqlParameter("@Active", data.Active);
+                param[21] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeDetails", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;

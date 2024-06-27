@@ -356,7 +356,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, AccountNumber, IFSCCode, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, TSGLINo, AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -368,19 +368,16 @@ define(['app'], function (app) {
                 "DesignationId": DesignationId,
                 "DepartmentId": DepartmentId,
                 "Gender": Gender,
-                /*"PHC": PHC,*/
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
-                "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
-                /*"BankDetails": BankDetails,*/
+                "GPFNo": GPFNo,
+                "TSGLINo": TSGLINo,
                 "AccountNumber": AccountNumber,
                 "IFSCCode": IFSCCode,
-                /*"CategoryCode": CategoryCode,*/
-               
                 "Active": Active,
                 "UserName": UserName
             };
@@ -389,7 +386,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, GPFNo, CPS_NPS, PranNo, AccountNumber, IFSCCode, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, TSGLINo ,AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -401,20 +398,16 @@ define(['app'], function (app) {
                 "DesignationId": DesignationId,
                 "DepartmentId": DepartmentId,
                 "Gender": Gender,
-                /*"PHC": PHC,*/
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
-                "GPFNo": GPFNo,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
-               /* "BankDetails": BankDetails,*/
+                "GPFNo": GPFNo,
+                "TSGLINo": TSGLINo,
                 "AccountNumber": AccountNumber,
                 "IFSCCode": IFSCCode,
-
-                /*"CategoryCode": CategoryCode,*/
-                
                 "Active": Active,
                 "UserName": UserName
             };

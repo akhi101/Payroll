@@ -18,7 +18,19 @@ define(['app'], function (app) {
 
 
             }
-        
+        $scope.ChangeNPS = function (CPS_NPS) {
+            if (CPS_NPS=="Y") {
+                $scope.showprannumber = true;
+                $scope.showgpfnumber = false;
+                $scope.showtsglinumber = false;
+
+            }
+            else if (CPS_NPS == "N"){
+                $scope.showprannumber = false;
+                $scope.showgpfnumber = true;
+                $scope.showtsglinumber = true;
+            }
+        }
 
         var DataTypeID = 1
         var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
@@ -88,8 +100,8 @@ define(['app'], function (app) {
                 $scope.DOB = "";
                 $scope.DOJ = "";
                 $scope.DOR = "";
-                $scope.Designation = "";
-                $scope.Department = "";
+                $scope.Designation = null;
+                $scope.Department = null;
                 $scope.Gender = "";
 /*                $scope.PHC = "";*/
                 $scope.Empstatus = "";
@@ -98,6 +110,8 @@ define(['app'], function (app) {
                 $scope.PanNo = "";
                 $scope.CPS_NPS = "";
                 $scope.PranNo = "";
+                $scope.GPFNo = "";
+                $scope.TSGLINo = "";
                /* $scope.BankDetails = "";*/
                 $scope.AccountNumber = "";
                 $scope.IFSCCode = "";
@@ -174,9 +188,22 @@ define(['app'], function (app) {
                 return;
             }
 
-            if ($scope.GPFNo == undefined || $scope.GPFNo == null || $scope.GPFNo == "") {
-                alert("Please Enter GPFNumber");
-                return;
+            if ($scope.CPS_NPS == "Y") {
+                if ($scope.PranNo == undefined || $scope.PranNo == null || $scope.PranNo == "") {
+                    alert("Please Enter PranNumber");
+                    return;
+                }
+            }
+            else {
+
+                if ($scope.GPFNo == undefined || $scope.GPFNo == null || $scope.GPFNo == "") {
+                    alert("Please Enter GPFNumber");
+                    return;
+                }
+                if ($scope.TSGLINo == undefined || $scope.TSGLINo == null || $scope.TSGLINo == "") {
+                    alert("Please Enter TSGLINumber");
+                    return;
+                }
             }
 
             if ($scope.CPS_NPS == undefined || $scope.CPS_NPS == null || $scope.CPS_NPS == "") {
@@ -184,16 +211,7 @@ define(['app'], function (app) {
                 return;
             }
 
-            if ($scope.PranNo == undefined || $scope.PranNo == null || $scope.PranNo == "") {
-                alert("Please Enter PranNumber");
-                return;
-            }
-
-
-            //if ($scope.BankDetails == undefined || $scope.BankDetails == null || $scope.BankDetails == "") {
-            //    alert("Please Enter BankDetails");
-            //    return;
-            //}
+ 
 
             if ($scope.AccountNumber == undefined || $scope.AccountNumber == null || $scope.AccountNumber == "") {
                 alert("Please Enter AccountNumber");
@@ -204,16 +222,11 @@ define(['app'], function (app) {
                 return;
             }
 
-            //if ($scope.CategoryCode == undefined || $scope.CategoryCode == null || $scope.CategoryCode == "") {
-            //    alert("Please Enter CategoryCode");
-            //    return;
-            //}
-            
 
             var datatypeid = 1
 
-            var AddEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.AccountNumber, $scope.IFSCCode,  1, $scope.UserName)
-            AddEmployeeDetails.then(function (res) {
+            var addEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,  1, $scope.UserName)
+            addEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
                 //} catch (err) { }
@@ -225,7 +238,7 @@ define(['app'], function (app) {
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
-                    $scope.getEmployeeDetailsDatafF();
+                    $scope.getEmployeeDetailsData();
 
                 } else {
                     alert('Something Went Wrong');
@@ -252,6 +265,14 @@ define(['app'], function (app) {
                 return;
             } else {
                 $scope.DOB = DOB;
+            }
+
+            if (DOB) {
+                var dobDate = new Date(DOB);
+                var dorDate = new Date(dobDate.setFullYear(dobDate.getFullYear() + 61));
+                $scope.DOR = dorDate.toISOString().split('T')[0]; // Format as yyyy-mm-dd
+            } else {
+                $scope.DOR = '';
             }
         }
 
@@ -333,24 +354,35 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.GPFNo, $scope.CPS_NPS, $scope.PranNo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
+                    $scope.ClearData();
+
+                    $scope.AddDetails = '1';
+                    $scope.UpdateDetails = '0';
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
+                    $scope.ClearData();
+                    $scope.AddDetails = '1';
+                    $scope.UpdateDetails = '0';
+
 
                 } else {
-                    alert('Something Went Wrong')
+                    alert('Something Went Wrong');
+                    $scope.ClearData();
 
                 }
             },
                 function (error) {
-                    alert("something Went Wrong")
+                    alert("something Went Wrong");
+                    $scope.ClearData();
+
 
 
                 });
@@ -400,18 +432,16 @@ define(['app'], function (app) {
                     $scope.Designation = res.Table[0].DesignationId;
                     $scope.Department = res.Table[0].DepartmentId;
                     $scope.Gender = res.Table[0].Gender;
-                   
                     $scope.Empstatus = res.Table[0].Empstatus;
                     $scope.IncrementMonth = res.Table[0].IncrementMonth;
                     $scope.ScaleType = res.Table[0].ScaleType;
                     $scope.PanNo = res.Table[0].PanNo;
-                    $scope.GPFNo = res.Table[0].GPFNo;
                     $scope.CPS_NPS = res.Table[0].CPS_NPS;
                     $scope.PranNo = res.Table[0].PranNo;
-                    /*$scope.BankDetails = res.Table[0].BankDetails;*/
+                    $scope.GPFNo = res.Table[0].GPFNo;
+                    $scope.TSGLINo = res.Table[0].TSGLINo;
                     $scope.AccountNumber = res.Table[0].AccountNumber;
                     $scope.IFSCCode = res.Table[0].IFSCCode;
-                    /*$scope.CategoryCode = res.Table[0].CategoryCode;*/
                    
                    
 

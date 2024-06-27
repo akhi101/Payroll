@@ -486,9 +486,9 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.ChangeActive = function (EmployeeID, FinancialYearID, MonthID, IncrementID, Status) {
+        $scope.ChangeActive = function ( FinancialYearID, MonthID, IncrementID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollIncrement(DataType, EmployeeID, FinancialYearID, MonthID, IncrementID, Status);
+            var getSlides = PayRollService.PayRollIncrement(DataType, FinancialYearID, MonthID, IncrementID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {

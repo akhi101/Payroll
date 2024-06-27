@@ -6,6 +6,7 @@ define(['app'], function (app) {
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
+           
             $scope.getdesignationdata();
 
 
@@ -43,6 +44,7 @@ define(['app'], function (app) {
 
         $scope.DesignationCodeValues1 = [{ "DesignationOrder": '1', "value": '1' }, { "DesignationOrder": '2', "value": '2' }, { "DesignationOrder": '3', "value": '3' }, { "DesignationOrder": '4', "value": '4' },
             { "DesignationOrder": '5', "value": '5' }, { "DesignationOrder": '6', "value": '6' }];
+
         $scope.Add = function () {
 
             var datatypeid = 1
@@ -51,28 +53,34 @@ define(['app'], function (app) {
             if ($scope.DesignationName == null || $scope.DesignationName == undefined || $scope.DesignationName == "") {
                 alert("Please Enter Designation Name");
                 return;
-            } if ($scope.DesignationType == null || $scope.DesignationType == undefined || $scope.DesignationType == "") {
+            }
+            if ($scope.DesignationType == null || $scope.DesignationType == undefined || $scope.DesignationType == "") {
                 alert("Please Select Designation Type");
-                return;
-            } if ($scope.DesignationOrder == null || $scope.DesignationOrder == undefined || $scope.DesignationOrder == "") {
-                alert("Please Enter Designation Order");
-                return;
-            }
-            if ($scope.NoofPost == undefined || $scope.NoofPost == null || $scope.NoofPost == "") {
-                alert("Please Enter No of Post");
-                return;
-            }
-            if ($scope.GONumber == undefined || $scope.GONumber == null || $scope.GONumber == "") {
-                alert("Please Enter GO Number");
-                return;
-            }
-            if ($scope.NoofVacants == undefined || $scope.NoofVacants == null || $scope.NoofVacants == "") {
-                alert("Please Enter No of Vacants");
                 return;
             }
 
+            //if ($scope.DesignationOrder == null || $scope.DesignationOrder == undefined || $scope.DesignationOrder == "") {
+            //    alert("Please Enter Designation Order");
+            //    return;
+            //}
+            //if ($scope.NoofPost == undefined || $scope.NoofPost == null || $scope.NoofPost == "") {
+            //    alert("Please Enter No of Post");
+            //    return;
+            //}
+            //if ($scope.GONumber == undefined || $scope.GONumber == null || $scope.GONumber == "") {
+            //    alert("Please Enter GO Number");
+            //    return;
+            //}
+            //if ($scope.NoofVacants == undefined || $scope.NoofVacants == null || $scope.NoofVacants == "") {
+            //    alert("Please Enter No of Vacants");
+            //    return;
+            //}
+            let DesignationOrder = ($scope.DesignationOrder == null || $scope.DesignationOrder == undefined || $scope.DesignationOrder == "" ? 0 : $scope.DesignationOrder)
+            let NoofPost = ($scope.NoofPost == null || $scope.NoofPost == undefined || $scope.NoofPost == "" ? 0 : $scope.NoofPost)
+            let GONumber = ($scope.GONumber == null || $scope.GONumber == undefined || $scope.GONumber == "" ? 0 : $scope.GONumber)
+            let NoofVacants = ($scope.NoofVacants == null || $scope.NoofVacants == undefined || $scope.NoofVacants == "" ? 0 : $scope.NoofVacants)
             var datatypeid = 1
-            var AddDesignation = PayRollService.AddDesignations(datatypeid, 0, $scope.DesignationName, $scope.DesignationType, $scope.DesignationOrder, $scope.NoofPost, $scope.GONumber, $scope.NoofVacants, 1, $scope.UserName)
+            var AddDesignation = PayRollService.AddDesignations(datatypeid, 0, $scope.DesignationName, $scope.DesignationType,DesignationOrder, NoofPost, GONumber, NoofVacants, 1, $scope.UserName)
             AddDesignation.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -80,26 +88,40 @@ define(['app'], function (app) {
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.getdesignationdata();
-
+                    $scope.ClearData();
+                   
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.getdesignationdata();
+                    $scope.ClearData();
+                 
 
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
 
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
 
 
                 });
         }
 
 
+        $scope.ClearData = function () {
+            $scope.DesignationName = "";
+            $scope.DesignationType = null;
+            $scope.DesignationOrder = "";
+            $scope.NoofPost = "";
+            $scope.GONumber = "";
+            $scope.NoofVacants = "";
+            
 
+        }
 
 
         $scope.getdesignationdata = function () {
@@ -177,18 +199,24 @@ define(['app'], function (app) {
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
                     $scope.getdesignationdata();
+                    $scope.ClearData();
+                    
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
                     $scope.getdesignationdata();
+                    $scope.ClearData();
+                   
 
                 } else {
                     alert('Something Went Wrong')
+                    $scope.ClearData();
 
                 }
             },
                 function (error) {
                     alert("something Went Wrong")
+                    $scope.ClearData();
 
 
                 });
