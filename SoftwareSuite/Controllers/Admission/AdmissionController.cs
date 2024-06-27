@@ -610,7 +610,7 @@ namespace SoftwareSuite.Controllers.Admission
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@pin", Pin);
                 param[1] = new SqlParameter("@UserName", UserName);
-                param[2] = new SqlParameter("@IpAddress", IpAddress);
+                param[2] = new SqlParameter("@IpAdress", IpAddress);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_RELEASE_ADHAR_ATTENDEE_BY_PIN", param);
                 if(dt.Rows[0]["ResponceCode"].ToString() == "200")
                 {
@@ -676,7 +676,7 @@ namespace SoftwareSuite.Controllers.Admission
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@pin", Pin);
                 param[1] = new SqlParameter("@UserName", UserName);
-                param[2] = new SqlParameter("@IpAddress", IpAddress);
+                param[2] = new SqlParameter("@IpAdress", IpAddress);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_RELEASE_ATTENDEEID_BY_PIN", param);
                 if (dt.Rows[0]["ResponceCode"].ToString() == "200")
                 {
@@ -931,7 +931,7 @@ namespace SoftwareSuite.Controllers.Admission
         }
 
         [HttpGet, ActionName("SetAadharUpdationDetails")]
-        public string SetAadharUpdationDetails(string PolycetHTNO,int StudentId,string AadharNo, UserName)
+        public string SetAadharUpdationDetails(string PolycetHTNO,int StudentId,string AadharNo, string UserName)
         {
             try
             {
@@ -942,7 +942,7 @@ namespace SoftwareSuite.Controllers.Admission
                 param[1] = new SqlParameter("@StudentId", StudentId);
                 param[2] = new SqlParameter("@AadharNo", AadharNo);
                 param[3] = new SqlParameter("@UserName", UserName);
-                param[4] = new SqlParameter("@IpAddress", IpAddress);
+                param[4] = new SqlParameter("@IpAdress", IpAddress);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Set_AadharUpdtionDetails", param);
 
                 return JsonConvert.SerializeObject(dt);
