@@ -70,14 +70,14 @@
             var promise = DataAccessService.getDataWithPara('Admission/GetStudentCategoryPinList', paramObject);
             return promise;
         }
-        this.getReleaseAadharByPin = function (pin) {
-            var paramObject = { "pin": pin };
+        this.getReleaseAadharByPin = function (pin, UserName) {
+            var paramObject = { "pin": pin, "UserName": UserName};
             var promise = DataAccessService.getDataWithPara('Admission/GetReleaseAadharBypin', paramObject);
             return promise;
         }
 
-        this.GetReleaseAttendeeIdBypin = function (pin) {
-            var paramObject = { "pin": pin };
+        this.GetReleaseAttendeeIdBypin = function (pin,UserName) {
+            var paramObject = { "pin": pin, "UserName": UserName};
             var promise = DataAccessService.getDataWithPara('Admission/GetReleaseAttendeeIdBypin', paramObject);
             return promise;
         }
@@ -132,15 +132,15 @@
             return promise;
         }
 
-        this.GetAadharUpdationDetails = function (PolycetHTNO) {
-            var paramObject = { "PolycetHTNO": PolycetHTNO };
+        this.GetAadharUpdationDetails = function (PolycetHTNO,UserName) {
+            var paramObject = { "PolycetHTNO": PolycetHTNO, "UserName": UserName };
             var promise = DataAccessService.getDataWithPara('Admission/GetAadharUpdationDetails', paramObject);
             return promise;
         }
 
-        this.SetAadharUpdationDetails = function (PolycetHTNO, StudentId, AadharNo) {
+        this.SetAadharUpdationDetails = function (PolycetHTNO, StudentId, AadharNo, UserName) {
             var paramObject = {
-                "PolycetHTNO": PolycetHTNO, "StudentId": StudentId, "AadharNo": AadharNo
+                "PolycetHTNO": PolycetHTNO, "StudentId": StudentId, "AadharNo": AadharNo, "UserName": UserName
             };
             return DataAccessService.getDataWithPara('Admission/SetAadharUpdationDetails', paramObject);
         };

@@ -1,7 +1,10 @@
 ﻿define(['app'], function (app) {
     app.controller("ReleaseAadhaarController", function ($scope, $http, $localStorage, $state, AppSettings, AdmissionService) {
         $scope.loading = false;
-
+        var authData = $localStorage.authorizationData;
+        $scope.ExamCategory = [];
+        $scope.userName = authData.userName;
+       
         $scope.ReleaseAadhar = function () {
 
             if (confirm("Are you sure you want to Release Aadhar?") == true) {
@@ -26,7 +29,7 @@
 
         $scope.ReleaseAttendee = function () {
             $scope.loading = true;
-            var getActiveList = AdmissionService.GetReleaseAttendeeIdBypin($scope.studentPin);
+            var getActiveList = AdmissionService.GetReleaseAttendeeIdBypin($scope.studentPin, $scope.userName);
             getActiveList.then(function (response) {
                 if (response != "") {
                     if (response[0].ResponceCode == '200') {
@@ -63,7 +66,7 @@
 
         $scope.getDetails = function () {
             $scope.loading = true;       
-            var getActiveList = AdmissionService.getReleaseAadharByPin($scope.studentPin);
+            var getActiveList = AdmissionService.getReleaseAadharByPin($scope.studentPin, $scope.userName);
             getActiveList.then(function (response) {
                 if (response != "") {
                     if (response[0].ResponceCode == '200') {
@@ -98,7 +101,7 @@
         }
 
         $scope.getAadharUpdationDetails = function () {
-            var getdetails = AdmissionService.GetAadharUpdationDetails($scope.PolycetHtNumber);
+            var getdetails = AdmissionService.GetAadharUpdationDetails($scope.PolycetHtNumber, $scope.userName);
             getdetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -119,7 +122,7 @@
         }
 
         $scope.updateaadharnumber = function () {
-            var getdetails = AdmissionService.SetAadharUpdationDetails($scope.PolycetHtNumber, $scope.StudentID, $scope.CorreectedAadhaarNumber);
+            var getdetails = AdmissionService.SetAadharUpdationDetails($scope.PolycetHtNumber, $scope.StudentID, $scope.CorreectedAadhaarNumber, $scope.userName);
             getdetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
