@@ -813,5 +813,39 @@ define(['app'], function (app) {
         };
 
 
+
+        this.GetorEditLIC = function (DataTypeID, EmployeeID,PolicyID,LICID, Active) {
+
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "EmployeeID": EmployeeID,
+                "PolicyID": PolicyID,
+                "LICID": LICID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditLIC', paramObj);
+            return promise;
+
+        };
+
+
+
+        this.AddorUpdateLIC = function (DataTypeID, LICID,  EmployeeID,PolicyID, PolicyNumber, PremiumAmount, LICAmountJson, Active, UserName) {
+            var paramObject = {
+                "DataTypeID": DataTypeID,
+                "LICID": LICID,
+                "EmployeeID": EmployeeID,
+                "PolicyID": PolicyID,
+                "PolicyNumber": PolicyNumber,
+                "PremiumAmount": PremiumAmount,
+                "LICAmountJson": LICAmountJson,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateLIC', paramObject);
+            return promise;
+        };
+
+
     });
 });

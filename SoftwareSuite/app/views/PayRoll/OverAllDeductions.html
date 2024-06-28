@@ -1,3 +1,16 @@
+<script>
+    function validateInput(element) {
+        let value = parseInt(element.value, 10);
+        if (isNaN(value)) {
+            element.value = '';
+        } else if (value < 1) {
+            element.value = '';
+        } else if (value > 10) {
+            element.value = '';
+        }
+    }
+</script>
+
 <style>
     .tableinpt {
         width: 100%;
@@ -59,6 +72,9 @@
             </li>
             <li class="noprint">
                 <a href="#3" class="noprint   font-weight-bold" data-toggle="tab">House Building Advance(HBA)</a>
+            </li>
+            <li class="noprint">
+                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">LIC</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -542,6 +558,168 @@
                                 <td style="text-align:center">
                                     <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeHBAActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.HBAId,0)" ng-if="data.Active==1">Active</button>
                                     <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeHBAActive(data.EmployeeID,data.FinancialYearID,data.MonthID,data.HBAId,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+
+
+
+
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="tab-pane " id="4">
+                <div class="card">
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Employee :</label>
+                            <select class="form-control" ng-model="LICEmployeeID" ng-change="ChangeLICReport(LICEmployeeID)" name="StudentType" required>
+                                <option value="" selected>Select Employee </option>
+                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getorEditLIC()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sm-spacer"></div>
+
+                <div class="card" ng-show="LICEmployeeData">
+                    <div class="col-md-3"><b>Employee Name </b></div>
+                    <div class="col-md-9">: {{LICEmployeeName}}</div>
+                    <div class="col-md-3"><b>Employee Id </b></div>
+                    <div class="col-md-9">: {{LICEmployeeCode}}</div>
+                    <div class="col-md-3"><b>Designation </b></div>
+                    <div class="col-md-9">: {{LICDesignation}}</div>
+                    <br />
+
+                    <div class="row" style="margin-right:0px;margin-left:0px">
+                        <!--<div class="col-md-4">
+                <div class="form-group">
+                    <label class="font-weight-bold">LIC Policy Number:</label>
+
+                    <input class="form-control" placeholder="Enter Policy Number" ng-model="PolicyNumber" name="Policy Number" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="font-weight-bold">Premimum Amount:</label>
+                    <input class="form-control" placeholder="Enter Premimum Amount" ng-model="PremimumAmount" name="Premimum Amount" />
+
+                </div>
+            </div>-->
+
+
+                        <div class="col-md-4" style=" margin-bottom: 40px; margin-top: 10px; ">
+                            <button class="btn btn-success" ng-click="addUser()">ADD</button>
+                        </div>
+                    </div>
+                    <section ng-repeat="user in studentfilearr">
+                        <section class="users-container-inputs">
+                            <div class="row" id="userfile{{$index}}">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Policy ID:</label>
+                                        <input class="form-control" id="studentFile{{$index}}" min="1" max="10" maxlength="2" placeholder="Enter Policy ID" ng-model="PolicyID$index" name="numberInput" oninput="validateInput(this)" onchange="angular.element(this).scope().submitlicpolicyid(this, angular.element(this).scope().$index);" name="Policy ID" />
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">LIC Policy Number :</label>
+                                        <input class="form-control" id="studentFile{{$index}}" placeholder="Enter LIC Policy Number" ng-model="LICPolicyNumber$index" onchange="angular.element(this).scope().submitlicpolicy(this, angular.element(this).scope().$index);" name="LIC Policy Number" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="font-weight-bold">Premium Amount:</label>
+                                        <input class="form-control" id="studentFile{{$index}}" placeholder="Enter Premium Amount" ng-model="PremiumAmount$index" onchange="angular.element(this).scope().submitpremiumamount(this, angular.element(this).scope().$index);" name="Premium Amount" />
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2" style="top:25px">
+                                    <span>
+                                        <button class="btn btn-sm btn-danger" ng-click="removeUser($index)" ng-disabled="DeleteDisable">Delete</button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </section>
+                    </section>
+                </div>
+
+                <div class="sm-spacer"></div>
+                <div class="col-md-12">
+                    <button class="btn btn-success pull-right" ng-click="submitLICDetails()">Submit</button>
+                </div>
+                <div class="sm-spacer"></div>
+
+                <div class="row" ng-show="DataNotFound2">
+                    <div class="col-md-12">
+                        <div ng-show="DataNotFound2" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="spacer"></div>
+
+                <div class="sm-spacer"></div>
+
+                <div class="" ng-show="GetAllLIC.length>0" style="margin-top:150px">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1" style="padding-left: 25px;">
+
+                                <th class="text-center">Employee Code</th>
+                                <th class="text-center">Employee Name</th>
+                                <th class="text-center">Policy ID</th>
+                                <th class="text-center">Policy Number</th>
+                                <th class="text-center">Premium Amount</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in GetAllLIC">
+
+                                <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PolicyID" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PolicyNumber" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PremiumAmount" /></div></td>
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditLIC(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateLIC(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLICActive(data.EmployeeID,data.PolicyID,data.LICID,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLICActive(data.EmployeeID,data.PolicyID,data.LICID,1)" ng-if="data.Active==0">InActive</button>
                                 </td>
 
 
