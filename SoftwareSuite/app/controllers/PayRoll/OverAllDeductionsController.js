@@ -11,8 +11,6 @@ define(['app'], function (app) {
             $scope.FinancialYears();
             $scope.GetMonths();
             $scope.getAdvanceType();
-            //$scope.GetorEditAdvance();
-      /*      $scope.GetorEditHBA();*/
 
 
         }
@@ -373,6 +371,14 @@ define(['app'], function (app) {
             $scope.HBAEmployeeData = true;
         }
 
+        $scope.ChangeLICReport = function (data) {
+            //$scope.GetorEditLIC();
+            var data = JSON.parse(data)
+            $scope.LICEmployeeId = data.EmployeeID
+            $scope.LICEmployeeCode = data.EmployeeCode
+            $scope.LICEmployeeName = data.EmployeeName
+            $scope.LICDesignation = data.DesignationName
+        }
 
         $scope.ChangeEmpData = function (data) {
 
@@ -586,6 +592,270 @@ define(['app'], function (app) {
         }
 
 
+
+
+
+        $scope.ChangeLICEmpData = function (data) {
+            var data = JSON.parse(data)
+            $scope.LICEmployeeId = data.EmployeeID
+            $scope.LICEmployeeCode = data.EmployeeCode
+            $scope.LICEmployeeName = data.EmployeeName
+            $scope.LICDesignation = data.DesignationName
+
+            $scope.LICEmployeeData = true;
+
+
+        }
+
+
+        $scope.getorEditLIC = function () {
+            $scope.LICEmployeeData = true;
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditLIC(DataTypeID, $scope.LICEmployeeId, 0,0, 0);
+            getdesign.then(function (response) {
+                var response = JSON.parse(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.GetAllLIC = response.Table;
+                    $scope.DataNotFound2 = false;
+                    for (var j = 1; j < $scope.GetAllLIC.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                else {
+                    $scope.GetAllLIC = [];
+                    $scope.DataNotFound2 = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Advance Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+      
+
+        $scope.submitLICDetails = function () {
+            var DataTypeId = 1
+            if ($scope.studentfilearr[0].PolicyID == '' || $scope.studentfilearr[0].PolicyID == null || $scope.studentfilearr[0].PolicyID == undefined) {
+                alert('Please Enter Policy ID');
+                return;
+            }
+            if ($scope.studentfilearr[0].PolicyNumber == '' || $scope.studentfilearr[0].PolicyNumber == null || $scope.studentfilearr[0].PolicyNumber == undefined) {
+                alert('Please Enter  LIC Policy Number');
+                return;
+            }
+            if ($scope.studentfilearr[0].PremiumAmount == '' || $scope.studentfilearr[0].PremiumAmount == null || $scope.studentfilearr[0].PremiumAmount == undefined) {
+                alert('Please Enter  PremiumAmount');
+                return;
+            }
+            var addlicdetails = PayRollService.AddorUpdateLIC(DataTypeId, 0, $scope.LICEmployeeId, 0, 0,0, JSON.stringify($scope.studentfilearr), 1, $scope.UserName)
+            addlicdetails.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].ResponseCode == '200') {
+                    alert(res[0].ResponseDescription);
+                    $scope.getorEditLIC()
+
+                }
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.getorEditLIC()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+
+        $scope.ChangeLICActive = function (EmployeeID, PolicyID, LICID, Status) {
+            var DataType = 3;
+            var getSlides = PayRollService.GetorEditLIC(DataType, EmployeeID, PolicyID, LICID, Status);
+            getSlides.then(function (res) {
+                var response = JSON.parse(res)
+                if (response.Table[0].ResponseCode == '200') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getorEditLIC();
+                } else if (response.Table[0].ResponseCode == '400') {
+                    alert(response.Table[0].ResponseDescription)
+                    $scope.getorEditLIC();
+                } else {
+                    alert("Something Went Wrong")
+                }
+            },
+                function (error) {
+
+                    alert("error while loading Slides");
+                    //alert("error while loading Notification");
+
+                    var err = JSON.parse(error);
+                });
+        }
+
+
+        $scope.EditLIC = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+
+
+        }
+
+        $scope.UpdateLIC = function (data) {
+            var DataTypeId = 2
+
+
+            var AddDepartment = PayRollService.AddorUpdateLIC(DataTypeId, data.LICID, data.EmployeeID, data.PolicyID,data.PolicyNumber ,data.PremiumAmount, 0, data.Active, $scope.UserName)
+            AddDepartment.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].StatusCode == '200') {
+                    alert(res[0].StatusDescription);
+                    $scope.getorEditLIC()
+
+                }
+                else if (res[0].StatusCode == '400') {
+                    alert(res[0].StatusDescription);
+                    $scope.getorEditLIC()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+
+
+        $scope.studentfilearr = [];
+
+        $scope.studentfilearr = [{
+            fileindex: 0,
+            file: "",
+        }
+        //{
+        //    fileindex: 1,
+        //    file: ""
+        //},
+        //{
+        //    fileindex: 2,
+        //    file: ""
+        //}
+        ];
+
+        //if ($scope.studentfilearr.length == 1) {
+        //    $scope.DeleteDisable = true;
+        //} else {
+        //    $scope.DeleteDisable = false;
+        //}
+        $scope.addUser = function () {
+
+
+            //if ($scope.studentfilearr.length == 0) {
+            //    $scope.DeleteDisable = true;
+            //} else {
+            //    $scope.DeleteDisable = false;
+            //}
+
+            if ($scope.studentfilearr.length < 12) {
+           
+                    $scope.studentfilearr.push({
+                        fileindex: $scope.studentfilearr.length,
+                        file: ""
+                    });
+
+
+                $scope.studentfilearr = $scope.studentfilearr.map(function (arr, ind) {
+                    arr.fileindex = ind;
+                    return arr;
+                });
+
+            } else {
+                alert('maximum files limit reached');
+            }
+        }
+
+        $scope.removeUser = function (val) {
+            if (window.confirm("Do you want to delete this slot")) {
+                //$scope.studentfilearr.splice(index, 1);
+                //$scope.NoofSlots = null;
+            }
+            //var item = document.getElementById('studentFile' + val);
+            //item.parentNode.removeChild(item);
+            $scope.studentfilearr.splice(val, 1);
+        }
+
+
+
+
+        $scope.submitlicpolicyid = function (ele, ind) {
+            $scope.studentfilearr.map((obj) => {
+                if (obj.fileindex == ind) {
+                    obj.PolicyID = ele.value;
+                }
+            });
+            console.log($scope.studentfilearr)
+
+        }
+
+        $scope.submitlicpolicy = function (ele, ind) {
+            $scope.studentfilearr.map((obj) => {
+                if (obj.fileindex == ind) {
+                    obj.PolicyNumber = ele.value;
+                }
+            });
+            console.log($scope.studentfilearr)
+
+        }
+        var arr =[]
+        $scope.submitpremiumamount = function (ele, ind) {
+            $scope.studentfilearr.map((obj) => {
+                if (obj.fileindex == ind) {
+                    obj.PremiumAmount = ele.value;
+                }
+            });
+            console.log($scope.studentfilearr)
+            //arr.push($scope.studentfilearr)
+            //console.log(arr)
+        }
+
+
+
+        $scope.userslotarr = [];
+
+        for (var i = 0; i < $scope.studentfilearr.length; i++) {
+            var obj = {
+
+                "PolicyID": $scope.studentfilearr[i].PolicyID,"LICPolicyNumber": $scope.studentfilearr[i].PolicyNumber, "PremiumAmount": $scope.studentfilearr[i].PremiumAmount
+
+            }
+            $scope.userslotarr.push(obj);
+
+        }
+        console.log($scope.userslotarr)
 
     })
 })

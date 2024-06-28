@@ -1080,5 +1080,66 @@ namespace SoftwareSuite.Controllers.PayRoll
 
 
 
+        [HttpPost, ActionName("GetorEditLIC")]
+        public string GetorEditLIC([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[2] = new SqlParameter("@PolicyID", request["PolicyID"]); 
+                param[3] = new SqlParameter("@LICID", request["LICID"]);
+                param[4] = new SqlParameter("@Active", request["Active"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_LIC", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+        [HttpPost, ActionName("AddorUpdateLIC")]
+        public string AddorUpdateLIC([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[9];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@LICID", request["LICID"]);
+                param[2] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[3] = new SqlParameter("@PolicyID", request["PolicyID"]);
+                param[4] = new SqlParameter("@PolicyNumber", request["PolicyNumber"]);
+                param[5] = new SqlParameter("@PremiumAmount", request["PremiumAmount"]);
+                param[6] = new SqlParameter("@LICAmountJson", request["LICAmountJson"]);
+                param[7] = new SqlParameter("@Active", request["Active"]);
+                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_LIC", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
     };
 };
