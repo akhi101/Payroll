@@ -149,12 +149,12 @@
                                     </div>
 
                                     <!--<div class="form-group col-md-3">
-                                        <label>
-                                            PHC:
-                                        </label>
-                                        <input class="form-control" type="text" maxlength="3" placeholder="Enter PHC" ng-model="PHC">
+        <label>
+            PHC:
+        </label>
+        <input class="form-control" type="text" maxlength="3" placeholder="Enter PHC" ng-model="PHC">
 
-                                    </div>-->
+    </div>-->
 
                                     <div class="form-group col-md-3">
                                         <label>
@@ -169,27 +169,43 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-3" ng-show="showaddmonth">
                                         <label>
                                             Increment Month:
                                         </label>
-                                        <select class="form-control" name="applicationForm.IncrementMonth" ng-model="IncrementMonth" ng-disabled="IncrementMonthfound">
-                                            <option value="">Select Increment Month</option>
-                                            <option value="January">January</option>
-                                            <option value="February">February</option>
-                                            <option value="March">March</option>
-                                            <option value="April">April</option>
-                                            <option value="May">May</option>
-                                            <option value="June">June</option>
-                                            <option value="July">July</option>
-                                            <option value="August">August</option>
-                                            <option value="September">September</option>
-                                            <option value="October">October</option>
-                                            <option value="November">November</option>
-                                            <option value="December">December</option>
+                                        <select class="form-control" ng-model="IncrementMonth" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
                                         </select>
 
                                     </div>
+
+                                     <div class="form-group col-md-3" ng-show="showupdatemonth">
+                                        <label>
+                                            Increment Month:
+                                        </label>
+                                        <select class="form-control" ng-model="EditEmployeeDetailsData[0].MonthID" ng-change="changemonth(EditEmployeeDetailsData[0].MonthID)" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
+                                        </select>
+
+                                        <!--<select class="form-control" ng-model="IncrementMonth">
+                                            <option value="" selected="selected">Select Increment Month</option>
+                                            <option value="{{data.MonthID}}" ng-value="Months" ng-repeat="data in MonthsData" class="ng-binding ng-scope">
+                                                {{data.Months}}
+                                            </option>
+
+                                        </select>-->
+                                    </div>
+                                    <!--<div class="form-group col-md-3" ng-show="showupdatemonth">
+                                        <label>
+                                            Increment Month:
+                                        </label>
+                                        <select class="form-control" id="" ng-model="NewIncrementMonth" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthsID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
+                                        </select>
+                                    </div>-->
                                 </div>
 
                                 <div class="form-group col-md-3">

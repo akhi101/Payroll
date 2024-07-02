@@ -627,7 +627,7 @@
 
 
                         <div class="col-md-4" style=" margin-bottom: 40px; margin-top: 10px; ">
-                            <button class="btn btn-success" ng-click="addUser()">ADD</button>
+                            <button class="btn btn-success" ng-click="addUser()">Add Policy</button>
                         </div>
                     </div>
                     <section ng-repeat="user in studentfilearr">
@@ -669,7 +669,7 @@
 
                 <div class="sm-spacer"></div>
                 <div class="col-md-12">
-                    <button class="btn btn-success pull-right" ng-show="LICEmployeeData" ng-click="submitLICDetails()">Submit</button>
+                    <button class="btn btn-success pull-right" ng-show="LICEmployeeData" ng-click="submitLICDetails()">Save</button>
                 </div>
                 <div class="sm-spacer"></div>
 
@@ -705,7 +705,7 @@
 
                                 <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" disabled class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PolicyID" /></div></td>
+                                <td class="text-center pointer"><div><input type="text"  class="form-control tableinpt enabletable{{$index + 1}}" min="1" max="10" maxlength="2"  oninput="validateInput(this)" ng-model="data.PolicyID" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PolicyNumber" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PremiumAmount" /></div></td>
                                 <td class="text-center">

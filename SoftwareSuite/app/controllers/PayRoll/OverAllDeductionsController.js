@@ -736,7 +736,7 @@ define(['app'], function (app) {
                     $scope.getorEditLIC()
 
                 } else {
-                    alert('Something Went Wrong')
+                    alert('Policy ID already exist')
 
                 }
             },
@@ -842,7 +842,11 @@ define(['app'], function (app) {
             //console.log(arr)
         }
 
+        $scope.ClearData = function () {
 
+            $scope.PolicyID = "";
+
+        }
 
         $scope.userslotarr = [];
 

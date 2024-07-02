@@ -3,7 +3,6 @@ define(['app'], function (app) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName;
 
-
         const $ctrl = this;
             $ctrl.$onInit = () => {
                 window.scroll({
@@ -15,8 +14,8 @@ define(['app'], function (app) {
                 $scope.AddDetails = '1';
                 $scope.UpdateDetails = '0';
                 $scope.getEmployeeDetailsData();
-
-
+                $scope.showaddmonth = true;
+                //$scope.IncrementMonth = null;
             }
         $scope.ChangeNPS = function (CPS_NPS) {
             if (CPS_NPS=="Y") {
@@ -31,6 +30,31 @@ define(['app'], function (app) {
                 $scope.showtsglinumber = true;
             }
         }
+
+        var getmon = PayRollService.GetMonths();
+        getmon.then(function (res) {
+
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.MonthsData = res.Table;
+                $scope.Noreports = false;
+
+
+
+            }
+            else {
+                $scope.MonthsData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Department");
+                var err = JSON.parse(error);
+
+            });
 
         var DataTypeID = 1
         var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
@@ -105,7 +129,7 @@ define(['app'], function (app) {
                 $scope.Gender = "";
 /*                $scope.PHC = "";*/
                 $scope.Empstatus = "";
-                $scope.IncrementMonth = "";
+                $scope.IncrementMonth = null;
                 $scope.ScaleType = "";
                 $scope.PanNo = "";
                 $scope.CPS_NPS = "";
@@ -354,14 +378,14 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonthUpdated, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
                     $scope.ClearData();
-
+                    $scope.EditEmployeeDetailsData[0].MonthID = null;
                     $scope.AddDetails = '1';
                     $scope.UpdateDetails = '0';
 
@@ -369,6 +393,7 @@ define(['app'], function (app) {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
                     $scope.ClearData();
+                    $scope.EditEmployeeDetailsData[0].MonthID = null;
                     $scope.AddDetails = '1';
                     $scope.UpdateDetails = '0';
 
@@ -400,7 +425,8 @@ define(['app'], function (app) {
 
         $scope.EditEmployeeDetails = function (EmployeeID,Active) {
 
-            
+            $scope.showaddmonth = false;
+            $scope.showupdatemonth = true;
             window.scroll({
                 top: 0,
                 left: 0,
@@ -433,7 +459,8 @@ define(['app'], function (app) {
                     $scope.Department = res.Table[0].DepartmentId;
                     $scope.Gender = res.Table[0].Gender;
                     $scope.Empstatus = res.Table[0].Empstatus;
-                    $scope.IncrementMonth = res.Table[0].IncrementMonth;
+                    //$scope.IncrementMonth = $scope.EditEmployeeDetailsData[0].MonthID;
+                    //$scope.IncrementMonthUpdated = res.Table[0].MonthID;
                     $scope.ScaleType = res.Table[0].ScaleType;
                     $scope.PanNo = res.Table[0].PanNo;
                     $scope.CPS_NPS = res.Table[0].CPS_NPS;
@@ -442,7 +469,9 @@ define(['app'], function (app) {
                     $scope.TSGLINo = res.Table[0].TSGLINo;
                     $scope.AccountNumber = res.Table[0].AccountNumber;
                     $scope.IFSCCode = res.Table[0].IFSCCode;
-                   
+
+
+                    //$scope.EditMonthData = res.Table1;
                    
 
                 }
@@ -462,6 +491,10 @@ define(['app'], function (app) {
 
 
         }
+        $scope.changemonth = function (data) {
+            $scope.IncrementMonthUpdated = data;
+        }
+
         $scope.ChangeStatus = function (EmployeeID, Status) {
             var DataType = 3;
             var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, Status);
