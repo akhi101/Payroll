@@ -970,11 +970,12 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-        public class ElevenceData
+        public class AllowanceData
         {
 
             public int DataTypeID { get; set; }
-            public int ElevenceId { get; set; }
+            public int AllowanceID { get; set; }
+            public int DepartmentID { get; set; }
             
             public bool Active { get; set; }
 
@@ -982,17 +983,18 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
-        [HttpPost, ActionName("GetEditElevence")]
-        public string GetEditElevence([FromBody] ElevenceData data)
+        [HttpPost, ActionName("GetEditAllowance")]
+        public string GetEditAllowance([FromBody] AllowanceData data)
         {
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
-                param[1] = new SqlParameter("@ElevenceId", data.ElevenceId);
-                param[2] = new SqlParameter("@Active", data.Active);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Elevence", param);
+                param[1] = new SqlParameter("@AllowanceID", data.AllowanceID);
+                param[2] = new SqlParameter("@DepartmentID", data.DepartmentID);
+                param[3] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_CommonAllowances", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -1001,22 +1003,21 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-        [HttpPost, ActionName("AddorUpdateElevence")]
-        public string AddorUpdateElevence([FromBody] JsonObject request)
+        [HttpPost, ActionName("AddorUpdateAllowance")]
+        public string AddorUpdateAllowance([FromBody] JsonObject request)
         {
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@ElevenceId", request["ElevenceId"]);
-                param[2] = new SqlParameter("@IR", request["IR"]);
-                param[3] = new SqlParameter("@DA_NGO", request["DA_NGO"]);
-                param[4] = new SqlParameter("@DA_Officers", request["DA_Officers"]);
-                param[5] = new SqlParameter("@DA_BoardOfficers", request["DA_BoardOfficers"]);
-                param[6] = new SqlParameter("@HRA", request["HRA"]);
-                param[7] = new SqlParameter("@UserName", request["UserName"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Elevence", param);
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
+                param[1] = new SqlParameter("@AllowanceID", request["AllowanceID"]);
+                param[2] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
+                param[3] = new SqlParameter("@DA", request["DA"]);
+                param[4] = new SqlParameter("@HRA", request["HRA"]);
+                param[5] = new SqlParameter("@IR", request["IR"]);
+                param[6] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CommonAllowances", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

@@ -727,42 +727,44 @@ define(['app'], function (app) {
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateAdvance', paramObject);
             return promise;
         };
-      
+     
 
-        this.PayRollElevence = function (DataTypeID, ElevenceId, Active) {
+        this.PayRollAllowance = function (DataTypeID, AllowanceID, DepartmentID,Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,              
-                "ElevenceId": ElevenceId,
+                "AllowanceID": AllowanceID,
+                "DepartmentID": DepartmentID,
                 "Active": Active
             };
-            var promise = DataAccessService.postData('api/PayRoll/GetEditElevence', paramObj);
+            var promise = DataAccessService.postData('api/PayRoll/GetEditAllowance', paramObj);
             return promise;
 
         };
 
-        this.GetEditElevence = function (DataTypeID, ElevenceId, Active) {
+        this.GetEditAllowance = function (DataTypeID, AllowanceID, DepartmentID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                "ElevenceId": ElevenceId,
+                "AllowanceID": AllowanceID,
+                "DepartmentID": DepartmentID,
                 "Active": Active
             };
-            var promise = DataAccessService.postData('api/PayRoll/GetEditElevence', paramObj);
+            var promise = DataAccessService.postData('api/PayRoll/GetEditAllowance', paramObj);
             return promise;
 
         };
 
-        this.AddorUpdateElevence = function (DataTypeId, ElevenceId, IR, DA_NGO , DA_Officers , DA_BoardOfficers , HRA,   UserName) {
+        this.AddorUpdateAllowance = function (DataTypeID, AllowanceID, DepartmentID, DA, HRA, IR ,   UserName) {
             var paramObject = {
-                "DataTypeId": DataTypeId,
-                "ElevenceId": ElevenceId,
+                "DataTypeID": DataTypeID,
+                "AllowanceID": AllowanceID,
+                "DepartmentID": DepartmentID,
+                "DA": DA,
+                "HRA": HRA,
                 "IR": IR,
-                "DA_NGO": DA_NGO,
-                "DA_Officers": DA_Officers,
-                "DA_BoardOfficers": DA_BoardOfficers,
-                "HRA": HRA,            
+   
                 "UserName": UserName
             };
-            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateElevence', paramObject);
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateAllowance', paramObject);
             return promise;
         };
 
