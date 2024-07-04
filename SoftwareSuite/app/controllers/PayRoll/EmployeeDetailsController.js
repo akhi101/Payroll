@@ -364,7 +364,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.updatedetails = function (data, ind) {
+        $scope.updateEmpdetails = function (data, ind) {
             //$scope['edit' + ind] = true;
 
             //var ele2 = document.getElementsByClassName("enabletable" + ind);
@@ -378,7 +378,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonthUpdated, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.TSGLINo, $scope.AccountNumber, $scope.IFSCCode,   $scope.Active, $scope.UserName)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -459,7 +459,7 @@ define(['app'], function (app) {
                     $scope.Department = res.Table[0].DepartmentId;
                     $scope.Gender = res.Table[0].Gender;
                     $scope.Empstatus = res.Table[0].Empstatus;
-                    //$scope.IncrementMonth = $scope.EditEmployeeDetailsData[0].MonthID;
+                    $scope.IncrementMonth = $scope.EditEmployeeDetailsData[0].MonthID;
                     //$scope.IncrementMonthUpdated = res.Table[0].MonthID;
                     $scope.ScaleType = res.Table[0].ScaleType;
                     $scope.PanNo = res.Table[0].PanNo;
