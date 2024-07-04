@@ -292,6 +292,55 @@
 
 
 
+        $scope.ChangeDepartment = function (data) {
+            if (data.DepartmentID == 1) {
+                $scope.DepartmentID = data.DepartmentID;
+                $scope.showCBA = true;
+                $scope.showPP = true;
+                $scope.showFPI = true;
+                $scope.showTGI = true;
+                $scope.showMedical = true;
+                $scope.showIR = false;
+                $scope.showCCA = false; 
+                $scope.showCE = false;
+               
+                
+
+                $scope.CurrentBasicAmount = '';
+                $scope.PP = '';
+                $scope.FPI = '';
+                $scope.TG_Increment = '';
+                $scope.Medical = '';
+              
+
+            }
+            else if (data.DepartmentID == 2) {
+                $scope.DepartmentID = data.DepartmentID;
+                $scope.showCBA = true;
+                $scope.showIR = true;
+                $scope.showCCA = true;
+                $scope.showPP = true;
+                $scope.showFPI = true;
+                $scope.showTGI = true;
+                $scope.showCE = true;
+                $scope.showMedical = true;
+
+
+
+                $scope.CCA = '';
+                $scope.PP = '';
+                $scope.FPI = '';
+                $scope.TG_Increment = '';
+                $scope.Medical = '';
+                $scope.ConveyanceElevence = '';
+                $scope.CurrentBasicAmount = '';
+                $scope.InterimRelief = '';
+
+                
+            }
+        }
+
+
 
     })
 })
