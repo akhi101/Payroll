@@ -757,10 +757,12 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[3];
+                var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
-                param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
-                param[2] = new SqlParameter("@Active", data.Active);
+                param[1] = new SqlParameter("@EmployeeSalaryDetailsId", data.EmployeeSalaryDetailsId);
+                param[2] = new SqlParameter("@DepartmentId", data.DepartmentId);
+                param[3] = new SqlParameter("@EmployeeId", data.EmployeeId);
+                param[4] = new SqlParameter("@Active", data.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -777,7 +779,9 @@ namespace SoftwareSuite.Controllers.PayRoll
         public class SalaryDetails
         {
             public int DataTypeId { get; set; }
+            public int EmployeeSalaryDetailsId { get; set; }
             public int DataTypeID { get; set; }
+            public int DepartmentId { get; set; }
 
             public bool Active { get; set; }
             public int EmployeeId { get; set; }
@@ -787,7 +791,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             public float PP { get; set; }
             public float FPI { get; set; }
             public float TG_Increment { get; set; }
-            public float ConveyanceElevence { get; set; }
+            public float ConveyanceAllowance { get; set; }
             public float Medical { get; set; }
             public string UserName { get; set; }
         }
@@ -799,18 +803,20 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[11];
+                var param = new SqlParameter[13];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
-                param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
-                param[2] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
-                param[3] = new SqlParameter("@InterimRelief", data.InterimRelief);
-                param[4] = new SqlParameter("@CCA", data.CCA);
-                param[5] = new SqlParameter("@PP", data.PP);
-                param[6] = new SqlParameter("@FPI", data.FPI);
-                param[7] = new SqlParameter("@TG_Increment", data.TG_Increment);
-                param[8] = new SqlParameter("@ConveyanceElevence", data.ConveyanceElevence);
-                param[9] = new SqlParameter("@Medical", data.Medical);
-                param[10] = new SqlParameter("@UserName", data.UserName);
+                param[1] = new SqlParameter("@EmployeeSalaryDetailsId", data.EmployeeSalaryDetailsId);
+                param[2] = new SqlParameter("@DepartmentId", data.DepartmentId);
+                param[3] = new SqlParameter("@EmployeeId", data.EmployeeId);
+                param[4] = new SqlParameter("@CurrentBasicAmount", data.CurrentBasicAmount);
+                param[5] = new SqlParameter("@InterimRelief", data.InterimRelief);
+                param[6] = new SqlParameter("@CCA", data.CCA);
+                param[7] = new SqlParameter("@PP", data.PP);
+                param[8] = new SqlParameter("@FPI", data.FPI);
+                param[9] = new SqlParameter("@TG_Increment", data.TG_Increment);
+                param[10] = new SqlParameter("@ConveyanceAllowance", data.ConveyanceAllowance);
+                param[11] = new SqlParameter("@Medical", data.Medical);
+                param[12] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }

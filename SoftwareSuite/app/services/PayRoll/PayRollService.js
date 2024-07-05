@@ -478,9 +478,11 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, Medical, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
+                "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
+                "DepartmentId": DepartmentId,
                 "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
                 "InterimRelief": InterimRelief,
@@ -488,7 +490,7 @@ define(['app'], function (app) {
                 "PP": PP,
                 "FPI": FPI,
                 "TG_Increment": TG_Increment,
-                "ConveyanceElevence": ConveyanceElevence,
+                "ConveyanceAllowance": ConveyanceAllowance,
                 "Medical": Medical,
                 "UserName": UserName
             };
@@ -497,9 +499,11 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceElevence, Medical, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
+                "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
+                "DepartmentId": DepartmentId,
                 "EmployeeId": EmployeeId,
                 "CurrentBasicAmount": CurrentBasicAmount,
                 "InterimRelief": InterimRelief,
@@ -507,7 +511,7 @@ define(['app'], function (app) {
                 "PP": PP,
                 "FPI": FPI,
                 "TG_Increment": TG_Increment,
-                "ConveyanceElevence": ConveyanceElevence,
+                "ConveyanceAllowance": ConveyanceAllowance,
                 "Medical": Medical,
                 "UserName": UserName
             };
@@ -515,9 +519,11 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetSalaryData = function (DataTypeID, EmployeeId, Active) {
+        this.GetSalaryData = function (DataTypeID, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
+                "DepartmentId": DepartmentId,
                 "EmployeeId": EmployeeId,
                 "Active": Active
             };
@@ -526,9 +532,11 @@ define(['app'], function (app) {
 
         };
 
-        this.ChangeSalaryStatus = function (DataTypeID, EmployeeId, Active) {
+        this.ChangeSalaryStatus = function (DataTypeID, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
+                "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
+                "DepartmentId": DepartmentId,
                 "EmployeeId": EmployeeId,
                 "Active": Active
             };
