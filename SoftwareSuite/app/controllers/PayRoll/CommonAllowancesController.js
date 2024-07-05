@@ -6,7 +6,7 @@
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
 
-            $scope.getEditAllowance();
+            //$scope.getEditAllowance();
 
         }
         var DataTypeID = 1
@@ -50,7 +50,7 @@
                 $scope.DA_BoardStaff = '';
                 $scope.IR = '';
                 $scope.HRA = '';
-
+                $scope.getEditAllowance();
             }
             else if (data.DepartmentID == 2) {
                 $scope.DepartmentID = data.DepartmentID;
@@ -61,13 +61,14 @@
 
                 $scope.DA_Gazetted = '';
                 $scope.HRA = '';
+                $scope.getEditAllowance();
             }
         }
 
 
         $scope.getEditAllowance = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEditAllowance(DataTypeID, $scope.AllowanceID, $scope.IR, $scope.DA_Gazetted,  $scope.DA_BoardStaff, $scope.HRA,  0, 0);
+            var getdesign = PayRollService.GetEditAllowance(DataTypeID, $scope.AllowanceID, $scope.DepartmentID, 0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);

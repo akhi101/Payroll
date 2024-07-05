@@ -11,12 +11,40 @@
                 left: 0,
                 behavior: 'smooth'
             });
-            $scope.getsalarydata();
+            //$scope.getsalarydata();
 
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
         }
+        var DataTypeID = 1
+        var getdesign = PayRollService.GetDepartmentData(DataTypeID, 0, 0);
+        getdesign.then(function (response) {
 
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.DepartmentData = res.Table;
+                $scope.Noreports = false;
+
+
+
+            }
+            else {
+                $scope.DepartmentData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Department");
+                var err = JSON.parse(error);
+
+            });
 
         
         var DataTypeID = 1
@@ -53,6 +81,7 @@
 
         $scope.ClearData = function () {
             $scope.EmployeeID = null;
+            $scope.EmployeeID = null;
             $scope.CurrentBasicAmount = "";
             $scope.InterimRelief = null;
             $scope.CCA = "";
@@ -75,40 +104,76 @@
                 alert("Please Enter EmployeeName");
                 return;
             }
-            if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
-                alert("Enter Current Basic Amount");
-                return;
-            }
-            if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
-                alert("Select InterimRelief");
-                return;
-            }
-            if ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") {
-                alert("Select CCA");
-                return;
-            }
-            if ($scope.PP == null || $scope.PP == undefined || $scope.PP == "") {
-                alert("Select PP");
-                return;
-            }
-            if ($scope.FPI == null || $scope.FPI == undefined || $scope.FPI == "") {
-                alert("Select FPI");
-                return;
-            }
-            if ($scope.TG_Increment == null || $scope.TG_Increment == undefined || $scope.TG_Increment == "") {
-                alert("Select TGIncrement");
-                return;
-            }
-            if ($scope.ConveyanceElevence == null || $scope.ConveyanceElevence == undefined || $scope.ConveyanceElevence == "") {
-                alert("Select ConveyanceElevence");
-                return;
-            }
-            if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
-                alert("Select Medical");
-                return;
-            }
             
-            var AddSalary = PayRollService.AddSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical,  $scope.UserName)
+            
+            
+
+
+            if ($scope.DepartmentID == 1) {
+                if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
+                    alert("Enter Current Basic Amount");
+                    return;
+                }
+                if ($scope.PP == null || $scope.PP == undefined || $scope.PP == "") {
+                    alert("Select PP");
+                    return;
+                }
+                if ($scope.FPI == null || $scope.FPI == undefined || $scope.FPI == "") {
+                    alert("Select FPI");
+                    return;
+                }
+                if ($scope.TG_Increment == null || $scope.TG_Increment == undefined || $scope.TG_Increment == "") {
+                    alert("Select TGIncrement");
+                    return;
+                }
+                if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
+                    alert("Select Medical");
+                    return;
+                }
+            }
+            else if ($scope.DepartmentID == 2) {
+
+                if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
+                    alert("Enter Current Basic Amount");
+                    return;
+                }
+                if ($scope.PP == null || $scope.PP == undefined || $scope.PP == "") {
+                    alert("Select PP");
+                    return;
+                }
+                if ($scope.FPI == null || $scope.FPI == undefined || $scope.FPI == "") {
+                    alert("Select FPI");
+                    return;
+                }
+                if ($scope.TG_Increment == null || $scope.TG_Increment == undefined || $scope.TG_Increment == "") {
+                    alert("Select TGIncrement");
+                    return;
+                }
+                if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
+                    alert("Select Medical");
+                    return;
+                }
+                if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
+                    alert("Select InterimRelief");
+                    return;
+                }
+                if ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") {
+                    alert("Select CCA");
+                    return;
+                }
+
+
+                if ($scope.ConveyanceAllowance == null || $scope.ConveyanceAllowance == undefined || $scope.ConveyanceAllowance == "") {
+                    alert("Select Conveyance Allowance");
+                    return;
+                }
+            }
+
+            let InterimRelief = ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") ? 0 : $scope.InterimRelief;
+            let CCA = ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") ? 0 : $scope.CCA;
+            let ConveyanceAllowance = ($scope.ConveyanceAllowance == null || $scope.ConveyanceAllowance == undefined || $scope.ConveyanceAllowance == "") ? 0 : $scope.ConveyanceAllowance;
+
+            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, InterimRelief, CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, ConveyanceAllowance, $scope.Medical, $scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -116,12 +181,12 @@
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getsalarydata();
+                    $scope.getsalarydata($scope.DepartmentID);
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
-                    $scope.getsalarydata();
+                    $scope.getsalarydata($scope.DepartmentID);
 
                 } else {
                     alert('Something Went Wrong')
@@ -141,7 +206,7 @@
 
         $scope.getsalarydata = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetSalaryData(DataTypeID,0, 0);
+            var getdesign = PayRollService.GetSalaryData(DataTypeID,0,$scope.DepartmentID,0, 0);
             getdesign.then(function (response) {
 
                 try {
@@ -181,18 +246,18 @@
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical,  $scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical, $scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
                     alert(response[0].StatusDescription);
                     $scope.ClearData();
-                    $scope.getsalarydata();
+                    $scope.getsalarydata($scope.DepartmentID);
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
                     $scope.ClearData();
-                    $scope.getsalarydata();
+                    $scope.getsalarydata($scope.DepartmentID);
 
                 } else {
                     alert('Something Went Wrong')
@@ -225,7 +290,7 @@
             $scope.AddDetails = '0';
             $scope.UpdateDetails = '1';
             var DataTypeID = 2
-            var getdesign = PayRollService.GetSalaryData(DataTypeID, data.EmployeeId, 0);
+            var getdesign = PayRollService.GetSalaryData(DataTypeID, data.EmployeeSalaryDetailsId, data.DepartmentId, data.EmployeeId, 0);
             getdesign.then(function (response) {
 
                 try {
@@ -236,13 +301,15 @@
                 if (res.Table.length > 0) {
                     $scope.EditSalaryData = res.Table;
                     $scope.EmployeeID = res.Table[0].EmployeeId;
+                    $scope.EmployeeSalaryDetailsID = res.Table[0].EmployeeSalaryDetailsId;
+                    $scope.DepartmentID = res.Table[0].DepartmentId;
                     $scope.CurrentBasicAmount = res.Table[0].CurrentBasicAmount;
                     $scope.InterimRelief = res.Table[0].InterimRelief;
                     $scope.CCA = res.Table[0].CCA;
                     $scope.PP = res.Table[0].PP;
                     $scope.FPI = res.Table[0].FPI;
                     $scope.TG_Increment = res.Table[0].TG_Increment;
-                    $scope.ConveyanceElevence = res.Table[0].ConveyanceElevence;
+                    $scope.ConveyanceAllowance = res.Table[0].ConveyanceAllowance;
                     $scope.Medical = res.Table[0].Medical;
                     $scope.Noreports = false;
 
@@ -265,9 +332,9 @@
 
 
         }
-        $scope.ChangeStatus = function (EmployeeId, Status) {
+        $scope.ChangeStatus = function (EmployeeSalaryDetailsId,DepartmentId,EmployeeId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.ChangeSalaryStatus(DataType, EmployeeId, Status);
+            var getSlides = PayRollService.ChangeSalaryStatus(DataType, EmployeeSalaryDetailsId,DepartmentId,EmployeeId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -311,6 +378,7 @@
                 $scope.FPI = '';
                 $scope.TG_Increment = '';
                 $scope.Medical = '';
+                $scope.getsalarydata();
               
 
             }
@@ -335,9 +403,16 @@
                 $scope.ConveyanceElevence = '';
                 $scope.CurrentBasicAmount = '';
                 $scope.InterimRelief = '';
+                $scope.getsalarydata();
 
                 
             }
+        }
+
+        $scope.ChangeEmployee = function (EmployeeID) {
+
+            $scope.EmployeeID = EmployeeID;
+
         }
 
 
