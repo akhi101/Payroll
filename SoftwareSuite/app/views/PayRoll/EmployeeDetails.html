@@ -124,7 +124,7 @@
                                     <label>
                                         Department Name:
                                     </label>
-                                    <select class="form-control" id="departmentid" ng-model="Department"
+                                    <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
                                             ng-options="data.DepartmentID as data.DepartmentName for data in DepartmentData">
                                         <option value="" selected>Select Department</option>
                                     </select>
@@ -206,7 +206,7 @@
                                     <label>
                                         Scale Type:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter ScaleType" ng-model="ScaleType">
+                                    <input class="form-control" type="text" maxlength="20" placeholder="Enter ScaleType" ng-model="ScaleType">
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -345,8 +345,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>

@@ -13,15 +13,16 @@ define(['app'], function (app) {
 
                 $scope.AddDetails = '1';
                 $scope.UpdateDetails = '0';
-                $scope.getEmployeeDetailsData();
+                //$scope.getEmployeeDetailsData();
                 $scope.showaddmonth = true;
                 //$scope.IncrementMonth = null;
             }
         $scope.ChangeNPS = function (CPS_NPS) {
             if (CPS_NPS=="Y") {
                 $scope.showprannumber = true;
+                $scope.showtsglinumber = true;
                 $scope.showgpfnumber = false;
-                $scope.showtsglinumber = false;
+               
 
             }
             else if (CPS_NPS == "N"){
@@ -324,11 +325,20 @@ define(['app'], function (app) {
         //    }
         //}
 
+        $scope.ChangeDepartment = function (data) {
+
+            $scope.DepartmentID = data;
+            $scope.getEmployeeDetailsData(data)
 
 
-        $scope.getEmployeeDetailsData = function () {
+
+
+
+        }
+
+        $scope.getEmployeeDetailsData = function (data) {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0,data, 0);
             getdesign.then(function (response) {
 
                 try {
@@ -495,17 +505,77 @@ define(['app'], function (app) {
             $scope.IncrementMonthUpdated = data;
         }
 
-        $scope.ChangeStatus = function (EmployeeID, Status) {
+        $scope.ChangeStatus = function (EmployeeID, DepartmentId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, Status);
+            var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, DepartmentId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEmployeeDetailsData();
+                    alert(response.Table[0].ResponseDescription);
+                    var DataTypeID = 1;
+                    var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
+                    getdesign.then(function (response) {
+
+                        try {
+                            var res = JSON.parse(response);
+                        }
+                        catch (err) { }
+
+                        //$scope.edit = true;
+                        if (res.Table.length > 0) {
+                            $scope.EmployeeDetailsData = res.Table;
+                            $scope.Noreports = false;
+
+
+
+                        }
+                        else {
+                            $scope.EmployeeDetailsData = [];
+                            $scope.Noreports = true;
+                        }
+
+
+                    },
+
+                        function (error) {
+                            alert("error while loading Employee Details");
+                            var err = JSON.parse(error);
+
+                        });
+                    //$scope.getEmployeeDetailsData();
                 } else if (response.Table[0].ResponseCode == '400') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEmployeeDetailsData();
+                    alert(response.Table[0].ResponseDescription);
+                    var DataTypeID = 1;
+                    var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
+                    getdesign.then(function (response) {
+
+                        try {
+                            var res = JSON.parse(response);
+                        }
+                        catch (err) { }
+
+                        //$scope.edit = true;
+                        if (res.Table.length > 0) {
+                            $scope.EmployeeDetailsData = res.Table;
+                            $scope.Noreports = false;
+
+
+
+                        }
+                        else {
+                            $scope.EmployeeDetailsData = [];
+                            $scope.Noreports = true;
+                        }
+
+
+                    },
+
+                        function (error) {
+                            alert("error while loading Employee Details");
+                            var err = JSON.parse(error);
+
+                        });
+                    //$scope.getEmployeeDetailsData();
                 } else {
                     alert("Something Went Wrong")
                 }

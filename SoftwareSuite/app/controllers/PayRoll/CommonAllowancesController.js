@@ -63,6 +63,18 @@
                 $scope.HRA = '';
                 $scope.getEditAllowance();
             }
+        
+            else if (data.DepartmentID == 3) {
+            $scope.DepartmentID = data.DepartmentID;
+            $scope.showDaGazetted = false;
+            $scope.showDABS = true;
+            $scope.showIR = true;
+            $scope.showHRA = true;
+
+            $scope.DA_Gazetted = '';
+            $scope.HRA = '';
+            $scope.getEditAllowance();
+        }
         }
 
 

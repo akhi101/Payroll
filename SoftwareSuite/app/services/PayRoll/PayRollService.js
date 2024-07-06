@@ -415,10 +415,11 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeID, Active) {
+        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeID, DepartmentID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "DepartmentID": DepartmentID,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
@@ -441,10 +442,11 @@ define(['app'], function (app) {
 
         };
 
-        this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, Active) {
+        this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, DepartmentID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
+                "DepartmentID": DepartmentID,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
