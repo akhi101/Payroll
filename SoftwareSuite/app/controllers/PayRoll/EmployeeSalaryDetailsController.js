@@ -46,9 +46,9 @@
 
             });
 
-        
+        $scope.getEmployeeDetailsData = function () {
         var DataTypeID = 1
-        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
         getdesign.then(function (response) {
 
             try {
@@ -78,7 +78,7 @@
 
             });
     
-
+        }
         $scope.ClearData = function () {
             $scope.EmployeeID = null;
             $scope.EmployeeID = null;
@@ -88,7 +88,7 @@
             $scope.PP = "";
             $scope.FPI = "";
             $scope.TG_Increment = "";
-            $scope.ConveyanceElevence = "";
+            $scope.ConveyanceAllowance = "";
             $scope.Medical = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
@@ -379,6 +379,7 @@
                 $scope.TG_Increment = '';
                 $scope.Medical = '';
                 $scope.getsalarydata();
+                $scope.getEmployeeDetailsData();
               
 
             }
@@ -404,7 +405,7 @@
                 $scope.CurrentBasicAmount = '';
                 $scope.InterimRelief = '';
                 $scope.getsalarydata();
-
+                $scope.getEmployeeDetailsData();
                 
             }
         }
