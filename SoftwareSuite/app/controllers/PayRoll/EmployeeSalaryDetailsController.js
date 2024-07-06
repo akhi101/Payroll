@@ -471,7 +471,7 @@
                 $scope.CurrentBasicAmount = '';
                 $scope.InterimRelief = '';
                 $scope.getsalarydata();
-
+                $scope.getEmployeeDetailsData();
 
             }
         }
