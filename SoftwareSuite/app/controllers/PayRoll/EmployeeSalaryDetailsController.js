@@ -88,7 +88,7 @@
             $scope.PP = "";
             $scope.FPI = "";
             $scope.TG_Increment = "";
-            $scope.ConveyanceElevence = "";
+            $scope.ConveyanceAllowance = "";
             $scope.Medical = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
@@ -167,7 +167,48 @@
                     alert("Select Conveyance Allowance");
                     return;
                 }
+
             }
+
+            else if ($scope.DepartmentID == 3) {
+
+                if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
+                    alert("Enter Current Basic Amount");
+                    return;
+                }
+                if ($scope.PP == null || $scope.PP == undefined || $scope.PP == "") {
+                    alert("Select PP");
+                    return;
+                }
+                if ($scope.FPI == null || $scope.FPI == undefined || $scope.FPI == "") {
+                    alert("Select FPI");
+                    return;
+                }
+                if ($scope.TG_Increment == null || $scope.TG_Increment == undefined || $scope.TG_Increment == "") {
+                    alert("Select TGIncrement");
+                    return;
+                }
+                if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
+                    alert("Select Medical");
+                    return;
+                }
+                if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
+                    alert("Select InterimRelief");
+                    return;
+                }
+                if ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") {
+                    alert("Select CCA");
+                    return;
+                }
+
+
+                if ($scope.ConveyanceAllowance == null || $scope.ConveyanceAllowance == undefined || $scope.ConveyanceAllowance == "") {
+                    alert("Select Conveyance Allowance");
+                    return;
+                }
+
+            }
+
 
             let InterimRelief = ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") ? 0 : $scope.InterimRelief;
             let CCA = ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") ? 0 : $scope.CCA;
@@ -246,7 +287,7 @@
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceElevence, $scope.Medical, $scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceAllowance, $scope.Medical, $scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -406,6 +447,31 @@
                 $scope.getsalarydata();
 
                 
+            }
+            else if (data.DepartmentID == 3) {
+                $scope.DepartmentID = data.DepartmentID;
+                $scope.showCBA = true;
+                $scope.showIR = true;
+                $scope.showCCA = true;
+                $scope.showPP = true;
+                $scope.showFPI = true;
+                $scope.showTGI = true;
+                $scope.showCE = true;
+                $scope.showMedical = true;
+
+
+
+                $scope.CCA = '';
+                $scope.PP = '';
+                $scope.FPI = '';
+                $scope.TG_Increment = '';
+                $scope.Medical = '';
+                $scope.ConveyanceElevence = '';
+                $scope.CurrentBasicAmount = '';
+                $scope.InterimRelief = '';
+                $scope.getsalarydata();
+
+
             }
         }
 
