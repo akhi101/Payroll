@@ -75,7 +75,7 @@
                                     <label>
                                         Employee Name:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Employee Name" ng-model="EmployeeName">
+                                    <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Employee Name" ng-model="EmployeeName">
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -336,7 +336,7 @@
 
                          
                             <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditEmployeeDetails(data.EmployeeID,data.Active)">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditEmployeeDetails(data.EmployeeID,data.DepartmentId,data.Active)">
                                     Edit
                                 </button>
                                 <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
@@ -367,4 +367,14 @@
     <div class="sm-spacer"></div>
     <div class="sm-spacer"></div>
 </div>
+<script>
+    function restrictNumbers(event) {
+        // Get the character code of the pressed key
+        var charCode = event.charCode;
 
+        // If the character code is between 48 (0) and 57 (9), prevent input
+        if (charCode >= 48 && charCode <= 57) {
+            event.preventDefault();
+        }
+    }
+</script>

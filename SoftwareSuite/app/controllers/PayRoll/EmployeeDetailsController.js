@@ -433,7 +433,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.EditEmployeeDetails = function (EmployeeID,Active) {
+        $scope.EditEmployeeDetails = function (EmployeeID,DepartmentId,Active) {
 
             $scope.showaddmonth = false;
             $scope.showupdatemonth = true;
@@ -446,8 +446,9 @@ define(['app'], function (app) {
             $scope.UpdateDetails = '1';
             var DataTypeID = 2
             $scope.EmployeeID = EmployeeID;
+            $scope.DepartmentID = DepartmentId;
             $scope.Active = Active;
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, EmployeeID, Active);
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, EmployeeID, DepartmentId, Active);
             getdesign.then(function (response) {
 
                 try {
