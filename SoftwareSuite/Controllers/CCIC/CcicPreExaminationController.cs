@@ -2875,6 +2875,41 @@ namespace SoftwareSuite.Controllers.CCIC
 
         }
 
+        [HttpGet, ActionName("GetFeeEligibleReportExcel")]
+        public string GetFeeEligibleReportExcel(int DataType)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@DataType", DataType);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_FeeEligibleData", param);
+                var filename = "FeeEligibleReport" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
 
         [HttpGet, ActionName("GetExamCentreMappingExcel")]
         public string GetExamCentreMappingExcel(int DataType, int AcademicYearID, int ExamMonthYearID, int CourseID, int InstitutionExamCenterMappingId)

@@ -454,7 +454,7 @@
             'CcicDashboard.PreExamination': {
                 url: "/PreExamination",
                 templateUrl: 'app/views/CCIC/PreExamination/CcicPreExamination.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicPreExaminationController', 'services/CCIC/CcicSystemUserService']
+                dependencies: ['controllers/CCIC/PreExamination/CcicPreExaminationController', 'services/CCIC/CcicSystemUserService', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
             //'CcicDashboard.PreExamination.DateSheet': {
@@ -488,11 +488,11 @@
                 dependencies: ['controllers/CCIC/PreExamination/CcicDownloadDateSheetController', 'services/CCIC/PreExamination/CcicPreExaminationService']
             },
 
-            'CcicDashboard.PreExamination.FeeEligibleReports': {
-                url: "/FeeEligibleReports",
-                templateUrl: 'app/views/CCIC/PreExamination/CcicFeeEligibleReports.html',
-                dependencies: ['controllers/CCIC/PreExamination/CcicFeeEligibleReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
-            },
+            //'CcicDashboard.PreExamination.FeeEligibleReports': {
+            //    url: "/FeeEligibleReports",
+            //    templateUrl: 'app/views/CCIC/PreExamination/CcicFeeEligibleReports.html',
+            //    dependencies: ['controllers/CCIC/PreExamination/CcicFeeEligibleReportsController', 'services/CCIC/PreExamination/CcicPreExaminationService']
+            //},
 
             'CcicDashboard.PreExamination.FeePaymentReports': {
                 url: "/FeePaymentReports",
