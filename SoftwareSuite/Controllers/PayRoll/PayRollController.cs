@@ -794,6 +794,8 @@ namespace SoftwareSuite.Controllers.PayRoll
             public float TG_Increment { get; set; }
             public float ConveyanceAllowance { get; set; }
             public float Medical { get; set; }
+            public string NCI { get; set; }
+            public float NCIAmount { get; set; }
             public string UserName { get; set; }
         }
 
@@ -804,7 +806,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[13];
+                var param = new SqlParameter[15];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeSalaryDetailsId", data.EmployeeSalaryDetailsId);
                 param[2] = new SqlParameter("@DepartmentId", data.DepartmentId);
@@ -817,7 +819,9 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[9] = new SqlParameter("@TG_Increment", data.TG_Increment);
                 param[10] = new SqlParameter("@ConveyanceAllowance", data.ConveyanceAllowance);
                 param[11] = new SqlParameter("@Medical", data.Medical);
-                param[12] = new SqlParameter("@UserName", data.UserName);
+                param[12] = new SqlParameter("@NCI", data.NCI);
+                param[13] = new SqlParameter("@NCIAmount", data.NCIAmount);
+                param[14] = new SqlParameter("@UserName", data.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeSalaryDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }

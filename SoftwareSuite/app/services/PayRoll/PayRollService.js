@@ -480,7 +480,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical, UserName) {
+        this.AddSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical,NCI,NCIAmount, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
@@ -494,6 +494,8 @@ define(['app'], function (app) {
                 "TG_Increment": TG_Increment,
                 "ConveyanceAllowance": ConveyanceAllowance,
                 "Medical": Medical,
+                "NCI": NCI,
+                "NCIAmount": NCIAmount,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
@@ -501,7 +503,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical, UserName) {
+        this.UpdateSalary = function (DataTypeId, EmployeeSalaryDetailsId, DepartmentId, EmployeeId, CurrentBasicAmount, InterimRelief, CCA, PP, FPI, TG_Increment, ConveyanceAllowance, Medical, NCI, NCIAmount,UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeSalaryDetailsId": EmployeeSalaryDetailsId,
@@ -515,6 +517,8 @@ define(['app'], function (app) {
                 "TG_Increment": TG_Increment,
                 "ConveyanceAllowance": ConveyanceAllowance,
                 "Medical": Medical,
+                "NCI": NCI,
+                "NCIAmount": NCIAmount,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalary', paramObject);
