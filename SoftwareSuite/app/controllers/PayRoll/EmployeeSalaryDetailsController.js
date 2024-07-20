@@ -90,6 +90,8 @@
             $scope.TG_Increment = "";
             $scope.ConveyanceAllowance = "";
             $scope.Medical = "";
+            $scope.NCI = null;
+            $scope.NCIAmount = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
 
@@ -128,6 +130,10 @@
                 }
                 if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
                     alert("Select Medical");
+                    return;
+                }
+                if ($scope.NCI == null || $scope.NCI == undefined || $scope.NCI == "") {
+                    alert("Select NCI");
                     return;
                 }
             }
@@ -192,6 +198,7 @@
                     alert("Select Medical");
                     return;
                 }
+                
                 if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
                     alert("Select InterimRelief");
                     return;
@@ -209,12 +216,12 @@
 
             }
 
-
             let InterimRelief = ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") ? 0 : $scope.InterimRelief;
+            let NCI = ($scope.NCI == null || $scope.NCI == undefined || $scope.NCI == "") ? 0 : $scope.NCI;
             let CCA = ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") ? 0 : $scope.CCA;
             let ConveyanceAllowance = ($scope.ConveyanceAllowance == null || $scope.ConveyanceAllowance == undefined || $scope.ConveyanceAllowance == "") ? 0 : $scope.ConveyanceAllowance;
 
-            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, InterimRelief, CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, ConveyanceAllowance, $scope.Medical, $scope.UserName)
+            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, InterimRelief, CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, ConveyanceAllowance, $scope.Medical, NCI, $scope.NCIAmount,$scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -259,7 +266,7 @@
                     $scope.SalaryData = res.Table;
 
                     $scope.Noreports = false;
-                   
+
 
 
                 }
@@ -280,14 +287,14 @@
 
 
 
-
+       
 
 
         $scope.UPDATE = function () {
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceAllowance, $scope.Medical, $scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceAllowance, $scope.Medical, $scope.NCI, $scope.NCIAmount,$scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -352,9 +359,16 @@
                     $scope.TG_Increment = res.Table[0].TG_Increment;
                     $scope.ConveyanceAllowance = res.Table[0].ConveyanceAllowance;
                     $scope.Medical = res.Table[0].Medical;
+                    $scope.NCI = res.Table[0].NCI;
+                    $scope.NCIAmount = res.Table[0].NCIAmount;
                     $scope.Noreports = false;
 
-
+                    if ($scope.NCI == 'Y') {
+                        $scope.showNCIAmount = true;
+                    }
+                    else if ($scope.NCI == 'N') {
+                        $scope.showNCIAmount = false;
+                    }
 
                 }
                 else {
@@ -397,7 +411,15 @@
                 });
         }
 
-
+        $scope.ChangeNCI = function (data) {
+            if (data == 'Y') {
+                $scope.showNCIAmount = true;
+            }
+            else if (data == 'N') {
+                $scope.showNCIAmount = false;
+                $scope.NCIAmount = '';
+            }
+        }
 
 
         $scope.ChangeDepartment = function (data) {
@@ -408,6 +430,7 @@
                 $scope.showFPI = true;
                 $scope.showTGI = true;
                 $scope.showMedical = true;
+                $scope.showNCI = true;
                 $scope.showIR = false;
                 $scope.showCCA = false; 
                 $scope.showCE = false;
@@ -435,6 +458,7 @@
                 $scope.showCE = true;
                 $scope.showMedical = true;
 
+                $scope.showNCI = false;
 
 
                 $scope.CCA = '';
@@ -459,6 +483,7 @@
                 $scope.showTGI = true;
                 $scope.showCE = true;
                 $scope.showMedical = true;
+                $scope.showNCI = false;
 
 
 
