@@ -6,17 +6,81 @@
             var authData = $localStorage.authorizationData;
             $scope.UserName = authData.userName;
 
-            $scope.getEditElevence();
+            //$scope.getEditAllowance();
 
+        }
+        var DataTypeID = 1
+        var getdesign = PayRollService.GetDepartmentData(DataTypeID, 0, 0);
+        getdesign.then(function (response) {
+
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.DepartmentData = res.Table;
+                $scope.Noreports = false;
+
+
+
+            }
+            else {
+                $scope.DepartmentData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Department");
+                var err = JSON.parse(error);
+
+            });
+
+        $scope.ChangeDepartment = function (data) {
+            if (data.DepartmentID == 1) {
+                $scope.DepartmentID = data.DepartmentID;
+                $scope.showDaGazetted = true;
+                $scope.showHRA = true;
+                $scope.showDABS = false;
+                $scope.showIR = false;
+
+                $scope.DA_BoardStaff = '';
+                $scope.IR = '';
+                $scope.HRA = '';
+                $scope.getEditAllowance();
+            }
+            else if (data.DepartmentID == 2) {
+                $scope.DepartmentID = data.DepartmentID;
+                $scope.showDaGazetted = false;
+                $scope.showDABS = true;
+                $scope.showIR = true;
+                $scope.showHRA = true;
+
+                $scope.DA_Gazetted = '';
+                $scope.HRA = '';
+                $scope.getEditAllowance();
+            }
+        
+            else if (data.DepartmentID == 3) {
+            $scope.DepartmentID = data.DepartmentID;
+            $scope.showDaGazetted = false;
+            $scope.showDABS = true;
+            $scope.showIR = true;
+            $scope.showHRA = true;
+
+            $scope.DA_Gazetted = '';
+            $scope.HRA = '';
+            $scope.getEditAllowance();
+        }
         }
 
 
-      
-
-
-        $scope.getEditElevence = function () {
+        $scope.getEditAllowance = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEditElevence(DataTypeID, $scope.ElevenceId, $scope.IR, $scope.DA_NGO, $scope.DA_Officers, $scope.DA_BoardOfficers, $scope.HRA,  0, 0);
+            var getdesign = PayRollService.GetEditAllowance(DataTypeID, $scope.AllowanceID, $scope.DepartmentID, 0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -24,14 +88,14 @@
                 catch (err) { }
                 //$scope.edit = true;
                 if (res.Table.length > 0) {
-                    $scope.ElevenceData = res.Table;
+                    $scope.AllowanceData = res.Table;
                     $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.ElevenceData.length + 1; j++) {
+                    for (var j = 1; j < $scope.AllowanceData.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
-                    $scope.ElevenceData = [];
+                    $scope.AllowanceData = [];
                     $scope.DataNotFound = true;
                 }
             },
@@ -46,73 +110,118 @@
         }
 
         $scope.ClearData = function () {
-            $scope.ElevenceId = null;
+            $scope.Department = null;
             $scope.IR = "";
-            $scope.DA_NGO = "";
-            $scope.DA_Officers = "";
-            $scope.DA_BoardOfficers = "";
+            $scope.DA_Gazetted = "";
+            $scope.DA_BoardStaff = "";
             $scope.HRA = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
 
         }
 
-        $scope.ADDElevence = function () {
+        $scope.ADDAllowance = function () {
             var datatypeid = 1
-
             
-            if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
-                alert("Enter IR");
+            if ($scope.DepartmentID == null || $scope.DepartmentID == undefined || $scope.DepartmentID == "") {
+                alert("Please Enter Department");
                 return;
             }
-            if ($scope.DA_NGO == null || $scope.DA_NGO == undefined || $scope.DA_NGO == "") {
-                alert("Enter DA");
-                return;
-            }
-            if ($scope.DA_Officers == null || $scope.DA_Officers == undefined || $scope.DA_Officers == "") {
-                alert("Enter DA");
-                return;
-            }
-            if ($scope.DA_BoardOfficers == null || $scope.DA_BoardOfficers == undefined || $scope.DA_BoardOfficers == "") {
-                alert("Enter DA");
-                return;
-            }
-            if ($scope.HRA == null || $scope.HRA == undefined || $scope.HRA == "") {
-                alert("Enter HRA");
-                return;
-            }
-          
 
-            var addElevence = PayRollService.AddorUpdateElevence(datatypeid, 0, $scope.IR, $scope.DA_NGO, $scope.DA_Officers, $scope.DA_BoardOfficers, $scope.HRA, $scope.UserName)
-            addElevence.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                } catch (err) { }
-                if (res[0].ResponseCode == '200') {
-                    alert(res[0].ResponseDescription);
-                    $scope.ClearData();
-                    $scope.getEditElevence();
-
+            if ($scope.DepartmentID == 1) {
+                if ($scope.DA_Gazetted == null || $scope.DA_Gazetted == undefined || $scope.DA_Gazetted == "") {
+                    alert("Enter DA_Gazetted");
+                    return;
                 }
-                else if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription);
-                    $scope.getEditElevence();
-
-                } else {
-                    alert('Something Went Wrong')
-
+                if ($scope.HRA == null || $scope.HRA == undefined || $scope.HRA == "") {
+                    alert("Enter HRA");
+                    return;
                 }
-            },
-                function (error) {
-                    alert("something Went Wrong")
+            }
+            else if ($scope.DepartmentID == 2){
+
+                if ($scope.DA_BoardStaff == null || $scope.DA_BoardStaff == undefined || $scope.DA_BoardStaff == "") {
+                    alert("Enter DA_BoardStaff");
+                    return;
+                }
+
+                if ($scope.HRA == null || $scope.HRA == undefined || $scope.HRA == "") {
+                    alert("Enter HRA");
+                    return;
+                }
+                if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
+                    alert("Enter IR");
+                    return;
+                }
+            }
+
+         
+            let IR = ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") ? 0 : $scope.IR;
+            let DA_Gazetted = ($scope.DA_Gazetted == null || $scope.DA_Gazetted == undefined || $scope.DA_Gazetted == "") ? 0 : $scope.DA_Gazetted;
+            let DA_BoardStaff = ($scope.DA_BoardStaff == null || $scope.DA_BoardStaff == undefined || $scope.DA_BoardStaff == "") ? 0 : $scope.DA_BoardStaff;
+            let HRA = ($scope.HRA == null || $scope.HRA == undefined || $scope.HRA == "") ? 0 : $scope.HRA;
+
+            if (DA_Gazetted > 0) {
+                var addAllowance = PayRollService.AddorUpdateAllowance(datatypeid, null, $scope.DepartmentID, DA_Gazetted, HRA, IR, $scope.UserName)
+                addAllowance.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    } catch (err) { }
+                    if (res[0].ResponseCode == '200') {
+                        alert(res[0].ResponseDescription);
+                        $scope.ClearData();
+                        $scope.getEditAllowance();
+
+                    }
+                    else if (res[0].ResponseCode == '400') {
+                        alert(res[0].ResponseDescription);
+                        $scope.getEditAllowance();
+
+                    } else {
+                        alert('Something Went Wrong')
+
+                    }
+                },
+                    function (error) {
+                        alert("something Went Wrong")
 
 
-                });
+                    });
+            }
+            else if (DA_BoardStaff > 0) {
+                var addAllowance = PayRollService.AddorUpdateAllowance(datatypeid, null, $scope.DepartmentID, DA_BoardStaff, HRA, IR, $scope.UserName)
+                addAllowance.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    } catch (err) { }
+                    if (res[0].ResponseCode == '200') {
+                        alert(res[0].ResponseDescription);
+                        $scope.ClearData();
+                        $scope.getEditAllowance();
+
+                    }
+                    else if (res[0].ResponseCode == '400') {
+                        alert(res[0].ResponseDescription);
+                        $scope.getEditAllowance();
+
+                    } else {
+                        alert('Something Went Wrong')
+
+                    }
+                },
+                    function (error) {
+                        alert("something Went Wrong")
+
+
+                    });
+
+            }
+           
         }
 
 
 
-        $scope.EditElevence = function (data, ind) {
+        $scope.EditAllowance = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
             for (var j = 0; j < ele1.length; j++) {
@@ -121,15 +230,21 @@
             }
             $scope['edit' + ind] = false;
 
+            if (data.IR == 0) {
+                $scope.disableir = true;
+            }
+            else {
+                $scope.disableir = false;
 
+            }
 
         }
 
-        $scope.UpdateElevence = function (data) {
+        $scope.UpdateAllowance = function (data) {
             var datatypeid = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateElevence(datatypeid, data.ElevenceID, data.IR, data.DA_NGO, data.DA_Officers, data.DA_BoardOfficers, data.HRA,  $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateAllowance(datatypeid, data.AllowanceID, data.DepartmentID, data.DA, data.HRA, data.IR, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -137,13 +252,13 @@
                 if (res[0].StatusCode == '200') {
                     alert(res[0].StatusDescription);
                     $scope.ClearData();
-                    $scope.getEditElevence()
+                    $scope.getEditAllowance()
 
                 }
                 else if (res[0].StatusCode == '400') {
                     alert(res[0].StatusDescription);
                     $scope.ClearData();
-                    $scope.getEditElevence()
+                    $scope.getEditAllowance()
 
                 } else {
                     alert('Something Went Wrong')
@@ -159,17 +274,17 @@
 
      
 
-        $scope.ChangeElevence = function (ElevenceID,  Status) {
+        $scope.ChangeAllowance = function (AllowanceID, DepartmentID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollElevence(DataType, ElevenceID, Status);
+            var getSlides = PayRollService.PayRollAllowance(DataType, AllowanceID,DepartmentID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditElevence();
+                    $scope.getEditAllowance();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditElevence();
+                    $scope.getEditAllowance();
                 } else {
                     alert("Something Went Wrong")
                 }

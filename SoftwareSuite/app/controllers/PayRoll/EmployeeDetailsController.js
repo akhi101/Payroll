@@ -3,7 +3,6 @@ define(['app'], function (app) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.userName;
 
-
         const $ctrl = this;
             $ctrl.$onInit = () => {
                 window.scroll({
@@ -14,15 +13,16 @@ define(['app'], function (app) {
 
                 $scope.AddDetails = '1';
                 $scope.UpdateDetails = '0';
-                $scope.getEmployeeDetailsData();
-
-
+                //$scope.getEmployeeDetailsData();
+                $scope.showaddmonth = true;
+                //$scope.IncrementMonth = null;
             }
         $scope.ChangeNPS = function (CPS_NPS) {
             if (CPS_NPS=="Y") {
                 $scope.showprannumber = true;
+                $scope.showtsglinumber = true;
                 $scope.showgpfnumber = false;
-                $scope.showtsglinumber = false;
+               
 
             }
             else if (CPS_NPS == "N"){
@@ -31,6 +31,31 @@ define(['app'], function (app) {
                 $scope.showtsglinumber = true;
             }
         }
+
+        var getmon = PayRollService.GetMonths();
+        getmon.then(function (res) {
+
+            //$scope.edit = true;
+            if (res.Table.length > 0) {
+                $scope.MonthsData = res.Table;
+                $scope.Noreports = false;
+
+
+
+            }
+            else {
+                $scope.MonthsData = [];
+                $scope.Noreports = true;
+            }
+
+
+        },
+
+            function (error) {
+                alert("error while loading Department");
+                var err = JSON.parse(error);
+
+            });
 
         var DataTypeID = 1
         var getdesign = PayRollService.GetDesignationData(DataTypeID, 0, 0);
@@ -105,7 +130,7 @@ define(['app'], function (app) {
                 $scope.Gender = "";
 /*                $scope.PHC = "";*/
                 $scope.Empstatus = "";
-                $scope.IncrementMonth = "";
+                $scope.IncrementMonth = null;
                 $scope.ScaleType = "";
                 $scope.PanNo = "";
                 $scope.CPS_NPS = "";
@@ -300,11 +325,20 @@ define(['app'], function (app) {
         //    }
         //}
 
+        $scope.ChangeDepartment = function (data) {
+
+            $scope.DepartmentID = data;
+            $scope.getEmployeeDetailsData(data)
 
 
-        $scope.getEmployeeDetailsData = function () {
+
+
+
+        }
+
+        $scope.getEmployeeDetailsData = function (data) {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0,data, 0);
             getdesign.then(function (response) {
 
                 try {
@@ -340,7 +374,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.updatedetails = function (data, ind) {
+        $scope.updateEmpdetails = function (data, ind) {
             //$scope['edit' + ind] = true;
 
             //var ele2 = document.getElementsByClassName("enabletable" + ind);
@@ -361,7 +395,7 @@ define(['app'], function (app) {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
                     $scope.ClearData();
-
+                    $scope.EditEmployeeDetailsData[0].MonthID = null;
                     $scope.AddDetails = '1';
                     $scope.UpdateDetails = '0';
 
@@ -369,6 +403,7 @@ define(['app'], function (app) {
                     alert(response[0].StatusDescription);
                     $scope.getEmployeeDetailsData();
                     $scope.ClearData();
+                    $scope.EditEmployeeDetailsData[0].MonthID = null;
                     $scope.AddDetails = '1';
                     $scope.UpdateDetails = '0';
 
@@ -398,9 +433,10 @@ define(['app'], function (app) {
 
 
 
-        $scope.EditEmployeeDetails = function (EmployeeID,Active) {
+        $scope.EditEmployeeDetails = function (EmployeeID,DepartmentId,Active) {
 
-            
+            $scope.showaddmonth = false;
+            $scope.showupdatemonth = true;
             window.scroll({
                 top: 0,
                 left: 0,
@@ -410,8 +446,9 @@ define(['app'], function (app) {
             $scope.UpdateDetails = '1';
             var DataTypeID = 2
             $scope.EmployeeID = EmployeeID;
+            $scope.DepartmentID = DepartmentId;
             $scope.Active = Active;
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, EmployeeID, Active);
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, EmployeeID, DepartmentId, Active);
             getdesign.then(function (response) {
 
                 try {
@@ -433,7 +470,8 @@ define(['app'], function (app) {
                     $scope.Department = res.Table[0].DepartmentId;
                     $scope.Gender = res.Table[0].Gender;
                     $scope.Empstatus = res.Table[0].Empstatus;
-                    $scope.IncrementMonth = res.Table[0].IncrementMonth;
+                    $scope.IncrementMonth = $scope.EditEmployeeDetailsData[0].MonthID;
+                    //$scope.IncrementMonthUpdated = res.Table[0].MonthID;
                     $scope.ScaleType = res.Table[0].ScaleType;
                     $scope.PanNo = res.Table[0].PanNo;
                     $scope.CPS_NPS = res.Table[0].CPS_NPS;
@@ -442,7 +480,9 @@ define(['app'], function (app) {
                     $scope.TSGLINo = res.Table[0].TSGLINo;
                     $scope.AccountNumber = res.Table[0].AccountNumber;
                     $scope.IFSCCode = res.Table[0].IFSCCode;
-                   
+
+
+                    //$scope.EditMonthData = res.Table1;
                    
 
                 }
@@ -462,17 +502,81 @@ define(['app'], function (app) {
 
 
         }
-        $scope.ChangeStatus = function (EmployeeID, Status) {
+        $scope.changemonth = function (data) {
+            $scope.IncrementMonthUpdated = data;
+        }
+
+        $scope.ChangeStatus = function (EmployeeID, DepartmentId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, Status);
+            var getSlides = PayRollService.EmployeeDetailStatus(DataType, EmployeeID, DepartmentId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEmployeeDetailsData();
+                    alert(response.Table[0].ResponseDescription);
+                    var DataTypeID = 1;
+                    var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
+                    getdesign.then(function (response) {
+
+                        try {
+                            var res = JSON.parse(response);
+                        }
+                        catch (err) { }
+
+                        //$scope.edit = true;
+                        if (res.Table.length > 0) {
+                            $scope.EmployeeDetailsData = res.Table;
+                            $scope.Noreports = false;
+
+
+
+                        }
+                        else {
+                            $scope.EmployeeDetailsData = [];
+                            $scope.Noreports = true;
+                        }
+
+
+                    },
+
+                        function (error) {
+                            alert("error while loading Employee Details");
+                            var err = JSON.parse(error);
+
+                        });
+                    //$scope.getEmployeeDetailsData();
                 } else if (response.Table[0].ResponseCode == '400') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.getEmployeeDetailsData();
+                    alert(response.Table[0].ResponseDescription);
+                    var DataTypeID = 1;
+                    var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
+                    getdesign.then(function (response) {
+
+                        try {
+                            var res = JSON.parse(response);
+                        }
+                        catch (err) { }
+
+                        //$scope.edit = true;
+                        if (res.Table.length > 0) {
+                            $scope.EmployeeDetailsData = res.Table;
+                            $scope.Noreports = false;
+
+
+
+                        }
+                        else {
+                            $scope.EmployeeDetailsData = [];
+                            $scope.Noreports = true;
+                        }
+
+
+                    },
+
+                        function (error) {
+                            alert("error while loading Employee Details");
+                            var err = JSON.parse(error);
+
+                        });
+                    //$scope.getEmployeeDetailsData();
                 } else {
                     alert("Something Went Wrong")
                 }

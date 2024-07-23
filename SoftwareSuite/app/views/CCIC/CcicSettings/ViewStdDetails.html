@@ -7,6 +7,7 @@
         .genAttId:hover {
             text-decoration: underline;
         }
+
     .navbar_section {
         margin-right: 0px;
         margin-left: 0px;
@@ -56,6 +57,7 @@
             text-decoration: none;
             font-size: 13px;
         }
+
         .clrRed {
             color: red;
             font-weight: bold;
@@ -76,8 +78,9 @@
             font-size: 14px;
             box-shadow: 0 0px 0px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
             border-radius: 2px;
-            font-family:'Open Sans'
+            font-family: 'Open Sans'
         }
+
         .submit-btn button {
             background: #7cb82f;
             padding: 5px 20px;
@@ -170,30 +173,30 @@
 <body>
     <div ng-controller="ViewStdDetailsController">
         <script type="text/javascript">
-        // When the document is ready
-        $(document).ready(function () {
+            // When the document is ready
+            $(document).ready(function () {
 
-            $('#example1').datepicker({
-                minViewMode: 'years',
-                autoclose: true,
-                format: 'yyyy'
+                $('#example1').datepicker({
+                    minViewMode: 'years',
+                    autoclose: true,
+                    format: 'yyyy'
+                });
+                $('#example2').datepicker({
+                    minViewMode: 1,
+                    autoclose: true,
+                    format: 'mm-yyyy'
+                });
+                $('.tabledate').datepicker({
+                    //minViewMode: 1,
+                    autoclose: true,
+                    format: 'dd-mm-yyyy'
+                });
+                //$('#example4').datepicker({
+                //    //minViewMode: 1,
+                //    autoclose: true,
+                //    //format: 'dd-mm-yyyy'
+                //});
             });
-            $('#example2').datepicker({
-                minViewMode: 1,
-                autoclose: true,
-                format: 'mm-yyyy'
-            });
-            $('.tabledate').datepicker({
-                //minViewMode: 1,
-                autoclose: true,
-                format: 'dd-mm-yyyy'
-            });
-            //$('#example4').datepicker({
-            //    //minViewMode: 1,
-            //    autoclose: true,
-            //    //format: 'dd-mm-yyyy'
-            //});
-        });
         </script>
 
         <!-- New Style Start-->
@@ -383,6 +386,7 @@
                                     <div class="col-md-5"><label>Is Blind</label></div>
                                     <div class="col-md-7 pre-text">: {{PreviewData.IsBlind==true ? 'Yes' : 'No'}}</div>
                                 </div>
+
 
                             </div>
 

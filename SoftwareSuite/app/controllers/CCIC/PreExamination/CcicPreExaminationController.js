@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("CcicPreExaminationController", function ($scope, $http, $localStorage, $state, AppSettings, CcicSystemUserService) {
+    app.controller("CcicPreExaminationController", function ($scope, $http, $localStorage, CcicPreExaminationService,$state, AppSettings, CcicSystemUserService) {
 
         var authData = $localStorage.authorizationData;
         $scope.userType = authData.SystemUserTypeID;
@@ -114,11 +114,38 @@
         //    }
         //}
 
-        $scope.OpenSubModule = function (Module) {
 
+
+        $scope.OpenSubModule = function (Module) {
+            if (Module.ModuleRouteName == 'FeeEligibleReports') {
+                    $scope.loading = true;
+                    var DataType = 1;
+                    var feeEligibleReportExcel = CcicPreExaminationService.GetFeeEligibleReportExcel(DataType);
+                 feeEligibleReportExcel.then(function (res) {
+                        $scope.loading = false;
+                        if (res.length > 0) {
+                            if (res.length > 4) {
+                                window.location.href = res;
+                            } else {
+                                alert("No FeeEligible Excel Report Present")
+                            }
+                        } else {
+                            alert("No FeeEligible Report Present")
+                        }
+                    }, function (err) {
+                        $scope.LoadImg = false;
+                        alert("Error while loading");
+                    });
+            }
+            else {
                 $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
-            
+            }
         }
+        //$scope.OpenSubModule = function (Module) {
+
+        //        $state.go("CcicDashboard.PreExamination" + Module.SubModuleRouteName);
+            
+        //}
     
 
         $scope.OpenCcicDashboard = function () {

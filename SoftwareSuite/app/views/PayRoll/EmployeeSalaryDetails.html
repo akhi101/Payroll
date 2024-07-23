@@ -64,25 +64,38 @@
                         <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                             <div class="row">
 
+
+                                <div class="form-group col-md-6">
+                                    <label>
+                                        Department:
+                                    </label>
+                                    <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
+                                            ng-options="data as data.DepartmentName for data in DepartmentData">
+                                        <option value="" selected>Select Department</option>
+                                    </select>
+
+                                </div>
+
+
                                 <div class="form-group col-md-4">
                                     <label>
                                         Employee Name :
                                     </label>
 
-                                    <select class="form-control" ng-model="EmployeeID"
+                                    <select class="form-control" ng-model="EmployeeID" ng-change="ChangeEmployee(EmployeeID)"
                                             ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
                                         <option value="" selected>Select Employee Name</option>
                                     </select>
 
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showCBA">
                                     <label>
                                         Current Basic Amount :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Current Basic Amount" ng-model="CurrentBasicAmount">
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showIR">
                                     <label>
                                         Interim Relief:
                                     </label>
@@ -92,42 +105,61 @@
                                         <option value="N">No</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showCCA">
                                     <label>
                                         CCA :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CCA Amount" ng-model="CCA">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showPP">
                                     <label>
                                         PP :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter PP Amount" ng-model="PP">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showFPI">
                                     <label>
                                         FPI :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter FPI Amount" ng-model="FPI">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showTGI">
                                     <label>
                                         TG Increment :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter TG Increment Amount" ng-model="TG_Increment">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showCE">
                                     <label>
-                                        Conveyance Elevence :
+                                        Conveyance Allowance :
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Conveyance Elevence Amount" ng-model="ConveyanceElevence">
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Conveyance Elevence Amount" ng-model="ConveyanceAllowance">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4" ng-show="showMedical">
                                     <label>
                                         Medical  :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Medical Amount" ng-model="Medical">
                                 </div>
+                                <div class="form-group col-md-4" ng-show="showNCI">
+                                    <label>
+                                        NCI:
+                                    </label>
+                                    <select class="form-control" name="applicationForm.NCI" ng-model="NCI" ng-change="ChangeNCI(NCI)">
+                                        <option value="">Select NCI</option>
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-4" ng-show="showNCIAmount">
+                                    <label>
+                                       NCI Amount  :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter NCI Amount" ng-model="NCIAmount" >
+                                </div>
+                                
+
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
                                     <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
@@ -158,15 +190,17 @@
                     <thead>
                         <tr class="cb-1">
                             <th>S.No</th>
-                            <th class="text-center"> Employee Name </th>
-                            <th class="text-center"> Current Basic Amount</th>
-                            <th class="text-center">Interim Relief</th>
-                            <th class="text-center">CCA </th>
+                            <th class="text-center">Employee Name </th>
+                            <th class="text-center">Current Basic Amount</th>
+                            <th class="text-center" ng-show="showIR">Interim Relief</th>
+                            <th class="text-center" ng-show="showCCA">CCA </th>
                             <th class="text-center">PP </th>
                             <th class="text-center">FPI </th>
                             <th class="text-center">TG Increment </th>
-                            <th class="text-center">Conveyance Elevence </th>
+                            <th class="text-center" ng-show="showCE">Conveyance Allowance </th>
                             <th class="text-center">Medical </th>
+                            <th class="text-center">NCI </th>
+                            <th class="text-center">NCI Amount </th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
@@ -176,20 +210,22 @@
                             <td class="text-center">{{$index + 1}}</td>
                             <td class="text-center">{{data.EmployeeName}}</td>
                             <td class="text-center">{{data.CurrentBasicAmount}}</td>
-                            <td class="text-center">
-                                <select class="form-control" name="applicationForm.InterimRelief" ng-model="data.InterimRelief">
+                            <td class="text-center" ng-show="showIR">
+                                <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.InterimRelief" ng-model="data.InterimRelief">
                                     <option value="">Select Interim Relief</option>
                                     <option value="Y">Yes</option>
                                     <option value="N">No</option>
                                 </select>
                             </td>
-                            <td class="text-center">{{data.CCA}}</td>
+                            <td class="text-center" ng-show="showCCA">{{data.CCA}}</td>
                             <td class="text-center">{{data.PP}}</td>
                             <td class="text-center">{{data.FPI}}</td>
                             <td class="text-center">{{data.TG_Increment}}</td>
-                            <td class="text-center">{{data.ConveyanceElevence}}</td>
+                            <td class="text-center" ng-show="showCE">{{data.ConveyanceAllowance}}</td>
                             <td class="text-center">{{data.Medical}}</td>
-
+                            <td class="text-center">{{data.NCI}}</td>
+ 
+                            <td class="text-center">{{data.NCIAmount}}</td>
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">
                                     Edit
@@ -197,8 +233,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>

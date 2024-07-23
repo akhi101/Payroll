@@ -187,16 +187,20 @@
 
         //}
 
-        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID) {
+
+        $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, isSubmitted, ApplicationStatus) {
 
             $localStorage.TempData3 = {
                 ApplicationNumber: ApplicationNumber,
-                StudentID: StudentID
+                StudentID: StudentID,
+                isSubmitted: isSubmitted,
+                ApplicationStatus: ApplicationStatus,
+                CourseID: tempData2.CourseID
 
 
             };
 
-            $state.go('CcicDashboard.Academic.ViewStuDetails');
+            $state.go('CcicDashboard.Academic.ViewStdDetails');
 
 
         }

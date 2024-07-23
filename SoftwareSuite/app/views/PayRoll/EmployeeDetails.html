@@ -68,14 +68,14 @@
                                     <label>
                                         Employee Code:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter Employee Code" ng-model="EmployeeCode">
+                                    <input class="form-control" type="text" maxlength="10"  placeholder="Enter Employee Code" ng-model="EmployeeCode">
                                 </div>
 
                                 <div class="form-group col-md-9">
                                     <label>
                                         Employee Name:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' placeholder="Enter Employee Name" ng-model="EmployeeName">
+                                    <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Employee Name" ng-model="EmployeeName">
                                 </div>
 
                                 <div class="form-group col-md-4">
@@ -124,7 +124,7 @@
                                     <label>
                                         Department Name:
                                     </label>
-                                    <select class="form-control" id="departmentid" ng-model="Department"
+                                    <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
                                             ng-options="data.DepartmentID as data.DepartmentName for data in DepartmentData">
                                         <option value="" selected>Select Department</option>
                                     </select>
@@ -149,12 +149,12 @@
                                     </div>
 
                                     <!--<div class="form-group col-md-3">
-                                        <label>
-                                            PHC:
-                                        </label>
-                                        <input class="form-control" type="text" maxlength="3" placeholder="Enter PHC" ng-model="PHC">
+        <label>
+            PHC:
+        </label>
+        <input class="form-control" type="text" maxlength="3" placeholder="Enter PHC" ng-model="PHC">
 
-                                    </div>-->
+    </div>-->
 
                                     <div class="form-group col-md-3">
                                         <label>
@@ -169,34 +169,44 @@
                                         </select>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-3" >
                                         <label>
                                             Increment Month:
                                         </label>
-                                        <select class="form-control" name="applicationForm.IncrementMonth" ng-model="IncrementMonth" ng-disabled="IncrementMonthfound">
-                                            <option value="">Select Increment Month</option>
-                                            <option value="January">January</option>
-                                            <option value="February">February</option>
-                                            <option value="March">March</option>
-                                            <option value="April">April</option>
-                                            <option value="May">May</option>
-                                            <option value="June">June</option>
-                                            <option value="July">July</option>
-                                            <option value="August">August</option>
-                                            <option value="September">September</option>
-                                            <option value="October">October</option>
-                                            <option value="November">November</option>
-                                            <option value="December">December</option>
+                                        <select class="form-control" ng-model="IncrementMonth" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
                                         </select>
 
                                     </div>
+
+                                     <!--<div class="form-group col-md-3" ng-show="showupdatemonth">
+                                        <label>
+                                            Increment Month:
+                                        </label>
+                                        <select class="form-control" ng-model="EditEmployeeDetailsData[0].MonthID" ng-change="changemonth(EditEmployeeDetailsData[0].MonthID)" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
+                                        </select>
+
+                                     
+                                    </div>-->
+                                    <!--<div class="form-group col-md-3" ng-show="showupdatemonth">
+                                        <label>
+                                            Increment Month:
+                                        </label>
+                                        <select class="form-control" id="" ng-model="NewIncrementMonth" ng-disabled="IncrementMonthfound"
+                                                ng-options="data.MonthsID as data.Months for data in MonthsData">
+                                            <option value="" selected>Select Increment Month</option>
+                                        </select>
+                                    </div>-->
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label>
                                         Scale Type:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="10" placeholder="Enter ScaleType" ng-model="ScaleType">
+                                    <input class="form-control" type="text" maxlength="20" placeholder="Enter ScaleType" ng-model="ScaleType">
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -251,7 +261,7 @@
                                     <label>
                                         Account Number:
                                     </label>
-                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter AccountNumber" ng-model="AccountNumber">
+                                    <input class="form-control" type="text" maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter AccountNumber" ng-model="AccountNumber">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>
@@ -273,7 +283,7 @@
                                 </div>
 
                                 <div class="col-md-12" ng-show="UpdateDetails=='1'">
-                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="updatedetails()">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="updateEmpdetails()">
                                         UPDATE
                                     </button>
                                 </div>
@@ -326,7 +336,7 @@
 
                          
                             <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditEmployeeDetails(data.EmployeeID,data.Active)">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditEmployeeDetails(data.EmployeeID,data.DepartmentId,data.Active)">
                                     Edit
                                 </button>
                                 <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
@@ -335,8 +345,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>
@@ -357,4 +367,14 @@
     <div class="sm-spacer"></div>
     <div class="sm-spacer"></div>
 </div>
+<script>
+    function restrictNumbers(event) {
+        // Get the character code of the pressed key
+        var charCode = event.charCode;
 
+        // If the character code is between 48 (0) and 57 (9), prevent input
+        if (charCode >= 48 && charCode <= 57) {
+            event.preventDefault();
+        }
+    }
+</script>

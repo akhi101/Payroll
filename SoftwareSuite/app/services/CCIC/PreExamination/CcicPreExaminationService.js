@@ -734,6 +734,14 @@
             return promise;
         };
 
+        this.GetFeeEligibleReportExcel = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetFeeEligibleReportExcel', paramObj);
+            return promise;
+        };
+
         this.GetAdminFeePaymentInstituteCount = function (AcademicYearID, ExamMonthYearID) {
             var paramObj = {
                 "AcademicYearID": AcademicYearID,
