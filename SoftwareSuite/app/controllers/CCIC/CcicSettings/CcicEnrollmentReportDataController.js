@@ -2,56 +2,54 @@
     app.controller("CcicEnrollmentReportDataController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
-        var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
         $scope.UserName = authData.UserName;
-        $scope.ReportTypeID = tempData2.ReportTypeID;
+        $scope.RegisterReportData = false;
+        $scope.AdmRegisterReportData = false;
+        var tempData2 = $localStorage.TempData2;
+        var InstitutionID = authData.InstitutionID;
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
-            //$scope.GetEnrollmentReportData();
-            $scope.ShowStudentDetails = false;
-            $scope.DataTable = true;
-            $scope.LoadImg = false;
+            /*$scope.GetEnrollmentReportData();*/
+            //$scope.ShowStudentDetails = false;
+            //$scope.LoadImg = false;
             $scope.Clear = false;
         }
 
         var data = {};
         $scope.$emit('showLoading', data);
 
-        $scope.sort = function (keyname) {
-            $scope.sortKey = keyname;   //set the sortKey to the param passed
-            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-        }
 
-       
         $scope.loading = true;
-            var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
+        var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
-                var enrollmentreportData = CcicPreExaminationService.GetInstitutionEnrollmentReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
-                enrollmentreportData.then(function (response) {
-                    try {
-                        var res = JSON.parse(response);
-                    }
-                    catch (err) { }
-                    $scope.EnrollmentReportDataTable = [];
-                    if (res.length >= 0) {
-                        $scope.loading = false;
-                        $scope.EnrollmentReportDataTable = res;
-                        $scope.$emit('hideLoading', data);
-                    } else {
-                        $scope.loading = false;
-                        $scope.EnrollmentReportDataTable = [];
-                        $scope.$emit('hideLoading', data);
+        var enrollmentreportData = CcicPreExaminationService.GetInstitutionRegisterReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID, tempData2.academicYear, tempData2.batch);
+        enrollmentreportData.then(function (response) {
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            $scope.EnrollmentReportDataTable = [];
+            if (res.length >= 0) {
+                $scope.loading = false;
+                $scope.EnrollmentReportDataTable = res;
+                $scope.$emit('hideLoading', data);
 
-                    }
-                },
-                    function (error) {
-                        //   alert("error while loading Notification");
-                        var err = JSON.parse(error);
-                    });
-            
-        
+
+            } else {
+                $scope.loading = false;
+                $scope.EnrollmentReportDataTable = [];
+                $scope.$emit('hideLoading', data);
+
+            }
+        },
+            function (error) {
+                //   alert("error while loading Notification");
+                var err = JSON.parse(error);
+            });
+        /*  }*/
+
 
         $scope.Close = function () {
             $state.go('CcicDashboard.Academic.EnrollmentReport')
@@ -118,6 +116,7 @@
 
         //}
 
+
         $scope.ViewStudentDetails = function (ApplicationNumber, StudentID, isSubmitted, ApplicationStatus) {
 
             $localStorage.TempData3 = {
@@ -126,7 +125,7 @@
                 isSubmitted: isSubmitted,
                 ApplicationStatus: ApplicationStatus,
                 CourseID: tempData2.CourseID
-               
+
 
             };
 

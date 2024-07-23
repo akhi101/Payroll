@@ -2,60 +2,55 @@
     app.controller("CcicAdmEnrollmentReportDataController", function ($scope, $localStorage, $state, CcicPreExaminationService) {
 
         var authData = $localStorage.authorizationData;
-        var tempData2 = $localStorage.TempData2;
         var tmp = $localStorage.TempData;
+        var tempData2 = $localStorage.TempData2;
         $scope.UserName = authData.UserName;
+
+
 
         $scope.Institution = tempData2.Institution;
         $scope.Course = tempData2.Course;
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-
-            $scope.ShowStudentDetails = false;
+            //$scope.ShowStudentDetails = false;
             //$scope.DataTable = true;
+            //$scope.LoadImg = false;
             $scope.Clear = false;
         }
+
         var data = {};
         $scope.$emit('showLoading', data);
 
-        $scope.sort = function (keyname) {
-            $scope.sortKey = keyname;   //set the sortKey to the param passed
-            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-        }
-
-
 
         $scope.loading = true;
+
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
-        var enrollmentreportData = CcicPreExaminationService.GetInstitutionEnrollmentReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
-                enrollmentreportData.then(function (response) {
-                    try {
-                        var res = JSON.parse(response);
-                    }
-                    catch (err) { }
-                    $scope.EnrollmentReportDataTable = [];
-                    if (res.length >= 0) {
-                        $scope.loading = false;
-                        $scope.EnrollmentReportDataTable = res;
-                        $scope.$emit('hideLoading', data);
+
+        var registerreportData = CcicPreExaminationService.GetAdminRegisterReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID, tmp.academicYear, tmp.batch);
+        registerreportData.then(function (response) {
+            try {
+                var res = JSON.parse(response);
+            }
+            catch (err) { }
+            $scope.AdmRegisterReportDataTable = [];
+            if (res.length >= 0) {
+                $scope.loading = false;
+                $scope.AdmRegisterReportDataTable = res;
+                $scope.$emit('hideLoading', data);
 
 
-                    } else {
-                        $scope.loading = false;
-                        $scope.EnrollmentReportDataTable = [];
-                        $scope.$emit('hideLoading', data);
+            } else {
+                $scope.loading = false;
+                $scope.AdmRegisterReportDataTable = [];
+                $scope.$emit('hideLoading', data);
 
-                    }
-                },
-                    function (error) {
-                        //   alert("error while loading Notification");
-                        var err = JSON.parse(error);
-                    });
-            
-
-
-        
+            }
+        },
+            function (error) {
+                //   alert("error while loading Notification");
+                var err = JSON.parse(error);
+            });
     
 
         $scope.Close = function () {

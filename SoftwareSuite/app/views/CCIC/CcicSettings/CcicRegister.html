@@ -218,14 +218,26 @@
                                     <label class="font-weight-bold"> Academic Year :</label>
                                     <select class="form-control " ng-model="academicYear" name="AcademicYear" required>
                                         <option value="" selected="selected">Select Year</option>
-                                        <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicAcademicYears"  class="">
+                                        <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicAcademicYears" class="">
                                             {{data.AcademicYear}}
                                         </option>
                                         <!--<option value=1>1</option>
-                        <option value=2>2</option>-->
+                <option value=2>2</option>-->
                                     </select>
                                 </div>
                             </div>
+
+
+                                <div class="col-md-3 form-group">
+
+                                    <label class="font-weight-bold"> Course Duration :</label>
+                                    <select class="form-control " ng-model="courseduration" ng-change="changeCourse" name="CourseDurationType" required>
+                                        <option value="" selected="selected">Select Duration</option>
+                                        <option value="{{data.CourseDurationID}}" ng-repeat="data in GetCcicCourseDurationsData" class="">
+                                            {{data.CourseDurationName}}
+                                        </option>
+                                    </select>
+                                </div>
 
                             <div class="col-md-3 form-group">
                                 <label class="font-weight-bold"> Batch:</label>
