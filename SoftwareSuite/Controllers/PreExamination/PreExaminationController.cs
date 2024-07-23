@@ -2272,6 +2272,68 @@ namespace SoftwareSuite.Controllers.PreExamination
         }
 
 
+        [HttpGet, ActionName("GatStatisticsReports")]
+        public string GatStatisticsReports(int AcademicYearId,int Exammonthyearid, int DataType, int CollegeCode=0)
+        {
+            List<person> p = new List<person>();
+            person p1 = new person();
+            try
+            {
+
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                param[1] = new SqlParameter("@Exammonthyearid", Exammonthyearid);
+                param[2] = new SqlParameter("@CollegeCode", CollegeCode);
+                param[3] = new SqlParameter("@DataType", DataType);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("USP_GET_SubjectWiseResultStatistics", param);
+                if (ds.Tables[0].Rows[0]["ResponceCode"].ToString() == "200")
+                {
+                    var filename = ds.Tables[1].Rows[0]["ExamMonthYear"].ToString()+"_Results_Statistics" + ".xlsx";
+                    var eh = new ExcelHelper();
+                    var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                    bool folderExists = Directory.Exists(path);
+                    if (!folderExists)
+                        Directory.CreateDirectory(path);
+                    eh.ExportDataSet(ds, path + filename);
+                    Timer timer = new Timer(200000);
+                    timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                    timer.Start();
+                    var file = "/Downloads/" + filename;
+                    p1.file = file;
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                    //return ;
+
+                }
+                else
+                {
+
+                    p1.file = "";
+                    p1.ResponceCode = ds.Tables[0].Rows[0]["ResponceCode"].ToString();
+                    p1.ResponceDescription = ds.Tables[0].Rows[0]["ResponceDescription"].ToString();
+                    p.Add(p1);
+                    return JsonConvert.SerializeObject(p);
+                }
+                //
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_BacklogSubjectsForAllPinsReports", 0, ex.Message);
+                //return ex.Message;
+
+                p1.file = "";
+                p1.ResponceCode = "400";
+                p1.ResponceDescription = ex.Message;
+                p.Add(p1);
+                return JsonConvert.SerializeObject(p);
+            }
+
+        }
+
         [HttpGet, ActionName("GetIndustrialFailedReport")]
         public string GetIndustrialFailedReport(string scheme)
         {
@@ -13821,6 +13883,26 @@ namespace SoftwareSuite.Controllers.PreExamination
             {
 
                 dbHandler.SaveErorr("USP_SET_TimeTableMonthYearExamTypesSessions", 0, ex.Message);
+                return ex.Message;
+            }
+
+        }
+
+        [HttpGet, ActionName("GetExamMonthYearsByAcademicYearId")]
+        public string GetExamMonthYearsByAcademicYearId(int AcademicYearId)
+        {
+            try
+            {
+                var dbHandler = new dbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearId", AcademicYearId);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_ResultStatisticsMonthYear", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("USP_GET_ResultStatisticsMonthYear", 0, ex.Message);
                 return ex.Message;
             }
 

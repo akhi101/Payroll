@@ -458,8 +458,43 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-md-3" >
+                                        <div class="form-group required">
+                                            <label for="date-picker-example">Examination Date</label>
+                                            <select class="form-control" ng-model="ExamDateselect" required ng-change="getBatches(ExamDateselect)">
+                                                <option value="" selected>Select Exam Date</option>
+                                                <option ng-repeat="ExamDateselect in ExamDates" value="{{ExamDateselect}}">
+                                                    {{ExamDateselect.ExamDate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 " >
+                                        <div class="form-group ">
+                                            <label>Examination Batch</label>
+                                            <select class="form-control" ng-model="exambatch" ng-change="getbatchtimings(exambatch.BatchNumber)">
+                                                <option value="" selected>Select Exam Batch</option>
+                                                <option ng-repeat="exambatch in exambatchList" value="{{exambatch.BatchNumber}}">
+                                                    {{exambatch.BatchNumber}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-4" ng-if="GradeBatchTimings.length>0">
+                                        <div class="form-group">
+                                            <label>Paper1 Time</label>
+                                            <input type="text" disabled class="form-control" autocomplete="off" ng-model="Paper1Time" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" ng-if="GradeBatchTimings.length>0">
+                                        <div class="form-group">
+                                            <label>Paper2 Time</label>
+                                            <input type="text" disabled class="form-control" autocomplete="off" ng-model="Paper2Time" />
+                                        </div>
+                                    </div>
+                                </div>
+                                    <!--<div class="col-md-3 form-group">
                                         <select class="form-control" ng-model="Batch" ng-change="changeBatch(Batch)">
                                             <option value="">Select Batch</option>
                                             <option value="1">1</option>
@@ -467,7 +502,7 @@
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                         </select>
-                                    </div>
+                                    </div>-->
                                     <div class="col-md-12" ng-show="StudentData.length>0">
                                         <div class="">
                                             <button type="submit" class="btn  btn-success btn_top_margin  pull-right" ng-click="ChangeBatch()">Change<span class="fa  heading_icon btn_icons"></span></button>

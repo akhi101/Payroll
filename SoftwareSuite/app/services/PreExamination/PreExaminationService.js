@@ -2843,6 +2843,13 @@
             return promise;
         }
 
+        
+        this.GetExamMonthYearsByAcademicYearId = function (AcademicYearId) {
+            var paramObject = { "AcademicYearId": AcademicYearId };
+            var promise = DataAccessService.getDataWithPara('api/PreExamination/GetExamMonthYearsByAcademicYearId', paramObject);
+            return promise;
+        }
+
         this.GetTwoYearsPinDetails = function (pin) {
             var paramObject = { "pin": pin };
             var promise = DataAccessService.getDataWithPara('api/PreExamination/GetTwoYearsPinDetails', paramObject);
@@ -2876,6 +2883,16 @@
             return DataAccessService.getDataWithPara('api/PreExamination/getExamCentersList', paramObject);
         };
 
+        
+        this.GatStatisticsReports = function (AcademicYearId,  Exammonthyearid,  DataType,  CollegeCode) {
+            var paramObject = {
+                "AcademicYearId": AcademicYearId,
+                "Exammonthyearid": Exammonthyearid,
+                "DataType": DataType,
+                "CollegeCode": CollegeCode
+            };
+            return DataAccessService.getDataWithPara('api/PreExamination/GatStatisticsReports', paramObject);
+        };
 
         this.SemOmrCount = function (SchemeId) {
             var paramObject = {

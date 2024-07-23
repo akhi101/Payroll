@@ -1140,6 +1140,7 @@
     <Content Include="app\controllers\PostExam\AmbedkarResultsReportController.js" />
     <Content Include="app\controllers\Admission\Reports\ReadmissionListController.js" />
     <Content Include="app\controllers\PostExam\RejectPopup.html" />
+    <Content Include="app\controllers\PostExam\StatisticsReportsController.js" />
     <Content Include="app\controllers\StudentServices\FeeSettingsController.js" />
     <Content Include="app\controllers\TWSH\TwshViewAuthorizationDetailsController.js" />
     <Content Include="app\services\CBT\CbtStudentRegService.js" />
@@ -1172,6 +1173,7 @@
     <Content Include="app\views\CCIC\PreExamination\CcicTestingExamFeePayment.html" />
     <Content Include="app\views\ExamsSite\StudentReg.html" />
     <Content Include="app\views\MasterSettings\UserCredentials.html" />
+    <Content Include="app\views\newwebsite\assets\img\comissioner_2024.jpg" />
     <Content Include="app\views\PayRoll\BankDetails.html" />
     <Content Include="app\views\PayRoll\BoardStaff.html" />
     <Content Include="app\views\PayRoll\Department.html" />
@@ -1852,6 +1854,7 @@
     <Content Include="app\views\Popups\ViewTicketsDataPopup.html" />
     <Content Include="app\views\PostExam\BonafideCertApproveListDetails.html" />
     <Content Include="app\views\PostExam\Designation1.html" />
+    <Content Include="app\views\PostExam\StatisticsReports.html" />
     <Content Include="app\views\PostExam\StudyCertificate.html" />
     <Content Include="app\views\PostExam\StudyCertificateDetailsPopup.html" />
     <Content Include="app\views\PreExamination\PostAttendance.html" />
@@ -3359,6 +3362,7 @@
     <Content Include="assets\img\charman.jpg" />
     <Content Include="assets\img\close.png" />
     <Content Include="assets\img\coming-soon.svg" />
+    <Content Include="assets\img\comissioner_2024.jpg" />
     <Content Include="assets\img\courses\1.jpg" />
     <Content Include="assets\img\courses\2.jpg" />
     <Content Include="assets\img\courses\3.jpg" />
