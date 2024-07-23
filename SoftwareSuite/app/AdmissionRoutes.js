@@ -4256,6 +4256,12 @@
                 dependencies: ['controllers/PostExam/TwoYearsCertificateListController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
             },
 
+            'Dashboard.PostExam.StatisticsReports': {
+                url: "/StatisticsReports",
+                templateUrl: 'app/views/PostExam/StatisticsReports.html',
+                dependencies: ['controllers/PostExam/StatisticsReportsController', 'services/PreExamination/PreExaminationService', 'services/StudentResultService']
+            },
+
             'Dashboard.StudentServices.MigrationApprovalList': {
                 url: "/MigrationApprovalList",
                 templateUrl: 'app/views/PostExam/MigrationApprovalList.html',

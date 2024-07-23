@@ -357,11 +357,12 @@
                 };
 
                 reader.onerror = function (ex) {
+                    console.log(ex);
                     $scope.tabledata = []
                     $scope.Exceldat = [];
                     $scope.Exceldata = [];
                     $scope.reload = false
-                    console.log(ex);
+                   
                     $scope.reload = false
                 };
 

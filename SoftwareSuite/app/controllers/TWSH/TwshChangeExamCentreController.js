@@ -12,6 +12,20 @@ define(['app'], function (app) {
         }
         $scope.loading = false;
 
+      
+
+        $scope.getBatches = function (ExamDateselect) {
+            console.log(ExamDateselect)
+            $scope.exambatchList = [];
+            $scope.ExamDateselected = JSON.parse(ExamDateselect);
+            var getBatches = TwshStudentRegService.getBatches($scope.ExamDateselected.Id, $scope.StudentData[0].CourseId, $scope.StudentData[0].GradeId);
+            getBatches.then(function (res) {
+                $scope.exambatchList = res;
+            }, function (err) {
+                $scope.exambatchList = [];
+            })
+        }
+
         $scope.getTwshStudentDetails = function () {
             if ($scope.HallTicketNumber == null || $scope.HallTicketNumber == undefined || $scope.HallTicketNumber == '') {
                 alert('Please Enter Correct Hall Ticket Number');
@@ -26,6 +40,7 @@ define(['app'], function (app) {
                 if (res.Table.length > 0) {
                     $scope.loading = false;
                     $scope.StudentData = res.Table;
+                    $scope.getDates()
                     $scope.NoData = false;
                     $scope.Label = true;
 
@@ -46,7 +61,17 @@ define(['app'], function (app) {
                     console.log(error);
                 });
         }
-
+        $scope.getDates = function () {
+        $scope.offlineExamDates = [];
+        var getexamdates = TwshStudentRegService.getExamDates($scope.StudentData[0].CourseId, $scope.StudentData[0].GradeId)
+        getexamdates.then(function (resp) {
+            $scope.ExamDates = resp;
+            $scope.loader1 = false
+            $scope.submitbutton1 = false
+        }, function (err) {
+            $scope.ExamDates = []
+        });
+        }
         $scope.getExaminationCentres = function () {
             $scope.loading = true;
             $scope.nodata = false;
