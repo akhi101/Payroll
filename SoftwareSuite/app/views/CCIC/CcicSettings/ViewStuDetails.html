@@ -7,7 +7,6 @@
         .genAttId:hover {
             text-decoration: underline;
         }
-   
 </style>
 
 <!DOCTYPE html>
@@ -101,7 +100,6 @@
             margin: 10px 0px 10px 0px;
             font-weight: 700;
             font-family: 'Open Sans';
-
         }
 
         label {
@@ -113,13 +111,14 @@
             font-family: 'Open Sans';
             margin-top: 25px;
         }
+
         .col-md-9 {
             width: 75%;
             margin-bottom: 5px;
             font-weight: 500;
             font-size: 14px !important;
             font-family: 'Open Sans';
-            margin-top:15px;
+            margin-top: 15px;
         }
 
 
@@ -128,6 +127,7 @@
             font-weight: 500;
             font-family: 'Open Sans';
         }
+
         .col-md-3 {
             width: 25%;
             font-weight: 500;
@@ -236,8 +236,6 @@
             margin-top: 0px;
             margin-bottom: 5px;
         }
-    
-
     </style>
 </head>
 
@@ -275,7 +273,7 @@
 
         </div>-->
         <div class="container containercontent">
-            <div class="col-md-12 mtp-50 containercontent"  ng-if="PreviewData" style="padding-bottom:150px">
+            <div class="col-md-12 mtp-50 containercontent" ng-if="PreviewData" style="padding-bottom:150px">
                 <fieldset class="group-border" style="border-color:black">
                     <div class="row">
                         <div class="col-md-12">
@@ -464,7 +462,11 @@
 
                             </div>
 
-
+                            <hr style="border-color: #454545 ">
+                            <div class="col-md-6">
+                                <div class="col-md-5"><label>Remarks</label></div>
+                                <div class="col-md-7 pre-text">: {{PreviewData.Remarks}}</div>
+                            </div>
 
 
                         </div>
@@ -501,7 +503,7 @@
 
             </div>
         </div>
-        
+
 
     </div>
 

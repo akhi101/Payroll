@@ -539,6 +539,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
 
+
         [HttpGet, ActionName("GetInsEnrollmentReportCoursesCount")]
         public string GetInsEnrollmentReportCoursesCount(int InstitutionID)
         {

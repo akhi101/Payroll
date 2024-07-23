@@ -146,11 +146,13 @@
             font-family: 'Open Sans';
             margin-bottom: 5px;
         }
+
         .navbar_section {
             margin-right: 0px;
             margin-left: 0px;
             margin-bottom: -20px;
         }
+
         a.backA, a.backA:focus {
             color: #fff !important;
             text-decoration: none !important;
@@ -163,30 +165,30 @@
 <body>
     <div ng-controller="ViewStudentDetailsController">
         <script type="text/javascript">
-        // When the document is ready
-        $(document).ready(function () {
+            // When the document is ready
+            $(document).ready(function () {
 
-            $('#example1').datepicker({
-                minViewMode: 'years',
-                autoclose: true,
-                format: 'yyyy'
+                $('#example1').datepicker({
+                    minViewMode: 'years',
+                    autoclose: true,
+                    format: 'yyyy'
+                });
+                $('#example2').datepicker({
+                    minViewMode: 1,
+                    autoclose: true,
+                    format: 'mm-yyyy'
+                });
+                $('.tabledate').datepicker({
+                    //minViewMode: 1,
+                    autoclose: true,
+                    format: 'dd-mm-yyyy'
+                });
+                //$('#example4').datepicker({
+                //    //minViewMode: 1,
+                //    autoclose: true,
+                //    //format: 'dd-mm-yyyy'
+                //});
             });
-            $('#example2').datepicker({
-                minViewMode: 1,
-                autoclose: true,
-                format: 'mm-yyyy'
-            });
-            $('.tabledate').datepicker({
-                //minViewMode: 1,
-                autoclose: true,
-                format: 'dd-mm-yyyy'
-            });
-            //$('#example4').datepicker({
-            //    //minViewMode: 1,
-            //    autoclose: true,
-            //    //format: 'dd-mm-yyyy'
-            //});
-        });
         </script>
 
         <!-- New Style Start-->
@@ -221,7 +223,7 @@
 
 
         </div>
-        <div class="container containercontent"  style="padding-bottom:150px">
+        <div class="container containercontent" style="padding-bottom:150px">
             <div class="col-md-12 mtp-50 containercontent" ng-if="PreviewData">
                 <fieldset class="group-border" style="border-color:black">
                     <div class="row">
@@ -400,7 +402,7 @@
                                     <img class="zoom" ng-src="{{imagesrc2}}" style="border: 2px solid #ddd;" height="175" width="150" />
                                     <div>Click on the file to Expand</div>
                                 </div>
-                                
+
                                 <div class="col-md-3 text-center" ng-show="imagesrc3 != '' && imagesrc3 != null ">
                                     <label>Medical Certificate</label>
                                     <img class="zoom" ng-src="{{imagesrc3}}" style="border: 2px solid #ddd;" height="175" width="150" />
