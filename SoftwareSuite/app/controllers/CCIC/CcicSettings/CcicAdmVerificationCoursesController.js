@@ -35,7 +35,7 @@
         $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
 
-        var verreportCount = CcicPreExaminationService.GetInsVerificationReportCoursesCount(InstitutionID);
+        var verreportCount = CcicPreExaminationService.GetInsVerificationReportCoursesCount(tmp.AcademicYearID,tmp.Batch,InstitutionID);
         verreportCount.then(function (response) {
             try {
                 var res = JSON.parse(response);
@@ -84,9 +84,11 @@
 
 
 
-        $scope.ShowDetails = function (InstitutionID, CourseID, ReportTypeID) {
+        $scope.ShowDetails = function (AcademicYearID,Batch,InstitutionID, CourseID, ReportTypeID) {
 
             $localStorage.TempData2 = {
+                AcademicYearID: AcademicYearID,
+                Batch: Batch,
                 InstitutionID: InstitutionID,
                 CourseID: CourseID,
                 ReportTypeID: ReportTypeID,
