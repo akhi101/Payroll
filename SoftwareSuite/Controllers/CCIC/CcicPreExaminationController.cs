@@ -88,6 +88,23 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("GetCcicFeePaymentAcademicYear")]
+        public HttpResponseMessage GetCcicFeePaymentAcademicYear()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_FeePaymentAcademicYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_FeePaymentAcademicYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetCourseDurations")]
         public HttpResponseMessage GetCourseDurations()
         {

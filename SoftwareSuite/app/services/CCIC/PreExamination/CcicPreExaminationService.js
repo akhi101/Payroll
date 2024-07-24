@@ -444,6 +444,9 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCurrentAcademicYear');
         };
 
+        this.GetCcicFeePaymentAcademicYear = function () {
+            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicFeePaymentAcademicYear');
+        };
       
         this.GetCcicCourseDurationBatches = function (CourseDurationID) {
             var paramObj = {
