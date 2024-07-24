@@ -578,13 +578,15 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetInsVerificationReportCoursesCount")]
-        public string GetInsVerificationReportCoursesCount(int InstitutionID)
+        public string GetInsVerificationReportCoursesCount(int AcademicYearID,int Batch,int InstitutionID)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@InstitutionID", InstitutionID);
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                param[2] = new SqlParameter("@InstitutionID", InstitutionID);
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_VerificationReportCoursesCount", param);
                 return JsonConvert.SerializeObject(dt);
@@ -689,20 +691,22 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+
         [HttpGet, ActionName("GetAdminVerificationReportInsCount")]
-        public HttpResponseMessage GetAdminVerificationReportInsCount()
+        public string GetAdminVerificationReportInsCount(int AcademicYearID, int Batch)
         {
             try
             {
                 var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_VerificationReportInsCount";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@Batch", Batch);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_VerificationReportInsCount", param);
+                return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
             {
-                dbHandler.SaveErorr("SP_Get_VerificationReportInsCount", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return ex.Message;
             }
         }
 
@@ -1894,10 +1898,12 @@ namespace SoftwareSuite.Controllers.CCIC
             try
             {
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
-                param[1] = new SqlParameter("@CourseID", data["CourseID"]);
-                param[2] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@AcademicYearID", data["AcademicYearID"]);
+                param[1] = new SqlParameter("@Batch", data["Batch"]);
+                param[2] = new SqlParameter("@InstitutionID", data["InstitutionID"]);
+                param[3] = new SqlParameter("@CourseID", data["CourseID"]);
+                param[4] = new SqlParameter("@ReportTypeID", data["ReportTypeID"]);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_VerificationReportData", param);

@@ -224,8 +224,10 @@
             return promise;
         };
 
-        this.GetInsVerificationReportCoursesCount = function (InstitutionID) {
+        this.GetInsVerificationReportCoursesCount = function (AcademicYearID,Batch,InstitutionID) {
             var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "Batch": Batch,
                 "InstitutionID": InstitutionID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetInsVerificationReportCoursesCount', paramObj);
@@ -313,8 +315,14 @@
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminEnrollmentReportInsCount');
         };
 
-        this.GetAdminVerificationReportInsCount = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportInsCount');
+
+        this.GetAdminVerificationReportInsCount = function (AcademicYearID, Batch) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID,
+                "Batch": Batch
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetAdminVerificationReportInsCount', paramObj);
+            return promise;
         };
 
         this.GetAdminRegisterReportCount = function (AcademicYearID, Batch) {
@@ -377,9 +385,13 @@
             return promise;
         };
 
-        this.GetInstitutionVerificationReportData = function (InstitutionID, CourseID, ReportTypeID) {
+        this.GetInstitutionVerificationReportData = function (AcademicYearID,Batch,InstitutionID, CourseID, ReportTypeID) {
             var paramObj = {
-                "InstitutionID": InstitutionID, "CourseID": CourseID, "ReportTypeID": ReportTypeID
+                "AcademicYearID": AcademicYearID,
+                "Batch": Batch,
+                "InstitutionID": InstitutionID,
+                "CourseID": CourseID,
+                "ReportTypeID": ReportTypeID
             };
             var promise = DataAccessService.postData('api/CcicPreExamination/GetInstitutionVerificationReportData', paramObj);
             return promise;

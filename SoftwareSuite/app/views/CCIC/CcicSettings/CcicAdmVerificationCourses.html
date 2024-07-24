@@ -199,10 +199,10 @@
                                                             <td>{{Data.Submitted}}</td>
                                                             <td>{{Data.Approved}}</td>
                                                             <td ng-show="PendingNoLink">{{Data.Pending}}</td>
-                                                            <td ng-if="PendingLink"><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
+                                                            <td ng-if="PendingLink"><b><a class="Verify" ng-click="ShowDetails(Data.AcademicYearID,Data.Batch,Data.InstitutionID,Data.CourseID,4)">{{Data.Pending == null ?'--':Data.Pending}}</a></b></td>
 
                                                             <td ng-show="RecommendedNoLink">{{Data.Recommended}}</td>
-                                                            <td ng-if="RecommendedLink"><b><a class="Verify" ng-click="ShowDetails(Data.InstitutionID,Data.CourseID,6)">{{Data.Recommended == null ?'--':Data.Recommended}}</a></b></td>
+                                                            <td ng-if="RecommendedLink"><b><a class="Verify" ng-click="ShowDetails(Data.AcademicYearID,Data.Batch,Data.InstitutionID,Data.CourseID,6)">{{Data.Recommended == null ?'--':Data.Recommended}}</a></b></td>
                                                             <td>{{Data.Revised}}</td>
                                                             <td>{{Data.Rejected}}</td>
                                                         </tr>

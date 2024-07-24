@@ -26,7 +26,7 @@
 
         $scope.loading = true;
         var InstitutionID = (authData.InstitutionID == undefined || authData.InstitutionID == '' || authData.InstitutionID == 0) ? tmp.InstitutionID : authData.InstitutionID
-        var verreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
+        var verreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tempData2.AcademicYearID, tempData2.Batch, InstitutionID, tempData2.CourseID, tempData2.ReportTypeID);
         verreportData.then(function (response) {
             try {
                 var res = JSON.parse(response);
