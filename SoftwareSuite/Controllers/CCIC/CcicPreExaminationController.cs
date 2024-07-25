@@ -88,6 +88,23 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
+        [HttpGet, ActionName("GetCcicResultsAcademicYear")]
+        public HttpResponseMessage GetCcicResultsAcademicYear()
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_ResultAcademicYear";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_ResultAcademicYear", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetCcicFeePaymentAcademicYear")]
         public HttpResponseMessage GetCcicFeePaymentAcademicYear()
         {
@@ -733,6 +750,24 @@ namespace SoftwareSuite.Controllers.CCIC
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
 
                 var dt = dbHandler.ReturnDataSet("SP_Get_ExamMonthYears", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [HttpGet, ActionName("GetResultsExamMonthYears")]
+        public string GetResultsExamMonthYears(int AcademicYearID)
+        {
+            try
+            {
+                var dbHandler = new ccicdbHandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+
+                var dt = dbHandler.ReturnDataSet("SP_Get_ResultExamMonthYears", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)

@@ -7,7 +7,7 @@ define(['app'], function (app) {
 
         }
 
-        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicResultsAcademicYear();
         getCcicCurrentAcademicYear.then(function (response) {
 
             $scope.GetCcicCurrentAcademicYear = response;
@@ -27,7 +27,7 @@ define(['app'], function (app) {
 
             }
 
-            var getCcicAcademicYearBatch = CcicPreExaminationService.GetExamMonthYears(academicyear)
+            var getCcicAcademicYearBatch = CcicPreExaminationService.GetResultsExamMonthYears(academicyear)
             getCcicAcademicYearBatch.then(function (res) {
                 try {
                     var res = JSON.parse(res);

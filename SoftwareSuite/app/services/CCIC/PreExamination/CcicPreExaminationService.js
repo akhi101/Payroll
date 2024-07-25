@@ -343,6 +343,7 @@
             return promise;
         };
 
+
         this.GetAdminRegisterReportData = function (InstitutionID, CourseID, ReportTypeID,AcademicYearID, Batch) {
             var paramObj = {
                 "InstitutionID": InstitutionID, "CourseID": CourseID, "ReportTypeID": ReportTypeID, "AcademicYearID": AcademicYearID, Batch: Batch
@@ -359,7 +360,7 @@
             return promise;
         };
 
-
+       
 
         this.GetInstitutionEnrollmentReportData = function (InstitutionID, CourseID, ReportTypeID) {
             var paramObj = {
@@ -430,6 +431,18 @@
 
         this.GetCcicCurrentAcademicYear = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicCurrentAcademicYear');
+        };
+
+        this.GetCcicResultsAcademicYear = function () {
+            return DataAccessService.getDataAll('api/CcicPreExamination/GetCcicResultsAcademicYear');
+        };
+
+        this.GetResultsExamMonthYears = function (AcademicYearID) {
+            var paramObj = {
+                "AcademicYearID": AcademicYearID
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetResultsExamMonthYears', paramObj);
+            return promise;
         };
 
         this.GetCcicFeePaymentAcademicYear = function () {
