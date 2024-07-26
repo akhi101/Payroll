@@ -359,13 +359,24 @@
 
             //var tomorrow = new Date($scope.tomorrow);
             //tomorrow.setDate(tomorrow.getDate() );
-
+            
             var dates = new Date(indiaTime.toLocaleString());
+            console.log(dates instanceof Date);
+            if (dates == "Invalid Date" || dates == "" || dates == undefined) {
+                var dates = new Date(d[0], d[1], d[2]);
+                month = '' + (dates.getMonth() );
+                day = '' + (dates.getDate()+1);
+                year = dates.getFullYear();
+            } else {
+                month = '' + (dates.getMonth() + 1);
+                day = '' + dates.getDate();
+                year = dates.getFullYear();
+            }
+
             //var time = new Date(tomorrow.toLocaleTimeString())
             //console.log(time)
-            month = '' + (dates.getMonth() + 1);
-            day = '' + dates.getDate();
-            year = dates.getFullYear();
+           
+           
 
 
             if (month.length < 2) month = '0' + month;

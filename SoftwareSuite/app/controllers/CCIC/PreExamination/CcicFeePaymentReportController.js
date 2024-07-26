@@ -41,7 +41,7 @@ define(['app'], function (app) {
 
 
         $scope.getCcicCurrentAcademicYear = function () {
-            var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicCurrentAcademicYear();
+            var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicFeePaymentAcademicYear();
             getCcicCurrentAcademicYear.then(function (response) {
 
                 $scope.GetCcicCurrentAcademicYear = response;
