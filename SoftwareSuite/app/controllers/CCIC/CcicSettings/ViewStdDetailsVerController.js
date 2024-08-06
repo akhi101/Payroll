@@ -248,7 +248,7 @@
 
             }
             $scope.GetInstitutionVerReportData = function () {
-                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tmp.InstitutionID, tempData2.CourseID, 5);
+                var verificationreportData = CcicPreExaminationService.GetInstitutionVerificationReportData(tempData2.AcademicYearID, tempData2.Batch, tmp.InstitutionID, tempData2.CourseID, 5);
                 verificationreportData.then(function (response) {
                     try {
                         var res = JSON.parse(response);
