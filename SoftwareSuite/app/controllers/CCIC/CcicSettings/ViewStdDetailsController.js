@@ -34,6 +34,7 @@
                     }
                     else {
                         $scope.DatesFound = false;
+                        $scope.showclosebutton = true;
                         return;
                     }
 
