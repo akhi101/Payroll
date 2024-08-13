@@ -2953,7 +2953,7 @@
             'Dashboard.Academic.FacultyMappingReport': {
                 url: "/FacultyMappingReport",
                 templateUrl: 'app/views/Academic/Reports/FacultyMappingReport.html',
-                dependencies: ['controllers/Academic/Reports/FacultyMappingReportController', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService']
+                dependencies: ['controllers/Academic/Reports/FacultyMappingReportController', 'services/Academic/AcademicService', 'services/PreExamination/PreExaminationService', 'services/Results/StudentWiseService']
             },
 
             'Dashboard.Academic.FacultySubjectMapping': {
