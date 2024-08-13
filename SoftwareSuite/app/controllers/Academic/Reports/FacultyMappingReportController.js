@@ -1,5 +1,5 @@
 ﻿define(['app'], function (app) {
-    app.controller("FacultyMappingReportController", function ($scope, $http, $localStorage, $state, $stateParams, AppSettings, Excel, $timeout, $uibModal, AcademicService, PreExaminationService) {
+    app.controller("FacultyMappingReportController", function ($scope, $http, $localStorage, StudentWiseService, $state, $stateParams, AppSettings, Excel, $timeout, $uibModal, AcademicService, PreExaminationService) {
         var authData = $localStorage.authorizationData;
         //console.log(authData)
         var ccode = "";
@@ -44,7 +44,7 @@
 
             $scope.Submit = function () {
                 $scope.loading = true;
-                var getReport = AcademicService.getAdminSyllabusReports($scope.AcademicYear, $scope.semesterarr, $scope.CollegeCode);
+                var getReport = AcademicService.getAdminSyllabusReports($scope.scheme,$scope.AcademicYear, $scope.semester, $scope.CollegeCode);
                 getReport.then(function (response) {
                     var response = JSON.parse(response)
                     if (response.Table.length > 0) {
@@ -83,7 +83,7 @@
         } 
             $scope.loading = true;
             console.log(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode)
-            var getReport = AcademicService.getAdminSyllabusReports(parseInt($scope.AcademicYear), $scope.semesterarr, $scope.CollegeCode);
+            var getReport = AcademicService.getAdminSyllabusReports(parseInt($scope.AcademicYear), $scope.semester, $scope.CollegeCode);
             getReport.then(function (response) {
                 var response = JSON.parse(response)
                 if (response.Table.length > 0) {
@@ -222,15 +222,15 @@
 
             });
 
-        var getsems = PreExaminationService.GetAllSemesters();
-        getsems.then(function (res) {
-            //var res = JSON.parse(res);
-            $scope.semestersData = res.Table;
+        //var getsems = PreExaminationService.GetAllSemesters();
+        //getsems.then(function (res) {
+        //    //var res = JSON.parse(res);
+        //    $scope.ActiveSems = res.Table;
 
-        }, function (err) {
-            $scope.LoadImg = false;
-            alert("Error while loading");
-        });
+        //}, function (err) {
+        //    $scope.LoadImg = false;
+        //    alert("Error while loading");
+        //});
 
         //----------------------semester Multi Select Start--------------------------------//
         var semesterexpand = false;
@@ -265,32 +265,73 @@
 
         $scope.toggleAllsemester = function () {
             var toggleStatus = $scope.isAllSelectedsemesters;
-            angular.forEach($scope.semestersData, function (itm) { itm.selected = toggleStatus; });
+            angular.forEach($scope.ActiveSems, function (itm) { itm.selected = toggleStatus; });
             $scope.semesterarr = [];
-            angular.forEach($scope.semestersData, function (value, key) {
+            angular.forEach($scope.ActiveSems, function (value, key) {
                 if (value.selected === true) {
-                    $scope.semesterarr.push({ "SemId": value.SemId })
+                    $scope.semesterarr.push({ "SemId": value.semid })
                 }
             });
         }
 
+
+        var SCHEMESEMINFO = StudentWiseService.GetSchemeDataForResults();
+        $scope.pin = "";
+        SCHEMESEMINFO.then(function (data) {
+            if (data.length > 0) {
+                $scope.schemeinf = []
+                $scope.schemeinfo = data;
+                //$scope.schemeinfo = [{ schemeid: 5, scheme: "C18" }, { schemeid: 2, scheme: "ER91" }, { schemeid: 9, scheme: "C21" }, { schemeid: 10, scheme: "ER2020" }]
+
+                for (var i = 0; i < $scope.schemeinfo.length; i++) {
+                    if ($scope.schemeinfo[i].ActiveFlag == true) {
+                        $scope.schemeinf.push($scope.schemeinfo[i]);
+
+                    }
+                }
+            }
+        }, function (error) {
+            alert(error);
+        });
+
+        $scope.ChangeSemester = function () {
+            var LoadActiveSemesters = PreExaminationService.getActiveSemester();
+            LoadActiveSemesters.then(function (response) {
+                $scope.ActiveSems = [];
+                $scope.ActiveSemesters = response.Table;
+                console.log($scope.ActiveSemesters)
+                //   $scope.ActiveSemesters = [{ semid: 2, sem: "2SEM" }, { semid: 4, sem: "4SEM" }]
+                // $scope.ActiveSemesters = [{ semid: 1, sem: "1SEM" }, { semid: 2, sem: "2SEM" }, { semid: 3, sem: "3SEM" }, { semid: 4, sem: "4SEM" }, { semid: 5, sem: "5SEM" }]
+                for (var i = 0; i < $scope.ActiveSemesters.length; i++) {
+                    if ($scope.ActiveSemesters[i].current_schemeid == $scope.scheme) {
+                        $scope.ActiveSems.push($scope.ActiveSemesters[i]);
+                        $scope.Selectedshift = $scope.ActiveSemesters[i].AySession
+                    }
+                }
+                // console.log( $scope.ActiveSems )
+            }, function (error) {
+                alert("error while loading semesters");
+                var err = JSON.parse(error);
+                console.log(err.Message);
+            });
+        }
+
+
+
+
         $scope.optionToggledsemester = function () {
-            $scope.isAllSelectedsemesters = $scope.semestersData.every(function (itm) { return itm.selected; })
+            $scope.isAllSelectedsemesters = $scope.ActiveSems.every(function (itm) { return itm.selected; })
             $scope.semesterarr = [];
-            angular.forEach($scope.semestersData, function (value, key) {
+            angular.forEach($scope.ActiveSems, function (value, key) {
                 if (value.selected === true) {
-                    $scope.semesterarr.push({ "SemId": value.SemId })
+                    $scope.semesterarr.push({ "SemId": value.semId })
                 }
             });
             console.log($scope.semesterarr)
         }
 
         //----------------------semester Multi Select End--------------------------------//
-
-
-
-       
-
+        
 
     })
     app.factory('Excel', function ($window) {
@@ -307,5 +348,13 @@
                 return href;
             }
         };
+
+
+
+
+
+
+
+
     });
 })

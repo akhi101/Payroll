@@ -293,8 +293,8 @@
         this.GetAvailableFeedbacks = function () {
             return DataAccessService.getDataAll('api/PreExamination/GetAvailableFeedbacks');
         };
-        this.getAdminSyllabusReports = function (AcademicYearId, Json, CollegeCode) {
-            var paramObject = { "AcademicYearId": AcademicYearId, "Json": Json, "CollegeCode": CollegeCode };
+        this.getAdminSyllabusReports = function (Scheme,AcademicYearId, Json, CollegeCode) {
+            var paramObject = {"Scheme": Scheme,"AcademicYearId": AcademicYearId, "Json": Json, "CollegeCode": CollegeCode };
             console.log(paramObject)
             return DataAccessService.postData('api/PreExamination/getAdminSyllabusReports', paramObject);
         };

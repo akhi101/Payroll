@@ -145,7 +145,7 @@
         <div class="col-md-12">
             <div class="base-row row">
 
-                <div class="col-md-4 form-group">
+                <div class="col-md-3 form-group">
                     <label class="font-weight-bold">
                         Academic Year  :
                     </label>
@@ -154,29 +154,48 @@
                         <option value="" selected>Select Academic Year</option>
                     </select>
                 </div>
-                <div class="col-md-3 form-group">
-                    <label for="sel1">
-                        semester:
-                    </label>
-                    <div class="multiselect">
-                        <div class="selectBox" ng-click="showsemesterCheckboxes()">
-                            <select class="form-control ">
-                                <option ng-blur="closesemesterCheckbox()">Select semester</option>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="font-weight-bold">
+                            Schemes :
+                        </label>
+                        <div class="">
+                            <select class="form-control" name="semister" ng-model="scheme" ng-change="ChangeSemester(scheme)">
+                                <option value="" selected>
+                                    Select Scheme
+                                </option>
+                                <option ng-repeat="scheme in schemeinf" value="{{scheme.schemeid}}">
+                                    {{scheme.scheme}}
+                                </option>
                             </select>
-                            <div class="overSelect"></div>
-                        </div>
-                        <div id="checkboxessemester" style="max-height: 12em; overflow-y: scroll;">
-                            <label class="contain">
-                                <input type="checkbox" ng-click="toggleAllsemester()" ng-model="isAllSelectedsemesters" /><span class="checkmark"></span>Select All
-                            </label>
-                            <label class="contain" ng-repeat="data in semestersData">
-                                <input type="checkbox" ng-model="data.selected" ng-change="optionToggledsemester(data.selected)"><span class="checkmark"></span>{{data.Sem}}
-                            </label>
-
                         </div>
                     </div>
-
                 </div>
+
+
+                <div class="col-md-3 form-group">
+        <label for="sel1">
+            semester:
+        </label>
+        <div class="multiselect">
+            <div class="selectBox" ng-click="showsemesterCheckboxes()">
+                <select class="form-control ">
+                    <option ng-blur="closesemesterCheckbox()">Select semester</option>
+                </select>
+                <div class="overSelect"></div>
+            </div>
+            <div id="checkboxessemester" style="max-height: 12em; overflow-y: scroll;">
+                <label class="contain">
+                    <input type="checkbox" ng-click="toggleAllsemester()" ng-model="isAllSelectedsemesters" /><span class="checkmark"></span>Select All
+                </label>
+                <label class="contain" ng-repeat="data in ActiveSems">
+                    <input type="checkbox" ng-model="data.selected" ng-change="optionToggledsemester(data.selected)"><span class="checkmark"></span>{{data.semester}}
+                </label>
+
+            </div>
+        </div>
+
+    </div>
                 <!--<div class="col-md-4">
         <div class="form-group">
             <label class="font-weight-bold">Scheme:</label>
@@ -209,7 +228,7 @@
             </div>
         </div>
     </div>-->
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <button type="submit" class="btn btn-detail" ng-click="Submit()" style="margin-top:22px;">
                         Show Results
                     </button>

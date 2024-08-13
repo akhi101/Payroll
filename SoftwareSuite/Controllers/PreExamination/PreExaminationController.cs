@@ -5952,10 +5952,11 @@ namespace SoftwareSuite.Controllers.PreExamination
             try
             {
                 var dbHandler = new dbHandler();
-                var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@AcademicYearId", request["AcademicYearId"]);
-                param[1] = new SqlParameter("@Json", request["Json"].ToString());
-                param[2] = new SqlParameter("@CollegeCode", request["CollegeCode"]);
+                var param = new SqlParameter[4];
+                param[0] = new SqlParameter("@Scheme", request["Scheme"]);
+                param[1] = new SqlParameter("@AcademicYearId", request["AcademicYearId"]);
+                param[2] = new SqlParameter("@Json", request["Json"].ToString());
+                param[3] = new SqlParameter("@CollegeCode", request["CollegeCode"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("usp_ACD_GetFacultyMappingReport", param);
                 return JsonConvert.SerializeObject(dt);
             }
