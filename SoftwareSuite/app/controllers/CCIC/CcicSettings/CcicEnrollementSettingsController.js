@@ -10,8 +10,6 @@
         $ctrl.$onInit = () => {
             $scope.GetCurrentAcademicYearData();
             $scope.GetEnrollementDatesData();
-
-
         }
 
         $scope.loading = false;
