@@ -108,19 +108,49 @@
         }
 
 
+        //$scope.getNRStudentDetails = function () {
+        //    $scope.LoadImg = true;
+        //    var getNrReports = CcicPreExaminationService.NrReports($scope.academicYear, $scope.monthyear,$scope.ExamDate,$scope.UserName);
+        //    getNrReports.then(function (res) {
+        //        $scope.LoadImg = false;
+        //        if (res.length > 0) {
+        //            if (res.length > 4) {
+        //                window.location.href = '/Reports/' + res + '.pdf';
+        //            } else {
+        //                alert("No NR Report Present");
+        //            }
+        //        } else {
+        //            alert("No NR Report Present");
+        //        }
+        //    }, function (err) {
+        //        $scope.LoadImg = false;
+        //        alert("Error while loading");
+        //    });
+
+        //};
+
+
         $scope.getNRStudentDetails = function () {
-            $scope.LoadImg = true;
-            var getNrReports = CcicPreExaminationService.NrReports($scope.academicYear, $scope.monthyear,$scope.ExamDate,$scope.UserName);
-            getNrReports.then(function (res) {
-                $scope.LoadImg = false;
+            $scope.loading = true;
+            if (($scope.academicYear == undefined) || ($scope.academicYear == null) || ($scope.academicYear == "")) {
+                alert("Select Academic Year");
+                return false;
+            }
+            if (($scope.monthyear == undefined) || ($scope.monthyear == null) || ($scope.monthyear == "")) {
+                alert("Select Exam Month/Year");
+                return false;
+            }
+            var printernrExcel = CcicPreExaminationService.GetNRStudentDetails(0);
+            printernrExcel.then(function (res) {
+                $scope.loading = false;
                 if (res.length > 0) {
                     if (res.length > 4) {
-                        window.location.href = '/Reports/' + res + '.pdf';
+                        window.location.href = res;
                     } else {
-                        alert("No NR Report Present");
+                        alert("No Printer NR Data Present")
                     }
                 } else {
-                    alert("No NR Report Present");
+                    alert("No Printer NR Data Present")
                 }
             }, function (err) {
                 $scope.LoadImg = false;

@@ -63,7 +63,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="font-weight-bold"> Academic Year :</label>
-                                    <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="GetCurrentBatchData(academicYear)">
+                                    <select class="form-control " ng-model="academicYear" name="AcademicYear" required ng-change="getAYBatchExamMonthYear(academicYear)">
                                         <option value="" selected="selected">Select Year</option>
                                         <option value="{{data.AcademicYearID}}" ng-repeat="data in GetCcicCurrentAcademicYear" class="">
                                             {{data.AcademicYear}}
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <!--<div class="col-md-3">
                                 <div class="form-group">
 
                                     <label class="font-weight-bold"> Batch :</label>
@@ -83,20 +83,20 @@
                                         </option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="col-md-3 form-group">
                                 <label for="sel1">
                                     Exam Month/Year :
                                 </label>
-                                <select class="form-control" ng-model="monthyear" id="ExamYear" ng-change="getExamDates()"
+                                <select class="form-control" ng-model="monthyear" id="ExamYear"
                                         ng-options="monYer.ExamMonthYearID as monYer.ExamMonthYearName for monYer in ExamMonthYearData">
                                     <option value="" selected>Select Month/Year of Exam</option>
                                 </select>
                             </div>
 
 
-                            <div class="col-md-3 form-group">
+                            <!--<div class="col-md-3 form-group">
                                 <label for="sel1">
                                     Exam Dates :
                                 </label>
@@ -104,7 +104,7 @@
                                         ng-options="data.ExamDate as data.ExamDate for data in ExamDates">
                                     <option value="" selected>Select Exam Date</option>
                                 </select>
-                            </div>
+                            </div>-->
 
 
 
