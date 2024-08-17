@@ -1056,5 +1056,14 @@
 
             return DataAccessService.postData('api/CcicPreExamination/GetorActiveorUpdateCourses', paramObject);
         };
+
+        this.GetNRStudentDetails = function (DataType) {
+            var paramObj = {
+                "DataType": DataType
+            };
+            var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRStudentDetails', paramObj);
+            return promise;
+        };
+
     });
 });
