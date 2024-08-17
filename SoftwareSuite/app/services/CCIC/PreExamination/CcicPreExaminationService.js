@@ -1057,9 +1057,10 @@
             return DataAccessService.postData('api/CcicPreExamination/GetorActiveorUpdateCourses', paramObject);
         };
 
-        this.GetNRStudentDetails = function (DataType) {
+        this.GetNRStudentDetails = function (AcademicYearID,ExamMonthYearID) {
             var paramObj = {
-                "DataType": DataType
+                "AcademicYearID": AcademicYearID,
+                "ExamMonthYearID": ExamMonthYearID
             };
             var promise = DataAccessService.getDataWithPara('api/CcicPreExamination/GetNRStudentDetails', paramObj);
             return promise;

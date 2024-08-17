@@ -140,7 +140,7 @@
                 alert("Select Exam Month/Year");
                 return false;
             }
-            var printernrExcel = CcicPreExaminationService.GetNRStudentDetails(0);
+            var printernrExcel = CcicPreExaminationService.GetNRStudentDetails($scope.academicYear, $scope.monthyear);
             printernrExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
