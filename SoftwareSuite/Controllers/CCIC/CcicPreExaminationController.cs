@@ -3858,7 +3858,7 @@ namespace SoftwareSuite.Controllers.CCIC
         }
 
         [HttpGet, ActionName("GetNRStudentDetails")]
-        public string GetNRStudentDetails(int DataType)
+        public string GetNRStudentDetails(int AcademicYearID,int ExamMonthYearID)
         {
 
             List<person> p = new List<person>();
@@ -3867,8 +3867,9 @@ namespace SoftwareSuite.Controllers.CCIC
             {
 
                 var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@DataType", DataType);
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
+                param[1] = new SqlParameter("@ExamMonthYearID", ExamMonthYearID);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PrinterNRData", param);
                 var filename = "PrinterNR" + ".xlsx";
                 var eh = new ExcelHelper();

@@ -73,17 +73,17 @@
                             </div>
 
                             <!--<div class="col-md-3">
-                                <div class="form-group">
+                <div class="form-group">
 
-                                    <label class="font-weight-bold"> Batch :</label>
-                                    <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
-                                        <option value="" selected="selected">Select Batch</option>
-                                        <option value="{{data.BatchID}}" ng-repeat="data in CurrentBatchData" class="">
-                                            {{data.Batch}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>-->
+                    <label class="font-weight-bold"> Batch :</label>
+                    <select class="form-control " ng-model="BaTch" name="BatchType" required" ng-change="getAYBatchExamMonthYear(academicYear,BaTch)">
+                        <option value="" selected="selected">Select Batch</option>
+                        <option value="{{data.BatchID}}" ng-repeat="data in CurrentBatchData" class="">
+                            {{data.Batch}}
+                        </option>
+                    </select>
+                </div>
+            </div>-->
 
                             <div class="col-md-3 form-group">
                                 <label for="sel1">
@@ -97,14 +97,14 @@
 
 
                             <!--<div class="col-md-3 form-group">
-                                <label for="sel1">
-                                    Exam Dates :
-                                </label>
-                                <select class="form-control" ng-model="ExamDate" id="ExamDate"
-                                        ng-options="data.ExamDate as data.ExamDate for data in ExamDates">
-                                    <option value="" selected>Select Exam Date</option>
-                                </select>
-                            </div>-->
+                <label for="sel1">
+                    Exam Dates :
+                </label>
+                <select class="form-control" ng-model="ExamDate" id="ExamDate"
+                        ng-options="data.ExamDate as data.ExamDate for data in ExamDates">
+                    <option value="" selected>Select Exam Date</option>
+                </select>
+            </div>-->
 
 
 
@@ -118,7 +118,12 @@
                                 </div>
 
                             </div>
+
+
                         </div>
+                    </div>
+                    <div style="width:100%;text-align:center;">
+                        <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
                     </div>
                     <div class="sm-spacer"></div>
 
