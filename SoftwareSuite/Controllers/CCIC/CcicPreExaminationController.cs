@@ -3865,7 +3865,6 @@ namespace SoftwareSuite.Controllers.CCIC
             person p1 = new person();
             try
             {
-
                 var dbHandler = new ccicdbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@AcademicYearID", AcademicYearID);
