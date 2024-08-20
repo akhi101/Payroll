@@ -166,13 +166,13 @@
                                 <!--<td class="text-center" ><a ng-click="OpenOdc(x.PIN,x.CertificateType,x.Id)">ODC Data<a/></td>-->
                                 <td class="text-center " ng-show="UserTypeId == 1002|| UserTypeId == 1009">
                                     <span>
-                                        <button class="btn btn-warning btn-xs" ng-click=" ResetCertificateStatus(x.PIN,x.CertificatePath)"><span>Reset</span></button>
+                                        <button class="btn btn-warning btn-xs" ng-click=" ResetCertificateStatus(x.PIN,'https://'+x.CertificatePath)"><span>Reset</span></button>
                                     </span>
                                 </td>
                                 <td class="text-center " ng-show="UserTypeId == 1002|| UserTypeId == 1009">
                                     <span>
-                                        <button class="btn btn-danger btn-xs" ng-click="GetmailDetails(x.PIN,x.CertificateType,x.Id,x.Email,x.CertificatePath)" ng-show="x.Emailsent ==0"><span>Send mail</span></button>
-                                        <button class="btn btn-success btn-xs" ng-click="GetmailDetails(x.PIN,x.CertificateType,x.Id,x.Email,x.CertificatePath)" ng-show="x.Emailsent ==1">
+                                        <button class="btn btn-danger btn-xs" ng-click="GetmailDetails(x.PIN,x.CertificateType,x.Id,x.Email,'https://'+x.CertificatePath)" ng-show="x.Emailsent ==0"><span>Send mail</span></button>
+                                        <button class="btn btn-success btn-xs" ng-click="GetmailDetails(x.PIN,x.CertificateType,x.Id,x.Email,'https://'+x.CertificatePath)" ng-show="x.Emailsent ==1">
                                             <span>Sent</span>
                                         </button>
                                     </span>

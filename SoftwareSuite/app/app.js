@@ -72,6 +72,21 @@
         //        console.log(event);
         //    })
 
+        //   console.log(window.location)
+        var url = window.location.href
+        var hash = window.location.pathname
+
+        var allowedRedirects = ["/index.html"];
+
+        //function redirectUser(url) {
+            if (allowedRedirects.includes(hash)) {
+               // window.location.href = url;
+                console.log("Authorized")
+            } else {
+                console.error("Unauthorized redirect attempt");
+            }
+       // }
+        
         function checkAndResetIdle() //user did something
         {
             var d = new Date();

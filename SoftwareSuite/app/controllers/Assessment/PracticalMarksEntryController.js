@@ -411,7 +411,9 @@
                         $scope.NoOtp = false;
                         $scope.loader = false
                         $scope.Otpdisable = false;
-                        $scope.modalInstance.close();
+                        if ($scope.modalInstance) {
+                            $scope.modalInstance.close();
+                        }
                         $scope.modalInstance = $uibModal.open({
                             templateUrl: "/app/views/Popups/AssessmentPopup.html",
                             size: 'xs',
@@ -626,9 +628,27 @@
         $scope.back = function () {
             $state.go("Dashboard.AssessmentDashboard.Assessment.PracticalSubjectList");
         }
-        $scope.OpenPopup1 = function (type,Backlog) {
-            if ($scope.StudentTypeId == 1) {
+        $scope.OpenPopup1 = function (type, Backlog) {
+            if (markslist.length != $scope.pinWise.length) {
+                alert("Please Enter All Students Marks for Submit")
+                $scope.modalInstance.close();
+                return;
+               
+            }
+            if ($scope.StudentTypeId == 1 && type != 1) {
                 $scope.submit(type)
+            } if ($scope.StudentTypeId == 1 && type == 1) {
+                $scope.modalInstance.close();
+                $scope.modalInstance = $uibModal.open({
+                    templateUrl: "/app/views/Popups/AssessmentBacklogPopup.html",
+                    size: 'xs',
+                    scope: $scope,
+                    windowClass: 'modal-fit-att',
+                });
+                $scope.closeModal = function () {
+
+                    $scope.modalInstance.close();
+                }
             } else if ($scope.StudentTypeId == 2) {
                 if (type != 2) {
                     $scope.modalInstance.close();

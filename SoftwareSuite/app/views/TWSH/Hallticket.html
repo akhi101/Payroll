@@ -26,6 +26,14 @@
           top: -39px;
           left: 382px;
       }
+    .logo-img img {
+        float: left;
+        margin-right: 0;
+        cursor: pointer;
+        position: absolute;
+        height: 70px !important;
+        width: 70px !important;
+    }
 
       @media print {
           .main {
@@ -230,6 +238,11 @@
           .bck_btn {
               display: none;
           }
+        .logo-img {
+            width: 100%;
+            margin: 0px;
+            padding: 0px!important;
+        }
       }
 
       .myeads {
@@ -343,14 +356,29 @@
             <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
         </div>
         <div class="container" id="idtoDivPrint" ng-show="studentData">
+            <div class="row">
+                <div class="col-lg-2 col-md-4">
+                    <div class="logo-img">
+                        <img src="../../../contents/img/big-logo.png" />
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-12">
+                    <div class="logo-name">
+                        <h2 style="text-align: center">
+                            <b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING TELANGANA</b>
+                        </h2>
+                        <h2><p style="text-align: center"><b>TYPEWRITING & SHORTHAND</b></p></h2>
+                    </div>
+                </div>
+            </div>
             <h3 class="text-center hall_head"><b>Hallticket</b></h3>
 
             <!--<div class="col-md-12" style="padding:0px;border:1px solid #ddd">
-                <div class="cl-details">
-                    <h2>Payment Summary</h2>
+        <div class="cl-details">
+            <h2>Payment Summary</h2>
 
-                </div>
-            </div>-->
+        </div>
+    </div>-->
             <div class="row">
 
                 <div class="col-md-12 tbl" style="padding:0px;border:1px solid #ddd">
@@ -407,7 +435,7 @@
                                         <th width="22%" id="tbl_head1"><b>Application No</b></th>
                                         <th class="myead" id="tbl_head2" colspan="3">{{studentInfo.ApplicationNumber}}</th>
                                         <!--<th id="tbl_head2" width="22%" class="myeads"></th>
-                                        <th class="" id="tbl_head2" width="32%" ></th>-->
+                                <th class="" id="tbl_head2" width="32%" ></th>-->
                                     </tr>
                                 </thead>
                                 <tbody class="">
@@ -420,14 +448,14 @@
                                         <td colspan="3" class="myBody">{{studentInfo.FatherName}}</td>
                                     </tr>
                                     <!-- <tr>
-                                        <td><b>Date Of Birth</b></td>
-                                        <td colspan="3" class="myBody">{{studentInfo.DateOfBirth}}</td>
-                                    </tr> -->
+                                <td><b>Date Of Birth</b></td>
+                                <td colspan="3" class="myBody">{{studentInfo.DateOfBirth}}</td>
+                            </tr> -->
                                     <tr>
                                         <td><b>Gender</b></td>
                                         <td>{{studentInfo.Gender}}</td>
                                         <!--<td><b>Community</b></td>
-                                        <td class="myBody">{{studentInfo.CategoryCode}}</td>-->
+                                <td class="myBody">{{studentInfo.CategoryCode}}</td>-->
                                     </tr>
                                     <tr>
                                         <td><b>Mobile No</b></td>
@@ -462,15 +490,15 @@
                     </div>
                 </div>
                 <!--<div class="col-md-12" style="padding-left:5px;">
-                    <div class="terms_card">
-                        <div>
-                            <b>
-                                Important :
-                                The candidates are requested to carry Photo ID cards such as Aadhaar, Voter ID, Driving Licence, PAN card etc issued by Government. Without which they will not be allowed into the examination hall.
-                            </b>
-                        </div>
-                    </div>
-                </div>-->
+            <div class="terms_card">
+                <div>
+                    <b>
+                        Important :
+                        The candidates are requested to carry Photo ID cards such as Aadhaar, Voter ID, Driving Licence, PAN card etc issued by Government. Without which they will not be allowed into the examination hall.
+                    </b>
+                </div>
+            </div>
+        </div>-->
                 <div class="print_btn">
                     <div class="col-md-12">
                         <button class="btn pull-right btn-info" ng-click="printMarksEntered()">Print</button>
