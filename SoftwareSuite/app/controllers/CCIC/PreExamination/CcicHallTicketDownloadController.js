@@ -30,7 +30,7 @@
             $scope.LoadImg = false;
             alert("Error while loading");
         });
-        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicFeePaymentAcademicYear();
+        var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicHallTicketAcademicYear();
         getCcicCurrentAcademicYear.then(function (response) {
 
             $scope.GetCcicCurrentAcademicYear = response;
