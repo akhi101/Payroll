@@ -460,10 +460,6 @@
         this.GetCcicFeePaymentAcademicYear = function () {
             return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicFeePaymentAcademicYear');
         };
-
-        this.GetCcicHallTicketAcademicYear = function () {
-            return DataAccessService.getDataWithPara('api/CcicPreExamination/GetCcicHallTicketAcademicYear');
-        };
       
         this.GetCcicCourseDurationBatches = function (CourseDurationID) {
             var paramObj = {

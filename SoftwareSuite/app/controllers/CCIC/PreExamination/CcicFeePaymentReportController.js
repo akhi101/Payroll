@@ -14,7 +14,7 @@ define(['app'], function (app) {
 
         const $ctrl = this;
         $ctrl.$onInit = () => {
-            $scope.getCcicCurrentAcademicYear();
+            $scope.getCcicAcademicYears();
             $scope.feePaymentType();
         }
 
@@ -40,15 +40,15 @@ define(['app'], function (app) {
 
 
 
-        $scope.getCcicCurrentAcademicYear = function () {
-            var getCcicCurrentAcademicYear = CcicPreExaminationService.GetCcicFeePaymentAcademicYear();
-            getCcicCurrentAcademicYear.then(function (response) {
+        $scope.getCcicAcademicYears = function () {
+            var getCcicAcademicYears = CcicPreExaminationService.GetCcicAcademicYears();
+            getCcicAcademicYears.then(function (response) {
 
-                $scope.GetCcicCurrentAcademicYear = response;
+                $scope.CcicAcademicYears = response;
 
             },
                 function (error) {
-                    alert("error while loading CurrentAcademicYear");
+                    alert("error while loading AcademicYears");
                     var err = JSON.parse(error);
 
                 });

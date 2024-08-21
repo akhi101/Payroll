@@ -122,23 +122,6 @@ namespace SoftwareSuite.Controllers.CCIC
             }
         }
 
-        [HttpGet, ActionName("GetCcicHallTicketAcademicYear")]
-        public HttpResponseMessage GetCcicHallTicketAcademicYear()
-        {
-            try
-            {
-                var dbHandler = new ccicdbHandler();
-                string StrQuery = "";
-                StrQuery = "exec SP_Get_HallticketAcademicYear";
-                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
-            }
-            catch (Exception ex)
-            {
-                dbHandler.SaveErorr("SP_Get_HallticketAcademicYear", 0, ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
-            }
-        }
-
         [HttpGet, ActionName("GetCourseDurations")]
         public HttpResponseMessage GetCourseDurations()
         {
