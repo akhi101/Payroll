@@ -1,0 +1,225 @@
+﻿<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+<div ng-controller="SalaryDeductionsController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Salary Deductions</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard/SalaryDeductions">SalaryDeductions</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRollMasters" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+
+    </div>
+    <div>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <div class="studWishinputs">
+                        <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                            <div class="row">
+
+
+                                <div class="form-group col-md-6">
+                                    <label>
+                                        Department:
+                                    </label>
+                                    <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
+                                            ng-options="data as data.DepartmentName for data in DepartmentData">
+                                        <option value="" selected>Select Department</option>
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        Employee Name :
+                                    </label>
+
+                                    <select class="form-control" ng-model="EmployeeID" ng-change="ChangeEmployee(EmployeeID)"
+                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                        <option value="" selected>Select Employee Name</option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group col-md-4" ng-show="showPT">
+                                    <label>
+                                        Provisional Tax :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Provisional Tax Amount" ng-model="PTAmount">
+                                </div>
+
+                                <div class="form-group col-md-4" ng-show="showIT">
+                                    <label>
+                                        Income Tax :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Income Tax Amount" ng-model="ITAmount">
+                                </div>
+                                <div class="form-group col-md-4" ng-show="showGPF">
+                                    <label>
+                                        GPF : 
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter GPF Amount" ng-model="GPF">
+                                </div> 
+                                <!--<div class="form-group col-md-4" ng-show="EmployeeID==12 || EmployeeID==9 || EmployeeID==8">
+                                    <label>
+                                        CPS :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CPS Amount" ng-model="CPS">
+                                </div>-->
+                                <div class="form-group col-md-4" ng-show="showTSGLI">
+                                    <label>
+                                        TSGLI :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter TSGLI Amount" ng-model="TSGLI">
+                                </div>
+                                <div class="form-group col-md-4" ng-show="showGIS">
+                                    <label>
+                                        GIS :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter GIS Amount" ng-model="GIS">
+                                </div>
+                                <div class="form-group col-md-4" ng-show="showFF">
+                                    <label>
+                                        FlagFund :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter FlagFund " ng-model="FlagFund">
+                                </div>
+                                <div class="form-group col-md-4" ng-show="showHN">
+                                    <label>
+                                       Harithanidhi :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Harithanidhi Amount" ng-model="Harithanidhi">
+                                </div>
+                                
+                               
+
+
+                                <div class="col-md-12" ng-show="AddDetails=='1'">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
+                                        ADD
+                                    </button>
+                                </div>
+                                <div class="col-md-12" ng-show="UpdateDetails=='1'">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="UPDATE()">
+                                        UPDATE
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container " ng-show="DeductionData.length>0">
+        <div class="col-md-12">
+            <div class="cl-details">
+                <h2> Salary Deductions</h2>
+            </div>
+            <div class="table-responsive table-custom-tables-tb scrollbox">
+                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                    <thead>
+                        <tr class="cb-1">
+                            <th>S.No</th>
+                            <th class="text-center">Employee Name </th>
+                            <th class="text-center">PT</th>
+                            <th class="text-center" >IT</th>
+                            <th class="text-center" ng-show="showGPF" >GPF </th>
+                            <th class="text-center" ng-show="showTSGLI">TSGLI </th>
+                            <th class="text-center" ng-show="showGIS">GIS </th>
+                            <th class="text-center">Flag Fund </th>
+                            <th class="text-center" >Harithanidhi </th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="" ng-repeat="data in DeductionData">
+                            <td class="text-center">{{$index + 1}}</td>
+                            <td class="text-center">{{data.EmployeeName}}</td>
+                            <td class="text-center">{{data.PT}}</td>
+                            <td class="text-center" >{{data.IT}}</td>
+                            <td class="text-center" ng-show="showGPF">{{data.GPFAmount}}</td>
+                            <td class="text-center" ng-show="showTSGLI">{{data.TSGLIAmount}}</td>
+                            <td class="text-center" ng-show="showGIS">{{data.GISAmount}}</td>
+                            <td class="text-center" >{{data.FlagFund}}</td>
+                            <td class="text-center">{{data.Harithanidhi}}</td>
+                           
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalaryDeduction(data)">
+                                    Edit
+                                </button>
+
+                            </td>
+                            <td style="text-align:center">
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.SalaryDeductionId,data.DepartmentId,data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.SalaryDeductionId,data.DepartmentId,data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="container" ng-show="Noreports">
+        <div class="col-md-12">
+            <div class="no-results">
+                <img src="../../contents/img/Folder-Icon.svg" />
+                <h2>No data Found</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="sm-spacer"></div>
+    <div class="sm-spacer"></div>
+</div>  

@@ -48,7 +48,7 @@
 
         $scope.getEmployeeDetailsData = function () {
         var DataTypeID = 1
-        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0);
+        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, 0,0);
         getdesign.then(function (response) {
 
             try {

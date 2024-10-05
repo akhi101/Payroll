@@ -3,7 +3,7 @@ define(['app'], function (app) {
         const $ctrl = this;
         $scope.Values = [{ "id": 1, "name": "Yes" }, { "id": 0, "name": "No" }]
         $ctrl.$onInit = () => {
-            $scope.NPSEmployeeData = false;
+           
             $scope.EmployeeData = false;
             $scope.HBAEmployeeData = false;
             var authData = $localStorage.authorizationData;
@@ -11,9 +11,101 @@ define(['app'], function (app) {
             $scope.FinancialYears();
             $scope.GetMonths();
             $scope.getAdvanceType();
+            $scope.getHBAType();
 
 
         }
+
+        $scope.tab1 = function () {
+            $scope.HBAEmployeeID = null;
+            $scope.HBAEmployeeData = false;
+
+            $scope.HBAFinancialYear = null;
+            $scope.HBAMonth = '';
+            $scope.HBAType = null;
+
+            $scope.Amount = '';
+            $scope.HBAEmiAmount = '';
+            $scope.NoOfMonths = '';
+            $scope.EMIMonth = null;
+            $scope.DataNotFound2 = false;
+
+            $scope.GetAllHBA = [];
+
+            $scope.LICEmployeeID = null;
+            $scope.LICEmployeeData = false;
+            $scope.studentfilearr = [];
+
+            $scope.GetAllLIC = [];
+            
+
+        }
+
+        $scope.tab2 = function () {
+
+            $scope.Employee = null;
+            $scope.EmployeeData = false;
+            $scope.HBAEmployeeData = false;
+            $scope.LICEmployeeData = false;
+
+            $scope.GetAllAdvance = [];
+
+
+            $scope.FinancialYear1 = null;
+            $scope.Month = null;
+
+            $scope.AdvanceType = null;
+            $scope.AdvanceAmount = '';
+            $scope.AdvanceEmiAmount = '';
+            $scope.AdvanceNoOfMonths = '';
+            $scope.AdvanceEmiStartMonth = null;
+
+
+
+
+
+            $scope.LICEmployeeID = null;
+            $scope.LICEmployeeData = false;
+            $scope.studentfilearr = [];
+
+            $scope.GetAllLIC = [];
+
+        }
+
+        $scope.tab3 = function () {
+
+
+
+
+            $scope.Employee = null;
+            $scope.EmployeeData = false;
+            $scope.HBAEmployeeData = false;
+            $scope.LICEmployeeData = false;
+
+            $scope.GetAllAdvance = [];
+
+
+
+
+            $scope.HBAEmployeeID = null;
+            $scope.HBAEmployeeData = false;
+
+            $scope.HBAFinancialYear = null;
+            $scope.HBAMonth = '';
+            $scope.HBAType = null;
+
+            $scope.Amount = '';
+            $scope.HBAEmiAmount = '';
+            $scope.NoOfMonths = '';
+            $scope.EMIMonth = null;
+            $scope.DataNotFound2 = false;
+
+            $scope.GetAllHBA = [];
+           
+
+        }
+
+
 
         $scope.NoofMonths = [
             { "Id": 1, "value": "1" },
@@ -81,75 +173,12 @@ define(['app'], function (app) {
         }
 
 
-        $scope.GetEditNPS = function () {
-            var DataTypeID = 1
-            var getdesign = PayRollService.GetEditNPS(DataTypeID, $scope.NPSEmployeeId, $scope.NPSFinancialYear, $scope.NPSMonth, 0, 0);
-            getdesign.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.NPSData = res.Table;
-                    $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.NPSData.length + 1; j++) {
-                        $scope['edit' + j] = true;
-                    }
-                }
-                else {
-                    $scope.NPSData = [];
-                    $scope.DataNotFound = true;
-                }
-            },
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
-
-
-
-        }
-
-
-
-        $scope.SaveNPS = function () {
-            var datatypeid = 1
-            console.log(datatypeid, null, $scope.NPSFinancialYear, $scope.NPSMonth, $scope.NPSEmployeeId, $scope.PensionAmount, 1, $scope.UserName)
-            var AddDepartment = PayRollService.AddorUpdateNPS(datatypeid, 0, $scope.NPSFinancialYear, $scope.NPSMonth, $scope.NPSEmployeeId, $scope.PensionAmount, 1, $scope.UserName)
-            AddDepartment.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                } catch (err) { }
-                if (res[0].ResponseCode == '200') {
-                    alert(res[0].ResponseDescription);
-                    $scope.EmployeeData = false;
-                    $scope.PensionAmount = "";
-                    $scope.GetEditNPS();
-
-                }
-                else if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription);
-                    $scope.GetEditNPS();
-
-                } else {
-                    alert('Something Went Wrong')
-
-                }
-            },
-                function (error) {
-                    alert("something Went Wrong")
-
-
-                });
-        }
-
+      
 
 
         $scope.getorEditAdvance = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetorEditAdvance(DataTypeID, $scope.EmployeeId, $scope.FinancialYear1, $scope.Month, 0, 0);
+            var getdesign = PayRollService.GetorEditAdvance(DataTypeID, $scope.EmployeeId, 0,0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
@@ -177,7 +206,7 @@ define(['app'], function (app) {
             var datatypeid = 1
 
 
-            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, 0, $scope.EmployeeId, $scope.FinancialYear1, $scope.Month, $scope.AdvanceType, $scope.AdvanceAmount, $scope.AdvanceNoOfMonths, $scope.AdvanceEmiStartMonth, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, 0, $scope.EmployeeId, $scope.FinancialYear1, $scope.Month, $scope.AdvanceType, $scope.AdvanceAmount, $scope.AdvanceEmiAmount, $scope.AdvanceNoOfMonths, $scope.AdvanceEmiStartMonth, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -206,7 +235,7 @@ define(['app'], function (app) {
 
         $scope.GetorEditHBA = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetorEditHBA(DataTypeID, $scope.HBAEmployeeId, $scope.HBAFinancialYear, $scope.HBAMonth,0,  0);
+            var getdesign = PayRollService.GetorEditHBA(DataTypeID, $scope.HBAEmployeeId, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
@@ -223,7 +252,7 @@ define(['app'], function (app) {
                 }
             },
                 function (error) {
-                    alert("error while loading Advance Data");
+                    alert("error while loading HBA Data");
                     var err = JSON.parse(error);
 
                 });
@@ -234,7 +263,7 @@ define(['app'], function (app) {
             var DataTypeId = 1
 
 
-            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, 0, $scope.HBAFinancialYear, $scope.HBAMonth,$scope.HBAEmployeeId,  $scope.Amount, $scope.NoOfMonths, $scope.EMIMonth, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, 0, $scope.HBAFinancialYear, $scope.HBAMonth, $scope.HBAEmployeeId, $scope.HBAType, $scope.Amount, $scope.HBAEmiAmount, $scope.NoOfMonths, $scope.EMIMonth, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -262,9 +291,9 @@ define(['app'], function (app) {
 
 
 
-        $scope.ChangeHBAActive = function (EmployeeID, FinancialYearID, MonthID,HBAId, Status) {
+        $scope.ChangeHBAActive = function (EmployeeID,HBAId, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.GetorEditHBA(DataType, EmployeeID, FinancialYearID, MonthID, HBAId, Status);
+            var getSlides = PayRollService.GetorEditHBA(DataType, EmployeeID, HBAId, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -328,8 +357,8 @@ define(['app'], function (app) {
                 });
         }
 
-        var DataTypeID = 1
-        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+        var DataTypeID = 4
+        var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0,0,0);
         getdesign.then(function (response) {
             try {
                 var res = JSON.parse(response);
@@ -355,11 +384,6 @@ define(['app'], function (app) {
 
 
 
-        $scope.GetReport1 = function () {
-            $scope.NPSEmployeeData = true;
-            $scope.GetEditNPS();
-            
-        }
         $scope.GetReport2 = function () {
             $scope.EmployeeData = true;
             $scope.getorEditAdvance();
@@ -383,7 +407,7 @@ define(['app'], function (app) {
         $scope.ChangeEmpData = function (data) {
 
             var data = JSON.parse(data)
-            $scope.NPSEmployeeId = data.EmployeeID
+          
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
@@ -403,56 +427,33 @@ define(['app'], function (app) {
         
 
 
+        $scope.getHBAType = function () {
+            var getmonths = PayRollService.GetHBAType();
+            getmonths.then(function (response) {
 
-
-
-
-
-
-
-        $scope.EditNPS = function (data, ind) {
-
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-            }
-            $scope['edit' + ind] = false;
-
-
-
-        }
-
-        $scope.UpdateNPS = function (data) {
-            var DataTypeId = 2
-
-
-            var AddDepartment = PayRollService.AddorUpdateNPS(DataTypeId, data.NPSID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.PensionAmount, data.Active, $scope.UserName)
-            AddDepartment.then(function (response) {
-                try {
-                    var res = JSON.parse(response);
-                } catch (err) { }
-                if (res[0].StatusCode == '200') {
-                    alert(res[0].StatusDescription);
-                    $scope.GetEditNPS()
-
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.HBATypeData = response.Table;
+                    $scope.Noreports = false;
                 }
-                else if (res[0].StatusCode == '400') {
-                    alert(res[0].StatusDescription);
-                    $scope.GetEditNPS()
-
-                } else {
-                    alert('Something Went Wrong')
-
+                else {
+                    $scope.HBATypeData = [];
+                    $scope.Noreports = true;
                 }
             },
                 function (error) {
-                    alert("something Went Wrong")
-
+                    alert("error while loading Months");
+                    var err = JSON.parse(error);
 
                 });
         }
 
+
+
+
+
+
+     
         $scope.EditHBA = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
@@ -472,7 +473,7 @@ define(['app'], function (app) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, data.HBAId,data.FinancialYearID, data.MonthID, data.EmployeeID, data.Amount, data.NoOfMonths, data.Emi_Start_Month, data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateHBA(DataTypeId, data.HBAId,0,0, data.EmployeeID, data.HBATypeID, data.Amount, data.HBAEmiAmount, data.NoOfMonths, data.Emi_Start_Month, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -498,30 +499,7 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.ChangeNPS = function (EmployeeID, FinancialYearID, MonthID, NPSID, Status) {
-            var DataType = 3;
-            var getSlides = PayRollService.PayRollNPS(DataType, EmployeeID, FinancialYearID, MonthID, NPSID, Status);
-            getSlides.then(function (res) {
-                var response = JSON.parse(res)
-                if (response.Table[0].ResponseCode == '200') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.GetEditNPS();
-                } else if (response.Table[0].ResponseCode == '400') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.GetEditNPS();
-                } else {
-                    alert("Something Went Wrong")
-                }
-            },
-                function (error) {
-
-                    alert("error while loading Slides");
-                    //alert("error while loading Notification");
-
-                    var err = JSON.parse(error);
-                });
-        }
-
+        
 
         $scope.EditAdvances = function (data, ind) {
 
@@ -540,7 +518,7 @@ define(['app'], function (app) {
             var datatypeid = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, data.AdvancesID, data.EmployeeID, data.FinancialYearID, data.MonthID, data.AdvanceTypeId, data.AdvanceAmount, data.AdvanceNoOfMonths, data.AdvanceEmiStartMonth, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateAdvance(datatypeid, data.AdvancesID, data.EmployeeID, data.FinancialYearID, data.MonthID, data.AdvanceTypeId, data.AdvanceAmount,data.AdvanceEmiAmount, data.AdvanceNoOfMonths, data.AdvanceEmiStartMonth, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -567,9 +545,9 @@ define(['app'], function (app) {
         }
 
 
-        $scope.ChangeActive = function (EmployeeID, FinancialYearID, MonthID,AdvancesID, Status) {
+        $scope.ChangeActive = function (EmployeeID,AdvancesID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollAction(DataType, EmployeeID,FinancialYearID,MonthID,AdvancesID, Status);
+            var getSlides = PayRollService.AdvancesActiveStatus(DataType, EmployeeID,AdvancesID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
@@ -651,7 +629,12 @@ define(['app'], function (app) {
                 alert('Please Enter  PremiumAmount');
                 return;
             }
-            var addlicdetails = PayRollService.AddorUpdateLIC(DataTypeId, 0, $scope.LICEmployeeId, 0, 0,0, JSON.stringify($scope.studentfilearr), 1, $scope.UserName)
+            //if ($scope.studentfilearr[0].TotalAmount == '' || $scope.studentfilearr[0].TotalAmount == null || $scope.studentfilearr[0].TotalAmount == undefined) {
+            //    alert('Please Enter  TotalAmount');
+            //    return;
+            //}
+
+            var addlicdetails = PayRollService.AddorUpdateLIC(DataTypeId, 0, $scope.LICEmployeeId, 0, 0, 0, JSON.stringify($scope.studentfilearr), 1, $scope.UserName)
             addlicdetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -721,7 +704,7 @@ define(['app'], function (app) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateLIC(DataTypeId, data.LICID, data.EmployeeID, data.PolicyID,data.PolicyNumber ,data.PremiumAmount, 0, data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateLIC(DataTypeId, data.LICID, data.EmployeeID, data.PolicyID, data.PolicyNumber, data.PremiumAmount,  0, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -838,14 +821,50 @@ define(['app'], function (app) {
                 }
             });
             console.log($scope.studentfilearr)
-            //arr.push($scope.studentfilearr)
-            //console.log(arr)
+           
         }
+
+        //$scope.submittotalamount = function (ele, ind) {
+        //    $scope.studentfilearr.map((obj) => {
+        //        if (obj.fileindex == ind) {
+        //            obj.totalamount = ele.value;
+        //        }
+        //    });
+        //    console.log($scope.studentfilearr)
+
+        //}
 
         $scope.ClearData = function () {
 
-            $scope.PolicyID = "";
 
+            $scope.HBAEmployeeID = null;
+            $scope.HBAEmployeeData = false;
+
+            $scope.HBAFinancialYear = null;
+            $scope.HBAMonth = '';
+            $scope.HBAType = null;
+
+            $scope.Amount = '';
+            $scope.HBAEmiAmount = '';
+            $scope.NoOfMonths = '';
+            $scope.EMIMonth = null;
+            $scope.DataNotFound2 = false;
+
+            $scope.GetAllHBA = [];
+
+            $scope.LICEmployeeID = null;
+            $scope.LICEmployeeData = false;
+            $scope.studentfilearr = [];
+
+            $scope.GetAllLIC = [];
+
+
+            $scope.Employee = null;
+            $scope.EmployeeData = false;
+            $scope.HBAEmployeeData = false;
+            $scope.LICEmployeeData = false;
+
+            $scope.GetAllAdvance = [];
         }
 
         $scope.userslotarr = [];
@@ -853,7 +872,7 @@ define(['app'], function (app) {
         for (var i = 0; i < $scope.studentfilearr.length; i++) {
             var obj = {
 
-                "PolicyID": $scope.studentfilearr[i].PolicyID,"LICPolicyNumber": $scope.studentfilearr[i].PolicyNumber, "PremiumAmount": $scope.studentfilearr[i].PremiumAmount
+                "PolicyID": $scope.studentfilearr[i].PolicyID, "LICPolicyNumber": $scope.studentfilearr[i].PolicyNumber, "PremiumAmount": $scope.studentfilearr[i].PremiumAmount,/* "TotalAmount": $scope.studentfilearr[i].TotalAmount*/
 
             }
             $scope.userslotarr.push(obj);

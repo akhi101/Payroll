@@ -13,7 +13,6 @@ using RestSharp;
 using System.Web;
 using SoftwareSuite.Models;
 using System.IO;
-using SoftwareSuite.Models.Assessment;
 using System.Configuration;
 using System.Timers;
 
@@ -22,38 +21,7 @@ namespace SoftwareSuite.Controllers.AdminServices
     public class AdminServiceController : ApiController
     {
 
-        [HttpPost, ActionName("PostMarksEntryDates")]
-        public string PostMarksEntryDates([FromBody] SetDatesMarksEntryreqdata ReqData)
-        {
-            try
-            {
-                string clientIpAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
-                var dbHandler = new dbHandler();
-                var param = new SqlParameter[12];
-                param[0] = new SqlParameter("@examid", ReqData.examId);
-                param[1] = new SqlParameter("@semid", ReqData.semid);
-                param[2] = new SqlParameter("@AcademicYearId", ReqData.AcademicYearId);
-                param[3] = new SqlParameter("@username", ReqData.userName);
-                param[4] = new SqlParameter("@fromdate", ReqData.fromDate);
-                param[5] = new SqlParameter("@todate", ReqData.toDate);
-                param[6] = new SqlParameter("@finedate", ReqData.fineDate);
-                param[7] = new SqlParameter("@ipaddress", clientIpAddress);
-                param[8] = new SqlParameter("@fine", ReqData.fine);
-                param[9] = new SqlParameter("@studenttypeid", ReqData.Studenttypeid);
-                param[10] = new SqlParameter("@schemeid", ReqData.schemeid);
-                param[11] = new SqlParameter("@ExamMonthYearId", ReqData.ExamMonthYearId);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("USP_SET_EXAM_DATES", param);
-                return JsonConvert.SerializeObject(dt);
-            }
-            catch (Exception ex)
-            {
-
-                dbHandler.SaveErorr("USP_SET_EXAM_DATES", 0, ex.Message);
-                return ex.Message;
-
-            }
-
-        }
+       
 
         [HttpGet, ActionName("GetAllCourses")]
         public HttpResponseMessage GetAllCourses()

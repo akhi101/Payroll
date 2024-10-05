@@ -66,11 +66,11 @@
                 <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Increments</a>
             </li>
             <li class="noprint">
-                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Deductions</a>
+                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Other Deductions</a>
             </li>
-            <li class="noprint">
+            <!--<li class="noprint">
                 <a href="#3" class="noprint  font-weight-bold" data-toggle="tab">Leaves</a>
-            </li>
+            </li>-->
             <li class="noprint">
                 <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Spl Pay/Arrears</a>
             </li>
@@ -252,14 +252,8 @@
                     <div class="col-md-9">: {{EmployeeCode}}</div>
                     <div class="col-md-3"><b>Designation </b></div>
                     <div class="col-md-9">: {{Designation}}</div>
-                    <div class="col-md-3"><b>IT  :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="IT" ng-model="IT" placeholder="IT" /></div>
-                    <div class="col-md-3"><b>FlagFund :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="FlagFund" ng-model="FlagFund" placeholder="FlagFund" /></div>
-                    <div class="col-md-3"><b>Harithanidhi :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="Harithanidhi" ng-model="Harithanidhi" placeholder="Harithanidhi" /></div>
-                    <div class="col-md-3"><b>Deduction Amount :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="DeductionAmount" ng-model="DeductionAmount" placeholder="Deduction Amount" /></div>
+                    <div class="col-md-3"><b>Other Deductions :</b></div>
+                    <div class="col-md-3"><input class="form-control" name="OtherDeductions" ng-model="OtherDeductions" placeholder="Other Deductions" /></div>
                     <div class="col-md-9" ng-show="DedEmployeeData">
                         <button class="btn btn-success pull-right" ng-click="SaveDeduction()">Save</button>
                     </div>
@@ -285,10 +279,7 @@
                                 <th class="text-center">Employee Code</th>
                                 <th class="text-center">Employee Name</th>
                                 <th class="text-center">Designation</th>
-                                <th class="text-center">IT</th>
-                                <th class="text-center">FlagFund</th>
-                                <th class="text-center">Harithanidhi</th>
-                                <th class="text-center">Deduction Amount</th>
+                                <th class="text-center">Other Deductions</th>
                                 <th class="text-center">Action</th>
                                 <th class="text-center">Active</th>
                             </tr>
@@ -300,10 +291,8 @@
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IT" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FlagFund" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Harithanidhi" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DeductionAmount" /></div></td>
+                                
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.OtherDeductions" /></div></td>
 
                                 <td class="text-center">
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditDeduction(data,$index+1)">
@@ -327,7 +316,7 @@
 
             </div>
 
-            <div class="tab-pane" id="3">
+            <!--<div class="tab-pane" id="3">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -462,7 +451,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>-->
 
 
 
