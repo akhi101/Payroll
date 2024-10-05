@@ -71,7 +71,7 @@ namespace SoftwareSuite.Controllers.SystemAdministration
             string encrypassword = passcrypt.Encrypt(Password);
             string clientIpAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
             SystemUserBLL SystemUserBLL = new SystemUserBLL();
-            SystemUserAuth User;
+            BLL.SystemUserAuth User;
             User = SystemUserBLL.GetUserLogin(UserName.Replace("'", "''"), encrypassword, clientIpAddress);
           
             if (User.SystemUser.Count > 0 && User.UserAuth[0].ResponceCode == "200")

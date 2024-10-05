@@ -142,8 +142,8 @@ define(['app'], function (app) {
         }
 
         $scope.GetEmployeeDetails = function () {
-            var DataTypeID = 1
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0);
+            var DataTypeID = 4
+            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, 0,0,0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -269,7 +269,7 @@ define(['app'], function (app) {
             var datatypeid = 1
 
 
-            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, 0, $scope.DeductionsFinancialYear, $scope.DeductionsMonth, $scope.DeductionsEmployeeId, $scope.IT, $scope.FlagFund, $scope.Harithanidhi, $scope.DeductionAmount, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateDeductions(datatypeid, 0, $scope.DeductionsFinancialYear, $scope.DeductionsMonth, $scope.DeductionsEmployeeId,  $scope.OtherDeductions, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -532,7 +532,7 @@ define(['app'], function (app) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateDeductions(DataTypeId, data.DeductionsID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.IT, data.FlagFund, data.Harithanidhi, data.DeductionAmount, data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateDeductions(DataTypeId, data.DeductionsID, data.FinancialYearID, data.MonthID, data.EmployeeID,  data.OtherDeductions, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);

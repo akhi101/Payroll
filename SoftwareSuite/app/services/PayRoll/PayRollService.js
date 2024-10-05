@@ -14,6 +14,10 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetAdvanceType');
         };
 
+        this.GetHBAType = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetHBAType');
+        };
+
         this.GetFinancialYears = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetFinancialYears');
         };
@@ -106,12 +110,10 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditHBA = function (DataTypeID, EmployeeID, FinancialYearID, MonthID,HBAId, Active) {
+        this.GetorEditHBA = function (DataTypeID, EmployeeID, HBAId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
-                "FinancialYearID": FinancialYearID,
-                "MonthID": MonthID,
                 "HBAId": HBAId,
                 "Active": Active
             };
@@ -120,14 +122,16 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, Amount, NoofMonths, EmiStartMonth, Active, UserName) {
+        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, HBATypeID, Amount, HBAEmiAmount, NoofMonths, EmiStartMonth, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "HBAId": HBAId,
                 "FinancialYearId": FinancialYearId,
                 "MonthID": MonthID,
                 "EmployeeID": EmployeeID,
+                "HBATypeID": HBATypeID,
                 "Amount": Amount,
+                "HBAEmiAmount": HBAEmiAmount,
                 "NoofMonths": NoofMonths,
                 "EmiStartMonth": EmiStartMonth,
                 "Active": Active,
@@ -178,6 +182,16 @@ define(['app'], function (app) {
 
         };
 
+        this.getGOPostData = function (DepartmentID) {
+            var paramObj = { 
+                "DepartmentID": DepartmentID
+              
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetGOPostData', paramObj);
+            return promise;
+
+        };
+
         this.PayRollNPS = function (DataTypeID, EmployeeID, FinancialYearID, MonthID, NPSId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
@@ -192,12 +206,10 @@ define(['app'], function (app) {
 
         };
 
-        this.PayRollAction = function (DataTypeID, EmployeeId, FinancialYearID, MonthID, AdvancesId, Active) {
+        this.AdvancesActiveStatus = function (DataTypeID, EmployeeId,AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeId": EmployeeId,
-                "FinancialYearID": FinancialYearID,
-                "MonthID": MonthID,
                 "AdvancesId": AdvancesId,
                 "Active": Active
             };
@@ -209,7 +221,6 @@ define(['app'], function (app) {
         this.PayRollIncrement = function (DataTypeID,  FinancialYearID, MonthID, IncrementId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
-                
                 "FinancialYearID": FinancialYearID,
                 "MonthID": MonthID,
                 "IncrementId": IncrementId,
@@ -356,7 +367,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, TSGLINo, AccountNumber, IFSCCode, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -370,14 +381,16 @@ define(['app'], function (app) {
                 "Gender": Gender,
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
+                "TSGLINumber": TSGLINumber,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
                 "GPFNo": GPFNo,
-                "TSGLINo": TSGLINo,
                 "AccountNumber": AccountNumber,
                 "IFSCCode": IFSCCode,
+                "GOPostID": GOPostID,
+                "SortOrder": SortOrder,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -386,7 +399,7 @@ define(['app'], function (app) {
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, TSGLINo ,AccountNumber, IFSCCode, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -400,14 +413,16 @@ define(['app'], function (app) {
                 "Gender": Gender,
                 "Empstatus": Empstatus,
                 "IncrementMonth": IncrementMonth,
+                "TSGLINumber": TSGLINumber,
                 "ScaleType": ScaleType,
                 "PanNO": PanNO,
                 "CPS_NPS": CPS_NPS,
                 "PranNo": PranNo,
                 "GPFNo": GPFNo,
-                "TSGLINo": TSGLINo,
                 "AccountNumber": AccountNumber,
                 "IFSCCode": IFSCCode,
+                "GOPostID": GOPostID,
+                "SortOrder": SortOrder,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -415,11 +430,12 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeID, DepartmentID, Active) {
+        this.GetEmployeeDetailsData = function (DataTypeID, EmployeeID, DepartmentID, CPS_NPS, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
                 "DepartmentID": DepartmentID,
+                "CPS_NPS": CPS_NPS,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
@@ -620,17 +636,14 @@ define(['app'], function (app) {
         };
 
 
-        this.AddorUpdateDeductions = function (DataTypeId, DeductionsId, FinancialYearId, MonthID, EmployeeID, IT, FlagFund, Harithanidhi, DeductionAmount, Active, UserName) {
+        this.AddorUpdateDeductions = function (DataTypeId, DeductionsId, FinancialYearId, MonthID, EmployeeID, OtherDeductions, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "DeductionsId": DeductionsId,
                 "FinancialYearId": FinancialYearId,
                 "MonthID": MonthID,
                 "EmployeeID": EmployeeID,
-                "IT": IT,
-                "FlagFund": FlagFund,
-                "Harithanidhi": Harithanidhi,
-                "DeductionAmount": DeductionAmount,
+                "OtherDeductions": OtherDeductions,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -707,12 +720,10 @@ define(['app'], function (app) {
 
 
 
-        this.GetorEditAdvance = function (DataTypeID, EmployeeId, FinancialYearID, MonthID, AdvancesId, Active) {
+        this.GetorEditAdvance = function (DataTypeID, EmployeeId,AdvancesId, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeId": EmployeeId,
-                "FinancialYearID": FinancialYearID,
-                "MonthID": MonthID,
                 "AdvancesId": AdvancesId,
                 "Active": Active
 
@@ -725,7 +736,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddorUpdateAdvance = function (DataTypeId, AdvancesId, EmployeeID, FinancialYearID, MonthId, AdvanceTypeId, AdvanceAmount, AdvanceNoOfMonths, AdvanceEmiStartMonth, UserName) {
+        this.AddorUpdateAdvance = function (DataTypeId, AdvancesId, EmployeeID, FinancialYearID, MonthId, AdvanceTypeId, AdvanceAmount, AdvanceEmiAmount, AdvanceNoOfMonths, AdvanceEmiStartMonth, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "AdvancesId": AdvancesId,
@@ -734,6 +745,7 @@ define(['app'], function (app) {
                 "MonthId": MonthId,
                 "AdvanceTypeId": AdvanceTypeId,
                 "AdvanceAmount": AdvanceAmount,
+                "AdvanceEmiAmount": AdvanceEmiAmount,
                 "AdvanceNoOfMonths": AdvanceNoOfMonths,
                 "AdvanceEmiStartMonth": AdvanceEmiStartMonth,
                 "UserName": UserName
@@ -846,7 +858,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddorUpdateLIC = function (DataTypeID, LICID,  EmployeeID,PolicyID, PolicyNumber, PremiumAmount, LICAmountJson, Active, UserName) {
+        this.AddorUpdateLIC = function (DataTypeID, LICID, EmployeeID, PolicyID, PolicyNumber, PremiumAmount,  LICAmountJson, Active, UserName) {
             var paramObject = {
                 "DataTypeID": DataTypeID,
                 "LICID": LICID,
@@ -854,6 +866,7 @@ define(['app'], function (app) {
                 "PolicyID": PolicyID,
                 "PolicyNumber": PolicyNumber,
                 "PremiumAmount": PremiumAmount,
+                /*"TotalAmount": TotalAmount,*/
                 "LICAmountJson": LICAmountJson,
                 "Active": Active,
                 "UserName": UserName
@@ -861,6 +874,107 @@ define(['app'], function (app) {
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateLIC', paramObject);
             return promise;
         };
+
+
+
+
+        this.AddSalaryDeduction = function (DataTypeId, SalaryDeductionId, DepartmentId, EmployeeId, PT, IT, GPFAmount, TSGLIAmount, GISAmount, FlagFund, Harithanidhi,  UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "SalaryDeductionId": SalaryDeductionId,
+                "DepartmentId": DepartmentId,
+                "EmployeeId": EmployeeId,
+                "PT": PT,
+                "IT": IT,
+                "GPFAmount": GPFAmount,
+                "TSGLIAmount": TSGLIAmount,
+                "GISAmount": GISAmount,
+                "FlagFund": FlagFund,
+                "Harithanidhi": Harithanidhi,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalaryDeduction', paramObject);
+            return promise;
+        };
+
+
+        this.UpdateSalaryDeduction = function (DataTypeId, SalaryDeductionId, DepartmentId, EmployeeId, PT, IT, GPFAmount, TSGLIAmount, GISAmount, FlagFund, Harithanidhi, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "SalaryDeductionId": SalaryDeductionId,
+                "DepartmentId": DepartmentId,
+                "EmployeeId": EmployeeId,
+                "PT": PT,
+                "IT": IT,
+                "GPFAmount": GPFAmount,
+                "TSGLIAmount": TSGLIAmount,
+                "GISAmount": GISAmount,
+                "FlagFund": FlagFund,
+                "Harithanidhi": Harithanidhi,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdateSalaryDeduction', paramObject);
+            return promise;
+        };
+
+        this.GetSalaryDeductionData = function (DataTypeID, SalaryDeductionId, DepartmentId, EmployeeId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "SalaryDeductionId": SalaryDeductionId,
+                "DepartmentId": DepartmentId,
+                "EmployeeId": EmployeeId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryDeductionData', paramObj);
+            return promise;
+
+        };
+
+        this.ChangeSalaryDeductionStatus = function (DataTypeID, SalaryDeductionId, DepartmentId, EmployeeId, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "SalaryDeductionId": SalaryDeductionId,
+                "DepartmentId": DepartmentId,
+                "EmployeeId": EmployeeId,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditSalaryDeductionData', paramObj);
+            return promise;
+
+        };
+
+        this.GenerateMonthlySalary = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+                
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GenerateMonthlySalary', paramObj);
+            return promise;
+
+        };
+
+        this.GetGenerateExcel = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetGenerateExcel', paramObj);
+            return promise;
+
+        };
+
+
+
+
+
+
+
+
+
+
+
 
 
     });

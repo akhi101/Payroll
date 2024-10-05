@@ -1,4 +1,4 @@
-﻿using SoftwareSuite.Controllers.Academic;
+﻿using SoftwareSuite.Controllers;
 using System;
 using System.Diagnostics;
 using System.Globalization;
