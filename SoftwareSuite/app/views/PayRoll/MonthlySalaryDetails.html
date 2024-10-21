@@ -344,38 +344,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Employee:</label>
-                            <select class="form-control" ng-model="Employee1" ng-change="ChangeEmpDedData(Employee1)" name="StudentType" required>
-                                <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
-                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
-                                </option>
-                            </select>
+
+                  
+                        <div class="form-group col-md-3" style="right: 15px;">
+                            <div class="form-group ">
+                                <label class="font-weight-bold">Deduction Type : </label>
+                                <select class="form-control" name="applicationForm.Gender" ng-model="DeductionType" ng-change="ChangeDeductionType(DeductionType)" ng-disabled="Deductions">
+                                    <option value="">Select Deduction Type</option>
+                                    <option value="1">All Employees</option>
+                                    <option value="2">Individual Employee</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" ng-show="showEmployee">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Employee:</label>
+                                <select class="form-control" ng-model="Employee1" ng-change="ChangeEmpDedData(Employee1)" name="StudentType" required>
+                                    <option value="" selected>Select Employee </option>
+                                    <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                        {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="form-group text-center">
+                                <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport2()">
+                                    Get Details
+                                    <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-2 text-center">
-                        <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport2()">
-                                Get Details
-                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card" ng-show="DedEmployeeData">
-                    <div class="col-md-3"><b>Employee Name </b></div>
-                    <div class="col-md-9">: {{EmployeeName}}</div>
-                    <div class="col-md-3"><b>Employee Code </b></div>
-                    <div class="col-md-9">: {{EmployeeCode}}</div>
-                    <div class="col-md-3"><b>Designation </b></div>
-                    <div class="col-md-9">: {{Designation}}</div>
-                    <div class="col-md-3"><b>Other Deductions :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="OtherDeductions" ng-model="OtherDeductions" placeholder="Other Deductions" /></div>
-                    <div class="col-md-9" ng-show="DedEmployeeData">
+                <div class="card" ng-show="ShowCard">
+                    <div class="col-md-3" ng-show="ShowEmpName"><b>Employee Name </b></div>
+                    <div class="col-md-9" ng-show="ShowEmpName">: {{EmployeeName}}</div>
+                    <div class="col-md-3" ng-show="ShowEmpCode"><b>Employee Code </b></div>
+                    <div class="col-md-9" ng-show="ShowEmpCode">: {{EmployeeCode}}</div>
+                    <div class="col-md-3" ng-show="ShowDesig"><b>Designation </b></div>
+                    <div class="col-md-9" ng-show="ShowDesig">: {{Designation}}</div>
+                    <div class="col-md-3" ng-show="ShowDeductionAmount"><b> Deduction Amount:</b></div>
+                    <div class="col-md-7" ng-show="ShowDeductionAmount"><input class="form-control" name="DeductionAmount" ng-model="DeductionAmount" placeholder="Deduction Amount" /></div>
+                    <div class="col-md-3" ng-show="ShowRemarks"><b> Remarks:</b></div>
+                    <div class="col-md-7" ng-show="ShowRemarks"><input class="form-control" name="Remarks" ng-model="Remarks" placeholder="Remarks" /></div>
+
+                    <div class="col-md-9" ng-show="ShowSaveButton">
                         <button class="btn btn-success pull-right" ng-click="SaveDeduction()">Save</button>
                     </div>
+
+
                 </div>
                 <div class="row" ng-show="DataNotFound2">
                     <div class="col-md-12">

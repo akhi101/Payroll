@@ -22,7 +22,88 @@ define(['app'], function (app) {
             /* $scope.GetorEditIncrements();*/
             /*$scope.GetorEditDeductions();*/
             /*$scope.GetorEditLeaves();*/
+
+            $scope.showEmployee = false;
+            $scope.ShowEmpName = false;
+            $scope.ShowEmpCode = false;
+            $scope.ShowDesig = false;
+            $scope.ShowDeductionAmount = false;
+            $scope.ShowRemarks = false;
+            $scope.ShowSaveButton = false;
+            $scope.ShowCard = false;
         }
+
+
+
+
+
+        $scope.ChangeDeductionType = function (data) {
+
+            $scope.data = data;
+
+            if ($scope.data == 1) {
+                $scope.GetAllDeductions = [];
+                $scope.showEmployee = false;
+                $scope.ShowEmpName = false;
+                $scope.ShowEmpCode = false;
+                $scope.ShowDeductionAmount = false;
+                $scope.ShowRemarks = false;
+                $scope.showEmployee = false;
+                $scope.ShowSaveButton = false;
+                $scope.ShowCard = false;
+
+
+
+            }
+
+            else if ($scope.data == 2) {
+                $scope.GetAllDeductions = [];
+                $scope.showEmployee = true;
+                $scope.showEmployee = false;
+                $scope.ShowEmpName = false;
+                $scope.ShowEmpCode = false;
+                $scope.ShowDeductionAmount = false;
+                $scope.ShowRemarks = false;
+                $scope.ShowSaveButton = false;
+                $scope.ShowCard = false;
+
+
+            }
+        }
+
+        $scope.GetReport2 = function () {
+
+            if ($scope.data == 1) {
+                $scope.showEmployee = false;
+                $scope.ShowEmpName = false;
+                $scope.ShowEmpCode = false;
+                $scope.ShowDeductionAmount = true;
+                $scope.ShowRemarks = true;
+                $scope.ShowSaveButton = true;
+                $scope.GetorEditDeductions();
+                $scope.ShowCard = true;
+
+            }
+            else if ($scope.data == 2) {
+                $scope.showEmployee = true;
+                $scope.ShowEmpName = true;
+                $scope.ShowEmpCode = true;
+                $scope.ShowDeductionAmount = true;
+                $scope.ShowRemarks = true;
+                $scope.ShowSaveButton = true;
+                $scope.GetorEditDeductions();
+                $scope.ShowCard = true;
+
+
+            }
+            else {
+
+            }
+
+
+        }
+
+
 
 
 
@@ -424,12 +505,7 @@ define(['app'], function (app) {
             $scope.GetorEditIncrements();
         }
 
-        $scope.GetReport2 = function () {
-            $scope.DedEmployeeData = true;
-            $scope.GetorEditDeductions();
-
-        }
-       
+      
         $scope.SaveIncrement = function () {
             var datatypeid = 1
 
@@ -1054,9 +1130,6 @@ define(['app'], function (app) {
 
 
         }
-
-
-
 
 
         $scope.Years = ['2021', '2022', '2023', '2024', '2025'];

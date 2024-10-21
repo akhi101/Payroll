@@ -168,15 +168,18 @@
                         $scope.modalInstance.close();
                     }
 
+
+                }
+                else if (res.Table[0].ResponseCode == '400') {
+                    //alert(res.Table[0].ResponseDescription);
+                    alert('Please Generate MonthlyDays to Generate Monthly Salary')
+                    //$scope.GeneratedData = res1;
                 }
                 else if (res.Table1[0].ResponseCode == '200') {
                     $scope.GetAllGeneratedMontlysalary = res.Table;
                     alert(res.Table1[0].ResponseDescription);
                 }
-                else if (res.Table[0].ResponseCode == '400') {
-                    alert(res.Table[0].ResponseDescription);
-                    //$scope.GeneratedData = res1;
-                } else {
+else {
                     alert('Something Went Wrong')
 
                 }
