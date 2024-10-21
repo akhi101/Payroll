@@ -1,50 +1,73 @@
 ﻿define(['app'], function (app) {
-    app.controller("GeneratePayrollController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
+    app.controller("GeneratePayrollController", function ($scope, $uibModal, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
 
             $scope.FinancialYears();
             
             $scope.GetMonths();
+            $scope.getMonths();
             
         }
 
-        $scope.GetData = function () {
-            let datatype = 1
-            var finyr = PayRollService.GetorEditIncrements(datatype, 0, 0)
-            finyr.then(function (response) {
-                var res = JSON.parse(response)
-                $scope.GetAllIncrements = res.Table;
 
-                for (var j = 1; j < $scope.GetAllIncrements.length + 1; j++) {
-                    $scope['edit' + j] = true;
-                }
-            },
-                function (error) {
-                    alert("data is not loaded");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
 
+
+        
+
+       
+
+
+        $scope.changeFinYear = function (data) {
+            if (data == undefined || data=="" || data==null) {
+                $scope.ClearData();
+            }
         }
 
-        $scope.getEmployeebyMonthYear = function () {
-            var getmnthyr = PayRollService.GetEmployeebyMonthYear($scope.IncrementsFinancialYear, $scope.IncrementsMonth)
-            getmnthyr.then(function (response) {
-                var res = JSON.parse(response)
-                $scope.EmployeeDatabyYearMonth = res.Table;
-            },
-                function (error) {
-                    alert("data is not loaded");
-                    var err = JSON.parse(error);
-                    console.log(err.Message);
-                });
-
+        $scope.changeFinYear1 = function (data) {
+            if (data == undefined || data == "" || data == null) {
+                $scope.ClearData1();
+            }
         }
 
+        $scope.ChangeMonth = function (data) {
+            if (data == undefined || data == "" || data == null) {
+                $scope.ClearData();
+            }
+            else {
+                var generate = PayRollService.GenerateMonthlySalaryData(1,$scope.FinancialYearID1, $scope.MonthID1)
+                generate.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    } catch (err) { }
 
 
+                    if (res.Table[0].ResponseCode == '200') {
+                        $scope.GetAllGeneratedMontlysalary = res.Table1;
 
+                    }
+                    else if (res.Table[0].ResponseCode == '400') {
+                        //alert(res.Table[0].ResponseDescription);
+                    } else {
+                        alert('Something Went Wrong')
+
+                    }
+                },
+                    function (error) {
+                        alert("something Went Wrong")
+
+
+                    });
+            }
+            }
+        
+
+        $scope.ClearData = function () {
+
+            $scope.GetAllGeneratedMontlysalary = [];
+            $scope.GetAllPublishMontlysalary = [];
+         
+        }
 
 
 
@@ -72,7 +95,7 @@
         
 
         $scope.GetMonths = function () {
-            var getmonths = PayRollService.GetMonths();
+            var getmonths = PayRollService.GetMonthsforGeneration();
             getmonths.then(function (response) {
 
                 //$scope.edit = true;
@@ -94,6 +117,26 @@
         
 
 
+        $scope.getMonths = function () {
+            var getmonths = PayRollService.GetMonths();
+            getmonths.then(function (response) {
+
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.AllMonthsData = response.Table;
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.AllMonthsData = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Months");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
         
 
@@ -103,19 +146,36 @@
         $scope.generatemonthlysalary = function () {
            
 
-            var generate = PayRollService.GenerateMonthlySalary( $scope.FinancialYearID1, $scope.MonthID1)
+            var generate = PayRollService.GenerateMonthlySalary( $scope.FinancialYearID1, $scope.MonthID1,1)
             generate.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
-                if (res[0].ResponseCode == '200') {
-                    alert(res[0].ResponseDescription);
-                    $scope.GeneratedData = res1;
+
+
+                if (res.Table[0].ResponseCode == '201') {
+                    //alert(res.Table[0].ResponseDescription);
+                 
+                    $scope.AlertMsge = res.Table[0].ResponseDescription;
+                        $scope.modalInstance = $uibModal.open({
+                            templateUrl: "/app/views/PayRoll/Popups/RegenerateConfirmationPopup.html",
+                            size: 'xlg',
+                            scope: $scope,
+                            windowClass: 'modal-fit-att',
+                        });
+
+                    $scope.closeModal = function () {
+                        $scope.modalInstance.close();
+                    }
 
                 }
-                else if (res[0].ResponseCode == '400') {
-                    alert(res[0].ResponseDescription);
-                    $scope.GeneratedData = res1;
+                else if (res.Table1[0].ResponseCode == '200') {
+                    $scope.GetAllGeneratedMontlysalary = res.Table;
+                    alert(res.Table1[0].ResponseDescription);
+                }
+                else if (res.Table[0].ResponseCode == '400') {
+                    alert(res.Table[0].ResponseDescription);
+                    //$scope.GeneratedData = res1;
                 } else {
                     alert('Something Went Wrong')
 
@@ -129,9 +189,41 @@
         }
 
 
+        $scope.ConfirmGenerate = function () {
+            $scope.GetAllGeneratedMontlysalary = [];
+            var generate = PayRollService.GenerateMonthlySalary($scope.FinancialYearID1, $scope.MonthID1, 2)
+            generate.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+
+                    $scope.GetAllGeneratedMontlysalary = res.Table;
+                    $scope.modalInstance.close();
+                
+
+                
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+
+        }
+
+
+        
+
+
+
+      
+
+
+
+
         $scope.getGenerateExcel = function () {
             $scope.loading = true;
-            var ReportExcel = PayRollService.GetGenerateExcel($scope.FinancialYearID1, $scope.MonthID1);
+            var ReportExcel = PayRollService.GetGenerateExcel(2,$scope.FinancialYearID1, $scope.MonthID1);
             ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
@@ -156,23 +248,82 @@
 
 
 
-        $scope.UpdateIncrement = function (data) {
-            var DataTypeId = 2
+     
 
 
-            var AddDepartment = PayRollService.AddorUpdateIncrements(DataTypeId, data.IncrementID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.IncrementAmount, data.Active, $scope.UserName)
-            AddDepartment.then(function (response) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $scope.ChangeMonth2 = function (data) {
+            if (data == undefined || data == "" || data == null) {
+                $scope.ClearData1();
+            }
+            else {
+                $scope.ClearData1();
+                var generate = PayRollService.PublishMonthlySalaryData(1,$scope.FinancialYearID2, $scope.MonthID2)
+                generate.then(function (response) {
+                    try {
+                        var res = JSON.parse(response);
+                    } catch (err) { }
+
+
+                if (res.Table[0].ResponseCode == '200') {
+                    $scope.GetAllPublishMontlysalary = res.Table1;
+
+                }
+                else if (res.Table[0].ResponseCode == '400') {
+                    //alert(res.Table[0].ResponseDescription);
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+            function (error) {
+                alert("something Went Wrong")
+
+
+            });
+            }
+        }
+
+
+        $scope.ClearData1 = function () {
+            $scope.GetAllPublishMontlysalary = [];
+
+
+        }
+
+
+      
+
+        $scope.publishmonthlysalary = function () {
+
+
+            var Publish = PayRollService.PublishMonthlySalary($scope.FinancialYearID2, $scope.MonthID2)
+            Publish.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
-                if (res[0].StatusCode == '200') {
-                    alert(res[0].StatusDescription);
-                    $scope.GetorEditIncrements()
+
+
+                if (res.Table[0].ResponseCode == '200') {
+                    alert(res.Table[0].ResponseDescription);
+                    $scope.GetAllPublishMontlysalary = res.Table1;
 
                 }
-                else if (res[0].StatusCode == '400') {
-                    alert(res[0].StatusDescription);
-                    $scope.GetorEditIncrements()
+                else if (res.Table[0].ResponseCode == '400') {
+                    alert(res.Table[0].ResponseDescription);
+
 
                 } else {
                     alert('Something Went Wrong')
@@ -186,29 +337,38 @@
                 });
         }
 
-        $scope.ChangeActive = function (FinancialYearID, MonthID, IncrementID, Status) {
-            var DataType = 3;
-            var getSlides = PayRollService.PayRollIncrement(DataType, FinancialYearID, MonthID, IncrementID, Status);
-            getSlides.then(function (res) {
-                var response = JSON.parse(res)
-                if (response.Table[0].ResponseCode == '200') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditIncrements();
-                } else if (response.Table[0].ResponseCode == '400') {
-                    alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditIncrements();
+
+        $scope.getPublishedExcel = function () {
+            $scope.loading = true;
+            var ReportExcel = PayRollService.GetPublishedExcel(2, $scope.FinancialYearID2, $scope.MonthID2);
+            ReportExcel.then(function (res) {
+                $scope.loading = false;
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        window.location.href = res;
+                    } else {
+                        alert("No  Excel Report Present")
+                    }
                 } else {
-                    alert("Something Went Wrong")
+                    alert("No Excel Report Present")
                 }
-            },
-                function (error) {
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
 
-                    alert("error while loading Slides");
-                    //alert("error while loading Notification");
+        };
 
-                    var err = JSON.parse(error);
-                });
-        }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -63,20 +63,140 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="active noprint">
-                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Increments</a>
+                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Montly Days</a>
             </li>
             <li class="noprint">
-                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Other Deductions</a>
+                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Increments</a>
             </li>
-            <!--<li class="noprint">
-                <a href="#3" class="noprint  font-weight-bold" data-toggle="tab">Leaves</a>
-            </li>-->
+            <li class="noprint">
+                <a href="#3" class="noprint  font-weight-bold" data-toggle="tab">Other Deductions</a>
+            </li>
+            
             <li class="noprint">
                 <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Spl Pay/Arrears</a>
             </li>
         </ul>
         <div class="tab-content">
+
             <div class="tab-pane active" id="1">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="MonthlyDaysFinancialYear" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="MonthlyDaysMonth" name="StudentType" required ng-change="getorgeneratemonthlydays()">
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-disabled="button1disable" ng-click="generatemonthlydays()">
+                                Get Details
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3"  ng-show="GetAllMonthlyDays.length>0">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="search..."
+                               ng-model="searchtxt">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+
+
+                <div class="sm-spacer"></div>
+                <div class="col-md-12" ng-if="loading">
+                    <!--<div class="sm-spacer"></div>-->
+                    <div style="width:100%;text-align:center;">
+                        <img src="../../../contents/img/loading2.gif" ng-if="loading" width="100" />
+                    </div>
+                </div>
+                <div class="row" ng-show="DataNotFound0">
+                    <div class="col-md-12">
+                        <div ng-show="DataNotFound0" class="no-results ng-hide">
+                            <img src="../../contents/img/Folder-Icon.svg">
+                            <h2>No Data Found</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="" ng-show="GetAllMonthlyDays.length>0">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="cb-1">
+                                <th>S.No</th>
+                                <th class="text-center">FinancialYear</th>
+                                <th class="text-center">Month</th>
+                                <th class="text-center">EmployeeCode</th>
+                                <th class="text-center">EmployeeName</th>
+                                <th class="text-center">DesignationName</th>
+                                <th class="text-center">No Of Days</th>
+                                <th class="text-center">Action</th>
+                                <!--<th class="text-center">Active</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in GetAllMonthlyDays | filter : searchtxt">
+                                <td class="text-center pointer">{{$index+1}}</td>
+
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt" ng-model="data.FinancialYear" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt" ng-model="data.Months" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.EmployeeCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.EmployeeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.DesignationName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" maxlength="2" ng-model="data.NoofDays" /></div></td>
+
+
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditMonthlyDays(data,$index+1)">
+                                        Edit
+                                    </button>
+                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateMonthlyDays(data,$index+1)">
+                                        Update
+                                    </button>
+
+                                </td>
+
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="tab-pane" id="2">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -105,16 +225,16 @@
                         </div>
                     </div>
                     <!--<div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Employee:</label>
-                            <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
-                                <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDatabyYearMonth" value="{{data}}">
-                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
-                                </option>
-                            </select>
-                        </div>
-                    </div>-->
+                <div class="form-group">
+                    <label class="font-weight-bold">Employee:</label>
+                    <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
+                        <option value="" selected>Select Employee </option>
+                        <option ng-repeat="data in EmployeeDatabyYearMonth" value="{{data}}">
+                            {{data.EmployeeName}} ({{data.EmployeeCode}})
+                        </option>
+                    </select>
+                </div>
+            </div>-->
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
                             <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport1()">
@@ -126,20 +246,20 @@
                 </div>
                 <div class="sm-spacer"></div>
                 <!--<div class="card" ng-show="IncEmployeeData">
-                    <div class="col-md-3"><b>Employee Name </b></div>
-                    <div class="col-md-9">: {{EmployeeName}}</div>
-                    <div class="col-md-3"><b>Employee Code </b></div>
-                    <div class="col-md-9">: {{EmployeeCode}}</div>
-                    <div class="col-md-3"><b>Designation </b></div>
-                    <div class="col-md-9">: {{Designation}}</div>
-                    <br />
-                    <div class="col-md-3"><b>Increment Amount :</b></div>
-                    <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
-                    <br />
-                    <div class="col-md-9" ng-show="IncEmployeeData">
-                        <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
-                    </div>
-                </div>-->
+            <div class="col-md-3"><b>Employee Name </b></div>
+            <div class="col-md-9">: {{EmployeeName}}</div>
+            <div class="col-md-3"><b>Employee Code </b></div>
+            <div class="col-md-9">: {{EmployeeCode}}</div>
+            <div class="col-md-3"><b>Designation </b></div>
+            <div class="col-md-9">: {{Designation}}</div>
+            <br />
+            <div class="col-md-3"><b>Increment Amount :</b></div>
+            <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
+            <br />
+            <div class="col-md-9" ng-show="IncEmployeeData">
+                <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
+            </div>
+        </div>-->
                 <div class="row" ng-show="DataNotFound1">
                     <div class="col-md-12">
                         <div ng-show="DataNotFound1" class="no-results ng-hide">
@@ -177,8 +297,7 @@
                                 <td class="text-center">
                                     <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
                                         Edit
-                                    </button
->
+                                    </button>
                                     <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
                                         Update
                                     </button>
@@ -197,7 +316,7 @@
                 </div>
 
             </div>
-            <div class="tab-pane" id="2">
+            <div class="tab-pane" id="3">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -291,7 +410,7 @@
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
-                                
+
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.OtherDeductions" /></div></td>
 
                                 <td class="text-center">
@@ -317,141 +436,141 @@
             </div>
 
             <!--<div class="tab-pane" id="3">
-                <div class="card">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Financial Year:</label>
-                            <div class="">
-                                <select class="form-control" ng-model="LeavesFinancialYear" name="FinancialYear" required>
-                                    <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
-                                        {{data.FinancialYear}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+        <div class="card">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="font-weight-bold">Financial Year:</label>
+                    <div class="">
+                        <select class="form-control" ng-model="LeavesFinancialYear" name="FinancialYear" required>
+                            <option value="" selected>Select Financial Year</option>
+                            <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                {{data.FinancialYear}}
+                            </option>
+                        </select>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Month:</label>
-                            <div class="">
-                                <select class="form-control" ng-model="LeavesMonth" name="StudentType" required>
-                                    <option value="" selected>Select Month </option>
-                                    <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
-                                        {{data.Months}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="font-weight-bold">Month:</label>
+                    <div class="">
+                        <select class="form-control" ng-model="LeavesMonth" name="StudentType" required>
+                            <option value="" selected>Select Month </option>
+                            <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
+                                {{data.Months}}
+                            </option>
+                        </select>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Employee:</label>
-                            <select class="form-control" ng-model="LeavesEmployee" ng-change="ChangeEmpLevData(LeavesEmployee)" name="StudentType" required>
-                                <option value="" selected>Select Employee </option>
-                                <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
-                                    {{data.EmployeeName}} ({{data.EmployeeCode}})
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2 text-center">
-                        <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getorEditLeaves()">
-                                Get Details
-                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="font-weight-bold">Employee:</label>
+                    <select class="form-control" ng-model="LeavesEmployee" ng-change="ChangeEmpLevData(LeavesEmployee)" name="StudentType" required>
+                        <option value="" selected>Select Employee </option>
+                        <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                            {{data.EmployeeName}} ({{data.EmployeeCode}})
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 text-center">
+                <div class="form-group text-center">
+                    <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getorEditLeaves()">
+                        Get Details
+                        <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sm-spacer"></div>
+        <div class="col-md-12" ng-show="ShowLeaveData">
+            <div class="card">
+
+                <div class="col-md-3"><b>Employee Name </b></div>
+                <div class="col-md-9">: {{LeavesEmployeeName}}</div>
+                <div class="col-md-3"><b>Employee Code </b></div>
+                <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
+                <div class="col-md-3"><b>Designation </b></div>
+                <div class="col-md-9">: {{Designation}}</div>
+                <div class="row">
+                    <div class="col-md-3"><b>Medical Leaves </b></div>
+                    <div class="col-md-9">: {{MedicalLeavesBalance}}</div>
+                    <div class="col-md-3"><b>Medical Leaves Utilized :</b></div>
+                    <div class="col-md-2"><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeavesUtilized" maxlength="2" placeholder="Medical Leaves" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><b>Casual Leaves </b></div>
+                    <div class="col-md-9">: {{CasualLeavesBalance}}</div>
+                    <div class="col-md-3"><b>Casual Leaves Utilized:</b></div>
+                    <div class="col-md-2"><input class="form-control" name="CasualLeaves" ng-model="CasualLeavesUtilized" maxlength="2" placeholder="Casual Leaves" /></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><b>Earn Leaves </b></div>
+                    <div class="col-md-9">: {{EarnLeavesBalance}}</div>
+                    <div class="col-md-3"><b>Earn Leaves Utilized :</b></div>
+                    <div class="col-md-2"><input class="form-control" name="EarnLeaves" ng-model="EarnLeavesUtilized" maxlength="2" placeholder="Earn Leaves" /></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12" ng-show="ShowLeaveData">
+            <button class="btn btn-success pull-right" ng-click="SaveLeaves()">Save</button>
+        </div>
+        <div class="sm-spacer"></div>
+        <div class="" ng-show="EmployeeLeaveData.length>0">
+            <table class="table table-responsive table-bordered">
+                <thead>
+                    <tr class="cb-1">
+                        <th class="text-center">Financial Year</th>
+                        <th class="text-center">Month</th>
+                        <th class="text-center">Employee Code</th>
+                        <th class="text-center">Employee Name</th>
+                        <th class="text-center">Designation</th>
+                        <th class="text-center">Medical Leaves</th>
+                        <th class="text-center">Medical Leaves Utilized</th>
+                        <th class="text-center">Casual Leaves</th>
+                        <th class="text-center">Casual Leaves Utilized</th>
+                        <th class="text-center">Earn Leaves</th>
+                        <th class="text-center">Earn Leaves Utilized</th>
+                        <th class="text-center">Action</th>
+                        <th class="text-center">Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in EmployeeLeaveData">
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Employeedesignation" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MedicalLeaves" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MedicalLeavesUtilized" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CasualLeaves" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CasualLeavesUtilized" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EarnLeaves" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EarnLeavesUtilized" /></div></td>
+
+                        <td class="text-center">
+                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditLeave(data,$index+1)">
+                                Edit
                             </button>
-                        </div>
-                    </div>
-                </div>
+                            <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateLeave(data,$index+1)">
+                                Update
+                            </button>
 
-                <div class="sm-spacer"></div>
-                <div class="col-md-12" ng-show="ShowLeaveData">
-                    <div class="card">
+                        </td>
+                        <td style="text-align:center">
+                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,0)" ng-if="data.Active==1">Active</button>
+                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,1)" ng-if="data.Active==0">InActive</button>
+                        </td>
+                    </tr>
 
-                        <div class="col-md-3"><b>Employee Name </b></div>
-                        <div class="col-md-9">: {{LeavesEmployeeName}}</div>
-                        <div class="col-md-3"><b>Employee Code </b></div>
-                        <div class="col-md-9">: {{LeavesEmployeeCode}}</div>
-                        <div class="col-md-3"><b>Designation </b></div>
-                        <div class="col-md-9">: {{Designation}}</div>
-                        <div class="row">
-                            <div class="col-md-3"><b>Medical Leaves </b></div>
-                            <div class="col-md-9">: {{MedicalLeavesBalance}}</div>
-                            <div class="col-md-3"><b>Medical Leaves Utilized :</b></div>
-                            <div class="col-md-2"><input class="form-control" name="MedicalLeaves" ng-model="MedicalLeavesUtilized" maxlength="2" placeholder="Medical Leaves" /></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"><b>Casual Leaves </b></div>
-                            <div class="col-md-9">: {{CasualLeavesBalance}}</div>
-                            <div class="col-md-3"><b>Casual Leaves Utilized:</b></div>
-                            <div class="col-md-2"><input class="form-control" name="CasualLeaves" ng-model="CasualLeavesUtilized" maxlength="2" placeholder="Casual Leaves" /></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3"><b>Earn Leaves </b></div>
-                            <div class="col-md-9">: {{EarnLeavesBalance}}</div>
-                            <div class="col-md-3"><b>Earn Leaves Utilized :</b></div>
-                            <div class="col-md-2"><input class="form-control" name="EarnLeaves" ng-model="EarnLeavesUtilized" maxlength="2" placeholder="Earn Leaves" /></div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-12" ng-show="ShowLeaveData">
-                    <button class="btn btn-success pull-right" ng-click="SaveLeaves()">Save</button>
-                </div>
-                <div class="sm-spacer"></div>
-                <div class="" ng-show="EmployeeLeaveData.length>0">
-                    <table class="table table-responsive table-bordered">
-                        <thead>
-                            <tr class="cb-1">
-                                <th class="text-center">Financial Year</th>
-                                <th class="text-center">Month</th>
-                                <th class="text-center">Employee Code</th>
-                                <th class="text-center">Employee Name</th>
-                                <th class="text-center">Designation</th>
-                                <th class="text-center">Medical Leaves</th>
-                                <th class="text-center">Medical Leaves Utilized</th>
-                                <th class="text-center">Casual Leaves</th>
-                                <th class="text-center">Casual Leaves Utilized</th>
-                                <th class="text-center">Earn Leaves</th>
-                                <th class="text-center">Earn Leaves Utilized</th>
-                                <th class="text-center">Action</th>
-                                <th class="text-center">Active</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="data in EmployeeLeaveData">
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Employeedesignation" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MedicalLeaves" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MedicalLeavesUtilized" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CasualLeaves" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CasualLeavesUtilized" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EarnLeaves" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EarnLeavesUtilized" /></div></td>
-
-                                <td class="text-center">
-                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditLeave(data,$index+1)">
-                                        Edit
-                                    </button>
-                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateLeave(data,$index+1)">
-                                        Update
-                                    </button>
-
-                                </td>
-                                <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeLeave(data.EmployeeID,data.FinancialYearID,data.MonthID,data.LeaveId,1)" ng-if="data.Active==0">InActive</button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>-->
+                </tbody>
+            </table>
+        </div>
+    </div>-->
 
 
 

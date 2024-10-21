@@ -24,6 +24,189 @@ define(['app'], function (app) {
             /*$scope.GetorEditLeaves();*/
         }
 
+
+
+
+        $scope.searchtxt = "";
+
+
+        $scope.GetReportMonthlyDays = function () {
+            $scope.GetorEditMonthlyDays();
+        }
+
+
+
+
+        $scope.GetData = function () {
+            let datatype = 1
+            var finyr = PayRollService.GetorEditMonthlyDays(datatype, 0, 0)
+            finyr.then(function (response) {
+                var res = JSON.parse(response)
+                $scope.GetAllMonthlyDays = res.Table;
+
+                for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                    $scope['edit' + j] = true;
+                }
+            },
+                function (error) {
+                    alert("data is not loaded");
+                    var err = JSON.parse(error);
+                    console.log(err.Message);
+                });
+
+        }
+
+
+
+        $scope.getorgeneratemonthlydays = function () {
+            $scope.GetAllMonthlyDays = [];
+            $scope.button1disable = true;
+            $scope.loading = true;
+            var DataTypeID = 1
+            var getdesign = PayRollService.GetorEditMonthlyDays(DataTypeID, $scope.MonthlyDaysFinancialYear, $scope.MonthlyDaysMonth);
+            getdesign.then(function (response) {
+                var res = JSON.parse(response)
+                //$scope.edit = true;
+                if (res.Table[0].ResponseCode=='200') {
+                    $scope.GetAllMonthlyDays = res.Table1;
+                    $scope.button1disable = false;
+                    $scope.loading = false;
+
+                    $scope.DataNotFound0 = false;
+                    for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                //else if (res.Table[0].ResponseCode == '400') {
+
+                //}
+                else {
+                    $scope.GetAllMonthlyDays = [];
+                    $scope.DataNotFound0 = true;
+                    $scope.button1disable = false;
+                    $scope.loading = false;
+                }
+            },
+                function (error) {
+                    alert("error while loading MonthlyDays Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+        $scope.generatemonthlydays = function () {
+            var DataTypeID = 2
+            $scope.GetAllMonthlyDays = [];
+            $scope.button1disable = true;
+            $scope.loading = true;
+            var getdesign = PayRollService.GetorEditMonthlyDays(DataTypeID, $scope.MonthlyDaysFinancialYear, $scope.MonthlyDaysMonth);
+            getdesign.then(function (response) {
+                var response = JSON.parse(response)
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.GetAllMonthlyDays = response.Table;
+
+                    $scope.DataNotFound0 = false;
+                    $scope.button1disable = false;
+                    $scope.loading = false;
+                    for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                        $scope['edit' + j] = true;
+                    }
+                }
+                else {
+                    $scope.GetAllMonthlyDays = [];
+                    $scope.DataNotFound0 = true;
+                    $scope.button1disable = false;
+                    $scope.loading = false;
+                }
+            },
+                function (error) {
+                    alert("error while loading Increments Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+
+
+
+
+
+
+        $scope.UpdateMonthlyDays = function (data) {
+            
+
+
+            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.MonthlyDaysID, data.NoofDays,  $scope.UserName)
+            UpdateMonthlyDays.then(function (response) {
+                try {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].ResponseCode == '200') {
+                    alert(res[0].ResponseDescription);
+                    $scope.generatemonthlydays()
+
+                }
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.generatemonthlydays()
+
+                } else {
+                    alert('Something Went Wrong')
+
+                }
+            },
+                function (error) {
+                    alert("something Went Wrong")
+
+
+                });
+        }
+
+
+
+
+        $scope.EditMonthlyDays = function (data, ind) {
+
+            var ele1 = document.getElementsByClassName("enabletable" + ind);
+            for (var j = 0; j < ele1.length; j++) {
+                ele1[j].style['pointer-events'] = "auto";
+                ele1[j].style.border = "1px solid #ddd";
+            }
+            $scope['edit' + ind] = false;
+
+
+
+        }
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $scope.GetData = function () {
             let datatype = 1
             var finyr = PayRollService.GetorEditIncrements(datatype, 0, 0)
@@ -87,6 +270,22 @@ define(['app'], function (app) {
 
 
         
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -59,6 +59,23 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
+        [HttpGet, ActionName("GetMonthsforGeneration")]
+        public HttpResponseMessage GetMonthsforGeneration()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_GenerateSalaryMonths";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_GenerateSalaryMonths", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [HttpGet, ActionName("GetAdvanceType")]
         public HttpResponseMessage GetAdvanceType()
         {
@@ -1277,6 +1294,9 @@ namespace SoftwareSuite.Controllers.PayRoll
         {
             public int FinancialYearID { get; set; }
             public int MonthID { get; set; }
+            public int DataType { get; set; }
+
+
 
         }
 
@@ -1287,11 +1307,37 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[2];
+                var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", data.MonthID);
+                param[2] = new SqlParameter("@DataType", data.DataType);
                 
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Generate_MonthlySalaries", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+
+            }
+        }
+
+        [HttpPost, ActionName("GenerateMonthlySalaryData")]
+        public string GenerateMonthlySalaryData([FromBody] MontlySalaryInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", data.MonthID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlySalariesData", param);
                 return JsonConvert.SerializeObject(dt);
 
             }
@@ -1304,6 +1350,10 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
+
+      
+
+
         private static void elapse(object sender, ElapsedEventArgs e, string s)
         {
             System.IO.File.Delete(s);
@@ -1312,17 +1362,18 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
         [HttpGet, ActionName("GetGenerateExcel")]
-        public string GetGenerateExcel(int FinancialYearID, int MonthID)
+        public string GetGenerateExcel(int DataType, int FinancialYearID, int MonthID)
         {
 
             try
             {
 
-                var dbHandler = new ccicdbHandler();
-                var param = new SqlParameter[2];
-                param[0] = new SqlParameter("@FinancialYearID", FinancialYearID);
-                param[1] = new SqlParameter("@MonthID", MonthID);
-                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Admin_FeePaymentCourseInstituteCount", param);
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlySalariesData", param);
                 var filename = "GenerateMontlySalary" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
@@ -1345,6 +1396,166 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost, ActionName("PublishMonthlySalaryData")]
+        public string PublishMonthlySalaryData([FromBody] MontlySalaryInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", data.MonthID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PublishedMonthlySalariesData", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+        [HttpPost, ActionName("PublishMonthlySalary")]
+        public string PublishMonthlySalary([FromBody] MontlySalaryInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", data.MonthID);
+               
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Publish_MonthlySalaries", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+
+            }
+        }
+
+
+
+        [HttpGet, ActionName("GetPublishedExcel")]
+        public string GetPublishedExcel(int DataType, int FinancialYearID, int MonthID)
+        {
+
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PublishedMonthlySalariesData", param);
+                var filename = "MontlySalaries" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+
+
+
+
+        [HttpPost, ActionName("GetorEditMonthlyDays")]
+        public string GetorEditMonthlyDays([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", request["DataType"]);
+                param[1] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[2] = new SqlParameter("@MonthID", request["MonthID"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlyDays", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+        [HttpPost, ActionName("UpdateMonthlyDays")]
+        public string UpdateMonthlyDays([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@MonthlyDaysID", request["MonthlyDaysID"]);
+                param[1] = new SqlParameter("@NoofDays", request["NoofDays"]);
+                param[2] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_MonthlyDays", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+
+
+
+
+
+
 
 
     };

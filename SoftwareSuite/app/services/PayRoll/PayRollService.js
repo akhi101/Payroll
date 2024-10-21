@@ -943,10 +943,11 @@ define(['app'], function (app) {
 
         };
 
-        this.GenerateMonthlySalary = function (FinancialYearID, MonthID) {
+        this.GenerateMonthlySalary = function (FinancialYearID, MonthID,DataType) {
             var paramObj = {
                 "FinancialYearID": FinancialYearID,
-                "MonthID": MonthID
+                "MonthID": MonthID,
+                "DataType": DataType
                 
             };
             var promise = DataAccessService.postData('api/PayRoll/GenerateMonthlySalary', paramObj);
@@ -954,13 +955,71 @@ define(['app'], function (app) {
 
         };
 
-        this.GetGenerateExcel = function (FinancialYearID, MonthID) {
+        this.GetGenerateExcel = function (DataType,FinancialYearID, MonthID) {
             var paramObj = {
+                "DataType": DataType,
                 "FinancialYearID": FinancialYearID,
                 "MonthID": MonthID
 
             };
-            var promise = DataAccessService.postData('api/PayRoll/GetGenerateExcel', paramObj);
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetGenerateExcel', paramObj);
+            return promise;
+
+        };
+
+
+        this.GenerateMonthlySalaryData = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GenerateMonthlySalaryData', paramObj);
+            return promise;
+
+        };
+
+
+
+        this.GetMonthsforGeneration = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetMonthsforGeneration');
+        };
+
+
+
+        this.PublishMonthlySalaryData = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/PublishMonthlySalaryData', paramObj);
+            return promise;
+
+        };
+
+        this.PublishMonthlySalary = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/PublishMonthlySalary', paramObj);
+            return promise;
+
+        };
+
+        this.GetPublishedExcel = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetPublishedExcel', paramObj);
             return promise;
 
         };
@@ -970,10 +1029,33 @@ define(['app'], function (app) {
 
 
 
+        this.GetorEditMonthlyDays = function (DataType, FinancialYearID, MonthID) {
+
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+               
+               
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditMonthlyDays', paramObj);
+            return promise;
+
+        };
 
 
+       
 
 
+        this.UpdateMonthlyDays = function ( MonthlyDaysID, NoofDays,  UserName) {
+            var paramObject = {
+                "MonthlyDaysID": MonthlyDaysID,
+                "NoofDays": NoofDays,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/UpdateMonthlyDays', paramObject);
+            return promise;
+        };
 
 
 
