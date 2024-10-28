@@ -156,6 +156,7 @@
                                 <th class="text-center">EmployeeCode</th>
                                 <th class="text-center">EmployeeName</th>
                                 <th class="text-center">DesignationName</th>
+                                <th class="text-center">Present Days</th>
                                 <th class="text-center">No Of Days</th>
                                 <th class="text-center">Action</th>
                                 <!--<th class="text-center">Active</th>-->
@@ -170,6 +171,7 @@
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.EmployeeName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.DesignationName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" maxlength="2" ng-model="data.PresentDays" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" maxlength="2" ng-model="data.NoofDays" /></div></td>
 
 

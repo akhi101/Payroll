@@ -1534,10 +1534,12 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@MonthlyDaysID", request["MonthlyDaysID"]);
-                param[1] = new SqlParameter("@NoofDays", request["NoofDays"]);
-                param[2] = new SqlParameter("@UserName", request["UserName"]);
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[1] = new SqlParameter("@MonthlyDaysID", request["MonthlyDaysID"]);
+                param[2] = new SqlParameter("@PresentDays", request["PresentDays"]);
+                param[3] = new SqlParameter("@NoOfDays", request["NoOfDays"]);
+                param[4] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_MonthlyDays", param);
                 return JsonConvert.SerializeObject(dt);
             }

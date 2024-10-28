@@ -220,7 +220,7 @@ define(['app'], function (app) {
             
 
 
-            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.MonthlyDaysID, data.NoofDays,  $scope.UserName)
+            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.EmployeeID,data.MonthlyDaysID, data.PresentDays, data.NoofDays, $scope.UserName)
             UpdateMonthlyDays.then(function (response) {
                 try {
                     var res = JSON.parse(response);

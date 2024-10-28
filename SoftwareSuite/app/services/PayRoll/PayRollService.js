@@ -1047,10 +1047,12 @@ define(['app'], function (app) {
        
 
 
-        this.UpdateMonthlyDays = function ( MonthlyDaysID, NoofDays,  UserName) {
+        this.UpdateMonthlyDays = function (EmployeeID,MonthlyDaysID, PresentDays, NoOfDays,  UserName) {
             var paramObject = {
+                "EmployeeID": EmployeeID,
                 "MonthlyDaysID": MonthlyDaysID,
-                "NoofDays": NoofDays,
+                "PresentDays": PresentDays,
+                "NoOfDays": NoOfDays,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/UpdateMonthlyDays', paramObject);
