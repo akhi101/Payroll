@@ -1,0 +1,24 @@
+10/7/2024 12:02:26 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+10/7/2024 12:02:44 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+10/7/2024 12:03:27 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+10/7/2024 12:03:28 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+10/7/2024 12:07:24 PM
+Could not find stored procedure 'SP_Get_Admin_FeePaymentCourseInstituteCount'.
+
+10/7/2024 7:45:57 PM
+Procedure or function SP_Generate_MonthlySalaries has too many arguments specified.
+
+10/7/2024 7:50:49 PM
+Procedure or function SP_Generate_MonthlySalaries has too many arguments specified.
+
+10/7/2024 7:51:29 PM
+Procedure or function SP_Generate_MonthlySalaries has too many arguments specified.
+

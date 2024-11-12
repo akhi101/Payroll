@@ -141,6 +141,12 @@
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Medical Amount" ng-model="Medical">
                                 </div>
+                                <div class="form-group col-md-4" ng-show="showSpecialPay">
+                                    <label>
+                                       Special Pay  :
+                                    </label>
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter SpecialPay Amount" ng-model="SpecialPay">
+                                </div>
                                 <div class="form-group col-md-4" ng-show="showNCI">
                                     <label>
                                         NCI:
@@ -154,11 +160,11 @@
 
                                 <div class="form-group col-md-4" ng-show="showNCIAmount">
                                     <label>
-                                       NCI Amount  :
+                                        NCI Amount  :
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter NCI Amount" ng-model="NCIAmount" >
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter NCI Amount" ng-model="NCIAmount">
                                 </div>
-                                
+
 
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
@@ -199,6 +205,7 @@
                             <th class="text-center">TG Increment </th>
                             <th class="text-center" ng-show="showCE">Conveyance Allowance </th>
                             <th class="text-center">Medical </th>
+                            <th class="text-center">SpecialPay</th>
                             <th class="text-center">NCI </th>
                             <th class="text-center">NCI Amount </th>
                             <th class="text-center">Action</th>
@@ -223,6 +230,7 @@
                             <td class="text-center">{{data.TG_Increment}}</td>
                             <td class="text-center" ng-show="showCE">{{data.ConveyanceAllowance}}</td>
                             <td class="text-center">{{data.Medical}}</td>
+                            <td class="text-center">{{data.SpecialPay}}</td>
                             <td class="text-center">{{data.NCI}}</td>
  
                             <td class="text-center">{{data.NCIAmount}}</td>

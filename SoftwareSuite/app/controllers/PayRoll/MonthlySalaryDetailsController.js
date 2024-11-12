@@ -965,16 +965,17 @@ define(['app'], function (app) {
         }
 
         $scope.GetReport4 = function () {
-            $scope.SplEmployeeData = true;
-            $scope.GetorEditSplPay();
+            $scope.OtherPayEmployeeData = true;
+            $scope.GetorEditOtherPay();
         }
 
 
-        $scope.ChangeSplEmpData = function (data) {
+        $scope.ChangeOtherPayEmpData = function (data) {
             var data = JSON.parse(data)
-            $scope.SplPayFinancialYearId = data.FinancialYearID
-            $scope.SplPayMonthId = data.MonthID
-            $scope.SplPayEmployeeId = data.EmployeeID
+            $scope.OtherPayFinancialYearId = data.FinancialYearID
+            $scope.OtherPayMonthId = data.MonthID
+            $scope.OtherPayEmployeeId = data.EmployeeID
+            $scope.OtherPayDesignationId = data.DesignationId
             $scope.EmployeeCode = data.EmployeeCode
             $scope.EmployeeName = data.EmployeeName
             $scope.Designation = data.DesignationName
@@ -984,12 +985,12 @@ define(['app'], function (app) {
 
         $scope.GetData = function () {
             let datatype = 1
-            var finyr = PayRollService.GetorEditSplPay(datatype, 0, 0)
+            var finyr = PayRollService.GetorEditOtherPay(datatype, 0, 0)
             finyr.then(function (response) {
                 var res = JSON.parse(response)
-                $scope.GetAllSplPay = res.Table;
+                $scope.GetAllOtherPay = res.Table;
 
-                for (var j = 1; j < $scope.GetAllSplPay.length + 1; j++) {
+                for (var j = 1; j < $scope.GetAllOtherPay.length + 1; j++) {
                     $scope['edit' + j] = true;
                 }
             },
@@ -1003,27 +1004,27 @@ define(['app'], function (app) {
 
 
 
-        $scope.GetorEditSplPay = function () {
+        $scope.GetorEditOtherPay = function () {
             var DataTypeID = 1
-            var getdesign = PayRollService.GetorEditSplPay(DataTypeID, $scope.SplPayEmployeeId, $scope.SplPayFinancialYear, $scope.SplPayMonth, 0, 0);
+            var getdesign = PayRollService.GetorEditOtherPay(DataTypeID, $scope.OtherPayEmployeeId, $scope.OtherPayFinancialYear, $scope.OtherPayMonth, $scope.OtherPayDesignationId, 0, 0);
             getdesign.then(function (response) {
                 var response = JSON.parse(response)
                 //$scope.edit = true;
                 if (response.Table.length > 0) {
-                    $scope.GetAllSplPay = response.Table;
+                    $scope.GetAllOtherPay = response.Table;
 
                     $scope.DataNotFound1 = false;
-                    for (var j = 1; j < $scope.GetAllSplPay.length + 1; j++) {
+                    for (var j = 1; j < $scope.GetAllOtherPay.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
-                    $scope.GetAllSplPay = [];
+                    $scope.GetAllOtherPay = [];
                     $scope.DataNotFound1 = true;
                 }
             },
                 function (error) {
-                    alert("error while loading SplPay Data");
+                    alert("error while loading OtherPay Data");
                     var err = JSON.parse(error);
 
                 });
@@ -1031,22 +1032,22 @@ define(['app'], function (app) {
 
 
 
-        $scope.SaveSplPay = function () {
+        $scope.SaveOtherPay = function () {
             var datatypeid = 1
 
-            var AddDepartment = PayRollService.AddorUpdateSplPay(datatypeid, 0, $scope.SplPayFinancialYear, $scope.SplPayMonth, $scope.SplPayEmployeeId, $scope.SplPayAmount, 1, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateOtherPay(datatypeid, 0, $scope.OtherPayFinancialYear, $scope.OtherPayMonth, $scope.OtherPayEmployeeId, $scope.OtherPayDesignationId, $scope.OtherPayAmount, 1, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    $scope.GetorEditSplPay()
+                    $scope.GetorEditOtherPay()
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
-                    $scope.GetorEditSplPay()
+                    $scope.GetorEditOtherPay()
 
                 } else {
                     alert('Something Went Wrong')
@@ -1062,23 +1063,23 @@ define(['app'], function (app) {
 
 
 
-        $scope.UpdateSplPay = function (data) {
+        $scope.UpdateOtherPay = function (data) {
             var DataTypeId = 2
 
 
-            var AddDepartment = PayRollService.AddorUpdateSplPay(DataTypeId, data.SplPayID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.SplPayAmount, data.Active, $scope.UserName)
+            var AddDepartment = PayRollService.AddorUpdateOtherPay(DataTypeId, data.OtherPayID, data.FinancialYearID, data.MonthID, data.EmployeeID, data.DesignationID, data.OtherPayAmount, data.Active, $scope.UserName)
             AddDepartment.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
                 if (res[0].StatusCode == '200') {
                     alert(res[0].StatusDescription);
-                    $scope.GetorEditSplPay()
+                    $scope.GetorEditOtherPay()
 
                 }
                 else if (res[0].StatusCode == '400') {
                     alert(res[0].StatusDescription);
-                    $scope.GetorEditSplPay()
+                    $scope.GetorEditOtherPay()
 
                 } else {
                     alert('Something Went Wrong')
@@ -1092,17 +1093,17 @@ define(['app'], function (app) {
                 });
         }
 
-        $scope.ChangeStatus = function (EmployeeID, FinancialYearID, MonthID, SplPayID, Status) {
+        $scope.ChangeStatus = function (EmployeeID, FinancialYearID, MonthID, OtherPayID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollSplPay(DataType, EmployeeID, FinancialYearID, MonthID, SplPayID, Status);
+            var getSlides = PayRollService.PayRollOtherPay(DataType, EmployeeID, FinancialYearID, MonthID, OtherPayID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditSplPay();
+                    $scope.GetorEditOtherPay();
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.GetorEditSplPay();
+                    $scope.GetorEditOtherPay();
                 } else {
                     alert("Something Went Wrong")
                 }
@@ -1118,7 +1119,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.EditSplPay = function (data, ind) {
+        $scope.EditOtherPay = function (data, ind) {
 
             var ele1 = document.getElementsByClassName("enabletable" + ind);
             for (var j = 0; j < ele1.length; j++) {

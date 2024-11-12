@@ -1,0 +1,112 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PayRoll_Project\\PayRollSoftware\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|d:\\payroll_project\\payrollsoftware\\softwaresuite\\controllers\\preexamination\\preexaminationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|solutionrelative:softwaresuite\\controllers\\preexamination\\preexaminationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|d:\\payroll_project\\payrollsoftware\\softwaresuite\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|solutionrelative:softwaresuite\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|d:\\payroll_project\\payrollsoftware\\softwaresuite\\controllers\\adminservices\\adminservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|solutionrelative:softwaresuite\\controllers\\adminservices\\adminservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|D:\\PayRoll_Project\\PayRollSoftware\\softwaresuite\\app\\admissionroutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{EFBFF63E-3166-42AF-A470-18214BDC6121}|SoftwareSuite\\SoftwareSuite.csproj|solutionrelative:softwaresuite\\app\\admissionroutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\SoftwareSuite_New\\SoftwareSuite\\SoftwareSuite\\app\\AdmissionRoutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PreExaminationController.cs",
+              "DocumentMoniker": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Controllers\\PreExamination\\PreExaminationController.cs",
+              "RelativeDocumentMoniker": "SoftwareSuite\\Controllers\\PreExamination\\PreExaminationController.cs",
+              "ToolTip": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Controllers\\PreExamination\\PreExaminationController.cs",
+              "RelativeToolTip": "SoftwareSuite\\Controllers\\PreExamination\\PreExaminationController.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAwwBkAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T10:16:09.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Web.config",
+              "RelativeDocumentMoniker": "SoftwareSuite\\Web.config",
+              "ToolTip": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Web.config",
+              "RelativeToolTip": "SoftwareSuite\\Web.config",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-08-26T06:01:13.33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminServiceController.cs",
+              "DocumentMoniker": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Controllers\\AdminServices\\AdminServiceController.cs",
+              "RelativeDocumentMoniker": "SoftwareSuite\\Controllers\\AdminServices\\AdminServiceController.cs",
+              "ToolTip": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\Controllers\\AdminServices\\AdminServiceController.cs",
+              "RelativeToolTip": "SoftwareSuite\\Controllers\\AdminServices\\AdminServiceController.cs",
+              "ViewState": "AQIAAP4CAAAAAAAAAAAgwAEDAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T05:55:43.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AdmissionRoutes.js",
+              "DocumentMoniker": "D:\\SoftwareSuite_New\\SoftwareSuite\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "RelativeDocumentMoniker": "..\\..\\SoftwareSuite_New\\SoftwareSuite\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "ToolTip": "D:\\SoftwareSuite_New\\SoftwareSuite\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "RelativeToolTip": "..\\..\\SoftwareSuite_New\\SoftwareSuite\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "ViewState": "AQIAAM8RAAAAAAAAAAAewNkRAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-08-24T07:11:19.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AdmissionRoutes.js",
+              "DocumentMoniker": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "RelativeDocumentMoniker": "SoftwareSuite\\app\\AdmissionRoutes.js",
+              "ToolTip": "D:\\PayRoll_Project\\PayRollSoftware\\SoftwareSuite\\app\\AdmissionRoutes.js",
+              "RelativeToolTip": "SoftwareSuite\\app\\AdmissionRoutes.js",
+              "ViewState": "AQIAABoAAAAAAAAAAAAQwCEAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-08-24T07:10:47.124Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

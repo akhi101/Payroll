@@ -90,6 +90,7 @@
             $scope.TG_Increment = "";
             $scope.ConveyanceAllowance = "";
             $scope.Medical = "";
+            $scope.SpecialPay = "";
             $scope.NCI = null;
             $scope.NCIAmount = "";
             $scope.AddDetails = '1';
@@ -106,10 +107,6 @@
                 alert("Please Enter EmployeeName");
                 return;
             }
-            
-            
-            
-
 
             if ($scope.DepartmentID == 1) {
                 if ($scope.CurrentBasicAmount == null || $scope.CurrentBasicAmount == undefined || $scope.CurrentBasicAmount == "") {
@@ -130,6 +127,10 @@
                 }
                 if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
                     alert("Select Medical");
+                    return;
+                }
+                if ($scope.SpecialPay == null || $scope.SpecialPay == undefined || $scope.SpecialPay == "") {
+                    alert("Select SpecialPay");
                     return;
                 }
                 if ($scope.NCI == null || $scope.NCI == undefined || $scope.NCI == "") {
@@ -157,6 +158,10 @@
                 }
                 if ($scope.Medical == null || $scope.Medical == undefined || $scope.Medical == "") {
                     alert("Select Medical");
+                    return;
+                }
+                if ($scope.SpecialPay == null || $scope.SpecialPay == undefined || $scope.SpecialPay == "") {
+                    alert("Select SpecialPay");
                     return;
                 }
                 if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
@@ -198,7 +203,10 @@
                     alert("Select Medical");
                     return;
                 }
-                
+                if ($scope.SpecialPay == null || $scope.SpecialPay == undefined || $scope.SpecialPay == "") {
+                    alert("Select SpecialPay");
+                    return;
+                }
                 if ($scope.InterimRelief == null || $scope.InterimRelief == undefined || $scope.InterimRelief == "") {
                     alert("Select InterimRelief");
                     return;
@@ -221,7 +229,7 @@
             let CCA = ($scope.CCA == null || $scope.CCA == undefined || $scope.CCA == "") ? 0 : $scope.CCA;
             let ConveyanceAllowance = ($scope.ConveyanceAllowance == null || $scope.ConveyanceAllowance == undefined || $scope.ConveyanceAllowance == "") ? 0 : $scope.ConveyanceAllowance;
 
-            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, InterimRelief, CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, ConveyanceAllowance, $scope.Medical, NCI, $scope.NCIAmount,$scope.UserName)
+            var AddSalary = PayRollService.AddSalary(datatypeid, 0, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, InterimRelief, CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, ConveyanceAllowance, $scope.Medical, $scope.SpecialPay, NCI, $scope.NCIAmount,$scope.UserName)
             AddSalary.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -294,7 +302,7 @@
             
             var datatypeid = 2;
 
-            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceAllowance, $scope.Medical, $scope.NCI, $scope.NCIAmount,$scope.UserName)
+            var sal = PayRollService.UpdateSalary(datatypeid, $scope.EmployeeSalaryDetailsID, $scope.DepartmentID, $scope.EmployeeID, $scope.CurrentBasicAmount, $scope.InterimRelief, $scope.CCA, $scope.PP, $scope.FPI, $scope.TG_Increment, $scope.ConveyanceAllowance, $scope.Medical, $scope.SpecialPay, $scope.NCI, $scope.NCIAmount,$scope.UserName)
             sal.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -359,6 +367,7 @@
                     $scope.TG_Increment = res.Table[0].TG_Increment;
                     $scope.ConveyanceAllowance = res.Table[0].ConveyanceAllowance;
                     $scope.Medical = res.Table[0].Medical;
+                    $scope.SpecialPay = res.Table[0].SpecialPay;
                     $scope.NCI = res.Table[0].NCI;
                     $scope.NCIAmount = res.Table[0].NCIAmount;
                     $scope.Noreports = false;
@@ -430,6 +439,7 @@
                 $scope.showFPI = true;
                 $scope.showTGI = true;
                 $scope.showMedical = true;
+                $scope.showSpecialPay = true;
                 $scope.showNCI = true;
                 $scope.showIR = false;
                 $scope.showCCA = false; 
@@ -442,6 +452,7 @@
                 $scope.FPI = '';
                 $scope.TG_Increment = '';
                 $scope.Medical = '';
+                $scope.SpecialPay = '';
                 $scope.getsalarydata();
                 $scope.getEmployeeDetailsData();
               
@@ -457,6 +468,7 @@
                 $scope.showTGI = true;
                 $scope.showCE = true;
                 $scope.showMedical = true;
+                $scope.showSpecialPay = true;
 
                 $scope.showNCI = false;
 
@@ -466,6 +478,7 @@
                 $scope.FPI = '';
                 $scope.TG_Increment = '';
                 $scope.Medical = '';
+                $scope.SpecialPay = '';
                 $scope.ConveyanceElevence = '';
                 $scope.CurrentBasicAmount = '';
                 $scope.InterimRelief = '';
@@ -483,6 +496,7 @@
                 $scope.showTGI = true;
                 $scope.showCE = true;
                 $scope.showMedical = true;
+                $scope.showSpecialPay = true;
                 $scope.showNCI = false;
 
 
@@ -492,6 +506,7 @@
                 $scope.FPI = '';
                 $scope.TG_Increment = '';
                 $scope.Medical = '';
+                $scope.SpecialPay = '';
                 $scope.ConveyanceElevence = '';
                 $scope.CurrentBasicAmount = '';
                 $scope.InterimRelief = '';

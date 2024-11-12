@@ -1,0 +1,54 @@
+9/25/2024 12:32:53 PM
+Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+
+9/25/2024 12:32:53 PM
+Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+
+9/25/2024 12:32:53 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+9/25/2024 12:32:53 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+9/25/2024 12:32:53 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+9/25/2024 12:32:53 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+9/25/2024 12:32:53 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+9/25/2024 12:32:53 PM
+A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)
+
+9/25/2024 12:32:53 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+9/25/2024 12:32:54 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+9/25/2024 1:14:49 PM
+Error converting data type nvarchar to int.
+
+9/25/2024 1:14:49 PM
+Error converting data type nvarchar to int.
+
+9/25/2024 1:14:49 PM
+Error converting data type nvarchar to int.
+
+9/25/2024 4:06:19 PM
+Procedure or function SP_Get_Edit_EmployeeDetails has too many arguments specified.
+
+9/25/2024 4:07:54 PM
+Procedure or function SP_Get_Edit_EmployeeDetails has too many arguments specified.
+
+9/25/2024 4:08:23 PM
+Procedure or function SP_Get_Edit_EmployeeDetails has too many arguments specified.
+
+9/25/2024 4:08:26 PM
+Procedure or function SP_Get_Edit_EmployeeDetails has too many arguments specified.
+
+9/25/2024 4:08:28 PM
+Procedure or function SP_Get_Edit_EmployeeDetails has too many arguments specified.
+
