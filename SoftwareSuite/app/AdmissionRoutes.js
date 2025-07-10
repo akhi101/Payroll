@@ -118,6 +118,19 @@
                 dependencies: ['controllers/PayRoll/GeneratePayrollController', 'services/SystemAdministration/SystemUserService', 'services/PayRoll/PayRollService']
             },
 
+
+            'Dashboard.Pensioners': {
+                url: "/Pensioners",
+                templateUrl: 'app/views/PayRoll/Pensioners.html',
+                dependencies: ['controllers/PayRoll/PensionersController', 'services/SystemAdministration/SystemUserService']
+            },
+
+            'Dashboard.Pensioners.PensionersDetails': {
+                url: "/PensionersDetails",
+                templateUrl: 'app/views/PayRoll/PensionerDetails.html',
+                dependencies: ['controllers/PayRoll/PensionerDetailsController', 'services/PayRoll/PayRollService']
+            },
+
         }
     }
 })

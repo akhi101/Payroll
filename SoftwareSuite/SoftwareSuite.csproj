@@ -468,6 +468,7 @@
     <Content Include="app\controllers\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PayRoll\PayRollDashboardController.js" />
     <Content Include="app\controllers\PayRoll\PayRollMastersController.js" />
+    <Content Include="app\controllers\PayRoll\PensionerDetailsController.js" />
     <Content Include="app\controllers\PayRoll\PensionersController.js" />
     <Content Include="app\controllers\PayRoll\EmployeeSalaryDetailsController.js" />
     <Content Include="app\controllers\PayRoll\SalaryDeductionsController.js" />
@@ -495,6 +496,7 @@
     <Content Include="app\views\PayRoll\PayRoll.html" />
     <Content Include="app\views\PayRoll\PayRollDashboard.html" />
     <Content Include="app\views\PayRoll\PayRollMasters.html" />
+    <Content Include="app\views\PayRoll\PensionerDetails.html" />
     <Content Include="app\views\PayRoll\Pensioners.html" />
     <Content Include="app\views\PayRoll\Popups\BankDetailsPopup.html" />
     <Content Include="app\views\PayRoll\EmployeeSalaryDetails.html" />
