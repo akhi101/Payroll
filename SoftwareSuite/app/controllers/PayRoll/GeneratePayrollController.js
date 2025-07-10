@@ -5,9 +5,9 @@
 
             $scope.FinancialYears();
             
-            $scope.GetMonths();
+            //$scope.GetMonths();
             $scope.getMonths();
-            
+            $scope.GetPayrollMonths()
         }
 
 
@@ -94,8 +94,8 @@
 
         
 
-        $scope.GetMonths = function () {
-            var getmonths = PayRollService.GetMonthsforGeneration();
+        $scope.GetPayrollMonths = function () {
+            var getmonths = PayRollService.getPayMonths();
             getmonths.then(function (response) {
 
                 //$scope.edit = true;
@@ -246,7 +246,26 @@ else {
         };
 
         
+        $scope.GetPayslipReports = function () {
+            $scope.loading = true;
+            var ReportExcel = PayRollService.GetPayslipReports( $scope.FinancialYearID4, $scope.MonthID4);
+            ReportExcel.then(function (res) {
+                $scope.loading = false;
+                if (res.length > 0) {
+                    if (res.length > 4) {
+                        window.location.href = res;
+                    } else {
+                        alert("No  Excel Report Present")
+                    }
+                } else {
+                    alert("No Excel Report Present")
+                }
+            }, function (err) {
+                $scope.LoadImg = false;
+                alert("Error while loading");
+            });
 
+        };
 
 
 
@@ -362,11 +381,61 @@ else {
 
         };
 
+        $scope.GeneratePaySlip = function () {
+            //  var PaymentStudent = [{"Employeecode":"1025"}]
+            // if (PaymentStudent != [] && PaymentStudent != '') {
+            $scope.btndisable = true;
+            var ApproveStatus = 1;
+
+
+          //  $scope.buttonlabel = "Signing in process ...";
+            var GetInterimCertificateTobeSignedlocation = PayRollService.GetPaySlip($scope.FinancialYearID3, $scope.MonthID3)
+            GetInterimCertificateTobeSignedlocation.then(function (response) {
+                var url = window.location.origin + '/Reports/' + response + '.pdf';
+                console.log(url)
+                download(url, 'Payslip' + '.pdf');
+                //var pdf = response[0].PdfUrl
+                //    var location = window.location.origin;
+                //    if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
+                //        location += "/API/"
+                //    } else {
+                //        location += "/"
+                //}
+             //   window.open(pdf, '_blank')
+            }, function (err) {
+                $scope.btndisable = false;
+                $scope.buttonlabel = "Approve";
+            });
 
 
 
 
 
+
+            //} else {
+            //    alert('select the pins');
+            //    return;
+            //}
+        }
+
+
+
+
+        const download = (path, filename) => {
+            // Create a new link
+            const anchor = document.createElement('a');
+            anchor.href = path;
+            anchor.download = filename;
+
+            // Append to the DOM
+            document.body.appendChild(anchor);
+
+            // Trigger `click` event
+            anchor.click();
+
+            // Remove element from DOM
+            document.body.removeChild(anchor);
+        };
 
 
 

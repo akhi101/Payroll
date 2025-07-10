@@ -10,6 +10,10 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetMonths');
         };
 
+        this.getPayMonths = function () {
+            return DataAccessService.getDataAll('api/PayRoll/getPayMonths');
+        };
+
         this.GetAdvanceType = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetAdvanceType');
         };
@@ -23,8 +27,13 @@ define(['app'], function (app) {
         };
 
 
-        this.GetPaySlip = function (PinJson) {
-            var param = { "PINjson": PinJson }
+        //this.GetPaySlip = function (PinJson) {
+        //    var param = { "PINjson": PinJson }
+        //    return DataAccessService.postData('api/StudentCertificate/GetPaySlip', param);
+        //};
+
+        this.GetPaySlip = function (FinancialYearID, MonthID) {
+            var param = { "FinancialYearID": FinancialYearID, "MonthID": MonthID }
             return DataAccessService.postData('api/StudentCertificate/GetPaySlip', param);
         };
 
@@ -122,7 +131,7 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, HBATypeID, Amount, HBAEmiAmount, NoofMonths, EmiStartMonth, Active, UserName) {
+        this.AddorUpdateHBA = function (DataTypeId, HBAId, FinancialYearId, MonthID, EmployeeID, HBATypeID, Amount, HBAEmiAmount, NoofMonths, EmiStartMonth, NoofMonthsBalance, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "HBAId": HBAId,
@@ -134,6 +143,7 @@ define(['app'], function (app) {
                 "HBAEmiAmount": HBAEmiAmount,
                 "NoofMonths": NoofMonths,
                 "EmiStartMonth": EmiStartMonth,
+                "NoofMonthsBalance": NoofMonthsBalance,
                 "Active": Active,
                 "UserName": UserName
             };
@@ -458,11 +468,12 @@ define(['app'], function (app) {
 
         };
 
-        this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, DepartmentID, Active) {
+        this.EmployeeDetailStatus = function (DataTypeID, EmployeeID, DepartmentID, CPS_NPS, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "EmployeeID": EmployeeID,
                 "DepartmentID": DepartmentID,
+                "CPS_NPS": CPS_NPS,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetorEditEmployeeDetailsData', paramObj);
@@ -781,9 +792,11 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdateAllowance = function (DataTypeID, AllowanceID, DepartmentID, DA, HRA, IR ,UserName) {
+        this.AddorUpdateAllowance = function (DataTypeID, FinancialYearID,MonthID, AllowanceID, DepartmentID, DA, HRA, IR ,UserName) {
             var paramObject = {
                 "DataTypeID": DataTypeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "AllowanceID": AllowanceID,
                 "DepartmentID": DepartmentID,
                 "DA": DA,
@@ -970,6 +983,15 @@ define(['app'], function (app) {
 
         };
 
+        this.GetPayslipReports = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+            };
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetPayslipReports', paramObj);
+            return promise;
+
+        };
 
         this.GenerateMonthlySalaryData = function (DataType, FinancialYearID, MonthID) {
             var paramObj = {
@@ -985,9 +1007,7 @@ define(['app'], function (app) {
 
 
 
-        this.GetMonthsforGeneration = function () {
-            return DataAccessService.getDataAll('api/PayRoll/GetMonthsforGeneration');
-        };
+     
 
 
 
