@@ -59,8 +59,8 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-        [HttpGet, ActionName("GetMonthsforGeneration")]
-        public HttpResponseMessage GetMonthsforGeneration()
+        [HttpGet, ActionName("getPayMonths")]
+        public HttpResponseMessage getPayMonths()
         {
             try
             {
@@ -339,7 +339,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[12];
+                var param = new SqlParameter[13];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@HBAId", request["HBAId"]);
                 param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
@@ -349,9 +349,10 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[6] = new SqlParameter("@Amount", request["Amount"]);
                 param[7] = new SqlParameter("@HBAEmiAmount", request["HBAEmiAmount"]);
                 param[8] = new SqlParameter("@NoofMonths", request["NoofMonths"]);
-                param[9] = new SqlParameter("@EmiStartMonth", request["EmiStartMonth"]);
-                param[10] = new SqlParameter("@Active", request["Active"]);
-                param[11] = new SqlParameter("@UserName", request["UserName"]);
+                param[9] = new SqlParameter("@EmiStartMonth", request["EmiStartMonth"]); 
+                param[10] = new SqlParameter("@NoofMonthsBalance", request["NoofMonthsBalance"]);
+                param[11] = new SqlParameter("@Active", request["Active"]);
+                param[12] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HBA", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -682,11 +683,11 @@ namespace SoftwareSuite.Controllers.PayRoll
             public string EmployeeName { get; set; }
             public int DesignationId { get; set; }
             public int DepartmentId { get; set; }
-            public DateTime DOB { get; set; }
-            public DateTime DOJ { get; set; }
-            public DateTime DOR { get; set; }
-            public DateTime DesignationName { get; set; }
-            public DateTime DepartmentName { get; set; }
+            public string DOB { get; set; }
+            public string DOJ { get; set; }
+            public string DOR { get; set; }
+            public string DesignationName { get; set; }
+            public string DepartmentName { get; set; }
             public string Gender { get; set; }
             
             public string Empstatus { get; set; }
@@ -1083,14 +1084,16 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[7];
+                var param = new SqlParameter[9];
                 param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@AllowanceID", request["AllowanceID"]);
-                param[2] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
-                param[3] = new SqlParameter("@DA", request["DA"]);
-                param[4] = new SqlParameter("@HRA", request["HRA"]);
-                param[5] = new SqlParameter("@IR", request["IR"]);
-                param[6] = new SqlParameter("@UserName", request["UserName"]);
+                param[1] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[2] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[3] = new SqlParameter("@AllowanceID", request["AllowanceID"]);               
+                param[4] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
+                param[5] = new SqlParameter("@DA", request["DA"]);
+                param[6] = new SqlParameter("@HRA", request["HRA"]);
+                param[7] = new SqlParameter("@IR", request["IR"]);
+                param[8] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CommonAllowances", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1402,6 +1405,40 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
+        [HttpGet, ActionName("GetPayslipReports")]
+        public string GetPayslipReports(int FinancialYearID, int MonthID)
+        {
+
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_MonthlySalariesReport", param);
+                var filename = "GeneratePayrollReport" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
 
 
