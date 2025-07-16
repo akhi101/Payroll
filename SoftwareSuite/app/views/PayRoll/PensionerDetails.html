@@ -59,18 +59,17 @@
         <ul class="nav nav-tabs">
 
             <li class="active noprint">
-                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab" ng-click="tab1()">Service Pensioner</a>
+                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab" ng-click="tab1()">Service Pensioners</a>
             </li>
             <li class="noprint">
-                <a href="#2" class="noprint   font-weight-bold" data-toggle="tab" ng-click="tab2()">Family Pensioner</a>
+                <a href="#2" class="noprint   font-weight-bold" data-toggle="tab" ng-click="tab2()">Family Pensioners</a>
             </li>
-
+          
         </ul>
         <div class="tab-content">
 
 
             <div class="tab-pane active" id="1">
-
                 <div>
                     <div class="container">
                         <div class="col-md-12">
@@ -117,7 +116,8 @@
                                                 </select>
 
                                             </div>
-
+                                        </div>
+                                        <div class="row">
                                             <div class="form-group col-md-3">
                                                 <label for="date-picker-example">Date Of Birth:</label>
                                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
@@ -143,79 +143,84 @@
                                                 <p class="input-group" style="margin-top: unset; margin-bottom: unset;margin-left: 0 ;margin-right: 0;padding-left: 0px;">
                                                     <input type="text" show-weeks="false" class="form-control" disabled id="datetimepicker3" placeholder="DD/MM/YYYY" autocomplete="off" name="DOR" pattern="^(\d{1,2})\/(\d{1,2})\/(\d{4})$" datetime-picker="dd/MM/yyyy" ng-model="DOR" ng-change="checkDate2(DOR)" is-open="showFlag3" />
                                                     <!--<span class="input-group-btn">
-                <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
-            </span>-->
+                            <button type="button" class="btn btn-primary" ng-click="showFlag3 = true"><i class="fa fa-calendar"></i></button>
+                        </span>-->
                                                 </p>
                                             </div>
 
-                                            <div class="col-md-12">
-                                                <div class="form-group col-md-3" style="right: 15px;">
-                                                    <div class="form-group ">
-                                                        <label>Gender</label>
-                                                        <select class="form-control" name="applicationForm.Gender" ng-model="Gender" ng-disabled="Genderfound">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="M">Male</option>
-                                                            <option value="F">Female</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
 
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Life Status:
-                                                    </label>
-                                                    <select class="form-control" name="applicationForm.Status" ng-model="LifeStatus" ng-disabled="Status">
-                                                        <option value="">Select Status</option>
-                                                        <option value="1">Active</option>
-                                                        <option value="0">Deceased</option>
+                                            <div class="form-group col-md-3" style="right: 15px;">
+                                                <div class="form-group ">
+                                                    <label>Gender</label>
+                                                    <select class="form-control" name="applicationForm.Gender" ng-model="Gender" ng-disabled="Genderfound">
+                                                        <option value="">Select Gender</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
                                                     </select>
-                                                    
                                                 </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Pan Number:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="15" placeholder="Enter PanNumber" ng-model="PanNo">
-                                                </div>
-
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Account Number:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter AccountNumber" ng-model="AccountNumber">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        IFSC Code:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter IFSC Code" ng-model="IFSCCode" onkeyup="this.value = this.value.toUpperCase();">
-                                                </div>
-
-
-                                                <!--<div class="col-md-12" ng-show="AddDetails=='1'">
-                                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="adddetails()">
-                                                        ADD
-                                                    </button>
-                                                </div>-->
-
-                                                <div class="col-md-12" ng-show="UpdateDetails=='1'">
-                                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="updatepensionerdetails()">
-                                                        UPDATE
-                                                    </button>
-                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Life Status:
+                                                </label>
+                                                <select class="form-control" id="DesignationType" ng-model="LifeStatus"
+                                                        ng-options="data.id as data.name for data in LifeStatusList">
+                                                    <option value="" selected>Select Status</option>
+                                                </select>
+                                                <!--<select class="form-control" name="applicationForm.Status" ng-model="LifeStatus" ng-disabled="Status">
+                                                    <option value="">Select Status</option>
+                                                    <option value="true">Active</option>
+                                                    <option value="false">Deceased</option>
+                                                </select>-->
 
                                             </div>
-</form>
+
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Pan Number:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="15" placeholder="Enter PanNumber" ng-model="PanNo">
+                                            </div>
+
+
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Account Number:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter AccountNumber" ng-model="AccountNumber">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    IFSC Code:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="50" placeholder="Enter IFSC Code" ng-model="IFSCCode" onkeyup="this.value = this.value.toUpperCase();">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--<div class="col-md-12" ng-show="ServiceAddDetails=='1'">
+                                                <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="adddetails()">
+                                                    ADD
+                                                </button>
+                                            </div>-->
+                                            <div class="col-md-12" ng-show="ServiceUpdateDetails=='1'">
+                                                <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="UpdateServicePensioners()">
+                                                    UPDATE
+                                                </button>
+                                            </div>
+                                        </div>
+                              
+                                </form>
+                            </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                </div>
+               
 
-                <div class="container-fluid" ng-show="PensionerDetailsData.length>0">
+                <div class="container-fluid" ng-show="ServicePensionerData.length>0">
                     <div class="col-md-12">
                         <div class="cl-details">
                             <h2> Pensioner Details </h2>
@@ -227,10 +232,11 @@
                                         <th>S.No</th>
                                         <th class="text-center">Employee Code</th>
                                         <th class="text-center">Employee Name</th>
-
                                         <th class="text-center">Designation Name</th>
-
-
+                                        <th class="text-center">Gender </th>
+                                        <th class="text-center">PAN No </th>
+                                        <th class="text-center">Account No </th>
+                                        <th class="text-center">IFSC CODE </th>                                     
                                         <th class="text-center">Sort Order</th>
                                         <th class="text-center">Life Status</th>
                                         <th class="text-center">Action</th>
@@ -239,30 +245,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="" ng-repeat="data in PensionerDetailsData">
+                                   
+                                    <tr style="" ng-repeat="data in ServicePensionerData">
                                         <td class="text-center pointer">{{$index+1}}</td>
                                         <td class="text-center pointer">{{data.EmployeeCode}}</td>
                                         <td class="text-center pointer">{{data.EmployeeName}}</td>
-
                                         <td class="text-center pointer">{{data.DesignationName}}</td>
-
-
+                                        <td class="text-center pointer">{{data.Gender}}</td>
+                                        <td class="text-center pointer">{{data.PanNo}}</td>
+                                        <td class="text-center pointer">{{data.AccountNumber}}</td>
+                                        <td class="text-center pointer">{{data.IFSCCode}}</td>
                                         <td class="text-center pointer">{{data.SortOrder}}</td>
                                         <td class="text-center pointer">{{data.LifeStatus}}</td>
-
-
-
-
-
-
-
+                                       
                                         <td class="text-center">
-                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditPensionerDetails(data.EmployeeID,data.DepartmentId,data.Active)">
+                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditServicePensionerDetails(data.ServicePensionerID)">
                                                 Edit
                                             </button>
                                             <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
-                                        Update
-                                    </button>-->
+            Update
+        </button>-->
 
                                         </td>
                                         <td style="text-align:center">
@@ -287,182 +289,175 @@
 
                 <div class="sm-spacer"></div>
                 <div class="sm-spacer"></div>
+
             </div>
-
-
-
-            
-
-
-                <div class="tab-pane active" id="2">
-
-                    <div>
-                        <div class="container">
-                            <div class="col-md-12">
-                                <div class="alert alert-info">
-                                    <div class="studWishinputs">
-                                        <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
-
-                                            <div class="row">
-
-
-
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Employee Name:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Employee Name" ng-model="EmployeeName">
-                                                </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Nominee Name:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Nominee Name" ng-model="NomineeName">
-                                                </div>
-
-
-                                            </div>
-
-
-
-
-
-                                            <div class="col-md-12">
-                                                <div class="form-group col-md-3" style="right: 15px;">
-                                                    <div class="form-group ">
-                                                        <label>Gender</label>
-                                                        <select class="form-control" name="applicationForm.Gender" ng-model="Gender" ng-disabled="Genderfound">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="M">Male</option>
-                                                            <option value="F">Female</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Pan Number:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="15" placeholder="Enter PanNumber" ng-model="PanNo">
-                                                </div>
-
-
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        Account Number:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter AccountNumber" ng-model="AccountNumber">
-                                                </div>
-                                                <div class="form-group col-md-3">
-                                                    <label>
-                                                        IFSC Code:
-                                                    </label>
-                                                    <input class="form-control" type="text" maxlength="50" placeholder="Enter IFSC Code" ng-model="IFSCCode" onkeyup="this.value = this.value.toUpperCase();">
-                                                </div>
-
-
-                                                <div class="col-md-12" ng-show="AddDetails=='1'">
-                                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="adddetails()">
-                                                        ADD
-                                                    </button>
-                                                </div>
-
-                                                <div class="col-md-12" ng-show="UpdateDetails=='1'">
-                                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="updateEmpdetails()">
-                                                        UPDATE
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid" ng-show="PensionerDetailsData.length>0">
+            <div class="tab-pane " id="2">
+                <div>
+                    <div class="container">
                         <div class="col-md-12">
-                            <div class="cl-details">
-                                <h2> Pensioner Details </h2>
-                            </div>
-                            <div class="table-responsive table-custom-tables-tb scrollbox">
-                                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
-                                    <thead>
-                                        <tr class="cb-1">
-                                            <th>S.No</th>
+                            <div class="alert alert-info">
+                                <div class="studWishinputs">
+                                    <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold">Employee: </label>
+                                                    <select class="form-control" id="DesignationType" ng-model="EmployeeID1"
+                                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                                        <option value="" selected>Select Employee</option>
+                                                    </select>
+                                                    <!--<select class="form-control" ng-model="EmployeeID1" ng-change="ChangeAdvEmpData(Employee1)" name="StudentType" required>
+                                                        <option value="" selected>Select Employee </option>
+                                                        <option ng-repeat="data in EmployeeDetailsData" value="{{data}}">
+                                                            {{data.EmployeeName}} ({{data.EmployeeCode}})
+                                                        </option>
+                                                    </select>-->
+                                                </div>
+                                            </div>
 
-                                            <th class="text-center">Employee Name</th>
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Nominee Name:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Nominee Name" ng-model="NomineeName1">
+                                            </div>
 
-                                            <th class="text-center">Nominee Name</th>
+                                            <div class="form-group col-md-3" style="right: 15px;">
+                                                <div class="form-group ">
+                                                    <label>Gender</label>
+                                                    <select class="form-control" name="applicationForm.Gender" ng-model="Gender1" ng-disabled="Genderfound">
+                                                        <option value="">Select Gender</option>
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Pan Number:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="15" placeholder="Enter PanNumber" ng-model="PanNo1">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    Account Number:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="50" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter AccountNumber" ng-model="AccountNumber1">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>
+                                                    IFSC Code:
+                                                </label>
+                                                <input class="form-control" type="text" maxlength="50" placeholder="Enter IFSC Code" ng-model="IFSCCode1" onkeyup="this.value = this.value.toUpperCase();">
+                                            </div>
 
 
-                                            <th class="text-center">Sort Order</th>
-                                            <th class="text-center">Gender</th>
-                                            <th class="text-center">Action</th>
-                                            <th class="text-center">Status</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr style="" ng-repeat="data in PensionerDetailsData">
-                                            <td class="text-center pointer">{{$index+1}}</td>
-
-                                            <td class="text-center pointer">{{data.EmployeeName}}</td>
-
-                                            <td class="text-center pointer">{{data.NomineeName}}</td>
-
-
-                                            <td class="text-center pointer">{{data.SortOrder}}</td>
-                                            <td class="text-center pointer">{{data.Gender}}</td>
-
-
-
-
-
-
-
-                                            <td class="text-center">
-                                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditPensionerDetails(data.EmployeeID,data.DepartmentId,data.Active)">
-                                                    Edit
+                                            <div class="col-md-3" ng-show="FamilyAddDetails=='1'">
+                                                <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="AddFamilyPensioners(1)">
+                                                    ADD
                                                 </button>
-                                                <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
-                                        Update
-                                    </button>-->
+                                            </div>
 
-                                            </td>
-                                            <td style="text-align:center">
-                                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
-                                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            <div class="col-md-3" ng-show="FamilyUpdateDetails=='1'">
+                                                <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="AddFamilyPensioners(2)">
+                                                    UPDATE
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
 
                         </div>
                     </div>
-                    <div class="container" ng-show="Noreports">
-                        <div class="col-md-12">
-                            <div class="no-results">
-                                <img src="../../contents/img/Folder-Icon.svg" />
-                                <h2>No data Found</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sm-spacer"></div>
-                    <div class="sm-spacer"></div>
                 </div>
 
+                <div class="container-fluid" ng-show="FamilyPensionerData.length>0">
+                    <div class="col-md-12">
+                        <div class="cl-details">
+                            <h2> Pensioner Details </h2>
+                        </div>
+                        <div class="table-responsive table-custom-tables-tb scrollbox">
+                            <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                                <thead>
+                                    <tr class="cb-1">
+                                        <th>S.No</th>
+
+                                        <th class="text-center">Employee Name</th>
+
+                                        <th class="text-center">Nominee Name</th>
+
+
+                                        <th class="text-center">Gender</th>
+                                        <th class="text-center">PAN No</th>
+                                        <th class="text-center">Account Number </th>
+                                        <th class="text-center">IFSC CODE</th>
+                                        <th class="text-center">Action</th>
+                                        <th class="text-center">Status</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                    <tr style="" ng-repeat="data in FamilyPensionerData">
+                                        <td class="text-center pointer">{{$index+1}}</td>
+
+                                        <td class="text-center pointer">{{data.EmployeeName}}</td>
+
+                                        <td class="text-center pointer">{{data.NomineeName}}</td>
+
+
+                                        <td class="text-center pointer">{{data.Gender}}</td>
+                                        <td class="text-center pointer">{{data.PanNo}}</td>
+                                        <td class="text-center pointer">{{data.AccountNumber}}</td>
+                                        <td class="text-center pointer">{{data.IFSCCode}}</td>
 
 
 
+
+
+                                        <td class="text-center">
+                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditFamilyPensionerDetails(data.FamilyPensionerID)">
+                                                Edit
+                                            </button>
+                                            <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
+            Update
+        </button>-->
+
+                                        </td>
+                                        <td style="text-align:center">
+                                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
+                                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="container" ng-show="Noreports">
+                    <div class="col-md-12">
+                        <div class="no-results">
+                            <img src="../../contents/img/Folder-Icon.svg" />
+                            <h2>No data Found</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sm-spacer"></div>
+                <div class="sm-spacer"></div>
 
             </div>
+          
+        </div>
+
+
+      
 
 
 
@@ -470,8 +465,7 @@
 
 
 
-
-            </div>
+    </div>
     </div>
       
     
