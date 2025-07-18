@@ -1,7 +1,7 @@
 ﻿define(['app'], function (app) {
     app.controller("IndexController", function ($scope, $timeout, $state, $localStorage, $stateParams, AppSettings, PreExaminationService, AdminService) {
         $localStorage.StudentServices = "";
-       // alert()
+        // alert()
         $state.go('index.PayrollLogin')
         $scope.OpenPage = function () {
             $state.reload();
@@ -12,7 +12,7 @@
             //    $state.transitionTo('index.ContactUs');
             //})
         }
-      //  var location = window.location.origin;
+        //  var location = window.location.origin;
         $state.go('index.PayrollLogin')
 
         $scope.LoginUrl = location + "/index.html#!/index/WebsiteLogin";
@@ -21,7 +21,7 @@
 
 
 
-        $scope.Images = [ { "img": "Slides/3.jpeg", "active": "active" }
+        $scope.Images = [{ "img": "Slides/3.jpeg", "active": "active" }
             , { "img": "Slides/4.jpeg", "active": "" }, { "img": "Slides/5.jpeg", "active": "" }, { "img": "Slides/6.jpeg", "active": "" }
             , { "img": "Slides/7.jpeg", "active": "" }, { "img": "Slides/8.jpeg", "active": "" }, { "img": "Slides/9.jpeg", "active": "" }
             , { "img": "Slides/10.jpeg", "active": "" }, { "img": "Slides/11.jpeg", "active": "" }, { "img": "Slides/12.jpeg", "active": "" }
@@ -136,13 +136,13 @@
                 $scope.error = true;
             });
 
-        
+
         //var LoadExamTypeBysem = AdminService.DeleteBmaAttendee('1058-19578','TC');
         //    LoadExamTypeBysem.then(function (response) {
         //        var res = JSON.parse(response)
         //        if (res.StatusCode == '200') {
         //            $scope.LoadImg = false
-                   
+
         //            var resp = JSON.parse(res.Content)
         //            $scope.respdata = JSON.parse(resp.data)
         //            console.log($scope.respdata)
@@ -159,7 +159,7 @@
         //    });
 
         $scope.OpenModule = function (Module, ServiceType) {
-          
+
             //$localStorage.selectedModule = {
             //    Id: Module.SysModID,
             //    ModuleRouteName: Module.ModuleRouteName
@@ -207,7 +207,7 @@
 
 
             $scope.HomeSlides = response.Table;
-          //  $scope.websiteCounts();
+            //  $scope.websiteCounts();
         },
             function (error) {
 

@@ -1,0 +1,213 @@
+﻿
+<style>
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+<div ng-controller="PensionDetailsController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Pension Details</h5>
+                <ol class="breadcrumb">
+                    <li><a href="#!/Dashboard"><i class="fa fa-dashboard"> Dashboard</i> </a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard">Pay Roll</a></li>
+                    <li><a href="#!/Dashboard/PayRollDashboard/Pensioners">Pension Details</a></li>
+                </ol>
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+
+    </div>
+    <div>
+        <div class="container">
+            <div class="tab-pane">
+                <div class="col-md-12">
+                    <div class="alert alert-info">
+                        <div class="studWishinputs">
+                            <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                <div class="row">
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Pensioner Type:
+                                        </label>
+                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" ng-change="ChangePensionerType(PensionerType)"
+                                                ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                            <option value="" selected>Select Pensioner Type</option>
+                                        </select>
+
+                                    </div>
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Pensioner Name :
+                                        </label>
+
+                                        <select class="form-control" ng-model="Employee"
+                                                ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                            <option value="" selected>Select Pensioner Name</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>
+                                            Pension Amount :
+                                        </label>
+                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Pension Amount" ng-model="PensionAmount">
+                                    </div>
+
+
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            IR :
+                                        </label>
+
+                                        <select class="form-control" name="applicationForm.IR" ng-model="IR" ng-disabled="IRfound">
+                                            <option value="">Select IR</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            DR :
+                                        </label>
+
+                                        <select class="form-control" name="applicationForm.DR" ng-model="DR" ng-disabled="DRfound">
+                                            <option value="">Select DR</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            MA:
+                                        </label>
+                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter MA" ng-model="MA">
+                                    </div>
+
+
+
+                                    <div class="col-md-3" style="right:100px">
+                                        <div class="form-group text-center">
+                                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="ADDPensionerDetails()">
+                                                ADD
+                                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+</form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <td class="">
+                <table class="table table-responsive table-bordered" ng-if="PensionerDetailsData.length>0">
+                    <thead>
+                        <tr class="cb-1">
+                            <th>S.No</th>
+                            <th class="text-center">Pensioners Type</th>
+                            <th class="text-center">Pensioners Amount</th>
+                            <th class="text-center">IR</th>
+                            <th class="text-center">DR </th>
+                            <th class="text-center">MA </th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in PensionerDetailsData">
+                            <td class="text-center">{{$index + 1}}</td>
+                            
+                            <td class="text-center pointer">
+                                <div>
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="Pensionerid" ng-model="data.PensionerTypeID" disabled
+                                            ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                        <option value="" selected>Select Pensioner Type</option>
+                                    </select>
+
+                                </div>
+                            </td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
+
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DR" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
+
+                            <td class="text-center">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditDetails(data,$index+1)">
+                                    Edit
+                                </button>
+                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateDetails(data,$index+1)">
+                                    Update
+                                </button>
+
+                            </td>
+                            <td style="text-align:center">
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </td>
+        </div>
+    </div>
+    <div class="spacer"></div>
+
+
+</div>
+<div class="sm-spacer"></div>
+<div class="sm-spacer"></div>

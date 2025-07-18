@@ -256,7 +256,7 @@
                                         <td class="text-center pointer">{{data.AccountNumber}}</td>
                                         <td class="text-center pointer">{{data.IFSCCode}}</td>
                                         <td class="text-center pointer">{{data.SortOrder}}</td>
-                                        <td class="text-center pointer">{{data.LifeStatus}}</td>
+                                        <td class="text-center pointer">{{data.LifeStatus ? "Active" : "Deceased"}}</td>
                                        
                                         <td class="text-center">
                                             <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditServicePensionerDetails(data.ServicePensionerID)">

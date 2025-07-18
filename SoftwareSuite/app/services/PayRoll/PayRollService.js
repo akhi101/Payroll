@@ -141,9 +141,10 @@ define(['app'], function (app) {
             return promise;
         };
      
-        this.AddorUpdateFamilyPensioners = function (DataTypeId, FamilyPensionerID, EmployeeID, NomineeName, Gender, PanNo, AccountNumber, IFSCCode, Active, UserName) {
+        this.AddorUpdateFamilyPensioners = function (DataTypeId, PensionerTypeID, FamilyPensionerID, EmployeeID, NomineeName, Gender, PanNo, AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
+                "PensionerTypeID": PensionerTypeID,
                 "FamilyPensionerID": FamilyPensionerID,
                 "EmployeeID": EmployeeID,
                 "NomineeName": NomineeName,
@@ -1147,6 +1148,86 @@ define(['app'], function (app) {
         };
 
 
+       
+
+        this.GetPensionerTypes = function () {
+            return DataAccessService.getDataAll('api/PayRoll/GetPensionerTypes');
+        };
+
+        this.GetEmployeeDetailsbyPensionerID = function (PensionerTypeID) {
+
+            var paramObj = {
+                "PensionerTypeID": PensionerTypeID
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEmployeeDetailsbyPensionerID', paramObj);
+            return promise;
+
+        };
+
+        this.AddorUpdatePensionerAllowance = function (DataTypeId, PensionerAllowanceID, FinancialYearID, MonthID, PensionerTypeID,    IR, DR,  Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "PensionerAllowanceID": PensionerAllowanceID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "PensionerTypeID": PensionerTypeID,
+                "IR": IR,
+                "DR": DR, 
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdatePensionerAllowance', paramObject);
+            return promise;
+        };
+
+        this.GetEditPensionerAllowance = function (DataTypeID, FinancialYearID, MonthID, PensionerAllowanceID, PensionerTypeID,  Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "PensionerAllowanceID": PensionerAllowanceID,
+                "PensionerTypeID": PensionerTypeID, 
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditPensionerAllowance', paramObj);
+            return promise;
+
+        };
+
+
+
+      
+
+        this.AddorUpdatePensionDetails = function (DataTypeId, PensionDetailsID, PensionerTypeID, PensionerID, EmployeeID, PensionAmount, IR, DR,MA ,Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "PensionDetailsID": PensionDetailsID,
+                "PensionerTypeID": PensionerTypeID,
+                "PensionerID": PensionerID,
+                "EmployeeID": EmployeeID,
+                "PensionAmount": PensionAmount,
+                "IR": IR,
+                "DR": DR,
+                "MA": MA,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdatePensionDetails', paramObject);
+            return promise;
+        };
+
+        this.GetEditPensionDetails = function (DataTypeID, PensionDetailsID, PensionerTypeID, PensionerID, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "PensionDetailsID": PensionDetailsID,
+                "PensionerTypeID": PensionerTypeID,
+                "PensionerID": PensionerID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetEditPensionDetails', paramObj);
+            return promise;
+
+        };
 
     });
 });

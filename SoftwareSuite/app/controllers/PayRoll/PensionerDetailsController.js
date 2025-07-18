@@ -23,7 +23,7 @@
             $scope.GetorEditFamilyPensionerDetails(1)
             $scope.GetorEditServicePensionerDetails(1)
 
-            $scope.LifeStatusList = [{ "id": true, "name": "Alive" }, { "id": false, "name": "Deadth" }]
+            $scope.LifeStatusList = [{ "id": true, "name": "Active" }, { "id": false, "name": "Deceased" }]
         }
 
         
@@ -256,8 +256,16 @@
             //    alert("Select Financial Year");
             //    return;
             //}
+            if ($scope.FamilyPensionerID == undefined || $scope.FamilyPensionerID == "" || $scope.FamilyPensionerID == null) {
+                $scope.FamilyPensionerID = 0;
+            }
+            else {
+                $scope.FamilyPensionerID = $scope.FamilyPensionerID
+            }
 
-            var SetFinYr = PayRollService.AddorUpdateFamilyPensioners(datatypeid, $scope.FamilyPensionerID, $scope.EmployeeID1, $scope.NomineeName1, $scope.Gender1, $scope.PanNo1, $scope.AccountNumber1, $scope.IFSCCode1,1, $scope.UserName)
+            let FamilyPensionerID = $scope.FamilyPensionerID.length > 0 ? $scope.FamilyPensionerID : "";
+
+            var SetFinYr = PayRollService.AddorUpdateFamilyPensioners(datatypeid, 2, FamilyPensionerID, $scope.EmployeeID1, $scope.NomineeName1, $scope.Gender1, $scope.PanNo1, $scope.AccountNumber1, $scope.IFSCCode1,1, $scope.UserName)
             SetFinYr.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponseCode == '200') {
@@ -288,7 +296,7 @@
             //    return;
             //}
 
-            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
+            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, "", $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
             SetFinYr.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponseCode == '200') {

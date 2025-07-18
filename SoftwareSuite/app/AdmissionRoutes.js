@@ -131,6 +131,30 @@
                 dependencies: ['controllers/PayRoll/PensionerDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            'Dashboard.Pensioners.PensionerAllowances': {
+                url: "/PensionerAllowances",
+                templateUrl: 'app/views/PayRoll/PensionerAllowances.html',
+                dependencies: ['controllers/PayRoll/PensionerAllowancesController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.Pensioners.PensionerDeductions': {
+                url: "/PensionerDeductions",
+                templateUrl: 'app/views/PayRoll/PensionerDeductions.html',
+                dependencies: ['controllers/PayRoll/PensionerDeductionsController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.Pensioners.PensionerGeneration': {
+                url: "/PensionerGeneration",
+                templateUrl: 'app/views/PayRoll/PensionerGeneration.html',
+                dependencies: ['controllers/PayRoll/PensionerGenerationController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.Pensioners.PensionDetails': {
+                url: "/PensionDetails",
+                templateUrl: 'app/views/PayRoll/PensionDetails.html',
+                dependencies: ['controllers/PayRoll/PensionDetailsController', 'services/PayRoll/PayRollService']
+            },
+
         }
     }
 })

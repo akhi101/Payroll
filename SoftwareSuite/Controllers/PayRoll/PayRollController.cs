@@ -309,7 +309,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[3] = new SqlParameter("@EmployeeName", request["EmployeeName"]);
                 param[4] = new SqlParameter("@DOB", request["DOB"]);
                 param[5] = new SqlParameter("@DOJ", request["DOJ"]);
-                param[6] = new SqlParameter("@DOR", request["DOR"]);
+                param[6] = new SqlParameter("@DOR", "");
                 param[7] = new SqlParameter("@DesignationId", request["DesignationId"]);
                 param[8] = new SqlParameter("@Gender", request["Gender"]);
                 param[9] = new SqlParameter("@PanNo", request["PanNo"]);
@@ -409,17 +409,18 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[10];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                var param = new SqlParameter[11];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@FamilyPensionerID", request["FamilyPensionerID"]);
-                param[2] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[3] = new SqlParameter("@NomineeName", request["NomineeName"]);
-                param[4] = new SqlParameter("@Gender", request["Gender"]);
-                param[5] = new SqlParameter("@PanNo", request["PanNo"]);
-                param[6] = new SqlParameter("@AccountNumber", request["AccountNumber"]);
-                param[7] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
-                param[8] = new SqlParameter("@Active", request["Active"]);
-                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                param[1] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[2] = new SqlParameter("@FamilyPensionerID", request["FamilyPensionerID"]);
+                param[3] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[4] = new SqlParameter("@NomineeName", request["NomineeName"]);
+                param[5] = new SqlParameter("@Gender", request["Gender"]);
+                param[6] = new SqlParameter("@PanNo", request["PanNo"]);
+                param[7] = new SqlParameter("@AccountNumber", request["AccountNumber"]);
+                param[8] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_FamilyPensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1715,14 +1716,169 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
+        [HttpGet, ActionName("GetPensionerTypes")]
+        public HttpResponseMessage GetPensionerTypes()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_PensionerTypes";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_PensionerTypes", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost, ActionName("GetEmployeeDetailsbyPensionerID")]
+        public string GetEmployeeDetailsbyPensionerID([FromBody] JsonObject request)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[1];
+                param[0] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_EmployeesbyPensionerTypeID", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+        [HttpPost, ActionName("AddorUpdatePensionerAllowance")]
+        public string AddorUpdatePensionerAllowance([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[9];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@PensionerAllowanceID", request["PensionerAllowanceID"]);
+                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[5] = new SqlParameter("@IR", request["IR"]);
+                param[6] = new SqlParameter("@DR", request["DR"]);
+                param[7] = new SqlParameter("@Active", request["Active"]);
+                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerAllowances", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        public class PensionerAllowanceData
+        {
+            public int DataTypeID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int PensionerAllowanceID { get; set; }
+            public int PensionerTypeID { get; set; }
+      
+            public int Active { get; set; }
+        }
+
+        [HttpPost, ActionName("GetEditPensionerAllowance")]
+        public string GetEditPensionerAllowance([FromBody] PensionerAllowanceData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[6];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", data.MonthID);
+                param[3] = new SqlParameter("@PensionerAllowanceID", data.PensionerAllowanceID);
+                param[4] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[5] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionerAllowances", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
 
 
 
+        
 
+        [HttpPost, ActionName("AddorUpdatePensionDetails")]
+        public string AddorUpdatePensionDetails([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[11];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@PensionDetailsID", request["PensionDetailsID"]);
+                param[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[3] = new SqlParameter("@PensionerID", request["PensionerID"]);
+                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
+                param[6] = new SqlParameter("@IR", request["IR"]);
+                param[7] = new SqlParameter("@DR", request["DR"]);
+                param[8] = new SqlParameter("@MA", request["MA"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
 
+        }
 
+        public class PensionerDetailsData
+        {
+            public int DataTypeID { get; set; }
+           
+            public int PensionerDetailsID { get; set; }
+            public int PensionerTypeID { get; set; }
+            public int PensionerID { get; set; }
 
+            public int Active { get; set; }
+        }
 
-
+        [HttpPost, ActionName("GetEditPensionDetails")]
+        public string GetEditPensionDetails([FromBody] PensionerDetailsData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[5];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@PensionerDetailsID", data.PensionerDetailsID);
+                param[2] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[3] = new SqlParameter("@PensionerID", data.PensionerID);
+                param[4] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionDetails", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     };
 };
