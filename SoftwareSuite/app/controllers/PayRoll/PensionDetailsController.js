@@ -64,32 +64,32 @@
                 return;
             }
 
+            var PensionerType = $scope.PensionerType;
+
             $scope.getEmployeeDetailsbyPensionerID();
-            $scope.getEditPensionDetails();
+            $scope.getEditPensionDetails(1, 0, PensionerType,0);
         }
 
 
 
 
 
-        $scope.getEditPensionDetails = function () {
-            var DataTypeID = 1
-            var getdesign = PayRollService.GetEditPensionDetails(DataTypeID,  0, $scope.PensionerType, 1);
+        $scope.getEditPensionDetails = function (DataTypeID, PensionDetailsID, PensionerTypeID, Active) {
+            var getdesign = PayRollService.GetEditPensionDetails(DataTypeID, PensionDetailsID, PensionerTypeID, Active);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 }
                 catch (err) { }
-                //$scope.edit = true;
                 if (res.Table.length > 0) {
-                    $scope.PensionerDetailsData = res.Table;
+                    $scope.PensionDetailsData = res.Table;
                     $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.PensionerDetailsData.length + 1; j++) {
+                    for (var j = 1; j < $scope.PensionDetailsData.length + 1; j++) {
                         $scope['edit' + j] = true;
                     }
                 }
                 else {
-                    $scope.PensionerDetailsData = [];
+                    $scope.PensionDetailsData = [];
                     $scope.DataNotFound = true;
                 }
             },
@@ -145,7 +145,7 @@
             }
 
 
-            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.Employee, $scope.Employee, $scope.PensionAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
+            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.Employee, $scope.PensionAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
             aDDPensionerDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -153,12 +153,12 @@
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getEditPensionDetails();
+                    $scope.getEditPensionDetails(1, 0, $scope.PensionerType, 0);
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
-                    $scope.getEditPensionDetails();
+                    $scope.getEditPensionDetails(1, 0, $scope.PensionerType, 0);
 
                 } else {
                     alert('Something Went Wrong')
@@ -200,7 +200,7 @@
             var datatypeid = 2
 
 
-            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.Employee,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
+            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
             updateDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -208,13 +208,13 @@
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getEditPensionDetails()
+                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0)
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getEditPensionDetails()
+                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0)
 
                 } else {
                     alert('Something Went Wrong')
@@ -230,17 +230,17 @@
 
 
 
-        $scope.ChangeDetails = function (DetailsID, DepartmentID, Status) {
+        $scope.ChangeDetails = function (DetailsID, PensionerTypeID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollDetails(DataType, DetailsID, DepartmentID, Status);
-            getSlides.then(function (res) {
+            var setstatus = PayRollService.GetEditPensionDetails(DataType, DetailsID, PensionerTypeID, Status);
+            setstatus.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditDetails();
+                    $scope.getEditPensionDetails(1, 0, PensionerTypeID, 0)
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditDetails();
+                    $scope.getEditPensionDetails(1, 0, PensionerTypeID, 0)
                 } else {
                     alert("Something Went Wrong")
                 }

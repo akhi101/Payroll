@@ -141,10 +141,9 @@ define(['app'], function (app) {
             return promise;
         };
      
-        this.AddorUpdateFamilyPensioners = function (DataTypeId, PensionerTypeID, FamilyPensionerID, EmployeeID, NomineeName, Gender, PanNo, AccountNumber, IFSCCode, Active, UserName) {
+        this.AddorUpdateFamilyPensioners = function (DataTypeId, FamilyPensionerID, EmployeeID, NomineeName, Gender, PanNo, AccountNumber, IFSCCode, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
-                "PensionerTypeID": PensionerTypeID,
                 "FamilyPensionerID": FamilyPensionerID,
                 "EmployeeID": EmployeeID,
                 "NomineeName": NomineeName,
@@ -1198,12 +1197,11 @@ define(['app'], function (app) {
 
       
 
-        this.AddorUpdatePensionDetails = function (DataTypeId, PensionDetailsID, PensionerTypeID, PensionerID, EmployeeID, PensionAmount, IR, DR,MA ,Active, UserName) {
+        this.AddorUpdatePensionDetails = function (DataTypeId, PensionDetailsID, PensionerTypeID, EmployeeID, PensionAmount, IR, DR,MA ,Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "PensionDetailsID": PensionDetailsID,
                 "PensionerTypeID": PensionerTypeID,
-                "PensionerID": PensionerID,
                 "EmployeeID": EmployeeID,
                 "PensionAmount": PensionAmount,
                 "IR": IR,
@@ -1216,12 +1214,11 @@ define(['app'], function (app) {
             return promise;
         };
 
-        this.GetEditPensionDetails = function (DataTypeID, PensionDetailsID, PensionerTypeID, PensionerID, Active) {
+        this.GetEditPensionDetails = function (DataTypeID, PensionDetailsID, PensionerTypeID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "PensionDetailsID": PensionDetailsID,
                 "PensionerTypeID": PensionerTypeID,
-                "PensionerID": PensionerID,
                 "Active": Active
             };
             var promise = DataAccessService.postData('api/PayRoll/GetEditPensionDetails', paramObj);
