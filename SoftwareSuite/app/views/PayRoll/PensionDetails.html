@@ -152,12 +152,13 @@
             </div>
 
             <td class="">
-                <table class="table table-responsive table-bordered" ng-if="PensionerDetailsData.length>0">
+                <table class="table table-responsive table-bordered" ng-if="PensionDetailsData.length>0">
                     <thead>
                         <tr class="cb-1">
                             <th>S.No</th>
-                            <th class="text-center">Pensioners Type</th>
-                            <th class="text-center">Pensioners Amount</th>
+                            <th class="text-center">Pensioner Type</th>
+                            <th class="text-center">Pensioner Name</th>
+                            <th class="text-center">Pension Amount</th>
                             <th class="text-center">IR</th>
                             <th class="text-center">DR </th>
                             <th class="text-center">MA </th>
@@ -166,9 +167,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="data in PensionerDetailsData">
+                        <tr ng-repeat="data in PensionDetailsData">
                             <td class="text-center">{{$index + 1}}</td>
-                            
                             <td class="text-center pointer">
                                 <div>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" id="Pensionerid" ng-model="data.PensionerTypeID" disabled
@@ -178,10 +178,35 @@
 
                                 </div>
                             </td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
+                            <td class="text-center pointer">
+                                <div>
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="employeeID" ng-model="data.EmployeeID" disabled
+                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                        <option value="" selected>Select Pensioner Name</option>
+                                    </select>
 
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DR" /></div></td>
+                                </div>
+                            </td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
+
+                            <td class="text-center pointer">
+                                <div>
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.IR"
+                                            ng-model="data.IR"
+                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
+                                        <option value="">Select IR</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="text-center pointer">
+                                <div>
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.DR"
+                                            ng-model="data.DR"
+                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
+                                        <option value="">Select DR</option>
+                                    </select>
+                                </div>
+                            </td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
 
                             <td class="text-center">
@@ -194,8 +219,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
 
                         </tr>

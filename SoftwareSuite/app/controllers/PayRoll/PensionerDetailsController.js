@@ -19,7 +19,7 @@
             $scope.UserName = authData.UserName;
 
             //$scope.IncrementMonth = null;
-            $scope.GetEmployeeDetails()
+            //$scope.GetEmployeeDetails()
             $scope.GetorEditFamilyPensionerDetails(1)
             $scope.GetorEditServicePensionerDetails(1)
 
@@ -77,30 +77,30 @@
                 });
         }
 
-        $scope.GetEmployeeDetails = function () { 
-        var DataTypeID = 4
-            var getdesign = PayRollService.GetServicePensioners(DataTypeID, 0, 0, 0, 0);
-        getdesign.then(function (response) {
-            //try {
-            //    var res = JSON.parse(response);
-            //}
-            //catch (err) { }
-            //$scope.edit = true;
-            if (response.Table.length > 0) {
-                $scope.EmployeeDetailsData = response.Table;
-                $scope.Noreports = false;
-            }
-            else {
-                $scope.EmployeeDetailsData = [];
-                $scope.Noreports = true;
-            }
-        },
-            function (error) {
-                alert("error while loading Employee Details");
-                var err = JSON.parse(error);
+        //$scope.GetEmployeeDetails = function () { 
+        //var DataTypeID = 4
+        //    var getdesign = PayRollService.GetServicePensioners(DataTypeID, 0, 0, 0, 0);
+        //getdesign.then(function (response) {
+        //    //try {
+        //    //    var res = JSON.parse(response);
+        //    //}
+        //    //catch (err) { }
+        //    //$scope.edit = true;
+        //    if (response.Table.length > 0) {
+        //        $scope.EmployeeDetailsData = response.Table;
+        //        $scope.Noreports = false;
+        //    }
+        //    else {
+        //        $scope.EmployeeDetailsData = [];
+        //        $scope.Noreports = true;
+        //    }
+        //},
+        //    function (error) {
+        //        alert("error while loading Employee Details");
+        //        var err = JSON.parse(error);
 
-            });
-        }
+        //    });
+        //}
 
         $scope.ChangeAdvEmpData = function (data) {
             var data = JSON.parse(data)
@@ -251,29 +251,26 @@
 
         $scope.AddFamilyPensioners = function (datatypeid) {
 
-  
-            //if ($scope.FinancialYear == null || $scope.FinancialYear == undefined || $scope.FinancialYear == "") {
-            //    alert("Select Financial Year");
-            //    return;
-            //}
-            if ($scope.FamilyPensionerID == undefined || $scope.FamilyPensionerID == "" || $scope.FamilyPensionerID == null) {
-                $scope.FamilyPensionerID = 0;
-            }
-            else {
-                $scope.FamilyPensionerID = $scope.FamilyPensionerID
-            }
 
-            let FamilyPensionerID = $scope.FamilyPensionerID.length > 0 ? $scope.FamilyPensionerID : "";
+            let FamilyPensionerID = datatypeid == '2' ? $scope.FamilyPensionerID : "";
+            let Active = datatypeid == '2' ? $scope.Active1 : "";
 
-            var SetFinYr = PayRollService.AddorUpdateFamilyPensioners(datatypeid, 2, FamilyPensionerID, $scope.EmployeeID1, $scope.NomineeName1, $scope.Gender1, $scope.PanNo1, $scope.AccountNumber1, $scope.IFSCCode1,1, $scope.UserName)
-            SetFinYr.then(function (response) {
+            var Setfamilypensioners = PayRollService.AddorUpdateFamilyPensioners(datatypeid, FamilyPensionerID, $scope.EmployeeID1, $scope.NomineeName1, $scope.Gender1, $scope.PanNo1, $scope.AccountNumber1, $scope.IFSCCode1, Active, $scope.UserName)
+            Setfamilypensioners.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponseCode == '200') {
                     alert(response[0].ResponseDescription)
                     $scope.GetorEditFamilyPensionerDetails(1)
                   //  $scope.ClearData();
 
-                } else {
+                }
+                else if (response[0].ResponseCode == '400') {
+                    alert(response[0].ResponseDescription)
+                    $scope.GetorEditFamilyPensionerDetails(1)
+                    //  $scope.ClearData();
+
+                }
+                else {
                     alert('Something Went Wrong')
                     $scope.GetorEditFamilyPensionerDetails(1)
                     $scope.ClearData();
@@ -290,13 +287,7 @@
 
         $scope.UpdateServicePensioners = function () {
 
-            //var datatypeid = 1
-            //if ($scope.FinancialYear == null || $scope.FinancialYear == undefined || $scope.FinancialYear == "") {
-            //    alert("Select Financial Year");
-            //    return;
-            //}
-
-            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, "", $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
+            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOJ, $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
             SetFinYr.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponseCode == '200') {
