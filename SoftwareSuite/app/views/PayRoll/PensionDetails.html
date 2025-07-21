@@ -161,8 +161,8 @@
                             <th class="text-center">Pensioner Type</th>
                             <th class="text-center">Pensioner Name</th>
                             <th class="text-center">Pension Amount</th>
-                            <th class="text-center">IR</th>
                             <th class="text-center">DR </th>
+                            <th class="text-center">IR</th>
                             <th class="text-center">MA </th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
@@ -198,15 +198,6 @@
 
                             <td class="text-center pointer">
                                 <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.IR"
-                                            ng-model="data.IR"
-                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
-                                        <option value="">Select IR</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td class="text-center pointer">
-                                <div>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.DR"
                                             ng-model="data.DR"
                                             ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
@@ -214,6 +205,16 @@
                                     </select>
                                 </div>
                             </td>
+                            <td class="text-center pointer">
+                                <div>
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.IR"
+                                            ng-model="data.IR"
+                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
+                                        <option value="">Select IR</option>
+                                    </select>
+                                </div>
+                            </td>
+
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
 
                             <td class="text-center">

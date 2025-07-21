@@ -16,6 +16,8 @@
 
 
             $scope.getPensionerTypes();
+            $scope.FinancialYears();
+            $scope.getMonths();
         }
 
 
@@ -41,6 +43,67 @@
                 });
         }
 
+        $scope.FinancialYears = function () {
+            var getdesign = PayRollService.GetFinancialYears();
+            getdesign.then(function (response) {
+
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.FinancialYears = response.Table;
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.FinancialYears = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Financial Years");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+        $scope.getMonths = function () {
+            var getmonths = PayRollService.GetMonths();
+            getmonths.then(function (response) {
+
+                //$scope.edit = true;
+                if (response.Table.length > 0) {
+                    $scope.AllMonthsData = response.Table;
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.AllMonthsData = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Months");
+                    var err = JSON.parse(error);
+
+                });
+        }
+
+
+        $scope.ChangeMonth = function () {
+
+            if ($scope.FinancialYearID1 == null || $scope.FinancialYearID1 == undefined || $scope.FinancialYearID1 == "") {
+                alert("Please Select FinancialYear");
+                $scope.PensionerType = null;
+                return;
+            }
+
+            if ($scope.MonthID1 == null || $scope.MonthID1 == undefined || $scope.MonthID1 == "") {
+                alert("Select Month");
+                $scope.PensionerType = null;
+                return;
+            }
+
+            $scope.getEmployeeDetailsbyPensionerID();
+            $scope.getPensionerDeductions(1);
+        }
+
         $scope.getEmployeeDetailsbyPensionerID = function () {
             var getEmployeedetail = PayRollService.GetEmployeeDetailsbyPensionerID($scope.PensionerTypeID1);
             getEmployeedetail.then(function (res) {
@@ -63,23 +126,23 @@
                 });
         }
 
-        $scope.ChangePensionerType = function () {
-            //$scope.DeductionsData = [];
+        //$scope.ChangePensionerType = function () {
+        //    //$scope.DeductionsData = [];
 
-            if ($scope.PensionerTypeID1 == null || $scope.PensionerTypeID1 == undefined || $scope.PensionerTypeID1 == "") {
-                alert("Select PensionerType");
-                $scope.PensionerType = null;
-                return;
-            }
+        //    if ($scope.PensionerTypeID1 == null || $scope.PensionerTypeID1 == undefined || $scope.PensionerTypeID1 == "") {
+        //        alert("Select PensionerType");
+        //        $scope.PensionerType = null;
+        //        return;
+        //    }
 
-            $scope.getEmployeeDetailsbyPensionerID();
-            $scope.getPensionerDeductions(1);
-        }
+        //    $scope.getEmployeeDetailsbyPensionerID();
+        //    $scope.getPensionerDeductions(1);
+        //}
 
 
         $scope.getPensionerDeductions = function (DataTypeID) {
 
-            var getdesign = PayRollService.GetorEditPensionerDeductions(DataTypeID, 0, $scope.PensionerTypeID1,0,0);
+            var getdesign = PayRollService.GetorEditPensionerDeductions(DataTypeID, 0, $scope.PensionerTypeID1, $scope.FinancialYearID1, $scope.MonthID1,0,0);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -101,7 +164,7 @@
                 });
         }
 
-        $scope.EditPensionerDeductions = function (PensionerDeductionID, PensionerTypeID) {
+        $scope.EditPensionerDeductions = function (PensionerDeductionID, FinancialYearID, MonthID, PensionerTypeID) {
 
             
             window.scroll({
@@ -113,7 +176,7 @@
             $scope.UpdateDetails = '1';
             var DataTypeID = 2
             $scope.PensionerDeductionID = PensionerDeductionID;
-            var getdeduction = PayRollService.GetorEditPensionerDeductions(DataTypeID, PensionerDeductionID, PensionerTypeID,0,0);
+            var getdeduction = PayRollService.GetorEditPensionerDeductions(DataTypeID, PensionerDeductionID, PensionerTypeID, FinancialYearID, MonthID,0,0);
             getdeduction.then(function (response) {
 
                 try {
@@ -125,6 +188,8 @@
                 if (res.Table.length > 0) {
                     $scope.editdisable = true;
                     $scope.disablePensionerType = true;
+                    $scope.disableFinancialYear = true;
+                    $scope.disableMonth = true;
                     $scope.disablePensioner = true;
                     $scope.disableActive = true;
                     $scope.EditPensionerDeductionsData = res.Table;
@@ -132,6 +197,10 @@
                     $scope.PensionerDeductionID = res.Table[0].PensionerDeductionID;
                     $scope.PensionerTypeID1 = res.Table[0].PensionerTypeID;
                     $scope.PensionerType = res.Table[0].PensionerTypeName;
+                    $scope.FinancialYearID1 = res.Table[0].FinancialYearID;
+                    $scope.FinancialYear = res.Table[0].FinancialYear;
+                    $scope.MonthID1 = res.Table[0].MonthID;
+                    $scope.Months = res.Table[0].Months;
                     $scope.EmployeeID1 = res.Table[0].PensionerID;
                     //$scope.EmployeeID = res.Table[0].EmployeeID;
                     $scope.EmployeeName = res.Table[0].EmployeeName;
@@ -148,6 +217,8 @@
                     $scope.EditPensionerDeductionsData = [];
                     $scope.editdisable = false;
                     $scope.disablePensionerType = false;
+                    $scope.disableFinancialYear = false;
+                    $scope.disableMonth = false;
                     $scope.disablePensioner = false;
                     $scope.disableActive = false;
                 }
@@ -159,6 +230,8 @@
                     alert("error while loading Pensioner Deductions");
                     $scope.editdisable = false;
                     $scope.disablePensionerType = false;
+                    $scope.disableFinancialYear = false;
+                    $scope.disableMonth = false;
                     $scope.disablePensioner = false;
                     $scope.disableActive = false;
                     var err = JSON.parse(error);
@@ -184,30 +257,40 @@
         $scope.addorupdatePensionerDeductions = function (datatypeid) {
 
 
-            //if ($scope.PensionerTypeID1 == null || $scope.PensionerTypeID1 == undefined || $scope.PensionerTypeID1 == "") {
-            //    alert("Select PensionType");
-            //    return;
-            //}
+            if ($scope.PensionerTypeID1 == null || $scope.PensionerTypeID1 == undefined || $scope.PensionerTypeID1 == "") {
+                alert("Select Pensioner Type");
+                return;
+            }
+            if ($scope.FinancialYearID1 == null || $scope.FinancialYearID1 == undefined || $scope.FinancialYearID1 == "") {
+                alert("Please Select FinancialYear");
+                $scope.PensionerType = null;
+                return;
+            }
 
+            if ($scope.MonthID1 == null || $scope.MonthID1== undefined || $scope.MonthID1 == "") {
+                alert("Select Month");
+                $scope.PensionerType = null;
+                return;
+            }
+ 
+            if ($scope.EmployeeID1 == null || $scope.EmployeeID1 == undefined || $scope.EmployeeID1 == "") {
+                alert("Select Employee");
+                return;
+            }
+            if ($scope.CMRFAmount1 == null || $scope.CMRFAmount1 == undefined || $scope.CMRFAmount1 == "") {
+                alert("Enter CMRF Amount");
+                return;
+            }
 
-            //if ($scope.EmployeeID1 == null || $scope.EmployeeID1 == undefined || $scope.EmployeeID1 == "") {
-            //    alert("Select Employee");
-            //    return;
-            //}
-            //if ($scope.CMRFAmount1 == null || $scope.CMRFAmount1 == undefined || $scope.CMRFAmount1 == "") {
-            //    alert("Enter CMRF Amount");
-            //    return;
-            //}
-
-            //if ($scope.RecoveryAmount1 == null || $scope.RecoveryAmount1 == undefined || $scope.RecoveryAmount1 == "") {
-            //    alert("Enter Recovery Amount");
-            //    return;
-            //}
+            if ($scope.RecoveryAmount1 == null || $scope.RecoveryAmount1 == undefined || $scope.RecoveryAmount1 == "") {
+                alert("Enter Recovery Amount");
+                return;
+            }
 
             let PensionerDeductionID = datatypeid == '2' ? $scope.PensionerDeductionID : "";
             let Active = datatypeid == '2' ? $scope.Active1 : "";
 
-            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.PensionerTypeID1, $scope.EmployeeID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
+            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.PensionerTypeID1, $scope.FinancialYearID1, $scope.MonthID1,$scope.EmployeeID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
             addpensionerdeductions.then(function (response) {
                 try {
                     var res = JSON.parse(response);

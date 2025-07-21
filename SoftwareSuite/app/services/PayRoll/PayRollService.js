@@ -1227,10 +1227,12 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditPensionerDeductions = function (DataTypeID, PensionerDeductionID, PensionerTypeID, PensionerID, Active) {
+        this.GetorEditPensionerDeductions = function (DataTypeID, PensionerDeductionID, FinancialYearID, MonthID, PensionerTypeID, PensionerID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "PensionerDeductionID": PensionerDeductionID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "PensionerTypeID": PensionerTypeID,
                 "PensionerID": PensionerID,
                 "Active": Active
@@ -1240,10 +1242,12 @@ define(['app'], function (app) {
 
         };
 
-        this.AddorUpdatePensionerDeductions = function (DataTypeId, PensionerDeductionID, PensionerTypeID, PensionerID, EmployeeID, CMRFAmount, Recovery_TDS, Active, UserName) {
+        this.AddorUpdatePensionerDeductions = function (DataTypeId, PensionerDeductionID, FinancialYearID, MonthID, PensionerTypeID, PensionerID, EmployeeID, CMRFAmount, Recovery_TDS, Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "PensionerDeductionID": PensionerDeductionID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
                 "PensionerTypeID": PensionerTypeID,
                 "PensionerID": PensionerID,
                 "EmployeeID": EmployeeID,

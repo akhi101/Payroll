@@ -181,27 +181,17 @@
             if ($scope.MonthID == null || $scope.MonthID == undefined || $scope.MonthID == "") {
                 alert("Select Month");
                     return;
-                }
+            }
 
-            
-            
-
-            //if ($scope.Employee == null || $scope.Employee == undefined || $scope.Employee == "") {
-            //    alert("Select Employee");
-            //        return;
-            //    }
-
-            
-                if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
-                    alert("Enter IR");
-                    return;
-                }
-            
             if ($scope.DR == null || $scope.DR == undefined || $scope.DR == "") {
                 alert("Enter DR");
                 return;
             }
-          
+
+            if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
+                alert("Enter IR");
+                return;
+            }
 
             var aDDPensionerAllowance = PayRollService.AddorUpdatePensionerAllowance(datatypeid, 0, $scope.FinancialYearID, $scope.MonthID, $scope.PensionerType, $scope.IR, $scope.DR, 1,$scope.UserName)
             aDDPensionerAllowance.then(function (response) {
@@ -288,17 +278,17 @@
 
 
 
-        $scope.ChangePensionerAllowance = function (FinancialYearID, MonthID, PensionerAllowanceID, PensionerTypeID, Status) {
+        $scope.ChangePensionerAllowance = function (PensionerAllowanceID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.GetEditPensionerAllowance(DataType,FinancialYearID, MonthID, PensionerAllowanceID, PensionerTypeID, Status);
+            var getSlides = PayRollService.GetEditPensionerAllowance(DataType,0,0, PensionerAllowanceID,0, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditAllowance();
+                    $scope.getEditPensionerAllowance()
                 } else if (response.Table[0].ResponseCode == '400') {
                     alert(response.Table[0].ResponseDescription)
-                    $scope.getEditAllowance();
+                    $scope.getEditPensionerAllowance()
                 } else {
                     alert("Something Went Wrong")
                 }

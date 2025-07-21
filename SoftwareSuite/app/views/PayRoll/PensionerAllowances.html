@@ -199,8 +199,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangePensionerAllowance(data.FinancialYearID,data.MonthID,data.PensionerAllowanceID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangePensionerAllowance(data.FinancialYearID,data.MonthID,data.PensionerAllowanceID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangePensionerAllowance(data.PensionerAllowanceID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangePensionerAllowance(data.PensionerAllowanceID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
 
                         </tr>
