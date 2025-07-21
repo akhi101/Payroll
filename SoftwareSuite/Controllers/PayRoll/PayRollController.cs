@@ -1828,7 +1828,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[10];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@PensionDetailsID", request["PensionDetailsID"]);
+                param[1] = new SqlParameter("@PensionerDetailsID", request["PensionerDetailsID"]);
                 param[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
                 param[3] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
                 param[4] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
@@ -1837,7 +1837,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[7] = new SqlParameter("@MA", request["MA"]);
                 param[8] = new SqlParameter("@Active", request["Active"]);
                 param[9] = new SqlParameter("@UserName", request["UserName"]);
-                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionDetails", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -1851,9 +1851,9 @@ namespace SoftwareSuite.Controllers.PayRoll
         {
             public int DataTypeID { get; set; }
            
-            public int PensionDetailsID { get; set; }
+            public int PensionerDetailsID { get; set; }
             public int PensionerTypeID { get; set; }
-            public int PensionerID { get; set; }
+           
 
             public int Active { get; set; }
         }
@@ -1866,10 +1866,10 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var dbHandler = new PayRolldbhandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
-                param[1] = new SqlParameter("@PensionDetailsID", data.PensionDetailsID);
+                param[1] = new SqlParameter("@PensionerDetailsID", data.PensionerDetailsID);
                 param[2] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
                 param[3] = new SqlParameter("@Active", data.Active);
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionDetails", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
             catch (Exception ex)
@@ -1877,5 +1877,77 @@ namespace SoftwareSuite.Controllers.PayRoll
                 return ex.Message;
             }
         }
+
+
+
+
+
+        public class PensionerDeductionsData
+        {
+            public int DataTypeID { get; set; }
+
+            public int PensionerDeductionID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int PensionerTypeID { get; set; }
+            public int PensionerID { get; set; }
+
+            public int Active { get; set; }
+        }
+
+        [HttpPost, ActionName("GetorEditPensionerDeductions")]
+        public string GetorEditPensionerDeductions([FromBody] PensionerDeductionsData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@PensionerDeductionID", data.PensionerDeductionID);
+                param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", data.MonthID);
+                param[4] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[5] = new SqlParameter("@PensionerID", data.PensionerID);
+                param[6] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionerDeductions", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpPost, ActionName("AddorUpdatePensionerDeductions")]
+        public string AddorUpdatePensionerDeductions([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[11];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@PensionerDeductionID", request["PensionerDeductionID"]);
+                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[5] = new SqlParameter("@PensionerID", request["PensionerID"]);
+                param[6] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[7] = new SqlParameter("@CMRFAmount", request["CMRFAmount"]);
+                param[8] = new SqlParameter("@Recovery_TDS", request["Recovery_TDS"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDeductions", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
     };
 };

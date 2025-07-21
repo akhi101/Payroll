@@ -61,6 +61,19 @@
                         <div class="studWishinputs">
                             <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                                 <div class="row">
+
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            Department:
+                                        </label>
+                                        <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
+                                                ng-options="data as data.DepartmentName for data in DepartmentData">
+                                            <option value="" selected>Select Department</option>
+                                        </select>
+
+                                    </div>
+
+
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold">Financial Year:</label>
@@ -87,16 +100,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label>
-                                            Department:
-                                        </label>
-                                        <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
-                                                ng-options="data as data.DepartmentName for data in DepartmentData">
-                                            <option value="" selected>Select Department</option>
-                                        </select>
 
-                                    </div>
 
                                     <div class="form-group col-md-4" ng-show="showDaGazetted">
                                         <label>
@@ -149,9 +153,9 @@
                 <table class="table table-responsive table-bordered" ng-if="AllowanceData.length>0">
                     <thead>
                         <tr class="cb-1">
+                            <th class="text-center">Department</th>
                             <th class="text-center">Financial Year</th>
                             <th class="text-center">Month</th>
-                            <th class="text-center">Department</th>
                             <th class="text-center">DA  %</th>
                             <th class="text-center">HRA %</th>
                             <th class="text-center" ng-show="showIR">IR %</th>
@@ -161,9 +165,10 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="data in AllowanceData">
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DepartmentName" disabled /></div></td>
                             <td class="text-center pointer">
                                 <div>
-                                   
+
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYearID" name="FinancialYear"
                                             ng-options="data.FinancialYearId as data.FinancialYear for data in FinancialYears">
                                         <option value="" selected>Select Financial Year</option>
@@ -173,22 +178,22 @@
                             </td>
                             <td class="text-center pointer">
                                 <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="monthid" ng-model="data.MonthID" 
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="monthid" ng-model="data.MonthID"
                                             ng-options="data.MonthID as data.Months for data in AllMonthsData">
                                         <option value="" selected>Select Month</option>
-                                    </select>
-                                   
-                                </div>
-                            </td>
-                            <td class="text-center pointer">
-                                <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="departmentid" ng-model="data.DepartmentID" disabled
-                                            ng-options="data.DepartmentID as data.DepartmentName for data in DepartmentData">
-                                        <option value="" selected>Select Department</option>
                                     </select>
 
                                 </div>
                             </td>
+                            <!--<td class="text-center pointer">
+        <div>
+            <select class="form-control tableinpt enabletable{{$index + 1}}" id="departmentid" ng-model="data.DepartmentID" disabled
+                    ng-options="data.DepartmentID as data.DepartmentName for data in DepartmentData">
+                <option value="" selected>Select Department</option>
+            </select>
+
+        </div>
+    </td>-->
 
 
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DA" /></div></td>
