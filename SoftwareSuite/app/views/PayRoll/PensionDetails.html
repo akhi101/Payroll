@@ -97,34 +97,36 @@
                                         <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Pension Amount" ng-model="PensionAmount">
                                     </div>
 
-
                                     <div class="form-group col-md-3">
                                         <label>
-                                            IR :
-                                        </label>
-
-                                        <select class="form-control" name="applicationForm.IR" ng-model="IR" ng-disabled="IRfound">
-                                            <option value="">Select IR</option>
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
-
-                                    </div>
-
-
-
-                                    <div class="form-group col-md-3">
-                                        <label>
-                                            DR :
+                                            DR:
                                         </label>
 
                                         <select class="form-control" name="applicationForm.DR" ng-model="DR" ng-disabled="DRfound">
-                                            <option value="">Select DR</option>
+                                            <option value="">Select DR </option>
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                                         </select>
 
                                     </div>
+
+
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            IR:
+                                        </label>
+
+                                        <select class="form-control" name="applicationForm.IR" ng-model="IR" ng-disabled="IRfound">
+                                            <option value="">Select IR </option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+
+                                    </div>
+
+
+
+
                                     <div class="form-group col-md-3">
                                         <label>
                                             MA:
@@ -169,7 +171,7 @@
                     <tbody>
                         <tr ng-repeat="data in PensionDetailsData">
                             <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center pointer">
+                            <!--<td class="text-center pointer">
                                 <div>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" id="Pensionerid" ng-model="data.PensionerTypeID" disabled
                                             ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
@@ -177,8 +179,8 @@
                                     </select>
 
                                 </div>
-                            </td>
-                            <td class="text-center pointer">
+                            </td>-->
+                            <!--<td class="text-center pointer">
                                 <div>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" id="employeeID" ng-model="data.EmployeeID" disabled
                                             ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
@@ -186,7 +188,12 @@
                                     </select>
 
                                 </div>
-                            </td>
+                            </td>-->
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerType" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.EmployeeName" /></div></td>
+
+
+
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
 
                             <td class="text-center pointer">
@@ -219,8 +226,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
 
                         </tr>

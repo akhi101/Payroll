@@ -65,43 +65,55 @@
                             <div class="row">
 
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-4">
                                     <label>
-                                        Pensioner:
+                                        Pensioner Type:
                                     </label>
-                                    <select class="form-control" id="Pensionerid" ng-model="Pensioner" ng-change="ChangePensioner(Pensioner)"
-                                            ng-options="data as data.PensionerName for data in PensionerData">
-                                        <option value="" selected>Select Pensioner</option>
+                                    <select class="form-control" id="Pensionerid" ng-model="PensionerTypeID1" ng-change="ChangePensionerType(PensionerTypeID1)" ng-disabled="disablePensionerType"
+                                            ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                        <option value="" selected>Select Pensioner Type</option>
                                     </select>
 
                                 </div>
 
 
-                                
-                                <div class="form-group col-md-4" >
+                                <div class="form-group col-md-4">
+                                    <label>
+                                        Pensioner Name :
+                                    </label>
+
+                                    <select class="form-control" ng-model="EmployeeID1" ng-disabled="disablePensioner"
+                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                        <option value="" selected>Select Pensioner Name</option>
+                                    </select>
+
+                                </div>
+
+
+                                <div class="form-group col-md-4">
                                     <label>
                                         CMRF Amount :
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CMRF Amount" ng-model="CMRFAmount">
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CMRF Amount" ng-model="CMRFAmount1">
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label>
                                         Recovery Amount :
                                     </label>
-                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Recovery Amount" ng-model="RecoveryAmount">
+                                    <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Recovery Amount" ng-model="RecoveryAmount1">
                                 </div>
-                                
+
 
 
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
-                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="Add()">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePensionerDeductions(1)">
                                         ADD
                                     </button>
                                 </div>
                                 <div class="col-md-12" ng-show="UpdateDetails=='1'">
-                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="UPDATE()">
+                                    <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePensionerDeductions(2)">
                                         UPDATE
                                     </button>
                                 </div>
@@ -114,7 +126,7 @@
         </div>
     </div>
 
-    <div class="container " ng-show="PensionerData.length>0">
+    <div class="container " ng-show="DeductionsData.length>0">
         <div class="col-md-12">
             <div class="cl-details">
                 <h2> Pensioner Deductions</h2>
@@ -124,32 +136,32 @@
                     <thead>
                         <tr class="cb-1">
                             <th>S.No</th>
-                            <th class="text-center">Pensioner </th>
+                            <th class="text-center">Pensioner Type </th>
+                            <th class="text-center">Pensioner Name </th>
                             <th class="text-center">CMRFAmount</th>
                             <th class="text-center">RecoveryAmount</th>
-                            
-                            
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="" ng-repeat="data in PensionerData">
+                        <tr style="" ng-repeat="data in DeductionsData">
                             <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center">{{data.Pensioner}}</td>
+                            <td class="text-center">{{data.PensionerType}}</td>
+                            <td class="text-center">{{data.EmployeeName}}</td>
                             <td class="text-center">{{data.CMRFAmount}}</td>
-                            <td class="text-center">{{data.RecoveryAmount}}</td>
-                            
+                            <td class="text-center">{{data.Recovery_TDS}}</td>
+
 
                             <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalaryDeduction(data)">
+                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-disabled="editdisable" ng-click="EditPensionerDeductions(data.PensionerDeductionID,data.PensionerTypeID)">
                                     Edit
                                 </button>
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.PensionerDeductionId,data.DepartmentId,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.PensionerDeductionId,data.DepartmentId,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" ng-disabled="disableActive" title="Click here to Inactive" ng-click="ChangeStatus(data.PensionerDeductionID,data.PensionerTypeID,data.PensionerID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" ng-disabled="disableActive" title="Click here to Active" ng-click="ChangeStatus(data.PensionerDeductionID,data.PensionerTypeID,data.PensionerID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
                         </tr>
                     </tbody>

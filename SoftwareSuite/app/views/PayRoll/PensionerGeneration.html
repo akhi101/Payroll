@@ -53,7 +53,7 @@
         <!-- breadcrumb Open -->
         <div class="container">
             <section class="content-header">
-                <h5> Pensioner Payroll Generation</h5>
+                <h5>Pension Generation</h5>
 
             </section>
         </div>
@@ -65,16 +65,16 @@
         </div>
         <ul class="nav nav-tabs">
             <li class="active noprint">
-                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Generate Montly Salary</a>
+                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Generate Montly Pension</a>
             </li>
             <li class="noprint">
-                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Publish Montly Salary</a>
+                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Publish Montly Pension</a>
             </li>
             <li class="noprint">
-                <a href="#3" class="noprint   font-weight-bold" data-toggle="tab">Generate Payslips</a>
+                <a href="#3" class="noprint   font-weight-bold" data-toggle="tab">Pension Payslips</a>
             </li>
             <li class="noprint">
-                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Generate Payroll Report</a>
+                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Generate Pension Report</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -109,14 +109,14 @@
 
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="generatemonthlysalary()">
-                                Generate Payroll
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="generatemonthlypension()">
+                                Generate Pension
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" ng-if="GetAllGeneratedMontlysalary.length>0">
+                <div class="col-md-12" ng-if="GetAllGeneratedMontlypension.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
                            id="ExportToExcel1" ng-click="getGenerateExcel('#tblParent')">
@@ -125,7 +125,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="" ng-show="GetAllGeneratedMontlysalary.length>0">
+                <div class="" ng-show="GetAllGeneratedMontlypension.length>0">
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="cb-1">
@@ -139,7 +139,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetAllGeneratedMontlysalary">
+                            <tr ng-repeat="data in GetAllGeneratedMontlypension">
                                 <td class="text-center pointer">{{$index+1}}</td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
@@ -149,19 +149,7 @@
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
 
 
-                                <!--<td class="text-center">
-                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
-                                        Edit
-                                    </button>
-                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
-                                        Update
-                                    </button>
-
-                                </td>-->
-                                <!--<td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
-                                </td>-->
+                                
 
                             </tr>
 
@@ -209,14 +197,14 @@
 
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="publishmonthlysalary()">
-                                Publish Payroll
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="publishmonthlypension()">
+                                Publish Pension
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" ng-if="GetAllPublishMontlysalary.length>0">
+                <div class="col-md-12" ng-if="GetAllPublishMontlypension.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
                            id="ExportToExcel1" ng-click="getPublishedExcel('#tblParent')">
@@ -225,7 +213,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="" ng-show="GetAllPublishMontlysalary.length>0">
+                <div class="" ng-show="GetAllPublishMontlypension.length>0">
                     <table class="table table-responsive table-bordered">
                         <thead>
                             <tr class="cb-1">
@@ -239,7 +227,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetAllPublishMontlysalary">
+                            <tr ng-repeat="data in GetAllPublishMontlypension">
                                 <td class="text-center pointer">{{$index+1}}</td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
@@ -303,8 +291,8 @@
 
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GeneratePaySlip()">
-                                Generate Payslips
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GeneratePensionPaySlip()">
+                                Generate Pension Payslips
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
@@ -319,50 +307,7 @@
                         </a>
                     </div>
                 </div>
-                <!--<div class="" ng-show="GetAllGeneratedMontlysalary.length>0">
-                    <table class="table table-responsive table-bordered">
-                        <thead>
-                            <tr class="cb-1">
-                                <th>S.No</th>
-                                <th class="text-center">Employee Code</th>
-                                <th class="text-center">Employee Name</th>
-                                <th class="text-center">Designation</th>
-                                <th class="text-center">Gross Total</th>
-                                <th class="text-center">Total Deductions</th>
-                                <th class="text-center">Net Salary</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="data in GetAllGeneratedMontlysalary">
-                                <td class="text-center pointer">{{$index+1}}</td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GrossTotal" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalDeductions" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
-
-                                <td class="text-center">
-                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
-                                        Edit
-                                    </button>
-                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
-                                        Update
-                                    </button>
-
-                                </td>
-
-                                <td style="text-align:center">
-                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
-                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>-->
-
+               
 
 
 
@@ -399,8 +344,8 @@
 
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetPayslipReports()">
-                                Generate Reports
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetPensionPayslipReports()">
+                                Generate Pension Reports
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>
                         </div>
