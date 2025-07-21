@@ -61,6 +61,19 @@
                         <div class="studWishinputs">
                             <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                                 <div class="row">
+
+                                    <div class="form-group col-md-3">
+                                        <label>
+                                            Department:
+                                        </label>
+                                        <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
+                                                ng-options="data as data.DepartmentName for data in DepartmentData">
+                                            <option value="" selected>Select Department</option>
+                                        </select>
+
+                                    </div>
+
+
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold">Financial Year:</label>
@@ -87,16 +100,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label>
-                                            Department:
-                                        </label>
-                                        <select class="form-control" id="departmentid" ng-model="Department" ng-change="ChangeDepartment(Department)"
-                                                ng-options="data as data.DepartmentName for data in DepartmentData">
-                                            <option value="" selected>Select Department</option>
-                                        </select>
 
-                                    </div>
 
                                     <div class="form-group col-md-4" ng-show="showDaGazetted">
                                         <label>

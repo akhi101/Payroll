@@ -74,8 +74,8 @@
 
 
 
-        $scope.getEditPensionDetails = function (DataTypeID, PensionDetailsID, PensionerTypeID, Active) {
-            var getdesign = PayRollService.GetEditPensionDetails(DataTypeID, PensionDetailsID, PensionerTypeID, Active);
+        $scope.getEditPensionDetails = function (DataTypeID, PensionerDetailsID, PensionerTypeID, Active) {
+            var getdesign = PayRollService.GetEditPensionDetails(DataTypeID, PensionerDetailsID, PensionerTypeID, Active);
             getdesign.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -200,7 +200,7 @@
             var datatypeid = 2
 
 
-            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
+            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
             updateDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);

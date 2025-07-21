@@ -35,7 +35,7 @@
                 $scope.ClearData();
             }
             else {
-                var generate = PayRollService.GenerateMonthlySalaryData(1, $scope.FinancialYearID1, $scope.MonthID1)
+                var generate = PayRollService.GenerateMonthlyPensionData(1, $scope.FinancialYearID1, $scope.MonthID1)
                 generate.then(function (response) {
                     try {
                         var res = JSON.parse(response);
@@ -43,7 +43,7 @@
 
 
                     if (res.Table[0].ResponseCode == '200') {
-                        $scope.GetAllGeneratedMontlysalary = res.Table1;
+                        $scope.GetAllGeneratedMontlypension = res.Table1;
 
                     }
                     else if (res.Table[0].ResponseCode == '400') {
@@ -64,8 +64,8 @@
 
         $scope.ClearData = function () {
 
-            $scope.GetAllGeneratedMontlysalary = [];
-            $scope.GetAllPublishMontlysalary = [];
+            $scope.GetAllGeneratedMontlypension = [];
+            $scope.GetAllPublishMontlypension = [];
 
         }
 
@@ -143,10 +143,10 @@
 
 
 
-        $scope.generatemonthlysalary = function () {
+        $scope.generatemonthlypension = function () {
 
 
-            var generate = PayRollService.GenerateMonthlySalary($scope.FinancialYearID1, $scope.MonthID1, 1)
+            var generate = PayRollService.GenerateMonthlyPension($scope.FinancialYearID1, $scope.MonthID1, 1)
             generate.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -176,7 +176,7 @@
                     //$scope.GeneratedData = res1;
                 }
                 else if (res.Table1[0].ResponseCode == '200') {
-                    $scope.GetAllGeneratedMontlysalary = res.Table;
+                    $scope.GetAllGeneratedMontlypension = res.Table;
                     alert(res.Table1[0].ResponseDescription);
                 }
                 else {
@@ -193,14 +193,14 @@
 
 
         $scope.ConfirmGenerate = function () {
-            $scope.GetAllGeneratedMontlysalary = [];
-            var generate = PayRollService.GenerateMonthlySalary($scope.FinancialYearID1, $scope.MonthID1, 2)
+            $scope.GetAllGeneratedMontlypension = [];
+            var generate = PayRollService.GenerateMonthlyPension($scope.FinancialYearID1, $scope.MonthID1, 2)
             generate.then(function (response) {
                 try {
                     var res = JSON.parse(response);
                 } catch (err) { }
 
-                $scope.GetAllGeneratedMontlysalary = res.Table;
+                $scope.GetAllGeneratedMontlypension = res.Table;
                 $scope.modalInstance.close();
 
 
@@ -246,9 +246,9 @@
         };
 
 
-        $scope.GetPayslipReports = function () {
+        $scope.GetPensionPayslipReports = function () {
             $scope.loading = true;
-            var ReportExcel = PayRollService.GetPayslipReports($scope.FinancialYearID4, $scope.MonthID4);
+            var ReportExcel = PayRollService.GetPensionPayslipReports($scope.FinancialYearID4, $scope.MonthID4);
             ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
@@ -292,7 +292,7 @@
             }
             else {
                 $scope.ClearData1();
-                var generate = PayRollService.PublishMonthlySalaryData(1, $scope.FinancialYearID2, $scope.MonthID2)
+                var generate = PayRollService.PublishMonthlyPensionData(1, $scope.FinancialYearID2, $scope.MonthID2)
                 generate.then(function (response) {
                     try {
                         var res = JSON.parse(response);
@@ -300,7 +300,7 @@
 
 
                     if (res.Table[0].ResponseCode == '200') {
-                        $scope.GetAllPublishMontlysalary = res.Table1;
+                        $scope.GetAllPublishMontlypension = res.Table1;
 
                     }
                     else if (res.Table[0].ResponseCode == '400') {
@@ -320,7 +320,7 @@
 
 
         $scope.ClearData1 = function () {
-            $scope.GetAllPublishMontlysalary = [];
+            $scope.GetAllPublishMontlypension = [];
 
 
         }
@@ -328,10 +328,10 @@
 
 
 
-        $scope.publishmonthlysalary = function () {
+        $scope.publishmonthlypension = function () {
 
 
-            var Publish = PayRollService.PublishMonthlySalary($scope.FinancialYearID2, $scope.MonthID2)
+            var Publish = PayRollService.PublishMonthlyPension($scope.FinancialYearID2, $scope.MonthID2)
             Publish.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -340,7 +340,7 @@
 
                 if (res.Table[0].ResponseCode == '200') {
                     alert(res.Table[0].ResponseDescription);
-                    $scope.GetAllPublishMontlysalary = res.Table1;
+                    $scope.GetAllPublishMontlypension = res.Table1;
 
                 }
                 else if (res.Table[0].ResponseCode == '400') {
@@ -381,7 +381,7 @@
 
         };
 
-        $scope.GeneratePaySlip = function () {
+        $scope.GeneratePensionPaySlip = function () {
             //  var PaymentStudent = [{"Employeecode":"1025"}]
             // if (PaymentStudent != [] && PaymentStudent != '') {
             $scope.btndisable = true;

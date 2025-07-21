@@ -99,7 +99,7 @@
                 });
         }
 
-        $scope.ChangePensionerType = function () {
+        $scope.ChangeMonth = function () {
 
             if ($scope.FinancialYearID == null || $scope.FinancialYearID == undefined || $scope.FinancialYearID == "") {
                 alert("Please Select FinancialYear");
@@ -169,7 +169,10 @@
 
         $scope.ADDPensionerAllowance = function () {
             var datatypeid = 1
-
+            if ($scope.PensionerType == null || $scope.PensionerType == undefined || $scope.PensionerType == "") {
+                alert("Select PensionerType");
+                return;
+            }
             if ($scope.FinancialYearID == null || $scope.FinancialYearID == undefined || $scope.FinancialYearID == "") {
                 alert("Please Select FinancialYear");
                 return;
@@ -179,10 +182,7 @@
                 alert("Select Month");
                     return;
                 }
-            if ($scope.PensionerType == null || $scope.PensionerType == undefined || $scope.PensionerType == "") {
-                alert("Select PensionerType");
-                    return;
-                }
+
             
             
 
@@ -288,9 +288,9 @@
 
 
 
-        $scope.ChangeAllowance = function (AllowanceID, DepartmentID, Status) {
+        $scope.ChangePensionerAllowance = function (FinancialYearID, MonthID, PensionerAllowanceID, PensionerTypeID, Status) {
             var DataType = 3;
-            var getSlides = PayRollService.PayRollAllowance(DataType, AllowanceID, DepartmentID, Status);
+            var getSlides = PayRollService.GetEditPensionerAllowance(DataType,FinancialYearID, MonthID, PensionerAllowanceID, PensionerTypeID, Status);
             getSlides.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {

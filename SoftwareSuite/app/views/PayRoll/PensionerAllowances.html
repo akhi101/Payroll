@@ -65,6 +65,16 @@
                         <div class="studWishinputs">
                             <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
                                 <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            Pensioner Type:
+                                        </label>
+                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" 
+                                                ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                            <option value="" selected>Select Pensioner Type</option>
+                                        </select>
+
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label class="font-weight-bold">Financial Year:</label>
@@ -83,7 +93,7 @@
                                         <div class="form-group">
                                             <label class="font-weight-bold">Month:</label>
                                             <div class="">
-                                                <select class="form-control" ng-model="MonthID" name="Month" required>
+                                                <select class="form-control" ng-model="MonthID" name="Month" ng-change="ChangeMonth(MonthID)" required>
                                                     <option value="" selected>Select Month </option>
                                                     <option ng-repeat="data in AllMonthsData" value="{{data.MonthID}}">
                                                         {{data.Months}}
@@ -93,49 +103,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label>
-                                            Pensioner Type:
-                                        </label>
-                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" ng-change="ChangePensionerType(PensionerType)"
-                                                ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
-                                            <option value="" selected>Select Pensioner Type</option>
-                                        </select>
-
-                                    </div>
 
 
-                                    <!--<div class="form-group col-md-4">
-                                        <label>
-                                            Pensioner Name :
-                                        </label>
-
-                                        <select class="form-control" ng-model="Employee"
-                                                ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
-                                            <option value="" selected>Select Pensioner Name</option>
-                                        </select>
-
-                                    </div>-->
-                                    <!--<div class="form-group col-md-4">
-                                        <label>
-                                            Pension Amount :
-                                        </label>
-                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Pension Amount" ng-model="PensionAmount">
-                                    </div>-->
                                     <div class="form-group col-md-4">
                                         <label>
-                                            IR:
+                                            DR %:
                                         </label>
-                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter IR" ng-model="IR">
+                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter DR %" ng-model="DR">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>
-                                            DR:
+                                            IR %:
                                         </label>
-                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter DR" ng-model="DR">
+                                        <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter IR %" ng-model="IR">
                                     </div>
 
-                                    
+
+
 
 
                                     <div class="col-md-12" style="right:200px">
@@ -162,10 +146,9 @@
                             <th>S.No</th>
                             <th class="text-center">Financial Year</th>
                             <th class="text-center">Month</th>
-                            <th class="text-center">Pensioners Type</th>                    
-                            <th class="text-center">IR</th>
-                            <th class="text-center">DR </th>
-                          
+                            <th class="text-center">Pensioners Type</th>
+                            <th class="text-center">DR %</th>
+                            <th class="text-center">IR %</th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
@@ -201,9 +184,10 @@
 
                                 </div>
                             </td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
 
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DR" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
+
 
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditAllowance(data,$index+1)">
@@ -215,8 +199,8 @@
 
                             </td>
                             <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeAllowance(data.PensionerAllowanceID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeAllowance(data.PensionerAllowanceID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangePensionerAllowance(data.FinancialYearID,data.MonthID,data.PensionerAllowanceID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
+                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangePensionerAllowance(data.FinancialYearID,data.MonthID,data.PensionerAllowanceID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
                             </td>
 
                         </tr>
