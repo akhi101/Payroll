@@ -99,24 +99,26 @@
                 });
         }
 
-        $scope.ChangeMonth = function () {
+        $scope.ChangePensionerType = function () {
 
-            if ($scope.FinancialYearID == null || $scope.FinancialYearID == undefined || $scope.FinancialYearID == "") {
-                alert("Please Select FinancialYear");
-                $scope.PensionerType = null;
-                return;
-            }
 
-            if ($scope.MonthID == null || $scope.MonthID == undefined || $scope.MonthID == "") {
-                alert("Select Month");
-                $scope.PensionerType = null;
-                return;
-            }
             if ($scope.PensionerType == null || $scope.PensionerType == undefined || $scope.PensionerType == "") {
                 alert("Select PensionerType");
                 $scope.PensionerType = null;
                 return;
             }
+
+            //if ($scope.FinancialYearID == null || $scope.FinancialYearID == undefined || $scope.FinancialYearID == "") {
+            //    alert("Please Select FinancialYear");
+            //    $scope.PensionerType = null;
+            //    return;
+            //}
+
+            //if ($scope.MonthID == null || $scope.MonthID == undefined || $scope.MonthID == "") {
+            //    alert("Select Month");
+            //    $scope.PensionerType = null;
+            //    return;
+            //}
 
             $scope.getEmployeeDetailsbyPensionerID();
             $scope.getEditPensionerAllowance();

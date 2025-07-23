@@ -290,7 +290,7 @@
             let PensionerDeductionID = datatypeid == '2' ? $scope.PensionerDeductionID : "";
             let Active = datatypeid == '2' ? $scope.Active1 : "";
 
-            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.PensionerTypeID1, $scope.FinancialYearID1, $scope.MonthID1,$scope.EmployeeID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
+            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.FinancialYearID1, $scope.MonthID1, $scope.PensionerTypeID1,$scope.EmployeeID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
             addpensionerdeductions.then(function (response) {
                 try {
                     var res = JSON.parse(response);

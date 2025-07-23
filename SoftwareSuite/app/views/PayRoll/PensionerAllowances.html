@@ -69,7 +69,7 @@
                                         <label>
                                             Pensioner Type:
                                         </label>
-                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" 
+                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" ng-change="ChangePensionerType(PensionerType)" 
                                                 ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
                                             <option value="" selected>Select Pensioner Type</option>
                                         </select>

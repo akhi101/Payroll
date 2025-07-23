@@ -1904,9 +1904,9 @@ namespace SoftwareSuite.Controllers.PayRoll
                 var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@PensionerDeductionID", data.PensionerDeductionID);
-                param[2] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
-                param[3] = new SqlParameter("@MonthID", data.MonthID);
-                param[4] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[2] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[3] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[4] = new SqlParameter("@MonthID", data.MonthID);
                 param[5] = new SqlParameter("@PensionerID", data.PensionerID);
                 param[6] = new SqlParameter("@Active", data.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionerDeductions", param);

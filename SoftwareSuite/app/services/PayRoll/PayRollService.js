@@ -1227,13 +1227,13 @@ define(['app'], function (app) {
         };
 
 
-        this.GetorEditPensionerDeductions = function (DataTypeID, PensionerDeductionID, FinancialYearID, MonthID, PensionerTypeID, PensionerID, Active) {
+        this.GetorEditPensionerDeductions = function (DataTypeID, PensionerDeductionID, PensionerTypeID, FinancialYearID, MonthID , PensionerID, Active) {
             var paramObj = {
                 "DataTypeID": DataTypeID,
                 "PensionerDeductionID": PensionerDeductionID,
+                "PensionerTypeID": PensionerTypeID,
                 "FinancialYearID": FinancialYearID,
                 "MonthID": MonthID,
-                "PensionerTypeID": PensionerTypeID,
                 "PensionerID": PensionerID,
                 "Active": Active
             };
