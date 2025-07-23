@@ -10,7 +10,11 @@
             $scope.getPensionerTypes();
         }
 
-       
+        $scope.changePensioner = function (Pensioner) {
+            $scope.EmployeeID1 = Pensioner.EmployeeID;
+            $scope.PensionerID1 = Pensioner.PensionerID;
+            $scope.PensionerName1 = Pensioner.PensionerName;
+        }
 
         $scope.getPensionerTypes = function () {
             var getpensionertypes = PayRollService.GetPensionerTypes();
@@ -33,27 +37,7 @@
                 });
         }
 
-        $scope.getEmployeeDetailsbyPensionerID = function () {
-            var getEmployeedetail = PayRollService.GetEmployeeDetailsbyPensionerID($scope.PensionerType);
-            getEmployeedetail.then(function (res) {
-
-                //$scope.edit = true;
-                var response = JSON.parse(res);
-                if (response.Table.length > 0) {
-                    $scope.EmployeeDetailsData = response.Table;
-                    $scope.Noreports = false;
-                }
-                else {
-                    $scope.EmployeeDetailsData = [];
-                    $scope.Noreports = true;
-                }
-            },
-                function (error) {
-                    alert("error while loading Employees Data");
-                    var err = JSON.parse(error);
-
-                });
-        }
+        
 
         $scope.ChangePensionerType = function () {
 
@@ -66,12 +50,32 @@
 
             var PensionerType = $scope.PensionerType;
 
-            $scope.getEmployeeDetailsbyPensionerID();
+            $scope.getPensionerDetailsbyPensionerTypeID();
             $scope.getEditPensionDetails(1, 0, PensionerType,0);
         }
 
 
+        $scope.getPensionerDetailsbyPensionerTypeID = function () {
+            var getEmployeedetail = PayRollService.GetPensionerDetailsbyPensionerTypeID($scope.PensionerType);
+            getEmployeedetail.then(function (res) {
 
+                //$scope.edit = true;
+                var response = JSON.parse(res);
+                if (response.Table.length > 0) {
+                    $scope.PensionerDetailsData = response.Table;
+                    $scope.Noreports = false;
+                }
+                else {
+                    $scope.PensionerDetailsData = [];
+                    $scope.Noreports = true;
+                }
+            },
+                function (error) {
+                    alert("error while loading Employees Data");
+                    var err = JSON.parse(error);
+
+                });
+        }
 
 
         $scope.getEditPensionDetails = function (DataTypeID, PensionerDetailsID, PensionerTypeID, Active) {
@@ -114,6 +118,12 @@
 
         }
 
+        $scope.changePensioner = function (Pensioner) {
+            $scope.EmployeeID = Pensioner.EmployeeID;
+            $scope.PensionerID = Pensioner.PensionerID;
+            $scope.PensionerName = Pensioner.PensionerName;
+        }
+
         $scope.ADDPensionerDetails = function () {
             var datatypeid = 1
 
@@ -125,8 +135,8 @@
 
 
 
-            if ($scope.Employee == null || $scope.Employee == undefined || $scope.Employee == "") {
-                alert("Select Employee");
+            if ($scope.Pensioner == null || $scope.Pensioner == undefined || $scope.Pensioner == "") {
+                alert("Select Pensioner Name");
                     return;
                 }
             if ($scope.PensionAmount == null || $scope.PensionAmount == undefined || $scope.PensionAmount == "") {
@@ -145,7 +155,7 @@
             }
 
 
-            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.Employee, $scope.PensionAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
+            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.EmployeeID, $scope.PensionerID, $scope.PensionAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
             aDDPensionerDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -200,7 +210,7 @@
             var datatypeid = 2
 
 
-            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
+            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionerID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
             updateDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);

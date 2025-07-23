@@ -1733,8 +1733,8 @@ namespace SoftwareSuite.Controllers.PayRoll
             }
         }
 
-        [HttpPost, ActionName("GetEmployeeDetailsbyPensionerID")]
-        public string GetEmployeeDetailsbyPensionerID([FromBody] JsonObject request)
+        [HttpPost, ActionName("GetPensionerDetailsbyPensionerTypeID")]
+        public string GetPensionerDetailsbyPensionerTypeID([FromBody] JsonObject request)
         {
             try
             {
@@ -1744,7 +1744,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[0] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
 
 
-                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_EmployeesbyPensionerTypeID", param);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PensionersDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
             }
@@ -1826,17 +1826,18 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[10];
+                var param = new SqlParameter[11];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@PensionerDetailsID", request["PensionerDetailsID"]);
                 param[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
                 param[3] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[4] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
-                param[5] = new SqlParameter("@IR", request["IR"]);
-                param[6] = new SqlParameter("@DR", request["DR"]);
-                param[7] = new SqlParameter("@MA", request["MA"]);
-                param[8] = new SqlParameter("@Active", request["Active"]);
-                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                param[4] = new SqlParameter("@PensionerID", request["PensionerID"]);
+                param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
+                param[6] = new SqlParameter("@IR", request["IR"]);
+                param[7] = new SqlParameter("@DR", request["DR"]);
+                param[8] = new SqlParameter("@MA", request["MA"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1947,6 +1948,114 @@ namespace SoftwareSuite.Controllers.PayRoll
 
         }
 
+
+        [HttpGet, ActionName("getPensionPayMonths")]
+        public HttpResponseMessage getPensionPayMonths()
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                string StrQuery = "";
+                StrQuery = "exec SP_Get_GeneratePensionMonths";
+                return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+            }
+            catch (Exception ex)
+            {
+                dbHandler.SaveErorr("SP_Get_GeneratePensionMonths", 0, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        public class MontlyPensionInfo
+        {
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int DataType { get; set; }
+        }
+
+        [HttpPost, ActionName("GenerateMonthlyPension")]
+        public string GenerateMonthlyPension([FromBody] MontlyPensionInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", data.MonthID);
+                param[2] = new SqlParameter("@DataType", data.DataType);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Generate_MonthlyPensions", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpGet, ActionName("GetGeneratePensionExcel")]
+        public string GetGeneratePensionExcel(int DataType, int FinancialYearID, int MonthID)
+        {
+
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlyPensionsData", param);
+                var filename = "GenerateMontlyPension" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpPost, ActionName("GenerateMonthlyPensionData")]
+        public string GenerateMonthlyPensionData([FromBody] MontlyPensionInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", data.MonthID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlyPensionsData", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
 
 
     };

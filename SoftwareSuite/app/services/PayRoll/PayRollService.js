@@ -14,6 +14,10 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/getPayMonths');
         };
 
+        this.getPensionPayMonths = function () {
+            return DataAccessService.getDataAll('api/PayRoll/getPensionPayMonths');
+        };
+
         this.GetAdvanceType = function () {
             return DataAccessService.getDataAll('api/PayRoll/GetAdvanceType');
         };
@@ -1153,12 +1157,12 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetPensionerTypes');
         };
 
-        this.GetEmployeeDetailsbyPensionerID = function (PensionerTypeID) {
+        this.GetPensionerDetailsbyPensionerTypeID = function (PensionerTypeID) {
 
             var paramObj = {
                 "PensionerTypeID": PensionerTypeID
             };
-            var promise = DataAccessService.postData('api/PayRoll/GetEmployeeDetailsbyPensionerID', paramObj);
+            var promise = DataAccessService.postData('api/PayRoll/GetPensionerDetailsbyPensionerTypeID', paramObj);
             return promise;
 
         };
@@ -1197,12 +1201,13 @@ define(['app'], function (app) {
 
       
 
-        this.AddorUpdatePensionDetails = function (DataTypeId, PensionerDetailsID, PensionerTypeID, EmployeeID, PensionAmount, IR, DR,MA ,Active, UserName) {
+        this.AddorUpdatePensionDetails = function (DataTypeId, PensionerDetailsID, PensionerTypeID, EmployeeID, PensionerID, PensionAmount, IR, DR,MA ,Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "PensionerDetailsID": PensionerDetailsID,
                 "PensionerTypeID": PensionerTypeID,
                 "EmployeeID": EmployeeID,
+                "PensionerID": PensionerID,
                 "PensionAmount": PensionAmount,
                 "IR": IR,
                 "DR": DR,
@@ -1258,6 +1263,42 @@ define(['app'], function (app) {
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdatePensionerDeductions', paramObject);
             return promise;
+        };
+
+
+        this.GenerateMonthlyPension = function (FinancialYearID, MonthID, DataType) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "DataType": DataType
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GenerateMonthlyPension', paramObj);
+            return promise;
+        };
+
+        this.GetGeneratePensionExcel = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetGeneratePensionExcel', paramObj);
+            return promise;
+
+        };
+
+        this.GenerateMonthlyPensionData = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GenerateMonthlyPensionData', paramObj);
+            return promise;
+
         };
 
     });
