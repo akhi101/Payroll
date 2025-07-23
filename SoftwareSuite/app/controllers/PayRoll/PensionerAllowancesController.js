@@ -77,48 +77,17 @@
                 });
         }
 
-        $scope.getEmployeeDetailsbyPensionerID= function () {
-            var getemployeedetail = PayRollService.GetEmployeeDetailsbyPensionerID($scope.PensionerType);
-            getemployeedetail.then(function (res) {
+        
 
-                //$scope.edit = true;
-                var response = JSON.parse(res);
-                if (response.Table.length > 0) {
-                    $scope.EmployeeDetailsData = response.Table;
-                    $scope.Noreports = false;
-                }
-                else {
-                    $scope.EmployeeDetailsData = [];
-                    $scope.Noreports = true;
-                }
-            },
-                function (error) {
-                    alert("error while loading Employees Data");
-                    var err = JSON.parse(error);
+        $scope.ChangePensionerType = function () {
 
-                });
-        }
 
-        $scope.ChangeMonth = function () {
-
-            if ($scope.FinancialYearID == null || $scope.FinancialYearID == undefined || $scope.FinancialYearID == "") {
-                alert("Please Select FinancialYear");
-                $scope.PensionerType = null;
-                return;
-            }
-
-            if ($scope.MonthID == null || $scope.MonthID == undefined || $scope.MonthID == "") {
-                alert("Select Month");
-                $scope.PensionerType = null;
-                return;
-            }
             if ($scope.PensionerType == null || $scope.PensionerType == undefined || $scope.PensionerType == "") {
                 alert("Select PensionerType");
                 $scope.PensionerType = null;
                 return;
             }
 
-            $scope.getEmployeeDetailsbyPensionerID();
             $scope.getEditPensionerAllowance();
         }
 

@@ -84,8 +84,8 @@
                                             Pensioner Name :
                                         </label>
 
-                                        <select class="form-control" ng-model="Employee"
-                                                ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                        <select class="form-control" ng-model="Pensioner" ng-change="changePensioner(Pensioner)"
+                                                ng-options="data as data.PensionerName for data in PensionerDetailsData">
                                             <option value="" selected>Select Pensioner Name</option>
                                         </select>
 
@@ -190,7 +190,7 @@
                                 </div>
                             </td>-->
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerType" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.EmployeeName" /></div></td>
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerName" /></div></td>
 
 
 

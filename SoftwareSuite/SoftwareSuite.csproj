@@ -569,6 +569,7 @@
     <Content Include="app\services\MenuService.js" />
     <Content Include="app\services\routeResolver.js" />
     <Content Include="app\views\ChangePassword.html" />
+    <Content Include="app\views\PayRoll\Popups\RegeneratePensionConfirmationPopup.html" />
     <Content Include="app\views\PayRoll\Popups\RegenerateConfirmationPopup.html" />
     <Content Include="app\views\PayRoll\SalaryDeductions.html" />
     <Content Include="app\views\SBPFooter.html" />

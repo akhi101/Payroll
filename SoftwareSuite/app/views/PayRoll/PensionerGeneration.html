@@ -119,7 +119,7 @@
                 <div class="col-md-12" ng-if="GetAllGeneratedMontlypension.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
-                           id="ExportToExcel1" ng-click="getGenerateExcel('#tblParent')">
+                           id="ExportToExcel1" ng-click="getGeneratePensionExcel('#tblParent')">
                             <i class="fa fa-file-excel-o"></i>
                             Export to Excel
                         </a>
@@ -130,27 +130,31 @@
                         <thead>
                             <tr class="cb-1">
                                 <th>S.No</th>
-                                <th class="text-center">Employee Code</th>
-                                <th class="text-center">Employee Name</th>
-                                <th class="text-center">Designation Name</th>
-                                <th class="text-center">Gross Total</th>
-                                <th class="text-center">Total Deductions</th>
-                                <th class="text-center">Net Salary</th>
+                                <th class="text-center">Pensioner Code</th>
+                                <th class="text-center">Pensioner Name</th>
+                                <th class="text-center">Nominee Name</th>
+                                <th class="text-center">Pension Amount</th>
+                                <th class="text-center">DR</th>
+                                <th class="text-center">IR</th>
+                                <th class="text-center">MA</th>
+                                <!--<th class="text-center">Recovery / TDS</th>
+                                <th class="text-center">CMRF</th>-->
+                                <th class="text-center">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in GetAllGeneratedMontlypension">
                                 <td class="text-center pointer">{{$index+1}}</td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GrossTotal" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalDeductions" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
-
-
-                                
-
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionerCode" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionerName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NomineeName" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DR" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
+                                <!--<td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Recovery_TDS" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CMRFAmount" /></div></td>-->
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetTotal" /></div></td>
                             </tr>
 
                         </tbody>
@@ -223,7 +227,7 @@
                                 <th class="text-center">Designation</th>
                                 <th class="text-center">Gross Total</th>
                                 <th class="text-center">Total Deductions</th>
-                                <th class="text-center">Net Salary</th>
+                                <th class="text-center">Net Pension</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -234,7 +238,7 @@
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DesignationName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GrossTotal" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalDeductions" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
+                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetPension" /></div></td>
 
 
 

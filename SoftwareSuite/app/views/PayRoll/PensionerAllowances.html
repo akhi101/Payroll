@@ -69,7 +69,7 @@
                                         <label>
                                             Pensioner Type:
                                         </label>
-                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" 
+                                        <select class="form-control" id="Pensionerid" ng-model="PensionerType" ng-change="ChangePensionerType(PensionerType)" 
                                                 ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
                                             <option value="" selected>Select Pensioner Type</option>
                                         </select>
@@ -175,7 +175,7 @@
 
                                 </div>
                             </td>
-                            <td class="text-center pointer">
+                            <!--<td class="text-center pointer">
                                 <div>
                                     <select class="form-control tableinpt enabletable{{$index + 1}}" id="Pensionerid" ng-model="data.PensionerTypeID" disabled
                                             ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
@@ -183,7 +183,8 @@
                                     </select>
 
                                 </div>
-                            </td>
+                            </td>-->
+                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionerType" disabled /></div></td>
 
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.DR" /></div></td>
                             <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
