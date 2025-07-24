@@ -19,7 +19,7 @@
             $scope.UserName = authData.UserName;
 
             //$scope.IncrementMonth = null;
-            //$scope.GetEmployeeDetails()
+            $scope.GetEmployeeDetails()
             $scope.GetorEditFamilyPensionerDetails(1)
             $scope.GetorEditServicePensionerDetails(1)
 
@@ -77,30 +77,30 @@
                 });
         }
 
-        //$scope.GetEmployeeDetails = function () { 
-        //var DataTypeID = 4
-        //    var getdesign = PayRollService.GetServicePensioners(DataTypeID, 0, 0, 0, 0);
-        //getdesign.then(function (response) {
-        //    //try {
-        //    //    var res = JSON.parse(response);
-        //    //}
-        //    //catch (err) { }
-        //    //$scope.edit = true;
-        //    if (response.Table.length > 0) {
-        //        $scope.EmployeeDetailsData = response.Table;
-        //        $scope.Noreports = false;
-        //    }
-        //    else {
-        //        $scope.EmployeeDetailsData = [];
-        //        $scope.Noreports = true;
-        //    }
-        //},
-        //    function (error) {
-        //        alert("error while loading Employee Details");
-        //        var err = JSON.parse(error);
+        $scope.GetEmployeeDetails = function () { 
+        
+            var getdesign = PayRollService.GetServicePensioners();
+        getdesign.then(function (response) {
+            //try {
+            //    var res = JSON.parse(response);
+            //}
+            //catch (err) { }
+            //$scope.edit = true;
+            if (response.Table.length > 0) {
+                $scope.EmployeeDetailsData = response.Table;
+                $scope.Noreports = false;
+            }
+            else {
+                $scope.EmployeeDetailsData = [];
+                $scope.Noreports = true;
+            }
+        },
+            function (error) {
+                alert("error while loading Employee Details");
+                var err = JSON.parse(error);
 
-        //    });
-        //}
+            });
+        }
 
         $scope.ChangeAdvEmpData = function (data) {
             var data = JSON.parse(data)

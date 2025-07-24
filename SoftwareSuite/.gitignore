@@ -1,0 +1,29 @@
+# === Ignore Visual Studio ===
+.vs/
+*.user
+*.suo
+
+# === Ignore Build Artifacts ===
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+*.obj
+
+# === Ignore Debug/Release folders ===
+Debug/
+Release/
+
+# === Ignore NuGet Packages ===
+packages/
+*.nupkg
+
+# === Ignore Log and Temp files ===
+*.log
+*.tmp
+*.bak
+*.swp
+
+# === Ignore Publish Folder (Optional) ===
+publish/
