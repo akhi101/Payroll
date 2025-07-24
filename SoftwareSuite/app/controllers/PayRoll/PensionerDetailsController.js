@@ -12,7 +12,7 @@
             $scope.FamilyAddDetails = '1';
             $scope.FamilyUpdateDetails = '0';
            // $scope.ServiceAddDetails = '1';
-            $scope.ServiceUpdateDetails ='0'
+            $scope.ServiceUpdateDetails = '0';
             //$scope.getEmployeeDetailsData();
             $scope.showaddmonth = true;
             var authData = $localStorage.authorizationData;
@@ -78,8 +78,8 @@
         }
 
         $scope.GetEmployeeDetails = function () { 
-        
-            var getdesign = PayRollService.GetServicePensioners();
+        var DataTypeID = 4
+            var getdesign = PayRollService.GetServicePensioners(DataTypeID, 0, 0, 0, 0);
         getdesign.then(function (response) {
             //try {
             //    var res = JSON.parse(response);
@@ -340,50 +340,50 @@
         };
 
 
-        $scope.ChangeNPS = function (CPS_NPS) {
-            var DataTypeID = 5
-            var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, $scope.CPS_NPS, 0);
-            getdesign.then(function (response) {
+        //$scope.ChangeNPS = function (CPS_NPS) {
+        //    var DataTypeID = 5
+        //    var getdesign = PayRollService.GetEmployeeDetailsData(DataTypeID, 0, $scope.DepartmentID, $scope.CPS_NPS, 0);
+        //    getdesign.then(function (response) {
 
-                try {
-                    var res = JSON.parse(response);
-                }
-                catch (err) { }
+        //        try {
+        //            var res = JSON.parse(response);
+        //        }
+        //        catch (err) { }
 
-                //$scope.edit = true;
-                if (res.Table.length > 0) {
-                    $scope.PensionerDetailsData = res.Table;
-                    $scope.Noreports = false;
-
-
-
-                }
-                else {
-                    $scope.PensionerDetailsData = [];
-                    $scope.Noreports = true;
-                }
+        //        //$scope.edit = true;
+        //        if (res.Table.length > 0) {
+        //            $scope.PensionerDetailsData = res.Table;
+        //            $scope.Noreports = false;
 
 
-            },
 
-                function (error) {
-                    alert("error while loading Employee Details");
-                    var err = JSON.parse(error);
-
-                });
-            if (CPS_NPS == "Y") {
-                $scope.showprannumber = true;
-                /* $scope.showtsglinumber = true;*/
-                $scope.showgpfnumber = false;
+        //        }
+        //        else {
+        //            $scope.PensionerDetailsData = [];
+        //            $scope.Noreports = true;
+        //        }
 
 
-            }
-            else if (CPS_NPS == "N") {
-                $scope.showprannumber = false;
-                $scope.showgpfnumber = true;
-                /*  $scope.showtsglinumber = true;*/
-            }
-        }
+        //    },
+
+        //        function (error) {
+        //            alert("error while loading Employee Details");
+        //            var err = JSON.parse(error);
+
+        //        });
+        //    if (CPS_NPS == "Y") {
+        //        $scope.showprannumber = true;
+        //        /* $scope.showtsglinumber = true;*/
+        //        $scope.showgpfnumber = false;
+
+
+        //    }
+        //    else if (CPS_NPS == "N") {
+        //        $scope.showprannumber = false;
+        //        $scope.showgpfnumber = true;
+        //        /*  $scope.showtsglinumber = true;*/
+        //    }
+        //}
 
         var getmon = PayRollService.GetMonths();
         getmon.then(function (res) {

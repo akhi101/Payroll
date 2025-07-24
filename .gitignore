@@ -25,5 +25,5 @@ packages/
 *.bak
 *.swp
 
-# === Ignore Publish Folder (Optional) ===
-publish/
+/.vs/SoftwareSuite
+/.gitignore

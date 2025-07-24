@@ -100,22 +100,22 @@
                 return;
             }
 
-            $scope.getEmployeeDetailsbyPensionerID();
+            $scope.getPensionerDetailsbyPensionerTypeID();
             $scope.getPensionerDeductions(1);
         }
 
-        $scope.getEmployeeDetailsbyPensionerID = function () {
-            var getEmployeedetail = PayRollService.GetEmployeeDetailsbyPensionerID($scope.PensionerTypeID1);
+        $scope.getPensionerDetailsbyPensionerTypeID = function () {
+            var getEmployeedetail = PayRollService.GetPensionerDetailsbyPensionerTypeID($scope.PensionerTypeID1);
             getEmployeedetail.then(function (res) {
 
                 //$scope.edit = true;
                 var response = JSON.parse(res);
                 if (response.Table.length > 0) {
-                    $scope.EmployeeDetailsData = response.Table;
+                    $scope.PensionerDetailsData = response.Table;
                     $scope.Noreports = false;
                 }
                 else {
-                    $scope.EmployeeDetailsData = [];
+                    $scope.PensionerDetailsData = [];
                     $scope.Noreports = true;
                 }
             },
@@ -164,7 +164,7 @@
                 });
         }
 
-        $scope.EditPensionerDeductions = function (PensionerDeductionID, FinancialYearID, MonthID, PensionerTypeID) {
+        $scope.EditPensionerDeductions = function (PensionerDeductionID, PensionerTypeID,FinancialYearID, MonthID ) {
 
             
             window.scroll({
@@ -197,18 +197,25 @@
                     $scope.PensionerDeductionID = res.Table[0].PensionerDeductionID;
                     $scope.PensionerTypeID1 = res.Table[0].PensionerTypeID;
                     $scope.PensionerType = res.Table[0].PensionerTypeName;
+                    $scope.PensionerID1 = res.Table[0].PensionerID;
+                    $scope.PensionerName1 = res.Table[0].PensionerName;
                     $scope.FinancialYearID1 = res.Table[0].FinancialYearID;
                     $scope.FinancialYear = res.Table[0].FinancialYear;
                     $scope.MonthID1 = res.Table[0].MonthID;
                     $scope.Months = res.Table[0].Months;
-                    $scope.EmployeeID1 = res.Table[0].PensionerID;
-                    //$scope.EmployeeID = res.Table[0].EmployeeID;
+                    $scope.EmployeeID1 = res.Table[0].EmployeeID;
                     $scope.EmployeeName = res.Table[0].EmployeeName;
                     $scope.CMRFAmount1 = res.Table[0].CMRFAmount;
                     $scope.RecoveryAmount1 = res.Table[0].Recovery_TDS;
                     $scope.Active1 = res.Table[0].Active;
                     $scope.AccountNumber1 = res.Table[0].AccountNumber;
                     $scope.IFSCCode1 = res.Table[0].IFSCCode;
+
+
+                    // ✅ Fix: Set Pensioner object for dropdown selection
+                    $scope.Pensioner = $scope.PensionerDetailsData.find(function (item) {
+                        return item.PensionerID === res.Table[0].PensionerID;
+                    });
 
                     $scope.AddDetails = '0';
                     $scope.UpdateDetails = '1';
@@ -246,12 +253,21 @@
         $scope.ClearData = function () {
 
             //$scope.PensionerType1 = null;
-            $scope.EmployeeID1 = null;
+            $scope.Pensioner = null;
             $scope.CMRFAmount1 = "";
             $scope.RecoveryAmount1 = "";
-            
 
+            $scope.editdisable = false;
+            $scope.disablePensioner = false;
+            $scope.disableActive = false;
+            $scope.AddDetails = '1';
+            $scope.UpdateDetails = '0';
+        }
 
+        $scope.changePensioner = function (Pensioner) {
+            $scope.EmployeeID1 = Pensioner.EmployeeID;
+            $scope.PensionerID1 = Pensioner.PensionerID;
+            $scope.PensionerName1 = Pensioner.PensionerName;
         }
 
         $scope.addorupdatePensionerDeductions = function (datatypeid) {
@@ -273,8 +289,8 @@
                 return;
             }
  
-            if ($scope.EmployeeID1 == null || $scope.EmployeeID1 == undefined || $scope.EmployeeID1 == "") {
-                alert("Select Employee");
+            if ($scope.Pensioner == null || $scope.Pensioner == undefined || $scope.Pensioner == "") {
+                alert("Select Pensioner Name");
                 return;
             }
             if ($scope.CMRFAmount1 == null || $scope.CMRFAmount1 == undefined || $scope.CMRFAmount1 == "") {
@@ -290,7 +306,7 @@
             let PensionerDeductionID = datatypeid == '2' ? $scope.PensionerDeductionID : "";
             let Active = datatypeid == '2' ? $scope.Active1 : "";
 
-            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.PensionerTypeID1, $scope.FinancialYearID1, $scope.MonthID1,$scope.EmployeeID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
+            var addpensionerdeductions = PayRollService.AddorUpdatePensionerDeductions(datatypeid, PensionerDeductionID, $scope.FinancialYearID1, $scope.MonthID1, $scope.PensionerTypeID1,$scope.PensionerID1, $scope.EmployeeID1, $scope.CMRFAmount1, $scope.RecoveryAmount1, Active, $scope.UserName)
             addpensionerdeductions.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -300,12 +316,14 @@
                     $scope.ClearData();
                     $scope.editdisable = false;
                     $scope.getPensionerDeductions(1);
+                    $scope.ClearData();
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.editdisable = false;
                     $scope.getPensionerDeductions(1);
+                    $scope.ClearData();
 
                 } else {
                     $scope.editdisable = false;

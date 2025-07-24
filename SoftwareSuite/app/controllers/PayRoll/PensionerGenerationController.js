@@ -158,7 +158,7 @@
 
                     $scope.AlertMsge = res.Table[0].ResponseDescription;
                     $scope.modalInstance = $uibModal.open({
-                        templateUrl: "/app/views/PayRoll/Popups/RegenerateConfirmationPopup.html",
+                        templateUrl: "/app/views/PayRoll/Popups/RegeneratePensionConfirmationPopup.html",
                         size: 'xlg',
                         scope: $scope,
                         windowClass: 'modal-fit-att',
@@ -172,7 +172,7 @@
                 }
                 else if (res.Table[0].ResponseCode == '400') {
                     //alert(res.Table[0].ResponseDescription);
-                    alert('Please Generate MonthlyDays to Generate Monthly Salary')
+                    alert('Please Generate MonthlyDays to Generate Monthly Pension')
                     //$scope.GeneratedData = res1;
                 }
                 else if (res.Table1[0].ResponseCode == '200') {
@@ -224,9 +224,9 @@
 
 
 
-        $scope.getGenerateExcel = function () {
+        $scope.getGeneratePensionExcel = function () {
             $scope.loading = true;
-            var ReportExcel = PayRollService.GetGenerateExcel(2, $scope.FinancialYearID1, $scope.MonthID1);
+            var ReportExcel = PayRollService.GetGeneratePensionExcel(2, $scope.FinancialYearID1, $scope.MonthID1);
             ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {

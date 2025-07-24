@@ -104,8 +104,8 @@
                                         Pensioner Name :
                                     </label>
 
-                                    <select class="form-control" ng-model="EmployeeID1" ng-disabled="disablePensioner"
-                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
+                                    <select class="form-control" ng-model="Pensioner" ng-disabled="disablePensioner" ng-change="changePensioner(Pensioner)"
+                                            ng-options="data as data.PensionerName for data in PensionerDetailsData">
                                         <option value="" selected>Select Pensioner Name</option>
                                     </select>
 
@@ -174,7 +174,7 @@
                             <td class="text-center">{{data.PensionerType}}</td>
                             <td class="text-center">{{data.FinancialYear}}</td>
                             <td class="text-center">{{data.Months}}</td>
-                            <td class="text-center">{{data.EmployeeName}}</td>
+                            <td class="text-center">{{data.PensionerName}}</td>
                             <td class="text-center">{{data.CMRFAmount}}</td>
                             <td class="text-center">{{data.Recovery_TDS}}</td>
 
