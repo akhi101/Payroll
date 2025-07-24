@@ -2058,5 +2058,94 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
+        [HttpPost, ActionName("PublishMonthlyPensionData")]
+        public string PublishMonthlyPensionData([FromBody] MontlySalaryInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", data.DataType);
+                param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", data.MonthID);
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PublishedMonthlyPensionsData", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+            }
+        }
+
+
+
+        [HttpPost, ActionName("PublishMonthlyPension")]
+        public string PublishMonthlyPension([FromBody] MontlySalaryInfo data)
+        {
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", data.MonthID);
+
+
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Publish_MonthlyPensions", param);
+                return JsonConvert.SerializeObject(dt);
+
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+
+
+            }
+        }
+
+
+        [HttpGet, ActionName("GetPublishedPensionExcel")]
+        public string GetPublishedPensionExcel(int DataType, int FinancialYearID, int MonthID)
+        {
+
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[3];
+                param[0] = new SqlParameter("@DataType", DataType);
+                param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PublishedMonthlyPensionsData", param);
+                var filename = "MontlyPensions" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
     };
 };

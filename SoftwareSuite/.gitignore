@@ -1,4 +1,4 @@
-﻿# === Ignore Visual Studio ===
+# === Ignore Visual Studio ===
 .vs/
 *.user
 *.suo
