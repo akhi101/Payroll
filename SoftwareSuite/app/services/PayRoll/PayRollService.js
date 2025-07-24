@@ -1301,5 +1301,41 @@ define(['app'], function (app) {
 
         };
 
+        this.PublishMonthlyPensionData = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/PublishMonthlyPensionData', paramObj);
+            return promise;
+
+        };
+
+        this.PublishMonthlyPension = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+
+
+            };
+            var promise = DataAccessService.postData('api/PayRoll/PublishMonthlyPension', paramObj);
+            return promise;
+
+        };
+
+        this.GetPublishedPensionExcel = function (DataType, FinancialYearID, MonthID) {
+            var paramObj = {
+                "DataType": DataType,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+
+            };
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetPublishedPensionExcel', paramObj);
+            return promise;
+
+        };
+
     });
 });

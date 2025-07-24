@@ -360,9 +360,9 @@
         }
 
 
-        $scope.getPublishedExcel = function () {
+        $scope.getPublishedPensionExcel = function () {
             $scope.loading = true;
-            var ReportExcel = PayRollService.GetPublishedExcel(2, $scope.FinancialYearID2, $scope.MonthID2);
+            var ReportExcel = PayRollService.GetPublishedPensionExcel(2, $scope.FinancialYearID2, $scope.MonthID2);
             ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
