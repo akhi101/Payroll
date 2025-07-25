@@ -7,7 +7,7 @@
 
             //$scope.GetMonths();
             $scope.getMonths();
-            $scope.GetPayrollMonths()
+            $scope.GetPensionPayrollMonths()
         }
 
 
@@ -94,8 +94,8 @@
 
 
 
-        $scope.GetPayrollMonths = function () {
-            var getmonths = PayRollService.getPayMonths();
+        $scope.GetPensionPayrollMonths = function () {
+            var getmonths = PayRollService.getPensionPayMonths();
             getmonths.then(function (response) {
 
                 //$scope.edit = true;
@@ -246,14 +246,15 @@
         };
 
 
-        $scope.GetPensionPayslipReports = function () {
+        $scope.getPensionGeneratedReports = function () {
             $scope.loading = true;
-            var ReportExcel = PayRollService.GetPensionPayslipReports($scope.FinancialYearID4, $scope.MonthID4);
+            var ReportExcel = PayRollService.GetPensionGeneratedReports($scope.FinancialYearID4, $scope.MonthID4);
             ReportExcel.then(function (res) {
                 $scope.loading = false;
                 if (res.length > 0) {
                     if (res.length > 4) {
                         window.location.href = res;
+                        $scope.loading = false;
                     } else {
                         alert("No  Excel Report Present")
                     }
@@ -386,14 +387,16 @@
             // if (PaymentStudent != [] && PaymentStudent != '') {
             $scope.btndisable = true;
             var ApproveStatus = 1;
+            $scope.loading = true;
 
 
             //  $scope.buttonlabel = "Signing in process ...";
-            var GetInterimCertificateTobeSignedlocation = PayRollService.GetPaySlip($scope.FinancialYearID3, $scope.MonthID3)
+            var GetInterimCertificateTobeSignedlocation = PayRollService.GetPensionPaySlip($scope.FinancialYearID3, $scope.MonthID3)
             GetInterimCertificateTobeSignedlocation.then(function (response) {
                 var url = window.location.origin + '/Reports/' + response + '.pdf';
                 console.log(url)
                 download(url, 'Payslip' + '.pdf');
+                $scope.loading = false;
                 //var pdf = response[0].PdfUrl
                 //    var location = window.location.origin;
                 //    if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {

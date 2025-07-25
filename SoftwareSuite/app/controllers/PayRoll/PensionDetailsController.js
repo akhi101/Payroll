@@ -140,10 +140,13 @@
                     return;
                 }
             if ($scope.PensionAmount == null || $scope.PensionAmount == undefined || $scope.PensionAmount == "") {
-                alert("Enter PensionAmount");
+                alert("Enter Pension Amount");
                 return;
             }
-
+            if ($scope.CommutationAmount == null || $scope.CommutationAmount == undefined || $scope.CommutationAmount == "") {
+                alert("Enter Commutation Amount");
+                return;
+            }
             if ($scope.IR == null || $scope.IR == undefined || $scope.IR == "") {
                 alert("Enter IR");
                 return;
@@ -155,7 +158,7 @@
             }
 
 
-            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.EmployeeID, $scope.PensionerID, $scope.PensionAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
+            var aDDPensionerDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, 0, $scope.PensionerType, $scope.EmployeeID, $scope.PensionerID, $scope.PensionAmount,$scope.CommutationAmount, $scope.IR, $scope.DR, $scope.MA, 1, $scope.UserName)
             aDDPensionerDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -210,7 +213,7 @@
             var datatypeid = 2
 
 
-            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID,data.PensionerID,data.PensionAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
+            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID, data.PensionerID, data.PensionAmount, data.CommutationAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
             updateDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);

@@ -53,6 +53,33 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
 
+        public class PensionerData
+        {
+            public string MonthYear { get; set; }
+            public int PensionerID { get; set; }
+            public string PensionerCode { get; set; }
+            public string PensionerName { get; set; }
+            public string PensionerType { get; set; }
+            public string Department { get; set; }
+            public string BankAcNo { get; set; }
+            public string PanNo { get; set; }
+            public double PensionAmount { get; set; }
+            public double CommutationAmount { get; set; }
+            public double BasicPension { get; set; }
+            public double DR { get; set; }
+            public double IR { get; set; }
+            public double MA { get; set; }
+            public double AdditionalQuantum { get; set; }
+            public double OtherAmount { get; set; }
+            public double Recovery_TDS { get; set; }
+            public double CMRF { get; set; }
+            public double TotalDeductions { get; set; }
+            public double Gross { get; set; }
+            public double NetTotal { get; set; }
+
+        }
+
+
         public class InterimData
         {
             public string InterimCertificateNo { get; set; }
@@ -3004,6 +3031,497 @@ page-break-after :always
             doc.Save(path);
             doc.Close();
              pgno++;
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+            return relativePath;
+
+
+
+            //return dir_id;
+        }
+
+
+
+
+        public string GetPensionPaySlip(DataSet PensionerDat, string dirid)
+        {
+            List<PensionerData> PensionData = PensionerDat.Tables[0].DataTableToList<PensionerData>().ToList(); ;
+            var PensionerData = DataTableHelper.ConvertDataTable<PensionerData>(PensionerDat.Tables[0]).ToArray();
+            var path = string.Empty;
+            string html = @"<html>"
+                   + "<head>"
+                   + $"<title></title>"
+                   + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+                   + @"<style type='text/css'>
+                         html{
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                        }
+                        body {
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                            m0argin-left: 10px;
+                        }
+                        table {  
+                            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+                            width: 100%; 
+                            //border-collapse: collapse;
+                            border-spacing: 0; 
+                        }
+
+                     
+
+                        th {  
+                            font-weight: bold; /* Make sure they're bold */
+                        }
+
+                      
+
+                      .logoImg {
+                                height: 70px !important;
+                                width: 70px !important;
+                            }
+
+                    .myHr {
+                                border-top: 1px solid #000;
+                            }
+
+                            .header-top-section {
+                                display: none;
+                            }
+
+                            .border_btm {
+                                border-bottom: 1px solid #000;
+                                text-transform: uppercase;
+                            }
+
+                            .text-uppercase {
+                                text-transform: uppercase;
+                            }
+
+                            p {
+                                text-indent: 50px;
+padding :6px
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+
+                            .marginData {
+                                margin: 0px 20px;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .print_btn {
+                                display: none;
+                            }
+
+                            .spacer {
+                                display: none;
+                            }
+
+                            .text-intend {
+                                text-indent: 50px;
+                                line-height: 2.0;
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+
+                            .Line {
+                                line-height: normal;
+                            }
+                             .sm-spacer{
+                                     height:20px;
+                                 }
+
+                            .a {
+                                margin: 25px;
+                            }
+
+                            canvas.sa-canvas {
+                                border: none;
+                            }
+
+                            .interim-spacer {
+                                display: none;
+                            }
+
+                            .myImg {
+                                width: 70% !important;
+                                padding:120px;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                                display: block!important;
+                                opacity:0.3;
+                            }
+
+                            .myData {
+                                position: absolute;
+                            }
+                        .table > thead > tr > th {
+						
+							border: 1px solid #000000 !important;
+                            border: 1px solid #000000 !important;
+						}
+
+                            .container img {
+                                vertical-align: middle;
+                            }
+
+                            .container .content {
+                                position: absolute!important;
+                                top: 0!important;
+                                background: rgb(0, 0, 0)!important;
+                                background: rgba(255, 255, 255, 0.36)!important;
+                                color: #130404!important;
+                                width: 100%!important;
+                                padding: 20px!important;
+                            }
+                               .container{
+                                position: relative;
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                                .table td, .table th {
+                                background-color: transparent!important;
+                            }
+                            .myrow{
+                                position:relative!important;
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+                            .image{
+                                 background: url(../../../contents/img/big-logo.png) repeat;
+                               /*  height: 500px;  You must set a specified height */
+                                  background-position: center; /* Center the image */
+                                  background-repeat: no-repeat; /* Do not repeat the image */
+                                  /* Resize the background image to cover the entire container */
+                                  position:relative;
+                            }
+                           .myImg {
+                              width: 60%;
+                             padding:120px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                            opacity:0.3;
+                            z-index:1000;
+                        }
+                           .myData{
+                               position:absolute;
+                           }
+                    .container{
+                            position: relative;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                    .container img {
+                        vertical-align: middle;
+                    }
+
+                    .container .content {
+                       position: absolute;
+                       bottom: 0;
+                       background: rgb(0, 0, 0);
+                       background: rgba(233, 235, 239, 0.36);
+                       color: #130404;
+                       width: 100%;
+                       padding: 20px;
+                    }
+                      .less_pad{
+padding:1px!important;
+}
+  .logo_css {
+                height: 85px;
+                width: 85px;
+                border-radius: 50%;
+            }
+
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                border-bottom-width: 2px;
+                padding: 5px;
+                border: 0px !important;
+padding: 3px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+  border: 0px !important;
+padding: 5px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+                border:1px solid #000!important;
+                background-color: #eaf5ff !important;
+    padding: 3px;
+    font-size: 13px;
+            }
+  tr.border {
+                border: 1px solid #000;
+            }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border: 1px solid #000!important;
+}.table>thead>tr>th {
+   border: 0px!important;
+}
+.border-left{
+border-left:2px solid #fff!important;
+}
+td.border {
+    border: 1px solid #150c0c !important;
+}
+          .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+padding: 3px;
+        font-size: 13px;
+    }
+hr{
+        margin: 10px 0px!important;
+    }
+
+.container{
+padding:0px;
+}
+       @media print {
+         .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px!important;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+font-size:13px!important;
+    }
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        font-size: 13px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+    }
+ hr{
+        margin: 10px 0px!important;
+    }
+.my_margin{
+margin :0px 0px;
+}
+}
+.my_margin{
+margin :0px 0px;
+}
+ .linebreak{
+padding - bottom:50px;
+display:block;
+position: relative;}
+.header{
+page-break-before :always
+}
+.footer{
+page-break-after :always
+}
+
+                        </style> "
+                   + "</head><body>";
+            var page = string.Empty;
+            var pgno = 1;
+            string sbString = html;
+
+
+            page += $@" <div class='container linebreak'>
+                            <div class='header'>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/telangana-logo-png.png' class='img-responsive logoImg pull-left' />
+                                    </div>
+                                </div>
+
+                                <div class='col-md-8 title'>
+                                    <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
+                                  <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
+                                    <h5 class='text-center' style='font-size: 16px!important;'>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
+                                    </h5>
+                                   
+                                </div>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' class='img-responsive logoImg pull-right' />
+                                    </div>
+                                </div>
+                            </div>
+<div class='col-md-12'><h4 class='text-center my_margin'><b>PAYSLIP FOR THE MONTH OF {PensionerData[0].MonthYear}</b></h4>  </div>
+<hr>
+                    ";
+
+
+
+            //#endregion
+
+            #region PageContent
+            page += $@"<div class='container body-text margin-bottom'>        
+                
+                    <table class='table  table-responsive'>
+                        <thead> 
+                            <tr>
+                                <td>Pensioner Code</td>
+                                <td>: {PensionerData[0].PensionerCode ?? "-"}</td>
+                                <td>Bank ACC No</td>
+                                <td>: {PensionerData[0].BankAcNo}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <th>: {PensionerData[0].PensionerName ?? "-"}</th>
+                                <td>PAN No</td>
+                                <td>: {PensionerData[0].PanNo}</td>
+                            </tr>
+                            <tr>
+                                <td>Pensioner Type</td>
+                                <td>: {PensionerData[0].PensionerType ?? "-"}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                          
+                        </tbody>
+                    </table>
+            </div>
+            <div class=''>
+                <table class='table table-bordered table-responsive'>
+                    <thead>
+                        <tr>
+                            <th class='border'>PAY & ALLOWANCES</th>
+                            <th class='border'>DEDUCTIONS</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='border'>
+                            <td class='border'><span>PENSION AMOUNT :</span>
+                                <span class='pull-right'>{PensionerData[0].PensionAmount}</span>
+                            </td>
+                            <td class='border'><span>RECOVERY / TDS :</span>
+                                <span class='pull-right'>{PensionerData[0].Recovery_TDS}</span>
+                            </td>
+                           
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>COMMUTATION AMOUNT :</span>
+                                <span class='pull-right'>{PensionerData[0].CommutationAmount}</span>
+                            </td>
+                            <td class='border'><span>CMRF :</span>
+                                <span class='pull-right'> {PensionerData[0].CMRF}</span>
+                            </td>
+                           
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>BASIC PENSION :</span>
+                                <span class='pull-right'>{PensionerData[0].BasicPension}</span>
+                            </td>
+                            <td class='border'></td>
+                            
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>DR :</span>
+                                <span class='pull-right'>{PensionerData[0].DR}</span>
+                            </td>
+                            <td class='border'></td>
+                            
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'><span>IR :</span>
+                                <span class='pull-right'>{PensionerData[0].IR}</span>
+                            </td>
+                            <td class='border'></td>                        
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> <span>MEDICAL ALLOWANCE:</span>
+                                <span class='pull-right'>{PensionerData[0].MA}</span></td>
+                            </td>
+                           <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> <span>ADDITIONAL QUANTUM :</span>
+                                <span class='pull-right'>{PensionerData[0].AdditionalQuantum}</span></td>
+                           <td class='border'></td>
+                        </tr>
+                        <tr class='border'>
+                            <td class='border'> <span>OTHER AMOUNT :</span>
+                                <span class='pull-right'>{PensionerData[0].OtherAmount}</span></td>
+                           <td class='border'></td>
+                        </tr>
+                        <tr>
+                            <td>NET TOTAL :</td>
+                            <td>{PensionerData[0].NetTotal}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class=''>
+                  <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
+                  <div class='col-md-9'>
+                  <div>DR.@26.39%</div>
+                  <div>IR.@5%</div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='text-center'>Sd/</div>
+                    <div class='text-center'>Secretary</div>
+                    </div>
+            </div>
+<hr>
+<div class='footer'>This is a system generated payslip, Signature is not required.</div>
+</div>";
+
+            #endregion
+
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            var doc = converter.ConvertHtmlString(sbString);
+            path = dirid + $"\\{pgno.ToString().PadLeft(6, '0')}" + DateTime.Now.ToString("HHmmss") + ".pdf";
+            doc.Save(path);
+            doc.Close();
+            pgno++;
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
 

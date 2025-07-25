@@ -119,6 +119,8 @@
             },
 
 
+            //Pensioners Routes
+
             'Dashboard.Pensioners': {
                 url: "/Pensioners",
                 templateUrl: 'app/views/PayRoll/Pensioners.html',
@@ -137,11 +139,11 @@
                 dependencies: ['controllers/PayRoll/PensionerAllowancesController', 'services/PayRoll/PayRollService']
             },
 
-            'Dashboard.Pensioners.PensionerDeductions': {
-                url: "/PensionerDeductions",
-                templateUrl: 'app/views/PayRoll/PensionerDeductions.html',
-                dependencies: ['controllers/PayRoll/PensionerDeductionsController', 'services/PayRoll/PayRollService']
-            },
+            //'Dashboard.Pensioners.PensionerDeductions': {
+            //    url: "/PensionerDeductions",
+            //    templateUrl: 'app/views/PayRoll/PensionerDeductions.html',
+            //    dependencies: ['controllers/PayRoll/PensionerDeductionsController', 'services/PayRoll/PayRollService']
+            //},
 
             'Dashboard.Pensioners.PensionerGeneration': {
                 url: "/PensionerGeneration",
@@ -155,6 +157,11 @@
                 dependencies: ['controllers/PayRoll/PensionDetailsController', 'services/PayRoll/PayRollService']
             },
 
+            'Dashboard.Pensioners.MonthlyPensionDetails': {
+                url: "/MonthlyPensionDetails",
+                templateUrl: 'app/views/PayRoll/MonthlyPensionDetails.html',
+                dependencies: ['controllers/PayRoll/MonthlyPensionDetailsController', 'services/PayRoll/PayRollService']
+            },
         }
     }
 })

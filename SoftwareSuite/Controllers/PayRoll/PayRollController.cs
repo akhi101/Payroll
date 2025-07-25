@@ -1564,14 +1564,6 @@ namespace SoftwareSuite.Controllers.PayRoll
         }
 
 
-
-
-
-
-
-
-
-
         [HttpPost, ActionName("PublishMonthlySalaryData")]
         public string PublishMonthlySalaryData([FromBody] MontlySalaryInfo data)
         {
@@ -1826,18 +1818,19 @@ namespace SoftwareSuite.Controllers.PayRoll
             try
             {
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[11];
+                var param = new SqlParameter[12];
                 param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
                 param[1] = new SqlParameter("@PensionerDetailsID", request["PensionerDetailsID"]);
                 param[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
                 param[3] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
                 param[4] = new SqlParameter("@PensionerID", request["PensionerID"]);
                 param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
-                param[6] = new SqlParameter("@IR", request["IR"]);
-                param[7] = new SqlParameter("@DR", request["DR"]);
-                param[8] = new SqlParameter("@MA", request["MA"]);
-                param[9] = new SqlParameter("@Active", request["Active"]);
-                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                param[6] = new SqlParameter("@CommutationAmount", request["CommutationAmount"]);
+                param[7] = new SqlParameter("@IR", request["IR"]);
+                param[8] = new SqlParameter("@DR", request["DR"]);
+                param[9] = new SqlParameter("@MA", request["MA"]);
+                param[10] = new SqlParameter("@Active", request["Active"]);
+                param[11] = new SqlParameter("@UserName", request["UserName"]);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -2124,6 +2117,109 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[2] = new SqlParameter("@MonthID", MonthID);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PublishedMonthlyPensionsData", param);
                 var filename = "MontlyPensions" + ".xlsx";
+                var eh = new ExcelHelper();
+                var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
+                bool folderExists = Directory.Exists(path);
+                if (!folderExists)
+                    Directory.CreateDirectory(path);
+                eh.ExportDataSet(ds, path + filename);
+                Timer timer = new Timer(200000);
+                timer.Elapsed += (sender, e) => elapse(sender, e, ConfigurationManager.AppSettings["DownloadsFolderPath"] + filename);
+                timer.Start();
+
+                //return filename;
+                return "/Downloads/" + filename;
+                //return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+
+        public class PQAData
+        {
+            public int DataTypeID { get; set; }
+
+            public int PAQID { get; set; }
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int PensionerTypeID { get; set; }
+            public int PensionerID { get; set; }
+
+            public int Active { get; set; }
+        }
+
+        [HttpPost, ActionName("GetorEditPensionerAdditionalQuantum")]
+        public string GetorEditPensionerAdditionalQuantum([FromBody] PQAData data)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[7];
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@PAQID", data.PAQID);
+                param[2] = new SqlParameter("@PensionerTypeID", data.PensionerTypeID);
+                param[3] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
+                param[4] = new SqlParameter("@MonthID", data.MonthID);
+                param[5] = new SqlParameter("@PensionerID", data.PensionerID);
+                param[6] = new SqlParameter("@Active", data.Active);
+                var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_PensionerAdditionalQuantum", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
+        [HttpPost, ActionName("AddorUpdatePensionerAdditionalQuantum")]
+        public string AddorUpdatePensionerAdditionalQuantum([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[11];
+                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
+                param[1] = new SqlParameter("@PAQID", request["PAQID"]);
+                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[5] = new SqlParameter("@PensionerID", request["PensionerID"]);
+                param[6] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param[7] = new SqlParameter("@AdditionalQuantum", request["AdditionalQuantum"]);
+                param[8] = new SqlParameter("@OtherAmount", request["OtherAmount"]);
+                param[9] = new SqlParameter("@Active", request["Active"]);
+                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerAdditionalQuantum", param);
+                return JsonConvert.SerializeObject(dt);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [HttpGet, ActionName("GetPensionGeneratedReports")]
+        public string GetPensionGeneratedReports(int FinancialYearID, int MonthID)
+        {
+
+            try
+            {
+
+                var dbHandler = new PayRolldbhandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@FinancialYearID", FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", MonthID);
+                DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_Get_MonthlyPensionsReport", param);
+                var filename = "GeneratePensionReport" + ".xlsx";
                 var eh = new ExcelHelper();
                 var path = ConfigurationManager.AppSettings["DownloadsFolderPath"];
                 bool folderExists = Directory.Exists(path);
