@@ -237,6 +237,51 @@ namespace SoftwareSuite.Controllers.StudentServices
             }
         }
 
+
+
+        [HttpPost, ActionName("GetPensionPaySlip")]
+        public async Task<object> GetPensionPaySlip([FromBody] JsonObject request)
+        {
+            try
+            {
+                var dir_id = Guid.NewGuid().ToString();
+                string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
+                CreateIfMissing(dirPath);
+                var respdfList = new List<GetInterimRes>();
+                var dbHandler = new PayRolldbhandler();
+                var param1 = new SqlParameter[2];
+                param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipDetails", param1);
+                var pdf = "";
+                var js = dt.Tables[0].Rows;
+                var param = new SqlParameter[4];
+
+                for (int i = 0; i < js.Count; i++)
+                {
+
+                    param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                    param[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                    param[2] = new SqlParameter("@PensionerID", js[i]["PensionerID"].ToString());
+                    param[3] = new SqlParameter("@PensionerTypeID", js[i]["PensionerTypeID"].ToString());
+                    DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipDetails_1", param); 
+                    GenerateCertificate GenerateCertificate = new GenerateCertificate();
+                    var ApplicationNumber = ds.Tables[0].Rows[0]["PensionerCode"].ToString();
+                    var pdfurl = GenerateCertificate.GetPensionPaySlip(ds, dirPath);
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+                }
+                var files = Directory.GetFiles(dirPath);
+                pdf = Guid.NewGuid().ToString();
+                MergePDFs(AppDomain.CurrentDomain.BaseDirectory + @"Reports\" + pdf + ".pdf", files);
+                Directory.Delete(dirPath, true);
+                return pdf;
+            }
+            catch (Exception ex)
+            {
+                return "FAILED" + ex.Message;
+            }
+        }
+
         public static void MergePDFs(string targetPath, params string[] pdfs)
         {
             using (PdfSharp.Pdf.PdfDocument targetDoc = new PdfSharp.Pdf.PdfDocument())

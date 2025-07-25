@@ -61,7 +61,7 @@
     </div>
     <div class="container content">
         <div class="col-md-12">
-            <button class="btn bck_btn"><a href="#!/Dashboard/PayRollDashboard" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+            <button class="btn bck_btn"><a href="#!/Dashboard/Pensioners" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
         </div>
         <ul class="nav nav-tabs">
             <li class="active noprint">
@@ -298,7 +298,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                         <div class="form-group text-center">
                             <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GeneratePensionPaySlip()">
                                 Generate Pension Payslips
@@ -307,16 +307,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12" ng-if="InstitutewiseCount.length>0">
-                    <div class="pull-right">
-                        <a class="ExportToExcel1 pointer"
-                           id="ExportToExcel1" ng-click="getInstitutewiseCountExcel('#tblParent')">
-                            <i class="fa fa-file-excel-o"></i>
-                            Export to Excel
-                        </a>
+
+                <div class="col-md-12" ng-if="loading">
+                    <div style="width:100%;text-align:center;">
+                        <img src="../../../contents/img/Loading1.gif" width="100" />
+                        <h4><b>Generating Pension PaySlips, Please wait...</b></h4>
                     </div>
                 </div>
-               
+
+
 
 
 
@@ -351,9 +350,9 @@
                         </div>
                     </div>
 
-                    <div class="col-md-2 text-center">
+                    <div class="col-md-3 text-center">
                         <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetPensionPayslipReports()">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getPensionGeneratedReports()">
                                 Generate Pension Reports
                                 <span class="fa fa-arrow-down heading_icon btn_icons"></span>
                             </button>

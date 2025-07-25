@@ -1,0 +1,360 @@
+﻿<style>
+    .btn_top {
+        margin-top: 25px;
+    }
+
+    .card {
+        margin-bottom: 50px;
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: 0px !important;
+    }
+
+    .tableinpt {
+        width: 100%;
+        box-shadow: none;
+        border: 0;
+        pointer-events: none;
+        cursor: pointer;
+    }
+    /*----------------------------------------------date time css-------------------------------------------------------*/
+    .btn-default, .btn-dark-blue {
+        border-color: #314559;
+        color: #000;
+        background-color: white;
+    }
+
+        .btn-default.active, .btn-dark-blue.active, .open .dropdown-toggle.btn-default, .open .dropdown-toggle.btn-dark-blue {
+            border-color: #2c3e50;
+            color: #fff;
+            background-color: #2f4254;
+        }
+
+    button > span.active {
+        color: #ffffff !important;
+    }
+
+    .text-info {
+        color: #ffffff;
+    }
+
+    span {
+        color: #000 !important;
+    }
+    /*--------------------------------------------------*/
+    .table-striped > tbody > tr:nth-of-type(odd) {
+        background-color: #f9f9f9 !important;
+    }
+</style>
+<div ng-controller="MonthlyPensionDetailsController">
+    <div class="breadcrumb-header">
+        <!-- breadcrumb Open -->
+        <div class="container">
+            <section class="content-header">
+                <h5>Monthly Pension Details</h5>
+
+            </section>
+        </div>
+        <!-- breadcrumb Close -->
+    </div>
+    <div class="container content">
+        <div class="col-md-12">
+            <button class="btn bck_btn"><a href="#!/Dashboard/Pensioners" class="backA"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</a></button>
+        </div>
+        <ul class="nav nav-tabs">
+
+            <li class="active noprint">
+                <a href="#1" class="noprint  font-weight-bold" data-toggle="tab">Additional Quantum / Other Amount</a>
+            </li>
+            <li class="noprint">
+                <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Pensioner Deductions</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="1">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            <div class="studWishinputs">
+                                <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Pensioner Type:
+                                            </label>
+                                            <select class="form-control" id="PaqPensionerid" ng-model="PensionerTypeID2" ng-disabled="disablePaqPensionerType"
+                                                    ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                                <option value="" selected>Select Pensioner Type</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Financial Year:
+                                            </label>
+                                            <select class="form-control" id="PaqFinancialYear" ng-model="FinancialYearID2" ng-disabled="disablePaqFinancialYear"
+                                                    ng-options="data.FinancialYearId as data.FinancialYear for data in FinancialYears">
+                                                <option value="" selected>Select Financial Year</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Month:
+                                            </label>
+                                            <select class="form-control" id="PaqMonth" ng-model="MonthID2" ng-change="ChangePaqMonth(MonthID2)" ng-disabled="disablePaqMonth"
+                                                    ng-options="data.MonthID as data.Months for data in AllMonthsData">
+                                                <option value="" selected>Select Month</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Pensioner Name :
+                                            </label>
+
+                                            <select class="form-control" ng-model="PaqPensioner" ng-disabled="disablePaqPensioner" ng-change="changePaqPensioner(PaqPensioner)"
+                                                    ng-options="data as data.PensionerName for data in PensionerDetailsData">
+                                                <option value="" selected>Select Pensioner Name</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Additional Quantum :
+                                            </label>
+                                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Additional Quantum Amount" ng-model="AQA2">
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Other Amount :
+                                            </label>
+                                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Other Amount" ng-model="OtherAmount2">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12" ng-show="AddPaqDetails=='1'">
+                                            <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePaq(1)">
+                                                ADD
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12" ng-show="UpdatePaqDetails=='1'">
+                                            <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePaq(2)">
+                                                UPDATE
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-show="PAQData.length>0">
+                    <div class="cl-details">
+                        <h2>Pensioner Additional Quantum</h2>
+                    </div>
+                    <div class="table-responsive table-custom-tables-tb scrollbox">
+                        <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                            <thead>
+                                <tr class="cb-1">
+                                    <th>S.No</th>
+                                    <th class="text-center">Pensioner Type </th>
+                                    <th class="text-center">Financial Year </th>
+                                    <th class="text-center">Month </th>
+                                    <th class="text-center">Pensioner Name </th>
+                                    <th class="text-center">Additional Quantum</th>
+                                    <th class="text-center">Other Amount</th>
+                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="" ng-repeat="data in PAQData">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td class="text-center">{{data.PensionerType}}</td>
+                                    <td class="text-center">{{data.FinancialYear}}</td>
+                                    <td class="text-center">{{data.Months}}</td>
+                                    <td class="text-center">{{data.PensionerName}}</td>
+                                    <td class="text-center">{{data.AdditionalQuantum}}</td>
+                                    <td class="text-center">{{data.OtherAmount}}</td>
+
+
+                                    <td class="text-center">
+                                        <button class="btn-xs btn btn-info" style="width: 70px;" ng-disabled="editPaqdisable" ng-click="EditPaq(data.PAQID,data.PensionerTypeID,data.FinancialYearID,data.MonthID)">
+                                            Edit
+                                        </button>
+
+                                    </td>
+                                    <td style="text-align:center">
+                                        <button class="btn-xs btn btn-success" ng-disabled="disablePaqActive" title="Click here to Inactive" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.PensionerID,0)" ng-if="data.Active==1">Active</button>
+                                        <button class="btn-xs btn btn-danger" ng-disabled="disablePaqActive" title="Click here to Active" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.PensionerID,1)" ng-if="data.Active==0">InActive</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="tab-pane" id="2">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            <div class="studWishinputs">
+                                <form novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Pensioner Type:
+                                            </label>
+                                            <select class="form-control" id="Pensionerid" ng-model="PensionerTypeID1" ng-disabled="disablePensionerType"
+                                                    ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
+                                                <option value="" selected>Select Pensioner Type</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Financial Year:
+                                            </label>
+                                            <select class="form-control" id="FinancialYear" ng-model="FinancialYearID1" ng-disabled="disableFinancialYear"
+                                                    ng-options="data.FinancialYearId as data.FinancialYear for data in FinancialYears">
+                                                <option value="" selected>Select Financial Year</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Month:
+                                            </label>
+                                            <select class="form-control" id="Month" ng-model="MonthID1" ng-change="ChangeMonth(MonthID1)" ng-disabled="disableMonth"
+                                                    ng-options="data.MonthID as data.Months for data in AllMonthsData">
+                                                <option value="" selected>Select Month</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Pensioner Name :
+                                            </label>
+
+                                            <select class="form-control" ng-model="Pensioner" ng-disabled="disablePensioner" ng-change="changePensioner(Pensioner)"
+                                                    ng-options="data as data.PensionerName for data in PensionerDetailsData">
+                                                <option value="" selected>Select Pensioner Name</option>
+                                            </select>
+
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                CMRF Amount :
+                                            </label>
+                                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter CMRF Amount" ng-model="CMRFAmount1">
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label>
+                                                Recovery Amount :
+                                            </label>
+                                            <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Recovery Amount" ng-model="RecoveryAmount1">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12" ng-show="AddDetails=='1'">
+                                            <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePensionerDeductions(1)">
+                                                ADD
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12" ng-show="UpdateDetails=='1'">
+                                            <button class="btn pull-right btn-success btn-css text-uppercase" style="margin-top: 23px;" ng-click="addorupdatePensionerDeductions(2)">
+                                                UPDATE
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12" ng-show="DeductionsData.length>0">
+                    <div class="cl-details">
+                        <h2> Pensioner Deductions</h2>
+                    </div>
+                    <div class="table-responsive table-custom-tables-tb scrollbox">
+                        <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                            <thead>
+                                <tr class="cb-1">
+                                    <th>S.No</th>
+                                    <th class="text-center">Pensioner Type </th>
+                                    <th class="text-center">Financial Year </th>
+                                    <th class="text-center">Month </th>
+                                    <th class="text-center">Pensioner Name </th>
+                                    <th class="text-center">CMRFAmount</th>
+                                    <th class="text-center">RecoveryAmount</th>
+                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="" ng-repeat="data in DeductionsData">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td class="text-center">{{data.PensionerType}}</td>
+                                    <td class="text-center">{{data.FinancialYear}}</td>
+                                    <td class="text-center">{{data.Months}}</td>
+                                    <td class="text-center">{{data.PensionerName}}</td>
+                                    <td class="text-center">{{data.CMRFAmount}}</td>
+                                    <td class="text-center">{{data.Recovery_TDS}}</td>
+
+
+                                    <td class="text-center">
+                                        <button class="btn-xs btn btn-info" style="width: 70px;" ng-disabled="editdisable" ng-click="EditPensionerDeductions(data.PensionerDeductionID,data.PensionerTypeID,data.FinancialYearID,data.MonthID)">
+                                            Edit
+                                        </button>
+
+                                    </td>
+                                    <td style="text-align:center">
+                                        <button class="btn-xs btn btn-success" ng-disabled="disableActive" title="Click here to Inactive" ng-click="ChangeStatus(data.PensionerDeductionID,data.PensionerTypeID,data.PensionerID,0)" ng-if="data.Active==1">Active</button>
+                                        <button class="btn-xs btn btn-danger" ng-disabled="disableActive" title="Click here to Active" ng-click="ChangeStatus(data.PensionerDeductionID,data.PensionerTypeID,data.PensionerID,1)" ng-if="data.Active==0">InActive</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

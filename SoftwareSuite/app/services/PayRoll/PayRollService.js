@@ -1201,7 +1201,7 @@ define(['app'], function (app) {
 
       
 
-        this.AddorUpdatePensionDetails = function (DataTypeId, PensionerDetailsID, PensionerTypeID, EmployeeID, PensionerID, PensionAmount, IR, DR,MA ,Active, UserName) {
+        this.AddorUpdatePensionDetails = function (DataTypeId, PensionerDetailsID, PensionerTypeID, EmployeeID, PensionerID, PensionAmount, CommutationAmount, IR, DR,MA ,Active, UserName) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "PensionerDetailsID": PensionerDetailsID,
@@ -1209,6 +1209,7 @@ define(['app'], function (app) {
                 "EmployeeID": EmployeeID,
                 "PensionerID": PensionerID,
                 "PensionAmount": PensionAmount,
+                "CommutationAmount": CommutationAmount,
                 "IR": IR,
                 "DR": DR,
                 "MA": MA,
@@ -1333,6 +1334,55 @@ define(['app'], function (app) {
 
             };
             var promise = DataAccessService.getDataWithPara('api/PayRoll/GetPublishedPensionExcel', paramObj);
+            return promise;
+
+        };
+
+        this.GetPensionPaySlip = function (FinancialYearID, MonthID) {
+            var param = { "FinancialYearID": FinancialYearID, "MonthID": MonthID }
+            return DataAccessService.postData('api/StudentCertificate/GetPensionPaySlip', param);
+        };
+
+        this.GetorEditPensionerAdditionalQuantum = function (DataTypeID, PAQID, PensionerTypeID, FinancialYearID, MonthID, PensionerID, Active) {
+            var paramObj = {
+                "DataTypeID": DataTypeID,
+                "PAQID": PAQID,
+                "PensionerTypeID": PensionerTypeID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "PensionerID": PensionerID,
+                "Active": Active
+            };
+            var promise = DataAccessService.postData('api/PayRoll/GetorEditPensionerAdditionalQuantum', paramObj);
+            return promise;
+
+        };
+
+        this.AddorUpdatePensionerAdditionalQuantum = function (DataTypeId, PAQID, FinancialYearID, MonthID, PensionerTypeID, PensionerID, EmployeeID, AdditionalQuantum, OtherAmount, Active, UserName) {
+            var paramObject = {
+                "DataTypeId": DataTypeId,
+                "PAQID": PAQID,
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID,
+                "PensionerTypeID": PensionerTypeID,
+                "PensionerID": PensionerID,
+                "EmployeeID": EmployeeID,
+                "AdditionalQuantum": AdditionalQuantum,
+                "OtherAmount": OtherAmount,
+                "Active": Active,
+                "UserName": UserName
+            };
+            var promise = DataAccessService.postData('api/PayRoll/AddorUpdatePensionerAdditionalQuantum', paramObject);
+            return promise;
+        };
+
+
+        this.GetPensionGeneratedReports = function (FinancialYearID, MonthID) {
+            var paramObj = {
+                "FinancialYearID": FinancialYearID,
+                "MonthID": MonthID
+            };
+            var promise = DataAccessService.getDataWithPara('api/PayRoll/GetPensionGeneratedReports', paramObj);
             return promise;
 
         };

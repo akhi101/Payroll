@@ -471,6 +471,7 @@
     <Content Include="app\controllers\PayRoll\PensionDetailsController.js" />
     <Content Include="app\controllers\PayRoll\PensionerDeductionsController.js" />
     <Content Include="app\controllers\PayRoll\PensionerDetailsController.js" />
+    <Content Include="app\controllers\PayRoll\MonthlyPensionDetailsController.js" />
     <Content Include="app\controllers\PayRoll\PensionerGenerationController.js" />
     <Content Include="app\controllers\PayRoll\PensionerAllowancesController.js" />
     <Content Include="app\controllers\PayRoll\PensionersController.js" />
@@ -501,6 +502,7 @@
     <Content Include="app\views\PayRoll\PayRollDashboard.html" />
     <Content Include="app\views\PayRoll\PayRollMasters.html" />
     <Content Include="app\views\PayRoll\PensionDetails.html" />
+    <Content Include="app\views\PayRoll\MonthlyPensionDetails.html" />
     <Content Include="app\views\PayRoll\PensionerSalaryDetails.html" />
     <Content Include="app\views\PayRoll\PensionerDeductions.html" />
     <Content Include="app\views\PayRoll\PensionerDetails.html" />
