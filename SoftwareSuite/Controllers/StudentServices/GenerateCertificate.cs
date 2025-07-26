@@ -3394,21 +3394,21 @@ page-break-after :always
                         <thead> 
                             <tr>
                                 <td>Pensioner Code</td>
-                                <td>: {PensionerData[0].PensionerCode ?? "-"}</td>
+                                <td> {PensionerData[0].PensionerCode ?? "-"}</td>
                                 <td>Bank ACC No</td>
-                                <td>: {PensionerData[0].BankAcNo}</td>
+                                <td> {PensionerData[0].BankAcNo}</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Name</th>
-                                <th>: {PensionerData[0].PensionerName ?? "-"}</th>
-                                <td>PAN No</td>
-                                <td>: {PensionerData[0].PanNo}</td>
+                                <th> {PensionerData[0].PensionerName ?? "-"}</th>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>Pensioner Type</td>
-                                <td>: {PensionerData[0].PensionerType ?? "-"}</td>
+                                <td> {PensionerData[0].PensionerType ?? "-"}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -3417,78 +3417,75 @@ page-break-after :always
                         </tbody>
                     </table>
             </div>
-            <div class=''>
-                <table class='table table-bordered table-responsive'>
-                    <thead>
-                        <tr>
-                            <th class='border'>PAY & ALLOWANCES</th>
-                            <th class='border'>DEDUCTIONS</th>
-                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class='border'>
-                            <td class='border'><span>PENSION AMOUNT :</span>
-                                <span class='pull-right'>{PensionerData[0].PensionAmount}</span>
-                            </td>
-                            <td class='border'><span>RECOVERY / TDS :</span>
-                                <span class='pull-right'>{PensionerData[0].Recovery_TDS}</span>
-                            </td>
-                           
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'><span>COMMUTATION AMOUNT :</span>
-                                <span class='pull-right'>{PensionerData[0].CommutationAmount}</span>
-                            </td>
-                            <td class='border'><span>CMRF :</span>
-                                <span class='pull-right'> {PensionerData[0].CMRF}</span>
-                            </td>
-                           
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'><span>BASIC PENSION :</span>
-                                <span class='pull-right'>{PensionerData[0].BasicPension}</span>
-                            </td>
-                            <td class='border'></td>
-                            
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'><span>DR :</span>
-                                <span class='pull-right'>{PensionerData[0].DR}</span>
-                            </td>
-                            <td class='border'></td>
-                            
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'><span>IR :</span>
-                                <span class='pull-right'>{PensionerData[0].IR}</span>
-                            </td>
-                            <td class='border'></td>                        
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>MEDICAL ALLOWANCE:</span>
-                                <span class='pull-right'>{PensionerData[0].MA}</span></td>
-                            </td>
-                           <td class='border'></td>
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>ADDITIONAL QUANTUM :</span>
-                                <span class='pull-right'>{PensionerData[0].AdditionalQuantum}</span></td>
-                           <td class='border'></td>
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>OTHER AMOUNT :</span>
-                                <span class='pull-right'>{PensionerData[0].OtherAmount}</span></td>
-                           <td class='border'></td>
-                        </tr>
-                        <tr>
-                            <td>NET TOTAL :</td>
-                            <td>{PensionerData[0].NetTotal}</td>
-                        </tr>
+<div class=''>
+    <table class='table table-bordered table-responsive'>
+        <thead>
+            <tr>
+                <th class='border'>PAY & ALLOWANCES</th>
+                <th class='border'>DEDUCTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class='border'>PENSION AMOUNT :
+                    <span class='pull-right'>{PensionerData[0].PensionAmount}</span>
+                </td>
+                <td class='border'>RECOVERY / TDS :
+                    <span class='pull-right'>{PensionerData[0].Recovery_TDS}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class='border'>COMMUTATION AMOUNT :
+                    <span class='pull-right'>{PensionerData[0].CommutationAmount}</span>
+                </td>
+                <td class='border'>CMRF :
+                    <span class='pull-right'>{PensionerData[0].CMRF}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class='border'>BASIC PENSION :
+                    <span class='pull-right'>{PensionerData[0].BasicPension}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>ADDITIONAL QUANTUM :
+                    <span class='pull-right'>{PensionerData[0].AdditionalQuantum}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>DR :
+                    <span class='pull-right'>{PensionerData[0].DR}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>IR :
+                    <span class='pull-right'>{PensionerData[0].IR}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>MEDICAL ALLOWANCE :
+                    <span class='pull-right'>{PensionerData[0].MA}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>OTHER AMOUNT :
+                    <span class='pull-right'>{PensionerData[0].OtherAmount}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'><b>NET TOTAL :</b></td>
+                <td class='border'><b>{PensionerData[0].NetTotal}</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-                    </tbody>
-                </table>
-            </div>
             <div class=''>
                   <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
                   <div class='col-md-9'>
