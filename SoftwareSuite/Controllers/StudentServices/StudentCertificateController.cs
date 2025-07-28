@@ -256,7 +256,7 @@ namespace SoftwareSuite.Controllers.StudentServices
                 var pdf = "";
                 var js = dt.Tables[0].Rows;
                 var param = new SqlParameter[4];
-
+                var MonthYear = "";
                 for (int i = 0; i < js.Count; i++)
                 {
 
@@ -267,14 +267,15 @@ namespace SoftwareSuite.Controllers.StudentServices
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipDetails_1", param); 
                     GenerateCertificate GenerateCertificate = new GenerateCertificate();
                     var ApplicationNumber = ds.Tables[0].Rows[0]["PensionerCode"].ToString();
+                     MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
                     var pdfurl = GenerateCertificate.GetPensionPaySlip(ds, dirPath);
                     respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
                 }
                 var files = Directory.GetFiles(dirPath);
-                pdf = Guid.NewGuid().ToString();
-                MergePDFs(AppDomain.CurrentDomain.BaseDirectory + @"Reports\" + pdf + ".pdf", files);
+            //    pdf = Guid.NewGuid().ToString();
+                MergePDFs(AppDomain.CurrentDomain.BaseDirectory + @"Reports\" + MonthYear + ".pdf", files);
                 Directory.Delete(dirPath, true);
-                return pdf;
+                return MonthYear;
             }
             catch (Exception ex)
             {

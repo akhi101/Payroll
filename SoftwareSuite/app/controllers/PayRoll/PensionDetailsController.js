@@ -109,7 +109,7 @@
 
         $scope.ClearData = function () {
             
-            $scope.PensionerType = null;
+            //$scope.PensionerType = null;
             $scope.PensionAmount = "";
             $scope.IR = "";
             $scope.DR = "";

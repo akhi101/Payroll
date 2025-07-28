@@ -27,3 +27,4 @@ packages/
 
 /.vs/SoftwareSuite
 /.gitignore
+/SoftwareSuite/publish.zip

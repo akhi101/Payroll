@@ -187,7 +187,7 @@ define(['app'], function (app) {
                 $scope.DOJ = "";
                 $scope.DOR = "";
                 $scope.Designation = null;
-                $scope.Department = null;
+                //$scope.Department = null;
                 $scope.Gender = "";
 /*                $scope.PHC = "";*/
                 $scope.Empstatus = "";

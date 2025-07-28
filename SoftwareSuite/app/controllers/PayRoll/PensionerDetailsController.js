@@ -141,7 +141,7 @@
 
                     $scope.ServicePensionerID = res.Table[0].ServicePensionerID;
                     $scope.EmployeeId = res.Table[0].EmployeeID;  
-                    $scope.EmployeeCode = res.Table[0].EmployeeCode;
+                    $scope.PensionerCode = res.Table[0].PensionerCode;
                     $scope.EmployeeName = res.Table[0].EmployeeName;
                     $scope.DOB = res.Table[0].DOB;
                     $scope.DOJ = res.Table[0].DOJ;
@@ -215,7 +215,7 @@
                     $scope.Noreports = false;
                     $scope.FamilyPensionerID = res.Table[0].FamilyPensionerID;
                     $scope.EmployeeID1 = res.Table[0].EmployeeID;
-                    $scope.EmployeeCode1 = res.Table[0].EmployeeCode;
+                    $scope.PensionerCode = res.Table[0].PensionerCode;
                     $scope.EmployeeName1 = res.Table[0].EmployeeName;
                     $scope.Empstatus1 = res.Table[0].Empstatus;
                     $scope.NomineeName1 = res.Table[0].NomineeName;
@@ -287,14 +287,14 @@
 
         $scope.UpdateServicePensioners = function () {
 
-            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOJ, $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
+            var SetFinYr = PayRollService.UpdateServicePensioners($scope.ServicePensionerID, $scope.EmployeeId, $scope.PensionerCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOJ, $scope.Designation, $scope.Gender, $scope.PanNo, $scope.AccountNumber, $scope.IFSCCode, $scope.SortOrder, $scope.LifeStatus, 1, $scope.UserName)
             SetFinYr.then(function (response) {
                 var response = JSON.parse(response)
                 if (response[0].ResponseCode == '200') {
                     alert(response[0].ResponseDescription)
                     $scope.ServiceAddDetails = '0';
                     $scope.GetorEditServicePensionerDetails(1)
-                    $scope.GetData();
+                //    $scope.GetData();
                     $scope.ClearData();
 
                 } else {
@@ -568,7 +568,7 @@
 
             var datatypeid = 1
 
-            var addEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder, 1, $scope.UserName)
+            var addEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.PensionerCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder, 1, $scope.UserName)
             addEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
