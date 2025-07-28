@@ -82,14 +82,14 @@
 
                                             <div class="form-group col-md-3">
                                                 <label>
-                                                    Employee Code:
+                                                    Pensioner Code:
                                                 </label>
-                                                <input class="form-control" type="text" maxlength="10" placeholder="Enter Employee Code" ng-model="EmployeeCode">
+                                                <input class="form-control" ng-disabled="ServiceUpdateDetails==1" type="text" maxlength="10" placeholder="Enter Employee Code" ng-model="PensionerCode">
                                             </div>
 
                                             <div class="form-group col-md-3">
                                                 <label>
-                                                    Employee Name:
+                                                    Pensioner Name:
                                                 </label>
                                                 <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Employee Name" ng-model="EmployeeName">
                                             </div>
@@ -230,8 +230,8 @@
                                 <thead>
                                     <tr class="cb-1">
                                         <th>S.No</th>
-                                        <th class="text-center">Employee Code</th>
-                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Pensioner Code</th>
+                                        <th class="text-center">Pensioner Name</th>
                                         <th class="text-center">Designation Name</th>
                                         <th class="text-center">Gender </th>
                                         <th class="text-center">PAN No </th>
@@ -248,7 +248,7 @@
                                    
                                     <tr style="" ng-repeat="data in ServicePensionerData">
                                         <td class="text-center pointer">{{$index+1}}</td>
-                                        <td class="text-center pointer">{{data.EmployeeCode}}</td>
+                                        <td class="text-center pointer">{{data.PensionerCode}}</td>
                                         <td class="text-center pointer">{{data.EmployeeName}}</td>
                                         <td class="text-center pointer">{{data.DesignationName}}</td>
                                         <td class="text-center pointer">{{data.Gender}}</td>
@@ -380,8 +380,8 @@
                                 <thead>
                                     <tr class="cb-1">
                                         <th>S.No</th>
-
-                                        <th class="text-center">Employee Name</th>
+                                        <th class="text-center">Pensioner Code</th>
+                                        <th class="text-center">Pensioner Name</th>
 
                                         <th class="text-center">Nominee Name</th>
 
@@ -399,7 +399,7 @@
                                    
                                     <tr style="" ng-repeat="data in FamilyPensionerData">
                                         <td class="text-center pointer">{{$index+1}}</td>
-
+                                        <td class="text-center pointer">{{data.PensionerCode}}</td>
                                         <td class="text-center pointer">{{data.EmployeeName}}</td>
 
                                         <td class="text-center pointer">{{data.NomineeName}}</td>
@@ -418,7 +418,7 @@
                                             <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditFamilyPensionerDetails(data.FamilyPensionerID)">
                                                 Edit
                                             </button>
-           
+
                                         </td>
                                         <td style="text-align:center">
                                             <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>

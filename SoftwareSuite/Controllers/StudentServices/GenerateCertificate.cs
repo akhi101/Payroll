@@ -63,19 +63,19 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string Department { get; set; }
             public string BankAcNo { get; set; }
             public string PanNo { get; set; }
-            public double PensionAmount { get; set; }
-            public double CommutationAmount { get; set; }
-            public double BasicPension { get; set; }
-            public double DR { get; set; }
-            public double IR { get; set; }
-            public double MA { get; set; }
-            public double AdditionalQuantum { get; set; }
-            public double OtherAmount { get; set; }
-            public double Recovery_TDS { get; set; }
-            public double CMRF { get; set; }
-            public double TotalDeductions { get; set; }
-            public double Gross { get; set; }
-            public double NetTotal { get; set; }
+            public string PensionAmount { get; set; }
+            public string CommutationAmount { get; set; }
+            public string BasicPension { get; set; }
+            public string DR { get; set; }
+            public string IR { get; set; }
+            public string MA { get; set; }
+            public string AdditionalQuantum { get; set; }
+            public string OtherAmount { get; set; }
+            public string Recovery_TDS { get; set; }
+            public string CMRF { get; set; }
+            public string TotalDeductions { get; set; }
+            public string Gross { get; set; }
+            public string NetTotal { get; set; }
 
         }
 
@@ -3427,60 +3427,59 @@ page-break-after :always
         </thead>
         <tbody>
             <tr>
-                <td class='border'>PENSION AMOUNT :
+                <td class='border'>PENSION AMOUNT 
                     <span class='pull-right'>{PensionerData[0].PensionAmount}</span>
                 </td>
-                <td class='border'>RECOVERY / TDS :
+                <td class='border'>RECOVERY / TDS 
                     <span class='pull-right'>{PensionerData[0].Recovery_TDS}</span>
                 </td>
             </tr>
             <tr>
-                <td class='border'>COMMUTATION AMOUNT :
+                <td class='border'>COMMUTATION AMOUNT 
                     <span class='pull-right'>{PensionerData[0].CommutationAmount}</span>
                 </td>
-                <td class='border'>CMRF :
+                <td class='border'>CMRF 
                     <span class='pull-right'>{PensionerData[0].CMRF}</span>
                 </td>
             </tr>
             <tr>
-                <td class='border'>BASIC PENSION :
+                <td class='border'>BASIC PENSION 
                     <span class='pull-right'>{PensionerData[0].BasicPension}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'>ADDITIONAL QUANTUM :
+                <td class='border'>ADDITIONAL QUANTUM 
                     <span class='pull-right'>{PensionerData[0].AdditionalQuantum}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'>DR :
+                <td class='border'>Dearness Relief 
                     <span class='pull-right'>{PensionerData[0].DR}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'>IR :
+                <td class='border'>Interim Relief 
                     <span class='pull-right'>{PensionerData[0].IR}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'>MEDICAL ALLOWANCE :
+                <td class='border'>MEDICAL ALLOWANCE 
                     <span class='pull-right'>{PensionerData[0].MA}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'>OTHER AMOUNT :
+                <td class='border'>OTHER AMOUNT 
                     <span class='pull-right'>{PensionerData[0].OtherAmount}</span>
                 </td>
                 <td class='border'>&nbsp;</td>
             </tr>
             <tr>
-                <td class='border'><b>NET TOTAL :</b></td>
-                <td class='border'><b>{PensionerData[0].NetTotal}</b></td>
+                <td class='border'  colspan='2'><b>TOTAL	  <span class='pull-right'>{PensionerData[0].NetTotal}</span></b></td>
             </tr>
         </tbody>
     </table>
