@@ -50,6 +50,8 @@ namespace SoftwareSuite.Controllers.StudentServices
 
             public string TSGLI { get; set; }
             public string MonthYear { get; set; }
+            public double DAPercent { get; set; }
+            public double HRAPercent { get; set; }
         }
 
 
@@ -62,6 +64,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string PensionerType { get; set; }
             public string Department { get; set; }
             public string BankAcNo { get; set; }
+            public string IFSCCode { get; set; }
             public string PanNo { get; set; }
             public string PensionAmount { get; set; }
             public string CommutationAmount { get; set; }
@@ -76,6 +79,8 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string TotalDeductions { get; set; }
             public string Gross { get; set; }
             public string NetTotal { get; set; }
+            public double DRPercent { get; set; }
+            public double IRPercent { get; set; }
 
         }
 
@@ -2477,8 +2482,8 @@ page-break-after :always
             <div class=''>
                   <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
                   <div class='col-md-9'>
-                  <div>D.A.@22.95%</div>
-                  <div>HRA.@22.95%</div>
+                  <div>D.A.{EmployeeData[0].DAPercent}%</div>
+                  <div>HRA.{EmployeeData[0].HRAPercent}%</div>
                   </div>
                   <div class='col-md-3'>
                     <div class='text-center'>Sd/</div>
@@ -3001,8 +3006,8 @@ page-break-after :always
             <div class=''>
                   <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
                   <div class='col-md-9'>
-                  <div>D.A.@22.95%</div>
-                  <div>HRA.@22.95%</div>
+                  <div>D.A.{EmployeeData[0].DAPercent}%</div>
+                  <div>HRA.{EmployeeData[0].HRAPercent}%</div>
                   </div>
                   <div class='col-md-3'>
                     <div class='text-center'>Sd/</div>
@@ -3396,15 +3401,15 @@ page-break-after :always
                                 <td>Pensioner Code</td>
                                 <td> {PensionerData[0].PensionerCode ?? "-"}</td>
                                 <td>Bank ACC No</td>
-                                <td> {PensionerData[0].BankAcNo}</td>
+                                <td> {PensionerData[0].BankAcNo}</td>'
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Name</th>
                                 <th> {PensionerData[0].PensionerName ?? "-"}</th>
-                                <td></td>
-                                <td></td>
+                                <td>IFSC Code</td>
+                                <td> {PensionerData[0].IFSCCode}</td>
                             </tr>
                             <tr>
                                 <td>Pensioner Type</td>
@@ -3488,8 +3493,8 @@ page-break-after :always
             <div class=''>
                   <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
                   <div class='col-md-9'>
-                  <div>DR.@26.39%</div>
-                  <div>IR.@5%</div>
+                  <div>DR.{PensionerData[0].DRPercent}%</div>
+                  <div>IR.{PensionerData[0].IRPercent}%</div>
                   </div>
                   <div class='col-md-3'>
                     <div class='text-center'>Sd/</div>
