@@ -310,6 +310,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-12" ng-if="InstitutewiseCount.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
@@ -319,49 +320,57 @@
                         </a>
                     </div>
                 </div>
+
+
+                <div class="col-md-12" ng-if="loading">
+                    <div style="width:100%;text-align:center;">
+                        <img src="../../../contents/img/Loading1.gif" width="100" />
+                        <h4><b>Generating PaySlips, Please wait...</b></h4>
+                    </div>
+                </div>
                 <!--<div class="" ng-show="GetAllGeneratedMontlysalary.length>0">
-            <table class="table table-responsive table-bordered">
-                <thead>
-                    <tr class="cb-1">
-                        <th>S.No</th>
-                        <th class="text-center">Employee Code</th>
-                        <th class="text-center">Employee Name</th>
-                        <th class="text-center">Designation</th>
-                        <th class="text-center">Gross Total</th>
-                        <th class="text-center">Total Deductions</th>
-                        <th class="text-center">Net Salary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="data in GetAllGeneratedMontlysalary">
-                        <td class="text-center pointer">{{$index+1}}</td>
-                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
-                        <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                        <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
-                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GrossTotal" /></div></td>
-                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalDeductions" /></div></td>
-                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
+        <table class="table table-responsive table-bordered">
+            <thead>
+                <tr class="cb-1">
+                    <th>S.No</th>
+                    <th class="text-center">Employee Code</th>
+                    <th class="text-center">Employee Name</th>
+                    <th class="text-center">Designation</th>
+                    <th class="text-center">Gross Total</th>
+                    <th class="text-center">Total Deductions</th>
+                    <th class="text-center">Net Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in GetAllGeneratedMontlysalary">
+                    <td class="text-center pointer">{{$index+1}}</td>
+                    <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
+                    <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
+                    <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
+                    <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.GrossTotal" /></div></td>
+                    <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.TotalDeductions" /></div></td>
+                    <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
 
-                        <td class="text-center">
-                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
-                                Edit
-                            </button>
-                            <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
-                                Update
-                            </button>
+                    <td class="text-center">
+                        <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
+                            Edit
+                        </button>
+                        <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
+                            Update
+                        </button>
 
-                        </td>
+                    </td>
 
-                        <td style="text-align:center">
-                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
-                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
-                        </td>
+                    <td style="text-align:center">
+                        <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
+                        <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                </tbody>
-            </table>
-        </div>-->
+            </tbody>
+        </table>
+    </div>-->
 
 
 

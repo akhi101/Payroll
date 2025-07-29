@@ -386,6 +386,8 @@ else {
             // if (PaymentStudent != [] && PaymentStudent != '') {
             $scope.btndisable = true;
             var ApproveStatus = 1;
+            $scope.loading = true;
+
 
 
           //  $scope.buttonlabel = "Signing in process ...";
@@ -394,6 +396,7 @@ else {
                 var url = window.location.origin + '/Reports/' + response + '.pdf';
                 console.log(url)
                 download(url, 'Payslip' + '.pdf');
+                $scope.loading = false;
                 //var pdf = response[0].PdfUrl
                 //    var location = window.location.origin;
                 //    if (location == "https://sbtet.telangana.gov.in" || location == "https://www.sbtet.telangana.gov.in") {
