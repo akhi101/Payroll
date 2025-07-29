@@ -2426,7 +2426,7 @@ page-break-after :always
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                                                <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>BASIC PAY :</span>
                                 <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
@@ -2436,7 +2436,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>SP :</span>
                                 <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
@@ -2446,7 +2446,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>DA :</span>
                                 <span class='pull-right'>{EmployeeData[0].DA}</span>
                             </td>
@@ -2456,7 +2456,7 @@ page-break-after :always
                             <td class='border'></td>  
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
@@ -2466,7 +2466,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
@@ -2476,7 +2476,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>MA :</span>
                                 <span class='pull-right'>{EmployeeData[0].MA}</span>
                             </td>
@@ -2486,7 +2486,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
                             <td  class='border'><span>NCI :</span>
                                 <span class='pull-right'>{EmployeeData[0].NCI}</span>
                             </td>
@@ -2496,9 +2496,9 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
-                            <td  class='border'><span>DA :</span>
-                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td  class='border'><span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
                             <td class='border'><span>Haritha Nidhi :</span>
                                 <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
@@ -2506,31 +2506,19 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
-                            <td  class='border'><span>HRA :</span>
-                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
-                            </td>
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td class='border'></td>
                             <td class='border'><span>HBA Principal :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
                             </td>
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
-                            <td  class='border'><span>SP :</span>
-                                <span class='pull-right'>{EmployeeData[0].SP}</span>
-                            </td>
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td class='border'></td>
                             <td class='border'><span>HBA Interest :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
-                            <td class='border'></td>
-                        </tr>
-
-                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
-                            <td  class='border'><span>TSI :</span>
-                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
-                            </td>
-                            <td class='border'></td>
                             <td class='border'></td>
                         </tr>
 
@@ -3189,8 +3177,8 @@ page-break-after :always
                         </tr>
 
                         <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
-                            <td  class='border'><span>DA :</span>
-                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            <td  class='border'><span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
                             <td class='border'><span>Haritha Nidhi :</span>
                                 <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
@@ -3199,9 +3187,7 @@ page-break-after :always
                         </tr>
 
                         <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
-                            <td  class='border'><span>HRA :</span>
-                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
-                            </td>
+                            <td class='border'></td>
                             <td class='border'><span>HBA Principal :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
                             </td>
@@ -3209,22 +3195,13 @@ page-break-after :always
                         </tr>
 
                         <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
-                            <td  class='border'><span>SP :</span>
-                                <span class='pull-right'>{EmployeeData[0].SP}</span>
-                            </td>
+                            <td class='border'></td>
                             <td class='border'><span>HBA Interest :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
-                            <td  class='border'><span>TSI :</span>
-                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
-                            </td>
-                            <td class='border'></td>
-                            <td class='border'></td>
-                        </tr>
 
 
 
