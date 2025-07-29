@@ -48,10 +48,39 @@ namespace SoftwareSuite.Controllers.StudentServices
             public double NetSalary { get; set; }
             public string LIC { get; set; }
 
-            public string TSGLI { get; set; }
+            public string TSGLINumber { get; set; }
             public string MonthYear { get; set; }
             public double DAPercent { get; set; }
             public double HRAPercent { get; set; }
+            public double LIC1 { get; set; }
+            public double LIC2 { get; set; }
+            public double LIC3 { get; set; }
+            public double LIC4 { get; set; }
+            public double LIC5 { get; set; }
+            public double IR { get; set; }
+            public double PP { get; set; }
+            public double FP { get; set; }
+            public double SP { get; set; }
+            public double FA { get; set; }
+            public double EA { get; set; }
+            public double SPL_FA { get; set; }
+            public double HBA1 { get; set; }
+            public double HBA2 { get; set; }
+            public double HBA_INT { get; set; }
+            public double OtherDeductions { get; set; }
+            public double VA { get; set; }
+            public double COMP_ADV { get; set; }
+            public double HARITHANIDHI { get; set; }
+            public double NCI { get; set; }
+            public double GPF { get; set; }
+            public double GPF_LOAN { get; set; }
+            public double TSGLI_LOAN { get; set; }
+            public double GIS { get; set; }
+            public double HBA_PRINCIPAL { get; set; }
+            public int DepartmentId { get; set; }
+            public double TSGLIAmount { get; set; }
+
+
         }
 
 
@@ -2373,7 +2402,7 @@ page-break-after :always
                                 <td>Designation</td>
                                 <td>: {EmployeeData[0].Designation ?? "-"}</td>
                                 <td>TSGLI No</td>
-                                <td>: {EmployeeData[0].TSGLI}</td>
+                                <td>: {EmployeeData[0].TSGLINumber}</td>
                             </tr>
                           
                             <tr>
@@ -2397,84 +2426,251 @@ page-break-after :always
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class='border'>
-                            <td class='border'><span>BASIC PAY :</span>
-                                <span class='pull-right'>{EmployeeData[0].BasicPay }</span>
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
-                            <td class='border'><span>LIC :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC }</span>
+                            <td class='border'><span>GPF :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
-                            <td class='border'><span>DA :</span>
-                                <span class='pull-right'>{EmployeeData[0].DA }</span>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                            <td class='border'><span>GPF LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF_LOAN}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>TSGLI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLIAmount}</span>
+                            </td>
+                            <td class='border'></td>  
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                            <td class='border'><span>TSGLI LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLI_LOAN}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>CCA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CCA}</span>
+                            </td>
+                            <td class='border'><span>GIS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GIS}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA}</span>
+                            </td>
+                            <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>NCI :</span>
+                                <span class='pull-right'>{EmployeeData[0].NCI}</span>
                             </td>
                             <td class='border'><span>PT :</span>
-                                <span class='pull-right'> {EmployeeData[0].PT }</span>
+                                <span class='pull-right'>{EmployeeData[0].PT}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                            <td class='border'><span>HBA Principal :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                            <td class='border'><span>HBA Interest :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3\"">
+                            <td  class='border'><span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+
+
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay }</span>
+                            </td>
+                            <td class='border'><span>FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].FA }</span>
+                            </td>
+                            <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'><span>IR :</span>
+                                <span class='pull-right'>{EmployeeData[0].IR }</span>
+                            </td>
+                            <td class='border'><span>EA :</span>
+                                <span class='pull-right'> {EmployeeData[0].EA}</span>
+                            </td>
+                            <td class='border'><span>PT :</span>
+                                <span class='pull-right'> {EmployeeData[0].PT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>SPL.FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].SPL_FA }</span>
+                            </td>
+                            <td class='border'><span>LIC1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                            </td>                            
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
                             <td class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA }</span>
                             </td>
-                            <td class='border'><span>ITAX :</span>
-                                <span class='pull-right'>{EmployeeData[0].IT }</span>
+                            <td class='border'><span>HBA:1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA1 }</span>
                             </td>
-                            <td class='border'></td>
-                            
+                            <td class='border'><span>LIC2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                            </td>                            
                         </tr>
-                        <tr class='border'>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
                             <td class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA }</span>
                             </td>
-                            <td class='border'><span>NPS :</span>
-                                <span class='pull-right'>{EmployeeData[0].NPS_CPS }</span>
+                            <td class='border'><span>HBA:2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA2}</span>
+                            </td>
+                            <td class='border'><span>LIC3 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA }</span>
+                            </td>
+                            <td class='border'> <span>HBA:INT :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                            <td class='border'> <span>LIC4 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>CA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CA}</span>
+                            </td>
+                            <td class='border'> <span>Other deductions :</span>
+                                <span class='pull-right'>0</span>
+                            </td>
+                            <td class='border'> <span>LIC5 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>PP :</span>
+                                <span class='pull-right'>{EmployeeData[0].PP}</span>
+                            </td>
+                            <td class='border'> <span>VA :</span>
+                                <span class='pull-right'>{EmployeeData[0].VA}</span>
                             </td>
                             <td class='border'></td>
-                            
                         </tr>
-                        <tr class='border'>
-                            <td class='border'><span>TSINCR :</span>
-                                <span class='pull-right'>{EmployeeData[0].TGINCR }</span>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>FP :</span>
+                                <span class='pull-right'>{EmployeeData[0].FP}</span>
                             </td>
-                            <td class='border'><span></span>
-                                <span class='pull-right'></span>
+                            <td class='border'> <span>COMP ADV :</span>
+                                <span class='pull-right'>{EmployeeData[0].COMP_ADV}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>CON.ALLOW :</span>
-                                <span class='pull-right'>{EmployeeData[0].CA }</span></td>
-                            <td class='border'>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
-                           <td class='border'></td>
-                          
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>MDCL_A :</span>
-                                <span class='pull-right'>{EmployeeData[0].MA }</span></td>
-                            <td class='border'>
+                            <td class='border'> <span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
                             </td>
-                           <td class='border'></td>
-                          
+                            <td class='border'></td>
                         </tr>
+
+                        <tr class='border' ng-show=\""EmployeeData[0].DepartmentId == 2\"">
+                            <td class='border'> <span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+
                         <tr class='border'>
-                            <td class='border'> <span>GROSS :</span>
-                                <span class='pull-right'>{EmployeeData[0].GrossTotal }</span></td>
+                            <td class='border'> 
+                                <span>GROSS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GrossTotal }</span>
+                            </td>
                             <td class='border'>
-                                <span>TOT DED :</span>
+                                <span>TOT-DED :</span>
                                 <span class='pull-right'>{EmployeeData[0].TotalDeductions }</span>
                             </td>
                            <td class='border'>
-                            <span>NETPAY :</span>
+                                <span>NET SALARY :</span>
                                 <span class='pull-right'>{EmployeeData[0].NetSalary }</span>
                            </td>
-                          
                         </tr>
                     </tbody>
                 </table>
@@ -2897,7 +3093,7 @@ page-break-after :always
                                 <td>Designation</td>
                                 <td>: {EmployeeData[0].Designation ?? "-"}</td>
                                 <td>TSGLI No</td>
-                                <td>: {EmployeeData[0].TSGLI}</td>
+                                <td>: {EmployeeData[0].TSGLINumber}</td>
                             </tr>
                           
                             <tr>
@@ -2921,84 +3117,252 @@ page-break-after :always
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class='border'>
-                            <td class='border'><span>BASIC PAY :</span>
-                                <span class='pull-right'>{EmployeeData[0].BasicPay }</span>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
-                            <td class='border'><span>LIC :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC }</span>
+                            <td class='border'><span>GPF :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
-                            <td class='border'><span>DA :</span>
-                                <span class='pull-right'>{EmployeeData[0].DA }</span>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                            <td class='border'><span>GPF LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF_LOAN}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>TSGLI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLIAmount}</span>
+                            </td>
+                            <td class='border'></td>  
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                            <td class='border'><span>TSGLI LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLI_LOAN}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>CCA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CCA}</span>
+                            </td>
+                            <td class='border'><span>GIS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GIS}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA}</span>
+                            </td>
+                            <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                            <td  class='border'><span>NCI :</span>
+                                <span class='pull-right'>{EmployeeData[0].NCI}</span>
                             </td>
                             <td class='border'><span>PT :</span>
-                                <span class='pull-right'> {EmployeeData[0].PT }</span>
+                                <span class='pull-right'>{EmployeeData[0].PT}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td  class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td  class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                            <td class='border'><span>HBA Principal :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td  class='border'><span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                            <td class='border'><span>HBA Interest :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                            <td  class='border'><span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+
+
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
+                            </td>
+                            <td class='border'><span>FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].FA}</span>
+                            </td>
+                            <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'><span>IR :</span>
+                                <span class='pull-right'>{EmployeeData[0].IR}</span>
+                            </td>
+                            <td class='border'><span>EA :</span>
+                                <span class='pull-right'> {EmployeeData[0].EA}</span>
+                            </td>
+                            <td class='border'><span>PT :</span>
+                                <span class='pull-right'> {EmployeeData[0].PT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                            <td class='border'><span>SPL.FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].SPL_FA}</span>
+                            </td>
+                            <td class='border'><span>LIC1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                            </td>                            
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
                             <td class='border'><span>HRA :</span>
-                                <span class='pull-right'>{EmployeeData[0].HRA }</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
-                            <td class='border'><span>ITAX :</span>
-                                <span class='pull-right'>{EmployeeData[0].IT }</span>
+                            <td class='border'><span>HBA:1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA1}</span>
                             </td>
-                            <td class='border'></td>
-                            
+                            <td class='border'><span>LIC2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                            </td>                            
                         </tr>
-                        <tr class='border'>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
                             <td class='border'><span>CCA :</span>
-                                <span class='pull-right'>{EmployeeData[0].CCA }</span>
+                                <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
-                            <td class='border'><span>NPS :</span>
-                                <span class='pull-right'>{EmployeeData[0].NPS_CPS }</span>
+                            <td class='border'><span>HBA:2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA2}</span>
+                            </td>
+                            <td class='border'><span>LIC3 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA}</span>
+                            </td>
+                            <td class='border'> <span>HBA:INT :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                            <td class='border'> <span>LIC4 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>CA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CA}</span>
+                            </td>
+                            <td class='border'> <span>Other deductions :</span>
+                                <span class='pull-right'>0</span>
+                            </td>
+                            <td class='border'> <span>LIC5 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>PP :</span>
+                                <span class='pull-right'>{EmployeeData[0].PP}</span>
+                            </td>
+                            <td class='border'> <span>VA :</span>
+                                <span class='pull-right'>{EmployeeData[0].VA}</span>
                             </td>
                             <td class='border'></td>
-                            
                         </tr>
-                        <tr class='border'>
-                            <td class='border'><span>TSINCR :</span>
-                                <span class='pull-right'>{EmployeeData[0].TGINCR }</span>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>FP :</span>
+                                <span class='pull-right'>{EmployeeData[0].FP}</span>
                             </td>
-                            <td class='border'><span></span>
-                                <span class='pull-right'></span>
+                            <td class='border'> <span>COMP ADV :</span>
+                                <span class='pull-right'>{EmployeeData[0].COMP_ADV}</span>
                             </td>
                             <td class='border'></td>
-                           
                         </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>CON.ALLOW :</span>
-                                <span class='pull-right'>{EmployeeData[0].CA }</span></td>
-                            <td class='border'>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
-                           <td class='border'></td>
-                          
-                        </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>MDCL_A :</span>
-                                <span class='pull-right'>{EmployeeData[0].MA }</span></td>
-                            <td class='border'>
+                            <td class='border'> <span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
                             </td>
-                           <td class='border'></td>
-                          
+                            <td class='border'></td>
                         </tr>
-                        <tr class='border'>
-                            <td class='border'> <span>GROSS :</span>
-                                <span class='pull-right'>{EmployeeData[0].GrossTotal }</span></td>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> <span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                            <td class='border'></td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                            <td class='border'> 
+                                <span>GROSS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GrossTotal}</span>
+                            </td>
                             <td class='border'>
-                                <span>TOT DED :</span>
-                                <span class='pull-right'>{EmployeeData[0].TotalDeductions }</span>
+                                <span>TOT-DED :</span>
+                                <span class='pull-right'>{EmployeeData[0].TotalDeductions}</span>
                             </td>
                            <td class='border'>
-                            <span>NETPAY :</span>
-                                <span class='pull-right'>{EmployeeData[0].NetSalary }</span>
+                                <span>NET SALARY :</span>
+                                <span class='pull-right'>{EmployeeData[0].NetSalary}</span>
                            </td>
-                          
                         </tr>
                     </tbody>
                 </table>
