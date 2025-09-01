@@ -445,7 +445,7 @@ define(['app'], function (app) {
 
 
 
-        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName) {
+        this.AddEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName, MobileNumber) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -470,14 +470,15 @@ define(['app'], function (app) {
                 "GOPostID": GOPostID,
                 "SortOrder": SortOrder,
                 "Active": Active,
-                "UserName": UserName
+                "UserName": UserName,
+                "MobileNumber": MobileNumber
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateEmployeeDetails', paramObject);
             return promise;
         };
 
 
-        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName) {
+        this.UpdateEmployeeDetails = function (DataTypeId, EmployeeID, EmployeeCode, EmployeeName, DOB, DOJ, DOR, DesignationId, DepartmentId, Gender, Empstatus, IncrementMonth, TSGLINumber, ScaleType, PanNO, CPS_NPS, PranNo, GPFNo, AccountNumber, IFSCCode, GOPostID, SortOrder, Active, UserName, MobileNumber) {
             var paramObject = {
                 "DataTypeId": DataTypeId,
                 "EmployeeID": EmployeeID,
@@ -502,7 +503,8 @@ define(['app'], function (app) {
                 "GOPostID": GOPostID,
                 "SortOrder": SortOrder,
                 "Active": Active,
-                "UserName": UserName
+                "UserName": UserName,
+                "MobileNumber": MobileNumber
             };
             var promise = DataAccessService.postData('api/PayRoll/AddorUpdateEmployeeDetails', paramObject);
             return promise;

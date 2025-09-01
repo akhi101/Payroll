@@ -833,6 +833,7 @@ namespace SoftwareSuite.Controllers.PayRoll
 
             public bool Active { get; set; }
             public string UserName { get; set; }
+            public string MobileNumber { get; set; }
 
         }
 
@@ -846,7 +847,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             {
 
                 var dbHandler = new PayRolldbhandler();
-                var param = new SqlParameter[24];
+                var param = new SqlParameter[25];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
                 param[2] = new SqlParameter("@EmployeeCode", data.EmployeeCode);
@@ -871,6 +872,7 @@ namespace SoftwareSuite.Controllers.PayRoll
                 param[21] = new SqlParameter("@SortOrder", data.SortOrder);
                 param[22] = new SqlParameter("@Active", data.Active);
                 param[23] = new SqlParameter("@UserName", data.UserName);
+                param[24] = new SqlParameter("@MobileNumber", data.MobileNumber);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_EmployeeDetails", param);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, dt);
                 return response;
@@ -879,7 +881,7 @@ namespace SoftwareSuite.Controllers.PayRoll
             catch (Exception ex)
             {
 
-                dbHandler.SaveErorr("SP_Get_PinListForFeePayment", 0, ex.Message);
+                dbHandler.SaveErorr("SP_Add_Update_EmployeeDetails", 0, ex.Message);
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
