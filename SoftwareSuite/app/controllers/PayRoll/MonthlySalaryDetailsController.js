@@ -150,6 +150,7 @@ define(['app'], function (app) {
                 //$scope.edit = true;
                 if (res.Table[0].ResponseCode=='200') {
                     $scope.GetAllMonthlyDays = res.Table1;
+                    $scope.NoofDays == res.Table1[0].NoofDays
                     $scope.button1disable = false;
                     $scope.loading = false;
 
@@ -217,10 +218,13 @@ define(['app'], function (app) {
 
 
         $scope.UpdateMonthlyDays = function (data) {
-            
-
-
-            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.EmployeeID,data.MonthlyDaysID, data.PresentDays, data.NoofDays, $scope.UserName)
+            var halfdays = parseInt(data.HalfDaysPresent / 2)
+            var totalPresent = parseInt(halfdays + data.PresentDays)
+            if (totalPresent > data.NoofDays) {
+                alert("Working Days Must be less than Total No of Days");
+                return;
+            }
+            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.EmployeeID, data.MonthlyDaysID, data.PresentDays, data.NoofDays, data.HalfDaysPresent, $scope.UserName)
             UpdateMonthlyDays.then(function (response) {
                 try {
                     var res = JSON.parse(response);
@@ -245,7 +249,6 @@ define(['app'], function (app) {
 
                 });
         }
-
 
 
 

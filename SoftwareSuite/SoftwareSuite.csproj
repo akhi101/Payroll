@@ -455,6 +455,10 @@
     <Content Include="app\controllers\MasterSettings\ModulesSettingController.js" />
     <Content Include="app\controllers\MasterSettings\SubModuleSettingsController.js" />
     <Content Include="app\controllers\PayrollLoginController.js" />
+    <Content Include="app\controllers\PayrollMobile\EmployeeConsolidatedController.js" />
+    <Content Include="app\controllers\PayrollMobile\EmployeePayslipController.js" />
+    <Content Include="app\controllers\PayrollMobile\MobilePensionerConsolidatedController.js" />
+    <Content Include="app\controllers\PayrollMobile\MobilePensionerPayslipController.js" />
     <Content Include="app\controllers\PayRoll\BankDetailsController.js" />
     <Content Include="app\controllers\PayRoll\BoardStaffController.js" />
     <Content Include="app\controllers\PayRoll\CommonAllowancesController.js" />
@@ -467,6 +471,7 @@
     <Content Include="app\controllers\PayRoll\OverAllDeductionsController.js" />
     <Content Include="app\controllers\PayRoll\PayRollController.js" />
     <Content Include="app\controllers\PayRoll\PayRollDashboardController.js" />
+    <Content Include="app\controllers\PayRoll\PayrollEmployeeLoginController.js" />
     <Content Include="app\controllers\PayRoll\PayRollMastersController.js" />
     <Content Include="app\controllers\PayRoll\PensionDetailsController.js" />
     <Content Include="app\controllers\PayRoll\PensionerDeductionsController.js" />
@@ -488,6 +493,10 @@
     <Content Include="app\views\MasterSettings\ModulesSetting.html" />
     <Content Include="app\views\MasterSettings\SubModuleSettings.html" />
     <Content Include="app\views\PayrollLogin.html" />
+    <Content Include="app\views\PayrollMobile\EmployeeConsolidated.html" />
+    <Content Include="app\views\PayrollMobile\EmployeePayslip.html" />
+    <Content Include="app\views\PayrollMobile\MobilePensionerConsolidated.html" />
+    <Content Include="app\views\PayrollMobile\MobilePensionerPayslip.html" />
     <Content Include="app\views\PayRoll\BankDetails.html" />
     <Content Include="app\views\PayRoll\BoardStaff.html" />
     <Content Include="app\views\PayRoll\CommonAllowances.html" />
@@ -500,6 +509,7 @@
     <Content Include="app\views\PayRoll\OverAllDeductions.html" />
     <Content Include="app\views\PayRoll\PayRoll.html" />
     <Content Include="app\views\PayRoll\PayRollDashboard.html" />
+    <Content Include="app\views\PayRoll\PayrollEmployeeLogin.html" />
     <Content Include="app\views\PayRoll\PayRollMasters.html" />
     <Content Include="app\views\PayRoll\PensionDetails.html" />
     <Content Include="app\views\PayRoll\MonthlyPensionDetails.html" />

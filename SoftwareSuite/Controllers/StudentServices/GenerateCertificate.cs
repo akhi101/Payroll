@@ -156,7 +156,7 @@ namespace SoftwareSuite.Controllers.StudentServices
             public string PT { get; set; }
             public string IT { get; set; }
             public string TotalDeductions { get; set; }
-            public string NetSalary { get; set; }
+            public int NetSalary { get; set; }
             public string LIC { get; set; }
 
             public string TSGLI { get; set; }
@@ -322,15 +322,15 @@ namespace SoftwareSuite.Controllers.StudentServices
 
         public string GetTrsheetPdf(List<TrSheetCertificateData> TrSheetData)
         {
-                var dir = String.Empty;
-                var pdf = String.Empty;
-                string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR";
-                CreateIfMissing(dirPath);
-                var dir_id = GetTrSheets(TrSheetData);
-                 dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
-                var files = Directory.GetFiles(dir);
-                 pdf = Guid.NewGuid().ToString();
-                MergePDFs(AppDomain.CurrentDomain.BaseDirectory + @"Reports\" + pdf + ".pdf", files);
+            var dir = String.Empty;
+            var pdf = String.Empty;
+            string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR";
+            CreateIfMissing(dirPath);
+            var dir_id = GetTrSheets(TrSheetData);
+            dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
+            var files = Directory.GetFiles(dir);
+            pdf = Guid.NewGuid().ToString();
+            MergePDFs(AppDomain.CurrentDomain.BaseDirectory + @"Reports\" + pdf + ".pdf", files);
             Directory.Delete(dir, true);
             return pdf;
         }
@@ -350,7 +350,7 @@ namespace SoftwareSuite.Controllers.StudentServices
 
         public async Task<string> GetC18ODCTrsheetPdfAsync(List<C18OdcTrSheet> C18OdcTrSheet)
 
-        {            
+        {
             string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\ODCTR";
             CreateIfMissing(dirPath);
             var dir_id = await GetC18ODCTrSheetsAsync(C18OdcTrSheet);
@@ -363,7 +363,7 @@ namespace SoftwareSuite.Controllers.StudentServices
         }
 
         public static void MergePDFs(string targetPath, params string[] pdfs)
-        {            
+        {
             using (PdfSharp.Pdf.PdfDocument targetDoc = new PdfSharp.Pdf.PdfDocument())
             {
                 foreach (string pdf in pdfs)
@@ -641,7 +641,7 @@ padding :6px
             <br />
             <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' alt='Notebook' class='myImg'>";
 
-            if (InterimData[0].SchemeId == 9 ||InterimData[0].SchemeId == 5)
+            if (InterimData[0].SchemeId == 9 || InterimData[0].SchemeId == 5)
             {
                 page += $@"<div class='content'>
                 <div class='row '>
@@ -659,7 +659,7 @@ with <b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Poi
                     </p>
                 </div>";
 
-               
+
             }
             else
             {
@@ -746,16 +746,16 @@ with <b class='border_btm'>{InterimData[0].CGPA ?? "-"}</b> Cumulative Grade Poi
             converter.Options.DrawBackground = false;
             converter.Options.JavaScriptEnabled = false;
             converter.Options.WebPageWidth = 1024;
-            converter.Options.PdfPageSize = PdfPageSize.A4; 
+            converter.Options.PdfPageSize = PdfPageSize.A4;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
-              var doc = converter.ConvertHtmlString(sbString);
+            var doc = converter.ConvertHtmlString(sbString);
             //var  path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
             //  doc.Save(path);
             //  doc.Close();
             //  sbString = html;
             //  pgno++;
-            var path = dir + "PaySlip"+ DateTime.Now.ToString("HHmmss") + ".pdf";
+            var path = dir + "PaySlip" + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -1087,7 +1087,7 @@ padding :6px
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "GC" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") +".pdf";
+            var path = dir + "GC" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -1423,8 +1423,8 @@ padding:1px!important;
                             </div>
                        
                     </div>
-            <div class='content'>";         
-                page += $@" <div class='row'>
+            <div class='content'>";
+            page += $@" <div class='row'>
                 <table class='table'>
                     <thead>
                         <tr>
@@ -1454,9 +1454,9 @@ padding:1px!important;
                     </thead>
                     <tbody>";
 
-                for (var i = 0; i < studentintrmMarks.Length; i++)
-                {
-                    page += $@"<tr>
+            for (var i = 0; i < studentintrmMarks.Length; i++)
+            {
+                page += $@"<tr>
                                             <td class='text-center'>{studentintrmMarks[i].Examination ?? "-"}</td>
                                             <td class='text-center'>{studentintrmMarks[i].MaxMarks ?? "-"}</td>
                                             <td class='text-center'>{studentintrmMarks[i].MaxSecured ?? "-"}</td>
@@ -1480,8 +1480,8 @@ padding:1px!important;
   <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
   <td class='text-center'>{studentintrmMarks[i].InWords ?? "-"}</td>
                                         </tr>";
-                }
-                page += $@" <tr>
+            }
+            page += $@" <tr>
                                 <td class='text-center'> Total Marks In Figure</td>
                                 <td class='text-center' colspan='5'><b class='text-uppercase '>{InterimData[0].TotalMarksInFigure}</b> </td>
                                 <td class='text-center'> In Words</td>
@@ -1508,9 +1508,9 @@ padding:1px!important;
                         </tbody>
                     </table>
                 </div>";
-            
 
-    
+
+
             page += $@"</div>             
             </div>";
             #endregion
@@ -1528,12 +1528,15 @@ padding:1px!important;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
 
             var doc = converter.ConvertHtmlString(sbString);
-            var path = dir + "INTRM" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") +".pdf";
+            var path = dir + "INTRM" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
         }
+
+
+
 
         public string GetInterimCertificate(DataSet IntrmData)
         {
@@ -2020,11 +2023,12 @@ in
             var doc = converter.ConvertHtmlString(sbString);
             var path = dir + "INTRM" + InterimData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
+
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
         }
-        
+
 
         public string GetPayslipByEmployee(DataSet EmployeeDat)
         {
@@ -2409,7 +2413,7 @@ page-break-after :always
                                 <td>Department</td>
                                 <td>: {EmployeeData[0].Department ?? "-"}</td>
                                 <td>PAN No</td>
-                                <td>: {EmployeeData[0].PanNo }</td>
+                                <td>: {EmployeeData[0].PanNo}</td>
                             </tr>
                           
                         </tbody>
@@ -2425,8 +2429,10 @@ page-break-after :always
                            
                         </tr>
                     </thead>
-                    <tbody>
-                                                <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                    <tbody>";
+            if (EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3)
+            {
+                page += $@" <tr class='border' >
                             <td  class='border'><span>BASIC PAY :</span>
                                 <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
@@ -2436,7 +2442,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>SP :</span>
                                 <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
@@ -2446,7 +2452,8 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+
+               <tr class='border' >
                             <td  class='border'><span>DA :</span>
                                 <span class='pull-right'>{EmployeeData[0].DA}</span>
                             </td>
@@ -2455,8 +2462,7 @@ page-break-after :always
                             </td>
                             <td class='border'></td>  
                         </tr>
-
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                   < tr class='border' >
                             <td  class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
@@ -2466,7 +2472,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
@@ -2476,7 +2482,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>MA :</span>
                                 <span class='pull-right'>{EmployeeData[0].MA}</span>
                             </td>
@@ -2486,7 +2492,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>NCI :</span>
                                 <span class='pull-right'>{EmployeeData[0].NCI}</span>
                             </td>
@@ -2496,7 +2502,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td  class='border'><span>TSI :</span>
                                 <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
@@ -2506,7 +2512,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td class='border'></td>
                             <td class='border'><span>HBA Principal :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
@@ -2514,17 +2520,17 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td class='border'></td>
                             <td class='border'><span>HBA Interest :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
                             <td class='border'></td>
-                        </tr>
-
-
-
-                                                <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        </tr>";
+            }
+            if (EmployeeData[0].DepartmentId == 2)
+            {
+                page += $@"               < tr class='border' >
                             <td  class='border'><span>BASIC PAY :</span>
                                 <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
@@ -2536,7 +2542,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>IR :</span>
                                 <span class='pull-right'>{EmployeeData[0].IR}</span>
                             </td>
@@ -2548,7 +2554,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>DA :</span>
                                 <span class='pull-right'>{EmployeeData[0].DA}</span>
                             </td>
@@ -2560,7 +2566,7 @@ page-break-after :always
                             </td>                            
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
@@ -2572,7 +2578,7 @@ page-break-after :always
                             </td>                            
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
@@ -2584,7 +2590,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>MA :</span>
                                 <span class='pull-right'>{EmployeeData[0].MA}</span>
                             </td>
@@ -2596,7 +2602,7 @@ page-break-after :always
                             </td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>CA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CA}</span>
                             </td>
@@ -2608,7 +2614,7 @@ page-break-after :always
                             </td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>PP :</span>
                                 <span class='pull-right'>{EmployeeData[0].PP}</span>
                             </td>
@@ -2618,7 +2624,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>FP :</span>
                                 <span class='pull-right'>{EmployeeData[0].FP}</span>
                             </td>
@@ -2628,7 +2634,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>SP :</span>
                                 <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
@@ -2638,7 +2644,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>TSI :</span>
                                 <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
@@ -2646,7 +2652,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> 
                                 <span>GROSS :</span>
                                 <span class='pull-right'>{EmployeeData[0].GrossTotal}</span>
@@ -2659,8 +2665,10 @@ page-break-after :always
                                 <span>NET SALARY :</span>
                                 <span class='pull-right'>{EmployeeData[0].NetSalary}</span>
                            </td>
-                        </tr>
-                    </tbody>
+                        </tr>";
+            }
+
+            page += $@"</tbody>
                 </table>
             </div>
             <div class=''>
@@ -2692,7 +2700,7 @@ page-break-after :always
             converter.Options.PdfPageSize = PdfPageSize.A4;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
             var doc = converter.ConvertHtmlString(sbString);
-             path = dir + EmployeeData[0].EmployeeCode + DateTime.Now.ToString("HHmmss") + ".pdf";
+            path = dir + EmployeeData[0].EmployeeCode +"_"+ EmployeeData[0].MonthYear+"_Payslip"+".pdf";
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -2705,18 +2713,18 @@ page-break-after :always
 
 
 
-
-        public string GetPaySlip(DataSet EmployeeDat,string dirid)
+        public string GetPensionerConsolidated(DataSet EmployeeDat)
         {
             List<EmployeeData> InterimData = EmployeeDat.Tables[0].DataTableToList<EmployeeData>().ToList(); ;
             var EmployeeData = DataTableHelper.ConvertDataTable<EmployeeData>(EmployeeDat.Tables[0]).ToArray();
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
             //List<InterimData> InterimData = IntrmData.Tables[0].DataTableToList<InterimData>().ToList(); ;
             // var studentintrmMarks = DataTableHelper.ConvertDataTable<studentintrmMarks>(IntrmData.ToArray());
 
             //var dir_id = Guid.NewGuid().ToString();
             //var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
             var path = string.Empty;
-           // CreateIfMissing(dir);
+            // CreateIfMissing(dir);
             string html = @"<html>"
                    + "<head>"
                    + $"<title></title>"
@@ -3027,8 +3035,8 @@ page-break-after :always
             //var path = string.Empty;
             string sbString = html;
 
-            
-                page += $@" <div class='container linebreak'>
+
+            page += $@" <div class='container linebreak'>
                             <div class='header'>
                                 <div class='col-md-2 logo'>
                                     <div class='logo-image' style='padding:6px!important;'>
@@ -3056,10 +3064,10 @@ page-break-after :always
 
 
 
-                        //#endregion
+            //#endregion
 
-                        #region PageContent
-                        page += $@"<div class='container body-text margin-bottom'>        
+            #region PageContent
+            page += $@"<div class='container body-text margin-bottom'>        
                 
                     <table class='table  table-responsive'>
                         <thead> 
@@ -3088,7 +3096,7 @@ page-break-after :always
                                 <td>Department</td>
                                 <td>: {EmployeeData[0].Department ?? "-"}</td>
                                 <td>PAN No</td>
-                                <td>: {EmployeeData[0].PanNo }</td>
+                                <td>: {EmployeeData[0].PanNo}</td>
                             </tr>
                           
                         </tbody>
@@ -3104,9 +3112,10 @@ page-break-after :always
                            
                         </tr>
                     </thead>
-                    <tbody>
-
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                    <tbody>";
+            if (EmployeeData[0].DepartmentId == 1 || EmployeeData[0].DepartmentId == 3)
+            {
+                page += $@" <tr class='border' >
                             <td  class='border'><span>BASIC PAY :</span>
                                 <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
@@ -3116,7 +3125,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>SP :</span>
                                 <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
@@ -3126,7 +3135,8 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+
+               <tr class='border' >
                             <td  class='border'><span>DA :</span>
                                 <span class='pull-right'>{EmployeeData[0].DA}</span>
                             </td>
@@ -3135,8 +3145,7 @@ page-break-after :always
                             </td>
                             <td class='border'></td>  
                         </tr>
-
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                   < tr class='border' >
                             <td  class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
@@ -3146,7 +3155,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
@@ -3156,7 +3165,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>MA :</span>
                                 <span class='pull-right'>{EmployeeData[0].MA}</span>
                             </td>
@@ -3166,7 +3175,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1 || EmployeeData[0].DepartmentId==3'>
+                        <tr class='border' >
                             <td  class='border'><span>NCI :</span>
                                 <span class='pull-right'>{EmployeeData[0].NCI}</span>
                             </td>
@@ -3176,7 +3185,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td  class='border'><span>TSI :</span>
                                 <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
@@ -3186,7 +3195,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td class='border'></td>
                             <td class='border'><span>HBA Principal :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
@@ -3194,18 +3203,17 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==1' || EmployeeData[0].DepartmentId==3>
+                        <tr class='border' >
                             <td class='border'></td>
                             <td class='border'><span>HBA Interest :</span>
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
                             <td class='border'></td>
-                        </tr>
-
-
-
-
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        </tr>";
+            }
+            if (EmployeeData[0].DepartmentId == 2)
+            {
+                page += $@"               < tr class='border' >
                             <td  class='border'><span>BASIC PAY :</span>
                                 <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
                             </td>
@@ -3217,7 +3225,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>IR :</span>
                                 <span class='pull-right'>{EmployeeData[0].IR}</span>
                             </td>
@@ -3229,7 +3237,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>DA :</span>
                                 <span class='pull-right'>{EmployeeData[0].DA}</span>
                             </td>
@@ -3241,7 +3249,7 @@ page-break-after :always
                             </td>                            
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>HRA :</span>
                                 <span class='pull-right'>{EmployeeData[0].HRA}</span>
                             </td>
@@ -3253,7 +3261,7 @@ page-break-after :always
                             </td>                            
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'><span>CCA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CCA}</span>
                             </td>
@@ -3265,7 +3273,7 @@ page-break-after :always
                             </td>                           
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>MA :</span>
                                 <span class='pull-right'>{EmployeeData[0].MA}</span>
                             </td>
@@ -3277,7 +3285,7 @@ page-break-after :always
                             </td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>CA :</span>
                                 <span class='pull-right'>{EmployeeData[0].CA}</span>
                             </td>
@@ -3289,7 +3297,7 @@ page-break-after :always
                             </td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>PP :</span>
                                 <span class='pull-right'>{EmployeeData[0].PP}</span>
                             </td>
@@ -3299,7 +3307,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>FP :</span>
                                 <span class='pull-right'>{EmployeeData[0].FP}</span>
                             </td>
@@ -3309,7 +3317,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>SP :</span>
                                 <span class='pull-right'>{EmployeeData[0].SP}</span>
                             </td>
@@ -3319,7 +3327,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> <span>TSI :</span>
                                 <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
                             </td>
@@ -3327,7 +3335,7 @@ page-break-after :always
                             <td class='border'></td>
                         </tr>
 
-                        <tr class='border' ng-show='EmployeeData[0].DepartmentId==2'>
+                        <tr class='border' >
                             <td class='border'> 
                                 <span>GROSS :</span>
                                 <span class='pull-right'>{EmployeeData[0].GrossTotal}</span>
@@ -3340,8 +3348,10 @@ page-break-after :always
                                 <span>NET SALARY :</span>
                                 <span class='pull-right'>{EmployeeData[0].NetSalary}</span>
                            </td>
-                        </tr>
-                    </tbody>
+                        </tr>";
+            }
+
+            page += $@"</tbody>
                 </table>
             </div>
             <div class=''>
@@ -3358,31 +3368,838 @@ page-break-after :always
 <hr>
 <div class='footer'>This is a system generated payslip, Signature is not required.</div>
 </div>";
-          
-                #endregion
 
-                sbString += page;
-                        sbString += "</body></html>";
+            #endregion
 
-                        var converter = new HtmlToPdf();
-                        converter.Options.ExternalLinksEnabled = true;
-                        converter.Options.DisplayHeader = true;
-                        converter.Options.DrawBackground = false;
-                        converter.Options.JavaScriptEnabled = false;
-                        converter.Options.WebPageWidth = 1024;
-                        converter.Options.PdfPageSize = PdfPageSize.A4;
-                        converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-                        var doc = converter.ConvertHtmlString(sbString);
-             path = dirid + $"\\{pgno.ToString().PadLeft(6, '0')}"+ DateTime.Now.ToString("HHmmss")+".pdf";
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            var doc = converter.ConvertHtmlString(sbString);
+            path = dir + EmployeeData[0].EmployeeCode + "_" + EmployeeData[0].MonthYear + "_Payslip" + ".pdf";
             doc.Save(path);
             doc.Close();
-             pgno++;
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
 
 
 
             //return dir_id;
+        }
+
+
+        public string GetPaySlip(DataSet EmployeeDat, string dirid)
+        {
+            List<EmployeeData> InterimData = EmployeeDat.Tables[0].DataTableToList<EmployeeData>().ToList(); ;
+            var EmployeeData = DataTableHelper.ConvertDataTable<EmployeeData>(EmployeeDat.Tables[0]).ToArray();
+            //List<InterimData> InterimData = IntrmData.Tables[0].DataTableToList<InterimData>().ToList(); ;
+            // var studentintrmMarks = DataTableHelper.ConvertDataTable<studentintrmMarks>(IntrmData.ToArray());
+
+            //var dir_id = Guid.NewGuid().ToString();
+            //var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
+            var path = string.Empty;
+            // CreateIfMissing(dir);
+            string html = @"<html>"
+                   + "<head>"
+                   + $"<title></title>"
+                   + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+                   + @"<style type='text/css'>
+                         html{
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                        }
+                        body {
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                            m0argin-left: 10px;
+                        }
+                        table {  
+                            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+                            width: 100%; 
+                            //border-collapse: collapse;
+                            border-spacing: 0; 
+                        }
+
+                     
+
+                        th {  
+                            font-weight: bold; /* Make sure they're bold */
+                        }
+
+                      
+
+                      .logoImg {
+                                height: 70px !important;
+                                width: 70px !important;
+                            }
+
+                    .myHr {
+                                border-top: 1px solid #000;
+                            }
+
+                            .header-top-section {
+                                display: none;
+                            }
+
+                            .border_btm {
+                                border-bottom: 1px solid #000;
+                                text-transform: uppercase;
+                            }
+
+                            .text-uppercase {
+                                text-transform: uppercase;
+                            }
+
+                            p {
+                                text-indent: 50px;
+padding :6px
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+
+                            .marginData {
+                                margin: 0px 20px;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .print_btn {
+                                display: none;
+                            }
+
+                            .spacer {
+                                display: none;
+                            }
+
+                            .text-intend {
+                                text-indent: 50px;
+                                line-height: 2.0;
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+
+                            .Line {
+                                line-height: normal;
+                            }
+                             .sm-spacer{
+                                     height:20px;
+                                 }
+
+                            .a {
+                                margin: 25px;
+                            }
+
+                            canvas.sa-canvas {
+                                border: none;
+                            }
+
+                            .interim-spacer {
+                                display: none;
+                            }
+
+                            .myImg {
+                                width: 70% !important;
+                                padding:120px;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                                display: block!important;
+                                opacity:0.3;
+                            }
+
+                            .myData {
+                                position: absolute;
+                            }
+                        .table > thead > tr > th {
+						
+							border: 1px solid #000000 !important;
+                            border: 1px solid #000000 !important;
+						}
+
+                            .container img {
+                                vertical-align: middle;
+                            }
+
+                            .container .content {
+                                position: absolute!important;
+                                top: 0!important;
+                                background: rgb(0, 0, 0)!important;
+                                background: rgba(255, 255, 255, 0.36)!important;
+                                color: #130404!important;
+                                width: 100%!important;
+                                padding: 20px!important;
+                            }
+                               .container{
+                                position: relative;
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                                .table td, .table th {
+                                background-color: transparent!important;
+                            }
+                            .myrow{
+                                position:relative!important;
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+                            .image{
+                                 background: url(../../../contents/img/big-logo.png) repeat;
+                               /*  height: 500px;  You must set a specified height */
+                                  background-position: center; /* Center the image */
+                                  background-repeat: no-repeat; /* Do not repeat the image */
+                                  /* Resize the background image to cover the entire container */
+                                  position:relative;
+                            }
+                           .myImg {
+                              width: 60%;
+                             padding:120px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                            opacity:0.3;
+                            z-index:1000;
+                        }
+                           .myData{
+                               position:absolute;
+                           }
+                    .container{
+                            position: relative;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                    .container img {
+                        vertical-align: middle;
+                    }
+
+                    .container .content {
+                       position: absolute;
+                       bottom: 0;
+                       background: rgb(0, 0, 0);
+                       background: rgba(233, 235, 239, 0.36);
+                       color: #130404;
+                       width: 100%;
+                       padding: 20px;
+                    }
+                      .less_pad{
+padding:1px!important;
+}
+  .logo_css {
+                height: 85px;
+                width: 85px;
+                border-radius: 50%;
+            }
+
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                border-bottom-width: 2px;
+                padding: 5px;
+                border: 0px !important;
+padding: 3px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+  border: 0px !important;
+padding: 5px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+                border:1px solid #000!important;
+                background-color: #eaf5ff !important;
+    padding: 3px;
+    font-size: 13px;
+            }
+  tr.border {
+                border: 1px solid #000;
+            }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border: 1px solid #000!important;
+}.table>thead>tr>th {
+   border: 0px!important;
+}
+.border-left{
+border-left:2px solid #fff!important;
+}
+td.border {
+    border: 1px solid #150c0c !important;
+}
+          .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+padding: 3px;
+        font-size: 13px;
+    }
+hr{
+        margin: 10px 0px!important;
+    }
+
+.container{
+padding:0px;
+}
+       @media print {
+         .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px!important;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+font-size:13px!important;
+    }
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        font-size: 13px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+    }
+ hr{
+        margin: 10px 0px!important;
+    }
+.my_margin{
+margin :0px 0px;
+}
+}
+.my_margin{
+margin :0px 0px;
+}
+ .linebreak{
+padding - bottom:50px;
+display:block;
+position: relative;}
+.header{
+page-break-before :always
+}
+.footer{
+page-break-after :always
+}
+
+                        </style> "
+                   + "</head><body>";
+            var page = string.Empty;
+
+           string NetWords= NumberToWords(((int)EmployeeData[0].NetSalary));
+            var pgno = 1;
+            //var path = string.Empty;
+            string sbString = html;
+
+
+            page += $@" <div class='container linebreak'>
+                            <div class='header'>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/telangana-logo-png.png' class='img-responsive logoImg pull-left' />
+                                    </div>
+                                </div>
+
+                                <div class='col-md-8 title'>
+                                    <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
+                                  <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
+                                    <h5 class='text-center' style='font-size: 16px!important;'>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
+                                    </h5>
+                                   
+                                </div>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' class='img-responsive logoImg pull-right' />
+                                    </div>
+                                </div>
+                            </div>
+<div class='col-md-12'><h4 class='text-center my_margin'><b>PAYSLIP FOR THE MONTH OF {EmployeeData[0].MonthYear}</b></h4>  </div>
+<hr>
+                    ";
+
+
+
+            //#endregion
+
+            #region PageContent
+            page += $@"<div class='container body-text margin-bottom'>        
+                
+                    <table class='table  table-responsive'>
+                        <thead> 
+                            <tr>
+                                <td>Employee Code</td>
+                                <td>: {EmployeeData[0].EmployeeCode ?? "-"}</td>
+                                <td>Bank ACC No</td>
+                                <td>: {EmployeeData[0].BankAcNo}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th> Name</th>
+                                <th>: {EmployeeData[0].EmployeeName ?? "-"}</th>";
+  if (EmployeeData[0].DepartmentId == 1|| EmployeeData[0].DepartmentId == 3)
+            {
+                page += $@"
+                                <td>CPS NO/GPF NO</td>
+                                <td>: {EmployeeData[0].CPSNo}</td>
+                            </tr>
+<tr>
+                                <td>Designation</td>
+                                <td>: {EmployeeData[0].Designation ?? "-"}</td>
+                                <td>TSGLI No</td>
+                                <td>: {EmployeeData[0].TSGLINumber}</td>
+                            </tr>
+                          
+                            <tr>
+                                <td>Department</td>
+                                <td>: {EmployeeData[0].Department ?? "-"}</td>
+                                <td>PAN No</td>
+                                <td>: {EmployeeData[0].PanNo}</td>
+                            </tr>";
+            }
+            else
+            {
+                page += $@"
+   <td>NPS NO/GPFNO</td>
+                                <td>: {EmployeeData[0].CPSNo}</td>
+                            </tr>
+                                <td>Designation</td>
+                                <td>: {EmployeeData[0].Designation ?? "-"}</td>
+                                <td>TSGLI No</td>
+                                <td>: {EmployeeData[0].TSGLINumber}</td>
+                            </tr>
+                          
+                            <tr>
+                                <td>Department</td>
+                                <td>: {EmployeeData[0].Department ?? "-"}</td>
+                                <td>PAN No</td>
+                                <td>: {EmployeeData[0].PanNo}</td>
+                            </tr>
+
+";
+
+            }
+                page += $@"   
+                          
+                        </tbody>
+                    </table>
+            </div>
+            <div class=''>
+                <table class='table table-bordered table-responsive'>
+                    <thead>
+                        <tr>
+                            <th class='border'>PAY & ALLOWANCES</th>
+                            <th class='border'>DEDUCTIONS</th>
+                            <th class='border'>LOANS</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>";
+            if (EmployeeData[0].DepartmentId == 1|| EmployeeData[0].DepartmentId == 3)
+            {
+                page += $@"   <tr class='border' >
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
+                            </td>
+                            <td class='border'><span>CPS :</span>
+                                <span class='pull-right'>{EmployeeData[0].NPS_CPS}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                             <td class='border'><span>GPF :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                              <td class='border'><span>GPF LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].GPF_LOAN}</span>
+                            </td>
+                           
+                            <td class='border'></td>  
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                             <td class='border'><span>TSGLI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLIAmount}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>CCA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CCA}</span>
+                            </td>
+                            <td class='border'><span>TSGLI LOAN :</span>
+                                <span class='pull-right'>{EmployeeData[0].TSGLI_LOAN}</span>
+                            </td>
+                           
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA}</span>
+                            </td>
+                             <td class='border'><span>GIS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GIS}</span>
+                            </td>
+                           
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>NCI :</span>
+                                <span class='pull-right'>{EmployeeData[0].NCI}</span>
+                            </td>
+                             <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td  class='border'><span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                              <td class='border'><span>PT :</span>
+                                <span class='pull-right'>{EmployeeData[0].PT}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'></td>
+                            <td class='border'><span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
+                            </td>
+                           
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'></td>
+                             <td class='border'><span>HBA Principal :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_PRINCIPAL}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+                        <tr class='border' >
+                            <td class='border'></td>
+                             <td class='border'><span>HBA Interest :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+ 
+                        <tr class='border' >
+                            <td class='border'> 
+                                <span>GROSS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GrossTotal}</span>
+                            </td>
+                            <td class='border'>
+                                <span>TOT-DED :</span>
+                                <span class='pull-right'>{EmployeeData[0].TotalDeductions}</span>
+                            </td>
+                           <td class='border'>
+                                <span>NET SALARY :</span>
+                                <span class='pull-right'>{EmployeeData[0].NetSalary}</span>
+                           </td>
+                        </tr>";
+            }
+
+           else  if (EmployeeData[0].DepartmentId == 2)
+            {
+
+                page += $@" <tr class='border' >
+                            <td  class='border'><span>BASIC PAY :</span>
+                                <span class='pull-right'>{EmployeeData[0].BasicPay}</span>
+                            </td>
+                            <td class='border'><span>NPS :</span>
+                                <span class='pull-right'>{EmployeeData[0].NPS_CPS}</span>
+                            </td>
+                            
+                            <td class='border'><span>IT :</span>
+                                <span class='pull-right'>{EmployeeData[0].IT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'><span>IR :</span>
+                                <span class='pull-right'>{EmployeeData[0].IR}</span>
+                            </td>
+                            <td class='border'><span>FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].FA}</span>
+                            </td>
+                           
+                            <td class='border'><span>PT :</span>
+                                <span class='pull-right'> {EmployeeData[0].PT}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'><span>DA :</span>
+                                <span class='pull-right'>{EmployeeData[0].DA}</span>
+                            </td>
+                             <td class='border'><span>EA :</span>
+                                <span class='pull-right'> {EmployeeData[0].EA}</span>
+                            </td>
+                            
+                            <td class='border'><span>LIC1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                            </td>                            
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'><span>HRA :</span>
+                                <span class='pull-right'>{EmployeeData[0].HRA}</span>
+                            </td>
+                            <td class='border'><span>SPL.FA :</span>
+                                <span class='pull-right'>{EmployeeData[0].SPL_FA}</span>
+                            </td>
+                           
+                            <td class='border'><span>LIC2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                            </td>                            
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'><span>CCA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CCA}</span>
+                            </td>
+                             <td class='border'><span>HBA:1 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA1}</span>
+                            </td>
+                           
+                            <td class='border'><span>LIC3 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                            </td>                           
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>MA :</span>
+                                <span class='pull-right'>{EmployeeData[0].MA}</span>
+                            </td>
+                             <td class='border'><span>HBA:2 :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA2}</span>
+                            </td>
+                           
+                            <td class='border'> <span>LIC4 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>CA :</span>
+                                <span class='pull-right'>{EmployeeData[0].CA}</span>
+                            </td>
+                             <td class='border'> <span>HBA:INT :</span>
+                                <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
+                            </td>
+                           
+                            <td class='border'> <span>LIC5 :</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                            </td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>PP :</span>
+                                <span class='pull-right'>{EmployeeData[0].PP}</span>
+                            </td>
+                             <td class='border'> <span>Other deductions :</span>
+                                <span class='pull-right'>0</span>
+                            </td>
+                           
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>FP :</span>
+                                <span class='pull-right'>{EmployeeData[0].FP}</span>
+                            </td>
+                             <td class='border'> <span>VA :</span>
+                                <span class='pull-right'>{EmployeeData[0].VA}</span>
+                            </td>
+                           
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>SP :</span>
+                                <span class='pull-right'>{EmployeeData[0].SP}</span>
+                            </td>
+                             <td class='border'> <span>COMP ADV :</span>
+                                <span class='pull-right'>{EmployeeData[0].COMP_ADV}</span>
+                            </td>
+                          
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> <span>TSI :</span>
+                                <span class='pull-right'>{EmployeeData[0].TGINCR}</span>
+                            </td>
+                             <td class='border'> <span>Haritha Nidhi :</span>
+                                <span class='pull-right'>{EmployeeData[0].HARITHANIDHI}</span>
+                            </td>
+                            <td class='border'></td>
+                        </tr>
+
+                        <tr class='border' >
+                            <td class='border'> 
+                                <span>GROSS :</span>
+                                <span class='pull-right'>{EmployeeData[0].GrossTotal}</span>
+                            </td>
+                            <td class='border'>
+                                <span>TOT-DED :</span>
+                                <span class='pull-right'>{EmployeeData[0].TotalDeductions}</span>
+                            </td>
+                           <td class='border'>
+                                <span>NET SALARY :</span>
+                                <span class='pull-right'>{EmployeeData[0].NetSalary}</span>
+                           </td>
+                        </tr>";
+            }
+            page += $@" </tbody>
+                </table>
+            </div>
+            <div class=''>
+                  <h5><b>**{NetWords}**</b></h5>
+                  <div class='col-md-9'>
+                  <div>D.A.{EmployeeData[0].DAPercent}%</div>
+                  <div>HRA.{EmployeeData[0].HRAPercent}%</div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='text-center'>Sd/</div>
+                    <div class='text-center'>Secretary</div>
+                    </div>
+            </div>
+<hr>
+<div class='footer'>This is a system generated payslip, Signature is not required.</div>
+</div>";
+
+            #endregion
+
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            var doc = converter.ConvertHtmlString(sbString);
+            path = dirid + $"\\{pgno.ToString().PadLeft(6, '0')}" + DateTime.Now.ToString("HHmmss") + ".pdf";
+            doc.Save(path);
+            doc.Close();
+            pgno++;
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+            return relativePath;
+
+
+
+            //return dir_id;
+        }
+
+        public static string NumberToWords(int number)
+        {
+            if (number == 0)
+                return "zero";
+
+            if (number < 0)
+                return "minus " + NumberToWords(Math.Abs(number));
+
+            string words = "";
+
+            if ((number / 1000000) > 0)
+            {
+                words += NumberToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
+            if ((number / 100000) > 0)
+            {
+                words += NumberToWords(number / 100000) + " Lakhs ";
+                number %= 100000;
+            }
+            if ((number / 1000) > 0)
+            {
+                words += NumberToWords(number / 1000) + " Thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += NumberToWords(number / 100) + " Hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                var unitsMap = new[] { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+                var tensMap = new[] { "Zero", "Zen", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+
+                if (number < 20)
+                    words += unitsMap[number];
+                else
+                {
+                    words += tensMap[number / 10];
+                    if ((number % 10) > 0)
+                        words += "-" + unitsMap[number % 10];
+                }
+            }
+
+            return words;
         }
 
 
@@ -3861,6 +4678,492 @@ page-break-after :always
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
             var doc = converter.ConvertHtmlString(sbString);
             path = dirid + $"\\{pgno.ToString().PadLeft(6, '0')}" + DateTime.Now.ToString("HHmmss") + ".pdf";
+            doc.Save(path);
+            doc.Close();
+            pgno++;
+            string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
+            return relativePath;
+
+
+
+            //return dir_id;
+        }
+
+
+        public string GetPayslipByPensionerId(DataSet PensionerDat)
+        {
+            List<PensionerData> PensionData = PensionerDat.Tables[0].DataTableToList<PensionerData>().ToList(); ;
+            var PensionerData = DataTableHelper.ConvertDataTable<PensionerData>(PensionerDat.Tables[0]).ToArray();
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
+            var path = string.Empty;
+            string html = @"<html>"
+                   + "<head>"
+                   + $"<title></title>"
+                   + $@"<link href = '{AppDomain.CurrentDomain.BaseDirectory}\contents\css\bootstrap.min.css' rel = 'stylesheet'  type = 'text/css' />"
+                   + @"<style type='text/css'>
+                         html{
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                        }
+                        body {
+                            min-width: 1024px;
+                            max-width: 1024px;
+                            width: 1024px;
+                            m0argin-left: 10px;
+                        }
+                        table {  
+                            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+                            width: 100%; 
+                            //border-collapse: collapse;
+                            border-spacing: 0; 
+                        }
+
+                     
+
+                        th {  
+                            font-weight: bold; /* Make sure they're bold */
+                        }
+
+                      
+
+                      .logoImg {
+                                height: 70px !important;
+                                width: 70px !important;
+                            }
+
+                    .myHr {
+                                border-top: 1px solid #000;
+                            }
+
+                            .header-top-section {
+                                display: none;
+                            }
+
+                            .border_btm {
+                                border-bottom: 1px solid #000;
+                                text-transform: uppercase;
+                            }
+
+                            .text-uppercase {
+                                text-transform: uppercase;
+                            }
+
+                            p {
+                                text-indent: 50px;
+padding :6px
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+
+                            .marginData {
+                                margin: 0px 20px;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .footer_section {
+                                display: none;
+                            }
+
+                            .print_btn {
+                                display: none;
+                            }
+
+                            .spacer {
+                                display: none;
+                            }
+
+                            .text-intend {
+                                text-indent: 50px;
+                                line-height: 2.0;
+                                text-align: justify;
+                                text-justify: inter-word;
+                            }
+
+                            .Line {
+                                line-height: normal;
+                            }
+                             .sm-spacer{
+                                     height:20px;
+                                 }
+
+                            .a {
+                                margin: 25px;
+                            }
+
+                            canvas.sa-canvas {
+                                border: none;
+                            }
+
+                            .interim-spacer {
+                                display: none;
+                            }
+
+                            .myImg {
+                                width: 70% !important;
+                                padding:120px;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                                display: block!important;
+                                opacity:0.3;
+                            }
+
+                            .myData {
+                                position: absolute;
+                            }
+                        .table > thead > tr > th {
+						
+							border: 1px solid #000000 !important;
+                            border: 1px solid #000000 !important;
+						}
+
+                            .container img {
+                                vertical-align: middle;
+                            }
+
+                            .container .content {
+                                position: absolute!important;
+                                top: 0!important;
+                                background: rgb(0, 0, 0)!important;
+                                background: rgba(255, 255, 255, 0.36)!important;
+                                color: #130404!important;
+                                width: 100%!important;
+                                padding: 20px!important;
+                            }
+                               .container{
+                                position: relative;
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                                .table td, .table th {
+                                background-color: transparent!important;
+                            }
+                            .myrow{
+                                position:relative!important;
+                            }
+
+                            .qr_css {
+                                height: 90px;
+                            }
+                            .image{
+                                 background: url(../../../contents/img/big-logo.png) repeat;
+                               /*  height: 500px;  You must set a specified height */
+                                  background-position: center; /* Center the image */
+                                  background-repeat: no-repeat; /* Do not repeat the image */
+                                  /* Resize the background image to cover the entire container */
+                                  position:relative;
+                            }
+                           .myImg {
+                              width: 60%;
+                             padding:120px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                            opacity:0.3;
+                            z-index:1000;
+                        }
+                           .myData{
+                               position:absolute;
+                           }
+                    .container{
+                            position: relative;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+
+                    .container img {
+                        vertical-align: middle;
+                    }
+
+                    .container .content {
+                       position: absolute;
+                       bottom: 0;
+                       background: rgb(0, 0, 0);
+                       background: rgba(233, 235, 239, 0.36);
+                       color: #130404;
+                       width: 100%;
+                       padding: 20px;
+                    }
+                      .less_pad{
+padding:1px!important;
+}
+  .logo_css {
+                height: 85px;
+                width: 85px;
+                border-radius: 50%;
+            }
+
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                border-bottom-width: 2px;
+                padding: 5px;
+                border: 0px !important;
+padding: 3px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+  border: 0px !important;
+padding: 5px;
+        font-size: 13px;
+            }
+
+            .table>tbody>tr>td,
+            .table>tbody>tr>th,
+            .table>tfoot>tr>td,
+            .table>tfoot>tr>th,
+            .table>thead>tr>td,
+            .table>thead>tr>th {
+                padding: 5px;
+                border:1px solid #000!important;
+                background-color: #eaf5ff !important;
+    padding: 3px;
+    font-size: 13px;
+            }
+  tr.border {
+                border: 1px solid #000;
+            }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    border: 1px solid #000!important;
+}.table>thead>tr>th {
+   border: 0px!important;
+}
+.border-left{
+border-left:2px solid #fff!important;
+}
+td.border {
+    border: 1px solid #150c0c !important;
+}
+          .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+padding: 3px;
+        font-size: 13px;
+    }
+hr{
+        margin: 10px 0px!important;
+    }
+
+.container{
+padding:0px;
+}
+       @media print {
+         .table {
+    margin-bottom: 5px;
+}
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px!important;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+font-size:13px!important;
+    }
+.table>tbody>tr>td.border, .table>tbody>tr>th.border, .table>tfoot>tr>td.border, .table>tfoot>tr>th.border, .table>thead>tr>td.border, .table>thead>tr>th.border {
+        padding: 5px;
+        font-size: 13px;
+        border: 1px solid #000 !important;
+        background-color: #eaf5ff !important;
+    }
+ hr{
+        margin: 10px 0px!important;
+    }
+.my_margin{
+margin :0px 0px;
+}
+}
+.my_margin{
+margin :0px 0px;
+}
+ .linebreak{
+padding - bottom:50px;
+display:block;
+position: relative;}
+.header{
+page-break-before :always
+}
+.footer{
+page-break-after :always
+}
+
+                        </style> "
+                   + "</head><body>";
+            var page = string.Empty;
+            var pgno = 1;
+            string sbString = html;
+
+
+            page += $@" <div class='container linebreak'>
+                            <div class='header'>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/telangana-logo-png.png' class='img-responsive logoImg pull-left' />
+                                    </div>
+                                </div>
+
+                                <div class='col-md-8 title'>
+                                    <h5 class='text-center hall_head' style='font-size: 20px!important;margin-left: -67px;margin-right: -53px;'><b>STATE BOARD OF TECHNICAL EDUCATION AND TRAINING</b></h5>
+                                  <h4 class='text-center hall_head' style='font-size: 20px!important;'><b>TELANGANA</b></h4>
+                                    <h5 class='text-center' style='font-size: 16px!important;'>
+                                       Sanketika Vidya Bhavan, Masab Tank, Hyderabad­-500 028, India.
+                                    </h5>
+                                   
+                                </div>
+                                <div class='col-md-2 logo'>
+                                    <div class='logo-image' style='padding:6px!important;'>
+                                        <img src = '{AppDomain.CurrentDomain.BaseDirectory}/contents/img/sbtet-logo.png' class='img-responsive logoImg pull-right' />
+                                    </div>
+                                </div>
+                            </div>
+<div class='col-md-12'><h4 class='text-center my_margin'><b>PAYSLIP FOR THE MONTH OF {PensionerData[0].MonthYear}</b></h4>  </div>
+<hr>
+                    ";
+
+
+
+            //#endregion
+
+            #region PageContent
+            page += $@"<div class='container body-text margin-bottom'>        
+                
+                    <table class='table  table-responsive'>
+                        <thead> 
+                            <tr>
+                                <td>Pensioner Code</td>
+                                <td> {PensionerData[0].PensionerCode ?? "-"}</td>
+                                <td>Bank ACC No</td>
+                                <td> {PensionerData[0].BankAcNo}</td>'
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Name</th>
+                                <th> {PensionerData[0].PensionerName ?? "-"}</th>
+                                <td>IFSC Code</td>
+                                <td> {PensionerData[0].IFSCCode}</td>
+                            </tr>
+                            <tr>
+                                <td>Pensioner Type</td>
+                                <td> {PensionerData[0].PensionerType ?? "-"}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                          
+                        </tbody>
+                    </table>
+            </div>
+<div class=''>
+    <table class='table table-bordered table-responsive'>
+        <thead>
+            <tr>
+                <th class='border'>PAY & ALLOWANCES</th>
+                <th class='border'>DEDUCTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class='border'>PENSION AMOUNT 
+                    <span class='pull-right'>{PensionerData[0].PensionAmount}</span>
+                </td>
+                <td class='border'>RECOVERY / TDS 
+                    <span class='pull-right'>{PensionerData[0].Recovery_TDS}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class='border'>COMMUTATION AMOUNT 
+                    <span class='pull-right'>{PensionerData[0].CommutationAmount}</span>
+                </td>
+                <td class='border'>CMRF 
+                    <span class='pull-right'>{PensionerData[0].CMRF}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class='border'>BASIC PENSION 
+                    <span class='pull-right'>{PensionerData[0].BasicPension}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>ADDITIONAL QUANTUM 
+                    <span class='pull-right'>{PensionerData[0].AdditionalQuantum}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>Dearness Relief 
+                    <span class='pull-right'>{PensionerData[0].DR}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>Interim Relief 
+                    <span class='pull-right'>{PensionerData[0].IR}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>MEDICAL ALLOWANCE 
+                    <span class='pull-right'>{PensionerData[0].MA}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'>OTHER AMOUNT 
+                    <span class='pull-right'>{PensionerData[0].OtherAmount}</span>
+                </td>
+                <td class='border'>&nbsp;</td>
+            </tr>
+            <tr>
+                <td class='border'  colspan='2'><b>TOTAL	  <span class='pull-right'>{PensionerData[0].NetTotal}</span></b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+            <div class=''>
+                  <h5><b>**Rupees Six Thousand Nine Hundred Sixty-Nine only**</b></h5>
+                  <div class='col-md-9'>
+                  <div>DR.{PensionerData[0].DRPercent}%</div>
+                  <div>IR.{PensionerData[0].IRPercent}%</div>
+                  </div>
+                  <div class='col-md-3'>
+                    <div class='text-center'>Sd/</div>
+                    <div class='text-center'>Secretary</div>
+                    </div>
+            </div>
+<hr>
+<div class='footer'>This is a system generated payslip, Signature is not required.</div>
+</div>";
+
+            #endregion
+
+            sbString += page;
+            sbString += "</body></html>";
+
+            var converter = new HtmlToPdf();
+            converter.Options.ExternalLinksEnabled = true;
+            converter.Options.DisplayHeader = true;
+            converter.Options.DrawBackground = false;
+            converter.Options.JavaScriptEnabled = false;
+            converter.Options.WebPageWidth = 1024;
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            var doc = converter.ConvertHtmlString(sbString);
+            path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}" + DateTime.Now.ToString("HHmmss") + ".pdf";
             doc.Save(path);
             doc.Close();
             pgno++;
@@ -5270,7 +6573,7 @@ height:20px;
 
                     </div>";
             }
-            else if (MigrationData[0].SchemeId == 5|| MigrationData[0].SchemeId == 9)
+            else if (MigrationData[0].SchemeId == 5 || MigrationData[0].SchemeId == 9)
             {
                 page += $@"<div class='row'>
                     <p class='text-intend'>
@@ -5500,11 +6803,11 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
             </div>
 
         </div>";
-           
-                page += $@"<div class='row'>
+
+            page += $@"<div class='row'>
         <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>STUDY-CUM-CONDUCT CERTIFICATE</b></h3>
     </div>";
-           
+
 
 
             page += $@"</div>";
@@ -5534,9 +6837,9 @@ and he/she is placed in <b class='border_btm'>{MigrationData[0].Class ?? "-"}</b
                     <p class='text-intend'>
     
 This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-"}</b> S/o/D/o <b class='border_btm' > {BonafideData[0].FatherName ?? "-"},</b> bearing PIN : <b class='border_btm' >{BonafideData[0].Pin ?? "-"}</b> a student of this institution, has";
-           
-                page += $@"<span> studied</span>";
-           
+
+            page += $@"<span> studied</span>";
+
             page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
                      during the Academic Years<b class='border_btm' > {BonafideData[0].AcademicYear ?? "-"}.</b><br>
                         </p>
@@ -5580,9 +6883,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
             var doc = converter.ConvertHtmlString(sbString);
             var path = string.Empty;
-          
-                path = dir + "SC" + BonafideData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
-           
+
+            path = dir + "SC" + BonafideData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
+
             doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
@@ -5593,7 +6896,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
         public string GetBonafideCertificate(DataSet BonafideDat)
         {
             List<BonafideData> BonafideData = BonafideDat.Tables[1].DataTableToList<BonafideData>().ToList(); ;
-            var dir =  AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
+            var dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\UnsignedCert\";
             CreateIfMissing(dir);
             string html = @"<html>"
                    + "<head>"
@@ -5763,12 +7066,12 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
             </div>
 
         </div>";
-        
-         
-                page += $@"<div class='row'>
+
+
+            page += $@"<div class='row'>
             <h3 class='text-center under_margin'><b class='border_btm  text-uppercase'>BONAFIDE CERTIFICATE</b></h3>
         </div>";
-         
+
 
             page += $@"</div>";
 
@@ -5797,9 +7100,9 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                     <p class='text-intend'>
     
 This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-"}</b> S/o/D/o <b class='border_btm' > {BonafideData[0].FatherName ?? "-"},</b> bearing PIN : <b class='border_btm' >{BonafideData[0].Pin ?? "-"}</b> a student of this institution, has";
-         
-                page += $@"<span> studying</span>";
-          
+
+            page += $@"<span> studying</span>";
+
             page += $@" the<b class='border_btm' > Diploma in {BonafideData[0].BranchName ?? "-"}</b>
                      during the Academic Years<b class='border_btm' > {BonafideData[0].AcademicYear ?? "-"}.</b><br>
                         </p>
@@ -5843,10 +7146,10 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
             var doc = converter.ConvertHtmlString(sbString);
             var path = string.Empty;
-         
-                 path = dir + "BC" + BonafideData[0].Pin +DateTime.Now.ToString("HHmmss")+".pdf";
-         
-                doc.Save(path);
+
+            path = dir + "BC" + BonafideData[0].Pin + DateTime.Now.ToString("HHmmss") + ".pdf";
+
+            doc.Save(path);
             doc.Close();
             string relativePath = path.Replace(HttpContext.Current.Request.PhysicalApplicationPath, GetWebAppRoot()).Replace(@"\", "/");
             return relativePath;
@@ -6559,7 +7862,7 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
 
                                     <div class='col-md-3 pull-right'>INSTITUTE NAME & CODE : {branch.CEN_NAME}</div>       
                                    </div>";
-                        
+
                         #endregion
                         #region PageContent
                         page += $@"<div class='container-fluid'>
@@ -6638,15 +7941,15 @@ This is to certify that Mr/Ms<b class='border_btm' > {BonafideData[0].Name ?? "-
                         {
                             try
                             {
-                                tasks.Add(GetC18odcHTMLByPin(studentdata[i]));                                                                 
+                                tasks.Add(GetC18odcHTMLByPin(studentdata[i]));
                                 //page += await GetC18odcHTMLByPin(studentdata[i]);
 
                             }
-                            catch(Exception Ex)
+                            catch (Exception Ex)
                             {
 
-                                
-                            }                            
+
+                            }
 
                         }
                         await Task.WhenAll(tasks);
@@ -7117,7 +8420,7 @@ margin-bottom :3px;
                     //    var studentarrdat = TrSheetData.Where(x => x.CENTRE == cen.CENTRE && x.BRANCH == branch.BRANCH && x.YEAR == Years.YEAR)
                     //           .OrderBy(x => x.BRANCH)
                     //        //.OrderBy(x => x.YEAR)
-                         
+
                     //                                    .OrderBy(x => x.PIN)
                     //                                    //.Distinct()
                     //                                    .ToArray();
@@ -7125,11 +8428,11 @@ margin-bottom :3px;
 
                     //    var groupedItems = SliceArray(studentarrdat, 7);
 
-                        foreach (var studentdata in groupedItems)
-                        {
+                    foreach (var studentdata in groupedItems)
+                    {
 
-                            #region PageHeader
-                            page = $@"<div class='container-fluid sm-spacer'>                            
+                        #region PageHeader
+                        page = $@"<div class='container-fluid sm-spacer'>                            
                                 <div class='col-md-9 text-center'>STATE BOARD OF TECHNICAL EDUCATION & TRAINING - T.S. HYDERABAD </div>            
                                 <div class='col-md-3 pull-right'>Page : {pgno}</div>
                                 <div class='col-md-9'>{branch.YEAR} ({branch.SCHEME}) EXAMINATION FOR 3 YEARS DIPLOMA COURSE IN {branch.BRANCH_NAME}</div>
@@ -7138,9 +8441,9 @@ margin-bottom :3px;
                                 <div class='col-md-8'>CENTER : {branch.CENTRE}-{branch.INST_NAME}, {branch.INST_ADDRESS}</div>
                                 <div class='col-md-12'>MONTH & YEAR OF EXAM :  {branch.MONTH_YEAR}</div>             
                                 <hr class='myHr' />";
-                            #endregion
-                            #region PageContent
-                            page += $@"<table class='table'>
+                        #endregion
+                        #region PageContent
+                        page += $@"<table class='table'>
                         <thead>
                             <tr>
                                 <th class='text-center'></th>
@@ -7301,12 +8604,12 @@ margin-bottom :3px;
                             <th class='' colspan='3'>RESULT</th>
                         </tr>
                     </thead>";
-                            page += @"<tbody>";
+                        page += @"<tbody>";
 
-                            for (var i = 0; i < studentdata.Length; i++)
-                            {
-                                tempstudentdata.Add(studentdata[i]);
-                                page += $@"<tr>
+                        for (var i = 0; i < studentdata.Length; i++)
+                        {
+                            tempstudentdata.Add(studentdata[i]);
+                            page += $@"<tr>
                                     <td class='cln' colspan='4'>{tempstudentdata.Count}</td>
                                     <td class='cln' colspan='6'>{studentdata[i].PIN}</td>
                                     <td class='cln' colspan='12'>{studentdata[i].NAME}</td>
@@ -7335,13 +8638,13 @@ margin-bottom :3px;
                                      <td colspan='22'></td>
                                      <td colspan='18'>RE: {studentdata[i].RE}</td>
                                 </tr>";
-                            }
+                        }
 
-                            page += "</tbody> </table>";
+                        page += "</tbody> </table>";
 
-                            if (tempstudentdata.Count == studentarrdata.Length)
-                            {
-                                page += $@"<div class='row'>
+                        if (tempstudentdata.Count == studentarrdata.Length)
+                        {
+                            page += $@"<div class='row'>
                                 <div class='col-md-4'>{branch.SUB1_CODE}-{branch.SUB1_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB2_CODE}-{branch.SUB2_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB3_CODE}-{branch.SUB3_NAME}</div>
@@ -7355,12 +8658,12 @@ margin-bottom :3px;
                                 <div class='col-md-4'>{branch.SUB11_CODE}-{branch.SUB11_NAME}</div>
                                 <div class='col-md-4'>{branch.SUB12_CODE}-{branch.SUB12_NAME}</div>
                             </div>";
-                                #endregion
-                            }
+                            #endregion
+                        }
 
 
-                            #region PageFooter
-                            page += $@" <div class='sm1-spacer'></div>
+                        #region PageFooter
+                        page += $@" <div class='sm1-spacer'></div>
                             <div class='btm_line footer'>
                             <div class='col-md-1'>E- ENDEXAM </div> 
                             <div class='col-md-1'>S- SESS</div>
@@ -7371,26 +8674,26 @@ margin-bottom :3px;
                             <div class='col-md-2'>ASST/SECRETARY.</div>
                             <div class='col-md-2'>CONTROLLER OF EXAMINATION</div>
                         </div></div>";
-                            #endregion
+                        #endregion
 
-                            sbString += page;
-                            sbString += "</body></html>";
-                            var converter = new HtmlToPdf();
-                            converter.Options.ExternalLinksEnabled = true;
-                            converter.Options.DrawBackground = false;
-                            converter.Options.JavaScriptEnabled = false;
-                            converter.Options.WebPageWidth = 1024;
-                            converter.Options.PdfPageSize = PdfPageSize.A4;
-                            converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
-                            var doc = converter.ConvertHtmlString(sbString);
-                            path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
-                            doc.Save(path);
-                            doc.Close();
-                            sbString = html;
-                            pgno++;
-                        }
-                        tempstudentdata.Clear();
-                   // }
+                        sbString += page;
+                        sbString += "</body></html>";
+                        var converter = new HtmlToPdf();
+                        converter.Options.ExternalLinksEnabled = true;
+                        converter.Options.DrawBackground = false;
+                        converter.Options.JavaScriptEnabled = false;
+                        converter.Options.WebPageWidth = 1024;
+                        converter.Options.PdfPageSize = PdfPageSize.A4;
+                        converter.Options.PdfPageOrientation = PdfPageOrientation.Landscape;
+                        var doc = converter.ConvertHtmlString(sbString);
+                        path = dir + $"\\{pgno.ToString().PadLeft(6, '0')}.pdf";
+                        doc.Save(path);
+                        doc.Close();
+                        sbString = html;
+                        pgno++;
+                    }
+                    tempstudentdata.Clear();
+                    // }
                 }
 
             }
@@ -7895,7 +9198,7 @@ margin-bottom :3px;
         //}
 
 
-    
+
 
         public string GenerateQrcode(string QRcodeUID)
         {
@@ -7920,5 +9223,5 @@ margin-bottom :3px;
         }
     }
 
- 
+
 }

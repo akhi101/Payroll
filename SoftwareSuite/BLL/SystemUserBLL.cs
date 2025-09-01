@@ -89,6 +89,36 @@ namespace SoftwareSuite.BLL
             }
         }
 
+        public SystemUserAuth GetEmployeeLogin(string UserName, string Password, string Ipaddress)
+        {
+            try
+            {
+                SystemUserService SystemUserService = new SystemUserService();
+             //   dbHandler dbHandler = new dbHandler();
+                var PayRolldbhandler = new PayRolldbhandler();
+                DataSet tblUsersList = new DataSet();
+                tblUsersList = SystemUserService.GetEmployeeLogin(PayRolldbhandler, UserName, Password, Ipaddress);
+                var ds = JsonConvert.SerializeObject(tblUsersList);
+                // List<SystemUser> User = tblUsersList.DataTableToList<SystemUser>();
+                List<SystemUser> User = tblUsersList.Tables[1].DataTableToList<SystemUser>();
+                List<UserAuth> Userstat = tblUsersList.Tables[0].DataTableToList<UserAuth>();
+                SystemUserAuth SystemUserAuthData = new SystemUserAuth()
+                {
+                    SystemUser = User,
+                    UserAuth = Userstat,
+                };
+
+                //  branchWiseReportDataList.Add(branchWiseReportData);
+                return SystemUserAuthData;
+
+                //  return User;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<SystemModules> GetModulesbyRole(Int32 UserTypeId)
         {
 

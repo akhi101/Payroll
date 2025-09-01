@@ -395,7 +395,8 @@ else {
             GetInterimCertificateTobeSignedlocation.then(function (response) {
                 var url = window.location.origin + '/Reports/' + response + '.pdf';
                 console.log(url)
-                download(url, 'Payslip' + '.pdf');
+                download(url, response + '_Payslip' + '.pdf');
+              
                 $scope.loading = false;
                 //var pdf = response[0].PdfUrl
                 //    var location = window.location.origin;

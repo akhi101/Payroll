@@ -1,0 +1,66 @@
+8/6/2025 10:35:17 PM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+
+8/6/2025 10:37:11 PM
+Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+
+8/6/2025 10:37:33 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=11586; handshake=14860; 
+
+8/6/2025 10:37:38 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=11586; handshake=14860; 
+
+8/6/2025 10:38:12 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:38:12 PM
+Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+
+8/6/2025 10:38:13 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=32313; handshake=33771; 
+
+8/6/2025 10:38:13 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=32313; handshake=33771; 
+
+8/6/2025 10:38:13 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=32313; handshake=33771; 
+
+8/6/2025 10:38:14 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:38:14 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:38:15 PM
+Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=32313; handshake=33771; 
+
+8/6/2025 10:38:15 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:40:57 PM
+Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+
+8/6/2025 10:41:03 PM
+A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: SSL Provider, error: 0 - The wait operation timed out.)
+
+8/6/2025 10:41:04 PM
+A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: SSL Provider, error: 0 - The wait operation timed out.)
+
+8/6/2025 10:41:23 PM
+A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: SSL Provider, error: 0 - The wait operation timed out.)
+
+8/6/2025 10:41:24 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:42:09 PM
+A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: SSL Provider, error: 0 - The wait operation timed out.)
+
+8/6/2025 10:42:09 PM
+ExecuteNonQuery requires an open and available Connection. The connection's current state is closed.
+
+8/6/2025 10:43:23 PM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+
+8/6/2025 10:43:23 PM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+
