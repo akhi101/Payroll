@@ -187,7 +187,7 @@ define(['app'], function (app) {
                 $scope.DOJ = "";
                 $scope.DOR = "";
                 $scope.Designation = null;
-                //$scope.Department = null;
+                $scope.MobileNumber = "";
                 $scope.Gender = "";
 /*                $scope.PHC = "";*/
                 $scope.Empstatus = "";
@@ -262,18 +262,18 @@ define(['app'], function (app) {
                 return;
             }
 
-            //if ($scope.PHC == undefined || $scope.PHC == null || $scope.PHC == "") {
-            //    alert("Please Enter PHC");
-            //    return;
-            //}
+            if ($scope.MobileNumber == undefined || $scope.MobileNumber == null || $scope.MobileNumber == "") {
+                alert("Please Enter Mobile Number");
+                return;
+            }
 
             if ($scope.Empstatus == undefined || $scope.Empstatus == null || $scope.Empstatus == "") {
-                alert("Please Enter EmployeeStatus");
+                alert("Please Enter Employee Status");
                 return;
             }
 
             if ($scope.IncrementMonth == null || $scope.IncrementMonth == undefined || $scope.IncrementMonth == "") {
-                alert("Please Enter IncrementMonth");
+                alert("Please Enter Increment Month");
                 return;
             }
             if ($scope.ScaleType == null || $scope.ScaleType == undefined || $scope.ScaleType == "") {
@@ -318,7 +318,7 @@ define(['app'], function (app) {
  
 
             if ($scope.AccountNumber == undefined || $scope.AccountNumber == null || $scope.AccountNumber == "") {
-                alert("Please Enter AccountNumber");
+                alert("Please Enter Account Number");
                 return;
             }
             if ($scope.IFSCCode == undefined || $scope.IFSCCode == null || $scope.IFSCCode == "") {
@@ -329,7 +329,7 @@ define(['app'], function (app) {
 
             var datatypeid = 1
 
-            var addEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder, 1, $scope.UserName)
+            var addEmployeeDetails = PayRollService.AddEmployeeDetails(datatypeid, 0, $scope.EmployeeCode, $scope.EmployeeName, $scope.DOB, $scope.DOJ, $scope.DOR, $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder, 1, $scope.UserName, $scope.MobileNumber)
             addEmployeeDetails.then(function (res) {
                 //try {
                 //    var res = JSON.parse(response);
@@ -478,7 +478,7 @@ define(['app'], function (app) {
 
 
 
-            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder,  $scope.Active, $scope.UserName)
+            var desig = PayRollService.UpdateEmployeeDetails(datatypeid, $scope.EmployeeID, $scope.EmployeeCode, $scope.EmployeeName, moment($scope.DOB).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOJ).format("YYYY-MM-DD HH:mm:ss.SSS"), moment($scope.DOR).format("YYYY-MM-DD HH:mm:ss.SSS"), $scope.Designation, $scope.Department, $scope.Gender, $scope.Empstatus, $scope.IncrementMonth, $scope.TSGLINumber, $scope.ScaleType, $scope.PanNo, $scope.CPS_NPS, $scope.PranNo, $scope.GPFNo, $scope.AccountNumber, $scope.IFSCCode, $scope.GOPostID, $scope.SortOrder, $scope.Active, $scope.UserName, $scope.MobileNumber)
             desig.then(function (response) {
                 try { var response = JSON.parse(response) } catch (err) { }
                 if (response[0].StatusCode == '200') {
@@ -558,6 +558,7 @@ define(['app'], function (app) {
                     $scope.DOR = res.Table[0].DOR;
                     $scope.Designation = res.Table[0].DesignationId;
                     $scope.Department = res.Table[0].DepartmentId;
+                    $scope.MobileNumber = res.Table[0].MobileNumber;
                     $scope.Gender = res.Table[0].Gender;
                     $scope.Empstatus = res.Table[0].Empstatus;
                     $scope.IncrementMonth = $scope.EditEmployeeDetailsData[0].MonthID;
