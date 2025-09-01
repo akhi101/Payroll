@@ -53,7 +53,7 @@ namespace SoftwareSuite.Services
 
         //}
 
-        public DataSet GetUserLogin(dbHandler dbHandler, string UserName, string Password, string Ipaddress)
+        public DataSet GetUserLogin(PayRolldbhandler dbHandler, string UserName, string Password, string Ipaddress)
         {
 
             DataSet ds = new DataSet();
@@ -61,7 +61,7 @@ namespace SoftwareSuite.Services
             {
                 using (var conn = new SqlConnection(dbHandler.GetConnectionString()))
                 {
-                    using (var cmd = new SqlCommand("USP_GET_UserLoginPermission", conn))
+                    using (var cmd = new SqlCommand("SP_Get_UserLoginPermission", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@UserName", UserName));
@@ -86,13 +86,13 @@ namespace SoftwareSuite.Services
 
         }
 
-        public DataTable GetModulesbyRole(dbHandler dbHandler, Int32 UserTypeId)
+        public DataTable GetModulesbyRole(PayRolldbhandler dbHandler, Int32 UserTypeId)
         {
             try
             {
                 var param = new SqlParameter[1];
                 param[0] = new SqlParameter("@usertypeid", UserTypeId);
-                return dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_Modules", param);
+                return dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_Modules", param);
 
             }
             catch (Exception ex)
@@ -101,14 +101,14 @@ namespace SoftwareSuite.Services
             }
         }
 
-        public DataTable GetSubModulesbyRole(dbHandler dbHandler, Int32 UserTypeId, Int32 moduleId)
+        public DataTable GetSubModulesbyRole(PayRolldbhandler dbHandler, Int32 UserTypeId, Int32 moduleId)
         {
             try
             {
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@usertypeid", UserTypeId);
                 param[1] = new SqlParameter("@moduleid", moduleId);
-                return dbHandler.ReturnDataWithStoredProcedureTable("USP_GET_SubModules", param);
+                return dbHandler.ReturnDataWithStoredProcedureTable("SP_Get_SubModules", param);
 
             }
             catch (Exception ex)
