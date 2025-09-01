@@ -65,7 +65,7 @@ namespace SoftwareSuite.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                dbHandler dbHandler = new dbHandler();
+                PayRolldbhandler dbHandler = new PayRolldbhandler();
                 DataSet tblUsersList = new DataSet();
                 tblUsersList = SystemUserService.GetUserLogin(dbHandler, UserName, Password, Ipaddress);
                 var ds = JsonConvert.SerializeObject(tblUsersList);
@@ -125,7 +125,7 @@ namespace SoftwareSuite.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                dbHandler dbHandler = new dbHandler();
+                PayRolldbhandler dbHandler = new PayRolldbhandler();
                 DataTable tblUsersList = new DataTable();
                 tblUsersList = SystemUserService.GetModulesbyRole(dbHandler, UserTypeId);
                 List<SystemModules> SystemGroups = tblUsersList.DataTableToList<SystemModules>();
@@ -142,7 +142,7 @@ namespace SoftwareSuite.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                dbHandler dbHandler = new dbHandler();
+                PayRolldbhandler dbHandler = new PayRolldbhandler();
                 DataTable tblUsersList = new DataTable();
                 tblUsersList = SystemUserService.GetSubModulesbyRole(dbHandler, UserTypeId, moduleId);
                 List<SystemSubModules> SystemGroups = tblUsersList.DataTableToList<SystemSubModules>();
