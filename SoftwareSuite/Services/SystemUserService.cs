@@ -86,6 +86,40 @@ namespace SoftwareSuite.Services
 
         }
 
+        public DataSet GetEmployeeLogin(PayRolldbhandler PayRolldbhandler, string MobileNumber, string @MobileOTP, string Ipaddress)
+        {
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                using (var conn = new SqlConnection(PayRolldbhandler.GetConnectionString()))
+                {
+                    using (var cmd = new SqlCommand("SP_Verify_EmployeeMobileOTP", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@MobileNumber", MobileNumber));
+                        cmd.Parameters.Add(new SqlParameter("@MobileOTP", MobileOTP));
+                        cmd.Parameters.Add(new SqlParameter("@ipaddress", Ipaddress));
+                        conn.Open();
+                        var da = new SqlDataAdapter(cmd);
+                        da.Fill(ds);
+                        conn.Close();
+                    }
+                }
+                return ds;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                throw ex;
+            }
+
+        }
+
         public DataTable GetModulesbyRole(dbHandler dbHandler, Int32 UserTypeId)
         {
             try

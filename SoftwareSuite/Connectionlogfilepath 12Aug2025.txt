@@ -1,0 +1,12 @@
+8/12/2025 8:41:27 AM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+
+8/12/2025 8:55:27 AM
+Could not find stored procedure 'SP_Get_EmployeeMobileOTP'.
+
+8/12/2025 8:57:57 AM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+
+8/12/2025 9:38:33 AM
+A transport-level error has occurred when receiving results from the server. (provider: TCP Provider, error: 0 - The specified network name is no longer available.)
+

@@ -451,6 +451,11 @@ namespace SoftwareSuite.Models.Database
             }
         }
 
+        public static implicit operator dbHandler(PayRolldbhandler v)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //public DataSet AsyncReturnDataSet(string strQuery)
         //{

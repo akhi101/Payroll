@@ -16,6 +16,14 @@
                 dependencies: ['controllers/PayrollLoginController', 'services/SystemAdministration/SystemUserService', 'services/PreExamination/PreExaminationService', 'services/AdminServices/AdminService']
             },
 
+            'index.Payroll': {
+                url: "/Payroll",
+                templateUrl: 'app/views/PayRoll/PayrollEmployeeLogin.html',
+                dependencies: ['controllers/PayRoll/PayrollEmployeeLoginController', 'services/SystemAdministration/SystemUserService',  'services/PayRoll/PayRollService', 'services/PreExamination/PreExaminationService', 'services/AdminServices/AdminService']
+            },
+
+            
+
             'login': {
                 url: "/login",
                 templateUrl: 'app/views/login.html',
@@ -111,6 +119,36 @@
                 templateUrl: 'app/views/PayRoll/SalaryDeductions.html',
                 dependencies: ['controllers/PayRoll/SalaryDeductionsController', 'services/PayRoll/PayRollService']
             },
+
+            'Dashboard.PayRollDashboard.EmployeePayslip': {
+                url: "/EmployeePayslip",
+                templateUrl: 'app/views/PayrollMobile/EmployeePayslip.html',
+                dependencies: ['controllers/PayrollMobile/EmployeePayslipController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollDashboard.MobilePensionerConsolidated': {
+                url: "/MobilePensionerConsolidated",
+                templateUrl: 'app/views/PayrollMobile/MobilePensionerConsolidated.html',
+                dependencies: ['controllers/PayrollMobile/MobilePensionerConsolidatedController', 'services/PayRoll/PayRollService']
+            },
+
+
+            'Dashboard.PayRollDashboard.MobilePensionerPayslip': {
+                url: "/MobilePensionerPayslip",
+                templateUrl: 'app/views/PayrollMobile/MobilePensionerPayslip.html',
+                dependencies: ['controllers/PayrollMobile/MobilePensionerPayslipController', 'services/PayRoll/PayRollService']
+            },
+
+            'Dashboard.PayRollDashboard.EmployeeConsolidated': {
+                url: "/EmployeeConsolidated",
+                templateUrl: 'app/views/PayrollMobile/EmployeeConsolidated.html',
+                dependencies: ['controllers/PayrollMobile/EmployeeConsolidatedController', 'services/PayRoll/PayRollService']
+            },
+            //'Dashboard.PayRollDashboard.SalaryDeductions': {
+            //    url: "/SalaryDeductions",
+            //    templateUrl: 'app/views/PayRoll/SalaryDeductions.html',
+            //    dependencies: ['controllers/PayRoll/SalaryDeductionsController', 'services/PayRoll/PayRollService']
+            //},
 
             'Dashboard.PayRollDashboard.PayRollGeneration': {
                 url: "/PayRollGeneration",

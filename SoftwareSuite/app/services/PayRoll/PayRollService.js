@@ -34,6 +34,19 @@ define(['app'], function (app) {
             return DataAccessService.getDataAll('api/PayRoll/GetServicePensioners');
         };
 
+        this.GenerateOtpForMobileNoUpdate = function (Pin, MobileNumber) {
+            var param = { "MobileNumber": MobileNumber }
+            return DataAccessService.getDataWithPara('api/PayRoll/GenerateOtpForMobileNoUpdate', param);
+        };
+
+        this.UpdateUserdata = function (Pin, StudentPhoneNumber, OTP) {
+            var param = {
+                "Pin": Pin,
+                "StudentPhoneNumber": StudentPhoneNumber,
+                "OTP": OTP
+            }
+            return DataAccessService.getDataWithPara('api/PreExamination/UpdateUserdata', param);
+        };
         
 
         //this.GetPaySlip = function (PinJson) {
@@ -45,6 +58,32 @@ define(['app'], function (app) {
             var param = { "FinancialYearID": FinancialYearID, "MonthID": MonthID }
             return DataAccessService.postData('api/StudentCertificate/GetPaySlip', param);
         };
+
+        this.GenerateConsolidatedPaySlip = function (FinancialYearID, EmployeeID) {
+            var param = { "FinancialYearID": FinancialYearID, "EmployeeID": EmployeeID }
+            return DataAccessService.postData('api/StudentCertificate/GenerateConsolidatedPaySlip', param);
+        };
+
+        
+
+        this.GetPayslipByEmployeeId = function (FinancialYearID, MonthID, EmployeeID) {
+            var param = { "FinancialYearID": FinancialYearID, "MonthID": MonthID, "EmployeeID": EmployeeID }
+            return DataAccessService.postData('api/StudentCertificate/GetPayslipByEmployeeId', param);
+        };
+        
+
+        this.GetPensionerConsolidatedPaySlip = function (FinancialYearID, PensionerID,PensionerTypeID) {
+            var param = { "FinancialYearID": FinancialYearID, "PensionerID": PensionerID, "PensionerTypeID": PensionerTypeID }
+            return DataAccessService.postData('api/StudentCertificate/GetPensionerConsolidatedPaySlip', param);
+        };
+
+
+
+        this.GetPayslipByPensionerId = function (FinancialYearID, MonthID, EmployeeID) {
+            var param = { "FinancialYearID": FinancialYearID, "MonthID": MonthID, "EmployeeID": EmployeeID }
+            return DataAccessService.postData('api/StudentCertificate/GetPayslipByPensionerId', param);
+        };
+
 
 
         this.GetorEditIncrements = function (DataTypeID, FinancialYearID, MonthID, IncrementId, Active) {
@@ -1138,12 +1177,13 @@ define(['app'], function (app) {
        
 
 
-        this.UpdateMonthlyDays = function (EmployeeID,MonthlyDaysID, PresentDays, NoOfDays,  UserName) {
+        this.UpdateMonthlyDays = function (EmployeeID, MonthlyDaysID, PresentDays, NoOfDays, HalfDaysPresent,  UserName) {
             var paramObject = {
                 "EmployeeID": EmployeeID,
                 "MonthlyDaysID": MonthlyDaysID,
                 "PresentDays": PresentDays,
                 "NoOfDays": NoOfDays,
+                "HalfDaysPresent": HalfDaysPresent,
                 "UserName": UserName
             };
             var promise = DataAccessService.postData('api/PayRoll/UpdateMonthlyDays', paramObject);

@@ -97,6 +97,45 @@ namespace SoftwareSuite.Controllers.SystemAdministration
 
         }
 
+        [HttpPost, ActionName("GetEmployeeLogin")]
+        public async Task<HttpResponseMessage> GeGetEmployeeLoginUserLogin()
+        {
+            string token = "";
+            var data = await Request.Content.ReadAsStringAsync();
+            var res = data.Split(new string[] { "$$@@$$" }, StringSplitOptions.None);
+            var crypt = new HbCrypt(res[2]);
+            var passcrypt = new HbCrypt();
+            string UserName = crypt.AesDecrypt(res[1]);
+            string Password = crypt.AesDecrypt(res[0]).Replace("'", "''");
+            string encrypassword = passcrypt.Encrypt(Password);
+            string clientIpAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
+            SystemUserBLL SystemUserBLL = new SystemUserBLL();
+            BLL.SystemUserAuth User;
+            User = SystemUserBLL.GetEmployeeLogin(UserName.Replace("'", "''"), Password, clientIpAddress);
+
+            if (User.SystemUser.Count > 0 && User.UserAuth[0].ResponceCode == "200")
+            {
+                var u = User.SystemUser[0];
+                AuthToken t = new AuthToken { UserId = u.UserId, UserTypeId = u.UserTypeId, CollegeCode = u.CollegeCode, collegeType = u.collegeType, ExpiryDate = DateTime.Now.AddHours(1) };
+
+                token = crypt.Encrypt(JsonConvert.SerializeObject(t));
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User, clientIpAddress });
+                return response;
+
+            }
+            else
+            {
+                var u = User.SystemUser[0];
+                AuthToken t = new AuthToken { UserId = u.UserId, UserTypeId = u.UserTypeId, CollegeCode = u.CollegeCode, collegeType = u.collegeType, ExpiryDate = DateTime.Now.AddHours(1) };
+
+                token = crypt.Encrypt(JsonConvert.SerializeObject(t));
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User });
+                return response;
+
+            }
+
+        }
+
 
         [HttpGet]
         public string DecryptCipher(string ciphertxt)

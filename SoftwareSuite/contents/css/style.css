@@ -2310,3 +2310,17 @@ button.btn.pay_bck_btn.pull-right {
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 }
+@media only screen and (max-width: 600px) {
+    .small-box {
+        min-height: 40px;
+        display: block;
+    }
+
+        .small-box h3 {
+            font-size: 12px;
+        }
+
+        .small-box > .inner {
+            padding: 15px 7px;
+        }
+}
