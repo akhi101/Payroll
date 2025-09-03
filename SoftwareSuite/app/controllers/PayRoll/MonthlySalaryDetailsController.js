@@ -125,8 +125,13 @@ define(['app'], function (app) {
                 var res = JSON.parse(response)
                 $scope.GetAllMonthlyDays = res.Table;
 
-                for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
-                    $scope['edit' + j] = true;
+                //for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                //    $scope['edit' + j] = true;
+                //}
+
+                $scope.edit = [];
+                for (var j = 0; j < $scope.GetAllMonthlyDays.length; j++) {
+                    $scope.edit[j] = true;
                 }
             },
                 function (error) {
@@ -155,8 +160,14 @@ define(['app'], function (app) {
                     $scope.loading = false;
 
                     $scope.DataNotFound0 = false;
-                    for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
-                        $scope['edit' + j] = true;
+                    //for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                    //    $scope['edit' + j] = true;
+                    //}
+
+
+                    $scope.edit = [];
+                    for (var j = 0; j < $scope.GetAllMonthlyDays.length; j++) {
+                        $scope.edit[j] = true;
                     }
                 }
                 //else if (res.Table[0].ResponseCode == '400') {
@@ -217,11 +228,15 @@ define(['app'], function (app) {
 
 
 
-        $scope.UpdateMonthlyDays = function (data) {
+        $scope.UpdateMonthlyDays = function (data,index) {
             var halfdays = parseInt(data.HalfDaysPresent / 2)
             var totalPresent = parseInt(halfdays + data.PresentDays)
+            //if (totalPresent > data.NoofDays) {
+            //    alert("Working Days Must be less than Total No of Days");
+            //    return;
+            //}
             if (totalPresent > data.NoofDays) {
-                alert("Working Days Must be less than Total No of Days");
+                alert("Working Days Must be less than or Equal to Total No of Days");
                 return;
             }
             var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.EmployeeID, data.MonthlyDaysID, data.PresentDays, data.NoofDays, data.HalfDaysPresent, $scope.UserName)
@@ -231,7 +246,8 @@ define(['app'], function (app) {
                 } catch (err) { }
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
-                    $scope.generatemonthlydays()
+                    $scope.generatemonthlydays();
+                    $scope.edit[index] = true;
 
                 }
                 else if (res[0].ResponseCode == '400') {
@@ -249,44 +265,6 @@ define(['app'], function (app) {
 
                 });
         }
-
-
-
-        $scope.EditMonthlyDays = function (data, ind) {
-
-            var ele1 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele1.length; j++) {
-                ele1[j].style['pointer-events'] = "auto";
-                ele1[j].style.border = "1px solid #ddd";
-            }
-            $scope['edit' + ind] = false;
-
-
-
-        }
-
-
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

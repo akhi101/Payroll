@@ -471,7 +471,11 @@ define(['app'], function (app) {
             //for (var j = 0; j < ele2.length; j++) {
             //    ele2[j].style['pointer-events'] = "none";
             //    ele2[j].style.border = "0";
-            //}
+            //} 
+            if ($scope.MobileNumber == undefined || $scope.MobileNumber == null || $scope.MobileNumber == "") {
+            alert("Please Enter Mobile Number");
+            return;
+        }
 
             var datatypeid = 2;
 
