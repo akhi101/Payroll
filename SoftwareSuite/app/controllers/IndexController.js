@@ -115,26 +115,26 @@
         }
 
 
-        var getcircular = AdminService.getCircularsList();
-        getcircular.then(function (res) {
-            var response = JSON.parse(res)
-            if (response.Table.length > 0) {
-                $scope.Circulars = response.Table;
+        //var getcircular = AdminService.getCircularsList();
+        //getcircular.then(function (res) {
+        //    var response = JSON.parse(res)
+        //    if (response.Table.length > 0) {
+        //        $scope.Circulars = response.Table;
 
 
-            } else {
-                $scope.loading = false;
-                $scope.data = false;
-                $scope.error = true;
-            }
-        },
-            function (error) {
+        //    } else {
+        //        $scope.loading = false;
+        //        $scope.data = false;
+        //        $scope.error = true;
+        //    }
+        //},
+        //    function (error) {
 
-                console.log(error);
-                $scope.loading = false;
-                $scope.data = false;
-                $scope.error = true;
-            });
+        //        console.log(error);
+        //        $scope.loading = false;
+        //        $scope.data = false;
+        //        $scope.error = true;
+        //    });
 
 
         //var LoadExamTypeBysem = AdminService.DeleteBmaAttendee('1058-19578','TC');
@@ -170,96 +170,96 @@
             $state.go(Module);
         }
 
-        $scope.SiteViews = 0;
-        $scope.websiteCounts = function () {
+        //$scope.SiteViews = 0;
+        //$scope.websiteCounts = function () {
 
-            var GetWebSiteVisiterCount = AdminService.GetWebSiteVisiterCount();
-            GetWebSiteVisiterCount.then(function (response) {
-
-
-                $scope.SiteViews = response.Table[0].WebsiteVisitedCount;
-            },
-                function (error) {
-
-                    var err = JSON.parse(error);
-                });
-        }
+        //    var GetWebSiteVisiterCount = AdminService.GetWebSiteVisiterCount();
+        //    GetWebSiteVisiterCount.then(function (response) {
 
 
-        var getNotifications = AdminService.GetNotificationByUser(1017);
-        getNotifications.then(function (response) {
+        //        $scope.SiteViews = response.Table[0].WebsiteVisitedCount;
+        //    },
+        //        function (error) {
+
+        //            var err = JSON.parse(error);
+        //        });
+        //}
 
 
-            $scope.Notifications = response;
-            $scope.websiteCounts();
-        },
-            function (error) {
-
-                alert("error while loading Notification");
-                //alert("error while loading Notification");
-
-                var err = JSON.parse(error);
-            });
+        //var getNotifications = AdminService.GetNotificationByUser(1017);
+        //getNotifications.then(function (response) {
 
 
-        var getSlides = PreExaminationService.GetHomePageSlidesActive();
-        getSlides.then(function (response) {
+        //    $scope.Notifications = response;
+        //    $scope.websiteCounts();
+        //},
+        //    function (error) {
+
+        //        alert("error while loading Notification");
+        //        //alert("error while loading Notification");
+
+        //        var err = JSON.parse(error);
+        //    });
 
 
-            $scope.HomeSlides = response.Table;
-            //  $scope.websiteCounts();
-        },
-            function (error) {
-
-                //alert("error while loading Slides");
-                //alert("error while loading Notification");
-
-                var err = JSON.parse(error);
-            });
+    //    var getSlides = PreExaminationService.GetHomePageSlidesActive();
+    //    getSlides.then(function (response) {
 
 
-        var StudentCounts = PreExaminationService.GetStudentServicesCounts();
-        StudentCounts.then(function (response) {
+    //        $scope.HomeSlides = response.Table;
+    //        //  $scope.websiteCounts();
+    //    },
+    //        function (error) {
 
-            if (response.Table.length > 0) {
-                var res = response.Table[0]
-                $scope.BonafiedCount = res.BonafiedCount;
-                $scope.DDCCount = res.DDCCount;
-                $scope.DMMCount = res.DMMCount;
-                $scope.InterimCount = res.InterimCount;
-                $scope.MigrationCount = res.MigrationCount;
-                $scope.NameCorrectionCount = res.NameCorrectionCount;
-                $scope.TranscriptsCount = res.TranscriptsCount;
-                $scope.TransferCount = res.TransferCount;
+    //            //alert("error while loading Slides");
+    //            //alert("error while loading Notification");
 
-            } else {
-                $scope.BonafiedCount = 0;
-                $scope.DDCCount = 0;
-                $scope.DMMCount = 0;
-                $scope.InterimCount = 0;
-                $scope.MigrationCount = 0;
-                $scope.NameCorrectionCount = 0;
-                $scope.TranscriptsCount = 0;
-                $scope.TransferCount = 0;
-                $scope.loading = false;
-                $scope.reports = false;
-                $scope.Noreports = true;
-            }
+    //            var err = JSON.parse(error);
+    //        });
 
-        },
-            function (error) {
-                $scope.BonafiedCount = 0;
-                $scope.DDCCount = 0;
-                $scope.DMMCount = 0;
-                $scope.InterimCount = 0;
-                $scope.MigrationCount = 0;
-                $scope.NameCorrectionCount = 0;
-                $scope.TranscriptsCount = 0;
-                $scope.TransferCount = 0;
-                $scope.loading = false;
-                $scope.reports = false;
-                $scope.Noreports = true;
-            });
+
+    //    var StudentCounts = PreExaminationService.GetStudentServicesCounts();
+    //    StudentCounts.then(function (response) {
+
+    //        if (response.Table.length > 0) {
+    //            var res = response.Table[0]
+    //            $scope.BonafiedCount = res.BonafiedCount;
+    //            $scope.DDCCount = res.DDCCount;
+    //            $scope.DMMCount = res.DMMCount;
+    //            $scope.InterimCount = res.InterimCount;
+    //            $scope.MigrationCount = res.MigrationCount;
+    //            $scope.NameCorrectionCount = res.NameCorrectionCount;
+    //            $scope.TranscriptsCount = res.TranscriptsCount;
+    //            $scope.TransferCount = res.TransferCount;
+
+    //        } else {
+    //            $scope.BonafiedCount = 0;
+    //            $scope.DDCCount = 0;
+    //            $scope.DMMCount = 0;
+    //            $scope.InterimCount = 0;
+    //            $scope.MigrationCount = 0;
+    //            $scope.NameCorrectionCount = 0;
+    //            $scope.TranscriptsCount = 0;
+    //            $scope.TransferCount = 0;
+    //            $scope.loading = false;
+    //            $scope.reports = false;
+    //            $scope.Noreports = true;
+    //        }
+
+    //    },
+    //        function (error) {
+    //            $scope.BonafiedCount = 0;
+    //            $scope.DDCCount = 0;
+    //            $scope.DMMCount = 0;
+    //            $scope.InterimCount = 0;
+    //            $scope.MigrationCount = 0;
+    //            $scope.NameCorrectionCount = 0;
+    //            $scope.TranscriptsCount = 0;
+    //            $scope.TransferCount = 0;
+    //            $scope.loading = false;
+    //            $scope.reports = false;
+    //            $scope.Noreports = true;
+    //        });
 
     });
 });
