@@ -1,4 +1,4 @@
-﻿define(['app'], function (app) {
+define(['app'], function (app) {
     app.controller("MonthlySalaryDetailsController", function ($scope, $http, $localStorage, $state, AppSettings, SystemUserService, PayRollService) {
         const $ctrl = this;
         $ctrl.$onInit = () => {
@@ -129,7 +129,6 @@
                 //    $scope['edit' + j] = true;
                 //}
 
-                // Initialize edit array (true = view mode, false = edit mode)
                 $scope.edit = [];
                 for (var j = 0; j < $scope.GetAllMonthlyDays.length; j++) {
                     $scope.edit[j] = true;
@@ -149,23 +148,31 @@
             $scope.GetAllMonthlyDays = [];
             $scope.button1disable = true;
             $scope.loading = true;
-            var DataTypeID = 1;
+            var DataTypeID = 1
             var getdesign = PayRollService.GetorEditMonthlyDays(DataTypeID, $scope.MonthlyDaysFinancialYear, $scope.MonthlyDaysMonth);
             getdesign.then(function (response) {
-                var res = JSON.parse(response);
-
-                if (res.Table[0].ResponseCode == '200') {
+                var res = JSON.parse(response)
+                //$scope.edit = true;
+                if (res.Table[0].ResponseCode=='200') {
                     $scope.GetAllMonthlyDays = res.Table1;
+                    $scope.NoofDays == res.Table1[0].NoofDays
                     $scope.button1disable = false;
                     $scope.loading = false;
-                    $scope.DataNotFound0 = false;
 
-                    // Initialize edit array (true = view mode, false = edit mode)
+                    $scope.DataNotFound0 = false;
+                    //for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
+                    //    $scope['edit' + j] = true;
+                    //}
+
+
                     $scope.edit = [];
                     for (var j = 0; j < $scope.GetAllMonthlyDays.length; j++) {
                         $scope.edit[j] = true;
                     }
                 }
+                //else if (res.Table[0].ResponseCode == '400') {
+
+                //}
                 else {
                     $scope.GetAllMonthlyDays = [];
                     $scope.DataNotFound0 = true;
@@ -176,8 +183,9 @@
                 function (error) {
                     alert("error while loading MonthlyDays Data");
                     var err = JSON.parse(error);
+
                 });
-        };
+        }
 
 
         $scope.generatemonthlydays = function () {
@@ -220,49 +228,45 @@
 
 
 
-        $scope.UpdateMonthlyDays = function (data, index) {
-            var halfdays = parseInt(data.HalfDaysPresent / 2) || 0;
-            var totalPresent = parseInt(halfdays + (data.PresentDays || 0));
-
+        $scope.UpdateMonthlyDays = function (data,index) {
+            var halfdays = parseInt(data.HalfDaysPresent / 2)
+            var totalPresent = parseInt(halfdays + data.PresentDays)
+            //if (totalPresent > data.NoofDays) {
+            //    alert("Working Days Must be less than Total No of Days");
+            //    return;
+            //}
             if (totalPresent > data.NoofDays) {
-                alert("Working Days Must be less than Total No of Days");
+                alert("Working Days Must be less than or Equal to Total No of Days");
                 return;
             }
-
-            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(
-                data.EmployeeID,
-                data.MonthlyDaysID,
-                data.PresentDays,
-                data.NoofDays,
-                data.HalfDaysPresent,
-                $scope.UserName
-            );
-
+            var UpdateMonthlyDays = PayRollService.UpdateMonthlyDays(data.EmployeeID, data.MonthlyDaysID, data.PresentDays, data.NoofDays, data.HalfDaysPresent, $scope.UserName)
             UpdateMonthlyDays.then(function (response) {
-                let res = [];
                 try {
-                    res = JSON.parse(response);
-                } catch (err) {
-                    console.error("Invalid response JSON", err);
-                }
-
-                if (res[0] && res[0].ResponseCode === '200') {
-                    alert(res[0].ResponseDescription);
-                    $scope.generatemonthlydays();
-                    $scope.edit[index] = true;   // Switch row back to view mode
-                } else if (res[0] && res[0].ResponseCode === '400') {
+                    var res = JSON.parse(response);
+                } catch (err) { }
+                if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.generatemonthlydays();
                     $scope.edit[index] = true;
+
+                }
+                else if (res[0].ResponseCode == '400') {
+                    alert(res[0].ResponseDescription);
+                    $scope.generatemonthlydays()
+
                 } else {
-                    alert("Something went wrong");
+                    alert('Something Went Wrong')
+
                 }
             },
                 function (error) {
-                    alert("Something went wrong");
-                    console.error(error);
+                    alert("something Went Wrong")
+
+
                 });
-        };
+        }
+
+
 
 
         $scope.GetData = function () {

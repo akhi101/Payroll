@@ -166,7 +166,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in GetAllMonthlyDays | filter : searchtxt">
-                                <td class="text-center">{{$index+1}}</td>
+                                <td class="text-center pointer">{{$index+1}}</td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt" ng-model="data.FinancialYear" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt" ng-model="data.Months" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.EmployeeCode" /></div></td>
@@ -174,24 +174,24 @@
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt" ng-model="data.DesignationName" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" maxlength="2" ng-model="data.NoofDays" disabled /></div></td>
 
-                                <!-- Full Days Present -->
+
                                 <td>
                                     <span ng-show="edit[$index]">{{data.PresentDays}}</span>
                                     <input type="text" ng-model="data.PresentDays" ng-show="!edit[$index]" class="form-control" />
                                 </td>
-
-                                <!-- Half Days Present -->
                                 <td>
                                     <span ng-show="edit[$index]">{{data.HalfDaysPresent}}</span>
                                     <input type="text" ng-model="data.HalfDaysPresent" ng-show="!edit[$index]" class="form-control" />
                                 </td>
-                                <!-- Action buttons -->
-                                <td>
+
+
+                                <td class="text-center">
                                     <button class="btn-xs"
                                             ng-class="edit[$index] ? 'btn-info' : 'btn-primary'"
                                             ng-click="edit[$index] ? edit[$index] = false : UpdateMonthlyDays(data, $index)">
                                         {{ edit[$index] ? 'Edit' : 'Update' }}
                                     </button>
+
                                 </td>
                             </tr>
 
@@ -233,17 +233,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="col-md-3">
-                <div class="form-group">
-                    <label class="font-weight-bold">Employee:</label>
-                    <select class="form-control" ng-model="Employee" ng-change="ChangeEmpData(Employee)" name="StudentType" required>
-                        <option value="" selected>Select Employee </option>
-                        <option ng-repeat="data in EmployeeDatabyYearMonth" value="{{data}}">
-                            {{data.EmployeeName}} ({{data.EmployeeCode}})
-                        </option>
-                    </select>
-                </div>
-            </div>-->
+                    
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
                             <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport1()">
@@ -253,22 +243,9 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="sm-spacer"></div>
-                <!--<div class="card" ng-show="IncEmployeeData">
-            <div class="col-md-3"><b>Employee Name </b></div>
-            <div class="col-md-9">: {{EmployeeName}}</div>
-            <div class="col-md-3"><b>Employee Code </b></div>
-            <div class="col-md-9">: {{EmployeeCode}}</div>
-            <div class="col-md-3"><b>Designation </b></div>
-            <div class="col-md-9">: {{Designation}}</div>
-            <br />
-            <div class="col-md-3"><b>Increment Amount :</b></div>
-            <div class="col-md-3"><input class="form-control" name="IncrementAmount" ng-model="IncrementAmount" placeholder="Increment Amount" /></div>
-            <br />
-            <div class="col-md-9" ng-show="IncEmployeeData">
-                <button class="btn btn-success pull-right" ng-click="SaveIncrement()">Save</button>
-            </div>
-        </div>-->
+                
                 <div class="row" ng-show="DataNotFound1">
                     <div class="col-md-12">
                         <div ng-show="DataNotFound1" class="no-results ng-hide">

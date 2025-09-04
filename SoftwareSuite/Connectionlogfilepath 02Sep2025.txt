@@ -1,0 +1,45 @@
+9/2/2025 11:22:11 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:22:11 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:22:12 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:22:12 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:22:12 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:22:53 AM
+Procedure or function SP_Add_Update_EmployeeDetails has too many arguments specified.
+
+9/2/2025 11:45:19 AM
+Procedure or function SP_Update_MonthlyDays has too many arguments specified.
+
+9/2/2025 11:45:19 AM
+Procedure or function SP_Update_MonthlyDays has too many arguments specified.
+
+9/2/2025 11:45:20 AM
+Procedure or function SP_Update_MonthlyDays has too many arguments specified.
+
+9/2/2025 11:50:39 AM
+Procedure or function SP_Update_MonthlyDays has too many arguments specified.
+
+9/2/2025 11:51:10 AM
+Procedure or function SP_Update_MonthlyDays has too many arguments specified.
+
+9/2/2025 3:56:49 PM
+Procedure or function 'SP_Add_Update_EmployeeDetails' expects parameter '@MobileNumber', which was not supplied.
+
+9/2/2025 3:56:50 PM
+Procedure or function 'SP_Add_Update_EmployeeDetails' expects parameter '@MobileNumber', which was not supplied.
+
+9/2/2025 3:58:01 PM
+Procedure or function 'SP_Add_Update_EmployeeDetails' expects parameter '@MobileNumber', which was not supplied.
+
+9/2/2025 4:01:43 PM
+Procedure or function 'SP_Add_Update_EmployeeDetails' expects parameter '@MobileNumber', which was not supplied.
+
