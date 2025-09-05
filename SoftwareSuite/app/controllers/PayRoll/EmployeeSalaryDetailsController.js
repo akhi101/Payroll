@@ -12,7 +12,7 @@
                 behavior: 'smooth'
             });
             //$scope.getsalarydata();
-
+            $scope.searchtxt = "";
             $scope.AddDetails = '1';
             $scope.UpdateDetails = '0';
         }

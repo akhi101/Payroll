@@ -224,7 +224,8 @@
                         <div class="form-group">
                             <label class="font-weight-bold">Month:</label>
                             <div class="">
-                                <select class="form-control" ng-model="IncrementsMonth" name="StudentType" required ng-change="getEmployeebyMonthYear()">
+                                <!--<select class="form-control" ng-model="IncrementsMonth" name="StudentType" required ng-change="getEmployeebyMonthYear()">-->
+                                <select class="form-control" ng-model="IncrementsMonth" name="StudentType" required>
                                     <option value="" selected>Select Month </option>
                                     <option ng-repeat="data in MonthsData" value="{{data.MonthID}}">
                                         {{data.Months}}
@@ -233,7 +234,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-2 text-center">
                         <div class="form-group text-center">
                             <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="GetReport1()">
@@ -244,8 +245,20 @@
                     </div>
                 </div>
 
+                <div class="col-lg-3" ng-show="GetAllIncrements.length>0">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="search..."
+                               ng-model="searchtxt1">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
                 <div class="sm-spacer"></div>
-                
+
                 <div class="row" ng-show="DataNotFound1">
                     <div class="col-md-12">
                         <div ng-show="DataNotFound1" class="no-results ng-hide">
@@ -270,25 +283,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetAllIncrements">
+                            <tr ng-repeat="data in GetAllIncrements| filter : searchtxt1">
                                 <td class="text-center pointer">{{$index+1}}</td>
 
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.FinancialYear" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Months" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Designation" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IncrementAmount" /></div></td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.FinancialYear}}</span>
+                                    <input type="text" ng-model="data.FinancialYear" ng-show="!edit[$index]" class="form-control" />
+                                </td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.Months}}</span>
+                                    <input type="text" ng-model="data.Months" ng-show="!edit[$index]" class="form-control" />
+                                </td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.EmployeeCode}}</span>
+                                    <input type="text" ng-model="data.EmployeeCode" ng-show="!edit[$index]" class="form-control" />
+                                </td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.EmployeeName}}</span>
+                                    <input type="text" ng-model="data.EmployeeName" ng-show="!edit[$index]" class="form-control" />
+                                </td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.Designation}}</span>
+                                    <input type="text" ng-model="data.Designation" ng-show="!edit[$index]" class="form-control" />
+                                </td>
+                                <td>
+                                    <span ng-show="edit[$index]">{{data.IncrementAmount}}</span>
+                                    <input type="text" ng-model="data.IncrementAmount" ng-show="!edit[$index]" class="form-control" />
+                                </td>
 
                                 <td class="text-center">
-                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
-                                        Edit
-                                    </button>
-                                    <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
-                                        Update
+                                    <button class="btn-xs"
+                                            ng-class="edit[$index] ? 'btn-info' : 'btn-primary'"
+                                            ng-click="edit[$index] ? edit[$index] = false : UpdateIncrement(data, $index)">
+                                        {{ edit[$index] ? 'Edit' : 'Update' }}
                                     </button>
 
                                 </td>
+
+
 
                                 <td style="text-align:center">
                                     <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>

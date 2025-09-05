@@ -8,7 +8,8 @@
                 left: 0,
                 behavior: 'smooth'
             });
-
+            $scope.searchtxt = "";
+            $scope.searchtxt1 = "";
             $scope.FamilyAddDetails = '1';
             $scope.FamilyUpdateDetails = '0';
            // $scope.ServiceAddDetails = '1';

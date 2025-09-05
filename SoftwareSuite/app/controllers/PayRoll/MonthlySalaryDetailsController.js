@@ -109,6 +109,7 @@ define(['app'], function (app) {
 
 
         $scope.searchtxt = "";
+        $scope.searchtxt1 = "";
 
 
         $scope.GetReportMonthlyDays = function () {
@@ -203,8 +204,9 @@ define(['app'], function (app) {
                     $scope.DataNotFound0 = false;
                     $scope.button1disable = false;
                     $scope.loading = false;
-                    for (var j = 1; j < $scope.GetAllMonthlyDays.length + 1; j++) {
-                        $scope['edit' + j] = true;
+                    $scope.edit = [];
+                    for (var j = 0; j < $scope.GetAllMonthlyDays.length; j++) {
+                        $scope.edit[j] = true;
                     }
                 }
                 else {
@@ -281,10 +283,16 @@ define(['app'], function (app) {
                 var res = JSON.parse(response)
                 $scope.GetAllIncrements = res.Table;
 
-                for (var j = 1; j < $scope.GetAllIncrements.length + 1; j++) {
-                    $scope['edit' + j] = true;
+                //for (var j = 1; j < $scope.GetAllIncrements.length + 1; j++) {
+                //    $scope['edit' + j] = true;
+                //}
+                $scope.edit = [];
+                for (var j = 0; j < $scope.GetAllIncrements.length; j++) {
+                    $scope.edit[j] = true;
                 }
+
             },
+
                 function (error) {
                     alert("data is not loaded");
                     var err = JSON.parse(error);
@@ -318,8 +326,9 @@ define(['app'], function (app) {
                     $scope.GetAllIncrements = response.Table;
 
                     $scope.DataNotFound1 = false;
-                    for (var j = 1; j < $scope.GetAllIncrements.length + 1; j++) {
-                        $scope['edit' + j] = true;
+                    $scope.edit = [];
+                    for (var j = 0; j < $scope.GetAllIncrements.length; j++) {
+                        $scope.edit[j] = true;
                     }
                 }
                 else {
@@ -717,7 +726,7 @@ define(['app'], function (app) {
 
 
 
-        $scope.UpdateIncrement = function (data) {
+        $scope.UpdateIncrement = function (data,index) {
             var DataTypeId = 2
 
 
@@ -728,12 +737,14 @@ define(['app'], function (app) {
                 } catch (err) { }
                 if (res[0].StatusCode == '200') {
                     alert(res[0].StatusDescription);
-                    $scope.GetorEditIncrements()
+                    $scope.GetorEditIncrements();
+                    $scope.edit[index] = true;
 
                 }
                 else if (res[0].StatusCode == '400') {
                     alert(res[0].StatusDescription);
-                    $scope.GetorEditIncrements()
+                    $scope.GetorEditIncrements();
+                    $scope.edit[index] = true;
 
                 } else {
                     alert('Something Went Wrong')

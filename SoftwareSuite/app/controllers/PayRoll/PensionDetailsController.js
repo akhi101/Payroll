@@ -9,7 +9,7 @@
           
             $scope.getPensionerTypes();
         }
-
+        $scope.searchtxt = "";
         $scope.changePensioner = function (Pensioner) {
             $scope.EmployeeID1 = Pensioner.EmployeeID;
             $scope.PensionerID1 = Pensioner.PensionerID;
@@ -88,8 +88,12 @@
                 if (res.Table.length > 0) {
                     $scope.PensionDetailsData = res.Table;
                     $scope.DataNotFound = false;
-                    for (var j = 1; j < $scope.PensionDetailsData.length + 1; j++) {
-                        $scope['edit' + j] = true;
+                    //for (var j = 1; j < $scope.PensionDetailsData.length + 1; j++) {
+                    //    $scope['edit' + j] = true;
+                    //}
+                    $scope.edit = [];
+                    for (var j = 0; j < $scope.PensionDetailsData.length; j++) {
+                        $scope.edit[j] = true;
                     }
                 }
                 else {
@@ -209,7 +213,7 @@
 
         }
 
-        $scope.UpdateDetails = function (data) {
+        $scope.UpdateDetails = function (data,index) {
             var datatypeid = 2
 
 
@@ -221,13 +225,15 @@
                 if (res[0].ResponseCode == '200') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0)
+                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0);
+                    $scope.edit[index] = true;
 
                 }
                 else if (res[0].ResponseCode == '400') {
                     alert(res[0].ResponseDescription);
                     $scope.ClearData();
-                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0)
+                    $scope.getEditPensionDetails(1, 0, data.PensionerTypeID, 0);
+                    $scope.edit[index] = true;
 
                 } else {
                     alert('Something Went Wrong')

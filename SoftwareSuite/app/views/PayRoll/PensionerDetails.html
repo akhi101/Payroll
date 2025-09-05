@@ -218,79 +218,91 @@
 
                         </div>
                     </div>
-               
+
 
                 <div class="container-fluid" ng-show="ServicePensionerData.length>0">
-                    <div class="col-md-12">
-                        <div class="cl-details">
-                            <h2> Pensioner Details </h2>
+                    <div class="container">
+                        <div class="col-lg-3">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="search..."
+                                       ng-model="searchtxt">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search-btn" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
-                        <div class="table-responsive table-custom-tables-tb scrollbox">
-                            <table class="table table-bordered  table-striped table-rounded scrollbox-content">
-                                <thead>
-                                    <tr class="cb-1">
-                                        <th>S.No</th>
-                                        <th class="text-center">Pensioner Code</th>
-                                        <th class="text-center">Pensioner Name</th>
-                                        <th class="text-center">Designation Name</th>
-                                        <th class="text-center">Gender </th>
-                                        <th class="text-center">PAN No </th>
-                                        <th class="text-center">Account No </th>
-                                        <th class="text-center">IFSC CODE </th>                                     
-                                        <th class="text-center">Sort Order</th>
-                                        <th class="text-center">Life Status</th>
-                                        <th class="text-center">Action</th>
-                                        <th class="text-center">Status</th>
+                        <div class="col-md-12">
+                            <div class="cl-details">
+                                <h2> Pensioner Details </h2>
+                            </div>
+                            <div class="table-responsive table-custom-tables-tb scrollbox">
+                                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                                    <thead>
+                                        <tr class="cb-1">
+                                            <th>S.No</th>
+                                            <th class="text-center">Pensioner Code</th>
+                                            <th class="text-center">Pensioner Name</th>
+                                            <th class="text-center">Designation Name</th>
+                                            <th class="text-center">Gender </th>
+                                            <th class="text-center">PAN No </th>
+                                            <th class="text-center">Account No </th>
+                                            <th class="text-center">IFSC CODE </th>
+                                            <th class="text-center">Sort Order</th>
+                                            <th class="text-center">Life Status</th>
+                                            <th class="text-center">Action</th>
+                                            <th class="text-center">Status</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   
-                                    <tr style="" ng-repeat="data in ServicePensionerData">
-                                        <td class="text-center pointer">{{$index+1}}</td>
-                                        <td class="text-center pointer">{{data.PensionerCode}}</td>
-                                        <td class="text-center pointer">{{data.EmployeeName}}</td>
-                                        <td class="text-center pointer">{{data.DesignationName}}</td>
-                                        <td class="text-center pointer">{{data.Gender}}</td>
-                                        <td class="text-center pointer">{{data.PanNo}}</td>
-                                        <td class="text-center pointer">{{data.AccountNumber}}</td>
-                                        <td class="text-center pointer">{{data.IFSCCode}}</td>
-                                        <td class="text-center pointer">{{data.SortOrder}}</td>
-                                        <td class="text-center pointer">{{data.LifeStatus ? "Active" : "Deceased"}}</td>
-                                       
-                                        <td class="text-center">
-                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditServicePensionerDetails(data.ServicePensionerID)">
-                                                Edit
-                                            </button>
-                                            <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
-            Update
-        </button>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                        </td>
-                                        <td style="text-align:center">
-                                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
-                                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        <tr style="" ng-repeat="data in ServicePensionerData| filter : searchtxt">
+                                            <td class="text-center pointer">{{$index+1}}</td>
+                                            <td class="text-center pointer">{{data.PensionerCode}}</td>
+                                            <td class="text-center pointer">{{data.EmployeeName}}</td>
+                                            <td class="text-center pointer">{{data.DesignationName}}</td>
+                                            <td class="text-center pointer">{{data.Gender}}</td>
+                                            <td class="text-center pointer">{{data.PanNo}}</td>
+                                            <td class="text-center pointer">{{data.AccountNumber}}</td>
+                                            <td class="text-center pointer">{{data.IFSCCode}}</td>
+                                            <td class="text-center pointer">{{data.SortOrder}}</td>
+                                            <td class="text-center pointer">{{data.LifeStatus ? "Active" : "Deceased"}}</td>
+
+                                            <td class="text-center">
+                                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditServicePensionerDetails(data.ServicePensionerID)">
+                                                    Edit
+                                                </button>
+                                                <!--<button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateEmployeeDetails(data,$index+1)">
+                                    Update
+                                </button>-->
+
+                                            </td>
+                                            <td style="text-align:center">
+                                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
+                                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
-                <div class="container" ng-show="Noreports">
-                    <div class="col-md-12">
-                        <div class="no-results">
-                            <img src="../../contents/img/Folder-Icon.svg" />
-                            <h2>No data Found</h2>
+                    <div class="container" ng-show="Noreports">
+                        <div class="col-md-12">
+                            <div class="no-results">
+                                <img src="../../contents/img/Folder-Icon.svg" />
+                                <h2>No data Found</h2>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="sm-spacer"></div>
+                    <div class="sm-spacer"></div>
+
                 </div>
-
-                <div class="sm-spacer"></div>
-                <div class="sm-spacer"></div>
-
-            </div>
             <div class="tab-pane " id="2">
                 <div>
                     <div class="container">
@@ -371,79 +383,91 @@
                 </div>
 
                 <div class="container-fluid" ng-show="FamilyPensionerData.length>0">
-                    <div class="col-md-12">
-                        <div class="cl-details">
-                            <h2> Pensioner Details </h2>
+                    <div class="container">
+                        <div class="col-lg-3">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="search..."
+                                       ng-model="searchtxt">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search-btn" type="button">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
-                        <div class="table-responsive table-custom-tables-tb scrollbox">
-                            <table class="table table-bordered  table-striped table-rounded scrollbox-content">
-                                <thead>
-                                    <tr class="cb-1">
-                                        <th>S.No</th>
-                                        <th class="text-center">Pensioner Code</th>
-                                        <th class="text-center">Pensioner Name</th>
+                        <div class="col-md-12">
+                            <div class="cl-details">
+                                <h2> Pensioner Details </h2>
+                            </div>
+                            <div class="table-responsive table-custom-tables-tb scrollbox">
+                                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                                    <thead>
+                                        <tr class="cb-1">
+                                            <th>S.No</th>
+                                            <th class="text-center">Pensioner Code</th>
+                                            <th class="text-center">Pensioner Name</th>
 
-                                        <th class="text-center">Nominee Name</th>
-
-
-                                        <th class="text-center">Gender</th>
-                                        <th class="text-center">PAN No</th>
-                                        <th class="text-center">Account Number </th>
-                                        <th class="text-center">IFSC CODE</th>
-                                        <th class="text-center">Action</th>
-                                        <th class="text-center">Status</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   
-                                    <tr style="" ng-repeat="data in FamilyPensionerData">
-                                        <td class="text-center pointer">{{$index+1}}</td>
-                                        <td class="text-center pointer">{{data.PensionerCode}}</td>
-                                        <td class="text-center pointer">{{data.EmployeeName}}</td>
-
-                                        <td class="text-center pointer">{{data.NomineeName}}</td>
+                                            <th class="text-center">Nominee Name</th>
 
 
-                                        <td class="text-center pointer">{{data.Gender}}</td>
-                                        <td class="text-center pointer">{{data.PanNo}}</td>
-                                        <td class="text-center pointer">{{data.AccountNumber}}</td>
-                                        <td class="text-center pointer">{{data.IFSCCode}}</td>
+                                            <th class="text-center">Gender</th>
+                                            <th class="text-center">PAN No</th>
+                                            <th class="text-center">Account Number </th>
+                                            <th class="text-center">IFSC CODE</th>
+                                            <th class="text-center">Action</th>
+                                            <th class="text-center">Status</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr style="" ng-repeat="data in FamilyPensionerData| filter : searchtxt1">
+                                            <td class="text-center pointer">{{$index+1}}</td>
+                                            <td class="text-center pointer">{{data.PensionerCode}}</td>
+                                            <td class="text-center pointer">{{data.EmployeeName}}</td>
+
+                                            <td class="text-center pointer">{{data.NomineeName}}</td>
+
+
+                                            <td class="text-center pointer">{{data.Gender}}</td>
+                                            <td class="text-center pointer">{{data.PanNo}}</td>
+                                            <td class="text-center pointer">{{data.AccountNumber}}</td>
+                                            <td class="text-center pointer">{{data.IFSCCode}}</td>
 
 
 
 
 
-                                        <td class="text-center">
-                                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditFamilyPensionerDetails(data.FamilyPensionerID)">
-                                                Edit
-                                            </button>
+                                            <td class="text-center">
+                                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditFamilyPensionerDetails(data.FamilyPensionerID)">
+                                                    Edit
+                                                </button>
 
-                                        </td>
-                                        <td style="text-align:center">
-                                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
-                                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td style="text-align:center">
+                                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,0)" ng-if="data.Active==1">Active</button>
+                                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeID,data.DepartmentId,data.CPS_NPS,1)" ng-if="data.Active==0">InActive</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
-                <div class="container" ng-show="Noreports">
-                    <div class="col-md-12">
-                        <div class="no-results">
-                            <img src="../../contents/img/Folder-Icon.svg" />
-                            <h2>No data Found</h2>
+                    <div class="container" ng-show="Noreports">
+                        <div class="col-md-12">
+                            <div class="no-results">
+                                <img src="../../contents/img/Folder-Icon.svg" />
+                                <h2>No data Found</h2>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="sm-spacer"></div>
+                    <div class="sm-spacer"></div>
+
                 </div>
-
-                <div class="sm-spacer"></div>
-                <div class="sm-spacer"></div>
-
-            </div>
           
         </div>
 

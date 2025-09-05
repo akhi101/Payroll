@@ -11,7 +11,8 @@
         }
 
 
-
+        $scope.searchtxt = "";
+        $scope.searchtxt2 = "";
 
 
 

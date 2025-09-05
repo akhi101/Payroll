@@ -8,7 +8,7 @@ define(['app'], function (app) {
                     left: 0,
                     behavior: 'smooth'
                 });
-
+                $scope.searchtxt = "";
                 $scope.AddDetails = '1';
                 $scope.UpdateDetails = '0';
                 //$scope.getEmployeeDetailsData();
