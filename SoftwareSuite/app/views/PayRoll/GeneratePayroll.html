@@ -116,6 +116,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3" ng-show="GetAllGeneratedMontlysalary.length>0">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="search..."
+                               ng-model="searchtxt2">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
                 <div class="col-md-12" ng-if="GetAllGeneratedMontlysalary.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
@@ -139,7 +151,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetAllGeneratedMontlysalary">
+                            <tr ng-repeat="data in GetAllGeneratedMontlysalary| filter : searchtxt2">
                                 <td class="text-center pointer">{{$index+1}}</td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>
@@ -149,19 +161,7 @@
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetSalary" /></div></td>
 
 
-                                <!--<td class="text-center">
-                            <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditIncrement(data,$index+1)">
-                                Edit
-                            </button>
-                            <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateIncrement(data,$index+1)">
-                                Update
-                            </button>
-
-                        </td>-->
-                                <!--<td style="text-align:center">
-                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,0)" ng-if="data.Active==1">Active</button>
-                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeActive(data.FinancialYearID,data.MonthID,data.IncrementID,1)" ng-if="data.Active==0">InActive</button>
-                        </td>-->
+                                
 
                             </tr>
 
@@ -216,6 +216,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3" ng-show="GetAllPublishMontlysalary.length>0">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="search..."
+                               ng-model="searchtxt3">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary search-btn" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
                 <div class="col-md-12" ng-if="GetAllPublishMontlysalary.length>0">
                     <div class="pull-right">
                         <a class="ExportToExcel1 pointer"
@@ -239,7 +250,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in GetAllPublishMontlysalary">
+                            <tr ng-repeat="data in GetAllPublishMontlysalary| filter : searchtxt3">
                                 <td class="text-center pointer">{{$index+1}}</td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeCode" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" onkeypress='return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32))' class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.EmployeeName" /></div></td>

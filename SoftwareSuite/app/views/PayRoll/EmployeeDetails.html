@@ -90,7 +90,7 @@
                                     <input class="form-control" type="text" maxlength="100" onkeypress="restrictNumbers(event)" placeholder="Enter Employee Name" ng-model="EmployeeName">
                                 </div>
 
-                             </div>
+                            </div>
                             <div class="row">
 
                                 <div class="form-group col-md-4">
@@ -277,14 +277,28 @@
 
 
 
+
                         </form>
+
                     </div>
                 </div>
 
             </div>
         </div>
+
     </div>
 
+    <div class="col-lg-3" ng-show="EmployeeDetailsData.length>0" style="left:15px">
+        <div class="input-group custom-search-form">
+            <input type="text" class="form-control" placeholder="search..."
+                   ng-model="searchtxt">
+            <span class="input-group-btn">
+                <button class="btn btn-primary search-btn" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
     <div class="container-fluid" ng-show="EmployeeDetailsData.length>0">
         <div class="col-md-12">
             <div class="cl-details">
@@ -297,34 +311,34 @@
                             <th>S.No</th>
                             <th class="text-center">Employee Code</th>
                             <th class="text-center">Employee Name</th>
-                            
+
                             <th class="text-center">Designation Name</th>
-                            
+
                             <th class="text-center">Gender</th>
                             <th class="text-center">Sort Order</th>
-                            
+
                             <th class="text-center">Action</th>
                             <th class="text-center">Status</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="" ng-repeat="data in EmployeeDetailsData">
+                        <tr style="" ng-repeat="data in EmployeeDetailsData| filter : searchtxt">
                             <td class="text-center pointer">{{$index+1}}</td>
                             <td class="text-center pointer">{{data.EmployeeCode}}</td>
                             <td class="text-center pointer">{{data.EmployeeName}}</td>
-                            
+
                             <td class="text-center pointer">{{data.DesignationName}}</td>
-                            
+
                             <td class="text-center pointer">{{data.Gender}}</td>
                             <td class="text-center pointer">{{data.SortOrder}}</td>
-                            
-                           
 
-                            
-                               
 
-                         
+
+
+
+
+
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditEmployeeDetails(data.EmployeeID,data.DepartmentId,data.Active)">
                                     Edit

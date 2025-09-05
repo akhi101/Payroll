@@ -152,98 +152,138 @@
                                     </div>
 
                                 </div>
-</form>
+                            </form>
                         </div>
                     </div>
 
                 </div>
             </div>
+            <div class="col-lg-3" ng-show="PensionDetailsData.length>0">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" placeholder="search..."
+                           ng-model="searchtxt">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary search-btn" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <table class="table table-responsive table-bordered" ng-show="PensionDetailsData.length>0">
+                <thead>
+                    <tr class="cb-1">
+                        <th>S.No</th>
+                        <th class="text-center">Pensioner Type</th>
+                        <th class="text-center">Pensioner Name</th>
+                        <th class="text-center">Pension Amount</th>
+                        <th class="text-center">Commutation Amount</th>
+                        <th class="text-center">DR </th>
+                        <th class="text-center">IR</th>
+                        <th class="text-center">MA </th>
+                        <th class="text-center">Action</th>
+                        <th class="text-center">Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in PensionDetailsData | filter: searchtxt">
+                        <td class="text-center">{{$index + 1}}</td>
 
-            <td class="">
-                <table class="table table-responsive table-bordered" ng-if="PensionDetailsData.length>0">
-                    <thead>
-                        <tr class="cb-1">
-                            <th>S.No</th>
-                            <th class="text-center">Pensioner Type</th>
-                            <th class="text-center">Pensioner Name</th>
-                            <th class="text-center">Pension Amount</th>
-                            <th class="text-center">Commutation Amount</th>
-                            <th class="text-center">DR </th>
-                            <th class="text-center">IR</th>
-                            <th class="text-center">MA </th>
-                            <th class="text-center">Action</th>
-                            <th class="text-center">Active</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="data in PensionDetailsData">
-                            <td class="text-center">{{$index + 1}}</td>
-                            <!--<td class="text-center pointer">
-                                <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="Pensionerid" ng-model="data.PensionerTypeID" disabled
-                                            ng-options="data.PensionerTypeID as data.PensionerType for data in PensionerTypeData">
-                                        <option value="" selected>Select Pensioner Type</option>
-                                    </select>
-
-                                </div>
-                            </td>-->
-                            <!--<td class="text-center pointer">
-                                <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" id="employeeID" ng-model="data.EmployeeID" disabled
-                                            ng-options="data.EmployeeID as data.EmployeeName for data in EmployeeDetailsData">
-                                        <option value="" selected>Select Pensioner Name</option>
-                                    </select>
-
-                                </div>
-                            </td>-->
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerType" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerName" /></div></td>
+                        <!--<td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerType" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" disabled ng-model="data.PensionerName" /></div></td>
 
 
 
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CommutationAmount" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.PensionAmount" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CommutationAmount" /></div></td>
 
-                            <td class="text-center pointer">
-                                <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.DR"
-                                            ng-model="data.DR"
-                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
-                                        <option value="">Select DR</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td class="text-center pointer">
-                                <div>
-                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.IR"
-                                            ng-model="data.IR"
-                                            ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
-                                        <option value="">Select IR</option>
-                                    </select>
-                                </div>
-                            </td>
+                        <td class="text-center pointer">
+                            <div>
+                                <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.DR"
+                                        ng-model="data.DR"
+                                        ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
+                                    <option value="">Select DR</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="text-center pointer">
+                            <div>
+                                <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.IR"
+                                        ng-model="data.IR"
+                                        ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]">
+                                    <option value="">Select IR</option>
+                                </select>
+                            </div>
+                        </td>
 
-                            <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
+                        <td class="text-center pointer"><div><input type="text" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>-->
 
-                            <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-show="edit{{$index + 1}}" ng-click="EditDetails(data,$index+1)">
-                                    Edit
-                                </button>
-                                <button class="btn-xs btn btn-primary" style="width: 70px;" ng-show="!edit{{$index + 1}}" ng-click="UpdateDetails(data,$index+1)">
-                                    Update
-                                </button>
+                        <td>
+                            <span ng-show="edit[$index]" disabled>{{data.PensionerType}}</span>
+                            <input type="text" ng-model="data.PensionerType" disabled ng-show="!edit[$index]" class="form-control" />
+                        </td>
 
-                            </td>
-                            <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
-                            </td>
+                        <td>
+                            <span ng-show="edit[$index]" disabled>{{data.PensionerName}}</span>
+                            <input type="text" disabled ng-model="data.PensionerName" ng-show="!edit[$index]" class="form-control" />
+                        </td>
 
-                        </tr>
 
-                    </tbody>
-                </table>
-            </td>
+                        <td>
+                            <span ng-show="edit[$index]">{{data.PensionAmount}}</span>
+                            <input type="text" ng-model="data.PensionAmount" ng-show="!edit[$index]" class="form-control" />
+                        </td>
+
+
+                        <td>
+                            <span ng-show="edit[$index]">{{data.CommutationAmount}}</span>
+                            <input type="text" ng-model="data.CommutationAmount" ng-show="!edit[$index]" class="form-control" />
+                        </td>
+
+
+                        <td>
+                            <span ng-show="edit[$index]">{{data.DR ? "Yes" : "No"}} </span>
+                            <select class="form-control" name="applicationForm.DR"
+                                    ng-model="data.DR"
+                                    ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]"
+                                    ng-show="!edit[$index]">
+                                <option value="">Select DR</option>
+                            </select>
+                        </td>
+
+
+                        <td>
+                            <span ng-show="edit[$index]">{{data.IR ? "Yes" : "No"}}</span>
+                            <select class="form-control" name="applicationForm.DR"
+                                    ng-model="data.IR"
+                                    ng-options="opt.value as opt.label for opt in [{label:'Yes', value:true}, {label:'No', value:false}]"
+                                    ng-show="!edit[$index]">
+                                <option value="">Select IR</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <span ng-show="edit[$index]">{{data.MA}}</span>
+                            <input type="text" ng-model="data.MA" ng-show="!edit[$index]" class="form-control" />
+                        </td>
+
+                        <td class="text-center">
+                            <button class="btn-xs"
+                                    ng-class="edit[$index] ? 'btn-info' : 'btn-primary'"
+                                    ng-click="edit[$index] ? edit[$index] = false : UpdateDetails(data, $index)">
+                                {{ edit[$index] ? 'Edit' : 'Update' }}
+                            </button>
+
+                        </td>
+
+                        <td style="text-align:center">
+                            <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,0)" ng-if="data.Active==1">Active</button>
+                            <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeDetails(data.PensionerDetailsID,data.PensionerTypeID,1)" ng-if="data.Active==0">InActive</button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="spacer"></div>

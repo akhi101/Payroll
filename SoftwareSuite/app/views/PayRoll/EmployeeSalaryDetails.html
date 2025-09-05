@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="form-group col-md-4" ng-show="showSpecialPay">
                                     <label>
-                                       Special Pay  :
+                                        Special Pay  :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter SpecialPay Amount" ng-model="SpecialPay">
                                 </div>
@@ -187,79 +187,92 @@
     </div>
 
     <div class="container " ng-show="SalaryData.length>0">
-        <div class="col-md-12">
-            <div class="cl-details">
-                <h2> Employee Salary Details</h2>
-            </div>
-            <div class="table-responsive table-custom-tables-tb scrollbox">
-                <table class="table table-bordered  table-striped table-rounded scrollbox-content">
-                    <thead>
-                        <tr class="cb-1">
-                            <th>S.No</th>
-                            <th class="text-center">Employee Name </th>
-                            <th class="text-center">Current Basic Amount</th>
-                            <th class="text-center" ng-show="showIR">Interim Relief</th>
-                            <th class="text-center" ng-show="showCCA">CCA </th>
-                            <th class="text-center">PP </th>
-                            <th class="text-center">FPI </th>
-                            <th class="text-center">TG Increment </th>
-                            <th class="text-center" ng-show="showCE">Conveyance Allowance </th>
-                            <th class="text-center">Medical </th>
-                            <th class="text-center">SpecialPay</th>
-                            <th class="text-center">NCI </th>
-                            <th class="text-center">NCI Amount </th>
-                            <th class="text-center">Action</th>
-                            <th class="text-center">Active</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="" ng-repeat="data in SalaryData">
-                            <td class="text-center">{{$index + 1}}</td>
-                            <td class="text-center">{{data.EmployeeName}}</td>
-                            <td class="text-center">{{data.CurrentBasicAmount}}</td>
-                            <td class="text-center" ng-show="showIR">
-                                <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.InterimRelief" ng-model="data.InterimRelief">
-                                    <option value="">Select Interim Relief</option>
-                                    <option value="Y">Yes</option>
-                                    <option value="N">No</option>
-                                </select>
-                            </td>
-                            <td class="text-center" ng-show="showCCA">{{data.CCA}}</td>
-                            <td class="text-center">{{data.PP}}</td>
-                            <td class="text-center">{{data.FPI}}</td>
-                            <td class="text-center">{{data.TG_Increment}}</td>
-                            <td class="text-center" ng-show="showCE">{{data.ConveyanceAllowance}}</td>
-                            <td class="text-center">{{data.Medical}}</td>
-                            <td class="text-center">{{data.SpecialPay}}</td>
-                            <td class="text-center">{{data.NCI}}</td>
- 
-                            <td class="text-center">{{data.NCIAmount}}</td>
-                            <td class="text-center">
-                                <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">
-                                    Edit
-                                </button>
 
-                            </td>
-                            <td style="text-align:center">
-                                <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
-                                <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="container">
+            <div class="col-lg-3">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" placeholder="search..."
+                           ng-model="searchtxt">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary search-btn" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
             </div>
+            <div class="col-md-12">
+                <div class="cl-details">
+                    <h2> Employee Salary Details</h2>
+                </div>
+                <div class="table-responsive table-custom-tables-tb scrollbox">
+                    <table class="table table-bordered  table-striped table-rounded scrollbox-content">
+                        <thead>
+                            <tr class="cb-1">
+                                <th>S.No</th>
+                                <th class="text-center">Employee Name </th>
+                                <th class="text-center">Current Basic Amount</th>
+                                <th class="text-center" ng-show="showIR">Interim Relief</th>
+                                <th class="text-center" ng-show="showCCA">CCA </th>
+                                <th class="text-center">PP </th>
+                                <th class="text-center">FPI </th>
+                                <th class="text-center">TG Increment </th>
+                                <th class="text-center" ng-show="showCE">Conveyance Allowance </th>
+                                <th class="text-center">Medical </th>
+                                <th class="text-center">SpecialPay</th>
+                                <th class="text-center">NCI </th>
+                                <th class="text-center">NCI Amount </th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="" ng-repeat="data in SalaryData | filter : searchtxt">
+                                <td class="text-center">{{$index + 1}}</td>
+                                <td class="text-center">{{data.EmployeeName}}</td>
+                                <td class="text-center">{{data.CurrentBasicAmount}}</td>
+                                <td class="text-center" ng-show="showIR">
+                                    <select class="form-control tableinpt enabletable{{$index + 1}}" name="applicationForm.InterimRelief" ng-model="data.InterimRelief">
+                                        <option value="">Select Interim Relief</option>
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                </td>
+                                <td class="text-center" ng-show="showCCA">{{data.CCA}}</td>
+                                <td class="text-center">{{data.PP}}</td>
+                                <td class="text-center">{{data.FPI}}</td>
+                                <td class="text-center">{{data.TG_Increment}}</td>
+                                <td class="text-center" ng-show="showCE">{{data.ConveyanceAllowance}}</td>
+                                <td class="text-center">{{data.Medical}}</td>
+                                <td class="text-center">{{data.SpecialPay}}</td>
+                                <td class="text-center">{{data.NCI}}</td>
 
+                                <td class="text-center">{{data.NCIAmount}}</td>
+                                <td class="text-center">
+                                    <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalary(data)">
+                                        Edit
+                                    </button>
+
+                                </td>
+                                <td style="text-align:center">
+                                    <button class="btn-xs btn btn-success" title="Click here to Inactive" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,0)" ng-if="data.Active==1">Active</button>
+                                    <button class="btn-xs btn btn-danger" title="Click here to Active" ng-click="ChangeStatus(data.EmployeeSalaryDetailsId,data.DepartmentId,data.EmployeeId,1)" ng-if="data.Active==0">InActive</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <div class="container" ng-show="Noreports">
-        <div class="col-md-12">
-            <div class="no-results">
-                <img src="../../contents/img/Folder-Icon.svg" />
-                <h2>No data Found</h2>
+        <div class="container" ng-show="Noreports">
+            <div class="col-md-12">
+                <div class="no-results">
+                    <img src="../../contents/img/Folder-Icon.svg" />
+                    <h2>No data Found</h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="sm-spacer"></div>
-    <div class="sm-spacer"></div>
-</div>  
+        <div class="sm-spacer"></div>
+        <div class="sm-spacer"></div>
+    </div>

@@ -69,6 +69,7 @@
          
         }
 
+        $scope.searchtxt2 = "";
 
 
         $scope.FinancialYears = function () {

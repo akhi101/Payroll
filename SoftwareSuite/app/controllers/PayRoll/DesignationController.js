@@ -2,6 +2,7 @@ define(['app'], function (app) {
     app.controller("DesignationController", function ($scope, $localStorage, PayRollService) {
         var authData = $localStorage.authorizationData;
         $scope.UserName = authData.UserName;
+        $scope.searchtxt = "";
 
 
         const $ctrl = this;
@@ -137,11 +138,14 @@ define(['app'], function (app) {
                 if (res.Table.length > 0) {
                     $scope.DesignationData = res.Table;
                     $scope.Noreports = false;
-                    for (var j = 1; j < $scope.DesignationData.length + 1; j++) {
-                        $scope['edit' + j] = true;
-                    }
+                    //for (var j = 1; j < $scope.DesignationData.length + 1; j++) {
+                    //    $scope['edit' + j] = true;
+                    //}
                     
-
+                    $scope.edit = [];
+                    for (var j = 0; j < $scope.DesignationData.length; j++) {
+                        $scope.edit[j] = true;
+                    }
                 }
                 else {
                     $scope.DesignationData = [];
@@ -163,33 +167,18 @@ define(['app'], function (app) {
 
 
 
-        $scope.Updatedesignations = function (data, ind) {
-            $scope['edit' + ind] = true;
+        $scope.Updatedesignations = function (data, index) {
+            //$scope['edit' + ind] = true;
 
-            var ele2 = document.getElementsByClassName("enabletable" + ind);
-            for (var j = 0; j < ele2.length; j++) {
-                ele2[j].style['pointer-events'] = "none";
-                ele2[j].style.border = "0";
-            }
+            //var ele2 = document.getElementsByClassName("enabletable" + ind);
+            //for (var j = 0; j < ele2.length; j++) {
+            //    ele2[j].style['pointer-events'] = "none";
+            //    ele2[j].style.border = "0";
+            //}
 
             var datatypeid = 2;
 
-            //if (data.AcademicYearId == null || data.AcademicYearId == undefined || data.AcademicYearId == "") {
-            //    alert("Service Name");
-            //    return;
-            //}
-            //if (data.SessionId == undefined || data.SessionId == null || data.SessionId == "") {
-            //    alert("Amount");
-            //    return;
-            //}
-            //if (data.SchemeId == null || data.SchemeId == undefined || data.SchemeId == "") {
-            //    alert("Status");
-            //    return;
-            //}
-            //if (data.SemId == null || data.SemId == undefined || data.SemId == "") {
-            //    alert("Action");
-            //    return;
-            //}
+            
 
 
 
@@ -200,13 +189,14 @@ define(['app'], function (app) {
                     alert(response[0].StatusDescription);
                     $scope.getdesignationdata();
                     $scope.ClearData();
+                    $scope.edit[index] = true;
                     
 
                 } else if (response[0].StatusCode == '400') {
                     alert(response[0].StatusDescription);
                     $scope.getdesignationdata();
                     $scope.ClearData();
-                   
+                    $scope.edit[index] = true;
 
                 } else {
                     alert('Something Went Wrong')

@@ -103,10 +103,10 @@
                                 </div>
                                 <div class="form-group col-md-4" ng-show="showGPF">
                                     <label>
-                                        GPF : 
+                                        GPF :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter GPF Amount" ng-model="GPF">
-                                </div> 
+                                </div>
                                 <!--<div class="form-group col-md-4" ng-show="EmployeeID==12 || EmployeeID==9 || EmployeeID==8">
                                     <label>
                                         CPS :
@@ -133,12 +133,12 @@
                                 </div>
                                 <div class="form-group col-md-4" ng-show="showHN">
                                     <label>
-                                       Harithanidhi :
+                                        Harithanidhi :
                                     </label>
                                     <input class="form-control" type="text" maxlength="100" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Enter Harithanidhi Amount" ng-model="Harithanidhi">
                                 </div>
-                                
-                               
+
+
 
 
                                 <div class="col-md-12" ng-show="AddDetails=='1'">
@@ -151,6 +151,8 @@
                                         UPDATE
                                     </button>
                                 </div>
+
+
                             </div>
                         </form>
                     </div>
@@ -161,6 +163,17 @@
     </div>
 
     <div class="container " ng-show="DeductionData.length>0">
+        <div class="col-lg-3">
+            <div class="input-group custom-search-form">
+                <input type="text" class="form-control" placeholder="search..."
+                       ng-model="searchtxt">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary search-btn" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="cl-details">
                 <h2> Salary Deductions</h2>
@@ -172,28 +185,28 @@
                             <th>S.No</th>
                             <th class="text-center">Employee Name </th>
                             <th class="text-center">PT</th>
-                            <th class="text-center" >IT</th>
-                            <th class="text-center" ng-show="showGPF" >GPF </th>
+                            <th class="text-center">IT</th>
+                            <th class="text-center" ng-show="showGPF">GPF </th>
                             <th class="text-center" ng-show="showTSGLI">TSGLI </th>
                             <th class="text-center" ng-show="showGIS">GIS </th>
                             <th class="text-center">Flag Fund </th>
-                            <th class="text-center" >Harithanidhi </th>
+                            <th class="text-center">Harithanidhi </th>
                             <th class="text-center">Action</th>
                             <th class="text-center">Active</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="" ng-repeat="data in DeductionData">
+                        <tr style="" ng-repeat="data in DeductionData | filter : searchtxt">
                             <td class="text-center">{{$index + 1}}</td>
                             <td class="text-center">{{data.EmployeeName}}</td>
                             <td class="text-center">{{data.PT}}</td>
-                            <td class="text-center" >{{data.IT}}</td>
+                            <td class="text-center">{{data.IT}}</td>
                             <td class="text-center" ng-show="showGPF">{{data.GPFAmount}}</td>
                             <td class="text-center" ng-show="showTSGLI">{{data.TSGLIAmount}}</td>
                             <td class="text-center" ng-show="showGIS">{{data.GISAmount}}</td>
-                            <td class="text-center" >{{data.FlagFund}}</td>
+                            <td class="text-center">{{data.FlagFund}}</td>
                             <td class="text-center">{{data.Harithanidhi}}</td>
-                           
+
                             <td class="text-center">
                                 <button class="btn-xs btn btn-info" style="width: 70px;" ng-click="EditSalaryDeduction(data)">
                                     Edit
