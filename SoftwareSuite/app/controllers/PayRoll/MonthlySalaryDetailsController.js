@@ -229,13 +229,18 @@ define(['app'], function (app) {
 
 
         $scope.UpdateMonthlyDays = function (data,index) {
-            var halfdays = parseInt(data.HalfDaysPresent / 2)
-            var totalPresent = parseInt(halfdays + data.PresentDays)
-            //if (totalPresent > data.NoofDays) {
-            //    alert("Working Days Must be less than Total No of Days");
-            //    return;
-            //}
-            if (totalPresent > data.NoofDays) {
+            //var halfdays = parseInt(data.HalfDaysPresent / 2)
+            //var totalPresent = parseInt(halfdays + data.PresentDays)
+
+
+            var fullDays = parseInt(data.PresentDays) || 0;
+            var halfDays = parseInt(data.HalfDaysPresent) || 0;
+            var totalDays = parseInt(data.NoofDays) || 0;
+
+            // Total present days = full + half
+            var totalPresent = fullDays + halfDays;
+
+            if (totalPresent > totalDays) {
                 alert("Working Days Must be less than or Equal to Total No of Days");
                 return;
             }

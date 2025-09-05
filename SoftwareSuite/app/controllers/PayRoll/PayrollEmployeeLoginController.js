@@ -26,7 +26,11 @@ define(['app'], function (app) {
             //    } else {
             //        var Pin = $scope.userData.Pin;
             //    }
-                $scope.Otp = true;
+            if ($scope.Login.Mobile == "" || $scope.Login.Mobile == undefined || $scope.Login.Mobile == null) {
+                alert("Please enter Mobile Number");
+                return;
+            }
+            $scope.Otp = true;
             $scope.NoOtp = false;
             var GenerateOtpForMobile = PayRollService.GenerateOtpForMobileNoUpdate('Pin', $scope.Login.Mobile)
                 GenerateOtpForMobile.then(function (response) {
