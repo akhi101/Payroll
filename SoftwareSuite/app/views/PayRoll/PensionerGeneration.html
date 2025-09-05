@@ -71,10 +71,10 @@
                 <a href="#2" class="noprint  font-weight-bold" data-toggle="tab">Publish Montly Pension</a>
             </li>
             <li class="noprint">
-                <a href="#3" class="noprint   font-weight-bold" data-toggle="tab">Pension Payslips</a>
+                <a href="#3" class="noprint   font-weight-bold" data-toggle="tab">Generate Pension Report</a>
             </li>
             <li class="noprint">
-                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Generate Pension Report</a>
+                <a href="#4" class="noprint   font-weight-bold" data-toggle="tab">Pension Payslips</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -138,7 +138,7 @@
                                 <th class="text-center">IR</th>
                                 <th class="text-center">MA</th>
                                 <!--<th class="text-center">Recovery / TDS</th>
-                                <th class="text-center">CMRF</th>-->
+                        <th class="text-center">CMRF</th>-->
                                 <th class="text-center">Total</th>
                             </tr>
                         </thead>
@@ -153,7 +153,7 @@
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
                                 <!--<td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Recovery_TDS" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CMRFAmount" /></div></td>-->
+                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CMRFAmount" /></div></td>-->
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetTotal" /></div></td>
                             </tr>
 
@@ -230,7 +230,7 @@
                                 <th class="text-center">IR</th>
                                 <th class="text-center">MA</th>
                                 <!--<th class="text-center">Recovery / TDS</th>
-                                <th class="text-center">CMRF</th>-->
+                        <th class="text-center">CMRF</th>-->
                                 <th class="text-center">Total</th>
                             </tr>
                         </thead>
@@ -245,7 +245,7 @@
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.IR" /></div></td>
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.MA" /></div></td>
                                 <!--<td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.Recovery_TDS" /></div></td>
-                                <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CMRFAmount" /></div></td>-->
+                        <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.CMRFAmount" /></div></td>-->
                                 <td class="text-center pointer"><div><input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control tableinpt enabletable{{$index + 1}}" ng-model="data.NetTotal" /></div></td>
                             </tr>
 
@@ -259,17 +259,57 @@
 
             </div>
 
-
-
-
-
-
-
-
-
-
-
             <div class="tab-pane " id="3">
+                <div class="card">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Financial Year:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="FinancialYearID4" name="FinancialYear" required>
+                                    <option value="" selected>Select Financial Year</option>
+                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
+                                        {{data.FinancialYear}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="font-weight-bold">Month:</label>
+                            <div class="">
+                                <select class="form-control" ng-model="MonthID4" name="StudentType" required>
+                                    <option value="" selected>Select Month </option>
+                                    <option ng-repeat="data in AllMonthsData" value="{{data.MonthID}}">
+                                        {{data.Months}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 text-center">
+                        <div class="form-group text-center">
+                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getPensionGeneratedReports()">
+                                Generate Pension Reports
+                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="tab-pane " id="4">
                 <div class="card">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -321,47 +361,7 @@
 
 
             </div>
-            <div class="tab-pane " id="4">
-                <div class="card">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Financial Year:</label>
-                            <div class="">
-                                <select class="form-control" ng-model="FinancialYearID4" name="FinancialYear" required>
-                                    <option value="" selected>Select Financial Year</option>
-                                    <option ng-repeat="data in FinancialYears" value="{{data.FinancialYearId}}">
-                                        {{data.FinancialYear}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="font-weight-bold">Month:</label>
-                            <div class="">
-                                <select class="form-control" ng-model="MonthID4" name="StudentType" required>
-                                    <option value="" selected>Select Month </option>
-                                    <option ng-repeat="data in AllMonthsData" value="{{data.MonthID}}">
-                                        {{data.Months}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-3 text-center">
-                        <div class="form-group text-center">
-                            <button class="btn btn-sm btn-primary  text-center  gr-button btn_top" ng-click="getPensionGeneratedReports()">
-                                Generate Pension Reports
-                                <span class="fa fa-arrow-down heading_icon btn_icons"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
 
             <div class="sm-spacer"></div>
         </div>
