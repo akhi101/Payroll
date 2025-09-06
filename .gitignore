@@ -25,6 +25,6 @@ packages/
 *.bak
 *.swp
 
-/.vs/SoftwareSuite
+/.vs/PayRoll
 /.gitignore
-/SoftwareSuite/publish.zip
+/PayRoll/publish.zip
