@@ -121,7 +121,8 @@
                 }
 
                 if ($scope.Login.UserPassword !== null && $scope.Login.UserName !== null) {
-
+                    $scope.loader = true;
+                    $scope.disableLogin = true;
                     var data = $crypto.encrypt($scope.Login.UserPassword, $scope.loginEKey) + "$$@@$$" + $crypto.encrypt($scope.Login.UserName, $scope.loginEKey) + "$$@@$$" + $scope.loginEKey;
                     $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetUserLogin', data, {}).then(function (response) {
                         //console.log(response)
@@ -176,6 +177,8 @@
 
 
                                 };
+                                $scope.loader = false;
+                                $scope.disableLogin = false;
                                 $state.go('Dashboard');
                             } catch (err) {
 

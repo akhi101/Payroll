@@ -32,6 +32,9 @@ define(['app'], function (app) {
             }
             $scope.Otp = true;
             $scope.NoOtp = false;
+
+            $scope.loader = true;
+            $scope.disablesmsButton = true;
             var GenerateOtpForMobile = PayRollService.GenerateOtpForMobileNoUpdate('Pin', $scope.Login.Mobile)
                 GenerateOtpForMobile.then(function (response) {
                     try {
@@ -43,12 +46,16 @@ define(['app'], function (app) {
                         $scope.VerifySmsData = true;
                         $scope.Otp = true;
                         $scope.NoOtp = false;
+                        $scope.loader = false;
+                        $scope.disablesmsButton = false;
                     } else {
                         alert(detail.description);
                         $scope.SendSmsData = true;
                         $scope.VerifySmsData = false;
                         $scope.Otp = false;
                         $scope.NoOtp = true;
+                        $scope.loader = false;
+                        $scope.disablesmsButton = false;
                     }
                 }, function (error) {
                     alert('error occured while sending OTP');
@@ -56,6 +63,8 @@ define(['app'], function (app) {
                     $scope.VerifySmsData = false;
                     $scope.Otp = false;
                     $scope.NoOtp = true;
+                    $scope.loader = false;
+                    $scope.disablesmsButton = false;
                 })
 
             //} else if ($scope.StudentPhoneNumber == null || $scope.StudentPhoneNumber == undefined) {
@@ -146,7 +155,8 @@ define(['app'], function (app) {
                 }
 
                 if ($scope.Login.Otp !== null && $scope.Login.Mobile !== null) {
-
+                    $scope.loader1 = true;
+                    $scope.disableLogin = true;
                     var data = $crypto.encrypt($scope.Login.Otp, $scope.loginEKey) + "$$@@$$" + $crypto.encrypt($scope.Login.Mobile, $scope.loginEKey) + "$$@@$$" + $scope.loginEKey;
                     $http.post(AppSettings.WebApiUrl + 'api/SystemUser/GetEmployeeLogin', data, {}).then(function (response) {
                         //console.log(response)
@@ -230,6 +240,8 @@ define(['app'], function (app) {
 
 
                                 };
+                                $scope.loader1 = false;
+                                $scope.disableLogin = false;
                                 $state.go('Dashboard');
                             } catch (err) {
 
