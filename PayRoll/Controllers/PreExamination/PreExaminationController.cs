@@ -1,5 +1,4 @@
-﻿extern alias itextalias;
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
