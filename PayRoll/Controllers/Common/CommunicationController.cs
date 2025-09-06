@@ -20,6 +20,7 @@ using MimeKit.Text;
 using System.Net.Security;
 using System.Data.SqlClient;
 using PayRoll.Models.Database;
+using System.Text.Json.Nodes;
 
 namespace PayRoll.Controllers.Common
 {
@@ -230,17 +231,17 @@ namespace PayRoll.Controllers.Common
                 smtp.ServerCertificateValidationCallback = (mysender, certificate, chain, sslPolicyErrors) => { return true; };
                 smtp.CheckCertificateRevocation = false;
                 smtp.Connect("smtp.mail.gov.in", 465,SecureSocketOptions.Auto);              
-                smtp.Timeout = 200000;             
-          
-            //for (int i = 0; i < size; i++){                
-            //    System.Net.Mime.ContentType contentType = new System.Net.Mime.ContentType();
-            //    contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
-            //    contentType.Name = request.attachmentdata[i].attachName;
-            //    message.Attachments.Add(new Attachment(contentType.Name = request.attachmentdata[i].attachpath, contentType));  // attachment
-            //}
-                message.From.Add(new MailboxAddress(request.From));
-                message.To.Add(new MailboxAddress(request.To));
-                message.Cc.Add(new MailboxAddress(request.cc));
+                smtp.Timeout = 200000;
+
+                //for (int i = 0; i < size; i++){                
+                //    System.Net.Mime.ContentType contentType = new System.Net.Mime.ContentType();
+                //    contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                //    contentType.Name = request.attachmentdata[i].attachName;
+                //    message.Attachments.Add(new Attachment(contentType.Name = request.attachmentdata[i].attachpath, contentType));  // attachment
+                //}
+                message.From.Add(new MailboxAddress("", request.From));
+                message.To.Add(new MailboxAddress("", request.To));
+                message.Cc.Add(new MailboxAddress("", request.cc));
                 //    message.From = new MailAddress(request.From);
                 //message.To.Add(new MailAddress(request.To));
                 //message.CC.Add(new MailAddress(request.cc));
@@ -309,8 +310,8 @@ namespace PayRoll.Controllers.Common
                 
                 smtp.Timeout = 200000;
 
-                message.From.Add(new MailboxAddress(request.From));
-                message.To.Add(new MailboxAddress(request.To));
+                message.From.Add(new MailboxAddress("", request.From));
+                message.To.Add(new MailboxAddress("", request.To));
                
                 message.Subject = request.Subject;
                 var strNewPassword = GeneratePassword().ToString();
@@ -438,8 +439,8 @@ namespace PayRoll.Controllers.Common
                 //    contentType.Name = request.attachmentdata[i].attachName;
                 //    message.Attachments.Add(new Attachment(contentType.Name = request.attachmentdata[i].attachpath, contentType));  // attachment
                 //}
-                message.From.Add(new MailboxAddress(request.From));
-                message.To.Add(new MailboxAddress(request.To));
+                message.From.Add(new MailboxAddress("", request.From));
+                message.To.Add(new MailboxAddress("", request.To));
                 //    message.From = new MailAddress(request.From);
                 //message.To.Add(new MailAddress(request.To));
                 //message.CC.Add(new MailAddress(request.cc));
