@@ -53,7 +53,7 @@ namespace PayRoll.Services
 
         //}
 
-        public DataSet GetUserLogin(PayRolldbhandler dbHandler, string UserName, string Password, string Ipaddress)
+        public DataSet GetUserLogin(PayRolldbHandler dbHandler, string UserName, string Password, string Ipaddress)
         {
 
             DataSet ds = new DataSet();
@@ -80,21 +80,21 @@ namespace PayRoll.Services
             catch (Exception ex)
             {
                 
-                dbHandler.SaveErorr("SystemProgram", 0, ex.Message);
+                PayRolldbHandler.SaveErorr("SystemProgram", 0, ex.Message);
                 throw ex;
             }
 
         }
 
 
-        public DataSet GetEmployeeLogin(PayRolldbhandler PayRolldbhandler, string MobileNumber, string @MobileOTP, string Ipaddress)
+        public DataSet GetEmployeeLogin(PayRolldbHandler PayRolldbHandler, string MobileNumber, string @MobileOTP, string Ipaddress)
         {
 
             DataSet ds = new DataSet();
 
             try
             {
-                using (var conn = new SqlConnection(PayRolldbhandler.GetConnectionString()))
+                using (var conn = new SqlConnection(PayRolldbHandler.GetConnectionString()))
                 {
                     using (var cmd = new SqlCommand("SP_Verify_EmployeeMobileOTP", conn))
                     {
@@ -122,7 +122,7 @@ namespace PayRoll.Services
         }
 
 
-        public DataTable GetModulesbyRole(PayRolldbhandler dbHandler, Int32 UserTypeId)
+        public DataTable GetModulesbyRole(PayRolldbHandler dbHandler, Int32 UserTypeId)
 
         {
             try
@@ -138,7 +138,7 @@ namespace PayRoll.Services
             }
         }
 
-        public DataTable GetSubModulesbyRole(PayRolldbhandler dbHandler, Int32 UserTypeId, Int32 moduleId)
+        public DataTable GetSubModulesbyRole(PayRolldbHandler dbHandler, Int32 UserTypeId, Int32 moduleId)
         {
             try
             {

@@ -451,7 +451,7 @@ namespace PayRoll.Models.Database
             }
         }
 
-        public static implicit operator dbHandler(PayRolldbhandler v)
+        public static implicit operator dbHandler(PayRolldbHandler v)
         {
             throw new NotImplementedException();
         }

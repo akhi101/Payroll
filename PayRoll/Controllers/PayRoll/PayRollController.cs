@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Data.SqlClient;
-using Newtonsoft.Json;
-using PayRoll.Models.Database;
-
-using RestSharp;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Xml;
-using System.IO;
-using System.Web;
-using System.Data;
-
-using System.Collections.Generic;
-using PayRoll.Models;
-using System.Timers;
-using DocumentFormat.OpenXml.Wordprocessing;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Net.Http.Headers;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
+using System.Timers;
+using System.Web;
+using System.Web.Http;
+using System.Xml;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Newtonsoft.Json;
+using PayRoll.Models;
+using PayRoll.Models.Database;
+using PayRoll.Models.PayRoll;
+using PayRoll.Models.PayRollMasters;
+using PayRoll.Models.PensionersModel;
+using RestSharp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PayRoll.Controllers.PayRoll
 {
@@ -32,7 +33,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_DesignationTypes";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
@@ -50,7 +51,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_GET_FamilyPensionersEmployeeDetails";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataWithStoredProcedureTable(StrQuery));
@@ -68,7 +69,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_Months";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -85,7 +86,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_GenerateSalaryMonths";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -102,7 +103,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_AdvanceTypes";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -120,7 +121,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_HBATypes";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -137,7 +138,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_FinancialYear";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -151,18 +152,18 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditIncrements")]
-        public string GetorEditIncrements([FromBody] JsonObject request)
+        public string GetorEditIncrements([FromBody] IncrementsData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[2] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[3] = new SqlParameter("@IncrementId", request["IncrementId"]);
-                param[4] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", request.MonthID);
+                param[3] = new SqlParameter("@IncrementId", request.IncrementId);
+                param[4] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Increments", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -176,16 +177,16 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetEmployeebyMonthYear")]
-        public string GetEmployeebyMonthYear([FromBody] JsonObject request)
+        public string GetEmployeebyMonthYear([FromBody] EmployeeData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                
-                param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[1] = new SqlParameter("@MonthId", request["MonthId"]);
+                param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[1] = new SqlParameter("@MonthId", request.MonthId);
               
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_IncrementForEmployee", param);
                 return JsonConvert.SerializeObject(dt);
@@ -204,16 +205,16 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditDesignationData")]
-        public string GetorEditDesignationData([FromBody] JsonObject request)
+        public string GetorEditDesignationData([FromBody] DesignationData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@DesignationId", request["DesignationId"]);
-                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@DesignationId", request.DesignationId);
+                param[2] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Designations", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -227,15 +228,15 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetorEditFamilyPensionerDetails")]
-        public string GetorEditFamilyPensionerDetails([FromBody] JsonObject request)
+        public string GetorEditFamilyPensionerDetails([FromBody] FamilyPensionerData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@FamilyPensionerID", request["FamilyPensionerID"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@FamilyPensionerID", request.FamilyPensionerID);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_FamilyPensionersDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -249,15 +250,15 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetorEditServicePensionerDetails")]
-        public string GetorEditServicePensionerDetails([FromBody] JsonObject request)
+        public string GetorEditServicePensionerDetails([FromBody] ServicePensionerData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@ServicePensionerID", request["ServicePensionerID"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@ServicePensionerID", request.ServicePensionerID);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_ServicePensionersDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -272,22 +273,22 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateDesignations")]
-        public string AddorUpdateDesignations([FromBody] JsonObject request)
+        public string AddorUpdateDesignations([FromBody] DesignationData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[10];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@DesignationId", request["DesignationId"]);
-                param[2] = new SqlParameter("@DesignationName", request["DesignationName"]);
-                param[3] = new SqlParameter("@DesignationTypeId", request["DesignationTypeId"]);
-                param[4] = new SqlParameter("@DesignationOrder", request["DesignationOrder"]);
-                param[5] = new SqlParameter("@NoOfPost", request["NoOfPost"]);
-                param[6] = new SqlParameter("@GONumber", request["GONumber"]);
-                param[7] = new SqlParameter("@NoOfVacants", request["NoOfVacants"]);
-                param[8] = new SqlParameter("@Active", request["Active"]);
-                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@DesignationId", request.DesignationId);
+                param[2] = new SqlParameter("@DesignationName", request.DesignationName);
+                param[3] = new SqlParameter("@DesignationTypeId", request.DesignationTypeId);
+                param[4] = new SqlParameter("@DesignationOrder", request.DesignationOrder);
+                param[5] = new SqlParameter("@NoOfPost", request.NoOfPost);
+                param[6] = new SqlParameter("@GONumber", request.GONumber);
+                param[7] = new SqlParameter("@NoOfVacants", request.NoOfVacants);
+                param[8] = new SqlParameter("@Active", request.Active);
+                param[9] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Designations", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -299,28 +300,28 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("UpdateServicePensioners")]
-        public string UpdateServicePensioners([FromBody] JsonObject request)
+        public string UpdateServicePensioners([FromBody] ServicePensionerData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[16];
-                param[0] = new SqlParameter("@ServicePensionerID", request["ServicePensionerID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@EmployeeCode", request["EmployeeCode"]);
-                param[3] = new SqlParameter("@EmployeeName", request["EmployeeName"]);
-                param[4] = new SqlParameter("@DOB", request["DOB"]);
-                param[5] = new SqlParameter("@DOJ", request["DOJ"]);
-                param[6] = new SqlParameter("@DOR", request["DOJ"]);
-                param[7] = new SqlParameter("@DesignationId", request["DesignationId"]);
-                param[8] = new SqlParameter("@Gender", request["Gender"]);
-                param[9] = new SqlParameter("@PanNo", request["PanNo"]);
-                param[10] = new SqlParameter("@AccountNumber", request["AccountNumber"]);
-                param[11] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
-                param[12] = new SqlParameter("@SortOrder", request["SortOrder"]);
-                param[13] = new SqlParameter("@LifeStatus", request["LifeStatus"]);
-                param[14] = new SqlParameter("@Active", request["Active"]);
-                param[15] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@ServicePensionerID", request.ServicePensionerID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@EmployeeCode", request.EmployeeCode);
+                param[3] = new SqlParameter("@EmployeeName", request.EmployeeName);
+                param[4] = new SqlParameter("@DOB", request.DOB);
+                param[5] = new SqlParameter("@DOJ", request.DOJ);
+                param[6] = new SqlParameter("@DOR", request.DOR);
+                param[7] = new SqlParameter("@DesignationId", request.DesignationId);
+                param[8] = new SqlParameter("@Gender", request.Gender);
+                param[9] = new SqlParameter("@PanNo", request.PanNo);
+                param[10] = new SqlParameter("@AccountNumber", request.AccountNumber);
+                param[11] = new SqlParameter("@IFSCCode", request.IFSCCode);
+                param[12] = new SqlParameter("@SortOrder", request.SortOrder);
+                param[13] = new SqlParameter("@LifeStatus", request.LifeStatus);
+                param[14] = new SqlParameter("@Active", request.Active);
+                param[15] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_ServicePensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -333,14 +334,14 @@ namespace PayRoll.Controllers.PayRoll
         
 
         [HttpPost, ActionName("GetGOPostData")]
-        public string GetGOPostData([FromBody] JsonObject request)
+        public string GetGOPostData([FromBody] DepartmentData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
+                param[0] = new SqlParameter("@DepartmentID", request.DepartmentID);
              
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GOPosts", param);
                 return JsonConvert.SerializeObject(dt);
@@ -356,20 +357,20 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateIncrements")]
-        public string AddorUpdateIncrements([FromBody] JsonObject request)
+        public string AddorUpdateIncrements([FromBody] IncrementsData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@IncrementId", request["IncrementId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@IncrementAmount", request["IncrementAmount"]);
-                param[6] = new SqlParameter("@Active", request["Active"]);
-                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@IncrementId", request.IncrementId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@IncrementAmount", request.IncrementAmount);
+                param[6] = new SqlParameter("@Active", request.Active);
+                param[7] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Increments", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -381,20 +382,20 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("AddorUpdateNPS")]
-        public string AddorUpdateNPS([FromBody] JsonObject request)
+        public string AddorUpdateNPS([FromBody] NPSData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@NPSId", request["NPSId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
-                param[6] = new SqlParameter("@Active", request["Active"]);
-                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@NPSId", request.NPSId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@PensionAmount", request.PensionAmount);
+                param[6] = new SqlParameter("@Active", request.Active);
+                param[7] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_NPS", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -406,22 +407,22 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("AddorUpdateFamilyPensioners")]
-        public string AddorUpdateFamilyPensioners([FromBody] JsonObject request)
+        public string AddorUpdateFamilyPensioners([FromBody] FamilyPensionerData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[10];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@FamilyPensionerID", request["FamilyPensionerID"]);
-                param[2] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[3] = new SqlParameter("@NomineeName", request["NomineeName"]);
-                param[4] = new SqlParameter("@Gender", request["Gender"]);
-                param[5] = new SqlParameter("@PanNo", request["PanNo"]);
-                param[6] = new SqlParameter("@AccountNumber", request["AccountNumber"]);
-                param[7] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
-                param[8] = new SqlParameter("@Active", request["Active"]);
-                param[9] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@FamilyPensionerID", request.FamilyPensionerID);
+                param[2] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[3] = new SqlParameter("@NomineeName", request.NomineeName);
+                param[4] = new SqlParameter("@Gender", request.Gender);
+                param[5] = new SqlParameter("@PanNo", request.PanNo);
+                param[6] = new SqlParameter("@AccountNumber", request.AccountNumber);
+                param[7] = new SqlParameter("@IFSCCode", request.IFSCCode);
+                param[8] = new SqlParameter("@Active", request.Active);
+                param[9] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_FamilyPensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -433,17 +434,17 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetorEditHBA")]
-        public string GetorEditHBA([FromBody] JsonObject request)
+        public string GetorEditHBA([FromBody] HBAData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@HBAId", request["HBAId"]);
-                param[3] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@HBAId", request.HBAId);
+                param[3] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_HBA", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -459,25 +460,25 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateHBA")]
-        public string AddorUpdateHBA([FromBody] JsonObject request)
+        public string AddorUpdateHBA([FromBody] HBAData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[13];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@HBAId", request["HBAId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@HBATypeID", request["HBATypeID"]);
-                param[6] = new SqlParameter("@Amount", request["Amount"]);
-                param[7] = new SqlParameter("@HBAEmiAmount", request["HBAEmiAmount"]);
-                param[8] = new SqlParameter("@NoofMonths", request["NoofMonths"]);
-                param[9] = new SqlParameter("@EmiStartMonth", request["EmiStartMonth"]); 
-                param[10] = new SqlParameter("@NoofMonthsBalance", request["NoofMonthsBalance"]);
-                param[11] = new SqlParameter("@Active", request["Active"]);
-                param[12] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@HBAId", request.HBAId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@HBATypeID", request.HBATypeID);
+                param[6] = new SqlParameter("@Amount", request.Amount);
+                param[7] = new SqlParameter("@HBAEmiAmount", request.HBAEmiAmount);
+                param[8] = new SqlParameter("@NoofMonths", request.NoofMonths);
+                param[9] = new SqlParameter("@EmiStartMonth", request.EmiStartMonth); 
+                param[10] = new SqlParameter("@NoofMonthsBalance", request.NoofMonthsBalance);
+                param[11] = new SqlParameter("@Active", request.Active);
+                param[12] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_HBA", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -490,19 +491,19 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditDeductions")]
-        public string GetorEditDeductions([FromBody] JsonObject request)
+        public string GetorEditDeductions([FromBody] DeductionsData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[6];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
-                param[5] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@DeductionsId", request.DeductionsId);
+                param[5] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Deductions", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -519,20 +520,20 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateDeductions")]
-        public string AddorUpdateDeductions([FromBody] JsonObject request)
+        public string AddorUpdateDeductions([FromBody] DeductionsData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[8];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@DeductionsId", request["DeductionsId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@OtherDeductions", request["OtherDeductions"]);
-                param[6] = new SqlParameter("@Active", request["Active"]);
-                param[7] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@DeductionsId", request.DeductionsId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@OtherDeductions", request.OtherDeductions);
+                param[6] = new SqlParameter("@Active", request.Active);
+                param[7] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Deductions", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -563,7 +564,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -590,7 +591,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
@@ -607,25 +608,25 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("AddorUpdateLeaves")]
-        public string AddorUpdateLeaves([FromBody] JsonObject request)
+        public string AddorUpdateLeaves([FromBody] LeavesData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[13];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@LeaveId", request["LeaveId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@MedicalLeaves", request["MedicalLeaves"]);
-                param[6] = new SqlParameter("@MedicalLeavesUtilized", request["MedicalLeavesUtilized"]);
-                param[7] = new SqlParameter("@CasualLeaves", request["CasualLeaves"]);
-                param[8] = new SqlParameter("@CasualLeavesUtilized", request["CasualLeavesUtilized"]);
-                param[9] = new SqlParameter("@EarnLeaves", request["EarnLeaves"]);
-                param[10] = new SqlParameter("@EarnLeavesUtilized", request["EarnLeavesUtilized"]);
-                param[11] = new SqlParameter("@Active", request["Active"]);
-                param[12] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@LeaveId", request.LeaveId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@MedicalLeaves", request.MedicalLeaves);
+                param[6] = new SqlParameter("@MedicalLeavesUtilized", request.MedicalLeavesUtilized);
+                param[7] = new SqlParameter("@CasualLeaves", request.CasualLeaves);
+                param[8] = new SqlParameter("@CasualLeavesUtilized", request.CasualLeavesUtilized);
+                param[9] = new SqlParameter("@EarnLeaves", request.EarnLeaves);
+                param[10] = new SqlParameter("@EarnLeavesUtilized", request.EarnLeavesUtilized);
+                param[11] = new SqlParameter("@Active", request.Active);
+                param[12] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Leaves", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -639,16 +640,16 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditDepartmentsData")]
-        public string GetorEditDepartmentsData([FromBody] JsonObject request)
+        public string GetorEditDepartmentsData([FromBody] DepartmentData data)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@DepartmentId", request["DepartmentId"]);
-                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
+                param[1] = new SqlParameter("@DepartmentId", data.DepartmentId);
+                param[2] = new SqlParameter("@Active", data.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_Department", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -663,16 +664,16 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateDepartments")]
-        public string AddorUpdateDepartments([FromBody] JsonObject request)
+        public string AddorUpdateDepartments([FromBody] DepartmentData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[4];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@DepartmentId", request["DepartmentId"]);
-                param[2] = new SqlParameter("@DepartmentName", request["DepartmentName"]);
-                param[3] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@DepartmentId", request.DepartmentId);
+                param[2] = new SqlParameter("@DepartmentName", request.DepartmentName);
+                param[3] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_Departments", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -687,16 +688,16 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditBankDetailsData")]
-        public string GetorEditBankDetailsData([FromBody] JsonObject request)
+        public string GetorEditBankDetailsData([FromBody] BankDetails request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@BankId", request["BankId"]);
-                param[2] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@BankId", request.BankId);
+                param[2] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_BankDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -711,19 +712,19 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateBankDetails")]
-        public string AddorUpdateBankDetails([FromBody] JsonObject request)
+        public string AddorUpdateBankDetails([FromBody] BankDetails request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[7];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@BankId", request["BankId"]);
-                param[2] = new SqlParameter("@BankName", request["BankName"]);
-                param[3] = new SqlParameter("@BankBranch", request["BankBranch"]);
-                param[4] = new SqlParameter("@IFSCCode", request["IFSCCode"]);
-                param[5] = new SqlParameter("@Active", request["Active"]);
-                param[6] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@BankId", request.BankId);
+                param[2] = new SqlParameter("@BankName", request.BankName);
+                param[3] = new SqlParameter("@BankBranch", request.BankBranch);
+                param[4] = new SqlParameter("@IFSCCode", request.IFSCCode);
+                param[5] = new SqlParameter("@Active", request.Active);
+                param[6] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_BankDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -741,18 +742,18 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditEmployeeDetailsData")]
-        public string GetorEditEmployeeDetailsData([FromBody] JsonObject request)
+        public string GetorEditEmployeeDetailsData([FromBody] EmpDetails request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
-                param[3] = new SqlParameter("@CPS_NPS", request["CPS_NPS"]);
-                param[4] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@DepartmentID", request.DepartmentID);
+                param[3] = new SqlParameter("@CPS_NPS", request.CPS_NPS);
+                param[4] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_EmployeeDetails", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -765,25 +766,14 @@ namespace PayRoll.Controllers.PayRoll
             }
         }
         
-        public class NPSData {
-        
-        public int DataTypeID { get; set; }
-        public int EmployeeID { get; set; }
-        public int FinancialYearID { get; set; }
-        public int MonthID { get; set; }
-        public int NPSId { get; set; }
-        public bool Active { get; set; }
 
-
-
-        }
 
         [HttpPost, ActionName("GetEditNPS")]
         public string GetEditNPS([FromBody] NPSData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
@@ -800,47 +790,6 @@ namespace PayRoll.Controllers.PayRoll
             }
         }
 
-        public class EmpDetails
-        {
-            public int DataTypeId { get; set; }
-            public int EmployeeID { get; set; }
-            public string EmployeeCode { get; set; }
-            public string EmployeeName { get; set; }
-            public int DesignationId { get; set; }
-            public int DepartmentId { get; set; }
-            public string DOB { get; set; }
-            public string DOJ { get; set; }
-            public string DOR { get; set; }
-            public string DesignationName { get; set; }
-            public string DepartmentName { get; set; }
-            public string Gender { get; set; }
-            
-            public string Empstatus { get; set; }
-            public string IncrementMonth { get; set; }
-            public string TSGLINumber { get; set; }
-            public string ScaleType { get; set; }
-            public string PanNO { get; set; }
-          
-            public string CPS_NPS { get; set; }
-            public string PranNo { get; set; }
-            public string GPFNo { get; set; }
-           
-            
-            public string AccountNumber { get; set; }
-            public string IFSCCode { get; set; }
-
-            public int GOPostID { get; set; }
-
-            public int SortOrder { get; set; }
-
-            public bool Active { get; set; }
-            public string UserName { get; set; }
-            public string MobileNumber { get; set; }
-
-        }
-
-
-
 
         [HttpPost, ActionName("AddorUpdateEmployeeDetails")]
         public HttpResponseMessage AddorUpdateEmployeeDetails([FromBody] EmpDetails data)
@@ -848,7 +797,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[25];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeID", data.EmployeeID);
@@ -890,14 +839,14 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetBankBranchbyName")]
-        public string GetBankBranchbyName([FromBody] JsonObject request)
+        public string GetBankBranchbyName([FromBody] BankDetails request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@BankName", request["BankName"]);
+                param[0] = new SqlParameter("@BankName", request.BankName);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankName", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -912,15 +861,15 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetBranchIFSC")]
-        public string GetBranchIFSC([FromBody] JsonObject request)
+        public string GetBranchIFSC([FromBody] BankDetails request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
-                param[1] = new SqlParameter("@BankName", request["BankName"]);
-                param[0] = new SqlParameter("@BankBranch", request["BankBranch"]);
+                param[1] = new SqlParameter("@BankName", request.BankName);
+                param[0] = new SqlParameter("@BankBranch", request.BankBranch);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_BankBranchIFSCCode", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -946,7 +895,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@EmployeeSalaryDetailsId", data.EmployeeSalaryDetailsId);
@@ -966,36 +915,13 @@ namespace PayRoll.Controllers.PayRoll
         }
 
 
-        public class SalaryDetails
-        {
-            public int DataTypeId { get; set; }
-            public int EmployeeSalaryDetailsId { get; set; }
-            public int DataTypeID { get; set; }
-            public int DepartmentId { get; set; }
-
-            public bool Active { get; set; }
-            public int EmployeeId { get; set; }
-            public string CurrentBasicAmount { get; set; }
-            public string InterimRelief { get; set; }
-            public float CCA { get; set; }
-            public float PP { get; set; }
-            public float FPI { get; set; }
-            public float TG_Increment { get; set; }
-            public float ConveyanceAllowance { get; set; }
-            public float Medical { get; set; }
-            public float SpecialPay { get; set; }
-            public string NCI { get; set; }
-            public float NCIAmount { get; set; }
-            public string UserName { get; set; }
-        }
-
 
         [HttpPost, ActionName("AddorUpdateSalary")]
         public string AddorUpdateSalary([FromBody] SalaryDetails data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[16];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@EmployeeSalaryDetailsId", data.EmployeeSalaryDetailsId);
@@ -1033,7 +959,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@FinancialYearId", data.FinancialYearId);
@@ -1051,26 +977,12 @@ namespace PayRoll.Controllers.PayRoll
         }
 
 
-        public class FinancialDetails
-        {
-            public int DataTypeId { get; set; }
-            public int DataTypeID { get; set; }
-
-            public bool Active { get; set; }
-            public int FinancialYearId { get; set; }
-            public string FinancialStartYear { get; set; }
-
-            public string FinancialYear { get; set; }
-            public string UserName { get; set; }
-        }
-
-
         [HttpPost, ActionName("AddorUpdateFinancialYear")]
         public string AddorUpdateFinancialYear([FromBody] FinancialDetails data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@FinancialYearId", data.FinancialYearId);
@@ -1095,7 +1007,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@EmployeeId", data.EmployeeId);
@@ -1145,7 +1057,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[11];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@AdvancesId", data.AdvancesId);
@@ -1172,25 +1084,14 @@ namespace PayRoll.Controllers.PayRoll
             }
         }
 
-        public class AllowanceData
-        {
 
-            public int DataTypeID { get; set; }
-            public int AllowanceID { get; set; }
-            public int DepartmentID { get; set; }
-            
-            public bool Active { get; set; }
-
-
-
-        }
 
         [HttpPost, ActionName("GetEditAllowance")]
         public string GetEditAllowance([FromBody] AllowanceData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@AllowanceID", data.AllowanceID);
@@ -1206,21 +1107,21 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("AddorUpdateAllowance")]
-        public string AddorUpdateAllowance([FromBody] JsonObject request)
+        public string AddorUpdateAllowance([FromBody] AllowanceData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[9];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[2] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[3] = new SqlParameter("@AllowanceID", request["AllowanceID"]);               
-                param[4] = new SqlParameter("@DepartmentID", request["DepartmentID"]);
-                param[5] = new SqlParameter("@DA", request["DA"]);
-                param[6] = new SqlParameter("@HRA", request["HRA"]);
-                param[7] = new SqlParameter("@IR", request["IR"]);
-                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", request.MonthID);
+                param[3] = new SqlParameter("@AllowanceID", request.AllowanceID);               
+                param[4] = new SqlParameter("@DepartmentID", request.DepartmentID);
+                param[5] = new SqlParameter("@DA", request.DA);
+                param[6] = new SqlParameter("@HRA", request.HRA);
+                param[7] = new SqlParameter("@IR", request.IR);
+                param[8] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_CommonAllowances", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1233,20 +1134,20 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditOtherPay")]
-        public string GetorEditOtherPay([FromBody] JsonObject request)
+        public string GetorEditOtherPay([FromBody] OtherPayData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[7];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@DesignationID", request["DesignationID"]);
-                param[5] = new SqlParameter("@OtherPayId", request["OtherPayId"]);
-                param[6] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@DesignationID", request.DesignationID);
+                param[5] = new SqlParameter("@OtherPayId", request.OtherPayId);
+                param[6] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_OtherPay", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -1260,21 +1161,21 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("AddorUpdateOtherPay")]
-        public string AddorUpdateOtherPay([FromBody] JsonObject request)
+        public string AddorUpdateOtherPay([FromBody] OtherPayData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[9];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@OtherPayId", request["OtherPayId"]);
-                param[2] = new SqlParameter("@FinancialYearId", request["FinancialYearId"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[5] = new SqlParameter("@DesignationID", request["DesignationID"]);
-                param[6] = new SqlParameter("@OtherPayAmount", request["OtherPayAmount"]);
-                param[7] = new SqlParameter("@Active", request["Active"]);
-                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@OtherPayId", request.OtherPayId);
+                param[2] = new SqlParameter("@FinancialYearId", request.FinancialYearId);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[5] = new SqlParameter("@DesignationID", request.DesignationID);
+                param[6] = new SqlParameter("@OtherPayAmount", request.OtherPayAmount);
+                param[7] = new SqlParameter("@Active", request.Active);
+                param[8] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_OtherAmount", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1288,18 +1189,18 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditLIC")]
-        public string GetorEditLIC([FromBody] JsonObject request)
+        public string GetorEditLIC([FromBody] LICData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[2] = new SqlParameter("@PolicyID", request["PolicyID"]); 
-                param[3] = new SqlParameter("@LICID", request["LICID"]);
-                param[4] = new SqlParameter("@Active", request["Active"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[2] = new SqlParameter("@PolicyID", request.PolicyID); 
+                param[3] = new SqlParameter("@LICID", request.LICID);
+                param[4] = new SqlParameter("@Active", request.Active);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_Edit_LIC", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -1315,22 +1216,21 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdateLIC")]
-        public string AddorUpdateLIC([FromBody] JsonObject request)
+        public string AddorUpdateLIC([FromBody] LICData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[9];
-                param[0] = new SqlParameter("@DataTypeID", request["DataTypeID"]);
-                param[1] = new SqlParameter("@LICID", request["LICID"]);
-                param[2] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[3] = new SqlParameter("@PolicyID", request["PolicyID"]);
-                param[4] = new SqlParameter("@PolicyNumber", request["PolicyNumber"]);
-                param[5] = new SqlParameter("@PremiumAmount", request["PremiumAmount"]);
-                //param[6] = new SqlParameter("@TotalAmount", request["TotalAmount"]);
-                param[6] = new SqlParameter("@LICAmountJson", request["LICAmountJson"]);
-                param[7] = new SqlParameter("@Active", request["Active"]);
-                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeID", request.DataTypeID);
+                param[1] = new SqlParameter("@LICID", request.LICID);
+                param[2] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[3] = new SqlParameter("@PolicyID", request.PolicyID);
+                param[4] = new SqlParameter("@PolicyNumber", request.PolicyNumber);
+                param[5] = new SqlParameter("@PremiumAmount", request.PremiumAmount);
+                param[6] = new SqlParameter("@LICAmountJson", request.LICAmountJson);
+                param[7] = new SqlParameter("@Active", request.Active);
+                param[8] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_LIC", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1349,7 +1249,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[5];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@SalaryDeductionId", data.SalaryDeductionId);
@@ -1368,39 +1268,12 @@ namespace PayRoll.Controllers.PayRoll
             }
         }
 
-
-
-
-
-        public class SalaryDeductionDetails
-        {
-            public int DataTypeId { get; set; }
-            public int SalaryDeductionId { get; set; }
-            public int DepartmentId { get; set; }
-            public int DataTypeID { get; set; }
-            public int EmployeeId { get; set; }
-
-            public bool Active { get; set; }
-            
-           
-            public float PT { get; set; }
-            public float IT { get; set; }
-            public float GPFAmount { get; set; }
-            public float TSGLIAmount { get; set; }
-            public float GISAmount { get; set; }
-            public float FlagFund { get; set; }
-            public float Harithanidhi { get; set; }
-            
-            public string UserName { get; set; }
-        }
-
-
         [HttpPost, ActionName("AddorUpdateSalaryDeduction")]
         public string AddorUpdateSalaryDeduction([FromBody] SalaryDeductionDetails data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[12];
                 param[0] = new SqlParameter("@DataTypeId", data.DataTypeId);
                 param[1] = new SqlParameter("@SalaryDeductionId", data.SalaryDeductionId);
@@ -1440,7 +1313,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", data.MonthID);
@@ -1465,7 +1338,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", data.DataType);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -1502,7 +1375,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", DataType);
                 param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
@@ -1539,7 +1412,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@FinancialYearID", FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", MonthID);
@@ -1574,7 +1447,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", data.DataType);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -1600,7 +1473,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", data.MonthID);
@@ -1628,7 +1501,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", DataType);
                 param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
@@ -1664,16 +1537,16 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("GetorEditMonthlyDays")]
-        public string GetorEditMonthlyDays([FromBody] JsonObject request)
+        public string GetorEditMonthlyDays([FromBody] MonthlyDaysData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@DataType", request["DataType"]);
-                param[1] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[2] = new SqlParameter("@MonthID", request["MonthID"]);
+                param[0] = new SqlParameter("@DataType", request.DataType);
+                param[1] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[2] = new SqlParameter("@MonthID", request.MonthID);
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_GenerateMonthlyDays", param);
                 return JsonConvert.SerializeObject(dt);
 
@@ -1689,18 +1562,18 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("UpdateMonthlyDays")]
-        public string UpdateMonthlyDays([FromBody] JsonObject request)
+        public string UpdateMonthlyDays([FromBody] MonthlyDaysData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[6];
-                param[0] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[1] = new SqlParameter("@MonthlyDaysID", request["MonthlyDaysID"]);
-                param[2] = new SqlParameter("@PresentDays", request["PresentDays"]);
-                param[3] = new SqlParameter("@NoOfDays", request["NoOfDays"]); 
-                param[4] = new SqlParameter("@HalfDaysPresent", request["HalfDaysPresent"]);
-                param[5] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[1] = new SqlParameter("@MonthlyDaysID", request.MonthlyDaysID);
+                param[2] = new SqlParameter("@PresentDays", request.PresentDays);
+                param[3] = new SqlParameter("@NoOfDays", request.NoOfDays); 
+                param[4] = new SqlParameter("@HalfDaysPresent", request.HalfDaysPresent);
+                param[5] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Update_MonthlyDays", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1717,7 +1590,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_PensionerTypes";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -1731,14 +1604,14 @@ namespace PayRoll.Controllers.PayRoll
         }
 
         [HttpPost, ActionName("GetPensionerDetailsbyPensionerTypeID")]
-        public string GetPensionerDetailsbyPensionerTypeID([FromBody] JsonObject request)
+        public string GetPensionerDetailsbyPensionerTypeID([FromBody] PensionerDetailsData request)
         {
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[1];
-                param[0] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param[0] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
 
 
                 var dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PensionersDetails", param);
@@ -1755,21 +1628,21 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdatePensionerAllowance")]
-        public string AddorUpdatePensionerAllowance([FromBody] JsonObject request)
+        public string AddorUpdatePensionerAllowance([FromBody] PensionerAllowanceData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[9];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@PensionerAllowanceID", request["PensionerAllowanceID"]);
-                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
-                param[5] = new SqlParameter("@IR", request["IR"]);
-                param[6] = new SqlParameter("@DR", request["DR"]);
-                param[7] = new SqlParameter("@Active", request["Active"]);
-                param[8] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@PensionerAllowanceID", request.PensionerAllowanceID);
+                param[2] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
+                param[5] = new SqlParameter("@IR", request.IR);
+                param[6] = new SqlParameter("@DR", request.DR);
+                param[7] = new SqlParameter("@Active", request.Active);
+                param[8] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerAllowances", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1780,23 +1653,14 @@ namespace PayRoll.Controllers.PayRoll
 
         }
 
-        public class PensionerAllowanceData
-        {
-            public int DataTypeID { get; set; }
-            public int FinancialYearID { get; set; }
-            public int MonthID { get; set; }
-            public int PensionerAllowanceID { get; set; }
-            public int PensionerTypeID { get; set; }
       
-            public int Active { get; set; }
-        }
 
         [HttpPost, ActionName("GetEditPensionerAllowance")]
         public string GetEditPensionerAllowance([FromBody] PensionerAllowanceData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[6];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -1818,24 +1682,24 @@ namespace PayRoll.Controllers.PayRoll
         
 
         [HttpPost, ActionName("AddorUpdatePensionDetails")]
-        public string AddorUpdatePensionDetails([FromBody] JsonObject request)
+        public string AddorUpdatePensionDetails([FromBody] PensionerDetailsData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[12];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@PensionerDetailsID", request["PensionerDetailsID"]);
-                param[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
-                param[3] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[4] = new SqlParameter("@PensionerID", request["PensionerID"]);
-                param[5] = new SqlParameter("@PensionAmount", request["PensionAmount"]);
-                param[6] = new SqlParameter("@CommutationAmount", request["CommutationAmount"]);
-                param[7] = new SqlParameter("@IR", request["IR"]);
-                param[8] = new SqlParameter("@DR", request["DR"]);
-                param[9] = new SqlParameter("@MA", request["MA"]);
-                param[10] = new SqlParameter("@Active", request["Active"]);
-                param[11] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@PensionerDetailsID", request.PensionerDetailsID);
+                param[2] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
+                param[3] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[4] = new SqlParameter("@PensionerID", request.PensionerID);
+                param[5] = new SqlParameter("@PensionAmount", request.PensionAmount);
+                param[6] = new SqlParameter("@CommutationAmount", request.CommutationAmount);
+                param[7] = new SqlParameter("@IR", request.IR);
+                param[8] = new SqlParameter("@DR", request.DR);
+                param[9] = new SqlParameter("@MA", request.MA);
+                param[10] = new SqlParameter("@Active", request.Active);
+                param[11] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDetails", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1846,23 +1710,14 @@ namespace PayRoll.Controllers.PayRoll
 
         }
 
-        public class PensionerDetailsData
-        {
-            public int DataTypeID { get; set; }
-           
-            public int PensionerDetailsID { get; set; }
-            public int PensionerTypeID { get; set; }
-           
-
-            public int Active { get; set; }
-        }
+     
 
         [HttpPost, ActionName("GetEditPensionDetails")]
         public string GetEditPensionDetails([FromBody] PensionerDetailsData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[4];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@PensionerDetailsID", data.PensionerDetailsID);
@@ -1878,28 +1733,12 @@ namespace PayRoll.Controllers.PayRoll
         }
 
 
-
-
-
-        public class PensionerDeductionsData
-        {
-            public int DataTypeID { get; set; }
-
-            public int PensionerDeductionID { get; set; }
-            public int FinancialYearID { get; set; }
-            public int MonthID { get; set; }
-            public int PensionerTypeID { get; set; }
-            public int PensionerID { get; set; }
-
-            public int Active { get; set; }
-        }
-
         [HttpPost, ActionName("GetorEditPensionerDeductions")]
         public string GetorEditPensionerDeductions([FromBody] PensionerDeductionsData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@PensionerDeductionID", data.PensionerDeductionID);
@@ -1919,23 +1758,23 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdatePensionerDeductions")]
-        public string AddorUpdatePensionerDeductions([FromBody] JsonObject request)
+        public string AddorUpdatePensionerDeductions([FromBody] PensionerDeductionsData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[11];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@PensionerDeductionID", request["PensionerDeductionID"]);
-                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
-                param[5] = new SqlParameter("@PensionerID", request["PensionerID"]);
-                param[6] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[7] = new SqlParameter("@CMRFAmount", request["CMRFAmount"]);
-                param[8] = new SqlParameter("@Recovery_TDS", request["Recovery_TDS"]);
-                param[9] = new SqlParameter("@Active", request["Active"]);
-                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@PensionerDeductionID", request.PensionerDeductionID);
+                param[2] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
+                param[5] = new SqlParameter("@PensionerID", request.PensionerID);
+                param[6] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[7] = new SqlParameter("@CMRFAmount", request.CMRFAmount);
+                param[8] = new SqlParameter("@Recovery_TDS", request.Recovery_TDS);
+                param[9] = new SqlParameter("@Active", request.Active);
+                param[10] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerDeductions", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -1952,7 +1791,7 @@ namespace PayRoll.Controllers.PayRoll
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 string StrQuery = "";
                 StrQuery = "exec SP_Get_GeneratePensionMonths";
                 return Request.CreateResponse(HttpStatusCode.OK, dbHandler.ReturnDataSet(StrQuery));
@@ -1977,7 +1816,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", data.MonthID);
@@ -2001,7 +1840,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", DataType);
                 param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
@@ -2037,7 +1876,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", data.DataType);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -2062,7 +1901,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", data.DataType);
                 param[1] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
@@ -2088,7 +1927,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@FinancialYearID", data.FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", data.MonthID);
@@ -2115,7 +1954,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@DataType", DataType);
                 param[1] = new SqlParameter("@FinancialYearID", FinancialYearID);
@@ -2146,25 +1985,13 @@ namespace PayRoll.Controllers.PayRoll
 
 
 
-        public class PQAData
-        {
-            public int DataTypeID { get; set; }
-
-            public int PAQID { get; set; }
-            public int FinancialYearID { get; set; }
-            public int MonthID { get; set; }
-            public int PensionerTypeID { get; set; }
-            public int PensionerID { get; set; }
-
-            public int Active { get; set; }
-        }
 
         [HttpPost, ActionName("GetorEditPensionerAdditionalQuantum")]
         public string GetorEditPensionerAdditionalQuantum([FromBody] PQAData data)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[7];
                 param[0] = new SqlParameter("@DataTypeID", data.DataTypeID);
                 param[1] = new SqlParameter("@PAQID", data.PAQID);
@@ -2184,23 +2011,23 @@ namespace PayRoll.Controllers.PayRoll
 
 
         [HttpPost, ActionName("AddorUpdatePensionerAdditionalQuantum")]
-        public string AddorUpdatePensionerAdditionalQuantum([FromBody] JsonObject request)
+        public string AddorUpdatePensionerAdditionalQuantum([FromBody] PQAData request)
         {
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[11];
-                param[0] = new SqlParameter("@DataTypeId", request["DataTypeId"]);
-                param[1] = new SqlParameter("@PAQID", request["PAQID"]);
-                param[2] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[3] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[4] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
-                param[5] = new SqlParameter("@PensionerID", request["PensionerID"]);
-                param[6] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
-                param[7] = new SqlParameter("@AdditionalQuantum", request["AdditionalQuantum"]);
-                param[8] = new SqlParameter("@OtherAmount", request["OtherAmount"]);
-                param[9] = new SqlParameter("@Active", request["Active"]);
-                param[10] = new SqlParameter("@UserName", request["UserName"]);
+                param[0] = new SqlParameter("@DataTypeId", request.DataTypeId);
+                param[1] = new SqlParameter("@PAQID", request.PAQID);
+                param[2] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[3] = new SqlParameter("@MonthID", request.MonthID);
+                param[4] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
+                param[5] = new SqlParameter("@PensionerID", request.PensionerID);
+                param[6] = new SqlParameter("@EmployeeID", request.EmployeeID);
+                param[7] = new SqlParameter("@AdditionalQuantum", request.AdditionalQuantum);
+                param[8] = new SqlParameter("@OtherAmount", request.OtherAmount);
+                param[9] = new SqlParameter("@Active", request.Active);
+                param[10] = new SqlParameter("@UserName", request.UserName);
                 var dt = dbHandler.ReturnDataWithStoredProcedureTable("SP_Add_Update_PensionerAdditionalQuantum", param);
                 return JsonConvert.SerializeObject(dt);
             }
@@ -2219,7 +2046,7 @@ namespace PayRoll.Controllers.PayRoll
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[2];
                 param[0] = new SqlParameter("@FinancialYearID", FinancialYearID);
                 param[1] = new SqlParameter("@MonthID", MonthID);
@@ -2257,7 +2084,7 @@ namespace PayRoll.Controllers.PayRoll
             string resp = string.Empty;
             try
             {
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[1];
                 //param[0] = new SqlParameter("@Pin", Pin);
                 param[0] = new SqlParameter("@MobileNumber", MobileNumber);

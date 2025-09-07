@@ -5,19 +5,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PayRoll.Models.Database
 {
-    public class PayRolldbhandler
+    public class PayRolldbHandler
     {
-
         bool ExecuteWithTransaction = false;
         SqlTransaction sqlTrn;
         SqlConnection sqlCnn;
         int intTimeOutPeriod = 1500;
-        public PayRolldbhandler(bool WithTransaction = false, System.Data.IsolationLevel IsolationLevel = System.Data.IsolationLevel.ReadCommitted)
+        public PayRolldbHandler(bool WithTransaction = false, System.Data.IsolationLevel IsolationLevel = System.Data.IsolationLevel.ReadCommitted)
         {
             try
             {
@@ -50,80 +49,6 @@ namespace PayRoll.Models.Database
                 throw ex;
             }
         }
-
-
-        public DataSet ReturnDataWithStoredProcedure(string strProcedureName, SqlParameter[] param)
-        {
-
-            SqlDataAdapter daFill = new SqlDataAdapter();
-            SqlCommand sqlCmd = new SqlCommand();
-            DataSet ds = new DataSet();
-            string paramTextCollection = string.Empty;
-            string spQuery = $"exec {strProcedureName} ";
-            DateTime callStartTime = DateTime.Now;
-            var dbgStr = "";
-            try
-            {
-
-                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
-                {
-                    dbgStr += "----------------------------------------------------------------------------------------------------------------------" + Environment.NewLine; ;
-
-                    if (param != null)
-                    {
-                        for (int i = 0; i < param.Length; i++)
-                        {
-                            paramTextCollection += param[i].ParameterName + ":" + param[i].Value;
-                            if (param[i].SqlDbType == SqlDbType.VarChar)
-                                spQuery += $"'{param[i].Value}',";
-                            else
-                                spQuery += $"{param[i].Value},";
-                        }
-
-                    }
-                }
-
-
-
-                sqlCmd = new SqlCommand(strProcedureName, sqlCnn);
-                if (ExecuteWithTransaction == true)
-                {
-                    sqlCmd.Transaction = sqlTrn;
-                }
-                sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.CommandTimeout = intTimeOutPeriod * 100;
-                if (param != null)
-                    sqlCmd.Parameters.AddRange(param);
-                daFill = new SqlDataAdapter(sqlCmd);
-                daFill.Fill(ds);
-
-                if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
-
-
-                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
-                {
-                    DateTime callendTime = DateTime.Now;
-                    dbgStr += (strProcedureName + " " + paramTextCollection + DateTime.Now + "Duration : " + (callendTime - callStartTime).ToString()) + Environment.NewLine;
-                    dbgStr += (spQuery) + Environment.NewLine;
-                    dbgStr += ("----------------------------------------------------------------------------------------------------------------------") + Environment.NewLine;
-                    Debug.WriteLine(dbgStr);
-
-                    var t = Task.Run(() => AppendLog(dbgStr));
-                }
-
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
-                //ErorrFindBLL.SaveErorr(this.GetType().BaseType.Name, ex.Message.ToString().Replace("'", ""));
-                RollBack();
-                createlog(ex.Message.ToString(), "Stored Procedure " + strProcedureName + " Problem");
-                throw ex;
-            }
-        }
-
-
         private string GetConnString()
         {
             return "";
@@ -218,14 +143,30 @@ namespace PayRoll.Models.Database
             }
             catch (Exception ex)
             {
-                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
-                //ErorrFindBLL.SaveErorr("SystemProgram", 0, ex.Message);
-                //string table = strQuery.ToLower().Substring(strQuery.IndexOf("from")).Split(' ')[1];
+                SaveErorr("SystemProgram", 0, ex.Message);
+                string table = strQuery.ToLower().Substring(strQuery.IndexOf("from")).Split(' ')[1];
                 createlog(ex.Message.ToString(), strQuery);
                 RollBack();
                 throw ex;
             }
         }
+        public static void SaveErorr(string ClassName, int UpdLoginID, string Erorr)
+        {
+            try
+            {
+                var PayRolldbHandler = new PayRolldbHandler();
+                var param = new SqlParameter[2];
+                param[0] = new SqlParameter("@Procedure", ClassName);
+                param[1] = new SqlParameter("@Error", Erorr);
+                PayRolldbHandler.ExecuteNonQueryWithStoredProcedure("USP_SET_ErrorLog", param);
+            }
+            catch (Exception ex)
+            {
+                // LogUtility.SaveException(UpdLoginID, ClassName, 1, ex);
+                // throw ex;
+            }
+        }
+
         public void Commit()
         {
             try
@@ -282,7 +223,77 @@ namespace PayRoll.Models.Database
 
             }
         }
-      
+        public DataSet ReturnDataWithStoredProcedure(string strProcedureName, SqlParameter[] param)
+        {
+
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            string paramTextCollection = string.Empty;
+            string spQuery = $"exec {strProcedureName} ";
+            DateTime callStartTime = DateTime.Now;
+            var dbgStr = "";
+            try
+            {
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    dbgStr += "----------------------------------------------------------------------------------------------------------------------" + Environment.NewLine; ;
+
+                    if (param != null)
+                    {
+                        for (int i = 0; i < param.Length; i++)
+                        {
+                            paramTextCollection += param[i].ParameterName + ":" + param[i].Value;
+                            if (param[i].SqlDbType == SqlDbType.VarChar)
+                                spQuery += $"'{param[i].Value}',";
+                            else
+                                spQuery += $"{param[i].Value},";
+                        }
+
+                    }
+                }
+
+
+
+                sqlCmd = new SqlCommand(strProcedureName, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.CommandTimeout = intTimeOutPeriod * 100;
+                if (param != null)
+                    sqlCmd.Parameters.AddRange(param);
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(ds);
+
+                if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+
+
+                if (Convert.ToString(ConfigurationManager.AppSettings["EnableDbLog"]) == "1")
+                {
+                    DateTime callendTime = DateTime.Now;
+                    dbgStr += (strProcedureName + " " + paramTextCollection + DateTime.Now + "Duration : " + (callendTime - callStartTime).ToString()) + Environment.NewLine;
+                    dbgStr += (spQuery) + Environment.NewLine;
+                    dbgStr += ("----------------------------------------------------------------------------------------------------------------------") + Environment.NewLine;
+                    Debug.WriteLine(dbgStr);
+
+                    var t = Task.Run(() => AppendLog(dbgStr));
+                }
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                //ErorrFindBLL ErorrFindBLL = new ErorrFindBLL();
+                //ErorrFindBLL.SaveErorr(this.GetType().BaseType.Name, ex.Message.ToString().Replace("'", ""));
+                RollBack();
+                createlog(ex.Message.ToString(), "Stored Procedure " + strProcedureName + " Problem");
+                throw ex;
+            }
+        }
+
         static void AppendLog(string dbgStr)
         {
             // System.IO.File.AppendAllText(ConfigurationManager.AppSettings[""].ToString(), dbgStr + Environment.NewLine);
@@ -290,7 +301,7 @@ namespace PayRoll.Models.Database
 
         public DataTable ReturnDataWithStoredProcedureTable(string strProcedureName, SqlParameter[] param)
         {
-
+            Debug.WriteLine(strProcedureName);
             SqlDataAdapter daFill = new SqlDataAdapter();
             SqlCommand sqlCmd = new SqlCommand();
             DataTable ds = new DataTable();
@@ -319,6 +330,34 @@ namespace PayRoll.Models.Database
                 //ErorrFindBLL.SaveErorr(this.GetType().BaseType.Name, ex.Message.ToString().Replace("'", ""));
                 RollBack();
                 createlog(ex.Message.ToString(), "Stored Procedure " + strProcedureName + " Problem");
+                throw ex;
+            }
+        }
+
+        public DataSet ReturnDataWithStoredProcedureTable(string strQuery)
+        {
+            SqlDataAdapter daFill = new SqlDataAdapter();
+            SqlCommand sqlCmd = new SqlCommand();
+            DataSet ds = new DataSet();
+            try
+            {
+                sqlCmd = new SqlCommand(strQuery, sqlCnn);
+                if (ExecuteWithTransaction == true)
+                {
+                    sqlCmd.Transaction = sqlTrn;
+                }
+                sqlCmd.CommandTimeout = intTimeOutPeriod;
+                daFill = new SqlDataAdapter(sqlCmd);
+                daFill.Fill(ds);
+                if (ExecuteWithTransaction == false)
+                {
+                    if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
+                }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                RollBack();
                 throw ex;
             }
         }
@@ -383,33 +422,6 @@ namespace PayRoll.Models.Database
                 throw ex;
             }
         }
-        public DataSet ReturnDataWithStoredProcedureTable(string strQuery)
-        {
-            SqlDataAdapter daFill = new SqlDataAdapter();
-            SqlCommand sqlCmd = new SqlCommand();
-            DataSet ds = new DataSet();
-            try
-            {
-                sqlCmd = new SqlCommand(strQuery, sqlCnn);
-                if (ExecuteWithTransaction == true)
-                {
-                    sqlCmd.Transaction = sqlTrn;
-                }
-                sqlCmd.CommandTimeout = intTimeOutPeriod;
-                daFill = new SqlDataAdapter(sqlCmd);
-                daFill.Fill(ds);
-                if (ExecuteWithTransaction == false)
-                {
-                    if (sqlCnn.State == ConnectionState.Open) { sqlCnn.Close(); }
-                }
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                RollBack();
-                throw ex;
-            }
-        }
         public void createlog(string Message, string Query)
         {
             try
@@ -463,11 +475,30 @@ namespace PayRoll.Models.Database
             }
         }
 
-
-
-        internal void SaveErorr(string v1, int v2, string message)
+        public DataTable ReturnDataWithQuery(string query, SqlParameter[] parameters)
         {
-            throw new NotImplementedException();
+            var appSettings = ConfigurationManager.AppSettings;
+
+            string ConnString = "Data Source=" + appSettings["PayRollDBServerName"] + ";Initial Catalog=" + appSettings["PayRollDatabaseName"] + ";User ID=" + ConfigurationManager.AppSettings["PayRollDbUserName"].ToString() + "; Password=" + ConfigurationManager.AppSettings["PayRollDbUserPassword"].ToString() + ";Max Pool Size=20000";
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            return dt;
         }
+
+
     }
 }

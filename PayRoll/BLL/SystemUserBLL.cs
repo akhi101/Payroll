@@ -65,7 +65,7 @@ namespace PayRoll.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                PayRolldbhandler dbHandler = new PayRolldbhandler();
+                PayRolldbHandler dbHandler = new PayRolldbHandler();
                 DataSet tblUsersList = new DataSet();
                 tblUsersList = SystemUserService.GetUserLogin(dbHandler, UserName, Password, Ipaddress);
                 var ds = JsonConvert.SerializeObject(tblUsersList);
@@ -95,9 +95,9 @@ namespace PayRoll.BLL
             {
                 SystemUserService SystemUserService = new SystemUserService();
              //   dbHandler dbHandler = new dbHandler();
-                var PayRolldbhandler = new PayRolldbhandler();
+                var PayRolldbHandler = new PayRolldbHandler();
                 DataSet tblUsersList = new DataSet();
-                tblUsersList = SystemUserService.GetEmployeeLogin(PayRolldbhandler, UserName, Password, Ipaddress);
+                tblUsersList = SystemUserService.GetEmployeeLogin(PayRolldbHandler, UserName, Password, Ipaddress);
                 var ds = JsonConvert.SerializeObject(tblUsersList);
                 // List<SystemUser> User = tblUsersList.DataTableToList<SystemUser>();
                 List<SystemUser> User = tblUsersList.Tables[1].DataTableToList<SystemUser>();
@@ -125,7 +125,7 @@ namespace PayRoll.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                PayRolldbhandler dbHandler = new PayRolldbhandler();
+                PayRolldbHandler dbHandler = new PayRolldbHandler();
                 DataTable tblUsersList = new DataTable();
                 tblUsersList = SystemUserService.GetModulesbyRole(dbHandler, UserTypeId);
                 List<SystemModules> SystemGroups = tblUsersList.DataTableToList<SystemModules>();
@@ -142,7 +142,7 @@ namespace PayRoll.BLL
             try
             {
                 SystemUserService SystemUserService = new SystemUserService();
-                PayRolldbhandler dbHandler = new PayRolldbhandler();
+                PayRolldbHandler dbHandler = new PayRolldbHandler();
                 DataTable tblUsersList = new DataTable();
                 tblUsersList = SystemUserService.GetSubModulesbyRole(dbHandler, UserTypeId, moduleId);
                 List<SystemSubModules> SystemGroups = tblUsersList.DataTableToList<SystemSubModules>();
