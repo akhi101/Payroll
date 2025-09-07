@@ -11,6 +11,7 @@ namespace PayRoll.BLL
     
 
             public List<SystemUser> SystemUser { get; internal set; }
+            public List<SystemUser1> SystemUser1 { get; internal set; }
             public List<UserAuth> UserAuth { get; internal set; }
         }
     }

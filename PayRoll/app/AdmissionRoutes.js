@@ -42,6 +42,12 @@
                 dependencies: ['controllers/DashboardController', 'services/SystemAdministration/SystemUserService', 'services/MenuService', 'services/AdminServices/AdminService']
             },
 
+            'EmployeeDashboard': {
+                url: "/EmployeeDashboard",
+                templateUrl: 'app/views/PayRoll/EmployeeDashboard.html',
+                dependencies: ['controllers/PayRoll/EmployeeDashboardController', 'services/SystemAdministration/SystemUserService', 'services/MenuService', 'services/AdminServices/AdminService']
+            },
+
             'Dashboard.PayRollMasters': {
                 url: "/PayRollMasters",
                 templateUrl: 'app/views/PayRoll/PayRollMasters.html',

@@ -113,10 +113,10 @@ namespace PayRoll.Controllers.SystemAdministration
             BLL.SystemUserAuth User;
             User = SystemUserBLL.GetEmployeeLogin(UserName.Replace("'", "''"), Password, clientIpAddress);
 
-            if (User.SystemUser.Count > 0 && User.UserAuth[0].ResponceCode == "200")
+            if (User.SystemUser1.Count > 0 && User.UserAuth[0].ResponceCode == "200")
             {
-                var u = User.SystemUser[0];
-                AuthToken t = new AuthToken { UserId = u.UserId, UserTypeId = u.UserTypeId, CollegeCode = u.CollegeCode, collegeType = u.collegeType, ExpiryDate = DateTime.Now.AddHours(1) };
+                var u = User.SystemUser1[0];
+                AuthToken1 t = new AuthToken1 { UserTypeID = u.UserTypeID, EmployeeID = u.EmployeeID, EmployeeCode = u.EmployeeCode, EmployeeName = u.EmployeeName, DepartmentName = u.DepartmentName, DesignationName = u.DesignationName, ExpiryDate = DateTime.Now.AddHours(1) };
 
                 token = crypt.Encrypt(JsonConvert.SerializeObject(t));
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User, clientIpAddress });
@@ -125,8 +125,8 @@ namespace PayRoll.Controllers.SystemAdministration
             }
             else
             {
-                var u = User.SystemUser[0];
-                AuthToken t = new AuthToken { UserId = u.UserId, UserTypeId = u.UserTypeId, CollegeCode = u.CollegeCode, collegeType = u.collegeType, ExpiryDate = DateTime.Now.AddHours(1) };
+                var u = User.SystemUser1[0];
+                AuthToken1 t = new AuthToken1 { UserTypeID = u.UserTypeID, EmployeeID = u.EmployeeID, EmployeeCode = u.EmployeeCode, EmployeeName = u.EmployeeName, DepartmentName = u.DepartmentName, DesignationName = u.DesignationName, ExpiryDate = DateTime.Now.AddHours(1) };
 
                 token = crypt.Encrypt(JsonConvert.SerializeObject(t));
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, new { token, data = User });

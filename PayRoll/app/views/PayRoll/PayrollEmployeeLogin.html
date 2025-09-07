@@ -184,7 +184,25 @@
                                 <div class="cont">
                                     <div class="form sign-in">
                                         <label>
-                                            <input id="username" type="text" class="form-control sm" name="username" ng-keydown="ClearErrorText($event)" ng-model="Login.Mobile" placeholder="Mobile Number" required maxlength="30" />
+                                            <input id="username"
+                                                type="text"
+                                                class="form-control sm"
+                                                name="username"
+                                                maxlength="10"
+                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                ng-keydown="ClearErrorText($event)" 
+                                                ng-model="Login.Mobile" 
+                                                placeholder="Mobile Number"
+                                                required />
+                                            <!--<input type="text"
+                                                   id="mobilenumber"
+                                                   placeholder="Enter Mobile Number"
+                                                   maxlength="10"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                   class="form-control sm"
+                                                   ng-model="MobileNumber"
+                                                   ng-change="isMobileTouched = true; validateMobile()"
+                                                   required />-->
                                         </label>
                                         <!--<button type="button" class="btn btn-primary submit" id='submit' ng-click="SendSms()" ng-show="SendSmsData">Send SMS</button>-->
 
@@ -198,7 +216,9 @@
                                             <span ng-if="loader" class="loader-inline"></span>
                                         </button>
                                         <label>
-                                            <input id="password" type="text" class="form-control sm" name="password" ng-show="VerifySmsData" ng-keydown="ClearErrorText($event)" ng-model="Login.Otp" placeholder="OTP" required maxlength="25" />
+                                            <input id="password"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                   type="text" class="form-control sm" name="password" ng-show="VerifySmsData" ng-keydown="ClearErrorText($event)" ng-model="Login.Otp" placeholder="OTP" required maxlength="6" />
                                         </label>
                                         <!--<button type="button" class="btn btn-primary submit" id='submit' ng-click="Login()" ng-show="VerifySmsData">Verify</button>-->
 

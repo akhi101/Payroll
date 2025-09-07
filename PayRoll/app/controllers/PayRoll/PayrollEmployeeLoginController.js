@@ -16,6 +16,22 @@ define(['app'], function (app) {
             sessionStorage.Ekey = res;
 
         });
+
+
+
+        $scope.validateMobile = function () {
+            var mobilePattern = /^[6-9]\d{9}$/; // Strict Indian format: 10 digits, starts with 6-9
+            var value = $scope.Login.Mobile || '';
+
+            if (mobilePattern.test(value)) {
+                $scope.correctMobile = true;
+                $scope.incorrectMobile = false;
+            } else {
+                $scope.correctMobile = false;
+                $scope.incorrectMobile = true;
+            }
+        };
+
         $scope.SendSmsData = true;
         $scope.VerifySmsData = false;
 
@@ -167,6 +183,8 @@ define(['app'], function (app) {
                         var status = response.data.data.UserAuth[0].ResponceCode;
                         if (status != "200") {
                             alert(response.data.data.UserAuth[0].RespoceDescription);
+                            $scope.loader1 = false;
+                            $scope.disableLogin = false;
                             return;
                         } else {
                             // $http.post(AppSettings.WebApiUrl + 'api/SystemUser/ValidateReCaptcha?encodedResponse ='+$scope.reCaptchaToken, {}).then(
@@ -181,100 +199,36 @@ define(['app'], function (app) {
                             //         return;
                             //     });
 
-                            res = response.data.data.SystemUser[0];
+                            res = response.data.data.SystemUser1[0];
                             $localStorage.authorizationData = {
                                 token: $localStorage.authToken,
-                                SysUserID: res.UserId,
-                                College_Code: res.CollegeCode,
-                                College_Name: res.CollegeName,
-                                UserName: res.UserName,
-                                SystemUserTypeId: res.UserTypeId,
+                                SystemUserTypeId: res.UserTypeID,
+                                SysUserID: res.EmployeeID,
+                                EmployeeCode: res.EmployeeCode,
+                                UserName: res.EmployeeName,
                                 Mobile: $scope.Login.Mobile.toUpperCase(),
-                                CollegeID: res.CollegeId,
-                                BranchCode: res.BranchCode,
-                                BranchId: res.BranchId,
-
-                                CollegeCatName: "",
-                                Clg_Type: "",
-                                SectionId: "",
-                                SchemeId: "",
-                                SemesterId: "",
-                                //BranchCode: "",
-                                AcademicId: "",
-                                percentage: "",
-                                //TypeFlag: response.data.TypeFlag,
-                                //MngtTypID: response.data.MngtTypID,
-                                //SysUsrGrpID: response.data.SysUsrGrpID,
-                                //SeqNo: response.data.SeqNo,
-
-
-
                             };
                             //console.log(response.data)
                             try {
                                 $localStorage.authorizationData = {
                                     token: $localStorage.authToken,
-                                    SysUserID: res.UserId,
-                                    College_Code: res.CollegeCode,
-                                    College_Name: res.CollegeName,
-                                    UserName: res.UserName,
-                                    SystemUserTypeId: res.UserTypeId,
+                                    SystemUserTypeId: res.UserTypeID,
+                                    SysUserID: res.EmployeeID,
+                                    EmployeeCode: res.EmployeeCode,
+                                    UserName: res.EmployeeName,
                                     Mobile: $scope.Login.Mobile.toUpperCase(),
-                                    CollegeID: res.CollegeId,
-                                    BranchCode: res.BranchCode,
-                                    BranchId: res.BranchId,
-
-                                    CollegeCatName: "",
-                                    Clg_Type: "",
-                                    SectionId: "",
-                                    SchemeId: "",
-                                    SemesterId: "",
-                                    //BranchCode: "",
-                                    AcademicId: "",
-                                    percentage: "",
-                                    //TypeFlag: response.data.TypeFlag,
-                                    //MngtTypID: response.data.MngtTypID,
-                                    //SysUsrGrpID: response.data.SysUsrGrpID,
-                                    //SeqNo: response.data.SeqNo,
-
-
-
                                 };
                                 $scope.loader1 = false;
                                 $scope.disableLogin = false;
-                                $state.go('Dashboard');
+                                $state.go('EmployeeDashboard');
                             } catch (err) {
 
                             }
                             //   $state.go('Dashboard');
                         }
 
-                        //AppSettings.ExportToExcelUrl = response.data.ExportToExcelUrl;
-                        //AppSettings.ExportToWordUrl = response.data.ExportToWordUrl;
-                        //AppSettings.ExportToPdfUrl = response.data.ExportToPdfUrl;
-                        //AppSettings.LoggedUserId = response.data.SysUserID;
-                        //AppSettings.LoginName = response.data.LoginName;
-                        //AppSettings.CollegeID = response.data.CollegeID;
-                        //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
-                        //AppSettings.PrevAdmNo = response.data.PrevAdmNo;
-                        //AppSettings.AcdYrID = response.data.AcdYrID;
-                        //AppSettings.TypeFlag = response.data.TypeFlag;
-                        //AppSettings.UserRights = UserRights;
-                        //AppSettings.Mobile = $scope.login.Mobile;
-                        //AppSettings.MngtTypID = response.data.MngtTypID;
-                        //AppSettings.SysUsrGrpID = response.data.SysUsrGrpID;
-                        //AppSettings.SeqNo = response.data.SeqNo;
-                        //AppSettings.DistrictIDs = response.data.DistrictIDs;
-                        //AppSettings.ColCode = response.data.ColCode;
-                        //AppSettings.College_Code = response.data.college_code;
-                        //AppSettings.College_Name = response.data.college_name;
-                        //AppSettings.SystemUserTypeId = response.data.systemusertypeid;
-                        //AppSettings.BranchId = response.data.branchid;
 
-                        //  $state.go('Dashboard');
-
-                        //   });
-                        $state.go('Dashboard');
+                        $state.go('EmployeeDashboard');
                     }, function (error) {
                         // alert('error occured while updating Mobile number.');
                         $scope.phonenoupdated = false;

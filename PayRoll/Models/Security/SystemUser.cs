@@ -18,6 +18,17 @@ namespace PayRoll.Models.Security
         public int AcademicId { get; set; }
         public string collegeType { get;  set; }
     }
+
+
+    public class SystemUser1 
+    {
+        public int UserTypeID { get; set; }
+        public int EmployeeID { get; set; }
+        public string EmployeeCode { get; set; }
+        public string EmployeeName { get; set; }
+        public string DepartmentName { get; set; }
+        public string DesignationName { get; set; }
+    }
     public class ReCaptcha
     { 
         public bool Success { get; set; }
