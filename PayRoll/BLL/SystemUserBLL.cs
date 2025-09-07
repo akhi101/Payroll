@@ -100,11 +100,11 @@ namespace PayRoll.BLL
                 tblUsersList = SystemUserService.GetEmployeeLogin(PayRolldbHandler, UserName, Password, Ipaddress);
                 var ds = JsonConvert.SerializeObject(tblUsersList);
                 // List<SystemUser> User = tblUsersList.DataTableToList<SystemUser>();
-                List<SystemUser> User = tblUsersList.Tables[1].DataTableToList<SystemUser>();
+                List<SystemUser1> User = tblUsersList.Tables[1].DataTableToList<SystemUser1>();
                 List<UserAuth> Userstat = tblUsersList.Tables[0].DataTableToList<UserAuth>();
                 SystemUserAuth SystemUserAuthData = new SystemUserAuth()
                 {
-                    SystemUser = User,
+                    SystemUser1 = User,
                     UserAuth = Userstat,
                 };
 
