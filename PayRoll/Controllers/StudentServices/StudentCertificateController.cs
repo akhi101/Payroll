@@ -165,7 +165,7 @@ namespace PayRoll.Controllers.StudentServices
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                     param[1] = new SqlParameter("@MonthID", request["MonthID"]);
@@ -192,7 +192,7 @@ namespace PayRoll.Controllers.StudentServices
             try
             {
 
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
                 param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param[1] = new SqlParameter("@MonthID", request["MonthID"]);
@@ -222,7 +222,7 @@ namespace PayRoll.Controllers.StudentServices
                 string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
                 CreateIfMissing(dirPath);
                 var respdfList = new List<GetInterimRes>();
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[3];
                 param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param1[1] = new SqlParameter("@PensionerID", request["PensionerID"]);
@@ -275,7 +275,7 @@ namespace PayRoll.Controllers.StudentServices
                 string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
                 CreateIfMissing(dirPath);
                 var respdfList = new List<GetInterimRes>();
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];
                 param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param1[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
@@ -330,7 +330,7 @@ namespace PayRoll.Controllers.StudentServices
               
                 //var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["FinancialYearID"]));
                 var respdfList = new List<GetInterimRes>();
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];     
                 param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
@@ -382,7 +382,7 @@ namespace PayRoll.Controllers.StudentServices
         //        string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
         //        CreateIfMissing(dirPath);
         //        var respdfList = new List<GetInterimRes>();
-        //        var dbHandler = new PayRolldbhandler();
+        //        var dbHandler = new PayRolldbHandler();
         //        var param1 = new SqlParameter[2];
         //        param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
         //        param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
@@ -430,7 +430,7 @@ namespace PayRoll.Controllers.StudentServices
                 string dirPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
                 CreateIfMissing(dirPath);
                 var respdfList = new List<GetInterimRes>();
-                var dbHandler = new PayRolldbhandler();
+                var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];
                 param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
                 param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
