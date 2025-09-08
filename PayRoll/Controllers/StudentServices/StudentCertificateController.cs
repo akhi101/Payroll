@@ -159,17 +159,24 @@ namespace PayRoll.Controllers.StudentServices
             }
         }
 
+        public class payslipData
+        {
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int EmployeeID { get; set; }
+        }
+
         [HttpPost, ActionName("GetPayslipByEmployeeId")]
-        public async Task<object> GetPayslipByEmployeeId([FromBody] JsonObject request)
+        public async Task<object> GetPayslipByEmployeeId([FromBody] payslipData request)
         {
             try
             {
 
                 var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                    param[1] = new SqlParameter("@MonthID", request["MonthID"]);
-                    param[2] = new SqlParameter("@EmployeeId", request["EmployeeID"]);
+                param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                    param[1] = new SqlParameter("@MonthID", request.MonthID);
+                    param[2] = new SqlParameter("@EmployeeId", request.EmployeeID);
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipSubDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
                     GenerateCertificate GenerateCertificate = new GenerateCertificate();
                     var ApplicationNumber = ds.Tables[0].Rows[0]["EmployeeCode"].ToString();
@@ -186,17 +193,26 @@ namespace PayRoll.Controllers.StudentServices
         }
 
 
+        public class payslipPensionerData
+        {
+            public int FinancialYearID { get; set; }
+            public int MonthID { get; set; }
+            public int EmployeeID { get; set; }
+            public int PensionerID { get; set; }
+            public int PensionerTypeID { get; set; }
+        }
+
         [HttpPost, ActionName("GetPayslipByPensionerId")]
-        public async Task<object> GetPayslipByPensionerId([FromBody] JsonObject request)
+        public async Task<object> GetPayslipByPensionerId([FromBody] payslipPensionerData request)
         {
             try
             {
 
                 var dbHandler = new PayRolldbHandler();
                 var param = new SqlParameter[3];
-                param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param[1] = new SqlParameter("@MonthID", request["MonthID"]);
-                param[2] = new SqlParameter("@EmployeeId", request["EmployeeID"]);
+                param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param[1] = new SqlParameter("@MonthID", request.MonthID);
+                param[2] = new SqlParameter("@EmployeeId", request.EmployeeID);
                 DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipSubDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
                 GenerateCertificate GenerateCertificate = new GenerateCertificate();
                 var ApplicationNumber = ds.Tables[0].Rows[0]["EmployeeCode"].ToString();
@@ -214,7 +230,7 @@ namespace PayRoll.Controllers.StudentServices
 
 
         [HttpPost, ActionName("GetPensionerConsolidatedPaySlip")]
-        public async Task<object> GetPensionerConsolidatedPaySlip([FromBody] JsonObject request)
+        public async Task<object> GetPensionerConsolidatedPaySlip([FromBody] payslipPensionerData request)
         {
             try
             {
@@ -224,9 +240,9 @@ namespace PayRoll.Controllers.StudentServices
                 var respdfList = new List<GetInterimRes>();
                 var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[3];
-                param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param1[1] = new SqlParameter("@PensionerID", request["PensionerID"]);
-                param1[2] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"]);
+                param1[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param1[1] = new SqlParameter("@PensionerID", request.PensionerID);
+                param1[2] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID);
                 DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_PensionerConsolidatedPaySlip", param1);
                 var pdf = "";
                 //if (dt.Tables[0].Rows.Count > 0) { 
@@ -237,16 +253,16 @@ namespace PayRoll.Controllers.StudentServices
                 {
 
                     //var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
-                    param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                    param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
                     param[1] = new SqlParameter("@MonthID", js[i]["MonthID"]);
-                    param[2] = new SqlParameter("@PensionerID", request["PensionerID"].ToString());
-                    param[3] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"].ToString());
+                    param[2] = new SqlParameter("@PensionerID", request.PensionerID.ToString());
+                    param[3] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID.ToString());
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipSubDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
                     GenerateCertificate GenerateCertificate = new GenerateCertificate();
                     var ApplicationNumber = ds.Tables[0].Rows[0]["PensionerCode"].ToString();
                     MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
                     var pdfurl = GenerateCertificate.GetPensionPaySlip(ds, dirPath);
-                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request.FinancialYearID.ToString(), ApplicationNumber = ApplicationNumber });
                 }
                 var files = Directory.GetFiles(dirPath);
                 pdf = Guid.NewGuid().ToString();
@@ -267,7 +283,7 @@ namespace PayRoll.Controllers.StudentServices
 
 
         [HttpPost, ActionName("GenerateConsolidatedPaySlip")]
-        public async Task<object> GenerateConsolidatedPaySlip([FromBody] JsonObject request)
+        public async Task<object> GenerateConsolidatedPaySlip([FromBody] payslipData request)
         {
             try
             {
@@ -277,8 +293,8 @@ namespace PayRoll.Controllers.StudentServices
                 var respdfList = new List<GetInterimRes>();
                 var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];
-                param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param1[1] = new SqlParameter("@EmployeeID", request["EmployeeID"]);
+                param1[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param1[1] = new SqlParameter("@EmployeeID", request.EmployeeID);
                 DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_Get_EmployeeConsolidatedPaySlip", param1);
                 var pdf = "";
                 //if (dt.Tables[0].Rows.Count > 0) { 
@@ -289,15 +305,15 @@ namespace PayRoll.Controllers.StudentServices
                 {
 
                     //var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
-                    param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
+                    param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
                     param[1] = new SqlParameter("@MonthID", js[i]["MonthID"]);
-                    param[2] = new SqlParameter("@EmployeeId", request["EmployeeID"].ToString());
+                    param[2] = new SqlParameter("@EmployeeId", request.EmployeeID.ToString());
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipSubDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
                     GenerateCertificate GenerateCertificate = new GenerateCertificate();
                     var ApplicationNumber = ds.Tables[0].Rows[0]["EmployeeCode"].ToString();
                     MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
                     var pdfurl = GenerateCertificate.GetPaySlip(ds, dirPath);
-                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request.FinancialYearID.ToString(), ApplicationNumber = ApplicationNumber });
                 }
                 var files = Directory.GetFiles(dirPath);
                 pdf = Guid.NewGuid().ToString();
@@ -318,7 +334,7 @@ namespace PayRoll.Controllers.StudentServices
         }
 
         [HttpPost, ActionName("GetPaySlip")]
-        public async Task<object> GetPaySlip([FromBody] JsonObject request)
+        public async Task<object> GetPaySlip([FromBody] payslipData request)
         {
             try
             {
@@ -328,12 +344,12 @@ namespace PayRoll.Controllers.StudentServices
                 //var dir_id = GetTrSheets(TrSheetData);
                 //dir = AppDomain.CurrentDomain.BaseDirectory + @"Reports\TR\" + dir_id;
               
-                //var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request["FinancialYearID"]));
+                //var js = JsonConvert.DeserializeObject<ArrayList>(Convert.ToString(request.FinancialYearID));
                 var respdfList = new List<GetInterimRes>();
                 var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];     
-                param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                param1[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param1[1] = new SqlParameter("@MonthID", request.MonthID);
                 DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipDetails", param1);
                 var pdf = "";
 //if (dt.Tables[0].Rows.Count > 0) { 
@@ -344,15 +360,15 @@ namespace PayRoll.Controllers.StudentServices
                 {
 
                     //var jobject = JsonConvert.DeserializeObject<JsonObject>(JsonConvert.SerializeObject(js[i]));
-                    param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                    param[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                    param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                    param[1] = new SqlParameter("@MonthID", request.MonthID);
                     param[2] = new SqlParameter("@EmployeeId", js[i]["EmployeeID"].ToString());
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PaySlipSubDetails", param);  //USP_SS_GET_FeePaidInteriamCertificateDetails
                     GenerateCertificate GenerateCertificate = new GenerateCertificate();
                     var ApplicationNumber = ds.Tables[0].Rows[0]["EmployeeCode"].ToString();
                     MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
                     var pdfurl = GenerateCertificate.GetPaySlip(ds, dirPath);
-                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request.FinancialYearID.ToString(), ApplicationNumber = ApplicationNumber });
                 }
                 var files = Directory.GetFiles(dirPath);
                  pdf = Guid.NewGuid().ToString();
@@ -384,8 +400,8 @@ namespace PayRoll.Controllers.StudentServices
         //        var respdfList = new List<GetInterimRes>();
         //        var dbHandler = new PayRolldbHandler();
         //        var param1 = new SqlParameter[2];
-        //        param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-        //        param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
+        //        param1[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+        //        param1[1] = new SqlParameter("@MonthID", request.MonthID);
         //        DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipDetails", param1);
         //        var pdf = "";
         //        var js = dt.Tables[0].Rows;
@@ -394,16 +410,16 @@ namespace PayRoll.Controllers.StudentServices
         //        for (int i = 0; i < js.Count; i++)
         //        {
 
-        //            param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-        //            param[1] = new SqlParameter("@MonthID", js[i]["MonthID"]);
-        //            param[2] = new SqlParameter("@PensionerID", request["PensionerID"].ToString());
-        //            param[3] = new SqlParameter("@PensionerTypeID", request["PensionerTypeID"].ToString());
+        //            param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+        //            param[1] = new SqlParameter("@MonthID", js[i]["MonthID);
+        //            param[2] = new SqlParameter("@PensionerID", request.PensionerID.ToString());
+        //            param[3] = new SqlParameter("@PensionerTypeID", request.PensionerTypeID.ToString());
         //            DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipSubDetails", param);
         //            GenerateCertificate GenerateCertificate = new GenerateCertificate();
         //            var ApplicationNumber = ds.Tables[0].Rows[0]["PensionerCode"].ToString();
         //            MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
         //            var pdfurl = GenerateCertificate.GetPensionPaySlip(ds, dirPath);
-        //            respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+        //            respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request.FinancialYearID.ToString(), ApplicationNumber = ApplicationNumber });
         //        }
         //        var files = Directory.GetFiles(dirPath);
         //        //    pdf = Guid.NewGuid().ToString();
@@ -422,7 +438,7 @@ namespace PayRoll.Controllers.StudentServices
 
 
         [HttpPost, ActionName("GetPensionPaySlip")]
-        public async Task<object> GetPensionPaySlip([FromBody] JsonObject request)
+        public async Task<object> GetPensionPaySlip([FromBody] payslipData request)
         {
             try
             {
@@ -432,8 +448,8 @@ namespace PayRoll.Controllers.StudentServices
                 var respdfList = new List<GetInterimRes>();
                 var dbHandler = new PayRolldbHandler();
                 var param1 = new SqlParameter[2];
-                param1[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                param1[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                param1[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                param1[1] = new SqlParameter("@MonthID", request.MonthID);
                 DataSet dt = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipDetails", param1);
                 var pdf = "";
                 var js = dt.Tables[0].Rows;
@@ -442,8 +458,8 @@ namespace PayRoll.Controllers.StudentServices
                 for (int i = 0; i < js.Count; i++)
                 {
 
-                    param[0] = new SqlParameter("@FinancialYearID", request["FinancialYearID"]);
-                    param[1] = new SqlParameter("@MonthID", request["MonthID"]);
+                    param[0] = new SqlParameter("@FinancialYearID", request.FinancialYearID);
+                    param[1] = new SqlParameter("@MonthID", request.MonthID);
                     param[2] = new SqlParameter("@PensionerID", js[i]["PensionerID"].ToString());
                     param[3] = new SqlParameter("@PensionerTypeID", js[i]["PensionerTypeID"].ToString());
                     DataSet ds = dbHandler.ReturnDataWithStoredProcedure("SP_GET_PensionPaySlipSubDetails", param); 
@@ -451,7 +467,7 @@ namespace PayRoll.Controllers.StudentServices
                     var ApplicationNumber = ds.Tables[0].Rows[0]["PensionerCode"].ToString();
                      MonthYear = ds.Tables[0].Rows[0]["MonthYear"].ToString();
                     var pdfurl = GenerateCertificate.GetPensionPaySlip(ds, dirPath);
-                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request["FinancialYearID"].ToString(), ApplicationNumber = ApplicationNumber });
+                    respdfList.Add(new GetInterimRes { PdfUrl = pdfurl, Pin = request.FinancialYearID.ToString(), ApplicationNumber = ApplicationNumber });
                 }
                 var files = Directory.GetFiles(dirPath);
             //    pdf = Guid.NewGuid().ToString();

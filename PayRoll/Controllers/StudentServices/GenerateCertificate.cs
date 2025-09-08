@@ -46,17 +46,12 @@ namespace PayRoll.Controllers.StudentServices
             public double IT { get; set; }
             public double TotalDeductions { get; set; }
             public double NetSalary { get; set; }
-            public string LIC { get; set; }
 
             public string TSGLINumber { get; set; }
             public string MonthYear { get; set; }
             public double DAPercent { get; set; }
             public double HRAPercent { get; set; }
-            public double LIC1 { get; set; }
-            public double LIC2 { get; set; }
-            public double LIC3 { get; set; }
-            public double LIC4 { get; set; }
-            public double LIC5 { get; set; }
+            public double LIC { get; set; }
             public double IR { get; set; }
             public double PP { get; set; }
             public double FP { get; set; }
@@ -2562,7 +2557,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].SPL_FA}</span>
                             </td>
                             <td class='border'><span>LIC1 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -2574,7 +2569,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA1}</span>
                             </td>
                             <td class='border'><span>LIC2 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -2586,7 +2581,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA2}</span>
                             </td>
                             <td class='border'><span>LIC3 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                           
                         </tr>
 
@@ -2598,7 +2593,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
                             <td class='border'> <span>LIC4 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 
@@ -2610,7 +2605,7 @@ page-break-after :always
                                 <span class='pull-right'>0</span>
                             </td>
                             <td class='border'> <span>LIC5 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 
@@ -3245,7 +3240,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].SPL_FA}</span>
                             </td>
                             <td class='border'><span>LIC1 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -3257,7 +3252,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA1}</span>
                             </td>
                             <td class='border'><span>LIC2 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -3269,7 +3264,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA2}</span>
                             </td>
                             <td class='border'><span>LIC3 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                           
                         </tr>
 
@@ -3281,7 +3276,7 @@ page-break-after :always
                                 <span class='pull-right'>{EmployeeData[0].HBA_INT}</span>
                             </td>
                             <td class='border'> <span>LIC4 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 
@@ -3293,7 +3288,7 @@ page-break-after :always
                                 <span class='pull-right'>0</span>
                             </td>
                             <td class='border'> <span>LIC5 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 
@@ -3991,7 +3986,7 @@ page-break-after :always
                             </td>
                             
                             <td class='border'><span>LIC1 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC1}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -4004,7 +3999,7 @@ page-break-after :always
                             </td>
                            
                             <td class='border'><span>LIC2 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC2}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                            
                         </tr>
 
@@ -4017,7 +4012,7 @@ page-break-after :always
                             </td>
                            
                             <td class='border'><span>LIC3 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC3}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>                           
                         </tr>
 
@@ -4030,7 +4025,7 @@ page-break-after :always
                             </td>
                            
                             <td class='border'> <span>LIC4 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC4}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 
@@ -4043,7 +4038,7 @@ page-break-after :always
                             </td>
                            
                             <td class='border'> <span>LIC5 :</span>
-                                <span class='pull-right'>{EmployeeData[0].LIC5}</span>
+                                <span class='pull-right'>{EmployeeData[0].LIC}</span>
                             </td>
                         </tr>
 

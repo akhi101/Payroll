@@ -185,24 +185,24 @@
                                     <div class="form sign-in">
                                         <label>
                                             <input id="username"
-                                                type="text"
-                                                class="form-control sm"
-                                                name="username"
-                                                maxlength="10"
-                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                ng-keydown="ClearErrorText($event)" 
-                                                ng-model="Login.Mobile" 
-                                                placeholder="Mobile Number"
-                                                required />
-                                            <!--<input type="text"
-                                                   id="mobilenumber"
-                                                   placeholder="Enter Mobile Number"
+                                                   type="text"
+                                                   class="form-control sm"
+                                                   name="username"
                                                    maxlength="10"
                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                                   class="form-control sm"
-                                                   ng-model="MobileNumber"
-                                                   ng-change="isMobileTouched = true; validateMobile()"
-                                                   required />-->
+                                                   ng-keydown="ClearErrorText($event)"
+                                                   ng-model="Login.Mobile"
+                                                   placeholder="Mobile Number"
+                                                   required />
+                                            <!--<input type="text"
+        id="mobilenumber"
+        placeholder="Enter Mobile Number"
+        maxlength="10"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+        class="form-control sm"
+        ng-model="MobileNumber"
+        ng-change="isMobileTouched = true; validateMobile()"
+        required />-->
                                         </label>
                                         <!--<button type="button" class="btn btn-primary submit" id='submit' ng-click="SendSms()" ng-show="SendSmsData">Send SMS</button>-->
 
@@ -221,7 +221,14 @@
                                                    type="text" class="form-control sm" name="password" ng-show="VerifySmsData" ng-keydown="ClearErrorText($event)" ng-model="Login.Otp" placeholder="OTP" required maxlength="6" />
                                         </label>
                                         <!--<button type="button" class="btn btn-primary submit" id='submit' ng-click="Login()" ng-show="VerifySmsData">Verify</button>-->
-
+                                        <!--<label>
+                                            <div class="row">
+                                                <div class="col-md-2"></div>
+                                                <div id="captcha" class="col-md-5"><canvas id="captcha" width="120" height="40"></canvas></div>
+                                                <div class="col-md-5" style="padding-top:15px;"><a ng-click="createCaptcha();" title="Please click here to reload captcha"><i class="fa fa-refresh" aria-hidden="true"></i></a></div>
+                                            </div>
+                                            <input type="text" placeholder="Enter Captcha" autocomplete="off" ng-keypress="keyLogin($event)" style="font-family: 'Open Sans';font-weight:500; font-size: 14px; padding: 12px 20px; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="Login.Captcha" />
+                                        </label>-->
                                         <button type="button"
                                                 class="btn btn-primary submit"
                                                 id="submit"
@@ -231,19 +238,6 @@
                                             <span ng-if="!loader1">Verify</span>
                                             <span ng-if="loader1" class="loader-inline"></span>
                                         </button>
-                                        <!--<label>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div id="captcha" class="col-md-5"><canvas id="captcha" width="120" height="40"></canvas></div>
-            <div class="col-md-5" style="padding-top:15px;"><a ng-click="createCaptcha();" title="Please click here to reload captcha"><i class="fa fa-refresh" aria-hidden="true"></i></a></div>
-        </div>
-
-        <input type="text" placeholder="Enter Captcha" autocomplete="off" ng-keypress="keyLogin($event)" style="font-family: 'Open Sans';font-weight:500; font-size: 14px; padding: 12px 20px; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" ; id="cpatchaTextBox" ng-model="Login.Captcha" />
-    </label>-->
-                                        <!--<div id='recaptcha' class="g-recaptcha"
-    data-sitekey="6LdNyNMUAAAAANxOwkhO2oNMB5-0-zaL4i5BQlhz"
-    data-callback="validateRecaptcha"
-    data-size="invisible"></div>-->
 
                                         <p class="forgot-pass">
                                             <a ng-click="SendSms()">Resend Sms?</a>

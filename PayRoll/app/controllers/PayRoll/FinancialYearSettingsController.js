@@ -83,7 +83,12 @@
                     $scope.GetData();
                     $scope.ClearData();
 
-                } else {
+                }
+                else if (response[0].StatusCode == '200') {
+                    alert(response[0].StatusDescription)
+                    $scope.GetData();
+                }
+                else {
                     alert('Something Went Wrong')
                     $scope.ClearData();
 
@@ -125,7 +130,12 @@
                     $scope.GetData();
                     $scope.ClearData();
 
-                } else {
+                }
+                else if (response[0].ResponseCode == '400') {
+                    alert(response[0].ResponseDescription)
+                    $scope.GetData();
+                } 
+                else {
                     alert('Something Went Wrong')
                     $scope.ClearData();
 

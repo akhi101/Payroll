@@ -193,8 +193,8 @@
                                         <label>
                                             <div class="row">
                                                 <div class="col-md-2"></div>
-                                                <div id="captcha" class="col-md-5"><canvas id="captcha" width="120" height="40"></canvas></div>
-                                                <div class="col-md-5" style="padding-top:15px;"><a ng-click="createCaptcha();" title="Please click here to reload captcha"><i class="fa fa-refresh" aria-hidden="true"></i></a></div>
+                                                <div id="captcha" ng-show="loginEKey.length>0" class="col-md-5"><canvas id="captcha" width="120" height="40"></canvas></div>
+                                                <div class="col-md-5"  style="padding-top:15px;"><a ng-click="createCaptcha();" title="Please click here to reload captcha"><i class="fa fa-refresh" aria-hidden="true"></i></a></div>
                                             </div>
                                             <!--<div id="captcha"> {{newCapchaCode}}
         </div>-->
