@@ -545,9 +545,9 @@
                 alert("Enter Other Amount");
                 return;
             }
-
+            let Active = $scope.Active2 == true ? 1 : 0;
             let PAQID = datatypeid == '2' ? $scope.PAQID : "";
-            let Active = datatypeid == '2' ? $scope.Active2 : "";
+            Active = datatypeid == '2' ? Active : "";
 
             var addorupdatepaqdata = PayRollService.AddorUpdatePensionerAdditionalQuantum(datatypeid, PAQID, $scope.FinancialYearID2, $scope.MonthID2, $scope.PensionerTypeID2, $scope.PensionerID2, $scope.EmployeeID2, $scope.AQA2, $scope.OtherAmount2, Active, $scope.UserName)
             addorupdatepaqdata.then(function (response) {
@@ -584,9 +584,10 @@
 
         }
 
-        $scope.ChangePaqStatus = function (PAQID, PensionerTypeID, PensionerID, Status) {
+        $scope.ChangePaqStatus = function (PAQID, PensionerTypeID, FinancialYearID, MonthID, PensionerID, Status) {
             var DataType = 3;
-            var changepaqstatus = PayRollService.GetorEditPensionerAdditionalQuantum(DataType, PAQID, PensionerTypeID, PensionerID, Status);
+            Status = Status == true ? 1 : 0;
+            var changepaqstatus = PayRollService.GetorEditPensionerAdditionalQuantum(DataType, PAQID, PensionerTypeID, FinancialYearID, MonthID,PensionerID, Status);
             changepaqstatus.then(function (res) {
                 var response = JSON.parse(res)
                 if (response.Table[0].ResponseCode == '200') {

@@ -201,8 +201,8 @@
 
                                     </td>
                                     <td style="text-align:center">
-                                        <button class="btn-xs btn btn-success" ng-disabled="disablePaqActive" title="Click here to Inactive" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.PensionerID,0)" ng-if="data.Active==1">Active</button>
-                                        <button class="btn-xs btn btn-danger" ng-disabled="disablePaqActive" title="Click here to Active" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.PensionerID,1)" ng-if="data.Active==0">InActive</button>
+                                        <button class="btn-xs btn btn-success" ng-disabled="disablePaqActive" title="Click here to Inactive" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.FinancialYearID,data.MonthID,data.PensionerID,0)" ng-if="data.Active==1">Active</button>
+                                        <button class="btn-xs btn btn-danger" ng-disabled="disablePaqActive" title="Click here to Active" ng-click="ChangePaqStatus(data.PAQID,data.PensionerTypeID,data.FinancialYearID,data.MonthID,data.PensionerID,1)" ng-if="data.Active==0">InActive</button>
                                     </td>
                                 </tr>
                             </tbody>

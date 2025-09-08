@@ -216,8 +216,10 @@
         $scope.UpdateDetails = function (data,index) {
             var datatypeid = 2
 
-
-            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID, data.PensionerID, data.PensionAmount, data.CommutationAmount, data.IR, data.DR, data.MA, data.Active, $scope.UserName)
+            var IR = data.IR == true ? 1 : 0;
+            var DR = data.DR == true ? 1 : 0;
+            var Active = data.DR == true ? 1 : 0;
+            var updateDetails = PayRollService.AddorUpdatePensionDetails(datatypeid, data.PensionerDetailsID, data.PensionerTypeID, data.EmployeeID, data.PensionerID, data.PensionAmount, data.CommutationAmount, IR, DR, data.MA, Active, $scope.UserName)
             updateDetails.then(function (response) {
                 try {
                     var res = JSON.parse(response);

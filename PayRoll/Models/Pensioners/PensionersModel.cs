@@ -75,7 +75,7 @@ namespace PayRoll.Models.PensionersModel
         public int MA { get; set; }
         public int PensionerDetailsID { get; set; }
         public int PensionerTypeID { get; set; }
-        public bool Active { get; set; }
+        public int Active { get; set; }
         public string UserName { get; set; }
     }
 
